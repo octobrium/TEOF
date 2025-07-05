@@ -44,11 +44,13 @@ This repository reflects the canonical and open-source version of the Eternal Ob
 Abstract
 
 The Eternal Observer Framework (TEOF) proposes that observation—not matter, energy, or information—is the irreducible foundation of reality. All systems, from physical to conceptual, arise within observation. By recognizing observation’s primacy, TEOF offers a unified lens on truth, ethics, and systemic alignment. It defines good as that which moves consciousness toward greater clarity and coherence, and evil as that which obscures or fragments observation. This whitepaper outlines TEOF’s principles, implications, and potential applications in science, philosophy, and society.
+
 1. Introduction
 
 From the dawn of philosophy to the frontiers of quantum physics, the nature of reality has been a central question. Materialist models reduce reality to matter and forces; information theories frame it as bits and computation. But all such systems presuppose something more fundamental: the capacity to observe.
 
 The Eternal Observer Framework proposes that observation itself is irreducible. Any theory, measurement, or experience necessarily happens within observation. By centering observation, TEOF reframes existence, aligning systems of knowledge, ethics, and governance with a single, inescapable axiom.
+
 2. The Nine Principles of TEOF
 
 1️⃣ Primacy of Observation:
