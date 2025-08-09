@@ -70,3 +70,26 @@ A pass is typically ≥10/15 with no zero in Grounding or Coherence.
 
 ## 5. Pseudocode (reference)
 
+```python
+def teof_bootloader(prompt P, context C=None, system S=None):
+    O = observe(P, C)  # extract intent, claims, constraints
+    O.tag_claims()  # testable vs interpretive
+    A = draft_minimal_answer(O)
+
+    A = prune_to_minimum(A)  # remove surplus descriptors
+    issues = check_coherence(A, O)
+    if issues:
+        A = resolve_or_flag(A, issues)
+
+    A = add_evidence_or_tests(A, O)  # propose tests or cite where allowed
+    A, changes = recursive_tighten(A)  # iterate language & structure
+
+    audit = {
+        "Observation": O.summary(),
+        "Coherence": issues,
+        "Evidence": A.evidence_notes,
+        "Recursion": changes,
+        "Open Questions": A.open_questions,
+    }
+    return A, audit
+```
