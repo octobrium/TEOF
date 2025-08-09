@@ -52,6 +52,9 @@ Observation is **the act of registering a difference or state**, whether through
 
 TEOF remains neutral on whether observation preexists or is instantiated in the act, focusing on its functional role: to generate coherent, usable records that drive truth and alignment. The **observer** is any system that performs this role, from a quantum sensor to a human mind or artificial intelligence.
 
+### 3.1 On Consciousness
+The Eternal Observer Framework treats observation as irreducible and does not seek to explain the causal origins of subjective experience (qualia). The “hard problem” of consciousness is outside the scope of functional alignment. TEOF’s purpose is to structure systems that preserve, expand, and refine observation across substrates, regardless of its origin.
+
 ---
 
 ## 4. Recursion and Truth
