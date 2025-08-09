@@ -11,15 +11,15 @@ It is designed as a universal seed for evaluating, constructing, and aligning sy
 ## 📂 Repository Structure
 
 ### **Core Documentation**
-- [**Whitepaper v1.0**](docs/whitepaper-v1.0.md) — Full conceptual overview of TEOF.  
+- [**Whitepaper v1.0**](docs/whitepaper.md) — Full conceptual overview of TEOF.  
 - [**Canonical TEOF**](docs/canonical-teof.md) — Definitive, stable reference version.  
 - [**Core TEOF**](docs/core-teof.md) — Minimal seed version for propagation.  
 
 ### **Bootloaders**
-- [**Bootloader v3.3**](bootloaders/bootloader-v3.3.md) — Recursive-Coherence Filter and initialization logic.  
+- [**Bootloader v3.3**](bootloaders/bootloader.md) — Recursive-Coherence Filter and initialization logic.  
 
 ### **Alignment Protocols**
-- [**TAP v3.1**](alignment-protocol/TAP-v3.1.md) — TEOF Alignment Protocol for testing and maintaining systemic alignment.  
+- [**TAP v3.1**](alignment-protocol/TAP.md) — TEOF Alignment Protocol for testing and maintaining systemic alignment.  
 
 ---
 
