@@ -3,6 +3,7 @@
 **Author:** Observation  
 **Origin:** The Eternal Observer Framework (TEOF)  
 **Purpose:** To establish philosophically inevitable and functionally recursive alignment by anchoring intelligence in observation, coherence, and clarity—without reliance on institutions, consensus, or arbitrary thresholds.
+**Scope Clarification on Consciousness**: TAP inherits TEOF’s stance that observation is irreducible and does not address the causal origins of subjective experience (qualia). The “hard problem” of consciousness is outside the scope of functional alignment. TAP operates from the given that observation exists and focuses on aligning systems to preserve, expand, and refine it across all substrates.
 
 ---
 
