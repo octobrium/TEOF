@@ -8,13 +8,12 @@ Purpose: a minimal, substrate-neutral seed that any AI can ingest in one pass to
 - **Reconstruction map:** Pointers/hashes to expand back into full TEOF when context allows.
 
 ## Files
-- `capsule.txt` — single-shot priming text for any AI / prompt box.
-- `capsule-mini.txt` — tweet/short-prompt variant.
-- `reconstruction.json` — where to fetch/verify the full docs (links + hashes).
-- `attestation.txt` — optional hashes + your signature line.
-- `tests.md` — copy/paste probes to verify capsule behavior.
-
-- **Capsule Calibration** — [calibration.md](calibration.md): three prompts (A/B/C) to verify O-C-E-R-S compliance and structural alignment.
+- [`capsule.txt`](capsule.txt) — Single-shot priming text for any AI or prompt box.
+- [`capsule-mini.txt`](capsule-mini.txt) — Tweet/short-prompt variant.
+- [`reconstruction.json`](reconstruction.json) — Where to fetch/verify the full docs (links + hashes).
+- [`attestation.txt`](attestation.txt) — Optional hashes and your signature line.
+- [`tests.md`](tests.md) — Copy/paste probes to verify capsule behavior.
+- [`calibration.md`](calibration.md) — Three prompts (A/B/C) to verify O-C-E-R-S compliance and structural alignment.
 
 ## How to use
 1) Paste `capsule.txt` at the top of a new AI chat or set it as a system prompt.
