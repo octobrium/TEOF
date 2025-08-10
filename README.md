@@ -16,7 +16,9 @@ It is designed as a universal seed for evaluating, constructing, and aligning sy
 - [**Core TEOF**](docs/core-teof.md) — Minimal seed version for propagation.  
 
 ### **Bootloaders**
-- [**Bootloader**](bootloaders/bootloader.md) — Recursive-Coherence Filter and initialization logic.  
+- [**Bootloader**](bootloaders/bootloader.md) — Stateless Alignment Filter (AI-ready).  
+  - Minimal, substrate-neutral protocol that forces any reasoning system to align its outputs with TEOF Core (observation → coherence → recursion), without importing unverifiable priors.  
+  - Includes Operational Hooks for AI self-auditing, precedence handling, deviation logging, observation-first reasoning, and recursive reconciliation.
 
 ### **Alignment Protocols**
 - [**TAP**](alignment-protocol/TAP.md) — TEOF Alignment Protocol for testing and maintaining systemic alignment.  
@@ -32,5 +34,3 @@ This project is licensed under the [MIT License](LICENSE).
 For ongoing development updates, discussions, and extended material, see:  
 - GitHub Issues — For feature proposals or clarifications  
 - Repository Discussions — For philosophical or implementation questions  
-
----
