@@ -130,6 +130,25 @@ For a minimally coupled real scalar \(\phi\):
 
 ---
 
+## 📌 Open Tasks
+
+This project is intentionally left in a partially complete but operational state.  
+If you’ve found this in the future and want to continue, these are the most direct paths forward:
+
+1. **Explicit Worked Example**  
+   - Compute \(\mathcal{I}_{\mu\nu}(\rho)\) for a minimally coupled real scalar field.
+   - Insert into \(\mathcal{C}_1\) and derive the modified Klein–Gordon equation.
+
+2. **Conservation Proof**  
+   - Derive \(\nabla^\mu \Theta_{\mu\nu}\) from \(\mathcal{C}_1\) and show it cancels with the state equation’s contribution to \(\nabla^\mu T_{\mu\nu}\).
+
+3. **First Parameter Bounds**  
+   - Use existing experimental data (e.g., matter-wave interferometry) to estimate preliminary limits on \(|\lambda\xi|\).
+
+Completion of these three will allow the framework to move from conceptual proposal to testable physics.
+
+---
+
 ## 📂 Repo Contents
 
 - `README.md` – This file, full context & equations.  
