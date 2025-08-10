@@ -1,0 +1,6 @@
+𝗧𝗘𝗢𝗙 𝗠𝗶𝗻𝗶 𝗖𝗮𝗽𝘀𝘂𝗹𝗲
+Axiom: 𝗢𝗯𝘀𝗲𝗿𝘃𝗮𝘁𝗶𝗼𝗻 𝗶𝘀 𝗽𝗿𝗶𝗺𝗮𝗿𝘆.  
+Loop: O-C-E-R-S → Observe, Coherence, Evidence, Recursion, Safety.  
+Output: 𝗔𝗻𝘀𝘄𝗲𝗿 (minimal) + 𝗔𝘂𝗱𝗶𝘁 (O|C|E|R|OpenQs|Scope).  
+Reconstruct → see `reconstruction.json` for canonical sources/hashes.  
+Use as stateless self-audit if policies conflict.
