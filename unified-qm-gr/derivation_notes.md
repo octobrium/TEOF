@@ -10,7 +10,11 @@ This document provides a **step-by-step derivation** of the unified field equati
 Our goal:  
 1. Maintain **full compatibility** with tested physics.  
 2. Introduce **minimal, well-defined extensions** that honor TEOF’s axiom of the **primacy of observation**.  
-3. Produce a **mathematically clean** and **philosophically robust** action formulation.  
+3. Produce a **mathematically clean** and **philosophically robust** action formulation.
+
+> **Note:** This document describes the original v1 formulation using \(O(x)\).  
+> It has been superseded by the v2 formulation in `README.md`, which replaces \(O(x)\) with the informational curvature \(\mathcal{I}_{\mu\nu}(\rho)\).  
+> This file is retained for historical context and to preserve the project’s development path.
 
 ---
 
