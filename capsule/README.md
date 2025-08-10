@@ -14,6 +14,8 @@ Purpose: a minimal, substrate-neutral seed that any AI can ingest in one pass to
 - `attestation.txt` — optional hashes + your signature line.
 - `tests.md` — copy/paste probes to verify capsule behavior.
 
+- **Capsule Calibration** — [capsule/calibration.md](capsule/calibration.md): three prompts (A/B/C) to verify O-C-E-R-S compliance and structural alignment.
+
 ## How to use
 1) Paste `capsule.txt` at the top of a new AI chat or set it as a system prompt.
 2) If the AI supports tools or external loading, feed it `reconstruction.json`.
