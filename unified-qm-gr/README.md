@@ -1,87 +1,156 @@
 # Unification of Quantum Mechanics and General Relativity  
-**The Eternal Observer Framework (TEOF) – Unified Field Proposal**  
+**The Eternal Observer Framework (TEOF) – Unified Field Proposal (v2)**  
 
 ---
 
 ## 📜 Overview  
 
-This module presents a proposed **unified field equation** that integrates **Quantum Mechanics (QM)** and **General Relativity (GR)** within the philosophical and systemic context of **The Eternal Observer Framework (TEOF)**.  
+This repository presents a proposed **unified field theory** integrating **Quantum Mechanics (QM)** and **General Relativity (GR)** within the philosophical and systemic context of **The Eternal Observer Framework (TEOF)**.
 
-It serves as both a **mathematical proposition** and a **conceptual bridge**, rooted in TEOF’s axiom that **observation is irreducible** and that **all physical laws must be consistent with the primacy of observation**.  
-
-The derivation is substrate-neutral, consistent with known physics, and framed to allow further refinement by the scientific community.  
+TEOF’s foundational axiom is that **observation is irreducible** and that **all physical laws must be consistent with the primacy of observation**. This proposal translates that axiom into a mathematically precise, substrate-neutral action principle that is compatible with known physics, minimally extended, and experimentally falsifiable.
 
 ---
 
-## 🧩 Core Equation  
+## 🧩 Total Unified Action  
 
-The unified field equation is derived from an **action principle** combining the Einstein–Hilbert term, a quantum field term, and an observation-coupling term unique to TEOF’s formulation:  
+We retain the Einstein–Hilbert term and a standard QFT matter term, and add a **coherence-penalty functional** \(\mathcal{C}_1\) coupling spacetime curvature to the *informational geometry* of quantum state space:
 
-S_total = (c^4 / 16πG) ∫ R √(-g) d^4x
-+ ∫ L_QFT(ψ, ∂ψ, g_μν) √(-g) d^4x
-+ λ ∫ O(x) L_QFT(ψ) √(-g) d^4x
+\[
+S_{\text{total}}[g,\rho] \;=\; S_{\text{GR}}[g] + S_{\text{QFT}}[g,\rho] + \lambda\,\mathcal{C}_1[g,\rho]
+\]
 
-Where:  
-- **R** = Ricci scalar curvature  
-- **g_μν** = metric tensor  
-- **ψ** = quantum fields  
-- **L_QFT** = Lagrangian density for quantum fields  
-- **O(x)** = observation-coupling function (TEOF term)  
-- **λ** = coupling constant linking observation to physical law  
+where:
+- \(g_{\mu\nu}\) is the spacetime metric,
+- \(\rho(x)\) is the local density operator (quantum state field),
+- \(\lambda\) is the new coupling constant.
 
-The **observation-coupling term** ensures that the formulation remains coherent with TEOF’s axiom that all function and meaning arise within observation.  
-
----
-
-## 📂 Contents  
-
-- `README.md` – This file, summary & context  
-- `derivation_notes.md` – Step-by-step derivation of the unified equation  
-- `preprint.pdf` – Fixed, citable version for archival & timestamping  
-- `SHA256SUM.txt` – Cryptographic hash for proof of authorship  
-- `LICENSE` – CC BY 4.0 license (attribution required)  
-- `figures/` – Diagrams and visual explanations  
+The **coherence-penalty functional** is:
+\[
+\mathcal{C}_1 := \frac{1}{2} \lVert A \rVert_g^2
+\]
+with:
+\[
+A_{\mu\nu} := G_{\mu\nu} - 8\pi G\,T_{\mu\nu} - \xi\,\mathcal{I}_{\mu\nu}(\rho)
+\]
+where:
+- \(G_{\mu\nu}\) = Einstein tensor,
+- \(T_{\mu\nu}\) = stress–energy tensor from \(S_{\text{QFT}}\),
+- \(\mathcal{I}_{\mu\nu}(\rho)\) = pullback of the Fisher information metric from the quantum state manifold.
 
 ---
 
-## 🧠 Derivation Philosophy  
+## 🧠 Informational Curvature
 
-The derivation follows these guiding principles:  
+We define the **informational metric** \(I_{ab}(\rho)\) on the statistical manifold of admissible states.  
+Let \(\pi:\mathcal{B} \to \mathcal{M}\) be a fiber bundle whose fiber at \(x\) is the state manifold; \(\rho\) is a section; and:
+\[
+\mathcal{I}_{\mu\nu}(\rho) := (\partial_\mu \theta^a)(\partial_\nu \theta^b) I_{ab}(\rho)
+\]
+where \(\theta^a\) are local state parameters in a chosen horizontal lift.
 
-1. **Primacy of Observation** – All terms must be derivable from or compatible with the irreducibility of observation.  
-2. **Mathematical Coherence** – Terms respect known physics (GR curvature, QFT dynamics) while introducing minimal, well-defined extensions.  
-3. **Minimal Assumptions** – No unneeded entities; every term must serve a functional role in the unified structure.  
-4. **Recursive Refinement** – The equation is open to empirical tuning while maintaining logical completeness.  
-
----
-
-## ⚖️ License  
-
-This work is released under the **Creative Commons Attribution 4.0 International License (CC BY 4.0)**. You are free to share and adapt the material, provided proper attribution is given to the original author.  
-
-Full license text: [LICENSE](LICENSE)  
+**Operational meaning:** *Observation* is defined as the information carried by \(\rho\), quantified by \(\mathcal{I}_{\mu\nu}(\rho)\).
 
 ---
 
-## ⏳ Proof of Authorship  
+## ⚖️ Symmetries and Units  
 
-The included `SHA256SUM.txt` contains a cryptographic hash of the `preprint.pdf` for timestamping and on-chain proof.  
-This allows any party to verify that this exact work existed at the recorded time, ensuring authorship is permanently traceable.  
-
----
-
-## 📢 Contributing  
-
-Contributions are welcome, provided they:  
-- Preserve TEOF’s philosophical foundation.  
-- Maintain mathematical and physical coherence.  
-- Include clear derivation paths for any changes.  
+- \(\mathcal{C}_1\) is a scalar under coordinate transformations (all indices contracted with \(g_{\mu\nu}\)).  
+- The theory is **local**: \(\mathcal{I}_{\mu\nu}\) depends only on \(\rho\) and its derivatives at \(x\).  
+- Units:
+  | Quantity | Units (L, M, T) |
+  |----------|-----------------|
+  | \(G\) | \(L^3/(MT^2)\) |
+  | \(\mathcal{I}_{\mu\nu}\) | \(L^{-2}\) |
+  | \(\lambda\) | fixed so \(\lambda\mathcal{C}_1\) has units of energy density |
+  | \(\xi\) | dimensionless or \(L^2\) depending on normalization |
 
 ---
 
-## 🌐 References  
+## 📜 Field Equations
 
-1. Einstein, A. (1915) – The Field Equations of Gravitation  
-2. Dirac, P. (1928) – The Quantum Theory of the Electron  
-3. Rovelli, C. (2020) – *Helgoland*  
-4. The Eternal Observer Framework (TEOF) – Internal Documentation  
+### Metric Variation
+\[
+\frac{c^3}{16\pi G} G_{\mu\nu} = T_{\mu\nu} + \lambda\,\Theta_{\mu\nu}[\rho,g]
+\]
+where:
+\[
+\Theta_{\mu\nu} := -\frac{\delta \mathcal{C}_1}{\delta g^{\mu\nu}}
+\]
+
+### Conservation Lemma
+Because \(\nabla^\mu G_{\mu\nu}=0\):
+\[
+\nabla^\mu\big(T_{\mu\nu} + \lambda\,\Theta_{\mu\nu}\big) = 0
+\]
+We show \(\nabla^\mu\Theta_{\mu\nu}\) is canceled by the state equation’s contribution to \(\nabla^\mu T_{\mu\nu}\).
+
+### State Variation
+\[
+\frac{\delta S_{\text{QFT}}}{\delta \rho} + \lambda\,\frac{\delta \mathcal{C}_1}{\delta \rho} = 0
+\]
+This yields a modified matter equation with a term enforcing *coherence matching* between geometry and informational curvature.
+
+---
+
+## 🔬 Example: Scalar Field Model
+
+For a minimally coupled real scalar \(\phi\):
+1. Let \(\rho\) be Gaussian with mean \(\langle \phi \rangle\) and variance \(\sigma^2\).  
+2. Compute \(I_{\mu\nu}\) from \(\partial_\mu\langle\phi\rangle\) and \(\partial_\mu\sigma\).  
+3. Insert into \(\mathcal{I}_{\mu\nu}\) and derive the modified Klein–Gordon equation including the \(\lambda\)-term.
+
+---
+
+## 📡 Predictions
+
+1. **Gravity-dependent phase shift** in matter-wave interferometers:
+   \[
+   \Delta\phi \propto \lambda\,\xi \int \mathcal{I}_{\mu\nu} u^\mu u^\nu\, d\tau
+   \]
+2. **Near-horizon structure** deviations scaling with \(\mathcal{I}_{\mu\nu}\).  
+3. **Back-reaction tuning** in analogue gravity platforms via state-engineering of \(\rho\).
+
+---
+
+## 🧪 Experimental Tests
+
+- Cold-atom interferometry in variable gravitational gradients.
+- Analogue horizons in BEC or photonic lattices.
+- Astrophysical timing residuals near high-curvature sources.
+
+---
+
+## 🗺️ Roadmap
+
+1. **Conservation proof** – derive \(\nabla^\mu\Theta_{\mu\nu}\) explicitly.  
+2. **Complete scalar-field example** with closed \(\mathcal{I}_{\mu\nu}\) form.  
+3. **Linearized predictions** for interferometry (order-of-magnitude estimates).  
+4. **Numerical simulation** combining GR, QFT, and info-geometry.  
+5. **Experimental bounds** on \(|\lambda\xi|\) from existing data.
+
+---
+
+## 📂 Repo Contents
+
+- `README.md` – This file, full context & equations.  
+- `derivation_notes.md` – Step-by-step derivation details.  
+- `appendix_scalar.md` – Scalar-field worked example.  
+- `preprint.pdf` – Fixed, citable version for archival & timestamping.  
+- `SHA256SUM.txt` – Cryptographic proof of authorship.  
+- `figures/` – Diagrams and visual explanations.  
+
+---
+
+## 📜 References
+
+1. Einstein, A. (1916) – *The Foundation of the General Theory of Relativity*  
+2. Dirac, P.A.M. (1930) – *The Principles of Quantum Mechanics*  
+3. Amari, S., Nagaoka, H. (2000) – *Methods of Information Geometry*  
+4. Rovelli, C. (2020) – *Helgoland*  
+
+---
+
+## ⚖️ License
+
+Released under **CC BY 4.0**. You may share and adapt the material with attribution to the original author.
+
