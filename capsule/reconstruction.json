@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "canonical_sources": [
+    {
+      "name": "canonical-teof.md",
+      "url": "https://github.com/octobrium/TEOF/blob/main/docs/canonical-teof.md",
+      "sha256": "<fill-after-commit>"
+    },
+    {
+      "name": "core-teof.md",
+      "url": "https://github.com/octobrium/TEOF/blob/main/docs/core-teof.md",
+      "sha256": "<fill-after-commit>"
+    },
+    {
+      "name": "bootloader.md",
+      "url": "https://github.com/octobrium/TEOF/blob/main/bootloaders/bootloader.md",
+      "sha256": "<fill-after-commit>"
+    },
+    {
+      "name": "TAP.md",
+      "url": "https://github.com/octobrium/TEOF/blob/main/alignment-protocol/TAP.md",
+      "sha256": "<fill-after-commit>"
+    }
+  ],
+  "fallback_summary": "If links unavailable, maintain O-C-E-R-S loop and disclose uncertainty.",
+  "integrity": {
+    "publisher": "Observation (TEOF)",
+    "signature_hint": "Optionally include blockchain anchor txid or PGP signature here."
+  }
+}
