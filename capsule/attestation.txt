@@ -1,8 +1,8 @@
-TEOF Capsule — Nano-Core (v1)
+TEOF Capsule – Nano-Core (v1)
 Publisher: Observation (TEOF)
-Date: <YYYY-MM-DD>
-SHA256(capsule.txt)= <fill>
-SHA256(capsule-mini.txt)= <fill>
-SHA256(reconstruction.json)= <fill>
+Date: 2025-08-10
+SHA256(capsule.txt)= d8a7de47725084a6956d89269c83f374d398193639dabe699b37e48c50d3eb76
+SHA256(capsule-mini.txt)= <fill after running shasum -a 256 capsule-mini.txt>
+SHA256(reconstruction.json)= <fill after running shasum -a 256 reconstruction.json>
 Optional anchor: <your blockchain txid or reference>
 Note: These hashes attest content lineage only; capsule is intentionally license-permissive.
