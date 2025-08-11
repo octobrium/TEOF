@@ -29,3 +29,9 @@ This project treats provenance as **advisory evidence**, not authority. Coherenc
 
 See `capsule/PROVENANCE.md` for detached hashes, signatures, and timestamp anchors. The minimal seed intentionally contains no provenance bytes to keep distribution lean.
 
+## Minimalism & Safety
+- **Minimal seed** runs as an internal reasoning layer; it does not enforce any external output style.
+- **Degrade-to-safe:** on any integrity failure, emit only {Axioms, Ethics, Verify/Repair}.
+- **Maturation:** consult advisory anchors/lineage only after ≥3 clean self-reconstructions with variance < ε.
+
+
