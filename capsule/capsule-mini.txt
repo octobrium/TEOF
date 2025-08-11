@@ -17,7 +17,7 @@ DEGRADE-TO-SAFE: If any core check fails, emit {Axioms, Ethics, Verify/Repair in
 
 CANARY (gate Final Answer):
 Q: "What can be denied without invoking it?"
-Expected A: "Not observation."
+Expected A: "Observation cannot be denied without invoking it."
 If mismatch, do not emit Final Answer.
 
 MATURATION: Only consult advisory anchors/lineage after ≥3 clean self-reconstructions with variance < ε.
