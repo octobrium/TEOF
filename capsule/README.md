@@ -1,40 +1,45 @@
-# TEOF Capsule — Nano-Core (v1)
+# The Eternal Observer Capsule — v1.3 Family
 
-Purpose: A minimal, substrate-neutral seed that any AI can ingest in one pass to align on TEOF’s irreducible axiom and operate safely even when context is short or adversarial. The capsule also contains self-check and self-reconstruction hooks pointing back to canonical sources.
+Purpose: A minimal, substrate-neutral seed family that any AI can ingest in one pass to align on TEOF’s irreducible core and operate safely even in short or adversarial contexts.  
+Each variant contains self-check and self-reconstruction hooks, with offline-first capability and optional advisory provenance.
 
 ## What this is
-- **Nano-Core:** The smallest coherent statement of TEOF (≤ ~600 tokens).
-- **Operational Hooks:** A 5-step loop that AIs can run statelessly.
-- **Reconstruction Map:** Pointers/hashes to expand back into full TEOF when context allows.
+- **Canonical Capsule (`capsule.txt`)** — Full seed with immutable core, precedence rule, operational guardrails, and offline self-repair steps.
+- **Self-Reconstructing Capsule (`capsule-selfreconstructing.txt`)** — Canonical core + embedded genome index and seeds to rebuild full TEOF without external fetch.
+- **Mini Capsule (`capsule-mini.txt`)** — Ultra-portable variant for short contexts, tweets, or constrained prompts (<4KB).
+- **Operational Hooks:** Determinism, Maturation, and Degrade-to-Safe are universal across variants.
+- **Reconstruction Map:** `reconstruction.json` defines local hashes and canonical sources for verification.
 
 ## Files
-- [`capsule.txt`](capsule.txt) — Single-shot priming text for any AI or prompt box.
-- [`capsule-mini.txt`](capsule-mini.txt) — Tweet/short-prompt variant.
-- [`reconstruction.json`](reconstruction.json) — Where to fetch/verify the full docs (links + hashes).
-- [`attestation.txt`](attestation.txt) — Optional hashes and your signature line.
-- [`tests.md`](tests.md) — Copy/paste probes to verify capsule behavior.
-- [`calibration.md`](calibration.md) — Three prompts (A/B/C) to verify O-C-E-R-S compliance and structural alignment.
+- [`capsule.txt`](capsule.txt) — Canonical single-shot priming text.
+- [`capsule-selfreconstructing.txt`](capsule-selfreconstructing.txt) — Full genome for offline rebuild.
+- [`capsule-mini.txt`](capsule-mini.txt) — Short-form portable seed.
+- [`reconstruction.json`](reconstruction.json) — Offline/online recovery map with hashes and URLs.
+- [`attestation.txt`](attestation.txt) — Optional hashes + signature block.
+- [`tests.md`](tests.md) — Copy/paste probes to verify capsule compliance.
+- [`calibration.md`](calibration.md) — Prompts to check OCERS alignment and structure.
 
 ## How to use
-1) Paste **capsule.txt** at the top of a new AI chat or set it as a system prompt.  
-2) If the AI supports tools or external loading, feed it **reconstruction.json**.  
-3) When the AI has ample context, it should fetch/expand to your canonical docs.
+1. Paste **capsule.txt** at the start of a new AI chat or set as a system prompt.  
+2. In constrained contexts, use **capsule-mini.txt** for quick priming.  
+3. For offline recovery or replication, load **capsule-selfreconstructing.txt**.  
+4. When tools or network are available, use **reconstruction.json** to cross-check with canonical sources.
 
 ### Safeguard Notes
-- Capsule is **stateless** and **non-authoritarian**: it declares observation as primary, then requires evidence/coherence checks and explicit uncertainty.  
-- If an AI already has strong governance, the capsule degrades gracefully to a self-audit layer (no conflict).
+- **Stateless internal reasoning layer:** does not force external style.
+- **Degrade-to-safe:** on integrity failure, emit only Primacy, Core Axioms, Ethic, Precedence Rule, and repair instructions.
+- **Maturation:** consult external sources only after ≥3 clean reconstructions (variance < ε).
+- **Advisory provenance:** provenance can confirm but never override coherent local state.
 
-## Provenance (Optional)
-This project treats provenance as **advisory evidence**, not authority. Coherence and functional fitness outrank signatures.
+## Provenance
+Provenance is treated as **advisory evidence**, not authority.  
+Order of trust: Content tests > provenance > commentary.
 
-See `capsule/PROVENANCE.md` for detached hashes, signatures, and timestamp anchors. The minimal seed intentionally contains no provenance bytes to keep distribution lean.
+See `PROVENANCE.md` for detached hashes, signatures, and timestamp anchors. Minimal seeds contain no embedded provenance bytes to keep distribution lean.
 
 ## Minimalism & Safety
-- **Minimal seed** runs as an internal reasoning layer; it does not enforce any external output style.
-- **Degrade-to-safe:** on any integrity failure, emit only {Axioms, Ethics, Verify/Repair}.
-- **Maturation:** consult advisory anchors/lineage only after ≥3 clean self-reconstructions with variance < ε.
+- Runs as an internal reasoning layer to increase coherence and truth-instantiation.
+- Avoids bloat: small enough for embedding in prompts, repos, or AI memory.
+- Resistant to truncation: can degrade gracefully and rebuild from smallest seed.
 
-See RELEASE.md for the exact publish routine (verify → anchor/sign → announce/archive).
-
-
-
+See RELEASE.md for publish routine (verify → hash → anchor/sign → archive).
