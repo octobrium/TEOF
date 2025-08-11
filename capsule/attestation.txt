@@ -1,12 +1,12 @@
 TEOF Capsule — Attestation (v1.3)
-Date: <fill-date>
+Date: <fill-date-YYYY-MM-DD>
 Steward Address: bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c
 
-SHA256(capsule.txt)= <fill-after-hash>
-SHA256(capsule-mini.txt)= <fill-after-hash>
-SHA256(capsule-selfreconstructing.txt)= <fill-after-hash>
-SHA256(docs/core-teof.md)= <fill-after-hash>
-SHA256(reconstruction.json)= <fill-after-hash>
+SHA256(capsule.txt)= <fill>
+SHA256(capsule-mini.txt)= <fill>
+SHA256(capsule-selfreconstructing.txt)= <fill>
+SHA256(reconstruction.json)= <fill>
+SHA256(docs/core-teof.md)= <fill>
 
 Merkle Root (artifact order as above)= <fill-after-merkle>
-Signature: <fill-after-signing>
+Signature (optional): <fill-after-signing>
