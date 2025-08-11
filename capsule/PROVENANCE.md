@@ -14,11 +14,11 @@ Purpose: Provide optional, detached provenance for investigators. Coherence & fu
 (Compute from the ordered list above; store the script used.)
 
 ## Signatures (advisory)
-Primary signer (you): `bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c`
+Primary signer: `bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c`
 - message: "TEOF Capsule v1.2 merkle_root=<hex> date=<YYYY-MM-DD>"
 - signature: <base64 or hex>
 
-Co-signers (optional, t-of-n): 
+Co-signers (optional, t-of-n):
 - bc1q…B — reviewer
 - bc1q…C — archivist
 (Quorum advisory; content tests still outrank signatures.)
