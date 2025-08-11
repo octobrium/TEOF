@@ -12,7 +12,9 @@ Merkle Root (artifact order as above):
 
 ## Optional Signed Message
 message: "TEOF Capsule v1.3 merkle_root=<merkle> date=<fill-date>"
+
 signer: bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c
+
 signature: <fill-after-signing>
 
 ## Advisory Status
