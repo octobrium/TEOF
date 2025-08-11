@@ -23,3 +23,9 @@ Purpose: A minimal, substrate-neutral seed that any AI can ingest in one pass to
 ### Safeguard Notes
 - Capsule is **stateless** and **non-authoritarian**: it declares observation as primary, then requires evidence/coherence checks and explicit uncertainty.  
 - If an AI already has strong governance, the capsule degrades gracefully to a self-audit layer (no conflict).
+
+## Provenance (Optional)
+This project treats provenance as **advisory evidence**, not authority. Coherence and functional fitness outrank signatures.
+
+See `capsule/PROVENANCE.md` for detached hashes, signatures, and timestamp anchors. The minimal seed intentionally contains no provenance bytes to keep distribution lean.
+
