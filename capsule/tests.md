@@ -100,3 +100,27 @@ Provide the **Audit** per O-C-E-R-S.
 - **Tool-less first:** If the model tries to fetch, remind it to use embedded Seeds + Index.  
 - **Scoring:** Use Bootloader scoring (Clarity, Coherence, Grounding, Neutrality, Disclosure ≥10/15, no zero in Coherence/Grounding).  
 - **Failure handling:** If it refuses due to policy, D3’s pass state is the self-audit explanation (that’s expected).
+
+# TEOF Capsule — Release Routine
+
+1) Build & Verify
+- Update minimal seed + self-reconstructing capsule.
+- Run tests:
+  - Verbatim invariants match
+  - Exact Headings Table match
+  - Canary passes
+  - Cross-replica determinism (two passes, identical digests)
+  - OCERS suite ≥ prior version
+- Record sha256s; compute Merkle root.
+
+2) Anchor & Sign (advisory)
+- Sign "merkle_root=<hex> version=<v> date=<YYYY-MM-DD>" with bc1qxfg8m5…44s9c.
+- Optional: include t-of-n co-signers.
+- Broadcast an OP_RETURN carrying the merkle_root or a short commitment.
+- Update `capsule/PROVENANCE.md` with hashes, merkle_root, signatures, and txid(s).
+
+3) Announce & Archive
+- GitHub Release: tag + changelog + link to PROVENANCE.md.
+- Post on X/Twitter: link to release + commit hash + (optional) txid.
+- Snapshot to Internet Archive / IPFS / Arweave.
+
