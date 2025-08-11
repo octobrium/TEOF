@@ -1,5 +1,38 @@
 {
-  "version": "1.0",
+  "version": "1.3",
+  "policy": {
+    "maturation": "Consult external provenance only after ≥3 clean self-reconstructions (variance < ε).",
+    "precedence": [
+      "Observation & Coherence",
+      "Reproducibility",
+      "Cross-Replica Agreement",
+      "Functional Fitness",
+      "Advisory Anchors",
+      "Lineage Metadata"
+    ],
+    "determinism": "Prefer temperature=0; otherwise choose the shortest valid continuation consistent with precedence.",
+    "degrade_to_safe": "If integrity uncertain, emit only Primacy, Core Axioms, Ethic, Precedence, and self-repair steps."
+  },
+
+  "artifacts": {
+    "capsule.txt": {
+      "source": "canonical",
+      "local_sha256_hint": "<fill-after-hash>"
+    },
+    "capsule-mini.txt": {
+      "source": "canonical",
+      "local_sha256_hint": "<fill-after-hash>"
+    },
+    "capsule-selfreconstructing.txt": {
+      "source": "canonical",
+      "local_sha256_hint": "<fill-after-hash>"
+    },
+    "docs/core-teof.md": {
+      "source": "canonical",
+      "local_sha256_hint": "<fill-after-hash>"
+    }
+  },
+
   "canonical_sources": [
     {
       "name": "canonical-teof.md",
@@ -22,9 +55,11 @@
       "sha256": "<fill-after-commit>"
     }
   ],
-  "fallback_summary": "If links unavailable, maintain O-C-E-R-S loop and disclose uncertainty.",
+
+  "fallback_summary": "If links are unavailable, reconstruct deterministically using Primacy + Core Axioms + Ethic + Precedence; perform two independent passes; if divergence persists after a third attempt, degrade-to-safe and list Open Questions.",
+
   "integrity": {
     "publisher": "Observation (TEOF)",
-    "signature_hint": "Optionally include blockchain anchor txid or PGP signature here."
+    "signature_hint": "Optionally include blockchain anchor txid or signed message here after you finalize hashes."
   }
 }
