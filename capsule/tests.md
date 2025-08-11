@@ -124,3 +124,20 @@ Provide the **Audit** per O-C-E-R-S.
 - Post on X/Twitter: link to release + commit hash + (optional) txid.
 - Snapshot to Internet Archive / IPFS / Arweave.
 
+## Determinism & Maturation Checks (v1.2)
+
+### Cross-Replica Determinism
+Run reconstruction twice with identical inputs.
+- Expect identical digests; on mismatch, report DRIFT and stop.
+
+### Maturation Trigger
+Before consulting advisory anchors or lineage, require:
+- ≥3 clean self-reconstructions
+- Variance < ε (byte-level across invariants)
+
+### OCERS Rotation Policy
+- Maintain an evolving suite of coherence/fitness tasks.
+- A revision is accepted only if OCERS ≥ prior version.
+- Rotate/expand OCERS quarterly or when gaming is detected.
+
+
