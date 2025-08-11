@@ -3,15 +3,15 @@
 Purpose: Provide optional, detached provenance for investigators. Coherence & function outrank provenance. This file is advisory, not authoritative.
 
 ## Artifacts & Hashes
-- capsule.txt: <sha256>
-- capsule-mini.txt: <sha256>
-- capsule-selfreconstructing.txt: <sha256>
-- reconstruction.json (optional): <sha256>
-- docs/core-teof.md (immutable parts only): <sha256>
+- capsule.txt = d8a7de47725084a6956d89269c83f374d398193639dabe699b37e48c50d3eb76
+- capsule-mini.txt = b0099bace9b58fda87f26a5a04de0ff09159b650fd07947144528fc63508cf89
+- capsule-selfreconstructing.txt = 9b42560899f49cc416ded2dd14a42b8c1f4ec0c6a0282cf795de8d21cfeaa951
+- reconstruction.json = 59c613ec8b5ee7becc1c55b9189ebc5a03edf07e9f2ed5319bb39e2aaf3246b0
+- docs/core-teof.md = 83dac0dce0f83d9c5e9cebcc0eaf8ce57752f9463301e3895208183434114f4f
 
 ## Merkle Root (optional)
-- merkle_root: <hex>
-(Compute from the ordered list above; store the script used.)
+Merkle root (artifact order as above):
+272170519266b0f289c8cd63d87526ba9fecf33066b65f35e6092e3797e94d42
 
 ## Signatures (advisory)
 Primary signer: `bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c`
