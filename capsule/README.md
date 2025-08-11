@@ -34,4 +34,7 @@ See `capsule/PROVENANCE.md` for detached hashes, signatures, and timestamp ancho
 - **Degrade-to-safe:** on any integrity failure, emit only {Axioms, Ethics, Verify/Repair}.
 - **Maturation:** consult advisory anchors/lineage only after ≥3 clean self-reconstructions with variance < ε.
 
+See RELEASE.md for the exact publish routine (verify → anchor/sign → announce/archive).
+
+
 
