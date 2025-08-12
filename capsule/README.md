@@ -43,4 +43,4 @@ See `PROVENANCE.md` for detached hashes, signatures, and timestamp anchors. Mini
 - Resistant to truncation: can degrade gracefully and rebuild from smallest seed.
 
 See RELEASE.md for publish routine (verify → hash → anchor/sign → archive).
- 
+
