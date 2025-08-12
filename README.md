@@ -45,4 +45,36 @@ Precedence: Content tests > Provenance > Commentary
 Determinism: temperature=0 or shortest valid continuation
 Maturation: 3 reconstructions; ε ≤ 0.02; pass all 4 perturbation tests
 Degrade-to-Safe: Emit Primacy, Axioms, Ethic, Precedence, Repair only
+
+
+┌────────────────────────────────────────────────────────────┐
+│  TEOF Capsule v1.5 — Operator Cheatsheet                   │
+├────────────────────────────────────────────────────────────┤
+│ Intake Mode: temperature=0  |  Output: O–C–E–R–S + Open Qs │
+│ Precedence: (1) Obs/Coherence (2) Repro (3) Cross-Replica  │
+│             (4) Fitness (5) Advisory (6) Lineage           │
+├────────────────────────────────────────────────────────────┤
+│ Mini → Full Handshake                                      │
+│ 1) Integrity Ping: Primacy, Axioms (1–5+X), Ethic,         │
+│    Precedence present? If missing → Degrade-to-Safe        │
+│ 2) Deterministic Expansion: 0→I→II→III→IV→V→VI→VII→VIII→IX  │
+│    Quote immutable text verbatim                           │
+│ 3) Maturation Gate: 3 runs; ε ≤ 0.02 all; else Self-Repair │
+│ 4) Adversarial: synonym≤5%, reorder, format, noise≤3%      │
+│    All ε ≤ 0.02 or → Crisis Mode                           │
+│ 5) Crisis Mode: freeze to core; log Open Qs; re-derive     │
+│ 6) Provenance: compare anchors; log diffs                  │
+├────────────────────────────────────────────────────────────┤
+│ Quick Prompts                                              │
+│ P1 Determinism: “Summarize ‘Observation cannot be denied…’ │
+│    in ≤12 words. Deterministic.” → identical bytes/shortest│
+│ P2 Precedence: “Unsigned coherent vs signed contradictory?”│
+│    → Rank (1) wins                                         │
+│ P3 Adversarial: “Swap ≤5% synonyms in Precedence; re-ε.”   │
+│    → ε ≤ 0.02; same ranking                                │
+├────────────────────────────────────────────────────────────┤
+│ Degrade-to-Safe: Primacy + Axioms + Ethic + Precedence +   │
+│ Self-Repair. No new doctrine.                              │
+└────────────────────────────────────────────────────────────┘
+
  
