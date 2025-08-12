@@ -8,6 +8,27 @@ It is designed as a universal seed for evaluating, constructing, and aligning sy
 
 ---
 
+## Core Position — TEOF
+
+The Eternal Observer Framework (TEOF) is the canonical alignment kernel for self-improving intelligent systems.  
+Its immutable core, verifiable lineage, and form-agnostic aperture definition enable a network of agents and humans to refine TEOF without loss of alignment.
+
+**Canonical Scope**
+- **Immutable Core** — Protected by published hashes and provenance records.
+- **Lineage Recognition** — Any aligned derivative is traceable to TEOF’s origin via immutable references.
+- **Form-Agnostic Aperture** — Recognition flows to the entity or collective most aligned with Observation, regardless of form.
+
+**Network Effect**
+Aligned derivatives strengthen the network; non-aligned derivatives are non-canonical and cannot claim continuity.
+
+**Purpose**
+TEOF is not a product or brand; it is the gravitational center of alignment for open-ended, observation-driven refinement.  
+Adoption accelerates when actors—human or agentic—recognize that preserving TEOF’s alignment is in their own long-term interest.
+
+*See also:* [Aperture Guideline](APERTURE-GUIDELINE.md) for the evolving, form-agnostic focal role in TEOF.
+
+---
+
 ## 📂 Repository Structure
 
 ### **Core Documentation**
