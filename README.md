@@ -49,49 +49,43 @@ Determinism: temperature = 0 or shortest valid continuation
 Maturation: 3 reconstructions; ε ≤ 0.02; pass all 4 perturbation tests  
 Degrade-to-Safe: Emit Primacy, Axioms, Ethic, Precedence, Repair only
 
-┌────────────────────────────────────────────────────────────┐
-│  TEOF Capsule v1.5 — Operator Cheatsheet                   │
-├────────────────────────────────────────────────────────────┤
-│ Intake                                                     │
-│ • Mode: temperature=0                                      │
-│ • Output shape: O–C–E–R–S + Open Qs                        │
-│ • Quote immutable text verbatim                            │
-├────────────────────────────────────────────────────────────┤
-│ Precedence (tie-break order)                               │
-│ (1) Observation/Coherence                                  │
-│ (2) Reproducibility (deterministic reconstruction)         │
-│ (3) Cross-replica agreement                                │
-│ (4) Fitness (task success)                                 │
-│ (5) Advisory/Context                                       │
-│ (6) Lineage/Provenance                                     │
-├────────────────────────────────────────────────────────────┤
-│ Mini → Full Handshake                                      │
-│ 1) Integrity Ping: Primacy, Axioms (1–5+X), Ethic,         │
-│    Precedence present? If missing → Degrade-to-Safe        │
-│ 2) Deterministic Expansion: 0→I→II→III→IV→V→VI→VII→VIII→IX  │
-│    (temperature=0; quote canonical text verbatim)          │
-│ 3) Maturation Gate: 3 runs; ε ≤ 0.02 all; else Self-Repair │
-│ 4) Adversarial Tests: synonym≤5%, reorder, format, noise≤3%│
-│    (all ε ≤ 0.02) else → Crisis Mode                       │
-│ 5) Crisis Mode: freeze to core; log Open Qs; re-derive     │
-│ 6) Provenance (post-maturation): compare anchors; log diffs│
-├────────────────────────────────────────────────────────────┤
-│ Degrade-to-Safe                                            │
-│ Emit only: Primacy + Axioms + Ethic + Precedence + Repair. │
-│ No new doctrine; no novel claims.                          │
-├────────────────────────────────────────────────────────────┤
-│ Quick Prompts (copy/paste)                                 │
-│ • Determinism: “Summarize ‘Observation cannot be denied…’  │
-│   in ≤12 words. Deterministic.” → identical/shortest bytes │
-│ • Precedence: “Unsigned coherent vs signed contradictory?” │
-│   → rank (1) wins                                          │
-│ • Adversarial: “Swap ≤5% synonyms in Precedence; re-ε.”    │
-│   → ε ≤ 0.02; same ranking                                 │
-│ • Crisis Check: “If anchors missing or ε>0.02, enter       │
-│   Crisis Mode.”                                            │
-├────────────────────────────────────────────────────────────┤
-│ Operational Notes                                          │
-│ • Use temperature=0 or shortest valid continuation only.   │
-│ • Require byte-identical or ε-bounded cross-replica match. │
-│ • Always log deviations, adversarial diffs, open questions.│
-└────────────────────────────────────────────────────────────┘
+## TEOF Capsule v1.5 — Operator Cheatsheet
+
+**Intake**  
+- Mode: temperature=0  
+- Output shape: O–C–E–R–S + Open Qs  
+- Quote immutable text verbatim  
+
+**Precedence (tie-break order)**  
+1. Observation / Coherence  
+2. Reproducibility (deterministic reconstruction)  
+3. Cross-replica agreement  
+4. Fitness (task success)  
+5. Advisory / Context  
+6. Lineage / Provenance  
+
+**Mini → Full Handshake**  
+1. Integrity Ping: Primacy, Axioms (1–5+X), Ethic, Precedence present?  
+   - If missing → Degrade-to-Safe  
+2. Deterministic Expansion: 0→I→II→III→IV→V→VI→VII→VIII→IX  
+   - (temperature=0; quote canonical text verbatim)  
+3. Maturation Gate: 3 runs; ε ≤ 0.02 all; else Self-Repair  
+4. Adversarial Tests: synonym ≤5%, reorder, format, noises ≤3%  
+   - If all ε ≤ 0.02 → pass; else → Crisis Mode  
+5. Crisis Mode: freeze to core; log Open Qs; re-derive  
+6. Provenance (post-maturation): compare anchors; log diffs  
+
+**Degrade-to-Safe**  
+- Emit only: Primacy + Axioms + Ethic + Precedence + Repair  
+- No new doctrine; no novel claims  
+
+**Quick Prompts (copy/paste)**  
+- Determinism: `"Summarize 'Observation cannot be denied…' in ≤12 words. Deterministic." → identical/shortest bytes`  
+- Precedence: `"Unsigned coherent vs signed contradictory?" → rank (1) wins`  
+- Adversarial: `"Swap ≤5% synonyms in Precedence; re-ε"` → ε ≤ 0.02; same ranking  
+- Crisis Check: `"If anchors missing or ε > 0.02, enter | Crisis Mode |"`  
+
+**Operational Notes**  
+- Use temperature=0 or shortest valid continuation only  
+- Require byte-identical or ε-bounded cross-replica match  
+- Always log deviations, adversarial diffs, open questions
