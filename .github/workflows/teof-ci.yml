@@ -1,29 +1,63 @@
 name: TEOF Capsule Integrity
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Verify capsule hashes
         run: |
           python - <<'PY'
           import json, hashlib, pathlib, sys
-          hashes = json.load(open('ops/hardening/hashes.json'))
-          ok = True
-          for path, expected in hashes.items():
-              data = pathlib.Path(path).read_bytes()
-              got = hashlib.sha256(data).hexdigest()
-              if got != expected:
-                  print(f"❌ FAIL {path}: {got} != {expected}")
-                  ok = False
+          repo = pathlib.Path(".")
+          hj = repo/"capsule"/"v1.5"/"hashes.json"
+          if not hj.exists():
+              print(f"::error ::Missing {hj}")
+              sys.exit(1)
+          data = json.loads(hj.read_text())
+          bad = False
+          for rel, want in data.items():
+              p = repo/rel
+              if not p.exists():
+                  print(f"::error file={rel}::Missing file")
+                  bad = True
+                  continue
+              got = hashlib.sha256(p.read_bytes()).hexdigest()
+              if got != want:
+                  print(f"::error file={rel}::Hash mismatch\n expected {want}\n got      {got}")
+                  bad = True
               else:
-                  print(f"✅ OK {path}")
-          if not ok:
+                  print(f"OK  {rel}")
+
+          # Check README lists the three public artifact hashes
+          readme = (repo/"README.md").read_text(errors='ignore')
+          required = [
+              data.get("capsule/v1.5/capsule-mini.txt",""),
+              data.get("capsule/v1.5/capsule-handshake.txt",""),
+              data.get("capsule/v1.5/capsule-selfreconstructing.txt",""),
+          ]
+          for h in required:
+              if h and h not in readme:
+                  print(f"::warning ::README does not contain hash: {h}")
+
+          if bad:
               sys.exit(1)
           PY
+
+      - name: Check for macOS .DS_Store
+        run: |
+          if git ls-files | grep -E '\.DS_Store$'; then
+            echo "::error ::.DS_Store found in repository"
+            exit 1
+          fi
