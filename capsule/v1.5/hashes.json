@@ -1,12 +1,12 @@
 {
+  "capsule/v1.5/PROVENANCE.md": "7bb764ea33be9f5b1e9d252b86acb1389d2df3f545ab3eee443c64b3e574608b",
+  "capsule/v1.5/RELEASE.md": "0c40c680b1a508352848de69d25a63d829bc22a228bd4c77273f8601f003ab82",
   "capsule/v1.5/attestation.txt": "c6fcdbcc495dd0fe7808ca745eb18eae131e4c26e44024209a9a1f23443e07c0",
   "capsule/v1.5/calibration.md": "1a5bcc47c6597786792705a997a5aca72a204030f1d3ee85c86d73a11e30c457",
   "capsule/v1.5/capsule-handshake.txt": "5c5e5a2cd8cdfe49a472c35a77bd5ebfa293275f5a808f8e19e3f24932a81bb1",
   "capsule/v1.5/capsule-mini.txt": "14832af97ac719244a36d2191dde79116bbced775ec0d091bf446650a5a81e94",
   "capsule/v1.5/capsule-selfreconstructing.txt": "cbe147a6104fb4daea18087bdcbf1788cfa62c15eb5ea64384b9c5fc1f3a8ad9",
   "capsule/v1.5/capsule.txt": "2e8d1ffdfb0d37de3df2837f4c5028b23f5c41e8cfc48715d33398803e9fe141",
-  "capsule/v1.5/PROVENANCE.md": "db0bcb53d6621ddecda3f21973e938ede7607cd7ad725d03aa30c315bf9dc853",
   "capsule/v1.5/reconstruction.json": "b49693c4ba6c846527b9d7dbae5b57097265845202ce63f63e8d2806e5c3d420",
-  "capsule/v1.5/RELEASE.md": "0c40c680b1a508352848de69d25a63d829bc22a228bd4c77273f8601f003ab82",
   "capsule/v1.5/tests.md": "5a7135d43bf1d1a78afaa7c1b9720f6491553476d064d8d7685ae5f6ebb9ea68"
 }

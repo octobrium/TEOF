@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "policy": {
     "quorum": { "required": 1, "total": 1 },
     "rotation_notice_min_days": 7,
@@ -14,38 +14,17 @@
       "notes": "Primary BTC anchor for provenance attestations"
     }
   ],
-  "releases": [
-    {
-      "version": "v1.5",
-      "maturity": "canonical",
-      "visibility": "public",
-      "artifacts": [
-        {
-          "path": "capsule/v1.5/capsule-mini.txt",
-          "sha256": "14832af97ac719244a36d2191dde79116bbced775ec0d091bf446650a5a81e94"
-        },
-        {
-          "path": "capsule/v1.5/capsule-handshake.txt",
-          "sha256": "5c5e5a2cd8cdfe49a472c35a77bd5ebfa293275f5a808f8e19e3f24932a81bb1"
-        },
-        {
-          "path": "capsule/v1.5/capsule-selfreconstructing.txt",
-          "sha256": "cbe147a6104fb4daea18087bdcbf1788cfa62c15eb5ea64384b9c5fc1f3a8ad9"
-        }
-      ],
-      "attestations": []
-    },
-    {
-      "version": "v0.9",
-      "maturity": "primordial",
-      "visibility": "sealed",
-      "commitment": {
-        "scheme": "sha256^2",
-        "digest": "<sha256(sha256(contents))>",
-        "notes": "Commitment only; full text to be disclosed later per policy."
-      },
-      "attestations": []
-    }
+  "immutable_scope": [
+    "capsule/v1.5/capsule-mini.txt",
+    "capsule/v1.5/capsule-handshake.txt",
+    "capsule/v1.5/capsule-selfreconstructing.txt",
+    "capsule/v1.5/capsule.txt",
+    "capsule/v1.5/PROVENANCE.md",
+    "capsule/v1.5/RELEASE.md",
+    "capsule/v1.5/calibration.md",
+    "capsule/v1.5/tests.md",
+    "capsule/v1.5/reconstruction.json",
+    "capsule/v1.5/attestation.txt"
   ],
   "events": [
     {
@@ -53,7 +32,7 @@
       "type": "init",
       "prev_content_hash": null,
       "content_hash": "<sha256-of-this-file>",
-      "notes": "Initialize anchor set and record v1.5 canonical hashes"
+      "notes": "Initialize anchors and record v1.5 canonical scope."
     }
   ]
 }
