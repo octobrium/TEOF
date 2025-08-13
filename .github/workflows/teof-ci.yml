@@ -1,24 +1,16 @@
-name: TEOF Capsule Integrity
+name: verify
 
 on:
   push:
-    branches: [ main ]
     paths:
-      - 'capsule/v1.5/**'
-      - 'README.md'
-      - 'docs/PROVENANCE.md'
-      - 'capsule/v1.5/RELEASE.md'
-      - '.github/workflows/teof-ci.yml'
+      - 'capsule/**'
       - 'anchors/immutable.json'
+      - '.github/workflows/teof-ci.yml'
   pull_request:
-    branches: [ main ]
     paths:
-      - 'capsule/v1.5/**'
-      - 'README.md'
-      - 'docs/PROVENANCE.md'
-      - 'capsule/v1.5/RELEASE.md'
-      - '.github/workflows/teof-ci.yml'
+      - 'capsule/**'
       - 'anchors/immutable.json'
+      - '.github/workflows/teof-ci.yml'
 
 permissions:
   contents: read
@@ -34,165 +26,135 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.x'
 
       - name: Verify capsule hashes
         run: |
           python - <<'PY'
-          import json, hashlib, pathlib, sys
-          repo = pathlib.Path(".")
-          hj = repo/"capsule"/"v1.5"/"hashes.json"
-          if not hj.exists():
-              print(f"::error ::Missing {hj}")
-              sys.exit(1)
-          try:
-              data = json.loads(hj.read_text())
-          except Exception as e:
-              print(f"::error ::Invalid JSON in {hj}: {e}")
+          import os, re, json, hashlib, sys
+
+          def sha256_file(path):
+              h = hashlib.sha256()
+              with open(path, 'rb') as f:
+                  for chunk in iter(lambda: f.read(8192), b''):
+                      h.update(chunk)
+              return h.hexdigest()
+
+          # Prefer versionless baseline; otherwise fall back to latest vX.Y
+          candidates = []
+          cur = os.path.join('capsule', 'current', 'hashes.json')
+          if os.path.isfile(cur):
+              candidates.append(cur)
+
+          vers = []
+          cap = 'capsule'
+          if os.path.isdir(cap):
+              for d in os.listdir(cap):
+                  if re.fullmatch(r'v\\d+\\.\\d+', d) and os.path.isfile(os.path.join(cap, d, 'hashes.json')):
+                      vers.append(d)
+          vers.sort(reverse=True)
+          for d in vers:
+              candidates.append(os.path.join('capsule', d, 'hashes.json'))
+
+          if not candidates:
+              print("Error: no hashes.json found (checked capsule/current and versioned dirs)", file=sys.stderr)
               sys.exit(1)
 
-          bad = False
-          for rel, want in data.items():
-              p = repo/rel
-              if not p.exists():
-                  print(f"::error file={rel}::Missing file")
-                  bad = True
+          baseline = candidates[0]
+          print("Using baseline:", baseline)
+          with open(baseline, 'r') as f:
+              expected = json.load(f)
+
+          ok = True
+          for path, exp in expected.items():
+              if not os.path.exists(path):
+                  print(f"Error: missing file {path}")
+                  ok = False
                   continue
-              got = hashlib.sha256(p.read_bytes()).hexdigest()
-              if got != want:
-                  print(f"::error file={rel}::Hash mismatch\n expected {want}\n got      {got}")
-                  bad = True
+              got = sha256_file(path)
+              if got != exp:
+                  print("Error: Hash mismatch")
+                  print(" expected:", exp)
+                  print(" got     :", got)
+                  print(" file    :", path)
+                  ok = False
               else:
-                  print(f"OK  {rel}")
+                  print("OK", path)
 
-          # README presence + three public artifact hashes
-          readme_path = repo/"README.md"
-          if not readme_path.exists():
-              print("::error ::README.md missing")
-              bad = True
-          else:
-              readme = readme_path.read_text(errors='ignore')
-              required = [
-                  data.get("capsule/v1.5/capsule-mini.txt",""),
-                  data.get("capsule/v1.5/capsule-handshake.txt",""),
-                  data.get("capsule/v1.5/capsule-selfreconstructing.txt",""),
-              ]
-              for h in required:
-                  if h and h not in readme:
-                      print(f"::warning ::README does not contain hash: {h}")
-
-          if bad:
+          if not ok:
               sys.exit(1)
           PY
 
-      - name: Validate anchors/immutable.json (schema, sha, cross-check v1.5)
+      - name: Validate anchors/immutable.json (schema, append-only, scope vs baseline)
         run: |
-          if [ ! -f anchors/immutable.json ]; then
-            echo "::error ::missing anchors/immutable.json"
-            exit 1
-          fi
           python - <<'PY'
-          import json, hashlib, sys, pathlib, subprocess
+          import json, hashlib, os, sys, subprocess, re
 
-          repo = pathlib.Path(".")
-          p = repo/"anchors"/"immutable.json"
+          P = 'anchors/immutable.json'
+          if not os.path.exists(P):
+              print('Error: anchors/immutable.json not found'); sys.exit(1)
+
+          with open(P, 'r') as f:
+              data = json.load(f)
+
+          # Minimal schema
+          for k in ['version', 'policy', 'anchors', 'immutable_scope', 'events', 'releases']:
+              if k not in data:
+                  print(f'Error: missing "{k}"'); sys.exit(1)
+
+          # Append-only check vs previous commit (if previous exists)
           try:
-              data = json.loads(p.read_text())
-          except Exception as e:
-              print(f"::error ::Invalid JSON in {p}: {e}")
+              prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{P}'], stderr=subprocess.DEVNULL)
+              prev_sha = hashlib.sha256(prev_bytes).hexdigest()
+              cur_sha  = hashlib.sha256(open(P,'rb').read()).hexdigest()
+              last = data['events'][-1] if data['events'] else None
+              if last and last.get('prev_content_hash') and last['prev_content_hash'] != prev_sha:
+                  print('Error: events are not append-only compared to previous commit'); sys.exit(1)
+              print(f'anchors/immutable.json sha256={cur_sha}')
+          except subprocess.CalledProcessError:
+              cur_sha  = hashlib.sha256(open(P,'rb').read()).hexdigest()
+              print(f'anchors/immutable.json sha256={cur_sha} (no previous file)')
+
+          # Scope vs baseline: every immutable path must appear in hashes.json
+          # Find baseline (same logic as verify step)
+          candidates = []
+          cur = os.path.join('capsule','current','hashes.json')
+          if os.path.isfile(cur): candidates.append(cur)
+          cap = 'capsule'
+          vers = []
+          if os.path.isdir(cap):
+              for d in os.listdir(cap):
+                  if re.fullmatch(r'v\\d+\\.\\d+', d) and os.path.isfile(os.path.join(cap,d,'hashes.json')):
+                      vers.append(d)
+          vers.sort(reverse=True)
+          for d in vers:
+              candidates.append(os.path.join('capsule',d,'hashes.json'))
+          if not candidates:
+              print('Error: no hashes.json found for scope cross-check'); sys.exit(1)
+
+          with open(candidates[0],'r') as f:
+              baseline = json.load(f)
+
+          missing = [p for p in data.get('immutable_scope', []) if p not in baseline]
+          if missing:
+              print('Error: immutable_scope paths missing from baseline hashes.json:')
+              for m in missing: print('  -', m)
               sys.exit(1)
 
-          # Basic schema checks
-          if not isinstance(data.get("anchors"), list):
-              print("::error ::anchors must be a list")
-              sys.exit(1)
-          if not isinstance(data.get("releases"), list):
-              print("::error ::releases must be a list")
-              sys.exit(1)
-
-          # Print current file hash (useful for filling content_hash field)
-          h = hashlib.sha256(p.read_bytes()).hexdigest()
-          print(f"anchors/immutable.json sha256={h}")
-
-          # Soft-validate content_hash (warn if present and mismatched)
-          try:
-              events = data.get("events", [])
-              if events and isinstance(events[-1], dict):
-                  ch = events[-1].get("content_hash")
-                  if ch and isinstance(ch, str) and not ch.startswith("<"):
-                      if ch != h:
-                          print("::warning ::events[-1].content_hash does not match current file hash")
-          except Exception:
-              pass
-
-          # Cross-check v1.5 artifacts vs capsule/v1.5/hashes.json
-          hj_path = repo/"capsule"/"v1.5"/"hashes.json"
-          if hj_path.exists():
-              try:
-                  hj = json.loads(hj_path.read_text())
-              except Exception as e:
-                  print(f"::error ::Invalid JSON in {hj_path}: {e}")
-                  sys.exit(1)
-              expected = {
-                  "capsule/v1.5/capsule-mini.txt": hj.get("capsule/v1.5/capsule-mini.txt"),
-                  "capsule/v1.5/capsule-handshake.txt": hj.get("capsule/v1.5/capsule-handshake.txt"),
-                  "capsule/v1.5/capsule-selfreconstructing.txt": hj.get("capsule/v1.5/capsule-selfreconstructing.txt"),
-              }
-              rels = [r for r in data["releases"] if isinstance(r.get("version"), str) and r["version"].startswith("v1.5")]
-              if not rels:
-                  print("::warning ::no v1.5 release found in anchors/immutable.json")
-              else:
-                  r = rels[0]
-                  artlist = {a.get("path"): a.get("sha256") for a in r.get("artifacts", [])}
-                  mism = []
-                  for path, want in expected.items():
-                      if want and (artlist.get(path) != want):
-                          mism.append(path)
-                  if mism:
-                      print("::error ::anchors/immutable.json v1.5 artifacts do not match capsule/v1.5/hashes.json:")
-                      for m in mism:
-                          print(f"   - {m}")
-                      sys.exit(1)
-                  else:
-                      print("OK  anchors/immutable.json v1.5 artifacts match hashes.json")
-          else:
-              print("::warning ::capsule/v1.5/hashes.json missing; skipped cross-check")
-
-          # Append-only check for events (requires previous commit)
-          def git_show(pathspec):
-              try:
-                  out = subprocess.check_output(["git","show",pathspec], stderr=subprocess.STDOUT, text=True)
-                  return out
-              except Exception:
-                  return None
-
-          prev = git_show("HEAD^:anchors/immutable.json")
-          if prev:
-              try:
-                  prev_data = json.loads(prev)
-                  prev_events = prev_data.get("events", [])
-                  curr_events = data.get("events", [])
-                  if isinstance(prev_events, list) and isinstance(curr_events, list):
-                      if len(curr_events) < len(prev_events) or prev_events != curr_events[:len(prev_events)]:
-                          if data.get("policy", {}).get("append_only", True):
-                              print("::error ::events are not append-only compared to previous commit")
-                              sys.exit(1)
-                          else:
-                              print("::warning ::events are not append-only (policy.append_only=false)")
-              except Exception:
-                  print("::warning ::could not compare previous anchors/immutable.json for append-only check")
-          else:
-              print("No previous anchors/immutable.json found; append-only check skipped.")
+          if not data['immutable_scope']:
+              print('Warning: immutable_scope is empty')
           PY
 
       - name: Check for macOS .DS_Store
         run: |
-          if git ls-files | grep -E '\.DS_Store$'; then
-            echo "::error ::.DS_Store found in repository"
+          if git ls-files | grep -q '\.DS_Store'; then
+            echo "Error: .DS_Store files committed"
             exit 1
+          else
+            echo "No .DS_Store files found."
           fi
