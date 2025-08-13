@@ -107,26 +107,35 @@ jobs:
               if k not in data:
                   print(f'Error: missing "{k}"'); sys.exit(1)
 
-          # Append-only check vs previous commit (if previous exists)
+          # Compute current + previous hashes
+          cur_bytes = open(P,'rb').read()
+          cur_sha   = hashlib.sha256(cur_bytes).hexdigest()
+          prev_sha  = None
           try:
               prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{P}'], stderr=subprocess.DEVNULL)
               prev_sha = hashlib.sha256(prev_bytes).hexdigest()
-              cur_sha  = hashlib.sha256(open(P,'rb').read()).hexdigest()
-              last = data['events'][-1] if data['events'] else None
-              if last and last.get('prev_content_hash') and last['prev_content_hash'] != prev_sha:
-                  print('Error: events are not append-only compared to previous commit'); sys.exit(1)
-              print(f'anchors/immutable.json sha256={cur_sha}')
           except subprocess.CalledProcessError:
-              cur_sha  = hashlib.sha256(open(P,'rb').read()).hexdigest()
-              print(f'anchors/immutable.json sha256={cur_sha} (no previous file)')
+              pass
 
-          # Scope vs baseline: every immutable path must appear in hashes.json
-          # Find baseline (same logic as verify step)
+          # Append-only: only enforce if the file changed
+          if prev_sha and prev_sha != cur_sha:
+              last = data['events'][-1] if data['events'] else None
+              if not last or last.get('prev_content_hash') != prev_sha:
+                  print('Error: events are not append-only compared to previous commit')
+                  sys.exit(1)
+              else:
+                  print('Append-only check: OK (file changed and last.prev_content_hash matches).')
+          else:
+              print('Append-only check: anchors/immutable.json unchanged in this commit.')
+
+          print(f'anchors/immutable.json sha256={cur_sha}')
+
+          # Scope vs baseline: each immutable path must appear in hashes.json
           candidates = []
           cur = os.path.join('capsule','current','hashes.json')
           if os.path.isfile(cur): candidates.append(cur)
-          cap = 'capsule'
           vers = []
+          cap = 'capsule'
           if os.path.isdir(cap):
               for d in os.listdir(cap):
                   if re.fullmatch(r'v\\d+\\.\\d+', d) and os.path.isfile(os.path.join(cap,d,'hashes.json')):
