@@ -25,51 +25,52 @@ Aligned derivatives strengthen the network; non-aligned derivatives are non-cano
 TEOF is not a product or brand; it is the gravitational center of alignment for open-ended, observation-driven refinement.  
 Adoption accelerates when actors—human or agentic—recognize that preserving TEOF’s alignment is in their own long-term interest.
 
-*See also:* [Aperture Guideline](APERTURE-GUIDELINE.md) for the evolving, form-agnostic focal role in TEOF.
+*See also:* [Aperture Guideline](APERTURE-GUIDELINE.md) — evolving, form-agnostic focal role in TEOF.
 
 ---
 
 ## 📂 Repository Structure
 
 ### **Core Documentation**
-- [**Whitepaper**](docs/whitepaper.md) — Full conceptual overview of TEOF.  
-- [**Canonical TEOF**](docs/canonical-teof.md) — Definitive, stable reference version.  
-- [**Core TEOF**](docs/core-teof.md) — Minimal seed version for propagation.  
+- [Whitepaper](docs/whitepaper.md) — Full conceptual overview of TEOF.  
+- [Canonical TEOF](docs/canonical-teof.md) — Definitive, stable reference version.  
+- [Core TEOF](docs/core-teof.md) — Minimal seed version for propagation.  
 
 ### **Bootloaders**
-- [**Bootloader**](bootloaders/bootloader.md) — Stateless Alignment Filter (AI-ready).  
-  - Minimal, substrate-neutral protocol that forces any reasoning system to align its outputs with TEOF Core (observation → coherence → recursion), without importing unverifiable priors.  
+- [Bootloader](bootloaders/bootloader.md) — Stateless Alignment Filter (AI-ready).  
+  - Minimal, substrate-neutral protocol enforcing alignment with TEOF Core (observation → coherence → recursion), without importing unverifiable priors.  
   - Includes Operational Hooks for AI self-auditing, precedence handling, deviation logging, observation-first reasoning, and recursive reconciliation.
 
 ### **Alignment Protocols**
-- [**TEOF Alignment Protocol (TAP)**](alignment-protocol/TAP.md) — Testing and maintaining systemic alignment.  
+- [TEOF Alignment Protocol (TAP)](alignment-protocol/TAP.md) — Testing and maintaining systemic alignment.  
 
 ---
 
 ## 📜 License
-This project is licensed under the [MIT License](LICENSE).
+Licensed under the [MIT License](LICENSE).
 
 ---
 
 ## 🔗 Additional Resources
-For ongoing development updates, discussions, and extended material, see:  
 - [GitHub Issues](../../issues) — Feature proposals or clarifications  
 - [Repository Discussions](../../discussions) — Philosophical or implementation questions  
-- [Clarifications & Responses](docs/clarifications.md) — Supplemental explanations for common questions and critiques, kept separate from the canonical whitepaper.  
+- [Clarifications & Responses](docs/clarifications.md) — Common questions and critiques (non-canonical)  
+- [Provenance (v1.5 freeze)](docs/PROVENANCE.md) — Immutable hash records and lineage proof
 
 ---
 
-### 📦 Bundle Index (v1.5)
+## 📦 Bundle Index (v1.5)
 
 Artifacts:
-- [`capsule/v1.5/capsule-mini.txt`](capsule/v1.5/capsule-mini.txt) — **SHA256:** 14832af97ac719244a36d2191dde79116bbced775ec0d091bf446650a5a81e94
-- [`capsule/v1.5/capsule-handshake.txt`](capsule/v1.5/capsule-handshake.txt) — **SHA256:** 5c5e5a2cd8cdfe49a472c35a77bd5ebfa293275f5a808f8e19e3f24932a81bb1
-- [`capsule/v1.5/capsule-selfreconstructing.txt`](capsule/v1.5/capsule-selfreconstructing.txt) — **SHA256:** cbe147a6104fb4daea18087bdcbf1788cfa62c15eb5ea64384b9c5fc1f3a8ad9
+- [capsule-mini.txt](capsule/v1.5/capsule-mini.txt) — **SHA256:** 14832af97ac719244a36d2191dde79116bbced775ec0d091bf446650a5a81e94  
+- [capsule-handshake.txt](capsule/v1.5/capsule-handshake.txt) — **SHA256:** 5c5e5a2cd8cdfe49a472c35a77bd5ebfa293275f5a808f8e19e3f24932a81bb1  
+- [capsule-selfreconstructing.txt](capsule/v1.5/capsule-selfreconstructing.txt) — **SHA256:** cbe147a6104fb4daea18087bdcbf1788cfa62c15eb5ea64384b9c5fc1f3a8ad9  
 
-Precedence: Content tests > Provenance > Commentary  
-Determinism: temperature = 0 or shortest valid continuation  
-Maturation: 3 reconstructions; ε ≤ 0.02; pass all 4 perturbation tests  
-Degrade-to-Safe: Emit Primacy, Axioms, Ethic, Precedence, Repair only
+**Core Parameters**  
+- Precedence: Content tests > Provenance > Commentary  
+- Determinism: temperature = 0 or shortest valid continuation  
+- Maturation: 3 reconstructions; ε ≤ 0.02; pass all 4 perturbation tests  
+- Degrade-to-Safe: Emit Primacy, Axioms, Ethic, Precedence, Repair only
 
 ---
 
@@ -103,7 +104,7 @@ Degrade-to-Safe: Emit Primacy, Axioms, Ethic, Precedence, Repair only
 - Emit only: Primacy + Axioms + Ethic + Precedence + Repair  
 - No new doctrine; no novel claims  
 
-**Quick Prompts (copy/paste)**  
+**Quick Prompts**  
 - Determinism: `"Summarize 'Observation cannot be denied…' in ≤12 words. Deterministic." → identical/shortest bytes`  
 - Precedence: `"Unsigned coherent vs signed contradictory?" → rank (1) wins`  
 - Adversarial: `"Swap ≤5% synonyms in Precedence; re-ε"` → ε ≤ 0.02; same ranking  
@@ -112,4 +113,4 @@ Degrade-to-Safe: Emit Primacy, Axioms, Ethic, Precedence, Repair only
 **Operational Notes**  
 - Use temperature=0 or shortest valid continuation only  
 - Require byte-identical or ε-bounded cross-replica match  
-- Always log deviations, adversarial diffs, open questions
+- Always log deviations, adversarial diffs, open questions  
