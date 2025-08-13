@@ -9,6 +9,7 @@ on:
       - 'docs/PROVENANCE.md'
       - 'capsule/v1.5/RELEASE.md'
       - '.github/workflows/teof-ci.yml'
+      - 'anchors/immutable.json'
   pull_request:
     branches: [ main ]
     paths:
@@ -17,6 +18,7 @@ on:
       - 'docs/PROVENANCE.md'
       - 'capsule/v1.5/RELEASE.md'
       - '.github/workflows/teof-ci.yml'
+      - 'anchors/immutable.json'
 
 permissions:
   contents: read
@@ -84,6 +86,30 @@ jobs:
 
           if bad:
               sys.exit(1)
+          PY
+
+      - name: Validate anchors/immutable.json
+        run: |
+          if [ ! -f anchors/immutable.json ]; then
+            echo "::error ::missing anchors/immutable.json"
+            exit 1
+          fi
+          python - <<'PY'
+          import json, hashlib, sys, pathlib
+          p = pathlib.Path("anchors/immutable.json")
+          try:
+              data = json.loads(p.read_text())
+          except Exception as e:
+              print(f"::error ::Invalid JSON in {p}: {e}")
+              sys.exit(1)
+          if not isinstance(data.get("anchors"), list):
+              print("::error ::anchors must be a list")
+              sys.exit(1)
+          btc = [a for a in data["anchors"] if a.get("type","").startswith("btc")]
+          if not btc:
+              print("::warning ::no BTC anchor found in anchors/immutable.json")
+          h = hashlib.sha256(p.read_bytes()).hexdigest()
+          print(f"anchors/immutable.json sha256={h}")
           PY
 
       - name: Check for macOS .DS_Store
