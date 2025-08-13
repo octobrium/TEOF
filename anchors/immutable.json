@@ -15,16 +15,13 @@
     }
   ],
   "immutable_scope": [
-    "capsule/v1.5/capsule-mini.txt",
-    "capsule/v1.5/capsule-handshake.txt",
-    "capsule/v1.5/capsule-selfreconstructing.txt",
-    "capsule/v1.5/capsule.txt",
-    "capsule/v1.5/PROVENANCE.md",
-    "capsule/v1.5/RELEASE.md",
-    "capsule/v1.5/calibration.md",
-    "capsule/v1.5/tests.md",
-    "capsule/v1.5/reconstruction.json",
-    "capsule/v1.5/attestation.txt"
+    "capsule/current/capsule-mini.txt",
+    "capsule/current/capsule-handshake.txt",
+    "capsule/current/capsule-selfreconstructing.txt",
+    "capsule/current/capsule.txt",
+    "capsule/current/PROVENANCE.md",
+    "capsule/current/tests.md",
+    "capsule/current/reconstruction.json"
   ],
   "releases": [],
   "events": [
@@ -33,7 +30,7 @@
       "type": "init",
       "prev_content_hash": null,
       "content_hash": "<sha256-of-this-file>",
-      "notes": "Initialize anchors and record v1.5 canonical scope."
+      "notes": "Initialize anchors and record canonical scope via capsule/current/*."
     }
   ]
 }

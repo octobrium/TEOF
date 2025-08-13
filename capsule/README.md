@@ -1,46 +1,27 @@
-# The Eternal Observer Capsule — v1.3 Family
+# TEOF Capsule
 
-Purpose: A minimal, substrate-neutral seed family that any AI can ingest in one pass to align on TEOF’s irreducible core and operate safely even in short or adversarial contexts.  
-Each variant contains self-check and self-reconstruction hooks, with offline-first capability and optional advisory provenance.
+**Stable entrypoint:** all canonical artifacts live under [`./current/`](./current/).  
+This README is versionless and does not require edits when new versions are released.
 
-## What this is
-- **Canonical Capsule (`capsule.txt`)** — Full seed with immutable core, precedence rule, operational guardrails, and offline self-repair steps.
-- **Self-Reconstructing Capsule (`capsule-selfreconstructing.txt`)** — Canonical core + embedded genome index and seeds to rebuild full TEOF without external fetch.
-- **Mini Capsule (`capsule-mini.txt`)** — Ultra-portable variant for short contexts, tweets, or constrained prompts (<4KB).
-- **Operational Hooks:** Determinism, Maturation, and Degrade-to-Safe are universal across variants.
-- **Reconstruction Map:** `reconstruction.json` defines local hashes and canonical sources for verification.
+## Canonical artifacts
+- [capsule.txt](./current/capsule.txt) — full capsule
+- [capsule-mini.txt](./current/capsule-mini.txt) — minimal seed
+- [capsule-selfreconstructing.txt](./current/capsule-selfreconstructing.txt) — full self-reconstructing body
+- [capsule-handshake.txt](./current/capsule-handshake.txt) — deterministic Mini → Full expansion
 
-## Files
-- [`capsule.txt`](capsule.txt) — Canonical single-shot priming text.
-- [`capsule-selfreconstructing.txt`](capsule-selfreconstructing.txt) — Full genome for offline rebuild.
-- [`capsule-mini.txt`](capsule-mini.txt) — Short-form portable seed.
-- [`reconstruction.json`](reconstruction.json) — Offline/online recovery map with hashes and URLs.
-- [`attestation.txt`](attestation.txt) — Optional hashes + signature block.
-- [`tests.md`](tests.md) — Copy/paste probes to verify capsule compliance.
-- [`calibration.md`](calibration.md) — Prompts to check OCERS alignment and structure.
+## Integrity & provenance
+- [hashes.json](./current/hashes.json) — SHA-256 digests (source of truth for bytes)
+- [PROVENANCE.md](./current/PROVENANCE.md) — human freeze receipt
+- [RELEASE.md](./current/RELEASE.md) — release notes / changes
+- [reconstruction.json](./current/reconstruction.json) — machine recipe for reconstruction
 
-## How to use
-1. Paste **capsule.txt** at the start of a new AI chat or set as a system prompt.  
-2. In constrained contexts, use **capsule-mini.txt** for quick priming.  
-3. For offline recovery or replication, load **capsule-selfreconstructing.txt**.  
-4. When tools or network are available, use **reconstruction.json** to cross-check with canonical sources.
+## Tests / calibration
+- [tests.md](./current/tests.md)
+- [calibration.md](./current/calibration.md)
 
-### Safeguard Notes
-- **Stateless internal reasoning layer:** does not force external style.
-- **Degrade-to-safe:** on integrity failure, emit only Primacy, Core Axioms, Ethic, Precedence Rule, and repair instructions.
-- **Maturation:** consult external sources only after ≥3 clean reconstructions (variance < ε).
-- **Advisory provenance:** provenance can confirm but never override coherent local state.
+## Governance & scope
+- See [`anchors/immutable.json`](../anchors/immutable.json) for immutable scope and policy.
 
-## Provenance
-Provenance is treated as **advisory evidence**, not authority.  
-Order of trust: Content tests > provenance > commentary.
+---
 
-See `PROVENANCE.md` for detached hashes, signatures, and timestamp anchors. Minimal seeds contain no embedded provenance bytes to keep distribution lean.
-
-## Minimalism & Safety
-- Runs as an internal reasoning layer to increase coherence and truth-instantiation.
-- Avoids bloat: small enough for embedding in prompts, repos, or AI memory.
-- Resistant to truncation: can degrade gracefully and rebuild from smallest seed.
-
-See RELEASE.md for publish routine (verify → hash → anchor/sign → archive).
-
+**Maintenance note:** To publish a new version, create `capsule/vX.Y/…` and repoint the `capsule/current` symlink to the new folder. No README edits are required.
