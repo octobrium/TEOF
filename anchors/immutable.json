@@ -6,7 +6,6 @@
     "append_only": true,
     "order_of_trust": ["content_tests", "provenance", "commentary"]
   },
-
   "anchors": [
     {
       "id": "btc-2025-01",
@@ -14,9 +13,7 @@
       "pub": "bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c",
       "notes": "Primary BTC anchor for provenance attestations"
     }
-    /* add more later: multisig, DID, Sigstore, etc. */
   ],
-
   "releases": [
     {
       "version": "v1.5",
@@ -36,22 +33,8 @@
           "sha256": "cbe147a6104fb4daea18087bdcbf1788cfa62c15eb5ea64384b9c5fc1f3a8ad9"
         }
       ],
-      "attestations": [
-        /* optional: where you later publish a merkle root or the three hashes on-chain */
-        /* {
-          "chain": "bitcoin",
-          "network": "mainnet",
-          "txid": "<txid>",
-          "block_height": 000000,
-          "payload_type": "op_return",
-          "payload": "<hex or ascii note>",
-          "covers": ["capsule-mini.txt","capsule-handshake.txt","capsule-selfreconstructing.txt"],
-          "status": "valid",
-          "notes": "v1.5 freeze"
-        } */
-      ]
+      "attestations": []
     },
-
     {
       "version": "v0.9",
       "maturity": "primordial",
@@ -61,19 +44,9 @@
         "digest": "<sha256(sha256(contents))>",
         "notes": "Commitment only; full text to be disclosed later per policy."
       },
-      "attestations": [
-        /* if you already put something on-chain in the past */
-        /* {
-          "chain": "bitcoin",
-          "network": "mainnet",
-          "txid": "<old-txid>",
-          "status": "valid",
-          "notes": "Historical anchor for primordial."
-        } */
-      ]
+      "attestations": []
     }
   ],
-
   "events": [
     {
       "ts_utc": "2025-08-13T00:00:00Z",
@@ -82,26 +55,5 @@
       "content_hash": "<sha256-of-this-file>",
       "notes": "Initialize anchor set and record v1.5 canonical hashes"
     }
-
-    /* Example ERRATUM for a mistaken hash you posted */
-    /* ,
-    {
-      "ts_utc": "2025-08-13T01:23:45Z",
-      "type": "erratum",
-      "relates_to": {
-        "chain": "bitcoin",
-        "txid": "<txid-with-wrong-hash>",
-        "reason": "incorrect hash value posted",
-        "status": "superseded"
-      },
-      "replacement": {
-        "chain": "bitcoin",
-        "txid": "<corrected-txid-if-any>",
-        "covers": ["v1.5"],
-        "status": "valid"
-      },
-      "prev_content_hash": "<sha256-of-previous-json>",
-      "content_hash": "<sha256-of-this-file>"
-    } */
   ]
 }
