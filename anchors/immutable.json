@@ -31,6 +31,13 @@
       "prev_content_hash": null,
       "content_hash": "<sha256-of-this-file>",
       "notes": "Initialize anchors and record canonical scope via capsule/current/*."
+    },
+    {
+      "ts_utc": "2025-08-13T21:26:18Z",
+      "type": "scope_update",
+      "prev_content_hash": "3529b299f15c1beb1fbbe4b43f89b24d466bb3708d209eada7129f534ce736d6",
+      "content_hash": "7d17c5ea2e64e45cc49d0101d2ccc4f141bd9345ff3a5598fa70cf82a8e710ca",
+      "notes": "Switch immutable scope to capsule/current/*; remove attestation and RELEASE.md from canonical bytes."
     }
   ]
 }
