@@ -33,6 +33,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -136,13 +138,11 @@ jobs:
               except Exception as e:
                   print(f"::error ::Invalid JSON in {hj_path}: {e}")
                   sys.exit(1)
-              # derive expected artifacts from hashes.json (only the three public ones)
               expected = {
                   "capsule/v1.5/capsule-mini.txt": hj.get("capsule/v1.5/capsule-mini.txt"),
                   "capsule/v1.5/capsule-handshake.txt": hj.get("capsule/v1.5/capsule-handshake.txt"),
                   "capsule/v1.5/capsule-selfreconstructing.txt": hj.get("capsule/v1.5/capsule-selfreconstructing.txt"),
               }
-              # find a release entry that matches v1.5
               rels = [r for r in data["releases"] if isinstance(r.get("version"), str) and r["version"].startswith("v1.5")]
               if not rels:
                   print("::warning ::no v1.5 release found in anchors/immutable.json")
@@ -163,7 +163,7 @@ jobs:
           else:
               print("::warning ::capsule/v1.5/hashes.json missing; skipped cross-check")
 
-          # Append-only check for events (prefix property), if previous exists
+          # Append-only check for events (requires previous commit)
           def git_show(pathspec):
               try:
                   out = subprocess.check_output(["git","show",pathspec], stderr=subprocess.STDOUT, text=True)
@@ -179,7 +179,6 @@ jobs:
                   curr_events = data.get("events", [])
                   if isinstance(prev_events, list) and isinstance(curr_events, list):
                       if len(curr_events) < len(prev_events) or prev_events != curr_events[:len(prev_events)]:
-                          # Enforce only if policy.append_only is true
                           if data.get("policy", {}).get("append_only", True):
                               print("::error ::events are not append-only compared to previous commit")
                               sys.exit(1)
