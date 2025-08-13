@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "policy": {
+    "quorum": { "required": 1, "total": 1 },
+    "rotation_notice_min_days": 7
+  },
+  "anchors": [
+    {
+      "id": "btc-2025-01",
+      "type": "btc_p2tr",
+      "pub": "bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c",
+      "notes": "Primary BTC anchor for provenance attestations"
+    }
+  ],
+  "revoked_anchors": [],
+  "events": [
+    {
+      "ts_utc": "2025-08-13T00:00:00Z",
+      "type": "init",
+      "prev_content_hash": null,
+      "content_hash": "<sha256-of-this-file-after-save>",
+      "notes": "Initialize anchor set for TEOF v1.5"
+    }
+  ]
+}
