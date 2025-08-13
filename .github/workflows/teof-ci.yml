@@ -88,28 +88,107 @@ jobs:
               sys.exit(1)
           PY
 
-      - name: Validate anchors/immutable.json
+      - name: Validate anchors/immutable.json (schema, sha, cross-check v1.5)
         run: |
           if [ ! -f anchors/immutable.json ]; then
             echo "::error ::missing anchors/immutable.json"
             exit 1
           fi
           python - <<'PY'
-          import json, hashlib, sys, pathlib
-          p = pathlib.Path("anchors/immutable.json")
+          import json, hashlib, sys, pathlib, subprocess
+
+          repo = pathlib.Path(".")
+          p = repo/"anchors"/"immutable.json"
           try:
               data = json.loads(p.read_text())
           except Exception as e:
               print(f"::error ::Invalid JSON in {p}: {e}")
               sys.exit(1)
+
+          # Basic schema checks
           if not isinstance(data.get("anchors"), list):
               print("::error ::anchors must be a list")
               sys.exit(1)
-          btc = [a for a in data["anchors"] if a.get("type","").startswith("btc")]
-          if not btc:
-              print("::warning ::no BTC anchor found in anchors/immutable.json")
+          if not isinstance(data.get("releases"), list):
+              print("::error ::releases must be a list")
+              sys.exit(1)
+
+          # Print current file hash (useful for filling content_hash field)
           h = hashlib.sha256(p.read_bytes()).hexdigest()
           print(f"anchors/immutable.json sha256={h}")
+
+          # Soft-validate content_hash (warn if present and mismatched)
+          try:
+              events = data.get("events", [])
+              if events and isinstance(events[-1], dict):
+                  ch = events[-1].get("content_hash")
+                  if ch and isinstance(ch, str) and not ch.startswith("<"):
+                      if ch != h:
+                          print("::warning ::events[-1].content_hash does not match current file hash")
+          except Exception:
+              pass
+
+          # Cross-check v1.5 artifacts vs capsule/v1.5/hashes.json
+          hj_path = repo/"capsule"/"v1.5"/"hashes.json"
+          if hj_path.exists():
+              try:
+                  hj = json.loads(hj_path.read_text())
+              except Exception as e:
+                  print(f"::error ::Invalid JSON in {hj_path}: {e}")
+                  sys.exit(1)
+              # derive expected artifacts from hashes.json (only the three public ones)
+              expected = {
+                  "capsule/v1.5/capsule-mini.txt": hj.get("capsule/v1.5/capsule-mini.txt"),
+                  "capsule/v1.5/capsule-handshake.txt": hj.get("capsule/v1.5/capsule-handshake.txt"),
+                  "capsule/v1.5/capsule-selfreconstructing.txt": hj.get("capsule/v1.5/capsule-selfreconstructing.txt"),
+              }
+              # find a release entry that matches v1.5
+              rels = [r for r in data["releases"] if isinstance(r.get("version"), str) and r["version"].startswith("v1.5")]
+              if not rels:
+                  print("::warning ::no v1.5 release found in anchors/immutable.json")
+              else:
+                  r = rels[0]
+                  artlist = {a.get("path"): a.get("sha256") for a in r.get("artifacts", [])}
+                  mism = []
+                  for path, want in expected.items():
+                      if want and (artlist.get(path) != want):
+                          mism.append(path)
+                  if mism:
+                      print("::error ::anchors/immutable.json v1.5 artifacts do not match capsule/v1.5/hashes.json:")
+                      for m in mism:
+                          print(f"   - {m}")
+                      sys.exit(1)
+                  else:
+                      print("OK  anchors/immutable.json v1.5 artifacts match hashes.json")
+          else:
+              print("::warning ::capsule/v1.5/hashes.json missing; skipped cross-check")
+
+          # Append-only check for events (prefix property), if previous exists
+          def git_show(pathspec):
+              try:
+                  out = subprocess.check_output(["git","show",pathspec], stderr=subprocess.STDOUT, text=True)
+                  return out
+              except Exception:
+                  return None
+
+          prev = git_show("HEAD^:anchors/immutable.json")
+          if prev:
+              try:
+                  prev_data = json.loads(prev)
+                  prev_events = prev_data.get("events", [])
+                  curr_events = data.get("events", [])
+                  if isinstance(prev_events, list) and isinstance(curr_events, list):
+                      if len(curr_events) < len(prev_events) or prev_events != curr_events[:len(prev_events)]:
+                          # Enforce only if policy.append_only is true
+                          if data.get("policy", {}).get("append_only", True):
+                              print("::error ::events are not append-only compared to previous commit")
+                              sys.exit(1)
+                          else:
+                              print("::warning ::events are not append-only (policy.append_only=false)")
+              except Exception:
+                  print("::warning ::could not compare previous anchors/immutable.json for append-only check")
+          else:
+              print("No previous anchors/immutable.json found; append-only check skipped.")
           PY
 
       - name: Check for macOS .DS_Store
