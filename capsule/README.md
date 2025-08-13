@@ -8,6 +8,7 @@ This README is versionless and does not require edits when new versions are rele
 - [capsule-mini.txt](./current/capsule-mini.txt) — minimal seed
 - [capsule-selfreconstructing.txt](./current/capsule-selfreconstructing.txt) — full self-reconstructing body
 - [capsule-handshake.txt](./current/capsule-handshake.txt) — deterministic Mini → Full expansion
+- [teof-shim.md](./current/teof-shim.md) — runtime rules for LLMs (determinism, Precedence, O–C–E–R–S)
 
 ## Integrity & provenance
 - [hashes.json](./current/hashes.json) — SHA-256 digests (source of truth for bytes)
@@ -24,4 +25,5 @@ This README is versionless and does not require edits when new versions are rele
 
 ---
 
+**Runtime quick start:** Load `./current/capsule-mini.txt` + `./current/teof-shim.md` with temperature=0.  
 **Maintenance note:** To publish a new version, create `capsule/vX.Y/…` and repoint the `capsule/current` symlink to the new folder. No README edits are required.
