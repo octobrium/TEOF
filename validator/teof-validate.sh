@@ -10,7 +10,7 @@ for i in 1 2 3; do
   echo "$PROMPT" > "$tmp/prompt.txt"
   # --- BEGIN: user-integrator should swap this for their runtime ----
   # Simulate a model call by reading a file or echo (placeholder)
-  cp ./sample_outputs/ocers_ok.json "$tmp/out$i.txt"
+  cp validator/sample_outputs/ocers_ok.json "$tmp/out$i.txt"
   # --- END -----------------------------------------------------------
   cat > "$tmp/runmeta$i.json" <<JSON
 {"model":"$MODEL","runner_digest":"$RUNNER","temp":"0"}
