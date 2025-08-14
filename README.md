@@ -49,6 +49,7 @@ Adoption accelerates when actors—human or agentic—recognize that preserving 
   - Validates presence and non-emptiness of O–C–E–R–S fields.
   - Includes SAMPLE mode harness for deterministic triple-run checks.
   - Designed as a non-doctrinal extension of TEOF.
+- [TEOF Scoring System (v0.1)](scoring/README.md) — Simple 0–100 score over validated OCERS.
 
 ---
 
