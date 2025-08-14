@@ -45,11 +45,11 @@ Adoption accelerates when actors—human or agentic—recognize that preserving 
 - [TEOF Alignment Protocol (TAP)](alignment-protocol/TAP.md) — Testing and maintaining systemic alignment.  
 
 ### **Tools & Extensions**
-- [OCERS Validator (v0.1)](validator/README.md) — Minimal, deterministic OCERS shape checker.  
+- [OCERS Validator (v0.1)](extensions/validator/README.md) — Minimal, deterministic OCERS shape checker.  
   - Validates presence and non-emptiness of O–C–E–R–S fields.
   - Includes SAMPLE mode harness for deterministic triple-run checks.
   - Designed as a non-doctrinal extension of TEOF.
-- [TEOF Scoring System (v0.1)](validator/scoring/README.md)
+- [TEOF Scoring System (v0.1)](extensions/scoring/README.md)
 
 ---
 
