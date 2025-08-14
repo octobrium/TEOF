@@ -50,6 +50,18 @@ Adoption accelerates when actors—human or agentic—recognize that preserving 
   - Includes SAMPLE mode harness for deterministic triple-run checks.
   - Designed as a non-doctrinal extension of TEOF.
 - [TEOF Scoring System (v0.1)](extensions/scoring/README.md)
+  
+### Quick CLI (validate / score / from URL)
+```bash
+# validate + score a file
+python3 extensions/cli/teof_eval.py validate --input extensions/validator/sample_outputs/ocers_ok.json
+python3 extensions/cli/teof_eval.py score    --input extensions/validator/sample_outputs/ocers_ok.json
+
+# build OCERS from a URL (no model calls), then validate+score
+python3 extensions/cli/teof_eval.py from-url --url https://example.com/article
+# optional: plug in your own generator (reads page text on stdin, prints OCERS JSON)
+python3 extensions/cli/teof_eval.py from-url --url https://example.com/article \
+  --generator-cmd "python3 my_llm_wrapper.py"
 
 ---
 
