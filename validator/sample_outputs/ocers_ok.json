@@ -1,0 +1,8 @@
+{
+  "O": "Observation — concise, faithful summary of the content.",
+  "C": "Coherence — how it follows from the core and stays non-contradictory.",
+  "E": "Evidence — concrete quotes, data, or references used.",
+  "R": "Risk — failure modes, ambiguity, or confounders.",
+  "S": "Steps — actionable next moves or tests.",
+  "OpenQuestions": ""
+}
