@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TEOF OCERS",
+  "type": "object",
+  "required": ["O","C","E","R","S"],
+  "properties": {
+    "O": {"type":"string", "minLength": 1},
+    "C": {"type":"string", "minLength": 1},
+    "E": {"type":"string", "minLength": 1},
+    "R": {"type":"string", "minLength": 1},
+    "S": {"type":"string", "minLength": 1},
+    "OpenQuestions": {"type":"string"}
+  },
+  "additionalProperties": false
+}
