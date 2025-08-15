@@ -1,14 +1,10 @@
 #!/bin/bash
-# URL/File → OCERS → Validate → Score (macOS)
-# Requires: Python 3. For URL fallback: pip3 install requests beautifulsoup4
+# URL/File → OCERS → Validate → Score (macOS, venv-first)
 
 set -euo pipefail
 
 # ---------------------------------------
-# 0) Locate TEOF repo root
-#    - honor $TEOF_REPO from wrapper
-#    - else auto-detect by walking up until we find capsule/
-#    - else last-resort: ask for folder (no 'else' AppleScript)
+# 0) Locate TEOF repo root (TEOF_REPO > walk-up > choose-folder)
 # ---------------------------------------
 if [ -n "${TEOF_REPO:-}" ] && [ -d "$TEOF_REPO" ]; then
   REPO="$TEOF_REPO"
@@ -27,15 +23,41 @@ fi
 cd "$REPO" || { echo "Invalid repo path: $REPO"; exit 1; }
 
 # ---------------------------------------
-# 1) Inputs
-#    We allow CLI args to avoid dialogs:
-#      $1 = input (URL or file path)
-#      $2 = generator name/cmd hint (e.g. local-sample/local-advanced/remote-ai or full command)
+# 1) Python resolver: venv > HB 3.11 > system
+#    Auto-bootstraps venv with baseline deps for URL mode.
+# ---------------------------------------
+ensure_venv() {
+  if [ ! -x ".venv/bin/python" ]; then
+    if [ -x "/opt/homebrew/bin/python3.11" ]; then
+      /opt/homebrew/bin/python3.11 -m venv .venv
+    else
+      python3 -m venv .venv
+    fi
+    ./.venv/bin/python -m pip install -U pip >/dev/null
+    if [ -f "extensions/requirements.txt" ]; then
+      ./.venv/bin/pip install -r extensions/requirements.txt >/dev/null
+    else
+      ./.venv/bin/pip install requests beautifulsoup4 >/dev/null
+    fi
+  fi
+}
+
+if [ -d ".venv" ]; then
+  ensure_venv
+  PY="./.venv/bin/python"
+elif [ -x "/opt/homebrew/bin/python3.11" ]; then
+  PY="/opt/homebrew/bin/python3.11"
+else
+  PY="python3"
+fi
+
+# ---------------------------------------
+# 2) Inputs (CLI args optional)
+#    $1 = input (URL or file path), $2 = generator hint or command
 # ---------------------------------------
 ARG_INPUT="${1:-}"
 ARG_GEN="${2:-}"
 
-# If no input arg, ask in bash (no AppleScript 'else')
 if [[ -z "$ARG_INPUT" ]]; then
   echo "Select input type:"
   echo "1) URL"
@@ -45,32 +67,35 @@ if [[ -z "$ARG_INPUT" ]]; then
     read -r -p "Enter the URL: " ARG_INPUT
     [[ -z "$ARG_INPUT" ]] && { echo "No URL provided."; exit 0; }
   elif [[ "$CHOICE" == "2" ]]; then
-    ARG_INPUT="$(/usr/bin/osascript -e 'POSIX path of (choose file with prompt "Select a source file (we'\''ll read text and build OCERS):")')" || { echo "Canceled."; exit 0; }
+    ARG_INPUT="$(/usr/bin/osascript -e 'POSIX path of (choose file with prompt "Select a source file (text will be extracted and turned into OCERS):")')" || { echo "Canceled."; exit 0; }
     [[ -z "$ARG_INPUT" ]] && { echo "No file selected."; exit 0; }
   else
     echo "Invalid choice."; exit 1
   fi
 fi
 
-# If no generator arg, ask in bash (safe)
 if [[ -z "$ARG_GEN" ]]; then
   echo "Select generator:"
   select ARG_GEN in "local-sample" "local-advanced" "remote-ai"; do
-    case "$REPLY" in
-      1|2|3) break ;;
-      *) echo "Enter 1, 2, or 3." ;;
-    esac
+    case "$REPLY" in 1|2|3) break ;; *) echo "Enter 1, 2, or 3." ;; esac
   done
 fi
 
 # ---------------------------------------
-# 2) Paths & helpers
+# 3) Paths & helpers
 # ---------------------------------------
 TS="$(date -u +"%Y%m%dT%H%M%SZ")"
 OUT_DIR="extensions/scoring/out"
 mkdir -p "$OUT_DIR"
 OUT="$OUT_DIR/ocers_${TS}.json"
-COMMIT_SHA="$(git rev-parse --short HEAD 2>/dev/null || echo local)"
+COMMIT_SHA="$("$PY" - <<'PY' 2>/dev/null || echo local
+import subprocess, sys
+try:
+    print(subprocess.check_output(["git","rev-parse","--short","HEAD"], stderr=subprocess.DEVNULL).decode().strip())
+except Exception:
+    print("local")
+PY
+)"
 
 EVAL_CLI="extensions/cli/teof_eval.py"
 VALIDATOR_PY="validator/teof_validator.py"
@@ -81,8 +106,8 @@ have_validator() { [ -f "$VALIDATOR_PY" ]; }
 have_scorer()    { [ -f "$SCORER_PY" ]; }
 
 run_validate_and_score_with_cli () {
-  python3 "$EVAL_CLI" validate --input "$OUT" --commit "$COMMIT_SHA"
-  python3 "$EVAL_CLI" score    --input "$OUT" --commit "$COMMIT_SHA"
+  "$PY" "$EVAL_CLI" validate --input "$OUT" --commit "$COMMIT_SHA"
+  "$PY" "$EVAL_CLI" score    --input "$OUT" --commit "$COMMIT_SHA"
 }
 
 run_validate_and_score_fallback () {
@@ -92,28 +117,22 @@ run_validate_and_score_fallback () {
     echo "  scorer   : $SCORER_PY   (exists: $(have_scorer && echo yes || echo no))"
     exit 1
   fi
-  # runmeta is optional; pass /dev/null
-  python3 "$VALIDATOR_PY" --input "$OUT" --runmeta /dev/null --commit "$COMMIT_SHA" || true
-  python3 "$SCORER_PY"    --input "$OUT" --commit "$COMMIT_SHA"
+  "$PY" "$VALIDATOR_PY" --input "$OUT" --runmeta /dev/null --commit "$COMMIT_SHA" || true
+  "$PY" "$SCORER_PY"    --input "$OUT" --commit "$COMMIT_SHA"
 }
 
-# Choose a generator command based on hint
 resolve_gen_cmd () {
   local hint="$1"
-  # If the hint looks like a full command, just return it
-  if [[ "$hint" == *"python"* || "$hint" == *"ollama"* || "$hint" == *"http"* || "$hint" == *" "*
-     ]]; then
-    echo "$hint"; return
-  fi
+  # If looks like a concrete command, use as-is
+  if [[ "$hint" == *"python"* || "$hint" == *"ollama"* || "$hint" == *" "*
+     ]]; then echo "$hint"; return; fi
   case "$hint" in
     local-sample|local-advanced|remote-ai)
       if [ -f "extensions/cli/generators/hybrid_gen.py" ]; then
-        # Pass the hint to hybrid_gen.py so it can branch internally if desired
-        echo "python3 extensions/cli/generators/hybrid_gen.py --profile \"$hint\""
+        echo "\"$PY\" extensions/cli/generators/hybrid_gen.py --profile \"$hint\""
       else
-        # Heuristic fallback
         cat <<'PY'
-python3 - <<PY
+python - <<PY
 import sys, json, re
 text=sys.stdin.read()
 paras=[p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
@@ -134,38 +153,33 @@ PY
 PY
       fi
       ;;
-    *)
-      # Unknown hint -> try as command
-      echo "$hint"
-      ;;
+    *) echo "$hint" ;;
   esac
 }
 
 GEN_CMD="$(resolve_gen_cmd "$ARG_GEN")"
 
 # ---------------------------------------
-# 3) Build OCERS from URL or File
+# 4) Build OCERS from URL or File
 # ---------------------------------------
 if [[ "$ARG_INPUT" =~ ^https?:// ]]; then
-  # URL path
   if have_eval_cli; then
-    python3 "$EVAL_CLI" from-url \
+    "$PY" "$EVAL_CLI" from-url \
       --url "$ARG_INPUT" \
       --output "$OUT" \
       --commit "$COMMIT_SHA" \
       --generator-cmd "$GEN_CMD"
     run_validate_and_score_with_cli
   else
-    # Fallback: fetch & extract text, then run generator
-    python3 - <<'PY' || { echo "Install deps for URL mode: pip3 install requests beautifulsoup4"; exit 1; }
+    # Ensure deps exist for URL fallback
+    "$PY" - <<'PY' || { echo "Install deps in venv or extensions/requirements.txt"; exit 1; }
 try:
-    import requests, bs4
+    import requests, bs4  # type: ignore
 except Exception:
     raise SystemExit(1)
 print("deps-ok")
 PY
-
-    PAGE_TXT="$(python3 - <<PY
+    PAGE_TXT="$("$PY" - <<PY
 import sys, requests, bs4
 url = sys.argv[1]
 r = requests.get(url, timeout=20)
@@ -182,11 +196,8 @@ TXT'
     run_validate_and_score_fallback
   fi
 else
-  # File path
   FILE_PATH="$ARG_INPUT"
-  if [ ! -f "$FILE_PATH" ]; then
-    echo "File not found: $FILE_PATH"; exit 1
-  fi
+  if [ ! -f "$FILE_PATH" ]; then echo "File not found: $FILE_PATH"; exit 1; fi
   if file -b "$FILE_PATH" | grep -qi 'text'; then
     CONTENT_CMD=(/bin/cat "$FILE_PATH")
   else
@@ -199,20 +210,14 @@ else
   fi
   "${CONTENT_CMD[@]}" | /bin/bash -lc "$GEN_CMD" > "$OUT"
   echo "Wrote OCERS to $OUT"
-  if have_eval_cli; then
-    run_validate_and_score_with_cli
-  else
-    run_validate_and_score_fallback
-  fi
+  if have_eval_cli; then run_validate_and_score_with_cli; else run_validate_and_score_fallback; fi
 fi
 
 echo
 echo "✓ Finished."
 echo "Output OCERS: $OUT"
 if have_eval_cli; then
-  echo "Re-run scoring:"
-  echo "  python3 $EVAL_CLI score --input \"$OUT\" --commit \"$COMMIT_SHA\""
+  echo "Re-run scoring: \"$PY\" $EVAL_CLI score --input \"$OUT\" --commit \"$COMMIT_SHA\""
 else
-  echo "Re-run scoring:"
-  echo "  python3 $SCORER_PY --input \"$OUT\" --commit \"$COMMIT_SHA\""
+  echo "Re-run scoring: \"$PY\" $SCORER_PY --input \"$OUT\" --commit \"$COMMIT_SHA\""
 fi

@@ -1,2 +1,4 @@
 .DS_Store
 *.command
+.venv/bin/activate
+/.venv
