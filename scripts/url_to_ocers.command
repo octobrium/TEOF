@@ -35,15 +35,18 @@ fi
 
 # --- generator menu ---
 echo "Select generator:"
-select GENERATOR in "local-sample" "local-advanced" "remote-ai"; do
-  case "$REPLY" in
-    1|2|3) break ;;
-    *) echo "Enter 1, 2, or 3." ;;
-  esac
-done
+echo "1) local–sample (heuristic, no LLM)"
+echo "2) local–advanced (hybrid_gen.py)"
+echo "3) remote–ai (hybrid_gen.py —llm-cmd …)"
+read -rp "Enter 1, 2, or 3: " gch
+case "$gch" in
+  1) GENERATOR="local-sample" ;;
+  2) GENERATOR="local-advanced" ;;
+  3) GENERATOR="remote-ai" ;;
+  *) echo "Invalid choice"; read -rp "Press Return to close… " _; exit 1 ;;
+esac
 
-# --- call the real worker ---
-export TEOF_REPO="$TEOF_ROOT"
+# --- call the real worker (INPUT first, then GENERATOR) ---
 /bin/bash "$TEOF_ROOT/scripts/url_to_ocers.sh" "$INPUT" "$GENERATOR"
 
 read -rp "Done. Press Return to close… " _
