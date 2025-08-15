@@ -1,171 +1,180 @@
-#!/bin/bash
-# URL/File → OCERS → Validate → Score
+#!/usr/bin/env python3
+"""
+URL/File → OCERS → Validate → Score (deterministic, extractor-first)
+- Generators:
+  * sample (heuristic, local)
+  * advanced (calls hybrid_gen.py)
+  * remote-ai (calls hybrid_gen.py with --llm-cmd; set via --llm-cmd or $TEOF_LLM_CMD)
+"""
 
-set -euo pipefail
+from __future__ import annotations
+import argparse, json, os, re, subprocess, sys, time, pathlib
+from typing import Optional
+from extractors import extract as extract_url  # same dir import
 
-# ---- locate TEOF root by walking up until 'capsule' exists ----
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-TEOF_ROOT="$SCRIPT_DIR"
-while [ ! -d "$TEOF_ROOT/capsule" ] && [ "$TEOF_ROOT" != "/" ]; do
-  TEOF_ROOT="$(dirname "$TEOF_ROOT")"
-done
-if [ ! -d "$TEOF_ROOT/capsule" ]; then
-  echo "❌ Could not find TEOF root (missing 'capsule' folder)."
-  exit 1
-fi
+REPO = pathlib.Path(__file__).resolve().parents[2]  # repo root (…/TEOF)
 
-# ---- pick python ----
-PY="$TEOF_ROOT/.venv/bin/python"
-if [ ! -x "$PY" ]; then PY="$(command -v python3 || true)"; fi
-if [ -z "${PY:-}" ]; then echo "❌ python3 not found"; exit 1; fi
+OUT_DIR = REPO / "extensions" / "scoring" / "out"
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# ---- args ----
-INPUT="${1:-}"
-GENERATOR="${2:-local-sample}"  # local-sample | local-advanced | remote-ai
+def now_iso() -> str:
+    import datetime as dt
+    return dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
 
-# If the user’s wrapper ever passes args in reverse, fix it:
-if [[ -z "${INPUT}" && "${GENERATOR:-}" =~ ^https?:// ]]; then
-  INPUT="$GENERATOR"
-  GENERATOR="local-sample"
-fi
+def commit_short() -> str:
+    try:
+        return subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=REPO).decode().strip()
+    except Exception:
+        return "local"
 
-MODE="file"
-if [[ "${INPUT}" =~ ^https?:// ]]; then MODE="url"; fi
+# ---------- Generators ----------
+def sample_generator(text: str) -> dict:
+    # Minimal, deterministic heuristic to fill OCERS.
+    paras = [p.strip() for p in re.split(r"\n\s*\n+", text) if p.strip()]
+    O = paras[0][:400] if paras else ""
+    C = "\n".join(paras[1:3])[:800] if len(paras) > 1 else ""
 
-TS="$(date -u +"%Y%m%dT%H%M%SZ")"
-OUT_DIR="$TEOF_ROOT/extensions/scoring/out"
-mkdir -p "$OUT_DIR"
-OUT="$OUT_DIR/ocers_${TS}.json"
+    nums = re.findall(r"\b\d[\d,.\%]*\b", text)
+    links = re.findall(r"https?://\S+", text)
+    quotes = re.findall(r"[“\"']([^”\"']{12,280})[”\"']", text)
 
-echo "→ Repo:    $TEOF_ROOT"
-echo "→ Python:  $PY"
-echo "→ Mode:    $MODE  | Generator: $GENERATOR"
-echo "→ Output:  $OUT"
+    E_lines = []
+    if nums:   E_lines.append("numbers: " + ", ".join(nums[:8]))
+    if links:  E_lines.append("links:\n- " + "\n- ".join(links[:6]))
+    if quotes: E_lines.append("quotes:\n- " + "\n- ".join(quotes[:4]))
+    E = "\n".join(E_lines)[:1200]
 
-TMP="$(mktemp -d)"
-RAW_TXT="$TMP/raw.txt"
-RUNMETA="$TMP/runmeta.json"
+    R = "Assumptions may be present; verify primary sources; identify counterpoints."
+    S = "1) Verify key facts via ≥2 sources.\n2) Extract core numbers/dates.\n3) Summarize risks and next steps."
 
-# ---- get raw text ----
-if [ "$MODE" = "url" ]; then
-  # require requests/bs4
-  if ! "$PY" - <<'PY' >/dev/null 2>&1
-try:
-    import requests, bs4  # type: ignore
-except Exception:
-    raise SystemExit(1)
-PY
-  then
-    echo "❌ URL mode needs requests + beautifulsoup4"
-    echo "   $TEOF_ROOT/.venv/bin/pip install requests beautifulsoup4"
-    exit 1
-  fi
+    return {"O": O, "C": C, "E": E, "R": R, "S": S}
 
-  # NOTE: pass the URL as argv[1] to the heredoc by using `python - "$INPUT"`
-  "$PY" - "$INPUT" <<'PY' > "$RAW_TXT"
-import sys, re
-import requests
-from bs4 import BeautifulSoup
+def run_hybrid(text: str, llm_cmd: Optional[str]) -> dict:
+    gen = REPO / "extensions" / "cli" / "generators" / "hybrid_gen.py"
+    if not gen.exists():
+        raise RuntimeError("advanced/remote generators require extensions/cli/generators/hybrid_gen.py")
+    cmd = ["python3", str(gen)]
+    if llm_cmd:
+        cmd += ["--llm-cmd", llm_cmd]
+    p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    out, err = p.communicate(text)
+    if p.returncode != 0:
+        raise RuntimeError(f"generator failed: {err.strip()[:400]}")
+    try:
+        return json.loads(out)
+    except Exception as e:
+        raise RuntimeError(f"generator produced invalid JSON: {e}")
 
-url = sys.argv[1] if len(sys.argv) > 1 else ""
-if not url:
-    sys.exit("no url")
+# ---------- IO helpers ----------
+def write_json(path: pathlib.Path, obj: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=2)
 
-try:
-    resp = requests.get(url, timeout=20, headers={"User-Agent":"Mozilla/5.0"})
-    resp.raise_for_status()
-except Exception as e:
-    sys.exit(f"fetch error: {e}")
+def read_text_file(path: pathlib.Path) -> str:
+    typ = subprocess.check_output(["file", "-b", str(path)]).decode().lower()
+    if "text" in typ or path.suffix.lower() in {".txt", ".md"}:
+        return path.read_text(encoding="utf-8", errors="replace")
+    # best-effort: use macOS textutil if available
+    if shutil.which("textutil"):
+        import tempfile, shutil as _sh
+        with tempfile.NamedTemporaryFile(delete=False) as tmp:
+            tmp_path = pathlib.Path(tmp.name)
+        try:
+            subprocess.check_call(["textutil", "-convert", "txt", "-stdout", str(path)], stdout=open(tmp_path, "wb"))
+            return tmp_path.read_text(encoding="utf-8", errors="replace")
+        finally:
+            try: tmp_path.unlink()
+            except Exception: pass
+    # fallback
+    return path.read_text(encoding="utf-8", errors="replace")
 
-soup = BeautifulSoup(resp.text, "html.parser")
-for t in soup(["script","style","noscript"]): t.decompose()
-text = soup.get_text("\n")
-text = re.sub(r'\n{3,}', '\n\n', text).strip()
-print(text)
-PY
+# ---------- Validator / Score ----------
+def run_validator(ocers_path: pathlib.Path, commit: str) -> int:
+    vpath = REPO / "validator" / "teof_validator.py"
+    runmeta = OUT_DIR / "runmeta.json"
+    write_json(runmeta, {"model": "local-sample", "runner_digest": "cli", "temp": "0"})
+    p = subprocess.run(["python3", str(vpath),
+                        "--input", str(ocers_path),
+                        "--runmeta", str(runmeta),
+                        "--commit", commit])
+    return p.returncode
 
-else
-  # file path
-  if [ ! -f "$INPUT" ]; then
-    echo "Error reading url. The file doesn’t exist."
-    rm -rf "$TMP"; exit 1
-  fi
-  if file -b "$INPUT" | grep -qi 'text'; then
-    cat "$INPUT" > "$RAW_TXT"
-  elif command -v textutil >/dev/null 2>&1; then
-    textutil -convert txt -stdout "$INPUT" > "$RAW_TXT" || cp "$INPUT" "$RAW_TXT"
-  else
-    cat "$INPUT" > "$RAW_TXT"
-  fi
-fi
+def run_score(ocers_path: pathlib.Path, commit: str) -> int:
+    spath = REPO / "extensions" / "scoring" / "teof_score.py"
+    p = subprocess.run(["python3", str(spath),
+                        "--input", str(ocers_path),
+                        "--commit", commit])
+    return p.returncode
 
-# ---- generators ----
-gen_local_sample () {
-  "$PY" - <<'PY'
-import sys, json, re
-text = sys.stdin.read()
-paras = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
-O = paras[0][:400] if paras else ""
-C = "\n".join(paras[1:3])[:800] if len(paras) > 1 else ""
-nums   = re.findall(r"\b\d[\d,.\%]*\b", text)
-links  = re.findall(r"https?://\S+", text)
-quotes = re.findall(r"[\"“']([^\"”']{12,280})[\"”']", text)
-E_parts = []
-if nums:   E_parts.append("numbers: " + ", ".join(nums[:6]))
-if links:  E_parts.append("links:\n- " + "\n- ".join(links[:5]))
-if quotes: E_parts.append("quotes:\n- " + "\n- ".join(quotes[:4]))
-E = "\n".join(E_parts)[:1200]
-R = "Assumptions/biases may be present; verify sources; note counterpoints."
-S = "1) Verify key facts from ≥2 sources.\n2) Extract core numbers/dates.\n3) Summarize risks and next steps."
-print(json.dumps({"O":O,"C":C,"E":E,"R":R,"S":S}, indent=2))
-PY
-}
+# ---------- Main pipeline ----------
+def main() -> int:
+    ap = argparse.ArgumentParser(description="URL/File → OCERS → validate → score")
+    src = ap.add_mutually_exclusive_group(required=True)
+    src.add_argument("--url", help="URL to fetch")
+    src.add_argument("--file", help="Path to local text/doc file")
 
-gen_local_advanced () {
-  if [ -f "$TEOF_ROOT/extensions/cli/generators/hybrid_gen.py" ]; then
-    "$PY" "$TEOF_ROOT/extensions/cli/generators/hybrid_gen.py" || return 1
-  else
-    return 1
-  fi
-}
+    ap.add_argument("--generator", choices=["sample","advanced","remote-ai"], default="sample")
+    ap.add_argument("--llm-cmd", help="LLM command for remote-ai (or set $TEOF_LLM_CMD)")
+    ap.add_argument("--output", help="Explicit output path (.json). If omitted, uses timestamp in extensions/scoring/out/")
+    ap.add_argument("--commit", default=commit_short())
+    args = ap.parse_args()
 
-gen_remote_ai () {
-  if [ -f "$TEOF_ROOT/extensions/cli/generators/hybrid_gen.py" ]; then
-    "$PY" "$TEOF_ROOT/extensions/cli/generators/hybrid_gen.py" --llm-cmd "ollama run llama3.1" || return 1
-  else
-    return 1
-  fi
-}
+    ts = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+    out = pathlib.Path(args.output) if args.output else (OUT_DIR / f"ocers_{ts}.json")
 
-GEN_OK=0
-case "$GENERATOR" in
-  local-sample)   cat "$RAW_TXT" | gen_local_sample   > "$OUT" || GEN_OK=1 ;;
-  local-advanced) cat "$RAW_TXT" | gen_local_advanced > "$OUT" || GEN_OK=1 ;;
-  remote-ai)      cat "$RAW_TXT" | gen_remote_ai      > "$OUT" || GEN_OK=1 ;;
-  *) echo "unknown generator '$GENERATOR'"; GEN_OK=1 ;;
-esac
+    # 1) Get text
+    if args.url:
+        try:
+            ext = extract_url(args.url)
+        except Exception as e:
+            print(f"ERROR: extraction failed: {e}", file=sys.stderr)
+            return 2
+        text = ext.text
+        meta = {
+            "source": "url",
+            "url": ext.url,
+            "title": ext.title,
+            "extractor": ext.extractor,
+            "confidence": ext.confidence,
+            "text_sha256": ext.sha256,
+            "content_sha256": ext.meta.get("content_sha256"),
+            "links": ext.links[:16],
+        }
+    else:
+        p = pathlib.Path(args.file).expanduser()
+        if not p.exists():
+            print("ERROR: file not found", file=sys.stderr); return 2
+        text = read_text_file(p)
+        meta = {"source": "file", "path": str(p.resolve())}
 
-if [ $GEN_OK -ne 0 ]; then
-  echo "⚠️generator failed — falling back to local-sample heuristic…"
-  cat "$RAW_TXT" | gen_local_sample > "$OUT"
-fi
+    if not text.strip():
+        print("ERROR: empty text after extraction", file=sys.stderr)
+        return 2
 
-echo "ok"
+    # 2) Generate OCERS
+    ocers = None
+    try:
+        if args.generator == "sample":
+            ocers = sample_generator(text)
+        else:
+            llm_cmd = args.llm_cmd or os.getenv("TEOF_LLM_CMD")
+            ocers = run_hybrid(text, llm_cmd if args.generator == "remote-ai" else None)
+    except Exception as e:
+        print(f"⚠ generator failed ({e}). Falling back to local sample…", file=sys.stderr)
+        ocers = sample_generator(text)
 
-# ---- validate + score ----
-cat > "$RUNMETA" <<JSON
-{"model":"$GENERATOR","runner_digest":"cli","temp":"0"}
-JSON
+    # 3) Write + provenance
+    payload = {**ocers, "OpenQuestions": ""}
+    write_json(out, payload)
+    print(f"Wrote OCERS → {out}")
 
-VAL="$TEOF_ROOT/extensions/validator/teof_validator.py"
-if [ ! -f "$VAL" ]; then VAL="$TEOF_ROOT/validator/teof_validator.py"; fi
-COMMIT_SHA="$(git -C "$TEOF_ROOT" rev-parse --short HEAD 2>/dev/null || echo local)"
+    # 4) Validate + score
+    rc_v = run_validator(out, args.commit)
+    rc_s = run_score(out, args.commit)
+    return 0 if rc_v == 0 else 1
 
-"$PY" "$VAL" --input "$OUT" --runmeta "$RUNMETA" --commit "$COMMIT_SHA" || true
 
-SCORE="$TEOF_ROOT/extensions/scoring/teof_score.py"
-if [ -f "$SCORE" ]; then
-  "$PY" "$SCORE" --input "$OUT" --commit "$COMMIT_SHA" || true
-fi
-
-rm -rf "$TMP"
+if __name__ == "__main__":
+    import shutil
+    sys.exit(main())
