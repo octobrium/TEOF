@@ -5,7 +5,7 @@ TEOF Eval CLI (minimal)
 - score:    run OCERS scorer on a file
 - from-url: fetch a URL, extract text, produce a starter OCERS (or call your generator)
 """
-import argparse, sys, os, json, subprocess, datetime
+import argparse, sys, os, json, subprocess, datetime, re
 from typing import Optional
 
 # ---------- utils ----------
@@ -65,7 +65,6 @@ def extract_text_from_url(url: str) -> str:
         trafilatura = None  # optional
 
     try:
-        # 1) Prefer trafilatura: resilient fetcher & cleaner
         if trafilatura is not None:
             downloaded = trafilatura.fetch_url(url, no_ssl=True)
             if downloaded:
@@ -79,10 +78,9 @@ def extract_text_from_url(url: str) -> str:
                 if extracted and extracted.strip():
                     return extracted.strip()
     except Exception as e:
-        # Soft-fail and continue to fallback
         print(f"[extract] trafilatura fallback due to: {e}", file=sys.stderr)
 
-    # 2) Fallback: requests + readability with browser headers
+    # Fallback: requests + readability with browser headers
     try:
         import requests
         from bs4 import BeautifulSoup
@@ -108,7 +106,7 @@ def extract_text_from_url(url: str) -> str:
     html_main = doc.summary() or resp.text
     text = BeautifulSoup(html_main, "lxml").get_text("\n")
 
-    # Compact multiple blank lines to single
+    # Collapse multiple blank lines
     lines = [ln.strip() for ln in text.splitlines()]
     keep = []
     for ln in lines:
@@ -121,10 +119,20 @@ def extract_text_from_url(url: str) -> str:
 
 # ---------- OCERS helpers ----------
 def starter_ocers_from_text(text: str) -> dict:
-    # Heuristic starter (user can edit, or use generator hook)
-    paras = [p for p in (text.split("\n\n")) if p.strip()]
+    """
+    Heuristic starter. Guarantees non-empty C by taking the next 1–2 paragraphs,
+    or falling back to the first paragraph if the page is very short.
+    """
+    paras = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+
     O = paras[0][:400] if paras else ""
-    C = "\n".join(paras[1:3])[:800] if len(paras) > 1 else ""
+    if len(paras) > 1:
+        C = "\n\n".join(paras[1:3])[:800]
+    else:
+        # backstop: reuse part of the first paragraph to avoid empty C
+        C = (paras[0][:400] if paras else "")
+
+    # Leave E/R/S empty unless generator fills; validator only requires C not empty
     E = ""
     R = ""
     S = ""
@@ -156,11 +164,20 @@ def from_url(url: str, output_path: str, generator_cmd: Optional[str], commit: s
                 try:
                     gen = json.loads(p.stdout)
                     if isinstance(gen, dict):
-                        ocers.update({k: str(gen.get(k, "")).strip() for k in ["O", "C", "E", "R", "S"]})
+                        # Only overwrite with non-empty values
+                        for k in ["O", "C", "E", "R", "S"]:
+                            v = (gen.get(k, "") or "").strip()
+                            if v:
+                                ocers[k] = v
                 except Exception as e:
                     print("Generator did not return valid JSON:", e, file=sys.stderr)
         except Exception as e:
             print("Generator execution error:", e, file=sys.stderr)
+
+    # FINAL SAFETY: if C still empty, back-fill from source text
+    if not ocers.get("C", "").strip():
+        paras = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+        ocers["C"] = "\n\n".join(paras[1:3])[:800] if len(paras) > 1 else (paras[0][:400] if paras else "Context unavailable.")
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w") as f:
