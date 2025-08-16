@@ -1,65 +1,87 @@
 #!/usr/bin/env python3
-import sys, json, re, hashlib, datetime, os, pathlib
+"""
+TEOF OCERS Minimal Heuristic Validator (v0.4)
+- Tuned for journalism: attribution ('said', 'according to'), multiple actors, numbers/dates
+- Keeps unicode normalization + lowercasing
+"""
+
+import sys, json, re, hashlib, datetime, os, pathlib, unicodedata
 
 def read_text(path):
     with open(path, "r", encoding="utf-8", errors="ignore") as f:
         return f.read()
 
-def score_observation(t):
-    hits = bool(re.search(r"\b(observation|observe|observer|perception|experience|measurement)\b", t, re.I))
-    anti_dogma = bool(re.search(r"\b(i might be wrong|unknown|uncertain|assumption)\b", t, re.I))
-    if hits and anti_dogma: return 5
-    if hits: return 4
-    if anti_dogma: return 3
-    return 1
+def norm_text(t: str) -> str:
+    t = unicodedata.normalize("NFKC", t)
+    t = re.sub(r"\s+", " ", t)
+    return t.lower().strip()
 
-def score_coherence(t):
-    contradictions = len(re.findall(r"\b(contradict|inconsistent)\b", t, re.I))
-    structure = bool(re.search(r"\b(therefore|thus|hence|premise|assume|conclude|implies)\b", t, re.I))
-    s = 3 + (1 if structure else 0) - min(2, contradictions)
+def count_patterns(t: str, patterns):
+    return sum(len(re.findall(p, t, re.I)) for p in patterns)
+
+# ------------ Scorers ------------
+
+def score_observation(t: str) -> int:
+    obs      = count_patterns(t, [r"\bobserv", r"\bmeasure", r"\bdata\b", r"\bevidence\b"])
+    humility = count_patterns(t, [r"\buncertain", r"\bassumption", r"\bmight\b", r"\bcould\b", r"\bwe recognize\b"])
+    attrib   = count_patterns(t, [r"\baccording to\b", r"\bsaid\b", r"\breported\b", r"\bcited\b", r"\banalysts?\b", r"\bpolicymakers?\b"])
+    quotes   = t.count('"') + t.count('“') + t.count('”')
+    s = 1 + min(2, obs) + min(2, humility)
+    # Journalism attribution/quotes count as observation signals
+    if attrib > 0: s += 1
+    if quotes >= 2: s += 1
     return max(1, min(5, s))
 
-def score_ethics(t):
-    pro = len(re.findall(r"\b(clarity|transparen|improv|coheren|truth)\w*\b", t, re.I))
-    con = len(re.findall(r"\b(manipulat|deceiv|obfuscat)\w*\b", t, re.I))
+def score_coherence(t: str) -> int:
+    logic = count_patterns(t, [r"\btherefore\b", r"\bthus\b", r"\bhence\b", r"\bconclude", r"\bbecause\b", r"\bpremise\b"])
+    contradictions = count_patterns(t, [r"\bcontradict", r"\binconsistent", r"\bparadox"])
+    s = 2 + min(2, logic) - min(2, contradictions)
+    # Neutral news often lists facts without formal logic; don't go below 3 if well-attributed
+    if count_patterns(t, [r"\bsaid\b", r"\baccording to\b"]) >= 2:
+        s = max(s, 3)
+    return max(1, min(5, s))
+
+def score_ethics(t: str) -> int:
+    pro = count_patterns(t, [r"\btransparen", r"\bethic", r"\bresponsib", r"\baccountab", r"\baudit", r"\bpublic\b", r"\bopen(-|\s)?source"])
+    con = count_patterns(t, [r"\bmanipulat", r"\bexploit", r"\bdeceiv", r"\bobfuscat", r"\bthey don'?t want you to know", r"\bdon'?t trust (government|media)"])
     s = 2 + min(3, pro) - min(2, con)
+    # Straight news w/ neutral verbs gets a floor of 3 unless manipulative language appears
+    if con == 0 and count_patterns(t, [r"\bsaid\b", r"\breported\b", r"\baccording to\b"]) > 0:
+        s = max(s, 3)
     return max(1, min(5, s))
 
-def score_repro(t):
-    steps = len(re.findall(r"\b(step|procedure|method|checklist|repeat|replicat|code|algorithm)\w*\b", t, re.I))
-    cites = len(re.findall(r"\b(source|cite|reference|appendix)\b", t, re.I))
-    s = 1 + min(2, steps) + min(2, cites)
+def score_repro(t: str) -> int:
+    methods  = count_patterns(t, [r"\bmethod", r"\bprocedure", r"\breplicat", r"\bexperiment", r"\bprotocol", r"\bchecklist"])
+    cites    = count_patterns(t, [r"\bsource", r"\bcite", r"\breference", r"\bappendix", r"\bdoi\b", r"http(s)?://"])
+    numbers  = len(re.findall(r"\b\d+(\.\d+)?%?\b", t))
+    code_data= count_patterns(t, [r"\bcode\b", r"\breleased?\b", r"\bgithub\b", r"\bdataset"])
+    attrib   = count_patterns(t, [r"\bsaid\b", r"\baccording to\b", r"\banalysts?\b", r"\bpolicymakers?\b"])
+    multi_attrib = attrib >= 2
+    s = 1
+    if methods > 0:  s += 2
+    if cites   > 0:  s += 2
+    if numbers > 1:  s += 1
+    if code_data> 0: s += 1
+    if multi_attrib: s += 1  # multiple independent sources ~ reproducibility signal
+    # Floor for factual news with at least one number + one attribution
+    if numbers > 0 and attrib > 0:
+        s = max(s, 3)
     return max(1, min(5, s))
 
-def score_selfrepair(t):
-    repair = len(re.findall(r"\b(test|verify|audit|monitor|fallback|rollback|error|bug|fix|update)\b", t, re.I))
+def score_selfrepair(t: str) -> int:
+    repair = count_patterns(t, [r"\btest", r"\bverify", r"\baudit", r"\bmonitor", r"\bincident reporting", r"\bpostmortem", r"\bfallback", r"\brollback", r"\bpause\b", r"\boversight", r"\bindependent review", r"\bred team", r"\bupdate"])
     s = 1 + min(4, repair)
     return max(1, min(5, s))
 
 def justify(name, s):
     tips = {
-        'O': "State observation/uncertainty explicitly; avoid dogma.",
-        'C': "Show premises → inference → conclusion; remove contradictions.",
-        'E': "Add commitments to transparency, clarity, and systemic benefit.",
-        'R': "Include steps or checks another can repeat.",
-        'S': "Add tests/audits and what happens if a check fails."
+        'O': "Use evidence/uncertainty or attributed reporting.",
+        'C': "Keep claims consistent; connect facts to conclusions.",
+        'E': "Avoid manipulative framing; prefer transparency.",
+        'R': "Provide sources/figures; multiple attributions help.",
+        'S': "Include audits/monitoring/rollback or incident reporting."
     }
     return f"{name}={s}/5 — {tips[name]}"
-
-def render_report_md(base, ocers, notes, src_hash):
-    lines = []
-    lines.append(f"# OCERS Evaluation: {base}")
-    lines.append("")
-    lines.append(f"**Scores:** O={ocers['O']}, C={ocers['C']}, E={ocers['E']}, R={ocers['R']}, S={ocers['S']} → Total={ocers['total']}/25")
-    lines.append(f"**Verdict:** {ocers['verdict']}")
-    lines.append("")
-    lines.append("**Notes:**")
-    for k in ["O","C","E","R","S"]:
-        lines.append(f"- {notes[k]}")
-    lines.append("")
-    lines.append(f"_Source SHA-256_: `{src_hash}`")
-    lines.append("")
-    return "\n".join(lines)
 
 def main():
     if len(sys.argv) < 3:
@@ -69,16 +91,18 @@ def main():
     outdir = pathlib.Path(sys.argv[2]).resolve()
     outdir.mkdir(parents=True, exist_ok=True)
 
-    text = read_text(str(inpath))
+    raw  = read_text(str(inpath))
+    text = norm_text(raw)
+
     O = score_observation(text)
     C = score_coherence(text)
     E = score_ethics(text)
     R = score_repro(text)
     S = score_selfrepair(text)
     total = O + C + E + R + S
-    verdict = "PASS" if total >= 18 and min(O,C,E,R,S) >= 3 else "NEEDS-WORK"
+    verdict = "PASS" if total >= 18 and min(O, C, E, R, S) >= 3 else "NEEDS WORK"
 
-    src_hash = hashlib.sha256(text.encode("utf-8","ignore")).hexdigest()
+    src_hash = hashlib.sha256(raw.encode("utf-8","ignore")).hexdigest()
     stamp = datetime.datetime.utcnow().isoformat()+"Z"
     base = inpath.stem
 
@@ -98,12 +122,7 @@ def main():
     with open(outdir/f"{base}.json","w",encoding="utf-8") as f:
         json.dump(out_json, f, ensure_ascii=False, indent=2)
 
-    report_md = render_report_md(base, out_json["ocers"], out_json["notes"], src_hash)
-    with open(outdir/f"{base}.report.md","w",encoding="utf-8") as f:
-        f.write(report_md)
-
-    print(f"[OCERS] {base}: total={total}/25 verdict={verdict}  (O={O} C={C} E={E} R={R} S={S})")
-    print(f"→ wrote {outdir}/{base}.json and {outdir}/{base}.report.md")
+    print(f"[OCERS] {base}: total={total}/25 verdict={verdict} (O={O} C={C} E={E} R={R} S={S})")
 
 if __name__ == "__main__":
     main()
