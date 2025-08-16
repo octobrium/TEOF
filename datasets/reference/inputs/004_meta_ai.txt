@@ -1,0 +1,1 @@
+Meta is open-sourcing our newest large language model. By providing researchers with access, we hope to accelerate progress in AI safety and innovation. We acknowledge risks and will release monitoring tools to the community. Transparency is essential, and we look forward to ongoing dialogue with policymakers and civil society.

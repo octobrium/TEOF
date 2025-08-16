@@ -1,0 +1,21 @@
+{
+  "stamp": "2025-08-16T20:23:31.235979Z",
+  "input_file": "001_whitehouse_ai.txt",
+  "hash_sha256": "5c731474b1c39578dd72b0655911bdcbf55091bf839e26c3e7ddb87f1c732aa6",
+  "ocers": {
+    "O": 1,
+    "C": 3,
+    "E": 2,
+    "R": 1,
+    "S": 1,
+    "total": 8,
+    "verdict": "NEEDS-WORK"
+  },
+  "notes": {
+    "O": "O=1/5 — State observation/uncertainty explicitly; avoid dogma.",
+    "C": "C=3/5 — Show premises → inference → conclusion; remove contradictions.",
+    "E": "E=2/5 — Add commitments to transparency, clarity, and systemic benefit.",
+    "R": "R=1/5 — Include steps or checks another can repeat.",
+    "S": "S=1/5 — Add tests/audits and what happens if a check fails."
+  }
+}

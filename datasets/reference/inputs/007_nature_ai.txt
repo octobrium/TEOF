@@ -1,0 +1,1 @@
+We present a transformer-based architecture that improves protein-folding predictions. Using a training set of 100,000 sequences, we achieve a 12% accuracy gain over baseline models. Methods are reproducible, and code will be released upon acceptance. Limitations include potential bias in training data. Future work will explore larger datasets and alternative loss functions.
