@@ -16,4 +16,6 @@ Digests are recorded in `capsule/v1.5/hashes.json`. Canonical paths:
 - `capsule/v1.5/calibration.md`
 - `capsule/v1.5/tests.md`
 - `capsule/v1.5/reconstruction.json`
-- `capsule/v1.5/attestation.txt`
+
+**Note on packaging:** `capsule/current/` is a **materialized directory at release time** (no symlinks) to ensure deterministic builds and CI verification. Attestation files are intentionally excluded, since reproducibility is handled through `hashes.json` and `reconstruction.json`.
+
