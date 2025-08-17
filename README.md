@@ -37,7 +37,7 @@ Adoption accelerates when actors—human or agentic—recognize that preserving 
 - [Core TEOF](docs/core-teof.md) — Minimal seed version for propagation.  
 
 ### **Bootloaders**
-- [Bootloader](bootloaders/bootloader.md) — Stateless Alignment Filter (AI-ready).  
+- [Bootloader](bootloaders/llm/bootloader.md) — Stateless Alignment Filter (AI-ready).  
   - Minimal, substrate-neutral protocol enforcing alignment with TEOF Core (observation → coherence → recursion), without importing unverifiable priors.  
   - Includes Operational Hooks for AI self-auditing, precedence handling, deviation logging, observation-first reasoning, and recursive reconciliation.
 
