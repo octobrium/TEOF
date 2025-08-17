@@ -39,3 +39,7 @@ extensions/cli/*.log
 extensions/cli/*.tmp
 scripts/*.log
 scripts/*.tmp
+ocers_out/
+--out/
+dist/
+build/
