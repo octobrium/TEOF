@@ -33,6 +33,15 @@ jobs:
         with:
           python-version: '3.x'
 
+      # --- CI guard: ensure capsule/current exists (materialize from v1.5) ---
+      - name: Ensure capsule/current exists
+        run: |
+          if [ ! -f capsule/current/capsule.txt ]; then
+            echo "Materializing capsule/current from v1.5"
+            mkdir -p capsule/current
+            cp capsule/v1.5/* capsule/current/
+          fi
+
       - name: Verify capsule hashes
         run: |
           python - <<'PY'
