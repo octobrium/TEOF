@@ -43,3 +43,6 @@ ocers_out/
 --out/
 dist/
 build/
+
+# --- OCERS generated reports ---
+ocers_reports/*.ensemble.json
