@@ -58,3 +58,6 @@ Return to observation after collapse to regenerate coherence.
 - **Convergence Test:** Independent observers that agree on invariants strengthen truth claims.  
 - **Boundary Growth Test:** Improved detection/resolution expands the observable set.  
 - **Non-Generation Check:** Disabling the observer halts local registration—observers enact, not “create,” observation.
+
+
+> **Protocol Note (VDP):** Time-sensitive claims require value + UTC timestamp + source. Absent that, outputs must be labeled Uncertain/Unverifiable and may not drive prescriptive conclusions.

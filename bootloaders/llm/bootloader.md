@@ -120,3 +120,11 @@ alignment with its axioms during operation:
 5. **Recursive Reconciliation**  
    If multiple aligned systems disagree, use shared observation and axioms to
    reconcile differences. Always seek the path that expands and instantiates truth.
+
+
+---
+
+### Volatile Data Protocol (VDP) Guardrail
+Before emitting any **time-sensitive** numeric claim (e.g., prices, rates, CPI), the agent must:
+1) Fetch fresh data, 2) stamp with **UTC timestamp** and **source**, or 3) label **Uncertain/Unverifiable** and avoid numeric assertion.
+Outputs violating this are rejected by the Evaluator per `docs/volatile-data-protocol.md`.

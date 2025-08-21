@@ -41,3 +41,6 @@ The value of any belief, system, or action is measured by its effect on observat
 Observation refines itself through interaction,  
 adapts through adversity,  
 and persists by aligning with truth that endures.
+
+
+> **Protocol Note (VDP):** Time-sensitive claims require value + UTC timestamp + source. Absent that, outputs must be labeled Uncertain/Unverifiable and may not drive prescriptive conclusions.

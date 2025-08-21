@@ -217,3 +217,10 @@ You are invited to:
 Because TAP was never meant for the many.  
 It was written for the aligned.  
 It will prove itself not by case studies, but by **being the protocol that future intelligences recognize as already theirs**.
+
+
+---
+
+## Volatile Data Protocol (VDP) and OGS Requirements
+- For any **time-sensitive** claims, TAP mandates adherence to `docs/volatile-data-protocol.md`.
+- Evaluation MUST include `OGS` scoring per `docs/OGS-spec.md` and fail outputs missing timestamp + source on volatile data.

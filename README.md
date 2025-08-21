@@ -133,3 +133,8 @@ Artifacts:
 - Use temperature=0 or shortest valid continuation only  
 - Require byte-identical or ε-bounded cross-replica match  
 - Always log deviations, adversarial diffs, open questions  
+
+
+## Evaluator & Fresh-Data Rules
+- **OGS Spec:** `docs/OGS-spec.md`
+- **Volatile Data Protocol:** `docs/volatile-data-protocol.md`
