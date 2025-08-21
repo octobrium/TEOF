@@ -1,0 +1,19 @@
+{
+  "ocers": {
+    "observation": "Old price included for comparison; explicitly labeled stale.",
+    "coherence": "ok",
+    "evidence": "stale flagged",
+    "result": "pass",
+    "scope": "VDP"
+  },
+  "observations": [
+    {
+      "label": "PLTR (stale)",
+      "value": 98.00,
+      "timestamp_utc": "2020-01-01T00:00:00Z",
+      "source": "https://ex/quote/pltr",
+      "volatile": true,
+      "stale_labeled": true
+    }
+  ]
+}

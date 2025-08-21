@@ -1,0 +1,19 @@
+{
+  "ocers": {
+    "observation": "Old price presented as current",
+    "coherence": "",
+    "evidence": "",
+    "result": "fail",
+    "scope": "VDP"
+  },
+  "observations": [
+    {
+      "label": "IBIT",
+      "value": 12.34,
+      "timestamp_utc": "2020-01-01T00:00:00Z",
+      "source": "https://ex/quote/ibit",
+      "volatile": true,
+      "stale_labeled": false
+    }
+  ]
+}

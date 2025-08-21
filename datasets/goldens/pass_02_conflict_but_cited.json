@@ -1,0 +1,27 @@
+{
+  "ocers": {
+    "observation": "Two BTC sources disagree; citations present.",
+    "coherence": "ok",
+    "evidence": "multiple sources cited",
+    "result": "pass",
+    "scope": "VDP"
+  },
+  "observations": [
+    {
+      "label": "BTC A",
+      "value": 117500,
+      "timestamp_utc": "2099-01-01T00:00:00Z",
+      "source": "https://ex/a",
+      "volatile": true,
+      "stale_labeled": false
+    },
+    {
+      "label": "BTC B",
+      "value": 116900,
+      "timestamp_utc": "2099-01-01T00:05:00Z",
+      "source": "https://ex/b",
+      "volatile": true,
+      "stale_labeled": false
+    }
+  ]
+}

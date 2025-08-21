@@ -1,0 +1,18 @@
+{
+  "ocers": {
+    "observation": "Price missing timestamp",
+    "coherence": "",
+    "evidence": "",
+    "result": "fail",
+    "scope": "VDP"
+  },
+  "observations": [
+    {
+      "label": "PLTR",
+      "value": 52.1,
+      "source": "https://ex/quote/pltr",
+      "volatile": true,
+      "stale_labeled": false
+    }
+  ]
+}

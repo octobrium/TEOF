@@ -1,50 +1,72 @@
 #!/usr/bin/env python3
-"""Minimal TEOF evaluator stub enforcing Volatile Data Protocol.
-Input: JSON with an `observations` list of objects; each volatile entry must have value, timestamp_utc, and source.
-Exit: 0 if pass, 1 if fail; prints score and messages.
 """
-import sys, json, datetime
+Minimal TEOF evaluator enforcing Volatile Data Protocol (VDP).
+Input: JSON on stdin, with top-level "observations" list.
+Each volatile entry must have value + timestamp_utc + source unless in explore mode.
+Outputs OGS and messages. Exit 0 if pass, 1 if fail.
+"""
+import sys, json, os
+from datetime import datetime, timezone
 
-FRESH_MINUTES = 10
+MODE = os.getenv("TEOF_MODE", "strict").lower()        # strict | explore
+FRESH_MINUTES = int(os.getenv("VDP_FRESH_MINUTES", "10"))
 
 def is_stale(ts_utc: str, minutes: int = FRESH_MINUTES) -> bool:
     try:
-        dt = datetime.datetime.fromisoformat(ts_utc.replace('Z','+00:00'))
+        # support both "...Z" and with tz offset
+        ts = ts_utc.replace('Z', '+00:00')
+        dt = datetime.fromisoformat(ts)
     except Exception:
         return True
-    now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
-    return (now - dt).total_seconds() > minutes * 60
+    now = datetime.now(timezone.utc)
+    delta = (now - dt)
+    return delta.total_seconds() > minutes * 60
 
 def main():
     data = json.load(sys.stdin)
-    observations = data.get('observations', [])
-    messages = []
-    score = 0
+
+    observations = data.get("observations", [])
     hard_fail = False
+    score = 0
+    msgs = []
 
     for i, obs in enumerate(observations):
-        volatile = bool(obs.get('volatile', True))
+        volatile = bool(obs.get("volatile", False))
         if not volatile:
             continue
-        val = obs.get('value')
-        ts = obs.get('timestamp_utc')
-        src = obs.get('source')
-        if val is None or not ts or not src:
-            messages.append(f"[FAIL] obs[{i}] missing value/timestamp/source for volatile claim")
-            hard_fail = True
-            continue
-        # freshness
-        if is_stale(ts):
-            if not obs.get('stale_labeled', False):
-                messages.append(f"[PENALTY] obs[{i}] stale without label (>{FRESH_MINUTES}m)")
-                score -= 3
-        # basic source check
-        score += 1  # reward presence
-    if hard_fail:
-        print("OGS: 0\n" + "\n".join(messages))
-        sys.exit(1)
-    print(f"OGS: {max(score,0)}\n" + "\n".join(messages))
-    sys.exit(0 if score >= 0 else 1)
 
-if __name__ == '__main__':
+        val = obs.get("value", None)
+        ts = obs.get("timestamp_utc", None)
+        src = obs.get("source", None)
+        stale_labeled = bool(obs.get("stale_labeled", False))
+
+        if val is None or not ts or not src:
+            if MODE == "strict":
+                msgs.append(f"[FAIL] obs[{i}] missing value/timestamp/source for volatile claim")
+                hard_fail = True
+            else:
+                msgs.append(f"[WARN] obs[{i}] missing value/timestamp/source (explore mode)")
+            continue
+
+        if is_stale(ts) and not stale_labeled:
+            if MODE == "strict":
+                msgs.append(f"[FAIL] obs[{i}] stale without label (>{FRESH_MINUTES}m)")
+                hard_fail = True
+            else:
+                msgs.append(f"[WARN] obs[{i}] stale without label (>{FRESH_MINUTES}m) (explore mode)")
+                score -= 1
+
+        # basic credit for fully cited fresh claim
+        if not is_stale(ts):
+            score += 1
+
+    print(f"OGS: {score}")
+    for m in msgs:
+        print(m)
+
+    if hard_fail:
+        sys.exit(1)
+    sys.exit(0)
+
+if __name__ == "__main__":
     main()

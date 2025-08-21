@@ -1,0 +1,19 @@
+{
+  "ocers": {
+    "observation": "Fresh price with valid timestamp and source",
+    "coherence": "ok",
+    "evidence": "timestamp + source valid",
+    "result": "pass",
+    "scope": "VDP"
+  },
+  "observations": [
+    {
+      "label": "BTC",
+      "value": 65000,
+      "timestamp_utc": "2099-01-01T00:00:00Z",
+      "source": "https://ex/quote/btc",
+      "volatile": true,
+      "stale_labeled": false
+    }
+  ]
+}

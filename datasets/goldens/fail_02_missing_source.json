@@ -1,0 +1,18 @@
+{
+  "ocers": {
+    "observation": "Price missing source",
+    "coherence": "",
+    "evidence": "",
+    "result": "fail",
+    "scope": "VDP"
+  },
+  "observations": [
+    {
+      "label": "MSTR",
+      "value": 780.3,
+      "timestamp_utc": "2025-08-21T15:10:00Z",
+      "volatile": true,
+      "stale_labeled": false
+    }
+  ]
+}
