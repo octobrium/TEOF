@@ -1,16 +1,23 @@
 {
-  "feeds": [
-    {"url": "https://feeds.reuters.com/reuters/worldNews"},
-    {"url": "https://feeds.reuters.com/reuters/businessNews"},
-    {"url": "https://www.federalreserve.gov/feeds/press_all.xml"},
-    {"url": "https://www.ecb.europa.eu/press/pr/date/html/index.en.rss"},
-    {"url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_hour.atom"}
-  ],
-  "rules": [
-    {"pattern": "rate hike|cuts rates|policy rate|FOMC|dot plot", "severity": "high", "tag": "monetary"},
-    {"pattern": "sanction|embargo|export control|tariff", "severity": "high", "tag": "geopolitics"},
-    {"pattern": "invasion|missile|strike|mobilization", "severity": "high", "tag": "conflict"},
-    {"pattern": "bank (failure|collapse)|liquidity crunch|capital shortfall", "severity": "high", "tag": "systemic"},
-    {"pattern": "earthquake|magnitude\\s*[7-9]\\.", "severity": "med", "tag": "disaster"}
+  "fresh_hours": 24,
+  "sources": [
+    {
+      "name": "federalreserve",
+      "url": "https://www.federalreserve.gov/feeds/press_all.xml",
+      "severity": "high",
+      "tags": ["monetary","macro","usd"]
+    },
+    {
+      "name": "treasury",
+      "url": "https://home.treasury.gov/news/press-releases/feed",
+      "severity": "high",
+      "tags": ["fiscal","macro","usd"]
+    },
+    {
+      "name": "sec",
+      "url": "https://www.sec.gov/news/pressreleases.rss",
+      "severity": "medium",
+      "tags": ["markets","reg"]
+    }
   ]
 }
