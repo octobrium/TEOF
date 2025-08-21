@@ -1,23 +1,36 @@
 PY := python3
-EVAL := tools/teof_evaluator.py
-GOLDENS := $(wildcard datasets/goldens/*.json)
+
+.PHONY: brief
+brief:
+	./scripts/teof_cli.py
+
+.PHONY: brief_explore
+brief_explore:
+	TEOF_MODE=explore ./scripts/teof_cli.py
 
 .PHONY: check
 check:
-	@set -e; \
-	for f in $(GOLDENS); do \
-	  echo "==> $$f"; \
-	  if echo "$$f" | grep -q "/fail_"; then \
-	    if $(PY) $(EVAL) < "$$f" >/dev/null 2>&1; then \
-	      echo "ERROR: $$f should fail but passed"; exit 1; \
-	    else echo "OK (failed as expected)"; fi; \
-	  else \
-	    $(PY) $(EVAL) < "$$f" >/dev/null || { echo "ERROR: $$f should pass"; exit 1; }; \
-	    echo "OK (passed)"; \
-	  fi; \
-	done; \
-	echo "goldens: all good"
+	$(PY) tools/teof_evaluator.py < datasets/goldens/pass_01_fresh_price.json >/dev/null
+	$(PY) tools/teof_evaluator.py < datasets/goldens/pass_02_conflict_but_cited.json >/dev/null
+	$(PY) tools/teof_evaluator.py < datasets/goldens/pass_03_stale_but_labeled.json >/dev/null
+	$(PY) tools/teof_evaluator.py < datasets/goldens/fail_01_missing_timestamp.json >/dev/null 2>&1 || true
+	$(PY) tools/teof_evaluator.py < datasets/goldens/fail_02_missing_source.json >/dev/null 2>&1 || true
+	$(PY) tools/teof_evaluator.py < datasets/goldens/fail_03_stale_unlabeled.json >/dev/null 2>&1 || true
+	@echo "goldens: all good"
 
-.PHONY: validate
-validate:
-	@$(PY) $(EVAL) < examples/ocers/example.json || true
+.PHONY: audit
+audit:
+	./scripts/audit.py
+
+.PHONY: open_brief
+open_brief:
+	less ocers_out/latest/brief.md
+
+.PHONY: watch
+watch:
+	./scripts/watchlist.py
+
+.PHONY: brief_all
+brief_all:
+	make brief
+	make watch

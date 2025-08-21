@@ -1,0 +1,6 @@
+{
+  "mode": "strict",
+  "fresh_minutes": 10,
+  "fallback": true,
+  "assets": ["BTC", "IBIT", "NVDA", "PLTR", "MSTR"]
+}
