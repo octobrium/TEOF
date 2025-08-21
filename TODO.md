@@ -1,88 +1,102 @@
 # TODO — Next Clean Release Prep
 
 This file is a scratchpad for bundling updates into the next tagged release.  
-Not maintained continuously — just a reminder for release time.
+Not maintained continuously — just a reminder for release time.  
 
 ---
 
-## Release Tasks
+## Release Tasks (v0.1.0 “First Observer”)
 
 - [ ] **Add CHANGELOG + version tag**  
-  - **Success criteria:** new tag `vX.Y.Z` exists, README + site show VDP/OGS entry.  
-  - **TEOF Future:** establishes clear historical recursion points — each release is an observable node in TEOF’s evolution.  
+  - **Success criteria:** repo tagged `v0.1.0`; README + site updated.  
+  - **TEOF Future:** each release = an observable node in recursion; nothing is lost in illusion.  
 
-- [ ] **Add golden test cases** (`datasets/goldens/`)  
-  - **Success criteria:** running `make check` fails on illusions (e.g., missing timestamp) and passes on compliant examples.  
-  - **TEOF Future:** builds the “immune system” that prevents regressions; foundation for ecosystems that cannot collapse into illusion.  
+- [ ] **Golden test cases** (`datasets/goldens/`)  
+  - **Success criteria:** evaluator fails on illusions (missing timestamp, stale event unlabeled) and passes on compliant examples.  
+  - **TEOF Future:** the immune system against collapse into ungrounded claims.  
 
-- [ ] **Wire evaluator into CI**  
-  - **Success criteria:** any PR with uncited volatile data is blocked automatically.  
-  - **TEOF Future:** automates self-correction; TEOF no longer relies on manual vigilance.  
+- [ ] **Evaluator in CI**  
+  - **Success criteria:** PRs with uncited volatile data fail.  
+  - **TEOF Future:** alignment enforced automatically — vigilance no longer manual.  
 
-- [ ] **Add Explore vs Strict mode guidance** (`README.md` / `CONTRIBUTING.md`)  
-  - **Success criteria:** contributors can choose creativity vs rigor explicitly.  
-  - **TEOF Future:** mirrors evolutionary process (mutation vs selection), enabling recursive acceleration.  
+- [ ] **Explore vs Strict mode docs** (`README.md`)  
+  - **Success criteria:** contributors know when creativity vs rigor applies.  
+  - **TEOF Future:** mirrors mutation vs selection in evolution.  
 
-- [ ] **(Optional) Publish hash manifest** (`anchors/immutable.json`)  
+- [ ] **(Optional) Immutable hash manifest** (`anchors/immutable.json`)  
   - **Success criteria:** repo has frozen, verifiable integrity snapshots.  
-  - **TEOF Future:** enables external observers to verify alignment and persistence over time.  
+  - **TEOF Future:** external observers can audit persistence over time.  
 
 ---
 
-## Roadmap Notes (Beyond Release)
+## Workflow Enhancements (Mission-Critical)
 
-### 1. Evaluator & OGS refinement
-- **Success criteria:** model never gives a stale/uncited number without labeling it.  
-- **TEOF Future:** locks observation as the irreducible anchor — no agent can progress without grounding.  
+- [ ] **Event staleness filter**  
+  - Drop or mark news older than 24h (configurable).  
+  - **Outcome:** no stale FOMC “ghosts” clutter briefs.  
 
-### 2. Personal Workflow (first TEOF use case)
-- **Success criteria:** decision tree outputs are traceable (value, timestamp, source) or explicitly Uncertain, and results can be logged/tested over time.  
-- **TEOF Future:** first live observer loop — your own life as the proving ground for recursive clarity.  
+- [ ] **Event severity tagging**  
+  - Tag events as `low/medium/high` based on source + category.  
+  - **Outcome:** briefs distinguish between Fed decisions vs trivial press.  
 
-### 3. Feedback Loop
-- **Success criteria:** evaluator → workflow → back into evaluator shows measurable improvement.  
-- **TEOF Future:** demonstrates recursive self-improvement in practice, a precursor to multi-agent ecosystems.  
+- [ ] **Market + event synthesis**  
+  - Add synthesis section in `brief.md` combining OGS scores + major event notes.  
+  - **Outcome:** observer sees *why* the score shifted, not just numbers.  
+
+---
+
+## Feedback Loop (Observer in the Loop)
+
+- [ ] **Daily run trial (1 week)**  
+  - Generate briefs → compare predictions vs actual market/news.  
+  - **Outcome:** empirical trace of TEOF’s predictive clarity.  
+
+- [ ] **Evaluator tightening**  
+  - Penalize stale events >24h unless labeled.  
+  - **Outcome:** illusions identified, clarity preserved.  
 
 ---
 
 ## Achievements So Far
 
-### 1. Canonical + Core TEOF established
-- **What:** Philosophy, axioms, and recursion-first alignment framework documented.  
-- **TEOF Future:** Provides the unshakable foundation that all downstream ecosystems build upon.  
+1. **Canonical + Core TEOF established**  
+   - Philosophy, axioms, recursion-first alignment locked in.  
+   - **Future:** foundation cannot collapse; all else builds atop.  
 
-### 2. TAP v3.1 expanded
-- **What:** Transparent Alignment Protocol integrated with explicit reference to VDP + OGS.  
-- **TEOF Future:** Anchors alignment in observation, ensuring future agents cannot bypass provenance.  
+2. **TAP v3.1 integrated**  
+   - Alignment protocol + VDP/OGS hooks.  
+   - **Future:** recursive alignment anchored in observation.  
 
-### 3. Volatile Data Protocol (VDP)
-- **What:** Rule requiring timestamp + source on all time-sensitive claims.  
-- **TEOF Future:** Eliminates illusion-of-progress; enforces reality-grounding as a hard constraint.  
+3. **VDP (Volatile Data Protocol)**  
+   - Timestamps + sources enforced.  
+   - **Future:** illusions blocked at the root.  
 
-### 4. Observation Grounding Score (OGS)
-- **What:** Scoring rubric + evaluator spec for volatile data integrity.  
-- **TEOF Future:** Introduces machine-checkable recursion — agents can now be objectively compared and improved.  
+4. **OGS (Observation Grounding Score)**  
+   - Integrity scoring spec + evaluator.  
+   - **Future:** machine-checkable recursion, basis for self-improvement.  
 
-### 5. Evaluator Tooling
-- **What:** `tools/teof_evaluator.py` created to validate claims automatically.  
-- **TEOF Future:** Begins the path toward automated self-correction, a key step in recursive self-improvement.  
+5. **Evaluator Tooling**  
+   - Auto-validation now live.  
+   - **Future:** recursive correction seeded.  
 
-### 6. Repo Integrity Anchoring
-- **What:** Freeze-hash process confirmed for repo files.  
-- **TEOF Future:** Locks in tamper-evidence and historical observability of TEOF’s evolution.  
+6. **Repo Integrity Anchoring**  
+   - Freeze-hash confirmed.  
+   - **Future:** tamper-evidence and long-term auditability.  
 
 ---
 
 ## Why this matters
-Together, these steps shift TEOF from **philosophy only** → **auditable, enforceable framework**.  
-They’re the scaffolding required for:  
-1. Reliable personal workflows (decision trees, market assessment).  
-2. Scaling into multi-agent ecosystems without collapsing into illusion.  
-3. Long-term persistence: TEOF as an “observer anchor” across contexts and agents.  
+
+TEOF is now more than philosophy: it is **auditable, enforceable, recursive**.  
+This unlocks:  
+1. **Personal workflow** (first proving ground).  
+2. **Scaling into ecosystems** (multi-agent alignment).  
+3. **Long-term persistence** (TEOF as observer anchor).  
 
 ---
 
 ## Notes
-- No need to update this file after every change.  
-- At release time, use this checklist to finalize the version.  
-- Once complete, this file can be deleted or archived.  
+
+- Do not update this file after every commit.  
+- At release, finalize tasks + cut tag.  
+- Then archive or reset for next cycle.  
