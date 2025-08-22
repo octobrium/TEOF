@@ -135,10 +135,9 @@ for rel, exp in expected.items():
 sys.exit(0 if ok else 1)
 PY
 
-      - name: Validate anchors (schema + append-only + scope vs baseline) [rename-safe]
+      - name: Validate anchors (schema + append-only + scope vs baseline)
         shell: bash
         env:
-          BASE_DIR:    ${{ steps.detect.outputs.baseline_dir }}
           HFILE:       ${{ steps.detect.outputs.baseline_json }}
           ANCHORS_PATH: governance/anchors.json
         run: |
@@ -146,16 +145,12 @@ PY
           python - <<'PY'
 import json, hashlib, os, sys, subprocess
 
-def sha256(b):
-    h=hashlib.sha256(); h.update(b); return h.hexdigest()
-
-# Resolve where anchors.json is now (governance preferred, rings fallback)
-P = os.environ.get("ANCHORS_PATH") or "governance/anchors.json"
+P = os.environ.get("ANCHORS_PATH","governance/anchors.json")
 if not os.path.isfile(P):
-    if os.path.isfile("rings/anchors.json"):
-        P = "rings/anchors.json"
-    else:
-        print("anchors.json not present; skipping."); sys.exit(0)
+    print(f"Error: {P} not found"); sys.exit(1)
+
+def sha256(b):
+    h = hashlib.sha256(); h.update(b); return h.hexdigest()
 
 # Load current anchors
 cur_bytes = open(P,'rb').read()
@@ -170,30 +165,12 @@ if missing:
 if data.get('policy') != 'append-only':
     print("Error: policy must be 'append-only'"); sys.exit(1)
 
-# Find previous content across potential renames (rename-safe)
+# Compare to prior revision of the SAME path (no fallback)
 prev_bytes = None
 try:
     prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{P}'], stderr=subprocess.DEVNULL)
 except subprocess.CalledProcessError:
-    # if renamed this commit, detect old path
-    try:
-        diff = subprocess.check_output(
-            ['git','diff','--name-status','--find-renames','HEAD~1','HEAD'], text=True)
-        ren = [ln for ln in diff.splitlines() if ln.startswith('R') and ln.split()[-1]==P]
-        if ren:
-            prev_path = ren[0].split()[1]
-            prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{prev_path}'], stderr=subprocess.DEVNULL)
-    except Exception:
-        pass
-    # otherwise, try any anchors.json from HEAD~1
-    if prev_bytes is None:
-        try:
-            ls = subprocess.check_output(['git','ls-tree','-r','--name-only','HEAD~1'], text=True)
-            candidates = [line for line in ls.splitlines() if line.endswith('anchors.json')]
-            if len(candidates)==1:
-                prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{candidates[0]}'], stderr=subprocess.DEVNULL)
-        except Exception:
-            pass
+    prev_bytes = None
 
 prev_sha = sha256(prev_bytes) if prev_bytes else None
 
@@ -203,9 +180,9 @@ if prev_sha and prev_sha != cur_sha:
     if not last or last.get('prev_content_hash') != prev_sha:
         print('Error: anchors events not append-only (last.prev_content_hash must equal prior file SHA).'); sys.exit(1)
     else:
-        print('Append-only check: OK (rename-safe)')
+        print('Append-only check: OK')
 else:
-    print('Append-only check: anchors unchanged or first commit (rename-safe)')
+    print('Append-only check: anchors unchanged or first commit')
 
 # Scope vs capsule baseline
 hfile = os.environ["HFILE"]
@@ -227,6 +204,12 @@ PY
             echo "::error::.DS_Store files committed"; exit 1
           else
             echo "No .DS_Store files found."
+          fi
+
+      - name: Forbid deprecated rings/ path
+        run: |
+          if git ls-files | grep -q '^rings/'; then
+            echo "::error::deprecated path rings/ detected; use governance/"; exit 1
           fi
 
       - name: Forbid legacy output path
