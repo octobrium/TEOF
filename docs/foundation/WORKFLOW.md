@@ -2,7 +2,7 @@
 
 **Non-negotiables (apply to every change)**
 - **Minimalism:** Changes should reduce or hold complexity for equal capability. If complexity ↑, justify in one sentence in the PR body.
-- **Single Source of Truth:** Critical files live under `seed/capsule/current/` and are covered by `hashes.json`.
+- **Single Source of Truth:** Critical files live under `capsule/current/` and are covered by `hashes.json`.
 - **Determinism:** Checks run reproducibly on a clean machine.
 - **Append-Only Governance:** `governance/anchors.json` is append-only; releases map to a baseline.
 - **Observation Discipline:** New claims follow VDP; reasoning can be scored with OGS (N/A allowed when not applicable).
@@ -15,7 +15,7 @@
 - [ ] **Objective line (one sentence)**  
   `Class=<Core|Trunk|Branch|Leaf>; Why=…; MinimalStep=…; Direction=…`
 - [ ] **Baseline gate**  
-  If critical files changed: place them in `seed/capsule/current/` → run `freeze_hashes` → CI `verify` passes (hashes, anchors, no `.DS_Store`, no secrets).
+  If critical files changed: place them in `capsule/current/` → run `freeze_hashes` → CI `verify` passes (hashes, anchors, no `.DS_Store`, no secrets).
 - [ ] **Evidence gate**  
   If claims changed, VDP cites + OGS runnable; else **N/A**.
 - [ ] **Minimal surface**  
@@ -29,7 +29,7 @@
 
 ## Lean release block (only when tagging)
 
-1) Ensure `seed/capsule/current → vX.Y` and `hashes.json` is final.  
+1) Ensure `capsule/current → vX.Y` and `hashes.json` is final.  
 2) `governance/anchors.json`: `immutable_scope = keys(hashes.json)`; append `{tag, baseline}` if new.  
 3) Update `CHANGELOG.md` with date & bullets.  
 4) Tag and archive: `git tag -a vX.Y.Z -m "…"` and zip the capsule dir to `artifacts/teof-vX.Y.Z.zip`.  
@@ -45,4 +45,4 @@
 4) Expose minimal surface  
 5) Tag & ship when ready
 
-> Placement note: This file lives **outside** the capsule to avoid baseline churn. After it stabilizes (few cycles without edits), move it into `seed/capsule/current/` and re-freeze hashes.
+> Placement note: This file lives **outside** the capsule to avoid baseline churn. After it stabilizes (few cycles without edits), move it into `capsule/current/` and re-freeze hashes.

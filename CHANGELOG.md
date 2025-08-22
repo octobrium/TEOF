@@ -16,15 +16,15 @@ Versioning: SemVer (0.y until first stable)
 - **Event severity tagging** (`low/medium/high`) + brief synthesis notes.
 
 ### Release prep checklist (for next tag)
-- [ ] Freeze capsule: update `seed/capsule/vX.Y/hashes.json` and `PROVENANCE.md`.
+- [ ] Freeze capsule: update `capsule/vX.Y/hashes.json` and `PROVENANCE.md`.
 - [ ] Append anchors event in `governance/anchors.json` (with `prev_content_hash`).
-- [ ] Verify CI green on tag and cut GitHub Release (attach `seed/capsule/current/` archive).
+- [ ] Verify CI green on tag and cut GitHub Release (attach `capsule/current/` archive).
 
 ---
 
 ## [v0.1.0] - 2025-08-22
 ### Added
-- Normalized capsule under `seed/capsule/v1.5` with `seed/capsule/current → v1.5`.
+- Normalized capsule under `capsule/v1.5` with `capsule/current → v1.5`.
 - Canonical docs moved inside capsule and covered by `hashes.json`.
 - Single CI workflow (`.github/workflows/teof-ci.yml`) with baseline autodetect, hashes verify, anchors validation, .DS_Store guard, brief smoke test.
 - PR Objective-line guard and Minimal v1 workflow.

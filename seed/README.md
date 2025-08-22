@@ -58,7 +58,7 @@ Windows (PowerShell):
 
 1. Create a new version folder (copy from last release), e.g.:
    ~~~
-   seed/capsule/v0.1.1/
+   capsule/v0.1.1/
    ~~~
 2. Update files as needed; recompute `hashes.json`; update `PROVENANCE.md` and `RELEASE.md`.
 3. Point `current` to the new version:

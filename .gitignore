@@ -61,4 +61,4 @@ legacy/ops/_local/
 
 # reports runtime outputs
 artifacts/reports/
-branches_thick/ocers_out/
+artifacts/ocers_out/
