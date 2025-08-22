@@ -1,1 +1,18 @@
-[]
+{
+  "version": 1,
+  "policy": {
+    "append_only": true,
+    "description": "Anchors is an append-only ledger binding releases to capsule digests.",
+    "immutable_scope_semantics": "Each path listed in immutable_scope must appear as a key in the active capsule hashes.json (seed/capsule/current or the selected vX.Y)."
+  },
+  "anchors": [],
+  "immutable_scope": [
+    "capsule.txt",
+    "capsule-mini.txt",
+    "capsule-selfreconstructing.txt",
+    "capsule-handshake.txt",
+    "teof-shim.md"
+  ],
+  "events": [],
+  "releases": []
+}
