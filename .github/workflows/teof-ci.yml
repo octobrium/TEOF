@@ -111,7 +111,7 @@ import os, json, hashlib, sys
 base_dir = os.environ["BASE_DIR"]
 hfile    = os.environ["HFILE"]
 
-with open(hfile, 'r') as f:
+with open(hfile, 'r', encoding='utf-8') as f:
     expected = json.load(f)
 
 def sha256_file(p):
@@ -137,62 +137,90 @@ for rel, exp in expected.items():
 sys.exit(0 if ok else 1)
 PY
 
-      - name: Validate rings/anchors.json (schema + append-only + scope vs baseline)
+      - name: Validate anchors (schema + append-only + scope vs baseline) [rename-safe]
         shell: bash
         env:
-          BASE_DIR: ${{ steps.detect.outputs.baseline_dir }}
-          HFILE:    ${{ steps.detect.outputs.baseline_json }}
+          BASE_DIR:    ${{ steps.detect.outputs.baseline_dir }}
+          HFILE:       ${{ steps.detect.outputs.baseline_json }}
+          ANCHORS_PATH: governance/anchors.json
         run: |
           set -euo pipefail
-          if [ ! -f rings/anchors.json ]; then
-            echo "rings/anchors.json not present; skipping."
-            exit 0
-          fi
           python - <<'PY'
 import json, hashlib, os, sys, subprocess
 
-P = os.path.join('rings','anchors.json')
-with open(P,'r') as f:
-    data = json.load(f)
+def sha256(b):
+    h=hashlib.sha256(); h.update(b); return h.hexdigest()
 
-required = ['version','policy','anchors','immutable_scope','events','releases']
-missing = [k for k in required if k not in data]
-if missing:
-    print("Error: missing keys in rings/anchors.json:", ", ".join(missing)); sys.exit(1)
+# Resolve where anchors.json is now (governance preferred, rings fallback)
+P = os.environ.get("ANCHORS_PATH") or "governance/anchors.json"
+if not os.path.isfile(P):
+    if os.path.isfile("rings/anchors.json"):
+        P = "rings/anchors.json"
+    else:
+        print("anchors.json not present; skipping."); sys.exit(0)
 
-# Append-only check if file changed
+# Load current anchors
 cur_bytes = open(P,'rb').read()
-cur_sha   = hashlib.sha256(cur_bytes).hexdigest()
+cur_sha   = sha256(cur_bytes)
+data      = json.loads(cur_bytes.decode('utf-8'))
+
+# Schema/policy checks
+required = ['version','policy','anchors','immutable_scope','events','releases']
+missing  = [k for k in required if k not in data]
+if missing:
+    print("Error: missing keys in anchors:", ", ".join(missing)); sys.exit(1)
+if data.get('policy') != 'append-only':
+    print("Error: policy must be 'append-only'"); sys.exit(1)
+
+# Find previous content across potential renames (rename-safe)
+prev_bytes = None
 try:
     prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{P}'], stderr=subprocess.DEVNULL)
-    prev_sha = hashlib.sha256(prev_bytes).hexdigest()
 except subprocess.CalledProcessError:
-    prev_sha = None
+    # if renamed this commit, detect old path
+    try:
+        diff = subprocess.check_output(
+            ['git','diff','--name-status','--find-renames','HEAD~1','HEAD'], text=True)
+        ren = [ln for ln in diff.splitlines() if ln.startswith('R') and ln.split()[-1]==P]
+        if ren:
+            prev_path = ren[0].split()[1]
+            prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{prev_path}'], stderr=subprocess.DEVNULL)
+    except Exception:
+        pass
+    # otherwise, try any anchors.json from HEAD~1
+    if prev_bytes is None:
+        try:
+            ls = subprocess.check_output(['git','ls-tree','-r','--name-only','HEAD~1'], text=True)
+            candidates = [line for line in ls.splitlines() if line.endswith('anchors.json')]
+            if len(candidates)==1:
+                prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{candidates[0]}'], stderr=subprocess.DEVNULL)
+        except Exception:
+            pass
 
+prev_sha = sha256(prev_bytes) if prev_bytes else None
+
+# Append-only: if content changed, last event must carry prev SHA
 if prev_sha and prev_sha != cur_sha:
-    last = data['events'][-1] if data['events'] else None
+    last = data['events'][-1] if data.get('events') else None
     if not last or last.get('prev_content_hash') != prev_sha:
-        print('Error: events are not append-only (last.prev_content_hash must equal prior file SHA).'); sys.exit(1)
+        print('Error: anchors events not append-only (last.prev_content_hash must equal prior file SHA).'); sys.exit(1)
     else:
-        print('Append-only check: OK')
+        print('Append-only check: OK (rename-safe)')
 else:
-    print('Append-only check: anchors.json unchanged or first commit.')
+    print('Append-only check: anchors unchanged or first commit (rename-safe)')
 
-# Scope vs capsule baseline hashes.json
+# Scope vs capsule baseline
 hfile = os.environ["HFILE"]
-with open(hfile,'r') as f:
-    baseline = json.load(f)
-
-missing = [p for p in data.get('immutable_scope', []) if p not in baseline]
-if missing:
+baseline = json.load(open(hfile,'r',encoding='utf-8'))
+missing_scope = [p for p in data.get('immutable_scope', []) if p not in baseline]
+if missing_scope:
     print('Error: immutable_scope paths missing from baseline hashes.json:')
-    for m in missing: print('  -', m)
+    for m in missing_scope: print('  -', m)
     sys.exit(1)
-
 if not data['immutable_scope']:
     print('Warning: immutable_scope is empty')
 
-print(f'anchors.json sha256={cur_sha}')
+print(f'anchors sha256={cur_sha}  path={P}')
 PY
 
       - name: Check for macOS .DS_Store
@@ -203,13 +231,13 @@ PY
             echo "No .DS_Store files found."
           fi
 
-            - name: Forbid legacy output path
+      - name: Forbid legacy output path
         run: |
           if git ls-files | grep -q '^branches_thick/ocers_out/'; then
             echo "::error::legacy path branches_thick/ocers_out/ is forbidden"; exit 1
           fi
 
-- name: Build brief (smoke test)
+      - name: Build brief (smoke test)
         shell: bash
         run: |
           set -euo pipefail
