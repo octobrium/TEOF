@@ -3,16 +3,18 @@ name: teof-ci
 on:
   push:
     paths:
-      - 'seed/capsule/**'
+      - 'capsule/**'
       - 'governance/**'
-      - 'branches_thick/**'
+      - 'cli/**'
+      - 'scripts/**'
       - 'Makefile'
       - '.github/workflows/**'
   pull_request:
     paths:
-      - 'seed/capsule/**'
+      - 'capsule/**'
       - 'governance/**'
-      - 'branches_thick/**'
+      - 'cli/**'
+      - 'scripts/**'
       - 'Makefile'
       - '.github/workflows/**'
 
@@ -38,8 +40,10 @@ jobs:
             sudo apt-get update -y >/dev/null 2>&1 || true
             sudo apt-get install -y tree >/dev/null 2>&1 || true
           fi
-          echo "Top-level:" && tree -a -L 2 || true
-          echo "Capsule subtree:" && tree -a -L 2 seed/capsule || true
+          echo "Top-level:"
+          tree -a -L 2 || true
+          echo "Capsule subtree:"
+          tree -a -L 2 capsule || true
 
   verify:
     runs-on: ubuntu-latest
@@ -55,16 +59,17 @@ jobs:
         with:
           python-version: "3.11"
 
-      # Prefer seed/capsule/current/hashes.json; else use latest seed/capsule/vX.Y/hashes.json.
+      # Prefer capsule/current/hashes.json; else use latest capsule/vX.Y/hashes.json.
       # If only vX.Y exists, materialize current/ from that version for this run.
       - name: Detect capsule baseline (and materialize current if needed)
         id: detect
         shell: bash
         run: |
           set -euo pipefail
-          CAP_ROOT="seed/capsule"
+          CAP_ROOT="capsule"
           CUR="$CAP_ROOT/current"
 
+          # 1) Prefer current/ if it already has hashes.json
           if [ -f "$CUR/hashes.json" ]; then
             echo "Using baseline: $CUR/hashes.json"
             echo "baseline_dir=$CUR" >> "$GITHUB_OUTPUT"
@@ -72,12 +77,14 @@ jobs:
             exit 0
           fi
 
+          # 2) Otherwise look for latest versioned v*/hashes.json
           if compgen -G "$CAP_ROOT/v*/hashes.json" >/dev/null; then
             latest="$(ls -1d "$CAP_ROOT"/v*/ | sort -V | tail -n1)"
             latest="${latest%/}"
             echo "Materializing current/ from: $latest"
             mkdir -p "$CUR"
             cp -a "$latest"/. "$CUR"/
+            # Sanity: both hashes.json and capsule.txt should be present
             if [ ! -f "$CUR/hashes.json" ] || [ ! -f "$CUR/capsule.txt" ]; then
               echo "::error file=$CUR::materialization failed: expected hashes.json and capsule.txt"
               exit 1
@@ -87,7 +94,7 @@ jobs:
             exit 0
           fi
 
-          echo "::error::No capsule baseline found. Expected seed/capsule/current/hashes.json or seed/capsule/vX.Y/hashes.json"
+          echo "::error::No capsule baseline found. Expected either capsule/current/hashes.json or a versioned capsule/vX.Y/hashes.json"
           exit 1
 
       - name: Verify capsule hashes
@@ -130,7 +137,7 @@ for rel, exp in expected.items():
 sys.exit(0 if ok else 1)
 PY
 
-      - name: Validate anchors (strict governance only: schema + append-only via previous-change + scope vs baseline)
+      - name: Validate anchors (strict governance only: schema + append-only + scope vs baseline)
         shell: bash
         env:
           HFILE:        ${{ steps.detect.outputs.baseline_json }}
@@ -139,13 +146,15 @@ PY
           set -euo pipefail
           python - <<'PY'
 import json, hashlib, os, sys, subprocess
+
 P = os.environ["ANCHORS_PATH"]
 if not os.path.isfile(P):
     print(f"Error: {P} not present."); sys.exit(1)
 
 def sha256(b):
-    h = hashlib.sha256(); h.update(b); return h.hexdigest()
+    h=hashlib.sha256(); h.update(b); return h.hexdigest()
 
+# Load current anchors
 cur_bytes = open(P,'rb').read()
 cur_sha   = sha256(cur_bytes)
 data      = json.loads(cur_bytes.decode('utf-8'))
@@ -158,32 +167,44 @@ if missing:
 if data.get('policy') != 'append-only':
     print("Error: policy must be 'append-only'"); sys.exit(1)
 
-# Append-only: compare to the previous *change* commit for this path (robust to unrelated commits)
-lines = subprocess.check_output(['git','rev-list','-n','2','HEAD','--',P], text=True).splitlines()
-prev_change = lines[1] if len(lines) > 1 else None
+# Determine the previous commit that CHANGED THIS FILE (not just HEAD~1)
+rev_list = subprocess.check_output(['git','rev-list','-n','2','HEAD','--',P], text=True).splitlines()
+if len(rev_list) < 2:
+    print("Append-only check: first change to anchors; nothing to compare"); prev_sha=None
+else:
+    prev_change = rev_list[1]
+    prev_bytes  = subprocess.check_output(['git','show', f'{prev_change}:{P}'])
+    prev_sha    = sha256(prev_bytes)
 
-if prev_change:
-    prev_bytes = subprocess.check_output(['git','show', f'{prev_change}:{P}'])
-    prev_sha   = sha256(prev_bytes)
+# Append-only: if content changed, last event must carry prev SHA
+if prev_sha and prev_sha != cur_sha:
     last = data['events'][-1] if data.get('events') else None
     if not last or last.get('prev_content_hash') != prev_sha:
-        print('Error: anchors events not append-only (last.prev_content_hash must equal sha256(previous-change blob)).')
-        sys.exit(1)
+        print('Error: anchors events not append-only (last.prev_content_hash must equal sha256(previous content)).'); sys.exit(1)
     else:
-        print('Append-only check: OK (previous change commit)')
+        print('Append-only check: OK (against previous file change)')
 else:
-    print('Append-only check: first change to anchors.json')
+    print('Append-only check: anchors unchanged or first commit for this path')
 
-# Scope vs capsule baseline
-hfile = os.environ["HFILE"]
-baseline = json.load(open(hfile,'r',encoding='utf-8'))
-missing_scope = [p for p in data.get('immutable_scope', []) if p not in baseline]
-if missing_scope:
+# Scope vs capsule baseline (must be subset of baseline keys; warn if not exact match)
+baseline = json.load(open(os.environ["HFILE"],'r',encoding='utf-8'))
+scope = set(data.get('immutable_scope',[]))
+basekeys = set(baseline.keys())
+
+missing = [p for p in scope if p not in basekeys]
+if missing:
     print('Error: immutable_scope paths missing from baseline hashes.json:')
-    for m in missing_scope: print('  -', m)
+    for m in missing: print('  -', m)
     sys.exit(1)
-if not data['immutable_scope']:
+if not scope:
     print('Warning: immutable_scope is empty')
+elif scope != basekeys:
+    extra = sorted(scope - basekeys)
+    absent= sorted(basekeys - scope)
+    if extra:
+        print('Warning: immutable_scope has extra paths not in baseline:', *extra, sep="\n  - ")
+    if absent:
+        print('Warning: immutable_scope omits baseline paths:', *absent, sep="\n  - ")
 
 print(f'anchors sha256={cur_sha}  path={P}')
 PY
@@ -202,7 +223,7 @@ PY
             echo "::error::deprecated path rings/ detected; use governance/"; exit 1
           fi
 
-      - name: Forbid legacy output path
+      - name: Forbid legacy brief output path
         run: |
           if git ls-files | grep -q '^branches_thick/ocers_out/'; then
             echo "::error::legacy path branches_thick/ocers_out/ is forbidden"; exit 1
