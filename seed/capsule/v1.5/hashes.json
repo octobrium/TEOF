@@ -1,9 +1,16 @@
 {
-  "capsule/current/PROVENANCE.md": "044a0534a81c687839eebb3b9eb3e76e27e6d6dcc7644e0ce4ece2d4ea172700",
-  "capsule/current/capsule-handshake.txt": "5c5e5a2cd8cdfe49a472c35a77bd5ebfa293275f5a808f8e19e3f24932a81bb1",
-  "capsule/current/capsule-mini.txt": "14832af97ac719244a36d2191dde79116bbced775ec0d091bf446650a5a81e94",
-  "capsule/current/capsule-selfreconstructing.txt": "cbe147a6104fb4daea18087bdcbf1788cfa62c15eb5ea64384b9c5fc1f3a8ad9",
-  "capsule/current/capsule.txt": "ffc9aa3372284be6d94446966440a73ac87a0addf770ccc30b813540dba0a947",
-  "capsule/current/reconstruction.json": "b49693c4ba6c846527b9d7dbae5b57097265845202ce63f63e8d2806e5c3d420",
-  "capsule/current/tests.md": "0a7f81d4fe884dedf1d8132790b420c2d6c99c0fdc58a671b4ae85bfe0f959f7"
+  "PROVENANCE.md": "044a0534a81c687839eebb3b9eb3e76e27e6d6dcc7644e0ce4ece2d4ea172700",
+  "RELEASE.md": "0c40c680b1a508352848de69d25a63d829bc22a228bd4c77273f8601f003ab82",
+  "calibration.md": "1a5bcc47c6597786792705a997a5aca72a204030f1d3ee85c86d73a11e30c457",
+  "capsule-handshake.txt": "5c5e5a2cd8cdfe49a472c35a77bd5ebfa293275f5a808f8e19e3f24932a81bb1",
+  "capsule-mini.txt": "14832af97ac719244a36d2191dde79116bbced775ec0d091bf446650a5a81e94",
+  "capsule-selfreconstructing.txt": "cbe147a6104fb4daea18087bdcbf1788cfa62c15eb5ea64384b9c5fc1f3a8ad9",
+  "capsule.txt": "ffc9aa3372284be6d94446966440a73ac87a0addf770ccc30b813540dba0a947",
+  "reconstruction.json": "b49693c4ba6c846527b9d7dbae5b57097265845202ce63f63e8d2806e5c3d420",
+  "tests.md": "0a7f81d4fe884dedf1d8132790b420c2d6c99c0fdc58a671b4ae85bfe0f959f7",
+  "OGS-spec.md": "a08350d2b4a59fcd1adf1ef31e38e3a0623ef6e60b5c6e577557c600c763d64c",
+  "canonical-teof.md": "b920842de5c168b2f8f600a098e7b13bc674a93053905bf41683770749c7001a",
+  "core-teof.md": "6e8a9b44d693ebfb7484ae804d3f8327a26f3cc8f75f1bae5b224a9f8ff11fe1",
+  "volatile-data-protocol.md": "7bb99cc9a8d545db2731d136caadcc352b8936c3624e050b247dbdb728d42817",
+  "TEOF-FUTURE.md": "1c6cedd89794b671c46d3054ca19a6f031120ac6e85050b341e049d6ee97fbf5"
 }
