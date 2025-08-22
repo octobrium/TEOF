@@ -58,3 +58,6 @@ __pycache__/
 artifacts/ocers_out/
 .teof_reorg_backup_*
 legacy/ops/_local/
+
+# reports runtime outputs
+artifacts/reports/
