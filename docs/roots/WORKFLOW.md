@@ -4,7 +4,7 @@
 - **Minimalism:** Changes should reduce or hold complexity for equal capability. If complexity ↑, justify in one sentence in the PR body.
 - **Single Source of Truth:** Critical files live under `seed/capsule/current/` and are covered by `hashes.json`.
 - **Determinism:** Checks run reproducibly on a clean machine.
-- **Append-Only Governance:** `rings/anchors.json` is append-only; releases map to a baseline.
+- **Append-Only Governance:** `governance/anchors.json` is append-only; releases map to a baseline.
 - **Observation Discipline:** New claims follow VDP; reasoning can be scored with OGS (N/A allowed when not applicable).
 - **Future-proofing:** Prefer text formats, stable layouts, and minimal dependencies.
 
@@ -30,7 +30,7 @@
 ## Lean release block (only when tagging)
 
 1) Ensure `seed/capsule/current → vX.Y` and `hashes.json` is final.  
-2) `rings/anchors.json`: `immutable_scope = keys(hashes.json)`; append `{tag, baseline}` if new.  
+2) `governance/anchors.json`: `immutable_scope = keys(hashes.json)`; append `{tag, baseline}` if new.  
 3) Update `CHANGELOG.md` with date & bullets.  
 4) Tag and archive: `git tag -a vX.Y.Z -m "…"` and zip the capsule dir to `artifacts/teof-vX.Y.Z.zip`.  
 5) Publish release with the zip.

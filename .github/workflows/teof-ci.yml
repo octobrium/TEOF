@@ -206,10 +206,10 @@ PY
             echo "No .DS_Store files found."
           fi
 
-      - name: Forbid deprecated rings/ path
+      - name: Forbid deprecated governance/ path
         run: |
-          if git ls-files | grep -q '^rings/'; then
-            echo "::error::deprecated path rings/ detected; use governance/"; exit 1
+          if git ls-files | grep -q '^governance/'; then
+            echo "::error::deprecated path governance/ detected; use governance/"; exit 1
           fi
 
       - name: Forbid legacy output path

@@ -24,7 +24,7 @@ Windows (PowerShell):
 - Runs the TEOF CLI to generate a brief:
   - writes to `artifacts/ocers_out/<timestamp>/`
   - updates/creates the `latest` symlink
-- Appends a SHA-256 anchor for that run to `rings/anchors.json`.
+- Appends a SHA-256 anchor for that run to `governance/anchors.json`.
 
 > Runtime note: the capsule files are for documentation + reproducibility; the CLI run does **not** depend on them.
 
@@ -50,7 +50,7 @@ Windows (PowerShell):
 - **Tests / calibration**
   - `tests.md`, `calibration.md`
 - **Governance & scope**
-  - See [`rings/anchors.json`](../../rings/anchors.json) for immutable anchors/scope.
+  - See [`governance/anchors.json`](../../governance/anchors.json) for immutable anchors/scope.
 
 ---
 

@@ -3,7 +3,7 @@ import json, hashlib, os
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT_ROOT = Path(os.environ.get("TEOF_OUT_DIR", ROOT / "artifacts" / "ocers_out"))
-RINGS_FILE = ROOT / "rings" / "anchors.json"
+RINGS_FILE = ROOT / "governance" / "anchors.json"
 def latest_dir():
     dirs = [p for p in OUT_ROOT.iterdir() if p.is_dir()]
     if not dirs: raise SystemExit(f"No runs in {OUT_ROOT}")

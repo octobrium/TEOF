@@ -8,7 +8,7 @@ Changes to this file require a TEP (`proposals/`), CODEOWNERS approval, and CI p
 - Ensure every change either **increases verifiability** or **reduces cognitive load**.
 
 ## North Stars (non-negotiable)
-- **Auditable by default** — canonical bytes are covered by capsule `hashes.json` or referenced by `rings/anchors.json`.
+- **Auditable by default** — canonical bytes are covered by capsule `hashes.json` or referenced by `governance/anchors.json`.
 - **Deterministic paths** — same inputs → same brief; behavior changes are config-gated and diffable.
 - **Observer-led recursion** — each release is an observable node; nothing critical lives only “in flight”.
 - **Minimal surface area** — composition over new code; fewer moving parts > cleverness.
@@ -32,4 +32,4 @@ Changes to this file require a TEP (`proposals/`), CODEOWNERS approval, and CI p
 ## Change Control
 1) Create a **TEP** in `proposals/` (motivation, alternatives, impact).  
 2) Open a PR referencing the TEP; **CODEOWNERS** approval required.  
-3) On release: append event in `rings/anchors.json` (append-only) binding the change.
+3) On release: append event in `governance/anchors.json` (append-only) binding the change.

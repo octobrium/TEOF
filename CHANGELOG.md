@@ -17,7 +17,7 @@ Versioning: SemVer (0.y until first stable)
 
 ### Release prep checklist (for next tag)
 - [ ] Freeze capsule: update `seed/capsule/vX.Y/hashes.json` and `PROVENANCE.md`.
-- [ ] Append anchors event in `rings/anchors.json` (with `prev_content_hash`).
+- [ ] Append anchors event in `governance/anchors.json` (with `prev_content_hash`).
 - [ ] Verify CI green on tag and cut GitHub Release (attach `seed/capsule/current/` archive).
 
 ---
@@ -33,4 +33,4 @@ Versioning: SemVer (0.y until first stable)
 - Unified brief outputs to `artifacts/ocers_out`; deterministic evaluator stub and fetchers fallback so `make brief` is stable.
 
 ### Governance
-- `rings/anchors.json` set to `policy: "append-only"`, `immutable_scope` synced to baseline; `releases` entry for `v1.5`.
+- `governance/anchors.json` set to `policy: "append-only"`, `immutable_scope` synced to baseline; `releases` entry for `v1.5`.

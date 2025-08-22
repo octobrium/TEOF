@@ -17,7 +17,7 @@ This folder holds the versioned capsule and a symlink named `current` that point
 - reconstruction.json — machine recipe for reconstruction
 - tests.md, calibration.md
 
-Governance & scope: see `../../rings/anchors.json`.
+Governance & scope: see `../../governance/anchors.json`.
 
 ## Switch `current` to a new release
 
