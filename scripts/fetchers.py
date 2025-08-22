@@ -2,6 +2,9 @@ import os, json, time, csv, io
 from datetime import datetime, timezone
 from urllib.request import urlopen, Request
 
+# Freshness window (minutes) used to auto-label stale fallbacks
+FRESH_MINUTES = int(os.getenv("VDP_FRESH_MINUTES", "10"))
+
 def _now_iso():
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -10,6 +13,15 @@ def _iso_from_epoch(sec):
         return datetime.utcfromtimestamp(int(sec)).replace(tzinfo=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     except Exception:
         return _now_iso()
+
+def _is_stale(ts_utc: str, minutes: int = FRESH_MINUTES) -> bool:
+    try:
+        ts = (ts_utc or "").replace("Z", "+00:00")
+        dt = datetime.fromisoformat(ts)
+    except Exception:
+        return True
+    now = datetime.now(timezone.utc)
+    return (now - dt).total_seconds() > minutes * 60
 
 def _get_json(url, headers=None, timeout=6):
     req = Request(url, headers=headers or {"User-Agent": "teof/ocers"})
@@ -40,7 +52,16 @@ def _retry(fn, attempts=2, delay=1.0):
     return last
 
 def _pack(value, ts, source, provenance):
-    return {"value": float(value), "timestamp_utc": ts, "source": source, "provenance": provenance}
+    d = {
+        "value": float(value),
+        "timestamp_utc": ts,
+        "source": source,
+        "provenance": provenance,
+        "volatile": True,
+    }
+    if _is_stale(ts):
+        d["stale_labeled"] = True
+    return d
 
 def _pack_env(key):
     v = _env_price(key)
@@ -48,22 +69,28 @@ def _pack_env(key):
         return _pack(v, _now_iso(), f"manual://env/{key}", "fallback:env")
     return None
 
+# --- BTC (CoinGecko, then env) ---
 def _fetch_btc_coingecko():
     try:
-        data = _get_json("https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false")
+        data = _get_json(
+            "https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
+        )
         price = float(data["market_data"]["current_price"]["usd"])
-        ts = (data.get("last_updated") or _now_iso()).replace("+00:00","Z")
+        ts = (data.get("last_updated") or _now_iso()).replace("+00:00", "Z")
         return _pack(price, ts, "https://api.coingecko.com/api/v3/coins/bitcoin", "auto:coingecko")
     except Exception:
         return None
 
 def fetch_btc():
     got = _retry(_fetch_btc_coingecko)
-    if got: return got
+    if got:
+        return got
     env = _pack_env("PRICE_BTC")
-    if env: return env
+    if env:
+        return env
     return None
 
+# --- Yahoo + Stooq helpers (equities/ETFs) ---
 def _yf_quote(symbols):
     return _get_json("https://query1.finance.yahoo.com/v7/finance/quote?symbols=" + symbols)
 
@@ -102,11 +129,14 @@ def _fetch_stooq_one(symbol):
 
 def _fetch_with_env(symbol, env_key):
     got = _retry(lambda: _fetch_yf_one(symbol))
-    if got: return got
+    if got:
+        return got
     got = _retry(lambda: _fetch_stooq_one(symbol))
-    if got: return got
+    if got:
+        return got
     env = _pack_env(env_key)
-    if env: return env
+    if env:
+        return env
     return None
 
 def fetch_ibit():

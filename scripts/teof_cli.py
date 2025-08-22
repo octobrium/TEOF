@@ -4,12 +4,16 @@ from pathlib import Path
 from datetime import datetime, timezone
 from subprocess import run, PIPE
 
+# --- paths ---
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-
-from scripts import fetchers
-
 EVAL = ROOT / "tools" / "teof_evaluator.py"
+OUT_ROOT = ROOT / "ocers_out"  # single source of truth for outputs
+
+print(f"[TEOF-CLI] running: {__file__}")
+
+# --- fetchers ---
+from scripts import fetchers  # stdlib-only, local
 
 FETCHER_MAP = {
     "BTC":  fetchers.fetch_btc,
@@ -19,61 +23,83 @@ FETCHER_MAP = {
     "MSTR": fetchers.fetch_mstr,
 }
 
+# --- utils ---
 def utc_stamp():
     return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 
 def default_config():
-    return {"mode":"strict","fresh_minutes":10,"assets":["BTC","IBIT","NVDA","PLTR","MSTR"], "fallback": True}
+    return {
+        "mode": "strict",
+        "fresh_minutes": 10,
+        "assets": ["BTC", "IBIT", "NVDA", "PLTR", "MSTR"],
+    }
 
 def load_config():
     yml = ROOT / "config" / "brief.yml"
     jsn = ROOT / "config" / "brief.json"
     try:
-        import yaml
+        import yaml  # optional
     except Exception:
         yaml = None
+
     if yml.exists() and yaml is not None:
         with open(yml, "r", encoding="utf-8") as f:
-            return yaml.safe_load(f) or default_config()
+            cfg = yaml.safe_load(f) or {}
+            return {**default_config(), **cfg}
     if jsn.exists():
         with open(jsn, "r", encoding="utf-8") as f:
-            return json.load(f)
+            cfg = json.load(f) or {}
+            return {**default_config(), **cfg}
     return default_config()
 
-def build_ocers(cfg):
-    obs = []
+def _is_stale(ts, minutes):
+    if not ts:
+        return True
+    try:
+        dt = datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+    except Exception:
+        return True
+    return (datetime.now(timezone.utc) - dt).total_seconds() > (int(minutes) * 60)
+
+def build_ocers(cfg, fresh_minutes):
+    fresh_min = int(cfg.get("fresh_minutes", fresh_minutes if fresh_minutes is not None else 10))
+    observations = []
     for a in cfg.get("assets", []):
-        f = FETCHER_MAP.get(a.upper())
-        data = f() if f else None
+        fn = FETCHER_MAP.get(str(a).upper())
+        data = fn() if fn else None
         if data:
-            obs.append({
-                "label": f"{a} last",
-                "value": data.get("value"),
-                "timestamp_utc": data.get("timestamp_utc"),
-                "source": data.get("source"),
-                "provenance": data.get("provenance"),
-                "volatile": True,
-                "stale_labeled": False
-            })
+            base = dict(data)
+            base["label"] = base.get("label") or f"{a} last"
+            base["volatile"] = True
+            is_stale = _is_stale(base.get("timestamp_utc"), fresh_min)
+            already_marked = bool(base.get("stale_labeled"))
+            if is_stale and not str(base["label"]).rstrip().endswith("(stale)"):
+                base["stale_labeled"] = True
+                base["label"] = f'{base["label"].rstrip()} (stale)'
+                base["stale_reason"] = f"older than {fresh_min}m"
+            elif already_marked:
+                base["stale_labeled"] = True
+            observations.append(base)
         else:
-            obs.append({
+            observations.append({
                 "label": f"{a} last",
                 "value": None,
                 "timestamp_utc": None,
                 "source": None,
-                "provenance": "missing",
                 "volatile": True,
-                "stale_labeled": False
+                "stale_labeled": False,
+                "provenance": f"fetcher failed at {utc_stamp()}",
             })
+
     return {
         "ocers": {
             "observation": "Daily brief (auto-generated).",
             "coherence": "",
             "evidence": "",
-            "result": "If any values are null, explore mode or env fallbacks will keep the brief flowing.",
-            "scope": "Tactical (days-weeks)"
+            "result": "If any values are null, use explore mode or fix fetchers.",
+            "scope": "Tactical (days-weeks)",
         },
-        "observations": obs
+        "observations": observations,
     }
 
 def write(path, data):
@@ -86,96 +112,89 @@ def write(path, data):
 
 def run_evaluator(report_path, mode, fresh_minutes):
     env = os.environ.copy()
-    env["TEOF_MODE"] = mode
-    env["VDP_FRESH_MINUTES"] = str(fresh_minutes)
-    p = run(["python3", str(EVAL)], input=Path(report_path).read_bytes(), stdout=PIPE, stderr=PIPE, env=env)
+    env["TEOF_MODE"] = str(mode)
+    env["VDP_FRESH_MINUTES"] = str(int(fresh_minutes))
+    p = run(
+        [sys.executable, str(EVAL)],
+        input=Path(report_path).read_bytes(),
+        stdout=PIPE,
+        stderr=PIPE,
+        env=env,
+    )
     return p.returncode, p.stdout.decode(), p.stderr.decode()
 
-def _prov_bucket(p):
-    if not p: return "missing"
-    if p.startswith("auto:"): return "auto"
-    if p.startswith("fallback:"): return p
-    if str(p).startswith("manual://"): return "fallback:env"
-    return "unknown"
-
 def to_markdown(score_text, ocers_json, mode, fresh):
-    obs = ocers_json["observations"]
-    total = len(obs)
-    auto_count = sum(1 for o in obs if _prov_bucket(o.get("provenance")) == "auto")
-    fb_env = sum(1 for o in obs if _prov_bucket(o.get("provenance")) == "fallback:env")
-    fb_stooq = sum(1 for o in obs if _prov_bucket(o.get("provenance")) == "fallback:stooq")
-    missing = sum(1 for o in obs if _prov_bucket(o.get("provenance")) == "missing")
-    lines = []
-    lines.append("# TEOF Brief")
-    lines.append(f"- Mode: {mode}")
-    lines.append(f"- Fresh window (min): {fresh}")
-    lines.append("")
-    lines.append("## Score")
-    lines.append("```")
-    lines.append(score_text.strip())
-    lines.append("```")
-    lines.append("")
-    lines.append("## Provenance summary")
-    lines.append(f"- Total: {total}")
-    lines.append(f"- Auto: {auto_count}")
-    lines.append(f"- Fallback (stooq): {fb_stooq}")
-    lines.append(f"- Fallback (env): {fb_env}")
-    lines.append(f"- Missing: {missing}")
-    lines.append("")
-    lines.append("## Observations")
-    lines.append("| label | value | timestamp_utc | source | provenance |")
-    lines.append("|---|---:|---|---|---|")
-    for o in obs:
-        label = o.get("label")
-        val = o.get("value")
-        ts = o.get("timestamp_utc")
-        src = o.get("source")
-        prov = o.get("provenance")
-        lines.append(f"| {label} | {val} | {ts} | {src} | {prov} |")
+    lines = [
+        "# TEOF Brief",
+        f"- Mode: {mode}",
+        f"- Fresh window (min): {fresh}",
+        "",
+        "## Score",
+        "```",
+        score_text.strip(),
+        "```",
+        "",
+        "## Observations",
+        "",
+        "| label | value | timestamp_utc | source | stale_labeled |",
+        "|---|---:|---|---|---|",
+    ]
+    for o in ocers_json.get("observations", []):
+        lines.append(
+            f"| {o.get('label')} | {o.get('value')} | {o.get('timestamp_utc')} | "
+            f"{o.get('source')} | {o.get('stale_labeled', False)} |"
+        )
     return "\n".join(lines)
 
-def main():
-    cfg = load_config()
-    mode = cfg.get("mode","strict").lower()
-    fresh = int(cfg.get("fresh_minutes", 10))
-    allow_fallback = bool(cfg.get("fallback", True))
-
-    ts = utc_stamp()
-    outdir = ROOT / "ocers_out" / ts
-    outdir.mkdir(parents=True, exist_ok=True)
-
-    report = build_ocers(cfg)
-    try:
-        from scripts import events as _events
-        ev = _events.scan(_events.load_cfg(str(ROOT / "config" / "events.json")))
-        if isinstance(ev, list) and ev:
-            report.setdefault("observations", []).extend(ev)
-    except Exception:
-        pass
-    report_path = outdir / "brief.json"
-    write(report_path, report)
-
-    rc, out, err = run_evaluator(report_path, mode, fresh)
-    write(outdir / "score.txt", out)
-
-    if allow_fallback and mode == "strict" and rc != 0:
-        rc2, out2, err2 = run_evaluator(report_path, "explore", fresh)
-        out = out.rstrip() + "\n---\n[auto-fallback] strict failed; explore report below:\n" + out2
-        (outdir / "score.strict.txt").write_text(out)
-        (outdir / "score.explore.txt").write_text(out2)
-
-    md = to_markdown(out, report, mode, fresh)
-    write(outdir / "brief.md", md)
-
-    print(out.strip())
-    latest = ROOT / "ocers_out" / "latest"
+def update_latest_symlink(outdir: Path):
+    OUT_ROOT.mkdir(parents=True, exist_ok=True)
+    latest = OUT_ROOT / "latest"
     try:
         if latest.exists() or latest.is_symlink():
             latest.unlink()
-        latest.symlink_to(outdir, target_is_directory=True)
-    except Exception:
+    except FileNotFoundError:
         pass
-    print(f"wrote: {outdir} (latest -> {outdir.name})")
+    # point to the absolute dir we just wrote
+    latest.symlink_to(outdir.resolve())
+    print(f">>> latest -> {latest.readlink()}")
+
+def main():
+    cfg = load_config()
+    mode = str(cfg.get("mode", "strict")).lower()
+    fresh = int(cfg.get("fresh_minutes", 10))
+
+    ts = utc_stamp()
+    outdir = OUT_ROOT / ts
+    outdir.mkdir(parents=True, exist_ok=True)
+
+    ocers = build_ocers(cfg, fresh)
+    report_path = outdir / "brief.json"
+    write(report_path, ocers)
+
+    rc, out, err = run_evaluator(report_path, mode, fresh)
+
+    if mode == "strict" and rc != 0:
+        rc2, out2, err2 = run_evaluator(report_path, "explore", fresh)
+        out = out.strip() + "\n\n---\n[auto-fallback] strict failed; explore report below:\n" + out2
+
+    write(outdir / "score.txt", out)
+    write(outdir / "brief.md", to_markdown(out, ocers, mode, fresh))
+
+    # Safety check: ensure files exist
+    must = [outdir / "brief.json", outdir / "brief.md", outdir / "score.txt"]
+    for f in must:
+        if not f.exists():
+            raise RuntimeError(f"[TEOF-CLI] ERROR: expected output missing: {f}")
+
+    # Atomically update latest symlink, then show directory contents
+    update_latest_symlink(outdir)
+    print(">>> written files:")
+    for f in sorted(outdir.iterdir()):
+        print(" -", f.name)
+
+    # Print evaluator output summary then final path (handy for scripts)
+    print(out.strip())
+    print(f"wrote: {outdir}")
 
 if __name__ == "__main__":
     main()

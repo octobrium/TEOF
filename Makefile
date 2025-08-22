@@ -1,36 +1,61 @@
-PY := python3
+SHELL := /bin/bash
+PYTHON ?= $(shell command -v python3 || command -v python)
+OUT := ocers_out
 
-.PHONY: brief
+.PHONY: brief brief_all open_brief audit clean help show_latest
+
+help:
+	@echo ""
+	@echo "Targets:"
+	@echo "  make brief        - Run the CLI (it writes files and updates 'latest')"
+	@echo "  make open_brief   - Open ocers_out/latest/brief.md (robust guard)"
+	@echo "  make audit        - Show ocers_out/latest/score.txt (first 120 lines)"
+	@echo "  make show_latest  - Inspect the latest folder and files"
+	@echo "  make brief_all    - Run brief, then open_brief"
+	@echo "  make clean        - Remove all outputs in ocers_out/"
+	@echo ""
+
 brief:
-	./scripts/teof_cli.py
+	@echo ">>> Generating brief..."
+	@$(PYTHON) scripts/teof_cli.py
 
-.PHONY: brief_explore
-brief_explore:
-	TEOF_MODE=explore ./scripts/teof_cli.py
+# Helpful inspector to avoid mystery: lists the symlink and the files it points to.
+show_latest:
+	@echo ">>> Inspecting $(OUT)/latest"
+	@ls -l $(OUT) || true
+	@echo "----"
+	@if [[ -L "$(OUT)/latest" ]]; then \
+		echo ">>> latest is a symlink to: $$(readlink $(OUT)/latest)"; \
+		echo ">>> contents of that folder:"; \
+		ls -l "$$(readlink $(OUT)/latest)" || true; \
+	else \
+		echo ">>> $(OUT)/latest is missing or not a symlink"; \
+	fi
 
-.PHONY: check
-check:
-	$(PY) tools/teof_evaluator.py < datasets/goldens/pass_01_fresh_price.json >/dev/null
-	$(PY) tools/teof_evaluator.py < datasets/goldens/pass_02_conflict_but_cited.json >/dev/null
-	$(PY) tools/teof_evaluator.py < datasets/goldens/pass_03_stale_but_labeled.json >/dev/null
-	$(PY) tools/teof_evaluator.py < datasets/goldens/fail_01_missing_timestamp.json >/dev/null 2>&1 || true
-	$(PY) tools/teof_evaluator.py < datasets/goldens/fail_02_missing_source.json >/dev/null 2>&1 || true
-	$(PY) tools/teof_evaluator.py < datasets/goldens/fail_03_stale_unlabeled.json >/dev/null 2>&1 || true
-	@echo "goldens: all good"
-
-.PHONY: audit
-audit:
-	./scripts/audit.py
-
-.PHONY: open_brief
 open_brief:
-	less ocers_out/latest/brief.md
+	@file="$(OUT)/latest/brief.md"; \
+	if [[ ! -e "$$file" ]]; then \
+		echo ">>> ERROR: $$file not found."; \
+		echo ">>> Running show_latest for context..."; \
+		$(MAKE) -s show_latest; \
+		echo ">>> Tip: run 'make brief' again if you interrupted the generator."; \
+		exit 1; \
+	fi; \
+	less "$$file"
 
-.PHONY: watch
-watch:
-	./scripts/watchlist.py
+audit:
+	@file="$(OUT)/latest/score.txt"; \
+	if [[ ! -e "$$file" ]]; then \
+		echo ">>> ERROR: $$file not found."; \
+		echo ">>> Running show_latest for context..."; \
+		$(MAKE) -s show_latest; \
+		exit 1; \
+	fi; \
+	echo ">>> Showing score (first 120 lines):"; \
+	sed -n '1,120p' "$$file"
 
-.PHONY: brief_all
-brief_all:
-	make brief
-	make watch
+brief_all: brief open_brief
+
+clean:
+	@rm -rf "$(OUT)"
+	@echo ">>> Cleaned $(OUT)/"
