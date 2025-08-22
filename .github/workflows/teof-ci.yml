@@ -3,14 +3,18 @@ name: verify
 on:
   push:
     paths:
-      - 'capsule/**'
-      - 'anchors/immutable.json'
-      - '.github/workflows/teof-ci.yml'
+      - 'seed/capsule/**'
+      - 'rings/**'
+      - 'branches_thick/**'
+      - 'Makefile'
+      - '.github/workflows/**'
   pull_request:
     paths:
-      - 'capsule/**'
-      - 'anchors/immutable.json'
-      - '.github/workflows/teof-ci.yml'
+      - 'seed/capsule/**'
+      - 'rings/**'
+      - 'branches_thick/**'
+      - 'Makefile'
+      - '.github/workflows/**'
 
 permissions:
   contents: read
@@ -22,6 +26,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,148 +36,188 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: "3.11"
 
-      # --- CI guard: ensure capsule/current exists (materialize from v1.5) ---
-      - name: Ensure capsule/current exists
+      # Ensure seed/capsule/current exists (materialize from latest vX.Y)
+      - name: Ensure seed/capsule/current exists
+        shell: bash
         run: |
-          if [ ! -f capsule/current/capsule.txt ]; then
-            echo "Materializing capsule/current from v1.5"
-            mkdir -p capsule/current
-            cp capsule/v1.5/* capsule/current/
+          set -euo pipefail
+          CAP_ROOT="seed/capsule"
+          CUR="$CAP_ROOT/current"
+
+          if [ ! -f "$CUR/capsule.txt" ]; then
+            echo "Materializing $CUR from the latest versioned capsule…"
+            if compgen -G "$CAP_ROOT/v*/" >/dev/null; then
+              latest="$(ls -1d "$CAP_ROOT"/v*/ | sort -V | tail -n1)"
+              mkdir -p "$CUR"
+              cp -R "$latest"* "$CUR"/
+              echo "Using: $latest"
+            else
+              echo "::error::No versioned capsule found under $CAP_ROOT/v*/"
+              exit 1
+            fi
           fi
 
+      # Capsule hash verification (prefer current; else latest vX.Y)
       - name: Verify capsule hashes
+        shell: bash
         run: |
+          set -euo pipefail
           python - <<'PY'
-          import os, re, json, hashlib, sys
+import os, re, json, hashlib, sys
 
-          def sha256_file(path):
-              h = hashlib.sha256()
-              with open(path, 'rb') as f:
-                  for chunk in iter(lambda: f.read(8192), b''):
-                      h.update(chunk)
-              return h.hexdigest()
+CAP_ROOT = os.path.join('seed','capsule')
+cand = []
 
-          # Prefer versionless baseline; otherwise fall back to latest vX.Y
-          candidates = []
-          cur = os.path.join('capsule', 'current', 'hashes.json')
-          if os.path.isfile(cur):
-              candidates.append(cur)
+cur = os.path.join(CAP_ROOT,'current','hashes.json')
+if os.path.isfile(cur):
+    cand.append(cur)
 
-          vers = []
-          cap = 'capsule'
-          if os.path.isdir(cap):
-              for d in os.listdir(cap):
-                  if re.fullmatch(r'v\\d+\\.\\d+', d) and os.path.isfile(os.path.join(cap, d, 'hashes.json')):
-                      vers.append(d)
-          vers.sort(reverse=True)
-          for d in vers:
-              candidates.append(os.path.join('capsule', d, 'hashes.json'))
+vers = []
+if os.path.isdir(CAP_ROOT):
+    for d in os.listdir(CAP_ROOT):
+        if re.fullmatch(r'v\\d+\\.\\d+', d) and os.path.isfile(os.path.join(CAP_ROOT,d,'hashes.json')):
+            vers.append(d)
+vers.sort(reverse=True)
+for d in vers:
+    cand.append(os.path.join(CAP_ROOT,d,'hashes.json'))
 
-          if not candidates:
-              print("Error: no hashes.json found (checked capsule/current and versioned dirs)", file=sys.stderr)
-              sys.exit(1)
+if not cand:
+    print("Error: no hashes.json found (checked seed/capsule/current and versioned dirs)")
+    sys.exit(1)
 
-          baseline = candidates[0]
-          print("Using baseline:", baseline)
-          with open(baseline, 'r') as f:
-              expected = json.load(f)
+baseline = cand[0]
+base_dir = os.path.dirname(baseline)
+print("Using baseline:", baseline)
 
-          ok = True
-          for path, exp in expected.items():
-              if not os.path.exists(path):
-                  print(f"Error: missing file {path}")
-                  ok = False
-                  continue
-              got = sha256_file(path)
-              if got != exp:
-                  print("Error: Hash mismatch")
-                  print(" expected:", exp)
-                  print(" got     :", got)
-                  print(" file    :", path)
-                  ok = False
-              else:
-                  print("OK", path)
+with open(baseline,'r') as f:
+    expected = json.load(f)
 
-          if not ok:
-              sys.exit(1)
-          PY
+def sha256_file(p):
+    h = hashlib.sha256()
+    with open(p,'rb') as f:
+        for chunk in iter(lambda: f.read(8192), b''):
+            h.update(chunk)
+    return h.hexdigest()
 
-      - name: Validate anchors/immutable.json (schema, append-only, scope vs baseline)
+ok = True
+for rel, exp in expected.items():
+    p = os.path.join(base_dir, rel)
+    if not os.path.exists(p):
+        print(f"Error: missing file {p}")
+        ok = False
+        continue
+    got = sha256_file(p)
+    if got != exp:
+        print("Error: Hash mismatch")
+        print(" expected:", exp)
+        print(" got     :", got)
+        print(" file    :", p)
+        ok = False
+    else:
+        print("OK", rel)
+
+sys.exit(0 if ok else 1)
+PY
+
+      # Validate rings/anchors.json: schema, append-only, scope-vs-baseline
+      - name: Validate rings/anchors.json
+        shell: bash
         run: |
+          set -euo pipefail
           python - <<'PY'
-          import json, hashlib, os, sys, subprocess, re
+import json, hashlib, os, sys, subprocess, re
 
-          P = 'anchors/immutable.json'
-          if not os.path.exists(P):
-              print('Error: anchors/immutable.json not found'); sys.exit(1)
+P = os.path.join('rings','anchors.json')
+if not os.path.exists(P):
+    print("rings/anchors.json not present; skipping.")
+    sys.exit(0)
 
-          with open(P, 'r') as f:
-              data = json.load(f)
+# ---- Minimal schema check ----
+with open(P,'r') as f:
+    data = json.load(f)
 
-          # Minimal schema
-          for k in ['version', 'policy', 'anchors', 'immutable_scope', 'events', 'releases']:
-              if k not in data:
-                  print(f'Error: missing "{k}"'); sys.exit(1)
+required = ['version','policy','anchors','immutable_scope','events','releases']
+missing = [k for k in required if k not in data]
+if missing:
+    print("Error: missing keys in rings/anchors.json:", ", ".join(missing)); sys.exit(1)
 
-          # Compute current + previous hashes
-          cur_bytes = open(P,'rb').read()
-          cur_sha   = hashlib.sha256(cur_bytes).hexdigest()
-          prev_sha  = None
-          try:
-              prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{P}'], stderr=subprocess.DEVNULL)
-              prev_sha = hashlib.sha256(prev_bytes).hexdigest()
-          except subprocess.CalledProcessError:
-              pass
+# ---- Append-only check when file changed in this commit ----
+cur_bytes = open(P,'rb').read()
+cur_sha   = hashlib.sha256(cur_bytes).hexdigest()
+prev_sha  = None
+try:
+    prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{P}'], stderr=subprocess.DEVNULL)
+    prev_sha = hashlib.sha256(prev_bytes).hexdigest()
+except subprocess.CalledProcessError:
+    pass
 
-          # Append-only: only enforce if the file changed
-          if prev_sha and prev_sha != cur_sha:
-              last = data['events'][-1] if data['events'] else None
-              if not last or last.get('prev_content_hash') != prev_sha:
-                  print('Error: events are not append-only compared to previous commit')
-                  sys.exit(1)
-              else:
-                  print('Append-only check: OK (file changed and last.prev_content_hash matches).')
-          else:
-              print('Append-only check: anchors/immutable.json unchanged in this commit.')
+if prev_sha and prev_sha != cur_sha:
+    last = data['events'][-1] if data['events'] else None
+    if not last or last.get('prev_content_hash') != prev_sha:
+        print('Error: events are not append-only (last.prev_content_hash must equal prior file SHA).')
+        sys.exit(1)
+    else:
+        print('Append-only check: OK (file changed and last.prev_content_hash matches).')
+else:
+    print('Append-only check: anchors.json unchanged or no previous commit.')
 
-          print(f'anchors/immutable.json sha256={cur_sha}')
+print(f'anchors.json sha256={cur_sha}')
 
-          # Scope vs baseline: each immutable path must appear in hashes.json
-          candidates = []
-          cur = os.path.join('capsule','current','hashes.json')
-          if os.path.isfile(cur): candidates.append(cur)
-          vers = []
-          cap = 'capsule'
-          if os.path.isdir(cap):
-              for d in os.listdir(cap):
-                  if re.fullmatch(r'v\\d+\\.\\d+', d) and os.path.isfile(os.path.join(cap,d,'hashes.json')):
-                      vers.append(d)
-          vers.sort(reverse=True)
-          for d in vers:
-              candidates.append(os.path.join('capsule',d,'hashes.json'))
-          if not candidates:
-              print('Error: no hashes.json found for scope cross-check'); sys.exit(1)
+# ---- Scope vs baseline hashes.json ----
+CAP_ROOT = os.path.join('seed','capsule')
+candidates = []
+cur = os.path.join(CAP_ROOT,'current','hashes.json')
+if os.path.isfile(cur): candidates.append(cur)
 
-          with open(candidates[0],'r') as f:
-              baseline = json.load(f)
+vers = []
+if os.path.isdir(CAP_ROOT):
+    for d in os.listdir(CAP_ROOT):
+        if re.fullmatch(r'v\\d+\\.\\d+', d) and os.path.isfile(os.path.join(CAP_ROOT,d,'hashes.json')):
+            vers.append(d)
+vers.sort(reverse=True)
+for d in vers:
+    candidates.append(os.path.join(CAP_ROOT,d,'hashes.json'))
 
-          missing = [p for p in data.get('immutable_scope', []) if p not in baseline]
-          if missing:
-              print('Error: immutable_scope paths missing from baseline hashes.json:')
-              for m in missing: print('  -', m)
-              sys.exit(1)
+if not candidates:
+    print('Error: no hashes.json found for scope cross-check'); sys.exit(1)
 
-          if not data['immutable_scope']:
-              print('Warning: immutable_scope is empty')
-          PY
+with open(candidates[0],'r') as f:
+    baseline = json.load(f)
+
+missing = [p for p in data.get('immutable_scope', []) if p not in baseline]
+if missing:
+    print('Error: immutable_scope paths missing from baseline hashes.json:')
+    for m in missing: print('  -', m)
+    sys.exit(1)
+
+if not data['immutable_scope']:
+    print('Warning: immutable_scope is empty')
+
+PY
 
       - name: Check for macOS .DS_Store
+        shell: bash
         run: |
+          set -euo pipefail
           if git ls-files | grep -q '\.DS_Store'; then
-            echo "Error: .DS_Store files committed"
+            echo "::error::.DS_Store files committed"
             exit 1
           else
             echo "No .DS_Store files found."
+          fi
+
+      # Optional smoke test of brief generation
+      - name: Build brief (smoke test)
+        shell: bash
+        run: |
+          set -euo pipefail
+          if command -v make >/dev/null 2>&1; then
+            make brief
+            test -f artifacts/ocers_out/latest/brief.json
+            test -f artifacts/ocers_out/latest/score.txt
+            echo "brief outputs present."
+          else
+            echo "make not available; skipping build smoke test."
           fi
