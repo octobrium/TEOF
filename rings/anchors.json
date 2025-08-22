@@ -1,18 +1,34 @@
 {
   "version": 1,
-  "policy": {
-    "append_only": true,
-    "description": "Anchors is an append-only ledger binding releases to capsule digests.",
-    "immutable_scope_semantics": "Each path listed in immutable_scope must appear as a key in the active capsule hashes.json (seed/capsule/current or the selected vX.Y)."
-  },
+  "policy": "append-only",
   "anchors": [],
   "immutable_scope": [
-    "capsule.txt",
+    "OGS-spec.md",
+    "PROVENANCE.md",
+    "RELEASE.md",
+    "TEOF-FUTURE.md",
+    "calibration.md",
+    "canonical-teof.md",
+    "capsule-handshake.txt",
     "capsule-mini.txt",
     "capsule-selfreconstructing.txt",
-    "capsule-handshake.txt",
-    "teof-shim.md"
+    "capsule.txt",
+    "core-teof.md",
+    "reconstruction.json",
+    "tests.md",
+    "volatile-data-protocol.md"
   ],
-  "events": [],
-  "releases": []
+  "events": [
+    {
+      "type": "sync",
+      "ts": "2025-08-22T19:23:48.071950Z",
+      "prev_content_hash": "adc6059325fcc31dc493f05a3677c57e81b73086f441eb7c0ec241e15ab58680"
+    }
+  ],
+  "releases": [
+    {
+      "tag": "v1.5",
+      "baseline": "/Users/evan/Documents/GitHub/TEOF/seed/capsule/v1.5/hashes.json"
+    }
+  ]
 }
