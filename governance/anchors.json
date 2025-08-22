@@ -23,6 +23,12 @@
       "type": "sync",
       "ts": "2025-08-22T19:23:48.071950Z",
       "prev_content_hash": "adc6059325fcc31dc493f05a3677c57e81b73086f441eb7c0ec241e15ab58680"
+    },
+    {
+      "type": "maintenance",
+      "note": "rename rings/anchors.json → governance/anchors.json; normalize baseline path; no policy change",
+      "prev_content_hash": "d43c882f458a5b077098a270f2c517ed9d3154144d5209ecdfcf47978698a90c",
+      "ts": "2025-08-22T20:58:31.618143Z"
     }
   ],
   "releases": [
