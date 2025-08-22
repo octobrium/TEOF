@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 PYTHON ?= $(shell command -v python3 || command -v python)
-OUT := artifacts/ocers_out
+OUT := ocers_out
 
 .PHONY: brief brief_all open_brief audit clean help show_latest
 
@@ -17,7 +17,7 @@ help:
 
 brief:
 	@echo ">>> Generating brief..."
-	@$(PYTHON) branches_thick/cli/teof_cli.py
+	@$(PYTHON) scripts/teof_cli.py
 
 # Helpful inspector to avoid mystery: lists the symlink and the files it points to.
 show_latest:

@@ -46,13 +46,3 @@ build/
 
 # --- OCERS generated reports ---
 ocers_reports/*.ensemble.json
-artifacts/
-*.pyc
-### TEOF standard ignores ###
-dist/
-build/
-*.egg-info/
-.venv/
-__pycache__/
-*.pyc
-artifacts/ocers_out/
