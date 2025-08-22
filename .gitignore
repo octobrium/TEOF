@@ -57,3 +57,4 @@ __pycache__/
 *.pyc
 artifacts/ocers_out/
 .teof_reorg_backup_*
+legacy/ops/_local/
