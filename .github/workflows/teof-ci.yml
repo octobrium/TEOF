@@ -210,6 +210,16 @@ PY
             test -f artifacts/ocers_out/latest/brief.json
             test -f artifacts/ocers_out/latest/score.txt
             echo "brief outputs present."
-          else
+          else:
             echo "make not available; skipping build smoke test."
           fi
+
+      - name: Enforce PR Objective line
+        if: ${{ github.event_name == 'pull_request' }}
+        shell: bash
+        run: |
+          BODY="${{ github.event.pull_request.body }}"
+          echo "Checking PR body for Objective line..."
+          echo "$BODY" | grep -qiE 'Class=(Core|Trunk|Branch|Leaf);[[:space:]]*.*MinimalStep=' \
+            || { echo "::error::Missing Objective line. Please add:"; \
+                 echo "Class=<Core|Trunk|Branch|Leaf>; Why=…; MinimalStep=…; Direction=…"; exit 1; }
