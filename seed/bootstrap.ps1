@@ -15,4 +15,4 @@ if (-not (Test-Path $venvPath)) { & $py.Source -m venv $venvPath }
 & python -m pip install -U pip | Out-Null
 New-Item -ItemType Directory -Force -Path $Out | Out-Null
 & python $Cli
-& python (Join-Path $Here "append_ring.py")
+& python (Join-Path $Here "append_anchor.py")

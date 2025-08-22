@@ -12,6 +12,6 @@ source "$ROOT/.venv/bin/activate"
 python -m pip install -U pip >/dev/null
 mkdir -p "$OUT"
 python "$CLI"
-python "$HERE/append_ring.py"
+python "$HERE/append_anchor.py"
 LATEST="$(ls -1d "$OUT"/*/ 2>/dev/null | sort | tail -n1)"
 echo "Latest: $LATEST"
