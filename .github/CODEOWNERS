@@ -1,5 +1,7 @@
-/seed/capsule/**        @octobrium
-/.github/workflows/**   @octobrium
-/docs/roots/**          @octobrium
-/legacy/**  @octobrium
 /governance/**  @octobrium
+/capsule/**     @octobrium
+/cli/**         @octobrium
+/scripts/**     @octobrium
+/docs/**        @octobrium
+/rfcs/**        @octobrium
+/legacy/**      @octobrium
