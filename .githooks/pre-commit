@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ANCHORS="governance/anchors.json"
+[ -f "$ANCHORS" ] || exit 0   # nothing to check
+
+PYTHON="$(command -v python3 || command -v python || true)"
+if [ -z "$PYTHON" ]; then
+  echo "pre-commit: no python3/python on PATH; skipping anchors check"
+  exit 0
+fi
+
+"$PYTHON" - <<'PY'
+import json, sys, subprocess, hashlib
+P = "governance/anchors.json"
+
+with open(P, "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# No events yet => nothing to prove
+if not data.get("events"):
+    sys.exit(0)
+
+last_prev = data["events"][-1].get("prev_content_hash")
+if not last_prev:
+    print("anchors.json: last event missing prev_content_hash")
+    sys.exit(1)
+
+# Find the previous *change* commit for this path
+revs = subprocess.check_output(["git","rev-list","-n","2","HEAD","--",P], text=True).splitlines()
+if len(revs) < 2:
+    print("anchors.json: first change; nothing to compare")
+    sys.exit(0)
+
+prev_change = revs[1]
+blob = subprocess.check_output(["git","show", f"{prev_change}:{P}"])
+calc = hashlib.sha256(blob).hexdigest()
+
+if calc != last_prev:
+    print("anchors.json: prev_content_hash mismatch")
+    print("  last_prev_content_hash:", last_prev)
+    print(f"  sha256({prev_change}:{P}) :", calc)
+    sys.exit(1)
+
+print("anchors.json: append-only proof OK")
+PY
