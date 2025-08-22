@@ -28,7 +28,7 @@
   "releases": [
     {
       "tag": "v1.5",
-      "baseline": "/Users/evan/Documents/GitHub/TEOF/seed/capsule/v1.5/hashes.json"
+      "baseline": "seed/capsule/v1.5/hashes.json"
     }
   ]
 }
