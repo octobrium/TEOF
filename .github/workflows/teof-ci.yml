@@ -34,8 +34,10 @@ jobs:
 
       - name: Show repo tree
         run: |
-          sudo apt-get update -y >/dev/null 2>&1 || true
-          sudo apt-get install -y tree >/dev/null 2>&1 || true
+          if ! command -v tree >/dev/null 2>&1; then
+            sudo apt-get update -y >/dev/null 2>&1 || true
+            sudo apt-get install -y tree >/dev/null 2>&1 || true
+          fi
           echo "Top-level:"
           tree -a -L 2 || true
           echo "Capsule subtree:"
@@ -80,8 +82,9 @@ jobs:
             echo "Materializing current/ from: $latest"
             mkdir -p "$CUR"
             cp -a "$latest"/. "$CUR"/
-            if [ ! -f "$CUR/hashes.json" ]; then
-              echo "::error file=$CUR/hashes.json::materialization failed: hashes.json not found after copy"
+            # Sanity: both hashes.json and capsule.txt should be present
+            if [ ! -f "$CUR/hashes.json" ] || [ ! -f "$CUR/capsule.txt" ]; then
+              echo "::error file=$CUR::materialization failed: expected hashes.json and capsule.txt"
               exit 1
             fi
             echo "baseline_dir=$CUR" >> "$GITHUB_OUTPUT"
