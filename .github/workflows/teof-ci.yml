@@ -82,7 +82,7 @@ jobs:
             echo "Materializing current/ from: $latest"
             mkdir -p "$CUR"
             cp -a "$latest"/. "$CUR"/
-            # Sanity
+            # Sanity: both hashes.json and capsule.txt should be present
             if [ ! -f "$CUR/hashes.json" ] || [ ! -f "$CUR/capsule.txt" ]; then
               echo "::error file=$CUR::materialization failed: expected hashes.json and capsule.txt"
               exit 1
@@ -108,6 +108,7 @@ jobs:
 import os, json, hashlib, sys
 base_dir = os.environ["BASE_DIR"]
 hfile    = os.environ["HFILE"]
+
 with open(hfile, 'r', encoding='utf-8') as f:
     expected = json.load(f)
 
