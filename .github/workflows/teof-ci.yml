@@ -201,7 +201,13 @@ PY
             echo "No .DS_Store files found."
           fi
 
-      - name: Build brief (smoke test)
+            - name: Forbid legacy output path
+        run: |
+          if git ls-files | grep -q '^branches_thick/ocers_out/'; then
+            echo "::error::legacy path branches_thick/ocers_out/ is forbidden"; exit 1
+          fi
+
+- name: Build brief (smoke test)
         shell: bash
         run: |
           set -euo pipefail
