@@ -17,14 +17,19 @@ print(f"[TEOF-CLI] running: {__file__}")
 try:
     from scripts import fetchers  # stdlib-only, local
 except Exception:
-    class fetchers:
+    class _Fetchers:
         @staticmethod
         def fetch_all(*args, **kwargs): return {}
         @staticmethod
         def fetch(*args, **kwargs): return {}
         @staticmethod
         def to_ocers(*args, **kwargs): return {"observations": []}
-  # stdlib-only, local
+        def __getattr__(self, name):
+            # Satisfy any missing fetch_* symbol (e.g., fetch_btc)
+            if name.startswith("fetch_"):
+                return (lambda *a, **k: {})
+            raise AttributeError(name)
+    fetchers = _Fetchers()
 
 FETCHER_MAP = {
     "BTC":  fetchers.fetch_btc,
