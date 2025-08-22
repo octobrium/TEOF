@@ -22,30 +22,15 @@ Versioning: SemVer (0.y until first stable)
 
 ---
 
-## [v0.1.0] - 2025-08-21  _“First Observer”_
+## [v0.1.0] - 2025-08-22
 ### Added
-- **Canonical TEOF core** (axioms, TAP v3.1, VDP/OGS hooks).
-- **Freeze-hash flow** via versioned `hashes.json` and provenance.
-- **CI integrity checks**:
-  - Detect capsule baseline from `seed/capsule/current` or latest `vX.Y`.
-  - Verify capsule file digests against baseline `hashes.json`.
-  - Validate `rings/anchors.json` schema + append-only events (with `prev_content_hash`).
-  - .DS_Store guard.
-- **CI smoke test** for brief generation (`make brief`) and artifact presence.
-
-### Changed
-- **Repo layout tidy**:
-  - Ops scripts → `legacy/ops/`
-  - CLI → `branches_thick/cli/`
-  - Aperture guideline → `docs/roots/`
-- **Single, consolidated workflow** `teof-ci.yml` with clearer logs and baseline materialization.
+- Normalized capsule under `seed/capsule/v1.5` with `seed/capsule/current → v1.5`.
+- Canonical docs moved inside capsule and covered by `hashes.json`.
+- Single CI workflow (`.github/workflows/teof-ci.yml`) with baseline autodetect, hashes verify, anchors validation, .DS_Store guard, brief smoke test.
+- PR Objective-line guard and Minimal v1 workflow.
 
 ### Fixed
-- `brief` target writes stable artifacts to `artifacts/ocers_out/latest/` for CI checks.
+- Unified brief outputs to `artifacts/ocers_out`; deterministic evaluator stub and fetchers fallback so `make brief` is stable.
 
-### Security
-- Hardened `.gitignore`: `*.egg-info/`, `__pycache__/`, `.venv/`, `artifacts/ocers_out/`.
-
-### Notes
-- This release establishes a minimal, auditable core.  
-- Provenance for this tag lives at `seed/capsule/v0.1.0/PROVENANCE.md`.
+### Governance
+- `rings/anchors.json` set to `policy: "append-only"`, `immutable_scope` synced to baseline; `releases` entry for `v1.5`.
