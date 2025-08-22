@@ -210,7 +210,7 @@ PY
             test -f artifacts/ocers_out/latest/brief.json
             test -f artifacts/ocers_out/latest/score.txt
             echo "brief outputs present."
-          else:
+          else
             echo "make not available; skipping build smoke test."
           fi
 
