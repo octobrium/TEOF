@@ -8,7 +8,7 @@ from subprocess import run, PIPE
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 EVAL = ROOT / "tools" / "teof_evaluator.py"
-OUT_ROOT = ROOT / "ocers_out"  # single source of truth for outputs
+OUT_ROOT = ROOT.parent / "artifacts" / "ocers_out"  # single source of truth for outputs  # single source of truth for outputs
 
 print(f"[TEOF-CLI] running: {__file__}")
 
