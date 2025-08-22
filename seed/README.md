@@ -65,7 +65,7 @@ Windows (PowerShell):
 
    **macOS/Linux**
    ~~~bash
-   cd seed/capsule
+   cd capsule
    ln -sfn v0.1.1 current
    ~~~
 

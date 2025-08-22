@@ -32,9 +32,9 @@
     },
     {
       "type": "maintenance",
-      "note": "fix prev_content_hash to previous-change sha; no policy change",
-      "prev_content_hash": "7aa38f1d997fb790833f45d608af63b80ecd915070deaa8cdd47168cf07d29f5",
-      "ts": "2025-08-22T22:16:15.461392Z"
+      "note": "sync prev_content_hash to previous-change sha; no policy change",
+      "prev_content_hash": "40fa15d8818bb1a57c43f2885003897c5fad4dd8082a0745fad5bc07ce0aab91",
+      "ts": "2025-08-22T22:36:11.485116Z"
     }
   ],
   "releases": [

@@ -23,7 +23,7 @@ Governance & scope: see `../../governance/anchors.json`.
 
 macOS / Linux (Terminal):
 
-    cd seed/capsule
+    cd capsule
     ln -sfn v0.1.1 current
 
 Windows (PowerShell):

@@ -36,7 +36,7 @@ Guidelines:
 - Keep examples tiny and illustrative; redact/trim large arrays.
 - Use `.json` with stable ordering and minimal whitespace.
 - If a snapshot becomes a contract, move a **minimal** version to
-  `branches_thick/tests/goldens/reports/` and enforce it in CI.
+  `docs/examples/brief/goldens/reports/` and enforce it in CI.
 MD
 
 cat > artifacts/reports/README.md <<'MD'
@@ -46,7 +46,7 @@ This directory is for **generated** report outputs at run time.
 It is **git-ignored on purpose**. Anything here was produced locally or in CI.
 
 - For documentation examples, place a tiny static copy in `docs/examples/reports/`.
-- For CI baselines, use `branches_thick/tests/goldens/reports/` with a minimal fixture.
+- For CI baselines, use `docs/examples/brief/goldens/reports/` with a minimal fixture.
 MD
 
 # 5) Commit (only if there are changes)
