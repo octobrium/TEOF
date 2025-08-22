@@ -1,3 +1,12 @@
-/docs/roots/**     @octobrium
-/seed/capsule/**   @octobrium
-/rings/**          @octobrium
+# Canonical capsule (versioned + current)
+# Protects all capsule bytes that are hashed + verified in CI
+/seed/capsule/**       @octobrium
+
+# Anchors (append-only integrity log)
+/rings/**              @octobrium
+
+# CI definitions (avoid silent workflow changes)
+/. github/workflows/** @octobrium
+
+# Optional: only keep if docs/roots contains normative material
+/docs/roots/**         @octobrium
