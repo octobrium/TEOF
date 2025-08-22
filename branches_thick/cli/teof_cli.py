@@ -13,7 +13,18 @@ OUT_ROOT = ROOT.parent / "artifacts" / "ocers_out"  # single source of truth for
 print(f"[TEOF-CLI] running: {__file__}")
 
 # --- fetchers ---
-from scripts import fetchers  # stdlib-only, local
+# safe import with local stub fallback
+try:
+    from scripts import fetchers  # stdlib-only, local
+except Exception:
+    class fetchers:
+        @staticmethod
+        def fetch_all(*args, **kwargs): return {}
+        @staticmethod
+        def fetch(*args, **kwargs): return {}
+        @staticmethod
+        def to_ocers(*args, **kwargs): return {"observations": []}
+  # stdlib-only, local
 
 FETCHER_MAP = {
     "BTC":  fetchers.fetch_btc,
