@@ -2,7 +2,7 @@
 $ErrorActionPreference = "Stop"
 $Here = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $Root = Resolve-Path (Join-Path $Here "..")
-$Cli  = Join-Path $Root "branches_thick/cli/teof_cli.py"
+$Cli  = Join-Path $Root "cli/teof_cli.py"
 $Eval = Join-Path $Root "trunk/ogs/evaluator.py"
 $Out  = $env:TEOF_OUT_DIR; if ([string]::IsNullOrEmpty($Out)) { $Out = Join-Path $Root "artifacts/ocers_out" }
 if (-not (Test-Path $Cli))  { Write-Error "CLI not found at $Cli" }

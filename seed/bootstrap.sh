@@ -2,7 +2,7 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/.." && pwd)"
-CLI="$ROOT/branches_thick/cli/teof_cli.py"
+CLI="$ROOT/cli/teof_cli.py"
 EVAL="$ROOT/trunk/ogs/evaluator.py"
 OUT="${TEOF_OUT_DIR:-$ROOT/artifacts/ocers_out}"
 [ -f "$CLI" ] || { echo "CLI not found: $CLI" >&2; exit 1; }

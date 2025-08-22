@@ -17,7 +17,7 @@ help:
 
 brief:
 	@echo ">>> Generating brief..."
-	@$(PYTHON) branches_thick/cli/teof_cli.py
+	@$(PYTHON) cli/teof_cli.py
 
 # Helpful inspector to avoid mystery: lists the symlink and the files it points to.
 show_latest:
