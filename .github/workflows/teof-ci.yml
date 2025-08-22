@@ -38,10 +38,8 @@ jobs:
             sudo apt-get update -y >/dev/null 2>&1 || true
             sudo apt-get install -y tree >/dev/null 2>&1 || true
           fi
-          echo "Top-level:"
-          tree -a -L 2 || true
-          echo "Capsule subtree:"
-          tree -a -L 2 seed/capsule || true
+          echo "Top-level:" && tree -a -L 2 || true
+          echo "Capsule subtree:" && tree -a -L 2 seed/capsule || true
 
   verify:
     runs-on: ubuntu-latest
@@ -67,7 +65,6 @@ jobs:
           CAP_ROOT="seed/capsule"
           CUR="$CAP_ROOT/current"
 
-          # 1) Prefer current/ if it already has hashes.json
           if [ -f "$CUR/hashes.json" ]; then
             echo "Using baseline: $CUR/hashes.json"
             echo "baseline_dir=$CUR" >> "$GITHUB_OUTPUT"
@@ -75,14 +72,12 @@ jobs:
             exit 0
           fi
 
-          # 2) Otherwise look for latest versioned vX.Y with hashes.json
           if compgen -G "$CAP_ROOT/v*/hashes.json" >/dev/null; then
             latest="$(ls -1d "$CAP_ROOT"/v*/ | sort -V | tail -n1)"
             latest="${latest%/}"
             echo "Materializing current/ from: $latest"
             mkdir -p "$CUR"
             cp -a "$latest"/. "$CUR"/
-            # Sanity: both hashes.json and capsule.txt should be present
             if [ ! -f "$CUR/hashes.json" ] || [ ! -f "$CUR/capsule.txt" ]; then
               echo "::error file=$CUR::materialization failed: expected hashes.json and capsule.txt"
               exit 1
@@ -92,7 +87,7 @@ jobs:
             exit 0
           fi
 
-          echo "::error::No capsule baseline found. Expected either seed/capsule/current/hashes.json or a versioned seed/capsule/vX.Y/hashes.json"
+          echo "::error::No capsule baseline found. Expected seed/capsule/current/hashes.json or seed/capsule/vX.Y/hashes.json"
           exit 1
 
       - name: Verify capsule hashes
@@ -135,7 +130,7 @@ for rel, exp in expected.items():
 sys.exit(0 if ok else 1)
 PY
 
-      - name: Validate anchors (strict governance only: schema + append-only + scope vs baseline)
+      - name: Validate anchors (strict governance only: schema + append-only via previous-change + scope vs baseline)
         shell: bash
         env:
           HFILE:        ${{ steps.detect.outputs.baseline_json }}
@@ -144,13 +139,12 @@ PY
           set -euo pipefail
           python - <<'PY'
 import json, hashlib, os, sys, subprocess
-
 P = os.environ["ANCHORS_PATH"]
 if not os.path.isfile(P):
     print(f"Error: {P} not present."); sys.exit(1)
 
 def sha256(b):
-    h=hashlib.sha256(); h.update(b); return h.hexdigest()
+    h = hashlib.sha256(); h.update(b); return h.hexdigest()
 
 cur_bytes = open(P,'rb').read()
 cur_sha   = sha256(cur_bytes)
@@ -164,22 +158,21 @@ if missing:
 if data.get('policy') != 'append-only':
     print("Error: policy must be 'append-only'"); sys.exit(1)
 
-# Append-only: compare against previous committed content of the same path
-prev_sha = None
-try:
-    prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{P}'], stderr=subprocess.DEVNULL)
-    prev_sha   = sha256(prev_bytes)
-except subprocess.CalledProcessError:
-    prev_sha = None
+# Append-only: compare to the previous *change* commit for this path (robust to unrelated commits)
+lines = subprocess.check_output(['git','rev-list','-n','2','HEAD','--',P], text=True).splitlines()
+prev_change = lines[1] if len(lines) > 1 else None
 
-if prev_sha and prev_sha != cur_sha:
+if prev_change:
+    prev_bytes = subprocess.check_output(['git','show', f'{prev_change}:{P}'])
+    prev_sha   = sha256(prev_bytes)
     last = data['events'][-1] if data.get('events') else None
     if not last or last.get('prev_content_hash') != prev_sha:
-        print('Error: anchors events not append-only (last.prev_content_hash must equal prior file SHA).'); sys.exit(1)
+        print('Error: anchors events not append-only (last.prev_content_hash must equal sha256(previous-change blob)).')
+        sys.exit(1)
     else:
-        print('Append-only check: OK')
+        print('Append-only check: OK (previous change commit)')
 else:
-    print('Append-only check: anchors unchanged or first commit')
+    print('Append-only check: first change to anchors.json')
 
 # Scope vs capsule baseline
 hfile = os.environ["HFILE"]
@@ -224,7 +217,7 @@ PY
             test -f artifacts/ocers_out/latest/brief.json
             test -f artifacts/ocers_out/latest/score.txt
             echo "brief outputs present."
-          else:
+          else
             echo "make not available; skipping build smoke test."
           fi
 
