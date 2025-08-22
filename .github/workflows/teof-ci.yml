@@ -31,13 +31,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Show tree
+
+      - name: Show repo tree
         run: |
-          if ! command -v tree >/dev/null 2>&1; then
-            sudo apt-get update -y >/dev/null 2>&1 || true
-            sudo apt-get install -y tree >/dev/null 2>&1 || true
-          fi
-          tree -a -L 3 || true
+          sudo apt-get update -y >/dev/null 2>&1 || true
+          sudo apt-get install -y tree >/dev/null 2>&1 || true
+          echo "Top-level:"
+          tree -a -L 2 || true
+          echo "Capsule subtree:"
+          tree -a -L 2 seed/capsule || true
 
   verify:
     runs-on: ubuntu-latest
@@ -53,126 +55,139 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Ensure seed/capsule/current exists
+      # Prefer seed/capsule/current/hashes.json; else use latest seed/capsule/vX.Y/hashes.json.
+      # If only vX.Y exists, materialize current/ from that version for this run.
+      - name: Detect capsule baseline (and materialize current if needed)
+        id: detect
         shell: bash
         run: |
           set -euo pipefail
           CAP_ROOT="seed/capsule"
           CUR="$CAP_ROOT/current"
-          if [ ! -f "$CUR/capsule.txt" ]; then
-            echo "Materializing $CUR from the latest versioned capsule…"
-            if compgen -G "$CAP_ROOT/v*/" >/dev/null; then
-              latest="$(ls -1d "$CAP_ROOT"/v*/ | sort -V | tail -n1)"
-              mkdir -p "$CUR"
-              cp -R "$latest"* "$CUR"/
-              echo "Using: $latest"
-            else
-              echo "::error::No versioned capsule found under $CAP_ROOT/v*/"
+
+          # 1) Prefer current/ if it already has hashes.json
+          if [ -f "$CUR/hashes.json" ]; then
+            echo "Using baseline: $CUR/hashes.json"
+            echo "baseline_dir=$CUR" >> "$GITHUB_OUTPUT"
+            echo "baseline_json=$CUR/hashes.json" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # 2) Otherwise look for latest versioned vX.Y with hashes.json
+          if compgen -G "$CAP_ROOT/v*/hashes.json" >/dev/null; then
+            latest="$(ls -1d "$CAP_ROOT"/v*/ | sort -V | tail -n1)"
+            latest="${latest%/}"
+            echo "Materializing current/ from: $latest"
+            mkdir -p "$CUR"
+            cp -a "$latest"/. "$CUR"/
+            if [ ! -f "$CUR/hashes.json" ]; then
+              echo "::error file=$CUR/hashes.json::materialization failed: hashes.json not found after copy"
               exit 1
             fi
+            echo "baseline_dir=$CUR" >> "$GITHUB_OUTPUT"
+            echo "baseline_json=$CUR/hashes.json" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+
+          echo "::error::No capsule baseline found. Expected either seed/capsule/current/hashes.json or a versioned seed/capsule/vX.Y/hashes.json"
+          exit 1
 
       - name: Verify capsule hashes
         shell: bash
+        env:
+          BASE_DIR: ${{ steps.detect.outputs.baseline_dir }}
+          HFILE:    ${{ steps.detect.outputs.baseline_json }}
         run: |
           set -euo pipefail
+          echo "Baseline dir:  $BASE_DIR"
+          echo "Baseline JSON: $HFILE"
           python - <<'PY'
-import os, re, json, hashlib, sys
-CAP_ROOT = os.path.join('seed','capsule')
-candidates = []
-cur = os.path.join(CAP_ROOT,'current','hashes.json')
-if os.path.isfile(cur): candidates.append(cur)
-vers = []
-if os.path.isdir(CAP_ROOT):
-    for d in os.listdir(CAP_ROOT):
-        if re.fullmatch(r'v\d+\.\d+', d) and os.path.isfile(os.path.join(CAP_ROOT,d,'hashes.json')):
-            vers.append(d)
-vers.sort(reverse=True)
-for d in vers:
-    candidates.append(os.path.join(CAP_ROOT,d,'hashes.json'))
-if not candidates:
-    print("Error: no hashes.json found (checked seed/capsule/current and versioned dirs)")
-    sys.exit(1)
-baseline = candidates[0]
-base_dir = os.path.dirname(baseline)
-print("Using baseline:", baseline)
-with open(baseline,'r') as f:
+import os, json, hashlib, sys
+base_dir = os.environ["BASE_DIR"]
+hfile    = os.environ["HFILE"]
+
+with open(hfile, 'r') as f:
     expected = json.load(f)
+
 def sha256_file(p):
     h = hashlib.sha256()
     with open(p,'rb') as f:
         for chunk in iter(lambda: f.read(8192), b''):
             h.update(chunk)
     return h.hexdigest()
+
 ok = True
 for rel, exp in expected.items():
     p = os.path.join(base_dir, rel)
-    if not os.path.exists(p):
-        print(f"Error: missing file {p}"); ok = False; continue
+    if not os.path.isfile(p):
+        print(f"::error file={p}::missing file listed in hashes.json")
+        ok = False
+        continue
     got = sha256_file(p)
     if got != exp:
-        print("Error: Hash mismatch")
-        print(" expected:", exp); print(" got     :", got); print(" file    :", p)
+        print(f"::error file={p}::sha256 mismatch expected={exp} got={got}")
         ok = False
     else:
-        print("OK", rel)
+        print(f"OK {rel}")
 sys.exit(0 if ok else 1)
 PY
 
-      - name: Validate rings/anchors.json
+      - name: Validate rings/anchors.json (schema + append-only + scope vs baseline)
         shell: bash
+        env:
+          BASE_DIR: ${{ steps.detect.outputs.baseline_dir }}
+          HFILE:    ${{ steps.detect.outputs.baseline_json }}
         run: |
           set -euo pipefail
+          if [ ! -f rings/anchors.json ]; then
+            echo "rings/anchors.json not present; skipping."
+            exit 0
+          fi
           python - <<'PY'
-import json, hashlib, os, sys, subprocess, re
+import json, hashlib, os, sys, subprocess
+
 P = os.path.join('rings','anchors.json')
-if not os.path.exists(P):
-    print("rings/anchors.json not present; skipping."); sys.exit(0)
-with open(P,'r') as f: data = json.load(f)
+with open(P,'r') as f:
+    data = json.load(f)
+
 required = ['version','policy','anchors','immutable_scope','events','releases']
 missing = [k for k in required if k not in data]
 if missing:
     print("Error: missing keys in rings/anchors.json:", ", ".join(missing)); sys.exit(1)
+
+# Append-only check if file changed
 cur_bytes = open(P,'rb').read()
 cur_sha   = hashlib.sha256(cur_bytes).hexdigest()
-prev_sha  = None
 try:
     prev_bytes = subprocess.check_output(['git','show',f'HEAD~1:{P}'], stderr=subprocess.DEVNULL)
     prev_sha = hashlib.sha256(prev_bytes).hexdigest()
 except subprocess.CalledProcessError:
-    pass
+    prev_sha = None
+
 if prev_sha and prev_sha != cur_sha:
     last = data['events'][-1] if data['events'] else None
     if not last or last.get('prev_content_hash') != prev_sha:
         print('Error: events are not append-only (last.prev_content_hash must equal prior file SHA).'); sys.exit(1)
     else:
-        print('Append-only check: OK (file changed and last.prev_content_hash matches).')
+        print('Append-only check: OK')
 else:
-    print('Append-only check: anchors.json unchanged or no previous commit.')
-print(f'anchors.json sha256={cur_sha}')
-CAP_ROOT = os.path.join('seed','capsule')
-candidates = []
-cur = os.path.join(CAP_ROOT,'current','hashes.json')
-if os.path.isfile(cur): candidates.append(cur)
-vers = []
-if os.path.isdir(CAP_ROOT):
-    for d in os.listdir(CAP_ROOT):
-        if re.fullmatch(r'v\d+\.\d+', d) and os.path.isfile(os.path.join(CAP_ROOT,d,'hashes.json')):
-            vers.append(d)
-vers.sort(reverse=True)
-for d in vers:
-    candidates.append(os.path.join(CAP_ROOT,d,'hashes.json'))
-if not candidates:
-    print('Error: no hashes.json found for scope cross-check'); sys.exit(1)
-with open(candidates[0],'r') as f:
+    print('Append-only check: anchors.json unchanged or first commit.')
+
+# Scope vs capsule baseline hashes.json
+hfile = os.environ["HFILE"]
+with open(hfile,'r') as f:
     baseline = json.load(f)
+
 missing = [p for p in data.get('immutable_scope', []) if p not in baseline]
 if missing:
     print('Error: immutable_scope paths missing from baseline hashes.json:')
     for m in missing: print('  -', m)
     sys.exit(1)
+
 if not data['immutable_scope']:
     print('Warning: immutable_scope is empty')
+
+print(f'anchors.json sha256={cur_sha}')
 PY
 
       - name: Check for macOS .DS_Store
