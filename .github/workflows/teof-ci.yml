@@ -138,7 +138,7 @@ for rel, exp in expected.items():
         ok = False
     else:
         print(f"OK {rel}")
-import sys; sys.exit(0 if ok else 1)
+sys.exit(0 if ok else 1)
 PY
 
       - name: Validate anchors (strict governance only: schema + append-only + scope vs baseline)
@@ -240,8 +240,8 @@ PY
           set -euo pipefail
           mkdir -p artifacts/ocers_out
           OUT_ROOT="$GITHUB_WORKSPACE/artifacts" make brief
-          test -f artifacts/ocers_out/latest/brief.json
-          test -f artifacts/ocers_out/latest/score.txt
+          [ -f artifacts/ocers_out/latest/brief.json ] && [ -f artifacts/ocers_out/latest/score.txt ]
+          ls -l artifacts/ocers_out/latest/brief.json artifacts/ocers_out/latest/score.txt
           echo "brief outputs present."
 
       - name: Enforce PR Objective line
