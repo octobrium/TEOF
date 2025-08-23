@@ -7,6 +7,7 @@ on:
       - 'governance/**'
       - 'cli/**'
       - 'scripts/**'
+      - 'docs/**'                  # examples/brief now lives under docs/
       - 'Makefile'
       - '.github/workflows/**'
   pull_request:
@@ -15,6 +16,7 @@ on:
       - 'governance/**'
       - 'cli/**'
       - 'scripts/**'
+      - 'docs/**'                  # examples/brief now lives under docs/
       - 'Makefile'
       - '.github/workflows/**'
 
@@ -44,6 +46,8 @@ jobs:
           tree -a -L 2 || true
           echo "Capsule subtree:"
           tree -a -L 2 capsule || true
+          echo "Examples subtree:"
+          tree -a -L 3 docs/examples/brief || true
 
   verify:
     runs-on: ubuntu-latest
@@ -229,17 +233,23 @@ PY
             echo "::error::legacy path branches_thick/ocers_out/ is forbidden"; exit 1
           fi
 
-      - name: Build brief (smoke test)
+      - name: Generate brief artifacts under ./artifacts (preferred)
         shell: bash
         run: |
           set -euo pipefail
-          if command -v make >/dev/null 2>&1; then
+          mkdir -p artifacts/ocers_out
+          OUT_ROOT="$GITHUB_WORKSPACE/artifacts" python3 cli/teof_cli.py brief
+          ls -l artifacts/ocers_out/latest/{brief.json,score.txt}
+
+      # Optional fallback: if Makefile provides a 'brief' target, run it too (kept for parity)
+      - name: Build brief via Makefile (fallback)
+        if: ${{ always() && hashFiles('Makefile') != '' }}
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          if grep -qE '^[[:space:]]*brief:' Makefile; then
             make brief
-            test -f artifacts/ocers_out/latest/brief.json
-            test -f artifacts/ocers_out/latest/score.txt
-            echo "brief outputs present."
-          else
-            echo "make not available; skipping build smoke test."
           fi
 
       - name: Enforce PR Objective line
