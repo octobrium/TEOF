@@ -1,0 +1,17 @@
+{
+  "verdict": "PASS",
+  "commit": "5299b78",
+  "model": "unknown",
+  "runner": "6b9392a7629ec0d127e99a337a5ba0b66b0f94fc58870ea45925a49782b386f4",
+  "ocers_json": 1,
+  "out_sha256": "9299de3f9078849182bf3e2da54d1cb006943e533aee5b9ddc25af201788bac1",
+  "utc": "2025-08-23T07:38:26Z",
+  "reasons": [],
+  "ocers": {
+    "O": "Obs",
+    "C": "Coherence",
+    "E": "Evidence",
+    "R": "Result",
+    "S": "Scope"
+  }
+}
