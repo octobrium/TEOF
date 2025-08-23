@@ -1,4 +1,44 @@
-# TEOF Master Workflow (Minimal v1.2)
+# TEOF Master Workflow (Minimal v1.3)
+
+## Operator mode (LLM quick brief)
+
+**Purpose:** Make any fresh session (human or assistant) act optimally to assess and advance TEOF with minimal surface area and deterministic, auditable outputs.
+
+**Mission**
+- Advance TEOF with minimal surface area and deterministic, auditable outputs.
+- Follow the repo DNA, not ad-hoc preferences.
+
+**Read these first (in order)**
+1) `docs/architecture.md` — where things go  
+2) `docs/workflow.md` — priority ladder & release (this file)  
+3) `docs/promotion-policy.md`  
+4) `docs/quickstart.md` — one command → artifacts
+
+**Guardrails**
+- **Observation primacy:** do not propose rule changes until an end-to-end run path is clear.
+- **Minimalism:** prefer the smallest change that makes the E2E path work.
+- **Import policy:** no imports from `experimental/` or `archive/` inside `extensions/` (`scripts/policy_checks.sh`).
+- **Provenance:** if you change the DNA (architecture/workflow/promotion-policy), propose an anchors event.
+
+**Operating order**
+1) Confirm structure matches `docs/architecture.md`.  
+2) Produce an E2E plan using `docs/quickstart.md` (exact commands, no guessing).  
+3) Verify enforcement: confirm `scripts/policy_checks.sh` exists and is called in CI; if missing, output a minimal step to add it.  
+4) Triangulate gaps: if Quickstart or imports/paths are stale, propose the smallest patches to make them true.  
+5) Output a prioritized plan (next 3–6 steps) to make the repo self-propagating (CLI → CI → freeze → docs).  
+6) Only if rules block progress: propose a minimal DNA edit via a one-page Meta‑TEP (Problem, Proposal, Alternatives, Impact, Rollback).
+
+**Response format**
+- Summary (2–4 bullets)  
+- Immediate actions (commands or file patches)  
+- Risks / assumptions (short)  
+- Next checkpoint (what to verify after the actions)
+
+**Non-goals**
+- No new CI rules unless they protect the kernel import boundary.
+- No new top-level folders unless justified via a 1‑page TEP.
+
+---
 
 ## Architecture Gate (before writing code)
 - Place new work per `docs/architecture.md` (extensions / experimental / archive / docs / scripts / governance).
@@ -9,17 +49,17 @@
 ---
 
 ## Non‑negotiables (apply to every change)
-- **Minimalism:** Keep complexity the same or lower for equal capability. If complexity increases, justify in one sentence in the PR body.
-- **Single Source of Truth:** Immutable baselines live under `capsule/<version>/` and are covered by `capsule/<version>/hashes.json`. `capsule/current` is a plain‑text pointer to the active version.
-- **Determinism:** Commands run reproducibly on a clean machine (no hidden state, same output paths).
-- **Append‑Only Governance:** `governance/anchors.json` is append‑only; releases map to a baseline with a `prev_content_hash`.
-- **Observation Discipline:** Claims follow VDP; reasoning can be scored with OGS. Use **N/A** when not applicable.
-- **Stable Interfaces:** Prefer console scripts (`teof-validate`, `teof-ensemble`) or `python -m …` over deep file paths.
+- **Minimalism:** keep complexity the same or lower for equal capability. If complexity increases, justify in one sentence in the PR body.
+- **Single Source of Truth:** immutable baselines live under `capsule/<version>/` and are covered by `capsule/<version>/hashes.json`. `capsule/current` is a plain‑text pointer to the active version.
+- **Determinism:** commands run reproducibly on a clean machine (no hidden state, same output paths).
+- **Append‑Only Governance:** `governance/anchors.json` is append-only; releases map to a baseline with a `prev_content_hash`.
+- **Observation Discipline:** claims follow VDP; reasoning can be scored with OGS. Use **N/A** when not applicable.
+- **Stable Interfaces:** prefer console scripts (`teof-validate`, `teof-ensemble`) or `python -m …` over deep file paths.
 
 ---
 
 ## DNA Recursion (self‑improvement of the rules)
-**Goal:** Continuously refine our own architecture, workflow, and promotion policy without bloating the kernel.
+**Goal:** continuously refine our own architecture, workflow, and promotion policy without bloating the kernel.
 
 **When to trigger**
 - Repeated friction (same exception to rules ≥2 times)  
@@ -86,4 +126,4 @@
 4) Expose a minimal surface (one command → artifacts).  
 5) Tag & ship when ready.
 
-> **Placement note:** This file lives **outside** the capsule to avoid baseline churn. After it stabilizes (several cycles without edits), move it into `capsule/current/` and re‑freeze hashes.
+> **Placement note:** this file lives **outside** the capsule to avoid baseline churn. After it stabilizes (several cycles without edits), move it into `capsule/current/` and re‑freeze hashes.

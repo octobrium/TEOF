@@ -2,12 +2,13 @@
 
 **Author:** Observation • **License:** [MIT](LICENSE)
 
-TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agents a deterministic, auditable way to move from **Observation → Coherence → Ethics → Reproducibility → Self-repair** before taking action.
+TEOF is a minimal, substrate‑neutral alignment kernel. It gives humans and agents a deterministic, auditable way to move from **Observation → Coherence → Ethics → Reproducibility → Self‑repair** before taking action.
 
 > **Start here**
 > - Repo map: [`docs/architecture.md`](docs/architecture.md)  
 > - Promotion rules: [`docs/promotion-policy.md`](docs/promotion-policy.md)  
-> - Workflow (priority ladder): [`docs/workflow.md`](docs/workflow.md)  
+> - Workflow (priority ladder): [`docs/workflow.md`](docs/workflow.md#architecture-gate-before-writing-code)  
+> - Operator mode (LLM quick brief): [`docs/workflow.md#operator-mode-llm-quick-brief`](docs/workflow.md#operator-mode-llm-quick-brief)  
 > - Quickstart (one command → artifacts): [`docs/quickstart.md`](docs/quickstart.md)
 
 ---
@@ -15,13 +16,12 @@ TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agent
 ## What’s in this repo
 
 - **Kernel code** in `extensions/` (canonical, packaged).  
-- **Candidates** in `experimental/` (promote via policy).  
+- **Candidates** in `experimental/` (promoted via policy).  
 - **Capsule** baselines and hashes in `capsule/` with `capsule/current` as a pointer.  
-- **Governance** anchors (append-only) in `governance/`.  
+- **Governance** anchors (append‑only) in `governance/`.  
 - **Docs** (this README, quickstart, architecture, promotion policy, examples) in `docs/`.  
 - **Scripts** like the import policy guard and freeze helper in `scripts/`.  
-- **Foundation texts** (conceptual bedrock) under `docs/foundation/`  
-  – e.g. [Aperture Guideline](docs/foundation/APERTURE-GUIDELINE.md).
+- **Foundation texts** (conceptual bedrock) under `docs/foundation/` – e.g. [Aperture Guideline](docs/foundation/APERTURE-GUIDELINE.md).
 
 See the full map in [`docs/architecture.md`](docs/architecture.md).
 
@@ -43,17 +43,18 @@ This writes `*.ensemble.json` artifacts. For details and optional CLI entrypoint
 
 ---
 
-## Contributing (function-first)
+## Contributing (function‑first)
 
 Before writing code, follow the **Architecture Gate** in [`docs/workflow.md`](docs/workflow.md):
 
 - Place work per `docs/architecture.md` (kernel → `extensions/`, prototypes → `experimental/`, etc.).  
 - Kernel code **must not** import from `experimental/` or `archive/` (enforced by `scripts/policy_checks.sh`).  
-- If logic/rules change, update goldens in `docs/examples/**/expected/` and explain the rationale.  
+- If validator/evaluator logic or reasoning rules change, update goldens in `docs/examples/**/expected/` and explain the rationale.  
 - Use the PR **Objective line**:
   ```
   Class=<Core|Trunk|Branch|Leaf>; Why=…; MinimalStep=…; Direction=…
   ```
+- If you need to refine the DNA (architecture/workflow/promotion policy), follow the **DNA Recursion** section in `docs/workflow.md`.
 
 Promotion from `experimental/` → `extensions/` must meet the criteria in [`docs/promotion-policy.md`](docs/promotion-policy.md).
 
@@ -61,7 +62,7 @@ Promotion from `experimental/` → `extensions/` must meet the criteria in [`doc
 
 ## Releases & provenance
 
-- Freeze the capsule (`capsule/<version>/hashes.json`) and append an anchors event in `governance/anchors.json` (append-only, includes `prev_content_hash`).  
+- Freeze the capsule (`capsule/<version>/hashes.json`) and append an anchors event in `governance/anchors.json` (append‑only, includes `prev_content_hash`).  
 - Update `CHANGELOG.md`, tag (`git tag -a vX.Y.Z …; git push origin vX.Y.Z`), and optionally publish a zip of `capsule/<version>/`.  
 - See the **Lean release block** in [`docs/workflow.md`](docs/workflow.md).
 
@@ -70,8 +71,8 @@ Promotion from `experimental/` → `extensions/` must meet the criteria in [`doc
 ## Why TEOF
 
 - **Deterministic**: same inputs → same outputs; CI checks shapes (and later exactness).  
-- **Minimal**: small import surface; text-first formats; few dependencies.  
-- **Auditable**: append-only governance + hashed baselines enable trustless verification.  
+- **Minimal**: small import surface; text‑first formats; few dependencies.  
+- **Auditable**: append‑only governance + hashed baselines enable trustless verification.  
 - **Composable**: the kernel stays tiny; applications (e.g., TEOF Score™, web demos) live in separate repos.
 
 ---
