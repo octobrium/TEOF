@@ -26,14 +26,8 @@
 - Modules: `snake_case`; packages: singular; CLI entrypoints expose `main()` in `extensions/…`
 - **No imports** from `experimental/` or `archive/` inside `extensions/`
 
-## Promotion policy (summary)
-Promote from `experimental/` → `extensions/` only if ALL:
-1. **Deterministic** (same inputs → same outputs; triple-run OK)  
-2. **Spec-aligned** (OCERS/OGS shapes current; goldens updated if rules changed)  
-3. **CI-covered** (examples under `docs/examples/**`; regressions fail CI)  
-4. **Minimal deps** and clear `main()` / import path  
-5. **Anchored** change (append event in `governance/anchors.json` with `prev_content_hash`)  
-6. **Docs updated** (Quickstart and/or module README show exact commands)
+## Promotion policy
+Authoritative criteria and process live in [`docs/promotion-policy.md`](promotion-policy.md). Keep this file minimal and defer to that policy to avoid drift.
 
 ## New top-level folders
 Avoid by default. If truly needed, add a 1-page TEP in `rfcs/` (purpose, contract, alternatives, rollback) and update this file.
