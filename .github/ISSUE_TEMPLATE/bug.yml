@@ -1,0 +1,42 @@
+name: Bug
+description: Something is broken or regressed.
+labels: ["type/bug"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area (tree part)
+      options:
+        - area/seed
+        - area/trunk
+        - area/roots
+        - area/bark
+        - area/branches
+        - area/leaves
+        - area/fruit
+        - area/bundles
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      placeholder: "Observed vs expected"
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1) fresh clone
+        2) python3 -m teof.cli validate examples_hello.json
+        3) error: …
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit / bundle
+      placeholder: "commit short SHA or capsule version"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / receipts
+      description: "Paste the failing receipt or console logs if relevant."

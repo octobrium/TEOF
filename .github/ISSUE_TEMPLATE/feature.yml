@@ -1,0 +1,57 @@
+name: Feature / Improvement
+description: Propose work aligned to the TEOF concept map (tree anatomy) and architecture.
+labels: ["type/feature"]
+body:
+  - type: markdown
+    attributes:
+      value: "Map your ask to **Concept → Goal** (what/why) and **Architecture → How** (where/what changes)."
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area (tree part)
+      description: Choose the primary area this work touches.
+      options:
+        - area/seed
+        - area/trunk
+        - area/roots
+        - area/bark
+        - area/branches
+        - area/leaves
+        - area/fruit
+        - area/bundles
+    validations:
+      required: true
+  - type: input
+    id: outcome
+    attributes:
+      label: Outcome (Goal)
+      placeholder: "What outcome do we want (user/system-visible)?"
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal (How)
+      description: "What will change? Which files/dirs? Any alternatives?"
+      placeholder: "e.g., Add docs/receipt.schema.json; update teof/bootloader.py to enforce it"
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: "Objective checks to call this done."
+      placeholder: |
+        - Offline: `python3 -m teof.cli validate examples_hello.json` passes
+        - Receipt matches schema; manifest lists entrypoint; hashes verified
+  - type: checkboxes
+    id: priority
+    attributes:
+      label: Priority (apply labels after creating the issue)
+      options:
+        - label: P0-now
+        - label: P1-next
+        - label: P2-later
+  - type: textarea
+    id: links
+    attributes:
+      label: Links / context
+      description: "RFCs, design notes, related issues/PRs."

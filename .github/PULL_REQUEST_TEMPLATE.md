@@ -1,23 +1,23 @@
-## Summary
-<one-sentence objective>
+## What & Why
+Explain the change in terms of **Concept (goal)** and **Architecture (how/where)**.
 
-## Checklists
+- Area: `area/<seed|trunk|roots|bark|branches|leaves|fruit|bundles>`
+- Closes: #<issue-number>
 
-### For ALL PRs
-- [ ] Objective stated in first line of description
-- [ ] CI green on examples; no hidden state added
-- [ ] Docs updated if behavior/commands changed
+## How to test (offline)
 
-### If touching validator/evaluator logic
-- [ ] Goldens updated in docs/examples/** with rationale
-- [ ] Determinism triple-run passes locally
-- [ ] Anchors event appended with prev_content_hash
+python3 -m teof.cli validate examples_hello.json
+if capsule changed:
+teof freeze
 
-### If promoting from experimental/ → extensions/
-- [ ] Meets all criteria in docs/PROMOTION_POLICY.md
-- [ ] No imports from experimental/ or archive/ in packaged modules
-- [ ] Quickstart reflects the exact, tested CLI
 
-### If freezing or de-promoting
-- [ ] Moved to archive/ with “frozen as of <date/tag>”
-- [ ] Docs updated to remove/redirect references
+## Checklist
+- [ ] Links a tracked issue and applies labels (area/*, type/*, P0/P1/P2).
+- [ ] No imports from `experimental/` or `archive/` into `extensions/`.
+- [ ] Offline demo passes (`validate` on example).
+- [ ] If capsule contents changed, ran `teof freeze` and updated `capsule/current/hashes.json`.
+- [ ] Receipt schema respected (or updated in `docs/receipt.schema.json` with reason).
+- [ ] Updated docs (concept/architecture/workflow) if behavior or contracts changed.
+
+## Notes
+Anything risky, migration steps, or follow-ups.

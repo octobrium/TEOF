@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Docs
+    url: https://github.com/octobrium/TEOF/tree/main/docs
+    about: Quickstart, architecture, and policies
