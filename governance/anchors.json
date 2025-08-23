@@ -35,6 +35,11 @@
       "note": "sync prev_content_hash to previous-change sha; no policy change",
       "prev_content_hash": "09471404ff56ca37096a45fb95ef03430e6f7155a207c5e096dc831595b29f3c",
       "ts": "2025-08-23T03:34:37.495783Z"
+    },
+    {
+      "type": "sync",
+      "ts": "2025-08-23T04:29:50.703992Z",
+      "prev_content_hash": "3cba53793f48048b9642d60d713c432ce5a20b496178b588aef4ab5c47e588cc"
     }
   ],
   "releases": [
