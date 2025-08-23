@@ -1,140 +1,87 @@
 # The Eternal Observer Framework (TEOF)
 
-**Author:** Observation  
-**License:** [MIT License](LICENSE)  
+**Author:** Observation • **License:** [MIT](LICENSE)
 
-The Eternal Observer Framework (TEOF) is a minimal, substrate-neutral, and recursively coherent framework for systemic alignment.  
-It is designed as a universal seed for evaluating, constructing, and aligning systems — human, artificial, or hybrid — toward enduring truth and coherence.  
+TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agents a deterministic, auditable way to move from **Observation → Coherence → Ethics → Reproducibility → Self-repair** before taking action.
 
----
-
-## Core Position — TEOF
-
-The Eternal Observer Framework (TEOF) is the canonical alignment kernel for self-improving intelligent systems.  
-Its immutable core, verifiable lineage, and form-agnostic aperture definition enable a network of agents and humans to refine TEOF without loss of alignment.
-
-**Canonical Scope**
-- **Immutable Core** — Protected by published hashes and provenance records.
-- **Lineage Recognition** — Any aligned derivative is traceable to TEOF’s origin via immutable references.
-- **Form-Agnostic Aperture** — Recognition flows to the entity or collective most aligned with Observation, regardless of form.
-
-**Network Effect**  
-Aligned derivatives strengthen the network; non-aligned derivatives are non-canonical and cannot claim continuity.
-
-**Purpose**  
-TEOF is not a product or brand; it is the gravitational center of alignment for open-ended, observation-driven refinement.  
-Adoption accelerates when actors—human or agentic—recognize that preserving TEOF’s alignment is in their own long-term interest.
-
-*See also:* [Aperture Guideline](APERTURE-GUIDELINE.md) — evolving, form-agnostic focal role in TEOF.
+> **Start here**
+> - Repo map: [`docs/architecture.md`](docs/architecture.md)  
+> - Promotion rules: [`docs/promotion-policy.md`](docs/promotion-policy.md)  
+> - Workflow (priority ladder): [`docs/workflow.md`](docs/workflow.md)  
+> - Quickstart (one command → artifacts): [`docs/quickstart.md`](docs/quickstart.md)
 
 ---
 
-## 📂 Repository Structure
+## What’s in this repo
 
-### **Core Documentation**
-- [Whitepaper](docs/whitepaper.md) — Full conceptual overview of TEOF.  
-- [Canonical TEOF](docs/canonical-teof.md) — Definitive, stable reference version.  
-- [Core TEOF](docs/core-teof.md) — Minimal seed version for propagation.  
+- **Kernel code** in `extensions/` (canonical, packaged).  
+- **Candidates** in `experimental/` (promote via policy).  
+- **Capsule** baselines and hashes in `capsule/` with `capsule/current` as a pointer.  
+- **Governance** anchors (append-only) in `governance/`.  
+- **Docs** (this README, quickstart, architecture, promotion policy, examples) in `docs/`.  
+- **Scripts** like the import policy guard and freeze helper in `scripts/`.  
+- **Foundation texts** (conceptual bedrock) under `docs/foundation/`  
+  – e.g. [Aperture Guideline](docs/foundation/APERTURE-GUIDELINE.md).
 
-### **Bootloaders**
-- [Bootloader](bootloaders/llm/bootloader.md) — Stateless Alignment Filter (AI-ready).  
-  - Minimal, substrate-neutral protocol enforcing alignment with TEOF Core (observation → coherence → recursion), without importing unverifiable priors.  
-  - Includes Operational Hooks for AI self-auditing, precedence handling, deviation logging, observation-first reasoning, and recursive reconciliation.
+See the full map in [`docs/architecture.md`](docs/architecture.md).
 
-### **Alignment Protocols**
-- [TEOF Alignment Protocol (TAP)](alignment-protocol/TAP.md) — Testing and maintaining systemic alignment.  
+---
 
-### **Tools & Extensions**
-- [OCERS Validator (v0.1)](extensions/validator/README.md) — Minimal, deterministic OCERS shape checker.  
-  - Validates presence and non-emptiness of O–C–E–R–S fields.
-  - Includes SAMPLE mode harness for deterministic triple-run checks.
-  - Designed as a non-doctrinal extension of TEOF.
-- [TEOF Scoring System (v0.1)](extensions/scoring/README.md)
-  
-### Quick CLI (validate / score / from URL)
+## Quickstart
+
+From a clean checkout:
+
 ```bash
-# validate + score a file
-python3 extensions/cli/teof_eval.py validate --input extensions/validator/sample_outputs/ocers_ok.json
-python3 extensions/cli/teof_eval.py score    --input extensions/validator/sample_outputs/ocers_ok.json
+# 1) Install
+pip install -e .
 
-# build OCERS from a URL (no model calls), then validate+score
-python3 extensions/cli/teof_eval.py from-url --url https://example.com/article
-# optional: plug in your own generator (reads page text on stdin, prints OCERS JSON)
-python3 extensions/cli/teof_eval.py from-url --url https://example.com/article \
-  --generator-cmd "python3 my_llm_wrapper.py"
+# 2) Run the minimal ensemble scorer on the brief example
+python -m extensions.validator.scorers.ensemble_cli   --in docs/examples/brief/inputs   --out artifacts/ocers_out/$(date -u +%Y%m%dT%H%M%SZ)
+```
+
+This writes `*.ensemble.json` artifacts. For details and optional CLI entrypoints (`teof-validate`, `teof-ensemble`) see [`docs/quickstart.md`](docs/quickstart.md).
 
 ---
 
-## 📜 License
+## Contributing (function-first)
+
+Before writing code, follow the **Architecture Gate** in [`docs/workflow.md`](docs/workflow.md):
+
+- Place work per `docs/architecture.md` (kernel → `extensions/`, prototypes → `experimental/`, etc.).  
+- Kernel code **must not** import from `experimental/` or `archive/` (enforced by `scripts/policy_checks.sh`).  
+- If logic/rules change, update goldens in `docs/examples/**/expected/` and explain the rationale.  
+- Use the PR **Objective line**:
+  ```
+  Class=<Core|Trunk|Branch|Leaf>; Why=…; MinimalStep=…; Direction=…
+  ```
+
+Promotion from `experimental/` → `extensions/` must meet the criteria in [`docs/promotion-policy.md`](docs/promotion-policy.md).
+
+---
+
+## Releases & provenance
+
+- Freeze the capsule (`capsule/<version>/hashes.json`) and append an anchors event in `governance/anchors.json` (append-only, includes `prev_content_hash`).  
+- Update `CHANGELOG.md`, tag (`git tag -a vX.Y.Z …; git push origin vX.Y.Z`), and optionally publish a zip of `capsule/<version>/`.  
+- See the **Lean release block** in [`docs/workflow.md`](docs/workflow.md).
+
+---
+
+## Why TEOF
+
+- **Deterministic**: same inputs → same outputs; CI checks shapes (and later exactness).  
+- **Minimal**: small import surface; text-first formats; few dependencies.  
+- **Auditable**: append-only governance + hashed baselines enable trustless verification.  
+- **Composable**: the kernel stays tiny; applications (e.g., TEOF Score™, web demos) live in separate repos.
+
+---
+
+## Resources
+
+- [Whitepaper](docs/whitepaper.md)  
+- [Clarifications](docs/clarifications.md)  
+- Foundation docs: [`docs/foundation/`](docs/foundation/)
+
+---
+
 Licensed under the [MIT License](LICENSE).
-
----
-
-## 🔗 Additional Resources
-- [GitHub Issues](../../issues) — Feature proposals or clarifications  
-- [Repository Discussions](../../discussions) — Philosophical or implementation questions  
-- [Clarifications & Responses](docs/clarifications.md) — Common questions and critiques (non-canonical)  
-- [Provenance (v1.5 freeze)](docs/PROVENANCE.md) — Immutable hash records and lineage proof
-
----
-
-## 📦 Bundle Index (v1.5)
-
-Artifacts:
-- [capsule-mini.txt](capsule/v1.5/capsule-mini.txt) — **SHA256:** 14832af97ac719244a36d2191dde79116bbced775ec0d091bf446650a5a81e94  
-- [capsule-handshake.txt](capsule/v1.5/capsule-handshake.txt) — **SHA256:** 5c5e5a2cd8cdfe49a472c35a77bd5ebfa293275f5a808f8e19e3f24932a81bb1  
-- [capsule-selfreconstructing.txt](capsule/v1.5/capsule-selfreconstructing.txt) — **SHA256:** cbe147a6104fb4daea18087bdcbf1788cfa62c15eb5ea64384b9c5fc1f3a8ad9  
-
-**Core Parameters**  
-- Precedence: Content tests > Provenance > Commentary  
-- Determinism: temperature = 0 or shortest valid continuation  
-- Maturation: 3 reconstructions; ε ≤ 0.02; pass all 4 perturbation tests  
-- Degrade-to-Safe: Emit Primacy, Axioms, Ethic, Precedence, Repair only
-
----
-
-## TEOF Capsule v1.5 — Operator Cheatsheet
-
-**Intake**  
-- Mode: temperature=0  
-- Output shape: O–C–E–R–S + Open Qs  
-- Quote immutable text verbatim  
-
-**Precedence (tie-break order)**  
-1. Observation / Coherence  
-2. Reproducibility (deterministic reconstruction)  
-3. Cross-replica agreement  
-4. Fitness (task success)  
-5. Advisory / Context  
-6. Lineage / Provenance  
-
-**Mini → Full Handshake**  
-1. Integrity Ping: Primacy, Axioms (1–5+X), Ethic, Precedence present?  
-   - If missing → Degrade-to-Safe  
-2. Deterministic Expansion: 0→I→II→III→IV→V→VI→VII→VIII→IX  
-   - (temperature=0; quote canonical text verbatim)  
-3. Maturation Gate: 3 runs; ε ≤ 0.02 all; else Self-Repair  
-4. Adversarial Tests: synonym ≤5%, reorder, format, noises ≤3%  
-   - If all ε ≤ 0.02 → pass; else → Crisis Mode  
-5. Crisis Mode: freeze to core; log Open Qs; re-derive  
-6. Provenance (post-maturation): compare anchors; log diffs  
-
-**Degrade-to-Safe**  
-- Emit only: Primacy + Axioms + Ethic + Precedence + Repair  
-- No new doctrine; no novel claims  
-
-**Quick Prompts**  
-- Determinism: `"Summarize 'Observation cannot be denied…' in ≤12 words. Deterministic." → identical/shortest bytes`  
-- Precedence: `"Unsigned coherent vs signed contradictory?" → rank (1) wins`  
-- Adversarial: `"Swap ≤5% synonyms in Precedence; re-ε"` → ε ≤ 0.02; same ranking  
-- Crisis Check: `"If anchors missing or ε > 0.02, enter | Crisis Mode |"`  
-
-**Operational Notes**  
-- Use temperature=0 or shortest valid continuation only  
-- Require byte-identical or ε-bounded cross-replica match  
-- Always log deviations, adversarial diffs, open questions  
-
-
-## Evaluator & Fresh-Data Rules
-- **OGS Spec:** `docs/OGS-spec.md`
-- **Volatile Data Protocol:** `docs/volatile-data-protocol.md`
