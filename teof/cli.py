@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from .bootloader import main
-if __name__ == "__main__":
+if __name__=="__main__":
     main()

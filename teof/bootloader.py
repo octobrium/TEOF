@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""
-TEOF bootloader (minimal)
-- Validates an OCERS file (JSON or headed text) by calling the validator extension.
-- Writes a machine-readable receipt into reports/.
-"""
-import argparse, json, os, re, subprocess, sys, hashlib
+import argparse, json, re, subprocess, sys, hashlib
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -45,18 +40,18 @@ def ensure_ocers_json(input_path: Path) -> Path:
     except Exception:
         data = parse_headed_text(raw)
     out = REPORTS / f"tmp-ocers-{utc_stamp()}.json"
-    out.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    out.write_text(json.dumps(data, indent=2), encoding='utf-8')
     return out
 
 def write_runmeta() -> Path:
     rm = {
         "model": "unknown",
-        "runner_digest": sha256_bytes(Path(__file__).read_bytes()),
+        "runner_digest": sha256_bytes((ROOT/'teof'/'bootloader.py').read_bytes()),
         "temp": "n/a",
         "ts": utc_stamp(),
     }
     p = REPORTS / f"runmeta-{utc_stamp()}.json"
-    p.write_text(json.dumps(rm, indent=2), encoding="utf-8")
+    p.write_text(json.dumps(rm, indent=2), encoding='utf-8')
     return p
 
 def run_validator(ocers_json: Path, runmeta: Path, commit_short: str, receipt_path: Path) -> int:
@@ -64,25 +59,20 @@ def run_validator(ocers_json: Path, runmeta: Path, commit_short: str, receipt_pa
         print(f"ERROR: validator not found at {EXT_VALIDATOR}", file=sys.stderr)
         return 2
     cmd = [
-        sys.executable,
-        str(EXT_VALIDATOR),
+        sys.executable, str(EXT_VALIDATOR),
         "--input", str(ocers_json),
         "--runmeta", str(runmeta),
         "--commit", commit_short,
         "--receipt-json", str(receipt_path),
     ]
-    proc = subprocess.run(cmd, cwd=ROOT)
-    return proc.returncode
+    return subprocess.run(cmd, cwd=ROOT).returncode
 
 def main():
     ap = argparse.ArgumentParser(description="TEOF CLI bootloader")
     sub = ap.add_subparsers(dest="cmd", required=True)
-
     ap_val = sub.add_parser("validate", help="Validate an OCERS file (JSON or headed text)")
     ap_val.add_argument("path", help="Path to OCERS content")
-
     ap_frz = sub.add_parser("freeze", help="Regenerate capsule/current/hashes.json")
-
     args = ap.parse_args()
 
     if args.cmd == "freeze":
@@ -101,10 +91,9 @@ def main():
         runmeta = write_runmeta()
         receipt = REPORTS / f"receipt-{utc_stamp()}.json"
         rc = run_validator(ocers_json, runmeta, git_short(), receipt)
-        # pretty summary
         try:
-            data = json.loads(receipt.read_text(encoding="utf-8"))
-            passed = data.get("passed")
+            data = json.loads(receipt.read_text(encoding='utf-8'))
+            passed = (data.get("passed") if "passed" in data else (str(data.get("verdict","")).upper()=="PASS"))
             reasons = data.get("reasons", [])
             print(f"\nResult: {'PASS ✅' if passed else 'FAIL ❌'}")
             if reasons:
