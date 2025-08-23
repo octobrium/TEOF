@@ -1,3 +1,8 @@
+Status: Living
+Purpose: Process & checklists that enforce Architecture
+Change process: PR + 1 maintainer
+Review cadence: Monthly sweep
+
 # TEOF Master Workflow (Minimal v1.3)
 
 ## Operator mode (LLM quick brief)

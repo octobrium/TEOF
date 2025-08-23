@@ -1,3 +1,9 @@
+Status: Normative
+Purpose: Contracts, layout, mechanisms (offline, lineage)
+Change process: PR + 2 maintainers (one must be core)
+Compatibility: SemVer; deprecations get one minor window
+
+
 # TEOF Repo Architecture (v1.5, minimal)
 
 ## Allowed top-level
