@@ -33,7 +33,7 @@
     {
       "type": "maintenance",
       "note": "sync prev_content_hash to previous-change sha; no policy change",
-      "prev_content_hash": "f88fa7276e9a53ca77b8223f4c08d9e90ae8f03daf989d9acb72addc66d6607d",
+      "prev_content_hash": "09471404ff56ca37096a45fb95ef03430e6f7155a207c5e096dc831595b29f3c",
       "ts": "2025-08-23T03:34:37.495783Z"
     }
   ],
