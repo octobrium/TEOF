@@ -1,12 +1,9 @@
-## Objective
-Class=<Core|Trunk|Branch|Leaf>; Why=<one sentence>; MinimalStep=<one sentence>; Direction=<one sentence>
+### Objective
+Class=<Core|Trunk|Branch|Leaf>; Why=…; MinimalStep=…; Direction=…
 
-## Checklist
-- [ ] Baseline gate: critical files under `capsule/current/` → ran `freeze_hashes` → CI verify passes
-- [ ] Evidence gate: VDP cites + OGS runnable (or **N/A**)
-- [ ] Minimal surface: smallest demo/doc/flag (or **N/A**)
-- [ ] No net complexity: if complexity ↑, one-sentence justification included
-- [ ] Changelog touch: updated `CHANGELOG.md` if behavior/immutable scope changed
+### Changes
+- …
 
-## Notes (optional)
-- Context, trade-offs, or links to discussion.
+### Verification
+- [ ] `teof-ci` green
+- [ ] anchors append-only event updated when needed
