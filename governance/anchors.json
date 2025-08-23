@@ -40,6 +40,14 @@
       "type": "sync",
       "ts": "2025-08-23T04:29:50.703992Z",
       "prev_content_hash": "eafc507c88b3cdd70935907e19f75e2dd1ec4a70ebe20af9f1d72b70809c82d9"
+    },
+    {
+      "type": "freeze",
+      "ts": "2025-08-23T06:40:29Z"
+    },
+    {
+      "type": "freeze",
+      "ts": "2025-08-23T06:40:29Z"
     }
   ],
   "releases": [

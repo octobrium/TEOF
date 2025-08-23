@@ -1,75 +1,59 @@
 #!/usr/bin/env bash
 # freeze.sh — refresh capsule/<version>/hashes.json (or capsule/current by default)
+# Compatible with zsh/bash; delegates walking+hashing to Python (no mapfile).
 set -euo pipefail
 
-usage() {
-  echo "Usage: $(basename "$0") [--version vX.Y]"
-  exit 2
-}
+usage() { echo "Usage: $(basename "$0") [--version vX.Y]" >&2; exit 2; }
 
 VERSION=""
-if [[ "${1:-}" == "--version" && -n "${2:-}" ]]; then
+if [ "${1-}" = "--version" ] && [ -n "${2-}" ]; then
   VERSION="$2"; shift 2
 fi
 
 BASE="capsule/current"
-if [[ -n "$VERSION" ]]; then
-  BASE="capsule/$VERSION"
-fi
+[ -n "${VERSION}" ] && BASE="capsule/${VERSION}"
+[ -d "${BASE}" ] || { echo "ERROR: capsule dir not found: ${BASE}" >&2; exit 1; }
 
-# Resolve BASE (accept symlink or directory)
-if [[ ! -d "$BASE" ]]; then
-  echo "ERROR: capsule dir not found: $BASE" >&2
-  exit 1
-fi
+# Pass BASE as argv[1] to Python
+python3 - "${BASE}" <<'PY'
+import hashlib, json, os, sys, datetime
 
-HASHES_JSON="$BASE/hashes.json"
-TMP="$(mktemp)"
+base = sys.argv[1] if len(sys.argv) > 1 else None
+if not base:
+    print("freeze.sh: BASE not provided", file=sys.stderr)
+    sys.exit(2)
 
-# Portable sha256 helper
-sha256() {
-  if command -v shasum >/dev/null 2>&1; then
-    shasum -a 256 "$1" | awk '{print $1}'
-  else
-    sha256sum "$1" | awk '{print $1}'
-  fi
-}
+hashes = {}
+for dirpath, _dirs, files in os.walk(base):
+    for name in files:
+        if name == "hashes.json":
+            continue
+        path = os.path.join(dirpath, name)
+        rel = os.path.relpath(path, base).replace("\\", "/")
+        h = hashlib.sha256()
+        with open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(1024*1024), b""):
+                h.update(chunk)
+        hashes[rel] = h.hexdigest()
 
-# Build a sorted list of file paths relative to BASE, excluding hashes.json itself
-mapfile -d '' FILES < <(cd "$BASE" && find . -type f -not -name 'hashes.json' -print0 | sort -z)
+out = os.path.join(base, "hashes.json")
+with open(out, "w", encoding="utf-8") as f:
+    json.dump({k: hashes[k] for k in sorted(hashes)}, f, indent=2, ensure_ascii=False)
 
-{
-  echo "{"
-  for ((i=0; i<${#FILES[@]}; i++)); do
-    rel="${FILES[$i]#./}"
-    abs="$BASE/$rel"
-    h="$(sha256 "$abs")"
-    comma=","
-    [[ "$i" -eq $((${#FILES[@]}-1)) ]] && comma=""
-    printf '  "%s": "%s"%s\n' "$rel" "$h" "$comma"
-  done
-  echo "}"
-} > "$TMP"
-
-mkdir -p "$(dirname "$HASHES_JSON")"
-mv -f "$TMP" "$HASHES_JSON"
-
-# Optional: append a light anchors event
-ANCHORS="governance/anchors.json"
-python3 - <<'PY'
-import json, datetime, os, sys
-p="governance/anchors.json"
-os.makedirs(os.path.dirname(p), exist_ok=True)
+# Append a lightweight anchors event
+anchors = "governance/anchors.json"
 try:
-    with open(p,"r",encoding="utf-8") as f: data=json.load(f)
+    with open(anchors, "r", encoding="utf-8") as f:
+        data = json.load(f)
 except FileNotFoundError:
-    data={"events":[]}
-data.setdefault("events",[]).append({
-  "type":"freeze",
-  "ts": datetime.datetime.utcnow().isoformat(timespec="seconds")+"Z",
+    data = {"events": []}
+data.setdefault("events", []).append({
+    "type": "freeze",
+    "ts": datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z",
 })
-with open(p,"w",encoding="utf-8") as f: json.dump(data,f,ensure_ascii=False,indent=2)
-print("anchors updated:", p)
-PY
+os.makedirs(os.path.dirname(anchors), exist_ok=True)
+with open(anchors, "w", encoding="utf-8") as f:
+    json.dump(data, f, indent=2, ensure_ascii=False)
 
-echo "Refreshed $HASHES_JSON"
+print(f"Refreshed {out} and appended anchors event.")
+PY
