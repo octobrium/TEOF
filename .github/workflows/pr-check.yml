@@ -26,7 +26,6 @@ jobs:
         run: |
           BASE_SHA="${{ github.event.pull_request.base.sha }}"
           CHANGED="$(git diff --name-only "$BASE_SHA"...HEAD || true)"
-          echo "$CHANGED" | sed 's/^/changed: /'
           EXT_CHANGED=false; TESTS_CHANGED=false; TEP_FILE_PRESENT=false
           for f in $CHANGED; do
             [[ "$f" == extensions/* ]] && EXT_CHANGED=true
@@ -46,7 +45,6 @@ jobs:
             echo "::error ::Placeholder token(s) found. Remove them before merging."
             exit 1
           fi
-          echo "No placeholder tokens detected."
       - name: Build brief (staging)
         shell: bash
         run: |
@@ -59,7 +57,6 @@ jobs:
             LATEST="${LATEST%/}"
           fi
           echo "LATEST_DIR=$LATEST" >> $GITHUB_ENV
-          echo "Latest dir: $LATEST"
       - name: Upload staging artifact
         if: env.LATEST_DIR != ''
         uses: actions/upload-artifact@v4
