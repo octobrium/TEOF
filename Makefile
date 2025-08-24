@@ -25,20 +25,20 @@ show_latest:
 	@ls -l $(OUT) || true
 	@echo "----"
 	@if [[ -L "$(OUT)/latest" ]]; then \
-		echo ">>> latest is a symlink to: $$(readlink $(OUT)/latest)"; \
-		echo ">>> contents of that folder:"; \
-		ls -l "$$(readlink $(OUT)/latest)" || true; \
+	echo ">>> latest is a symlink to: $$(readlink $(OUT)/latest)"; \
+	echo ">>> contents of that folder:"; \
+	ls -l "$$(readlink $(OUT)/latest)" || true; \
 	else \
-		echo ">>> $(OUT)/latest is missing or not a symlink"; \
+	echo ">>> $(OUT)/latest is missing or not a symlink"; \
 	fi
 
 open_brief:
 	@file="$(OUT)/latest/brief.md"; \
 	if [[ ! -e "$$file" ]]; then \
-		echo ">>> ERROR: $$file not found."; \
-		echo ">>> Running show_latest for context..."; \
-		$(MAKE) -s show_latest; \
-		echo ">>> Tip: run 'make brief' again if you interrupted the generator."; \
+	echo ">>> ERROR: $$file not found."; \
+	echo ">>> Running show_latest for context..."; \
+	$(MAKE) -s show_latest; \
+	echo ">>> Tip: run 'make brief' again if you interrupted the generator."; \
 		exit 1; \
 	fi; \
 	less "$$file"
@@ -46,9 +46,9 @@ open_brief:
 audit:
 	@file="$(OUT)/latest/score.txt"; \
 	if [[ ! -e "$$file" ]]; then \
-		echo ">>> ERROR: $$file not found."; \
-		echo ">>> Running show_latest for context..."; \
-		$(MAKE) -s show_latest; \
+	echo ">>> ERROR: $$file not found."; \
+	echo ">>> Running show_latest for context..."; \
+	$(MAKE) -s show_latest; \
 		exit 1; \
 	fi; \
 	echo ">>> Showing score (first 120 lines):"; \
@@ -59,3 +59,39 @@ brief_all: brief open_brief
 clean:
 	@rm -rf "$(OUT)"
 	@echo ">>> Cleaned $(OUT)/"
+
+.PHONY: new-exp archive-exp finish-exp finish-exp!
+
+# make new-exp name=<kebab> [date=YYYY-MM-DD]
+new-exp:
+@test -n "$(name)" || (echo "Usage: make new-exp name=<kebab> [date=YYYY-MM-DD]"; exit 1)
+@./scripts/new_experiment.sh "$(name)" "$(date)"
+
+# make archive-exp exp=YYYY-MM-DD-<kebab>
+archive-exp:
+@test -n "$(exp)" || (echo "Usage: make archive-exp exp=YYYY-MM-DD-<kebab>"; exit 1)
+@test -f "experiments/$(exp)/EXPERIMENT.md" || (echo "No such experiment: experiments/$(exp)"; exit 1)
+@grep -Eq '^State:\s*(DONE|ABANDONED)\s*$$' experiments/$(exp)/EXPERIMENT.md || (echo "State must be DONE or ABANDONED"; exit 1)
+@git mv experiments/$(exp) archive/experiments/$(exp) 2>/dev/null || mv experiments/$(exp) archive/experiments/$(exp)
+@echo "Archived: $(exp)"
+
+# make finish-exp exp=YYYY-MM-DD-<kebab>
+finish-exp:
+@test -n "$(exp)" || (echo "Usage: make finish-exp exp=YYYY-MM-DD-<kebab>"; exit 1)
+@test -f "experiments/$(exp)/EXPERIMENT.md" || (echo "No such experiment: experiments/$(exp)"; exit 1)
+@perl -0777 -pe 's/^State:\s*ACTIVE/State: DONE/m' -i experiments/$(exp)/EXPERIMENT.md
+@$(MAKE) archive-exp exp=$(exp)
+
+# make finish-exp! exp=YYYY-MM-DD-<kebab> [FORCE=1]
+finish-exp!:
+@test -n "$(exp)" || (echo "Usage: make finish-exp! exp=YYYY-MM-DD-<kebab> [FORCE=1]"; exit 1)
+@test -f "experiments/$(exp)/EXPERIMENT.md" || (echo "No such experiment: experiments/$(exp)"; exit 1)
+@if [ "${FORCE:-0}" != "1" ]; then \
+grep -Eq '^Outcome:\s*(?!<fill)' experiments/$(exp)/EXPERIMENT.md || { echo "Fill Outcome: or FORCE=1"; exit 1; }; \
+grep -Eq '^Links:\s*(?!<PRs/commits/docs>)' experiments/$(exp)/EXPERIMENT.md || { echo "Fill Links: or FORCE=1"; exit 1; }; \
+fi
+@perl -0777 -pe 's/^State:\s*(ACTIVE|PAUSED)/State: DONE/m' -i experiments/$(exp)/EXPERIMENT.md
+@$(MAKE) archive-exp exp=$(exp)
+
+# experiment lifecycle rules
+include mk/experiments.mk
