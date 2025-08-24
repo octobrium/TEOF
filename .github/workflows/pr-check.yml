@@ -1,0 +1,87 @@
+name: PR Check
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install package & pytest
+        run: |
+          pip install -e .
+          pip install pytest
+      - name: Detect changes (for soft policy messages)
+        id: detect
+        shell: bash
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY:  ${{ github.event.pull_request.body }}
+        run: |
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          CHANGED="$(git diff --name-only "$BASE_SHA"...HEAD || true)"
+          echo "$CHANGED" | sed 's/^/changed: /'
+          EXT_CHANGED=false; TESTS_CHANGED=false; TEP_FILE_PRESENT=false
+          for f in $CHANGED; do
+            [[ "$f" == extensions/* ]] && EXT_CHANGED=true
+            [[ "$f" == tests/* ]] && TESTS_CHANGED=true
+            [[ "$f" == docs/teps/TEP-* || "$f" == TEP-* ]] && TEP_FILE_PRESENT=true
+          done
+          TEP_META=false
+          if echo "$PR_TITLE $PR_BODY" | grep -E -q 'TEP-[0-9]+'; then TEP_META=true; fi
+          echo "ext_changed=$EXT_CHANGED" >> $GITHUB_OUTPUT
+          echo "tests_changed=$TESTS_CHANGED" >> $GITHUB_OUTPUT
+          echo "tep_file_present=$TEP_FILE_PRESENT" >> $GITHUB_OUTPUT
+          echo "tep_meta=$TEP_META" >> $GITHUB_OUTPUT
+      - name: Block placeholder tokens (hard)
+        shell: bash
+        run: |
+          if git grep -n -E '…|<TODO|PASS  # TODO' -- '*.py' ; then
+            echo "::error ::Placeholder token(s) found. Remove them before merging."
+            exit 1
+          fi
+          echo "No placeholder tokens detected."
+      - name: Build brief (staging)
+        shell: bash
+        run: |
+          set -e
+          teof brief || true
+          if [[ -L artifacts/ocers_out/latest ]]; then
+            LATEST="artifacts/ocers_out/$(readlink artifacts/ocers_out/latest)"
+          else
+            LATEST="$(ls -1dt artifacts/ocers_out/*/ 2>/dev/null | head -1 || true)"
+            LATEST="${LATEST%/}"
+          fi
+          echo "LATEST_DIR=$LATEST" >> $GITHUB_ENV
+          echo "Latest dir: $LATEST"
+      - name: Upload staging artifact
+        if: env.LATEST_DIR != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: teof-brief-${{ github.run_id }}
+          path: ${{ env.LATEST_DIR }}
+      - name: Soft policy messages (TEP/tests)
+        if: always()
+        shell: bash
+        run: |
+          if [[ "${{ steps.detect.outputs.ext_changed }}" == "true" ]]; then
+            if [[ "${{ steps.detect.outputs.tep_file_present }}" != "true" && "${{ steps.detect.outputs.tep_meta }}" != "true" ]]; then
+              echo "::warning ::Changes under extensions/ but no TEP-#### referenced. Add docs/teps/TEP-####.md or reference TEP-#### in title/body."
+            fi
+            if [[ "${{ steps.detect.outputs.tests_changed }}" != "true" ]]; then
+              echo "::warning ::Code changed under extensions/ but tests/ were not updated. Add at least one minimal golden."
+            fi
+          fi
+      - name: pytest (soft)
+        continue-on-error: true
+        run: pytest -q
+      - name: Refresh STATUS.md
+        run: |
+          teof status
+          head -n 20 docs/STATUS.md || true
