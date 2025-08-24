@@ -101,46 +101,37 @@ jobs:
           echo "::error::No capsule baseline found. Expected either capsule/current/hashes.json or a versioned capsule/vX.Y/hashes.json"
           exit 1
 
-      - name: Verify capsule hashes
-        shell: bash
-        env:
-          BASE_DIR: ${{ steps.detect.outputs.baseline_dir }}
-          HFILE:    ${{ steps.detect.outputs.baseline_json }}
-        run: |
-          set -euo pipefail
-          echo "Baseline dir:  $BASE_DIR"
-          echo "Baseline JSON: $HFILE"
-          python - <<'PY'
-import os, json, hashlib, sys
-base_dir = os.environ["BASE_DIR"]
-hfile    = os.environ["HFILE"]
+  - name: Verify capsule hashes
+    shell: python
+    env:
+      BASE_DIR: ${{ steps.detect.outputs.baseline_dir }}
+      HFILE:    ${{ steps.detect.outputs.baseline_json }}
+    run: |
+      import os, json, hashlib, sys, os.path as op
 
-with open(hfile, 'r', encoding='utf-8') as f:
-    expected = json.load(f)
+      base_dir = os.environ["BASE_DIR"]
+      hfile    = os.environ["HFILE"]
 
-def sha256_file(p):
-    h = hashlib.sha256()
-    with open(p,'rb') as f:
-        for chunk in iter(lambda: f.read(8192), b''):
-            h.update(chunk)
-    return h.hexdigest()
+      with open(hfile, "r", encoding="utf-8") as f:
+          expected = json.load(f)
 
-ok = True
-for rel, exp in expected.items():
-    p = os.path.join(base_dir, rel)
-    if not os.path.isfile(p):
-        print(f"::error file={p}::missing file listed in hashes.json")
-        ok = False
-        continue
-    got = sha256_file(p)
-    if got != exp:
-        print(f"::error file={p}::sha256 mismatch expected={exp} got={got}")
-        ok = False
-    else:
-        print(f"OK {rel}")
-sys.exit(0 if ok else 1)
-PY
+      def sha256_file(p):
+          h = hashlib.sha256()
+          with open(p, "rb") as f:
+              for chunk in iter(lambda: f.read(8192), b""):
+                  h.update(chunk)
+          return h.hexdigest()
 
+      ok = True
+      for rel, want in expected.items():
+          p = op.join(base_dir, rel)
+          have = sha256_file(p)
+          if have != want:
+              print(f"::error file={rel}::hash mismatch (want {want}, have {have})")
+              ok = False
+
+      if not ok:
+          sys.exit(1)
       - name: Validate anchors (strict governance only: schema + append-only + scope vs baseline)
         shell: bash
         env:
