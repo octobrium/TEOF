@@ -34,3 +34,10 @@ finish-exp!:
 	fi
 	@perl -0777 -pe 's/^State:\s*(ACTIVE|PAUSED)/State: DONE/m' -i "experiments/$(exp)/EXPERIMENT.md"
 	@$(MAKE) -f mk/experiments.mk archive-exp exp="$(exp)"
+
+help::
+	@echo "Experiment lifecycle:"
+	@echo "  make new-exp name=<kebab> [date=YYYY-MM-DD]"
+	@echo "  make finish-exp exp=YYYY-MM-DD-<kebab>"
+	@echo "  make finish-exp! exp=YYYY-MM-DD-<kebab> [FORCE=1]"
+	@echo "  make archive-exp exp=YYYY-MM-DD-<kebab>"

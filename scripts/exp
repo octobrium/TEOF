@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cmd="${1:-}"; shift || true
+case "$cmd" in
+  new)      name="${1:?usage: exp new <kebab> [YYYY-MM-DD]}"; date="${2:-}"; make -f mk/experiments.mk new-exp name="$name" date="$date" ;;
+  finish)   exp="${1:?usage: exp finish <YYYY-MM-DD-kebab>}"; make -f mk/experiments.mk finish-exp exp="$exp" ;;
+  strict)   exp="${1:?usage: exp strict <YYYY-MM-DD-kebab>}"; make -f mk/experiments.mk finish-exp! exp="$exp" ;;
+  archive)  exp="${1:?usage: exp archive <YYYY-MM-DD-kebab>}"; make -f mk/experiments.mk archive-exp exp="$exp" ;;
+  *) echo "usage: exp {new|finish|strict|archive} ..."; exit 1 ;;
+esac

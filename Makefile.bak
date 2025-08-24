@@ -25,31 +25,31 @@ show_latest:
 	@ls -l $(OUT) || true
 	@echo "----"
 	@if [[ -L "$(OUT)/latest" ]]; then \
-	echo ">>> latest is a symlink to: $$(readlink $(OUT)/latest)"; \
-	echo ">>> contents of that folder:"; \
-	ls -l "$$(readlink $(OUT)/latest)" || true; \
+		echo ">>> latest is a symlink to: $$(readlink $(OUT)/latest)"; \
+		echo ">>> contents of that folder:"; \
+		ls -l "$$(readlink $(OUT)/latest)" || true; \
 	else \
-	echo ">>> $(OUT)/latest is missing or not a symlink"; \
+		echo ">>> $(OUT)/latest is missing or not a symlink"; \
 	fi
 
 open_brief:
 	@file="$(OUT)/latest/brief.md"; \
 	if [[ ! -e "$$file" ]]; then \
-	echo ">>> ERROR: $$file not found."; \
-	echo ">>> Running show_latest for context..."; \
-	$(MAKE) -s show_latest; \
-	echo ">>> Tip: run 'make brief' again if you interrupted the generator."; \
-	exit 1; \
+		echo ">>> ERROR: $$file not found."; \
+		echo ">>> Running show_latest for context..."; \
+		$(MAKE) -s show_latest; \
+		echo ">>> Tip: run 'make brief' again if you interrupted the generator."; \
+		exit 1; \
 	fi; \
 	less "$$file"
 
 audit:
 	@file="$(OUT)/latest/score.txt"; \
 	if [[ ! -e "$$file" ]]; then \
-	echo ">>> ERROR: $$file not found."; \
-	echo ">>> Running show_latest for context..."; \
-	$(MAKE) -s show_latest; \
-	exit 1; \
+		echo ">>> ERROR: $$file not found."; \
+		echo ">>> Running show_latest for context..."; \
+		$(MAKE) -s show_latest; \
+		exit 1; \
 	fi; \
 	echo ">>> Showing score (first 120 lines):"; \
 	sed -n '1,120p' "$$file"
