@@ -62,3 +62,4 @@ legacy/ops/_local/
 # reports runtime outputs
 artifacts/reports/
 artifacts/ocers_out/
+._*
