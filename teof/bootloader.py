@@ -134,7 +134,7 @@ def collect_auto_objectives() -> List[Dict[str, Any]]:
         for p in base.rglob("*.py"):
             try:
                 txt = p.read_text(encoding="utf-8")
-                if ("\\u2026" in txt) or ("<" + "TODO" in txt) or ("PASS  # TODO" in txt):
+                if ("\\u2026" in txt) or ("<" + "TODO" in txt) or ("PASS  # TO" + "DO" in txt):
                     bad_files.append(str(p.relative_to(ROOT)))
             except Exception:
                 pass
