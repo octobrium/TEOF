@@ -1,7 +1,6 @@
-/governance/**  @octobrium
-/capsule/**     @octobrium
-/cli/**         @octobrium
-/scripts/**     @octobrium
-/docs/**        @octobrium
-/rfcs/**        @octobrium
-/legacy/**      @octobrium
+*                       @your-github-handle
+.github/*               @your-github-handle
+teof/**                 @your-github-handle
+capsule/**              @your-github-handle
+docs/teps/**            @your-github-handle
+governance/**           @your-github-handle
