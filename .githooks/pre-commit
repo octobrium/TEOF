@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
 PYBIN="${PYTHON:-python3}"
 PYTHONPATH="$REPO_ROOT" "$PYBIN" -m teof.bootloader status --quiet || true
 git add docs/STATUS.md || true
