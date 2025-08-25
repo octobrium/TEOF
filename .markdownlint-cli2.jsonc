@@ -1,0 +1,21 @@
+{
+  // What to lint (and what to skip)
+  "globs": [
+    "README.md",
+    "docs/**/*.md",
+    "!docs/STATUS.md",            // generated
+    "!docs/**/*.bak.*.md"         // backups
+  ],
+
+  // Actual markdownlint rules to apply (keep it minimal/quiet)
+  "markdownlint": {
+    "MD013": false,  // line length
+    "MD041": false,  // first line must be H1
+    "MD022": false,  // blanks around headings
+    "MD032": false,  // blanks around lists
+    "MD031": false,  // blanks around fences
+    "MD040": false,  // require language on fences
+    "MD036": false,  // emphasis used as heading
+    "MD033": false   // inline HTML
+  }
+}
