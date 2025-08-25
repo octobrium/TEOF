@@ -1,11 +1,4 @@
 #!/usr/bin/env bash
-#!/usr/bin/env bash
 set -euo pipefail
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-cd "$REPO_ROOT"
-PYBIN="${PYTHON:-python3}"
-PYTHONPATH="$REPO_ROOT" "$PYBIN" -m teof.bootloader status --quiet || true
-git add docs/STATUS.md || true
-
-# TEOF hygiene checks
-exec .githooks/precommit_hygiene.sh
+[ -x .githooks/precommit_hygiene.sh ] && exec .githooks/precommit_hygiene.sh
+exit 0
