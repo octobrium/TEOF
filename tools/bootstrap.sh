@@ -4,13 +4,10 @@ set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 cd "$ROOT"
 
-grep -RIl $'\r' -- Makefile mk tools scripts 2>/dev/null | xargs -I{} perl -i -pe 's/\r$//' "{}" 2>/dev/null || true
 
 [ -f scripts/new_experiment.sh ] && chmod +x scripts/new_experiment.sh || true
 [ -f tools/doctor.sh ] && chmod +x tools/doctor.sh || true
 
-if [ -f Makefile ] && ! grep -q 'mk/experiments\.mk' Makefile; then
-  printf '\n# experiment lifecycle rules\ninclude mk/experiments.mk\n' >> Makefile
 fi
 
 if [ "${GITHUB_ACTIONS:-}" != "true" ] && [ "${1:-}" != "--no-hook" ]; then
