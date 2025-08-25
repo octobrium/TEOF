@@ -13,7 +13,7 @@ archive-exp:
 	@test -n "$(exp)" || (echo "Usage: make archive-exp exp=YYYY-MM-DD-<kebab>"; exit 1)
 	@test -f "experiments/$(exp)/EXPERIMENT.md" || (echo "No such experiment: experiments/$(exp)"; exit 1)
 	@grep -E "^State:[[:space:]]*(DONE|ABANDONED)[[:space:]]*$$" "experiments/$(exp)/EXPERIMENT.md" >/dev/null \
-	 || (echo "State must be DONE or ABANDONED"; exit 1)
+	|| (echo "State must be DONE or ABANDONED"; exit 1)
 	@git mv "experiments/$(exp)" "archive/experiments/$(exp)" 2>/dev/null || mv "experiments/$(exp)" "archive/experiments/$(exp)"
 	@echo "Archived: $(exp)"
 
@@ -29,8 +29,8 @@ finish-exp!:
 	@test -n "$(exp)" || (echo "Usage: make finish-exp! exp=YYYY-MM-DD-<kebab> [FORCE=1]"; exit 1)
 	@test -f "experiments/$(exp)/EXPERIMENT.md" || (echo "No such experiment: experiments/$(exp)"; exit 1)
 	@if [[ "${FORCE:-0}" != "1" ]]; then \
-		grep -E "^Outcome:[[:space:]]*(?!<fill)" "experiments/$(exp)/EXPERIMENT.md" >/dev/null || { echo "Fill Outcome: or FORCE=1"; exit 1; }; \
-		grep -E "^Links:[[:space:]]*(?!<PRs/commits/docs>)" "experiments/$(exp)/EXPERIMENT.md" >/dev/null || { echo "Fill Links: or FORCE=1"; exit 1; }; \
+	grep -E "^Outcome:[[:space:]]*(?!<fill)" "experiments/$(exp)/EXPERIMENT.md" >/dev/null || { echo "Fill Outcome: or FORCE=1"; exit 1; }; \
+	grep -E "^Links:[[:space:]]*(?!<PRs/commits/docs>)" "experiments/$(exp)/EXPERIMENT.md" >/dev/null || { echo "Fill Links: or FORCE=1"; exit 1; }; \
 	fi
 	@perl -0777 -pe 's/^State:\s*(ACTIVE|PAUSED)/State: DONE/m' -i "experiments/$(exp)/EXPERIMENT.md"
 	@$(MAKE) -f mk/experiments.mk archive-exp exp="$(exp)"
