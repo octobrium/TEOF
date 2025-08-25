@@ -30,8 +30,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  STRICT_CAPSULE: 'true'     # fail if no capsule baseline
-  STRICT_GOVERNANCE: 'false' # anchors warn-only by default; set 'true' to enforce
+  STRICT_CAPSULE: 'true'      # fail if no capsule baseline
+  STRICT_GOVERNANCE: 'false'  # anchors warn-only by default; set 'true' to enforce
 
 jobs:
   show-tree:
@@ -195,11 +195,32 @@ jobs:
             print(f"anchors sha256={cur_sha}  path={p}")
           PY
 
-      - name: Build brief (tab-safe)
+      - name: Check for macOS .DS_Store
         run: |
+          if git ls-files | grep -q '\.DS_Store'; then
+            echo "::error::.DS_Store files committed"; exit 1
+          fi
+
+      - name: Forbid deprecated rings/ path
+        run: |
+          if git ls-files | grep -q '^rings/'; then
+            echo "::error::deprecated path rings/ detected; use governance/"; exit 1
+          fi
+
+      - name: Forbid legacy brief output path
+        run: |
+          if git ls-files | grep -q '^branches_thick/ocers_out/'; then
+            echo "::error::legacy path branches_thick/ocers_out/ is forbidden"; exit 1
+          fi
+
+      - name: Build brief (direct, no make)
+        run: |
+          set -euo pipefail
           mkdir -p artifacts/ocers_out
-          OUT_ROOT="$GITHUB_WORKSPACE/artifacts" make -f mk/experiments.mk brief
-          ls -l artifacts/ocers_out/latest/brief.json artifacts/ocers_out/latest/score.txt
+          OUT_ROOT="$GITHUB_WORKSPACE/artifacts" python -m teof.cli brief
+          test -f artifacts/ocers_out/latest/brief.json
+          test -f artifacts/ocers_out/latest/score.txt
+          ls -l artifacts/ocers_out/latest/
 
       - name: Upload brief artifacts
         if: always()
