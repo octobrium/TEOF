@@ -1,0 +1,21 @@
+{
+  "default": true,
+
+  // Long essays/whitepaper: don't hard-wrap
+  "MD013": false,
+
+  // Many files begin with status/front-matter instead of H1
+  "MD041": false,
+
+  // Don't block on blank-lines around headings/lists (retrofit later if desired)
+  "MD022": false,
+  "MD032": false,
+
+  // Fences: don't require language or surrounding blanks
+  "MD040": false,
+  "MD031": false,
+
+  // Allow emphasis/HTML as headings (legacy sections)
+  "MD036": false,
+  "MD033": false
+}
