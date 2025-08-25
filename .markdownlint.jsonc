@@ -1,21 +1,17 @@
 {
   "default": true,
 
-  // Long essays/whitepaper: don't hard-wrap
+  // Keep long-form lines; no hard wrap fights
   "MD013": false,
 
-  // Many files begin with status/front-matter instead of H1
+  // Don't require a top-level # heading first
   "MD041": false,
 
-  // Don't block on blank-lines around headings/lists (retrofit later if desired)
-  "MD022": false,
-  "MD032": false,
-
-  // Fences: don't require language or surrounding blanks
-  "MD040": false,
-  "MD031": false,
-
-  // Allow emphasis/HTML as headings (legacy sections)
-  "MD036": false,
-  "MD033": false
+  // De-noise older/structured docs
+  "MD022": false,  // blanks around headings
+  "MD032": false,  // blanks around lists
+  "MD031": false,  // blanks around code fences
+  "MD040": false,  // fenced code language
+  "MD036": false,  // emphasis as heading
+  "MD033": false   // inline HTML
 }
