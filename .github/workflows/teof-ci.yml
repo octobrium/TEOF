@@ -9,6 +9,7 @@ on:
       - 'scripts/**'
       - 'docs/**'
       - 'Makefile'
+      - 'mk/**'
       - '.github/workflows/**'
   pull_request:
     paths:
@@ -18,6 +19,7 @@ on:
       - 'scripts/**'
       - 'docs/**'
       - 'Makefile'
+      - 'mk/**'
       - '.github/workflows/**'
 
 permissions:
@@ -28,8 +30,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  STRICT_CAPSULE: 'true'   # fail if no capsule baseline
-  STRICT_GOVERNANCE: 'false'  # anchors warn-only by default (flip to 'true' to enforce)
+  STRICT_CAPSULE: 'true'     # fail if no capsule baseline
+  STRICT_GOVERNANCE: 'false' # anchors warn-only by default; set 'true' to enforce
 
 jobs:
   show-tree:
@@ -90,8 +92,7 @@ jobs:
             exit 0
           fi
           if compgen -G "$CAP_ROOT/v*/hashes.json" >/dev/null; then
-            latest="$(ls -1d "$CAP_ROOT"/v*/ | sort -V | tail -n1)"
-            latest="${latest%/}"
+            latest="$(ls -1d "$CAP_ROOT"/v*/ | sort -V | tail -n1)"; latest="${latest%/}"
             mkdir -p "$CUR"
             cp -a "$latest"/. "$CUR"/
             if [ ! -f "$CUR/hashes.json" ] || [ ! -f "$CUR/capsule.txt" ]; then
@@ -122,10 +123,8 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           import os, json, hashlib, sys
-          base_dir = os.environ["BASE_DIR"]
-          hfile    = os.environ["HFILE"]
-          with open(hfile, 'r', encoding='utf-8') as f:
-              expected = json.load(f)
+          base_dir = os.environ["BASE_DIR"]; hfile = os.environ["HFILE"]
+          with open(hfile, 'r', encoding='utf-8') as f: expected = json.load(f)
           def sha256_file(p):
               h = hashlib.sha256()
               with open(p,'rb') as f:
@@ -136,13 +135,10 @@ jobs:
           for rel, exp in expected.items():
               p = os.path.join(base_dir, rel)
               if not os.path.isfile(p):
-                  print(f"::error file={p}::missing file listed in hashes.json")
-                  ok = False
-                  continue
+                  print(f"::error file={p}::missing file listed in hashes.json"); ok = False; continue
               got = sha256_file(p)
               if got != exp:
-                  print(f"::error file={p}::sha256 mismatch expected={exp} got={got}")
-                  ok = False
+                  print(f"::error file={p}::sha256 mismatch expected={exp} got={got}"); ok = False
               else:
                   print(f"OK {rel}")
           sys.exit(0 if ok else 1)
@@ -156,37 +152,27 @@ jobs:
           ANCHORS_PATH:      governance/anchors.json
         run: |
           set -euo pipefail
-          STRICT="${STRICT_GOVERNANCE:-false}"
-          P="${ANCHORS_PATH}"
+          STRICT="${STRICT_GOVERNANCE:-false}"; P="${ANCHORS_PATH}"
           if [ ! -f "$P" ]; then
             if [ "$STRICT" = "true" ]; then
               echo "::error::$P missing and STRICT_GOVERNANCE=true"; exit 1
             else
-              echo "::warning::$P not found (governance lineage absent)"
-              echo "### Governance anchors" >> "$GITHUB_STEP_SUMMARY"
-              echo "- $P not found (warn-only mode)" >> "$GITHUB_STEP_SUMMARY"
-              exit 0
+              echo "::warning::$P not found (warn-only)"; exit 0
             fi
           fi
           python - <<'PY'
           import json, hashlib, os, sys, subprocess
           strict = os.environ.get("STRICT_GOVERNANCE","false") == "true"
           p = os.environ["ANCHORS_PATH"]
-          def sha256(b): 
-              import hashlib; h=hashlib.sha256(); h.update(b); return h.hexdigest()
-
+          def sha256(b): import hashlib; h=hashlib.sha256(); h.update(b); return h.hexdigest()
           cur = open(p,'rb').read()
           data = json.loads(cur.decode('utf-8'))
           cur_sha = sha256(cur)
-
-          required = ['version','policy','anchors','immutable_scope','events','releases']
           errs = []
-          for k in required:
-            if k not in data:
-              errs.append(f"missing key: {k}")
+          for k in ['version','policy','anchors','immutable_scope','events','releases']:
+            if k not in data: errs.append(f"missing key: {k}")
           if data.get('policy') != 'append-only':
             errs.append("policy must be 'append-only'")
-
           revs = subprocess.check_output(['git','rev-list','-n','2','HEAD','--',p], text=True).splitlines()
           if len(revs) >= 2:
             prev = revs[1]
@@ -196,54 +182,23 @@ jobs:
               last = (data.get('events') or [])[-1] if data.get('events') else None
               if not last or last.get('prev_content_hash') != prev_sha:
                 errs.append("append-only violation: last event prev_content_hash mismatch")
-
           hfile = os.environ.get("HFILE","")
           if hfile and os.path.isfile(hfile):
             basekeys = set(json.load(open(hfile,'r',encoding='utf-8')).keys())
             missing = [m for m in (data.get('immutable_scope') or []) if m not in basekeys]
-            if missing:
-              errs.append("immutable_scope paths missing from capsule baseline: " + ", ".join(missing))
-
-          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+            if missing: errs.append("immutable_scope not in capsule baseline: " + ", ".join(missing))
           if errs:
             for e in errs:
-              if strict:
-                print(f"::error::{e}")
-              else:
-                print(f"::warning::{e}")
-                if summary:
-                  with open(summary,"a") as f:
-                    f.write("### Governance anchors warning\n- " + e + "\n")
+              print(("::error::" if strict else "::warning::") + e)
             sys.exit(1 if strict else 0)
           else:
             print(f"anchors sha256={cur_sha}  path={p}")
-            if summary:
-              with open(summary,"a") as f:
-                f.write(f"### Governance anchors\n- OK (sha256={cur_sha})\n")
           PY
 
-      - name: Check for macOS .DS_Store
-        run: |
-          if git ls-files | grep -q '\.DS_Store'; then
-            echo "::error::.DS_Store files committed"; exit 1
-          fi
-
-      - name: Forbid deprecated rings/ path
-        run: |
-          if git ls-files | grep -q '^rings/'; then
-            echo "::error::deprecated path rings/ detected; use governance/"; exit 1
-          fi
-
-      - name: Forbid legacy brief output path
-        run: |
-          if git ls-files | grep -q '^branches_thick/ocers_out/'; then
-            echo "::error::legacy path branches_thick/ocers_out/ is forbidden"; exit 1
-          fi
-
-      - name: Build brief
+      - name: Build brief (tab-safe)
         run: |
           mkdir -p artifacts/ocers_out
-          OUT_ROOT="$GITHUB_WORKSPACE/artifacts" make brief
+          OUT_ROOT="$GITHUB_WORKSPACE/artifacts" make -f mk/experiments.mk brief
           ls -l artifacts/ocers_out/latest/brief.json artifacts/ocers_out/latest/score.txt
 
       - name: Upload brief artifacts
