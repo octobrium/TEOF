@@ -26,8 +26,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  STRICT_CAPSULE: 'true'      # fail if no capsule baseline
-  STRICT_GOVERNANCE: 'false'  # anchors warn-only by default; set 'true' to enforce
+  STRICT_CAPSULE: 'true'       # fail if no capsule baseline
+  STRICT_GOVERNANCE: 'false'   # anchors warn-only by default; set 'true' to enforce
 
 jobs:
   show-tree:
@@ -69,12 +69,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .
 
+      # ---- Make-free repo health (run with bash) ----
       - name: Repo health
+        shell: bash
         run: |
+          set -euo pipefail
           chmod +x tools/bootstrap.sh tools/doctor.sh 2>/dev/null || true
-          tools/bootstrap.sh
-          tools/doctor.sh
+          # bootstrap is non-blocking; doctor is authoritative
+          if ! bash tools/bootstrap.sh; then
+            echo "::warning::bootstrap reported an issue (non-blocking)"; 
+          fi
+          bash tools/doctor.sh
 
+      # ---- Capsule baseline detection/verification ----
       - name: Detect capsule baseline
         id: detect
         shell: bash
@@ -140,6 +147,7 @@ jobs:
           sys.exit(0 if ok else 1)
           PY
 
+      # ---- Governance anchors: warn by default ----
       - name: Validate anchors (warn by default)
         shell: bash
         env:
@@ -191,6 +199,7 @@ jobs:
             print(f"anchors sha256={cur_sha}  path={p}")
           PY
 
+      # ---- Safety checks for stray files/paths ----
       - name: Check for macOS .DS_Store
         run: |
           if git ls-files | grep -q '\.DS_Store'; then
@@ -209,6 +218,7 @@ jobs:
             echo "::error::legacy path branches_thick/ocers_out/ is forbidden"; exit 1
           fi
 
+      # ---- Build brief (no make) ----
       - name: Build brief (direct, no make)
         run: |
           set -euo pipefail
