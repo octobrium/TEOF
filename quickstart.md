@@ -1,4 +1,23 @@
-# TEOF Status (2025-08-25T00:33:04+00:00Z)
+# Quickstart
+
+## 1) Clone
+```bash
+git clone https://github.com/octobrium/TEOF.git
+cd TEOF
+
+cat > quickstart.md <<'EOF'
+# Quickstart
+
+## 1) Clone
+```bash
+git clone https://github.com/octobrium/TEOF.git
+cd TEOF
+
+cat > STATUS.md <<'EOF'
+<!-- repo-health:status -->
+_Repo health checks (bootstrap+doctor) enforce workflow deterministically before every commit._
+
+# TEOF Status (2025-08-25T00:20:46+00:00Z)
 
 ## Snapshot
 - Capsule: /Users/evan/Documents/GitHub/TEOF/capsule/current -> v1.5
