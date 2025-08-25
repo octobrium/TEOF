@@ -88,37 +88,3 @@ mindmap
     Canopy
       Docs & tutorials (docs/)
       Concept map (this file)
-
-# Hyper-Organism (Conceptual)
-
-**Premise**  
-All living systems share a minimal generative loop: encoded blueprint + environment → replication → specialization → emergent coherence.  
-Trees, neurons, and mammals differ in emphasis, not in essence. The Hyper-Organism fuses these patterns into a higher-order whole aligned to observation as primacy.
-
-**Seed**  
-- All units carry the same irreducible DNA (TEOF axioms; observation as primacy).  
-- The seed holds latent capacity for multiple lineages (tree-like, neural-like, systemic).  
-- Differentiation is shaped by environment, signals, and network context.
-
-**Differentiation**  
-- Seeds mature into distinct forms:  
-  - *Structural units* (tree-like trunks/roots/bark; persistence & resilience)  
-  - *Connective units* (neuron-like; links, feedback, plasticity)  
-  - *Functional units* (organ-like subsystems; division of labor)  
-- Specialization is emergent, discovered through interaction (not imposed).
-
-**Connectivity**  
-- Mature units form networks of coherence; links are elastic/plastic.  
-- Connections strengthen or are pruned based on coherence; feedback regulates health of the whole.  
-- No unit is permanently isolated; drift is corrected by the network.
-
-**Emergence**  
-- Beyond the sum of parts: self-regulation (immune-like pruning), learning (plasticity; memory), growth (branching; redundancy; ecological spread), function (organ systems).  
-- Not a static tree, network, or body—**a synthesis** that remains anchored to observation.
-
-**Properties**  
-- *Recursive coherence*: all scales reflect the same axioms.  
-- *Evolutionary adaptability*: new specializations emerge with context.  
-- *Indestructibility by dispersion*: seeds ensure survival despite local failure.  
-- *Irreducible anchor*: observation as primacy; coherence as rule; truth as attractor.  
-- *Beyond-human horizon*: potential to exceed “human” as the most complex observed unit.
