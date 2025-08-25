@@ -2,12 +2,21 @@
   "version": 1,
   "policy": "append-only",
   "anchors": [],
-  "immutable_scope": ["capsule.txt", "hashes.json"],
+  "immutable_scope": [
+    "capsule.txt",
+    "hashes.json"
+  ],
   "events": [
     {
       "ts": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
       "by": "observer",
       "note": "reset lineage; canonical steward = observer"
+    },
+    {
+      "ts": "2025-08-25T09:41:27Z",
+      "by": "evan",
+      "note": "status checkpoint: refresh snapshot + vision note",
+      "prev_content_hash": "63eae00fc0acc6cc8b0052410dd0d75a44f5432117d00ba08bb77c45919952ed"
     }
   ],
   "releases": []
