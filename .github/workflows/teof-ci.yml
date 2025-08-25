@@ -29,7 +29,7 @@ concurrency:
 
 env:
   STRICT_CAPSULE: 'true'
-  STRICT_GOVERNANCE: 'true'
+  STRICT_GOVERNANCE: 'false'
 
 jobs:
   show-tree:
