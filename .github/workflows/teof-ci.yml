@@ -27,6 +27,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  STRICT_CAPSULE: 'true'
+  STRICT_GOVERNANCE: 'true'
+
 jobs:
   show-tree:
     runs-on: ubuntu-latest
@@ -35,7 +39,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Show repo tree
         run: |
           if ! command -v tree >/dev/null 2>&1; then
@@ -76,6 +79,139 @@ jobs:
           chmod +x tools/bootstrap.sh tools/doctor.sh 2>/dev/null || true
           tools/bootstrap.sh
           tools/doctor.sh
+
+      - name: Detect capsule baseline
+        id: detect
+        shell: bash
+        run: |
+          set -euo pipefail
+          CAP_ROOT="capsule"
+          CUR="$CAP_ROOT/current"
+
+          if [ -f "$CUR/hashes.json" ]; then
+            echo "baseline_dir=$CUR" >> "$GITHUB_OUTPUT"
+            echo "baseline_json=$CUR/hashes.json" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if compgen -G "$CAP_ROOT/v*/hashes.json" >/dev/null; then
+            latest="$(ls -1d "$CAP_ROOT"/v*/ | sort -V | tail -n1)"
+            latest="${latest%/}"
+            mkdir -p "$CUR"
+            cp -a "$latest"/. "$CUR"/
+            if [ ! -f "$CUR/hashes.json" ] || [ ! -f "$CUR/capsule.txt" ]; then
+              echo "::error file=$CUR::expected hashes.json and capsule.txt after materialization"
+              exit 1
+            fi
+            echo "baseline_dir=$CUR" >> "$GITHUB_OUTPUT"
+            echo "baseline_json=$CUR/hashes.json" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ "${STRICT_CAPSULE}" = "true" ]; then
+            echo "::error::No capsule baseline found and STRICT_CAPSULE=true"
+            exit 1
+          else
+            echo "::warning::No capsule baseline found; STRICT_CAPSULE=false so skipping capsule verification"
+            echo "baseline_dir=" >> "$GITHUB_OUTPUT"
+            echo "baseline_json=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+      - name: Verify capsule hashes
+        if: ${{ steps.detect.outputs.baseline_json != '' }}
+        shell: bash
+        env:
+          BASE_DIR: ${{ steps.detect.outputs.baseline_dir }}
+          HFILE:    ${{ steps.detect.outputs.baseline_json }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+import os, json, hashlib, sys
+base_dir = os.environ["BASE_DIR"]
+hfile    = os.environ["HFILE"]
+with open(hfile, 'r', encoding='utf-8') as f:
+    expected = json.load(f)
+def sha256_file(p):
+    h = hashlib.sha256()
+    with open(p,'rb') as f:
+        for chunk in iter(lambda: f.read(8192), b''):
+            h.update(chunk)
+    return h.hexdigest()
+ok = True
+for rel, exp in expected.items():
+    p = os.path.join(base_dir, rel)
+    if not os.path.isfile(p):
+        print(f"::error file={p}::missing file listed in hashes.json"); ok=False; continue
+    got = sha256_file(p)
+    if got != exp:
+        print(f"::error file={p}::sha256 mismatch expected={exp} got={got}"); ok=False
+    else:
+        print(f"OK {rel}")
+sys.exit(0 if ok else 1)
+PY
+
+      - name: Validate anchors
+        if: ${{ env.STRICT_GOVERNANCE == 'true' && hashFiles('governance/anchors.json') != '' || env.STRICT_GOVERNANCE == 'false' && hashFiles('governance/anchors.json') != '' }}
+        shell: bash
+        env:
+          HFILE:        ${{ steps.detect.outputs.baseline_json }}
+          ANCHORS_PATH: governance/anchors.json
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+import json, hashlib, os, sys, subprocess
+P = os.environ["ANCHORS_PATH"]
+def sha256(b): h=hashlib.sha256(); h.update(b); return h.hexdigest()
+cur = open(P,'rb').read()
+data = json.loads(cur.decode('utf-8'))
+cur_sha = sha256(cur)
+required = ['version','policy','anchors','immutable_scope','events','releases']
+missing  = [k for k in required if k not in data]
+if missing: print("Error: missing keys:", ", ".join(missing)); sys.exit(1)
+if data.get('policy') != 'append-only': print("Error: policy must be 'append-only'"); sys.exit(1)
+rev_list = subprocess.check_output(['git','rev-list','-n','2','HEAD','--',P], text=True).splitlines()
+if len(rev_list) >= 2:
+    prev_change = rev_list[1]
+    prev_bytes  = subprocess.check_output(['git','show', f'{prev_change}:{P}'])
+    prev_sha    = sha256(prev_bytes)
+    if prev_sha != cur_sha:
+        last = data['events'][-1] if data.get('events') else None
+        if not last or last.get('prev_content_hash') != prev_sha:
+            print('Error: anchors not append-only'); sys.exit(1)
+scope    = set(data.get('immutable_scope',[]))
+if os.environ.get("HFILE"): 
+    basekeys = set(json.load(open(os.environ["HFILE"],'r',encoding='utf-8')).keys())
+    missing = [p for p in scope if p not in basekeys]
+    if missing:
+        print('Error: immutable_scope paths missing from baseline:'); 
+        [print(' -',m) for m in missing]; sys.exit(1)
+print(f'anchors sha256={cur_sha}  path={P}')
+PY
+
+      - name: Require anchors presence when STRICT_GOVERNANCE=true
+        if: ${{ env.STRICT_GOVERNANCE == 'true' && hashFiles('governance/anchors.json') == '' }}
+        run: |
+          echo "::error::governance/anchors.json missing and STRICT_GOVERNANCE=true"
+          exit 1
+
+      - name: Check for macOS .DS_Store
+        run: |
+          if git ls-files | grep -q '\.DS_Store'; then
+            echo "::error::.DS_Store files committed"; exit 1
+          fi
+
+      - name: Forbid deprecated rings/ path
+        run: |
+          if git ls-files | grep -q '^rings/'; then
+            echo "::error::deprecated path rings/ detected; use governance/"; exit 1
+          fi
+
+      - name: Forbid legacy brief output path
+        run: |
+          if git ls-files | grep -q '^branches_thick/ocers_out/'; then
+            echo "::error::legacy path branches_thick/ocers_out/ is forbidden"; exit 1
+          fi
 
       - name: Build brief
         run: |
