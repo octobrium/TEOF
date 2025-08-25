@@ -8,8 +8,6 @@ on:
       - 'cli/**'
       - 'scripts/**'
       - 'docs/**'
-      - 'Makefile'
-      - 'mk/**'
       - '.github/workflows/**'
   pull_request:
     paths:
@@ -18,8 +16,6 @@ on:
       - 'cli/**'
       - 'scripts/**'
       - 'docs/**'
-      - 'Makefile'
-      - 'mk/**'
       - '.github/workflows/**'
 
 permissions:

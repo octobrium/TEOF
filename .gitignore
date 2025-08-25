@@ -65,3 +65,7 @@ artifacts/ocers_out/
 ._*
 # hook test Sun Aug 24 17:06:22 PDT 2025
 # test change Sun Aug 24 17:29:48 PDT 2025
+Makefile.bak
+Makefile
+Makefile.bak
+mk/
