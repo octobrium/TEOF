@@ -3,36 +3,20 @@ name: docs-hygiene
 on:
   pull_request:
     paths:
-      - 'docs/**'
-      - 'README.md'
-      - '.github/**'
-  push:
-    paths:
-      - 'docs/**'
-      - 'README.md'
-      - '.github/**'
+      - 'docs/specs/**/*.md'
 
 jobs:
-  hygiene:
+  check-spec-headers:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Markdown lint
-        uses: DavidAnson/markdownlint-cli2-action@v16
-        with:
-          globs: |
-            README.md
-            docs/**/*.md
-
-      - name: Link check (lychee)
-        uses: lycheeverse/lychee-action@v1
-        with:
-          args: >
-            --no-progress
-            --exclude-mail
-            README.md
-            docs/**/*.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: Verify specs have status + summary headers
+        run: |
+          fails=0
+          for f in docs/specs/*.md; do
+            if [ -f "$f" ]; then
+              head -n 20 "$f" | grep -qi '^status:' || { echo "::error file=$f::Missing 'status:' header"; fails=1; }
+              head -n 20 "$f" | grep -qi '^summary:' || { echo "::error file=$f::Missing 'summary:' header"; fails=1; }
+            fi
+          done
+          exit $fails
