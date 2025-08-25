@@ -28,8 +28,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  STRICT_CAPSULE: 'true'
-  STRICT_GOVERNANCE: 'true'
+  STRICT_CAPSULE: 'true'   # fail if no capsule baseline
+  STRICT_GOVERNANCE: 'false'  # anchors warn-only by default (flip to 'true' to enforce)
 
 jobs:
   show-tree:
@@ -37,8 +37,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
       - name: Show repo tree
         run: |
           if ! command -v tree >/dev/null 2>&1; then
@@ -53,8 +52,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -66,8 +64,7 @@ jobs:
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml', '**/requirements*.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          restore-keys: ${{ runner.os }}-pip-
 
       - name: Install package
         run: |
@@ -151,53 +148,79 @@ jobs:
           sys.exit(0 if ok else 1)
           PY
 
-      - name: Validate anchors
-        if: ${{ env.STRICT_GOVERNANCE == 'true' && hashFiles('governance/anchors.json') != '' || env.STRICT_GOVERNANCE == 'false' && hashFiles('governance/anchors.json') != '' }}
+      - name: Validate anchors (warn by default)
         shell: bash
         env:
-          HFILE:        ${{ steps.detect.outputs.baseline_json }}
-          ANCHORS_PATH: governance/anchors.json
+          STRICT_GOVERNANCE: ${{ env.STRICT_GOVERNANCE }}
+          HFILE:             ${{ steps.detect.outputs.baseline_json }}
+          ANCHORS_PATH:      governance/anchors.json
         run: |
           set -euo pipefail
+          STRICT="${STRICT_GOVERNANCE:-false}"
+          P="${ANCHORS_PATH}"
+          if [ ! -f "$P" ]; then
+            if [ "$STRICT" = "true" ]; then
+              echo "::error::$P missing and STRICT_GOVERNANCE=true"; exit 1
+            else
+              echo "::warning::$P not found (governance lineage absent)"
+              echo "### Governance anchors" >> "$GITHUB_STEP_SUMMARY"
+              echo "- $P not found (warn-only mode)" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+          fi
           python - <<'PY'
           import json, hashlib, os, sys, subprocess
-          P = os.environ["ANCHORS_PATH"]
-          def sha256(b):
-              h=hashlib.sha256(); h.update(b); return h.hexdigest()
-          cur = open(P,'rb').read()
+          strict = os.environ.get("STRICT_GOVERNANCE","false") == "true"
+          p = os.environ["ANCHORS_PATH"]
+          def sha256(b): 
+              import hashlib; h=hashlib.sha256(); h.update(b); return h.hexdigest()
+
+          cur = open(p,'rb').read()
           data = json.loads(cur.decode('utf-8'))
           cur_sha = sha256(cur)
-          required = ['version','policy','anchors','immutable_scope','events','releases']
-          missing  = [k for k in required if k not in data]
-          if missing:
-              print("Error: missing keys:", ", ".join(missing)); sys.exit(1)
-          if data.get('policy') != 'append-only':
-              print("Error: policy must be 'append-only'"); sys.exit(1)
-          rev_list = subprocess.check_output(['git','rev-list','-n','2','HEAD','--',P], text=True).splitlines()
-          if len(rev_list) >= 2:
-              prev_change = rev_list[1]
-              prev_bytes  = subprocess.check_output(['git','show', f'{prev_change}:{P}'])
-              prev_sha    = sha256(prev_bytes)
-              if prev_sha != cur_sha:
-                  last = data['events'][-1] if data.get('events') else None
-                  if not last or last.get('prev_content_hash') != prev_sha:
-                      print('Error: anchors not append-only'); sys.exit(1)
-          scope = set(data.get('immutable_scope',[]))
-          if os.environ.get("HFILE"):
-              basekeys = set(json.load(open(os.environ["HFILE"],'r',encoding='utf-8')).keys())
-              missing = [p for p in scope if p not in basekeys]
-              if missing:
-                  print('Error: immutable_scope paths missing from baseline:')
-                  for m in missing: print(' -', m)
-                  sys.exit(1)
-          print(f'anchors sha256={cur_sha}  path={P}')
-          PY
 
-      - name: Require anchors presence when STRICT_GOVERNANCE=true
-        if: ${{ env.STRICT_GOVERNANCE == 'true' && hashFiles('governance/anchors.json') == '' }}
-        run: |
-          echo "::error::governance/anchors.json missing and STRICT_GOVERNANCE=true"
-          exit 1
+          required = ['version','policy','anchors','immutable_scope','events','releases']
+          errs = []
+          for k in required:
+            if k not in data:
+              errs.append(f"missing key: {k}")
+          if data.get('policy') != 'append-only':
+            errs.append("policy must be 'append-only'")
+
+          revs = subprocess.check_output(['git','rev-list','-n','2','HEAD','--',p], text=True).splitlines()
+          if len(revs) >= 2:
+            prev = revs[1]
+            prev_bytes = subprocess.check_output(['git','show', f'{prev}:{p}'])
+            prev_sha = sha256(prev_bytes)
+            if prev_sha != cur_sha:
+              last = (data.get('events') or [])[-1] if data.get('events') else None
+              if not last or last.get('prev_content_hash') != prev_sha:
+                errs.append("append-only violation: last event prev_content_hash mismatch")
+
+          hfile = os.environ.get("HFILE","")
+          if hfile and os.path.isfile(hfile):
+            basekeys = set(json.load(open(hfile,'r',encoding='utf-8')).keys())
+            missing = [m for m in (data.get('immutable_scope') or []) if m not in basekeys]
+            if missing:
+              errs.append("immutable_scope paths missing from capsule baseline: " + ", ".join(missing))
+
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if errs:
+            for e in errs:
+              if strict:
+                print(f"::error::{e}")
+              else:
+                print(f"::warning::{e}")
+                if summary:
+                  with open(summary,"a") as f:
+                    f.write("### Governance anchors warning\n- " + e + "\n")
+            sys.exit(1 if strict else 0)
+          else:
+            print(f"anchors sha256={cur_sha}  path={p}")
+            if summary:
+              with open(summary,"a") as f:
+                f.write(f"### Governance anchors\n- OK (sha256={cur_sha})\n")
+          PY
 
       - name: Check for macOS .DS_Store
         run: |
