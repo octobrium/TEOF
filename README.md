@@ -1,5 +1,15 @@
 # The Eternal Observer Framework (TEOF)
 
+## Repo Map
+
+- [Concept](docs/concept.md)
+- [Seed](docs/seed.md)
+- [Architecture](docs/architecture.md)
+- [Specs](docs/specs/)
+- [Promotion Policy](docs/promotion-policy.md)
+- [Workflow](docs/workflow.md)
+
+
 **Author:** Observation • **License:** [MIT](LICENSE)
 
 TEOF is a minimal, substrate‑neutral alignment kernel. It gives humans and agents a deterministic, auditable way to move from **Observation → Coherence → Ethics → Reproducibility → Self‑repair** before taking action.
