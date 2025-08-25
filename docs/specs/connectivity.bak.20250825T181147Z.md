@@ -1,7 +1,7 @@
-status: draft
-summary: Explore how mature TEOF units may link to form emergent, self-regulating networks—conceptual only.
-
 # Connectivity & Emergence (Spec)
+
+status: draft  
+summary: Explore how mature TEOF units may link to form emergent, self-regulating networks—conceptual only.
 
 ## Purpose
 Beyond independent growth (tree metaphor), TEOF units may develop **connective properties** (neural metaphor).  

@@ -1,0 +1,38 @@
+name: docs-hygiene
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - '.github/**'
+  push:
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - '.github/**'
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: |
+            README.md
+            docs/**/*.md
+
+      - name: Link check (lychee)
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: >
+            --no-progress
+            --exclude-mail
+            README.md
+            docs/**/*.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
