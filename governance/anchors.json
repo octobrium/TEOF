@@ -2,12 +2,21 @@
   "version": 1,
   "policy": "append-only",
   "anchors": [],
-  "immutable_scope": ["capsule.txt", "hashes.json"],
+  "immutable_scope": [
+    "capsule.txt",
+    "hashes.json"
+  ],
   "events": [
     {
       "ts": "2025-01-01T00:00:00Z",
       "by": "bootstrap",
       "note": "reset lineage; warn-only mode"
+    },
+    {
+      "ts": "2025-08-25T08:53:01Z",
+      "by": "evan",
+      "note": "record python3-only build authority; Makefile removed",
+      "prev_content_hash": "a66cfa94c5186ec7f19a2ba7d4a149d00153d31acd0205d55859034a638a67e5"
     }
   ],
   "releases": []
