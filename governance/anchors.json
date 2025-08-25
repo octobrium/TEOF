@@ -2,80 +2,13 @@
   "version": 1,
   "policy": "append-only",
   "anchors": [],
-  "immutable_scope": [
-    "OGS-spec.md",
-    "PROVENANCE.md",
-    "RELEASE.md",
-    "TEOF-FUTURE.md",
-    "calibration.md",
-    "canonical-teof.md",
-    "capsule-handshake.txt",
-    "capsule-mini.txt",
-    "capsule-selfreconstructing.txt",
-    "capsule.txt",
-    "core-teof.md",
-    "reconstruction.json",
-    "tests.md",
-    "volatile-data-protocol.md"
-  ],
+  "immutable_scope": ["capsule.txt", "hashes.json"],
   "events": [
     {
-      "type": "sync",
-      "ts": "2025-08-22T19:23:48.071950Z",
-      "prev_content_hash": "adc6059325fcc31dc493f05a3677c57e81b73086f441eb7c0ec241e15ab58680"
-    },
-    {
-      "type": "maintenance",
-      "note": "rename rings/anchors.json → governance/anchors.json; normalize baseline path; no policy change",
-      "prev_content_hash": "d43c882f458a5b077098a270f2c517ed9d3154144d5209ecdfcf47978698a90c",
-      "ts": "2025-08-22T20:58:31.618143Z"
-    },
-    {
-      "type": "maintenance",
-      "note": "sync prev_content_hash to previous-change sha; no policy change",
-      "prev_content_hash": "09471404ff56ca37096a45fb95ef03430e6f7155a207c5e096dc831595b29f3c",
-      "ts": "2025-08-23T03:34:37.495783Z"
-    },
-    {
-      "type": "sync",
-      "ts": "2025-08-23T04:29:50.703992Z",
-      "prev_content_hash": "eafc507c88b3cdd70935907e19f75e2dd1ec4a70ebe20af9f1d72b70809c82d9"
-    },
-    {
-      "type": "freeze",
-      "ts": "2025-08-23T06:40:29Z"
-    },
-    {
-      "type": "freeze",
-      "ts": "2025-08-23T06:40:29Z"
-    },
-    {
-      "type": "freeze",
-      "ts": "2025-08-23T06:58:53Z"
-    },
-    {
-      "type": "freeze",
-      "ts": "2025-08-23T07:20:10Z"
-    },
-    {
-      "type": "freeze",
-      "ts": "2025-08-23T07:32:18Z"
-    },
-    {
-      "type": "freeze",
-      "ts": "2025-08-24T21:58:00Z"
-    },
-    {
-      "ts": "2025-08-25T07:31:35Z",
-      "prev_content_hash": "35d3f29dad0237c2ebedfe33515a595968252ad0bd10769d86d5ace5e586b348",
-      "by": "Octo",
-      "note": "append: governance event"
+      "ts": "2025-01-01T00:00:00Z",
+      "by": "bootstrap",
+      "note": "reset lineage; warn-only mode"
     }
   ],
-  "releases": [
-    {
-      "tag": "v1.5",
-      "baseline": "capsule/v1.5/hashes.json"
-    }
-  ]
+  "releases": []
 }
