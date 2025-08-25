@@ -23,3 +23,4 @@ This enables regulation, pruning, and emergent intelligence at the network level
 - How should speciation and recombination be declared at the network level?
 
 > Scope: Concept only. Mechanisms (protocols, scores, data structures) belong in architecture/workflow when/if promoted.
+
