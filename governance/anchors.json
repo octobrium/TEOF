@@ -64,6 +64,12 @@
     {
       "type": "freeze",
       "ts": "2025-08-24T21:58:00Z"
+    },
+    {
+      "ts": "2025-08-25T07:31:35Z",
+      "prev_content_hash": "35d3f29dad0237c2ebedfe33515a595968252ad0bd10769d86d5ace5e586b348",
+      "by": "Octo",
+      "note": "append: governance event"
     }
   ],
   "releases": [
