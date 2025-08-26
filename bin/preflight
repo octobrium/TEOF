@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+[[ -n "$BASH_VERSION" ]] || exec bash "$0" "$@"
 # Re-exec under bash if launched from zsh/fish/etc.
 [ -n "$BASH_VERSION" ] || exec bash "$0" "$@"
 
@@ -15,12 +16,12 @@ hr()     { printf -- "----------------------------------------------------------
 EXIT=0
 
 # Nice title
-OWNER_ENV="${OWNER:-}"
-REPO_ENV="${REPO:-}"
+OWNER="${OWNER:-}"
+REPO="${REPO:-}"
 BRANCH="${BRANCH:-$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)}"
 
 # Fallback: derive OWNER/REPO from the origin URL if not provided
-if [[ -z "${OWNER_ENV}" || -z "${REPO_ENV}" ]]; then
+if [[ -z "${OWNER}" || -z "${REPO}" ]]; then
   url="$(git remote get-url origin 2>/dev/null || true)"
   if [[ -n "$url" ]]; then
     case "$url" in
@@ -31,13 +32,13 @@ if [[ -z "${OWNER_ENV}" || -z "${REPO_ENV}" ]]; then
       *)
         path="";;
     esac
-    OWNER_ENV="${path%%/*}"
-    REPO_ENV="${path##*/}"
-    REPO_ENV="${REPO_ENV%.git}"
+    OWNER="${path%%/*}"
+    REPO="${path##*/}"
+    REPO="${REPO%.git}"
   fi
 fi
 
-bold "TEOF preflight for ${OWNER_ENV:-<?>}/${REPO_ENV:-<?>}@${BRANCH}"
+bold "TEOF preflight for ${OWNER:-<?>}/${REPO:-<?>}@${BRANCH}"
 hr
 
 # Ensure _report/ is ignored (don’t dirty the tree)
@@ -114,10 +115,10 @@ echo
 
 # ---------------- Branch protection (required checks) ----------------
 bold "Branch protection (required checks)"
-if command -v gh >/dev/null 2>&1 && [[ -n "${OWNER_ENV:-}" && -n "${REPO_ENV:-}" && -n "${BRANCH:-}" ]]; then
+if command -v gh >/dev/null 2>&1 && [[ -n "${OWNER:-}" && -n "${REPO:-}" && -n "${BRANCH:-}" ]]; then
   # Read the consolidated endpoint once; includes both 'strict' and either 'contexts' or 'checks'
   resp="$(gh api -H "Accept: application/vnd.github+json" \
-    "repos/${OWNER_ENV}/${REPO_ENV}/branches/${BRANCH}/protection/required_status_checks" 2>/dev/null || true)"
+    "repos/${OWNER}/${REPO}/branches/${BRANCH}/protection/required_status_checks" 2>/dev/null || true)"
 
   if [[ -n "$resp" ]]; then
     # Parse with python (portable on macOS)
@@ -150,7 +151,7 @@ PY
       if [[ "${AUTO_FIX:-0}" == "1" ]]; then
         info "attempting to add required status check context via API…"
         gh api -X POST \
-          "repos/${OWNER_ENV}/${REPO_ENV}/branches/${BRANCH}/protection/required_status_checks/contexts" \
+          "repos/${OWNER}/${REPO}/branches/${BRANCH}/protection/required_status_checks/contexts" \
           --raw-field "contexts[]=teof/fitness" \
           -H "Accept: application/vnd.github+json" >/dev/null 2>&1 || true
       fi
@@ -163,7 +164,7 @@ PY
       if [[ "${AUTO_FIX:-0}" == "1" ]]; then
         info "attempting to enable strict=true via API…"
         gh api -X PATCH \
-          "repos/${OWNER_ENV}/${REPO_ENV}/branches/${BRANCH}/protection/required_status_checks" \
+          "repos/${OWNER}/${REPO}/branches/${BRANCH}/protection/required_status_checks" \
           -F strict=true -H "Accept: application/vnd.github+json" >/dev/null 2>&1 || true
       fi
     else
