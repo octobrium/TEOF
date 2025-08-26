@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+repo_root="$(cd "$(dirname "$0")/.." && pwd)"; cd "$repo_root"
+scripts/ops/doctor.sh
+ts="$(date -u +%Y%m%dT%H%M%SZ)"
+tag="last-green-$ts"
+# compute range from previous last-green if present
+prev="$(git tag -l 'last-green-*' --sort=-creatordate | head -n1 || true)"
+echo "Prev baseline: ${prev:-<none>}"
+echo "Changes since prev:"
+if [ -n "$prev" ]; then
+  git --no-pager log --oneline "$prev"..HEAD | sed 's/^/  - /' || true
+else
+  git --no-pager log --oneline -n 30 | sed 's/^/  - /' || true
+fi
+git tag -a "$tag" -m "Baseline after doctor OK ($ts)"
+git push origin "$tag"
+echo "New baseline: $tag"
