@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 Status: Non-normative
 Purpose: Goals, desired properties, North Star
 Source of truth for mechanics: Architecture.md
