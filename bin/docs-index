@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+import os, re, json
+from pathlib import Path
+
+root = Path("docs")
+out  = root / "INDEX.md"
+
+def title_of(p: Path) -> str:
+    try:
+        for line in p.read_text(encoding="utf-8").splitlines():
+            if line.strip().startswith("#"):
+                return re.sub(r"^#+\s*", "", line.strip())
+    except Exception:
+        pass
+    # fallback: filename → Title Case
+    return re.sub(r"[-_]+", " ", p.stem).title()
+
+sections = {}
+for p in sorted(root.rglob("*.md")):
+    if p.name.lower() in {"index.md"}:  # skip self
+        continue
+    rel = p.relative_to(root)
+    sec = rel.parts[0] if len(rel.parts) > 1 else "_root"
+    sections.setdefault(sec, []).append((rel.as_posix(), title_of(p)))
+
+lines = ["# Docs Index\n"]
+for sec in sorted(sections):
+    hdr = sec if sec != "_root" else "General"
+    lines.append(f"## {hdr}")
+    for path, title in sections[sec]:
+        lines.append(f"- [{title}](./{path})")
+    lines.append("")  # blank line
+
+out.write_text("\n".join(lines).strip() + "\n", encoding="utf-8")
+print(f"Wrote {out}")
