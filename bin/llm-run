@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+python3 - <<'PY' "$@"
+from extensions.providers.runner import main
+import sys
+sys.exit(main(sys.argv[1:]))
+PY
