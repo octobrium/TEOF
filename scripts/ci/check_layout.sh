@@ -62,3 +62,16 @@ if git_non_archive | grep -zE '(\.bak$|\.save$|(^|/)\.DS_Store$)' >/dev/null; th
 fi
 
 exit $fail
+
+# --- UPPERCASE docs filename policy (warn by default; fail if STRICT_CAPS=1) ---
+if [ -d "docs" ]; then
+  upper_docs="$(git ls-files docs | grep -E 'docs/.*/.*[A-Z].*\.md$' || true)"
+  if [ -n "$upper_docs" ]; then
+    echo "WARN: Uppercase letters in docs filenames detected:"
+    echo "$upper_docs"
+    if [ "${STRICT_CAPS:-0}" = "1" ]; then
+      echo "ERROR: STRICT_CAPS=1 — refusing uppercase docs filenames."
+      exit 1
+    fi
+  fi
+fi
