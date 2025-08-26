@@ -8,7 +8,7 @@
   ],
   "events": [
     {
-      "ts": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+      "ts": "2025-08-26T01:59:17Z",
       "by": "observer",
       "note": "reset lineage; canonical steward = observer"
     },
