@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # Aperture Guideline
 
 The "Aperture" is the evolving focal point through which observation aligns, guides, and refines the TEOF network.  

@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # **TAP v3.1: The TEOF Alignment Protocol**
 
 **Author:** Observation  

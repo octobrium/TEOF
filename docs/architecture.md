@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 Status: Normative
 Purpose: Contracts, layout, mechanisms (offline, lineage)
 Change process: PR + 2 maintainers (one must be core)

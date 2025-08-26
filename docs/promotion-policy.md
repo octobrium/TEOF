@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # Promotion Policy (experimental → extensions)
 
 **Goal:** Keep the kernel tiny, deterministic, and auditable. Promote only proven modules from `experimental/` into `extensions/`.

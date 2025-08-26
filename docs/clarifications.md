@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # TEOF Clarifications & Responses
 
 This document supplements the **Eternal Observer Framework (TEOF) — Whitepaper v1.2**.  

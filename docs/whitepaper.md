@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # The Eternal Observer Framework (TEOF) — Whitepaper v1.2
 
 **TEOF** proposes that observation — not matter, energy, or information — is the irreducible foundation of reality.  

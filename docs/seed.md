@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # TEOF Seed (Conceptual v1.0)
 
 ## Purpose

@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 status: draft
 summary: Explore how mature TEOF units may link to form emergent, self-regulating networks—conceptual only.
 

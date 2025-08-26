@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 Status: Living
 Purpose: Process & checklists that enforce Architecture
 Change process: PR + 1 maintainer
