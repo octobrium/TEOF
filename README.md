@@ -10,7 +10,7 @@
 - [Workflow](docs/workflow.md)
 
 
-**Author:** Observation • **License:** [MIT](LICENSE)
+**Author:** Observation • **License:** [Apache-2.0](LICENSE)
 
 TEOF is a minimal, substrate‑neutral alignment kernel. It gives humans and agents a deterministic, auditable way to move from **Observation → Coherence → Ethics → Reproducibility → Self‑repair** before taking action.
 
@@ -95,4 +95,4 @@ Promotion from `experimental/` → `extensions/` must meet the criteria in [`doc
 
 ---
 
-Licensed under the [MIT License](LICENSE).
+Licensed under the [Apache-2.0 License](LICENSE).
