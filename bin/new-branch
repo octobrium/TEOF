@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+type="${1:-}"; shift || true
+[ -n "${type:-}" ] || { echo "usage: bin/new-branch <feat|fix|chore|proposal> <title...>"; exit 1; }
+title="${*:-work}"
+slug="$(printf '%s' "$title" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g;s/^-+|-+$//g')"
+br="${type}/${slug}"
+git fetch --prune >/dev/null 2>&1 || true
+git switch -c "$br"
+git push -u origin "$br"
+echo "Created & pushed $br"
