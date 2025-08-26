@@ -75,3 +75,6 @@ _report/
 *.bak.*
 .hook_test
 .markdownlint.json
+.markdownlint.jsonc
+.markdownlint-cli2.jsonc
+.markdownlintignore
