@@ -1,0 +1,18 @@
+name: guardrails
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Verify capsule hashes
+        run: scripts/ci/check_hashes.sh
+      - name: Enforce append-only policy
+        run: scripts/ci/check_append_only.sh origin/main
