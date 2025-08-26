@@ -82,3 +82,6 @@ if [ -x scripts/ops/build_status.sh ]; then
   scripts/ops/build_status.sh > "$STATUS_OUT" || true
   echo "wrote status artifact: $STATUS_OUT"
 fi
+
+echo "→ branch protection (required_status_checks)"
+scripts/ops/check_branch_protection.sh || true
