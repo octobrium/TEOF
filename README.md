@@ -97,3 +97,12 @@ Promotion from `experimental/` → `extensions/` must meet the criteria in [`doc
 ---
 
 Licensed under the [Apache-2.0 License](LICENSE).
+
+---
+
+## TEOF — a living constitution for autonomous work
+**Why:** smarter models need auditable rules, not bigger prompts.  
+**What:** model-agnostic policy (allowlists, budgets, diff caps, receipts) + CI gates + canonical system prompt.  
+**How to integrate:** see [docs/AGENTS.md](docs/AGENTS.md) and [governance/policy.json](governance/policy.json).  
+**Badge:** `![TEOF compatible](docs/badges/teof-compatible.svg)`
+

@@ -1,18 +1,15 @@
-## Title
-<TEP-#### or exploratory-spike>: <short title>
-
 ## Summary
-**What** changed  
-**Why** (link TEP id or mark `exploratory-spike`)  
-**How** (smallest viable diff)
+Explain the smallest-possible change. Keep diffs ≤ policy.diff_limit and within allow_globs.
 
-## Validation
-- [ ] Ran `teof status`
-- [ ] Ran `teof tasks --format json` and chose the top `todo`
-- [ ] `teof brief` produced/updated artifacts (if applicable)
-- [ ] Tests: `pytest -q` (if tests exist) / added a minimal golden
-- [ ] No placeholders (`…`, `<TODO`, `PASS  # TODO`) remain
-- [ ] Capsule symlink intact (`capsule/current -> v1.5`)
+## Checklist
+- [ ] No renames/deletes
+- [ ] Paths limited to docs/**, governance/**, capsule/**, scripts/ci/**, Makefile
+- [ ] Labels include: bot:autocollab (for automated PRs)
+- [ ] doctor/CI green
 
-## Status delta
-Paste ~10 lines from `docs/STATUS.md` after your change.
+## OCERS Receipt (required for automated PRs)
+- Model / Provider:
+- Base commit (short SHA):
+- Input hash:
+- Diff hash:
+- Token/cost budget observed: yes/no

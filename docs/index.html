@@ -1,0 +1,42 @@
+<!doctype html><meta charset="utf-8">
+<title>TEOF — The Eternal Observer Framework</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+ body{font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:2rem; max-width:880px}
+ code,pre{background:#0f172a08;padding:.2em .4em;border-radius:6px}
+ a{color:#0369a1;text-decoration:none} a:hover{text-decoration:underline}
+ header{margin-bottom:1.25rem} .badge{vertical-align:middle;margin-left:.25rem}
+ .grid{display:grid;gap:1rem}
+</style>
+<header>
+  <h1>TEOF — a living constitution for autonomous work</h1>
+  <p>Portable governance (policy, budgets, receipts) any LLM can follow. Model-agnostic. Auditable by design.</p>
+  <p><a href="https://github.com/<YOUR_ORG_OR_USER>/TEOF">GitHub repo</a></p>
+</header>
+
+<div class="grid">
+  <section>
+    <h3>Start here</h3>
+    <ul>
+      <li><a href="../governance/CHARTER.md">Charter (living constitution)</a></li>
+      <li><a href="../governance/policy.json">Machine policy (allow_globs, diff caps, checks)</a></li>
+      <li><a href="../docs/AGENTS.md">Agents ↔ TEOF (how to integrate)</a></li>
+      <li><a href="../README.md">README (quickstart)</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Use the badge</h3>
+    <img class="badge" src="badges/teof-compatible.svg" alt="TEOF compatible">
+    <pre><code>[![](https://<YOUR_GH_PAGES_HOST>/badges/teof-compatible.svg)](https://github.com/<YOUR_ORG_OR_USER>/TEOF)</code></pre>
+  </section>
+
+  <section>
+    <h3>Canonical system prompt</h3>
+    <p>Maintainers build and publish a canonical system prompt artifact from repo truths:</p>
+    <pre><code>bin/build-system-prompt  # writes _report/system_prompt-&lt;sha&gt;.txt</code></pre>
+    <p>Agents may fetch and use it as their system message.</p>
+  </section>
+</div>
+
+<footer><p>Apache-2.0. TEOF &amp; OCERS are trademarks used for compatibility claims.</p></footer>
