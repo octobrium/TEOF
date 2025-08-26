@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+import argparse, sys
+from pathlib import Path
+from datetime import datetime, timezone
+
+# robust import of registry
+repo_root = Path(__file__).resolve().parents[1]
+if str(repo_root) not in sys.path:
+    sys.path.insert(0, str(repo_root))
+
+from extensions.providers.registry import get  # type: ignore
+
+def run():
+    ap = argparse.ArgumentParser(description="Run a prompt across multiple providers and save a report")
+    ap.add_argument("-p","--provider", action="append", default=["mock"])
+    ap.add_argument("--model", action="append", default=None)
+    ap.add_argument("--temperature", type=float, default=0.0)
+    ap.add_argument("--max-tokens", type=int, default=512)
+    ap.add_argument("--out", default=None)
+    ap.add_argument("prompt", nargs="*", help="Prompt text (or reads stdin)")
+    args = ap.parse_args()
+
+    prompt = " ".join(args.prompt).strip() or sys.stdin.read()
+    provs  = args.provider
+    models = args.model or []
+    if len(models) not in (0,1,len(provs)):
+        print("Use one --model for all providers, or N values for N providers.", file=sys.stderr)
+        return 2
+    if len(models) == 1:
+        models *= len(provs)
+
+    rows = []
+    for i, name in enumerate(provs):
+        mdl = models[i] if models else None
+        try:
+            p = get(name)
+            g = p.generate(prompt, temperature=args.temperature, max_tokens=args.max_tokens, model=mdl)
+            rows.append({"provider": name, "model": g.model or (mdl or ""), "text": g.text})
+        except Exception as e:
+            rows.append({"provider": name, "model": mdl or "", "text": f"[ERROR] {e}"})
+
+    print("\n=== Provider Matrix ===")
+    for r in rows:
+        head = (r["text"] or "").splitlines()[0]
+        print(f"- {r['provider']:10s} {('('+r['model']+')') if r['model'] else '':14s} → {head}")
+
+    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    outdir = repo_root / "_report/providers"
+    outdir.mkdir(parents=True, exist_ok=True)
+    outpath = Path(args.out) if args.out else (outdir / f"matrix-{ts}.md")
+
+    lines = [f"# Provider Matrix — {ts}", "", f"**Prompt:** {prompt}", ""]
+    for r in rows:
+        title = f"## {r['provider']}" + (f" ({r['model']})" if r['model'] else "")
+        lines += [title, "", "```text", r["text"], "```", ""]
+    outpath.write_text("\n".join(lines), encoding="utf-8")
+    print(f"\nReport saved: {outpath}")
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(run())
