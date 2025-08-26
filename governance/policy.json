@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "allow_globs": [
+    "README.md",
+    "docs/**/*.md",
+    "governance/**/*.md",
+    "capsule/**/*.md",
+    "scripts/ci/**",
+    "Makefile"
+  ],
+  "diff_limit": 120,
+  "renames_allowed": false,
+  "deletes_allowed": false,
+  "labels": ["bot:autocollab"],
+  "required_checks": ["teof/fitness","guardrails/verify"],
+  "receipt_schema": "OCERS",
+  "budgets": {
+    "llm_max_tokens": 16000,
+    "llm_expected_output_tokens": 800,
+    "llm_price_per_1k_cents": 0,
+    "llm_max_cents": 0
+  }
+}
