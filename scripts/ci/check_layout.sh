@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BASE=${1:-origin/main}
+fail=0
+err(){ printf '%s\n' "$@" >&2; fail=1; }
+warn(){ printf '%s\n' "$@" >&2; }
+
+# Limit scans to non-archive files
+git_non_archive() { git ls-files -z | grep -zvE '^archive/'; }
+
+# --- Capsule invariants (HARD FAIL) ---
+CAP="capsule/v1.5"
+req=( OGS-spec.md PROVENANCE.md README.md RELEASE.md TEOF-FUTURE.md
+      calibration.md canonical-teof.md capsule-handshake.txt capsule.txt
+      core-teof.md reconstruction.json teof-shim.md tests.md volatile-data-protocol.md
+      hashes.json )
+for f in "${req[@]}"; do
+  [[ -f "$CAP/$f" ]] || err "Missing: $CAP/$f"
+done
+
+# No deprecated capsule extras outside archive (HARD FAIL)
+if git_non_archive | tr '\0' '\n' | grep -E '^capsule/.*/capsule-(mini|selfreconstructing)\.txt$' >/dev/null; then
+  err "Deprecated capsule extras present (capsule-mini / capsule-selfreconstructing)"
+fi
+
+# No renames/moves of capsule files vs BASE (HARD FAIL)
+if git diff --name-status --diff-filter=R "$BASE"...HEAD -- "$CAP" | grep . >/dev/null; then
+  err "Capsule files were renamed/moved between $BASE and HEAD — not allowed."
+fi
+
+# --- Top-level hygiene (WARN for now) ---
+# Allowlist of top-level dirs/files currently present
+allow_dirs=( archive capsule docs extensions experimental .github .githooks scripts bin
+             governance reports teof tests tools )
+allow_files=( README.md LICENSE .gitignore .editorconfig .gitattributes
+              .markdownlint-cli2.jsonc .markdownlint.jsonc .markdownlintignore
+              CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md NOTICE SECURITY.md TRADEMARKS.md
+              pyproject.toml quickstart.md examples_hello.json )
+
+# unexpected top-level directories
+while IFS= read -r d; do
+  [[ -z "$d" ]] && continue
+  case " ${allow_dirs[*]} " in *" $d "*) : ;; *)
+    # ignore nested paths; only top-level
+    [[ "$d" == */* ]] || warn "Unexpected top–level dir: $d"
+  esac
+done < <(git ls-tree -d --name-only HEAD)
+
+# unexpected top-level files
+while IFS= read -r f; do
+  [[ -z "$f" ]] && continue
+  case " ${allow_files[*]} " in *" $f "*) : ;; *)
+    warn "Unexpected file at repo root: $f"
+  esac
+done < <(git ls-files | awk -F/ 'NF==1')
+
+# --- Junk globs anywhere outside archive (HARD FAIL) ---
+if git_non_archive | grep -zE '(\.bak$|\.save$|(^|/)\.DS_Store$)' >/dev/null; then
+  printf '%s\n' "Junk files matched (.bak, .save, .DS_Store). Run: bin/clean-duplicates --apply" >&2
+  fail=1
+fi
+
+exit $fail
