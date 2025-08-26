@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# --- detect repo / branch ---
+if ! command -v gh >/dev/null; then echo "gh CLI required"; exit 1; fi
+REPO_URL=$(git remote get-url origin 2>/dev/null || echo "")
+OWNER=$(echo "$REPO_URL" | sed -n 's#.*[:/]\([^/]\+\)/\([^/]\+\)\(.git\)\?$#\1#p')
+REPO=$(echo "$REPO_URL" | sed -n 's#.*[:/]\([^/]\+\)/\([^/]\+\)\(.git\)\?$#\2#p')
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+echo "== Preflight for $OWNER/$REPO@$BRANCH =="
+
+fail(){ echo "❌ $1"; exit 1; }
+warn(){ echo "⚠️  $1"; }
+
+# 0) clean working tree
+if [ -n "$(git status --porcelain)" ]; then
+  warn "Working tree not clean. Commit/stash first."; exit 2
+fi
+
+# 1) doctor
+if [ -x scripts/ops/doctor.sh ]; then
+  echo "→ doctor.sh"; scripts/ops/doctor.sh
+else
+  warn "scripts/ops/doctor.sh not found (skipping)"
+fi
+
+# 2) provider smoke (mock)
+if [ -x bin/provider-matrix ]; then
+  echo "→ provider-matrix (mock)"; bin/provider-matrix "Summarize the capsule rules." | sed -n '1,6p' || fail "provider-matrix failed"
+elif [ -x bin/llm-run ]; then
+  echo "→ llm-run (mock)"; bin/llm-run --provider mock "Summarize the capsule rules." >/dev/null || warn "llm-run mock skipped"
+else
+  warn "no provider runner found (skipping)"
+fi
+
+# 3) build canonical system prompt (if tool exists)
+if [ -f scripts/ops/build_system_prompt.py ]; then
+  python3 - <<'PY' || true
+import sys, subprocess
+try:
+  import yaml  # noqa
+except Exception:
+  subprocess.check_call([sys.executable,"-m","pip","install","-q","pyyaml"])
+subprocess.check_call([sys.executable,"scripts/ops/build_system_prompt.py"])
+PY
+else
+  warn "build_system_prompt.py not found (skipping)"
+fi
+
+# 4) markdown hygiene (non-fatal)
+if command -v markdownlint >/dev/null; then
+  echo "→ markdownlint README.md docs/**/*.md (non-fatal)"
+  markdownlint README.md docs/**/*.md || warn "markdownlint warnings"
+else
+  warn "markdownlint not installed (skipping)"
+fi
+
+# 5) branch protection sanity via gh api (hard fail if missing)
+echo "→ branch protection (required_status_checks)"
+JSON=$(gh api -H "Accept: application/vnd.github+json" repos/$OWNER/$REPO/branches/$BRANCH/protection/required_status_checks)
+python3 - <<'PY' <<<"$JSON"
+import sys, json
+d=json.loads(sys.stdin.read())
+print("contexts:", d.get("contexts"))
+print("strict:", d.get("strict"))
+if "teof/fitness" not in (d.get("contexts") or []) or not d.get("strict"):
+  sys.exit(42)
+PY || fail "Branch protection missing teof/fitness and/or strict; fix in Settings → Branches."
+
+# 6) core workflows present (warn only)
+echo "→ workflows present?"
+if ! gh workflow list | grep -E 'teof/fitness|website|teof-autocollab' >/dev/null; then
+  warn "Some workflows missing; expected: teof/fitness, website, teof-autocollab"
+fi
+
+echo "✅ Preflight passed."
