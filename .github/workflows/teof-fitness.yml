@@ -1,0 +1,61 @@
+name: teof/fitness
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  fitness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Path + size policy
+        run: |
+          python3 - <<'PY'
+          import os, sys, subprocess
+          from pathlib import Path, PurePosixPath
+          ALLOW = ["README.md","docs/**/*.md","governance/**/*.md"]
+          MAX_LINES = 120
+
+          def sh(cmd):
+              return subprocess.run(cmd, check=True, text=True, capture_output=True).stdout
+
+          base = os.environ.get("GITHUB_BASE_REF")
+          if not base:
+              # fallback for forks or local runs: assume main exists
+              base = "main"
+          merge_base = sh(["git","merge-base","HEAD",f"origin/{base}"]).strip()
+
+          name_status = sh(["git","diff","--name-status",f"{merge_base}...HEAD"]).splitlines()
+          bad = []
+          for ln in name_status:
+              if not ln.strip(): 
+                  continue
+              status, path = ln.split("\t",1)
+              if status != "M":
+                  bad.append(f"rename/delete detected: {status} {path}")
+                  continue
+              p = PurePosixPath(path)
+              if not any(p.match(pat) for pat in ALLOW):
+                  bad.append(f"disallowed path: {path}")
+          if bad:
+              for b in bad: print(f"::error ::{b}")
+              sys.exit(1)
+
+          # line budget
+          num = sh(["git","diff","--numstat",f"{merge_base}...HEAD"]).splitlines()
+          add=del_=0
+          for ln in num:
+              a,b,_ = ln.split("\t")
+              a = 0 if a == "-" else int(a)
+              b = 0 if b == "-" else int(b)
+              add += a; del_ += b
+          total = add + del_
+          print(f"Changed lines: {total} (limit {MAX_LINES})")
+          if total > MAX_LINES:
+              print(f"::error ::Diff too large: {total} > {MAX_LINES}")
+              sys.exit(1)
+          PY
+      - name: Doctor
+        run: scripts/ops/doctor.sh
