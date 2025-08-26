@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# resolve OWNER/REPO/BRANCH
+remote="$(git config --get remote.origin.url || true)"
+case "$remote" in
+  git@github.com:*) p="${remote#git@github.com:}";;
+  https://github.com/*) p="${remote#https://github.com/}";;
+  *) p="${OWNER:-octobrium}/${REPO:-TEOF}";;
+esac
+OWNER="${OWNER:-${p%%/*}}"; REPO="${REPO:-${p##*/}}"; REPO="${REPO%.git}"
+BRANCH="${BRANCH:-$(git rev-parse --abbrev-ref HEAD)}"
+
+echo "== Handoff check for $OWNER/$REPO@$BRANCH =="
+
+echo "-- Required status checks"
+gh api -H "Accept: application/vnd.github+json" \
+  "repos/$OWNER/$REPO/branches/$BRANCH/protection/required_status_checks" \
+| python3 - <<'PY'
+import sys,json; d=json.load(sys.stdin)
+print("contexts:", d.get("contexts")); print("strict:", d.get("strict"))
+PY
+
+echo "-- Pages"
+if gh api "repos/$OWNER/$REPO/pages" >/dev/null 2>&1; then echo "GitHub Pages: enabled"; else echo "GitHub Pages: disabled"; fi
+
+echo "-- Recent workflow runs"
+gh run list --limit 5 --json workflowName,conclusion,htmlUrl \
+| python3 - <<'PY'
+import sys,json
+for r in json.load(sys.stdin): print(f"{r['workflowName']}: {r['conclusion']}  {r['htmlUrl']}")
+PY
+
+echo "-- Presence"
+for f in ".github/workflows/teof-fitness.yml" ".github/workflows/pages.yml" ".github/workflows/autocollab.yml" \
+         "scripts/bot/autocollab.py" "bin/provider-matrix" "docs/providers.md" "scripts/ops/doctor.sh"
+do [[ -e "$f" ]] && echo "✓ $f" || echo "✗ $f (missing)"; done
+
+echo; echo "Site: https://$OWNER.github.io/$REPO/"
+echo "Actions: https://github.com/$OWNER/$REPO/actions"
+echo "Branch protection: https://github.com/$OWNER/$REPO/settings/branches"
