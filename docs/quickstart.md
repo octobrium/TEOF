@@ -11,7 +11,6 @@ Clone and enter the repo:
 git clone https://github.com/octobrium/TEOF.git
 cd TEOF
 
-cat > docs/quickstart.md <<'MD'
 # Quickstart
 
 ## Prerequisites
