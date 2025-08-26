@@ -74,3 +74,11 @@ if ! gh workflow list | grep -E 'teof/fitness|website|teof-autocollab' >/dev/nul
 fi
 
 echo "✅ Preflight passed."
+
+# --- status (build artifact; idempotent) ---
+if [ -x scripts/ops/build_status.sh ]; then
+  mkdir -p _report
+  STATUS_OUT="_report/status-$(git rev-parse --short HEAD).md"
+  scripts/ops/build_status.sh > "$STATUS_OUT" || true
+  echo "wrote status artifact: $STATUS_OUT"
+fi
