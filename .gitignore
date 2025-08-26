@@ -70,3 +70,6 @@ Makefile
 Makefile.bak
 mk/
 _report/
+*.save
+*.bak
+*.bak.*
