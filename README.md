@@ -1,3 +1,4 @@
+![guardrails](https://github.com/octobrium/TEOF/actions/workflows/guardrails.yml/badge.svg)
 # The Eternal Observer Framework (TEOF)
 
 ## Repo Map
