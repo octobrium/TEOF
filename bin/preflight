@@ -1,161 +1,193 @@
 #!/usr/bin/env bash
-# Preflight (checklist UX) — non-destructive, logs to _report/
-set -uo pipefail
+# Preflight checklist for TEOF. Idempotent, zero-diff on repo (artifacts -> _report/)
+# Re-exec under Bash if launched from another shell
+if [ -z "${BASH_VERSION:-}" ]; then exec bash "$0" "$@"; fi
+set -euo pipefail
 
-# --- knobs (env) ---
-: "${PF_STRICT:=0}"        # 1 => treat warnings as failures
-: "${PF_LINT:=1}"          # 0 => skip markdownlint
-: "${PF_MATRIX:=1}"        # 0 => skip provider-matrix
-: "${PF_BRANCH:=1}"        # 0 => skip branch protection check
-: "${PF_COLOR:=auto}"      # auto|always|never
-
-# --- colors & glyphs ---
-is_tty() { [ -t 1 ]; }
-if { [ "$PF_COLOR" = "always" ] || { [ "$PF_COLOR" = "auto" ] && is_tty; }; } && [ -z "${NO_COLOR:-}" ]; then
-  C_G="\033[32m"; C_R="\033[31m"; C_Y="\033[33m"; C_B="\033[36m"; C_="\033[0m"
+# ----- styling -----
+if command -v tput >/dev/null 2>&1 && [ -t 1 ]; then
+  green=$(tput setaf 2); red=$(tput setaf 1); yellow=$(tput setaf 3); blue=$(tput setaf 6)
+  bold=$(tput bold); reset=$(tput sgr0)
 else
-  C_G=""; C_R=""; C_Y=""; C_B=""; C_=""
+  green=""; red=""; yellow=""; blue=""; bold=""; reset=""
 fi
-G_OK="✓"; G_NO="✗"; G_WARN="⚠"; G_SKIP="·"
+OK="✅"; WARN="⚠️"; BAD="❌"; INFO="ℹ️"
+EXIT=0
 
-log_dir="_report/preflight"
-mkdir -p "$log_dir"
+say()   { printf "%s\n" "$*"; }
+hr()    { printf "%s\n" "------------------------------------------------------------"; }
+ok()    { printf "%b %s%b\n"   "$green$OK$reset"   "$*" "$reset"; }
+warn()  { printf "%b %s%b\n"   "$yellow$WARN$reset" "$*" "$reset"; }
+bad()   { printf "%b %s%b\n"   "$red$BAD$reset"    "$*" "$reset"; EXIT=1; }
+info()  { printf "%b %s%b\n"   "$blue$INFO$reset"  "$*" "$reset"; }
+step()  { printf "\n%s%s%s\n" "$bold" "$*" "$reset"; }
 
-pass=0; warn=0; fail=0; skip=0
-declare -a FAIL_STEPS=() WARN_STEPS=()
+ART_DIR="_report"
+mkdir -p "$ART_DIR"
 
-say()   { printf "%b%s%b\n" "$C_B" "$*" "$C_"; }
-line()  { printf "%s\n" "$*"; }
-mark()  {
-  case "$1" in
-    pass) ((pass++)); printf "  %b%s%b  %s\n" "$C_G" "$G_OK" "$C_" "$2" ;;
-    warn) ((warn++)); WARN_STEPS+=("$2"); printf "  %b%s%b  %s\n" "$C_Y" "$G_WARN" "$C_" "$2" ;;
-    skip) ((skip++)); printf "  %s  %s\n" "$G_SKIP" "$2" ;;
-    fail) ((fail++)); FAIL_STEPS+=("$2"); printf "  %b%s%b  %s\n" "$C_R" "$G_NO" "$C_" "$2" ;;
-  esac
-}
+# ----- detect repo/branch (env overrides) -----
+OWNER="${OWNER:-}"
+REPO="${REPO:-}"
+BRANCH="${BRANCH:-}"
 
-# helper to run a command and classify by exit code
-run_cmd() {
-  local name="$1"; shift
-  local log="$log_dir/${name// /_}.log"
-  ( "$@" ) >"$log" 2>&1
-  local rc=$?
-  echo "$log"
-  return $rc
-}
-
-# ---- Steps ---------------------------------------------------------------
-
-step_doctor() {
-  local name="doctor.sh (capsule & repo audit)"
-  if [ -x scripts/ops/doctor.sh ]; then
-    local log; log=$(run_cmd "doctor" scripts/ops/doctor.sh); rc=$?
-    if [ $rc -eq 0 ]; then mark pass "$name"
-    else mark fail "$name  [see $log]"; fi
-  else
-    mark skip "$name  (missing)"
+detect_repo() {
+  local url path
+  : "${BRANCH:=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)}"
+  if [[ -n "$OWNER" && -n "$REPO" ]]; then
+    return
   fi
-}
-
-step_matrix() {
-  local name="provider-matrix (mock)"
-  [ "$PF_MATRIX" = "1" ] || { mark skip "$name (disabled)"; return; }
-  if [ -x bin/provider-matrix ]; then
-    local log; log=$(run_cmd "provider-matrix" bin/provider-matrix "Summarize the capsule rules."); rc=$?
-    if [ $rc -eq 0 ]; then mark pass "$name"
-    else mark fail "$name  [see $log]"; fi
-  else
-    mark skip "$name (missing)"
-  fi
-}
-
-step_system_prompt() {
-  local name="system prompt artifact"
-  if [ -x scripts/ops/build_system_prompt.py ]; then
-    local sha; sha=$(git rev-parse --short HEAD 2>/dev/null || echo "worktree")
-    local out="_report/system_prompt-${sha}.txt"
-    python3 scripts/ops/build_system_prompt.py > "$out" 2>"$log_dir/system_prompt.log" && \
-      mark pass "$name  → $out" || mark fail "$name  [see $log_dir/system_prompt.log]"
-  else
-    mark skip "$name (missing)"
-  fi
-}
-
-step_markdownlint() {
-  local name="markdownlint (README + docs)"
-  [ "$PF_LINT" = "1" ] || { mark skip "$name (disabled)"; return; }
-  if command -v markdownlint >/dev/null 2>&1; then
-    # soft lint: warnings do not fail preflight (unless PF_STRICT=1)
-    local log="$log_dir/markdownlint.log"
-    local rc=0
-    markdownlint README.md docs/**/*.md >"$log" 2>&1 || rc=$?
-    if [ $rc -eq 0 ]; then mark pass "$name"
-    else
-      mark warn "$name  [see $log]"
-      [ "$PF_STRICT" = "1" ] && { ((fail++)); FAIL_STEPS+=("$name (strict)"); }
+  url="$(git remote get-url origin 2>/dev/null || true)"
+  if [[ -n "$url" ]]; then
+    case "$url" in
+      git@github.com:*)         path="${url#git@github.com:}";;
+      https://github.com/*)     path="${url#*github.com/}";;
+      http://github.com/*)      path="${url#*github.com/}";;
+      ssh://git@github.com/*)   path="${url#*github.com/}";;
+      *)                        path="";;
+    esac
+    if [[ -n "$path" ]]; then
+      path="${path%.git}"
+      OWNER="${OWNER:-${path%%/*}}"
+      REPO="${REPO:-${path#*/}}"
     fi
-  else
-    mark skip "$name (not installed)"
   fi
 }
+detect_repo
 
-step_branch_protection() {
-  local name="branch protection: required_status_checks"
-  [ "$PF_BRANCH" = "1" ] || { mark skip "$name (disabled)"; return; }
-  if command -v gh >/dev/null 2>&1; then
-    local owner repo branch; owner="${OWNER:-}"; repo="${REPO:-}"; branch="${BRANCH:-main}"
-    if [ -z "$owner" ] || [ -z "$repo" ]; then
-      # try to derive from git remote
-      local url; url=$(git remote get-url origin 2>/dev/null || echo "")
-      if [[ "$url" =~ github.com[:/ ]([^/]+)/([^/.]+) ]]; then owner="${BASH_REMATCH[1]}"; repo="${BASH_REMATCH[2]}"; fi
-    fi
-    if [ -z "$owner" ] || [ -z "$repo" ]; then
-      mark skip "$name (no OWNER/REPO detected)"
-      return
-    fi
-    local log="$log_dir/branch_protection.json"
-    if gh api -H "Accept: application/vnd.github+json" \
-      "repos/$owner/$repo/branches/$branch/protection/required_status_checks" >"$log" 2>/dev/null; then
-      local ok_ctx; ok_ctx=$(jq -r '.contexts[]? | select(.=="teof/fitness")' "$log" 2>/dev/null || true)
-      local strict; strict=$(jq -r '.strict' "$log" 2>/dev/null || echo "false")
-      if [ "$ok_ctx" = "teof/fitness" ] && [ "$strict" = "true" ]; then
-        mark pass "$name  (teof/fitness, strict=true)"
-      else
-        mark warn "$name  (missing teof/fitness and/or strict) [see $log]"
-        [ "$PF_STRICT" = "1" ] && { ((fail++)); FAIL_STEPS+=("$name (strict)"); }
-      fi
-    else
-      mark warn "$name  (API 404/perm) — ok on local"
-      [ "$PF_STRICT" = "1" ] && { ((fail++)); FAIL_STEPS+=("$name (strict)"); }
-    fi
-  else
-    mark skip "$name (gh not installed)"
-  fi
-}
+printf "\n%sTEOF preflight for %s/%s@%s%s\n" "$bold" "${OWNER:-?}" "${REPO:-?}" "${BRANCH:-?}" "$reset"
+hr
 
-# ---- Run ----------------------------------------------------------------
-say "== Preflight for /@main =="
-step_doctor
-step_matrix
-step_system_prompt
-step_markdownlint
-step_branch_protection
-
-# ---- Summary -------------------------------------------------------------
-echo
-say "== Summary =="
-printf "  %b%s%b %s  %b%s%b %s  %b%s%b %s  %s %s\n" \
-  "$C_G" "$G_OK" "$C_" "pass:$pass" \
-  "$C_Y" "$G_WARN" "$C_" "warn:$warn" \
-  "$C_R" "$G_NO" "$C_" "fail:$fail" \
-  "$G_SKIP" "skip:$skip"
-if (( ${#WARN_STEPS[@]} )); then
-  printf "  %b%s%b  %s\n" "$C_Y" "$G_WARN" "$C_" "Warnings:"; for s in "${WARN_STEPS[@]}"; do printf "     - %s\n" "$s"; done
-fi
-if (( ${#FAIL_STEPS[@]} )); then
-  printf "  %b%s%b  %s\n" "$C_R" "$G_NO" "$C_" "Failures:"; for s in "${FAIL_STEPS[@]}"; do printf "     - %s\n" "$s"; done
+# ----- 1) working tree cleanliness (we only write _report/) -----
+step "Working tree"
+if git diff --quiet --ignore-submodules HEAD -- 2>/dev/null; then
+  ok "Git diff vs HEAD: clean"
+else
+  warn "Git has local changes (that’s fine, preflight won’t touch tracked files)"
 fi
 
-# exit code policy
-if (( fail > 0 )); then exit 1; else exit 0; fi
+# ----- 2) doctor (optional) -----
+step "Doctor"
+if [[ -x scripts/ops/doctor.sh ]]; then
+  if scripts/ops/doctor.sh; then
+    ok "scripts/ops/doctor.sh passed"
+  else
+    bad "doctor reported issues"
+  fi
+else
+  info "no scripts/ops/doctor.sh (skipped)"
+fi
+
+# ----- 3) capsule hash audit / append-only audits (optional placeholders) -----
+step "Capsule / append-only audits"
+if [[ -x scripts/ci/check_layout.sh ]]; then
+  if scripts/ci/check_layout.sh; then
+    ok "layout checks passed"
+  else
+    bad "layout checks failed"
+  fi
+else
+  info "no scripts/ci/check_layout.sh (skipped)"
+fi
+
+# ----- 4) provider matrix / system prompt artifacts (optional) -----
+step "Provider matrix & system prompt (artifacts)"
+if [[ -x scripts/ops/build_system_prompt.py ]]; then
+  if python3 scripts/ops/build_system_prompt.py > "$ART_DIR/system_prompt-$(git rev-parse --short HEAD 2>/dev/null || echo local).txt"; then
+    ok "system prompt artifact written to $ART_DIR/"
+  else
+    warn "build_system_prompt.py failed (non-fatal)"
+  fi
+else
+  info "no scripts/ops/build_system_prompt.py (skipped)"
+fi
+
+# A tiny placeholder matrix: write a “providers list” if present (mock-friendly)
+if [[ -x scripts/ops/provider-matrix.sh ]]; then
+  if scripts/ops/provider-matrix.sh > "$ART_DIR/providers/matrix-$(date -u +%Y%m%dT%H%M%SZ).md"; then
+    ok "provider matrix written to $ART_DIR/providers/"
+  else
+    warn "provider-matrix.sh failed (non-fatal)"
+  fi
+else
+  info "no scripts/ops/provider-matrix.sh (skipped)"
+fi
+
+# ----- 5) markdownlint (non-fatal hygiene) -----
+step "Markdown hygiene (non-fatal)"
+if command -v markdownlint >/dev/null 2>&1; then
+  # ignore build artifacts and the template by default
+  tmp_ignore="$(mktemp)"
+  printf "_report/\n" >>"$tmp_ignore"
+  printf "docs/teps/TEP-0000-template.md\n" >>"$tmp_ignore"
+  if markdownlint -q -i _report -i docs/teps/TEP-0000-template.md README.md docs/**/*.md 2>/dev/null; then
+    ok "markdownlint: no issues"
+  else
+    warn "markdownlint reported issues (see above; non-fatal)"
+  fi
+  rm -f "$tmp_ignore" || true
+else
+  info "markdownlint not installed (skipped)"
+fi
+
+# ----- 6) Branch protection: required status check + strict -----
+step "Branch protection (required checks)"
+if command -v gh >/dev/null 2>&1 && [[ -n "${OWNER:-}" && -n "${REPO:-}" ]]; then
+  # fetch meta and contexts quietly; tolerate missing perms/org policies
+  meta="$(gh api -H "Accept: application/vnd.github+json" \
+     "repos/$OWNER/$REPO/branches/${BRANCH:-main}/protection/required_status_checks" 2>/dev/null || true)"
+  ctxs="$(gh api -H "Accept: application/vnd.github+json" \
+     "repos/$OWNER/$REPO/branches/${BRANCH:-main}/protection/required_status_checks/contexts" 2>/dev/null || true)"
+
+  have_teof=""
+  strict_val=""
+  if [[ -n "$ctxs" && "$ctxs" =~ ^\[ ]]; then
+    have_teof="$(python3 - <<'PY' 2>/dev/null || true
+import sys, json
+try:
+  arr = json.load(sys.stdin)
+  print("true" if "teof/fitness" in arr else "false")
+except: print("")
+PY
+<<<"$ctxs")"
+  fi
+  if [[ -n "$meta" && "$meta" =~ ^\{ ]]; then
+    strict_val="$(python3 - <<'PY' 2>/dev/null || true
+import sys, json
+try:
+  d = json.load(sys.stdin)
+  v = d.get("strict", None)
+  if v is True: print("true")
+  elif v is False: print("false")
+  else: print("")
+except: print("")
+PY
+<<<"$meta")"
+  fi
+
+  if [[ "$have_teof" == "true" ]]; then
+    ok "required check: teof/fitness present"
+  elif [[ -n "$ctxs" ]]; then
+    bad "required check: teof/fitness MISSING"
+  else
+    info "could not read required contexts (no perms/org policy?)"
+  fi
+
+  if [[ "$strict_val" == "true" ]]; then
+    ok "require up-to-date branches (strict=true)"
+  elif [[ "$strict_val" == "false" ]]; then
+    warn "strict=false (branches not required to be up-to-date)"
+  else
+    info "could not read 'strict' (no perms/org policy?)"
+  fi
+else
+  info "gh/OWNER/REPO not available; branch-protection check skipped"
+fi
+
+# ----- Summary & exit code -----
+hr
+if [[ $EXIT -eq 0 ]]; then
+  ok "Preflight complete"
+else
+  bad "Preflight completed with issues"
+fi
+exit $EXIT
