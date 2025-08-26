@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+repo_root="$(cd "$(dirname "$0")/.." && pwd)"; cd "$repo_root"
+out="$(mktemp)"
+# generate status (adjust command if needed)
+teof status > "$out"
+# only update if content changed
+if ! diff -q "$out" docs/STATUS.md >/dev/null 2>&1; then
+  mv "$out" docs/STATUS.md
+  git add docs/STATUS.md
+  git commit -m "docs(status): refresh STATUS.md via teof status" || true
+else
+  rm -f "$out"
+fi
+# quick rails check
+scripts/ops/doctor.sh
