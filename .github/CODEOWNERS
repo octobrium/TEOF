@@ -1,22 +1,7 @@
-# TEOF canonical ownership (specific → general). Enable "Require review from Code Owners" on main to enforce.
-# CI / governance
-/.github/**     @octobrium
-/.githooks/**   @octobrium
+# Default owner
+* @octobrium
 
-# Core rails and behavior
-/capsule/**     @octobrium
-/teof/**        @octobrium
-/extensions/**  @octobrium
-
-# Docs and proposals
-/docs/teps/**   @octobrium
-/docs/**        @octobrium
-
-# Tooling / legacy (safe to keep even if absent)
-/scripts/**     @octobrium
-/cli/**         @octobrium
-/legacy/**      @octobrium
-/rfcs/**        @octobrium
-
-# Catch-all
-*               @octobrium
+# Capsule and guardrails: always owned
+/capsule/ @octobrium
+/scripts/ci/ @octobrium
+.github/workflows/ @octobrium
