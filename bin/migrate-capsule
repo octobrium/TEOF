@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+repo_root="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$repo_root"
+
+# 0) sanity
+[ -x scripts/ci/check_hashes.sh ] || { echo "missing check_hashes.sh"; exit 1; }
+
+# 1) optional layout sanity (no output on success)
+[ -x scripts/ci/check_layout.sh ] && scripts/ci/check_layout.sh origin/main || true
+
+# 2) refresh capsule manifest after your edits
+scripts/ci/check_hashes.sh --refresh
+
+# 3) verify locally (hash + append + layout)
+scripts/ops/doctor.sh
+
+# 4) commit the refreshed manifest
+git add capsule/v1.5/hashes.json
+git commit -m "capsule: content update + hash refresh" || true
+echo "Migration complete. If a commit wasn’t created, hashes were unchanged."
