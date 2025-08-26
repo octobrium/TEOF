@@ -1,0 +1,43 @@
+name: teof-autocollab
+
+on:
+  workflow_dispatch:
+  # enable later if you want a schedule
+  # schedule:
+  #   - cron: '17 07 * * *'  # daily 07:17 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml requests
+          npm install -g markdownlint-cli || true
+      - name: Run single-LLM collaborator (dry by default)
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL || 'gpt-4o-mini' }}
+          # stay safe until you flip this in repo "Variables"
+          DRY_RUN: ${{ vars.TEOF_AUTOCOLLAB_DRYRUN || '1' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -f scripts/bot/autocollab.py ]; then
+            echo "scripts/bot/autocollab.py is missing. Commit it, then re-run." && exit 0
+          fi
+          scripts/bot/autocollab.py
