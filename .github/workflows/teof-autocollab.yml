@@ -40,3 +40,18 @@ jobs:
             echo "scripts/bot/autocollab.py is missing. Commit it, then re-run." && exit 0
           fi
           scripts/bot/autocollab.py
+
+  autocollab-dryrun:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run autocollab (dry-run)
+        run: |
+          chmod +x tools/autocollab.sh
+          ./tools/autocollab.sh
+      - name: Upload _report
+        uses: actions/upload-artifact@v4
+        with:
+          name: autocollab-report
+          path: _report/autocollab
