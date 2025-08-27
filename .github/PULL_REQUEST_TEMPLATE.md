@@ -1,22 +1,26 @@
 ## Summary
-Explain the smallest-possible change. Keep diffs ≤ policy.diff_limit and within allow_globs.
+<one sentence objective>  
+Closes #<issue-number>
 
-## Checklist
-- [ ] No renames/deletes
-- [ ] Paths limited to docs/**, governance/**, capsule/**, scripts/ci/**, Makefile
-- [ ] Labels include: bot:autocollab (for automated PRs)
-- [ ] doctor/CI green
+**Area:** `area/<seed|trunk|roots|bark|branches|leaves|fruit|bundles>`  
+**Type:** `type/<feature|bug|refactor|docs|release>`  
+**Priority:** `P0-now | P1-next | P2-later`
 
-## OCERS Receipt (required for automated PRs)
-- Model / Provider:
-- Base commit (short SHA):
-- Input hash:
-- Diff hash:
-- Token/cost budget observed: yes/no
+---
 
-## Fitness Gate (tools/CI/deps)
-- [ ] Improves this OCERS trait: ______
-- [ ] Receipts (evidence of defects caught): ______
-- [ ] Optional by default (not in preflight) unless invariant is proven
-- [ ] Sunset condition: ______ (auto-prune if unmet)
-- [ ] Fallback path documented
+## What & Why (Observation → Goal)
+- What changes and why (link to queue task if applicable).
+- Evidence: commits/hashes/artifacts touched.
+
+## How (Coherence → Change)
+- Modules/files/dirs touched and rationale.
+- Alternatives considered and why rejected.
+
+## Safety (Sunset/Fallback)
+- Sunset condition:
+- Fallback plan:
+
+## Receipts (OCERS + Risk)
+- OCERS delta (expected): O=?, C=?, E=?, R=?, S=? (0–2 each; brief justification)
+- Risk: low | med | high (and why)
+- Test: offline/deterministic steps to verify

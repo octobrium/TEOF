@@ -24,8 +24,8 @@ done
 echo "✅ doctor: repo health OK"
 
 # Redundancy (warn-only)
-if [ -x "scripts/ci/check_redundancy.sh" ]; then
-  scripts/ci/check_redundancy.sh || true
+if [ -x "scripts/ci/check_redundancy.py" ]; then
+  scripts/ci/check_redundancy.py || true
 fi
 
 # Anchors append-only/provenance (invariants)
