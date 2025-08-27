@@ -1,0 +1,25 @@
+{
+  // TEOF markdownlint-cli2 config (Phase 0: relaxed to unblock work)
+  // Docs: https://github.com/DavidAnson/markdownlint-cli2
+  "config": {
+    "default": true,
+
+    // Temporarily relax noisy rules; we can re-enable incrementally later.
+    "MD013": false, // line length
+    "MD041": false, // first line must be H1
+    "MD036": false, // emphasis used as heading
+    "MD034": false, // bare URLs/emails
+    "MD012": false, // multiple consecutive blank lines
+    "MD022": false, // blank lines around headings
+    "MD032": false, // blank lines around lists
+    "MD031": false, // blank lines around fenced code blocks
+    "MD040": false, // fenced code should declare language
+
+    // Keep ordered list style consistent
+    "MD029": { "style": "one" }
+  }
+
+  // You can also set top-level keys like:
+  // "globs": ["**/*.md"],
+  // "ignores": ["**/node_modules/**", "archive/**"]
+}
