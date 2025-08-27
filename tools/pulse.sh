@@ -9,3 +9,6 @@ tools/critic.sh
 echo "📈  ledger..."
 tools/ledger.sh
 echo "✅  pulse complete."
+
+echo "🧮  selector (suggest-only)..."
+tools/select.sh || true
