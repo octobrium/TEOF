@@ -165,16 +165,4 @@ PY
   else
     info "gh API returned no data (insufficient perms or repo visibility); branch-protection check skipped"
   fi
-else
-  info "gh/OWNER/REPO not available; branch-protection check skipped"
-fi
-echo
-
-# ---------------- Summary ----------------
-hr
-if [[ $EXIT -eq 0 ]]; then
-  ok "Preflight complete"
-else
-  fail "Preflight completed with issues"
-fi
 exit $EXIT
