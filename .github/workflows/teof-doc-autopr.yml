@@ -1,0 +1,47 @@
+name: teof-doc-autopr
+on:
+  workflow_dispatch:
+    inputs:
+      min_score:
+        description: "Minimum OCERS total"
+        default: "7"
+      max_risk:
+        description: "Maximum critic risk score"
+        default: "0.40"
+      max_items:
+        description: "Max proposals to import"
+        default: "3"
+      require_accepted:
+        description: "Only import items marked accepted"
+        default: "true"
+jobs:
+  doc_autopr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Doctor (invariants)
+        run: |
+          chmod +x tools/doctor.sh
+          ./tools/doctor.sh
+
+      - name: Materialize docs from proposals
+        env:
+          MIN_SCORE: ${{ github.event.inputs.min_score }}
+          MAX_RISK:  ${{ github.event.inputs.max_risk }}
+          MAX_ITEMS: ${{ github.event.inputs.max_items }}
+          REQUIRE_ACCEPTED: ${{ github.event.inputs.require_accepted == 'true' && '1' || '0' }}
+        run: |
+          python3 scripts/bot/doc_autopr.py
+          echo "::group::Generated drafts"; ls -R docs/proposals || true; echo "::endgroup::"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "docs: import accepted low-risk proposals (auto-draft)"
+          title: "docs: import accepted low-risk proposals"
+          body: "Docs-only PR generated from latest autocollab batch. Doctor-gated; no invariants touched."
+          branch: autoprops/${{ github.run_id }}
+          delete-branch: true
+          add-paths: |
+            docs/proposals/**
