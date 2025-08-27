@@ -75,3 +75,8 @@ if [ -d "docs" ]; then
     fi
   fi
 fi
+
+# --- Symlink policy (warn-only) ---
+if [ ! -L "capsule/current" ]; then
+  echo "WARN: capsule/current is not a symlink (prefer symlink -> version dir)"
+fi
