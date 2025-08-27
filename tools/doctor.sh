@@ -22,3 +22,13 @@ for s in tools/bootstrap.sh tools/doctor.sh extensions/validator/teof-validate.s
 done
 
 echo "✅ doctor: repo health OK"
+
+# Redundancy (warn-only)
+if [ -x "scripts/ci/check_redundancy.sh" ]; then
+  scripts/ci/check_redundancy.sh || true
+fi
+
+# Anchors append-only/provenance (invariants)
+if [ -x "scripts/ci/check_anchors_guard.py" ]; then
+  scripts/ci/check_anchors_guard.py
+fi

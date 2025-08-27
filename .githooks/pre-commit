@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-cd "$REPO_ROOT"
-PYBIN="${PYTHON:-python3}"
-PYTHONPATH="$REPO_ROOT" "$PYBIN" -m teof.bootloader status --quiet || true
-git add docs/STATUS.md || true
+if git diff --cached --name-only | grep -q '^governance/anchors.json$'; then
+  if [ -x scripts/ci/check_anchors_guard.py ]; then
+    scripts/ci/check_anchors_guard.py
+  fi
+fi
