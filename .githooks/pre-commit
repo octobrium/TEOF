@@ -5,3 +5,8 @@ if git diff --cached --name-only | grep -q '^governance/anchors.json$'; then
     scripts/ci/check_anchors_guard.py
   fi
 fi
+
+# Queue item structure (only when queue/*.md is staged)
+if git diff --cached --name-only | grep -q '^queue/.*\.md$'; then
+  scripts/ci/check_queue_template.py
+fi
