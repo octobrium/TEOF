@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+if command -v lychee >/dev/null 2>&1; then
+  lychee --no-progress --max-concurrency 4 --timeout 10s "**/*.md"
+else
+  echo "[docs-links] lychee not installed; skipped"
+fi
