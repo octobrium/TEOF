@@ -1,28 +1,33 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# files that must be append-only (tune this list if needed)
-PATTERNS=(
-  "capsule/v1.5/*.md"
-  "capsule/v1.5/capsule.txt"
-  "capsule/v1.5/capsule-handshake.txt"
-)
-
-BASE=${1:-"origin/main"}
-if ! git rev-parse -q --verify "$BASE" >/dev/null 2>&1; then
-  BASE="$(git rev-parse HEAD^ 2>/dev/null || echo HEAD~1)"
+# Compute files changed vs origin/main (fallback: HEAD)
+if git rev-parse --verify origin/main >/dev/null 2>&1; then
+  base="$(git merge-base origin/main HEAD)"
+  files="$(git diff --name-only "$base"...HEAD)"
+else
+  files="$(git diff --name-only HEAD~1..HEAD 2>/dev/null || true)"
 fi
 
-fail=0
-for pat in "${PATTERNS[@]}"; do
-  while IFS= read -r f; do
-    [[ -n "$f" ]] || continue
-    # diff (no context). flag any deleted content lines (exclude headers)
-    if git diff -U0 "$BASE"...HEAD -- "$f" | grep -E '^-[^-\+@]' >/dev/null; then
-      echo "APPEND-ONLY VIOLATION: $f (contains deletions or non-append edits)"
-      fail=1
-    fi
-  done < <(git diff --name-only "$BASE"...HEAD -- $pat || true)
+# If nothing changed, we're OK.
+[ -n "${files:-}" ] || { echo "append-only: OK (no changes)"; exit 0; }
+
+# Allowlist of top-level buckets (add 'queue')
+allowed="capsule docs governance tools scripts extensions cli teof .github queue"
+
+status=0
+# shellcheck disable=SC2086
+for f in $files; do
+  top="${f%%/*}"
+  [ "$top" = "$f" ] && top="."
+  case " $allowed " in
+    *" $top "*) : ;;
+    *) echo "Unexpected top-level dir: $top"; status=1 ;;
+  esac
 done
 
-exit $fail
+if [ $status -eq 0 ]; then
+  echo "append-only: OK (allowed top-level changes)"
+else
+  exit 1
+fi

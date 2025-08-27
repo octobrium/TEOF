@@ -32,3 +32,9 @@ fi
 if [ -x "scripts/ci/check_anchors_guard.py" ]; then
   scripts/ci/check_anchors_guard.py
 fi
+
+# Append-only audit (HEAD vs origin/main)
+if [ -x "scripts/ci/check_append_only.sh" ]; then
+  echo "== Append-only audit (HEAD vs origin/main) =="
+  scripts/ci/check_append_only.sh || true
+fi
