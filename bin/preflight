@@ -74,7 +74,6 @@ bold "Capsule / append-only audits"
 if [[ -e .github/workflows/teof-fitness.yml || -e .github/workflows/teof–fitness.yml || -e .github/workflows/teof_fitness.yml ]]; then
   ok "layout checks passed"
 else
-fi
 echo
 
 # ---------------- Provider matrix & system prompt artifacts ----------------
