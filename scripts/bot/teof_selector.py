@@ -21,7 +21,7 @@ def loadj(p):
     except: return {}
 
 def has_acceptance(text: str) -> bool:
-    return "acceptance:" in text
+    return "acceptance:" in text.lower()
 
 def desirability(total: int, risk: float, accept: bool) -> float:
     return (W_SCORE*total) - (W_RISK*risk) + (B_ACCEPT if accept else 0.0)
