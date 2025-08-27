@@ -13,3 +13,10 @@ Explain the smallest-possible change. Keep diffs ≤ policy.diff_limit and withi
 - Input hash:
 - Diff hash:
 - Token/cost budget observed: yes/no
+
+## Fitness Gate (tools/CI/deps)
+- [ ] Improves this OCERS trait: ______
+- [ ] Receipts (evidence of defects caught): ______
+- [ ] Optional by default (not in preflight) unless invariant is proven
+- [ ] Sunset condition: ______ (auto-prune if unmet)
+- [ ] Fallback path documented

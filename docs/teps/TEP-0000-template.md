@@ -26,3 +26,10 @@ Target capsule version (if relevant). Anchors note if governance semantics chang
 - Roots changes (docs)  
 - Trunk changes (schema/rules)  
 - Goldens/CI updates
+
+## 8) Fitness Gate (if adding tools/CI/deps)
+- OCERS trait improved: ______
+- Evidence / receipts: ______
+- Friction / config footprint: ______
+- Rollout plan (optional by default?): ______
+- Sunset condition: ______

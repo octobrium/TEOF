@@ -1,3 +1,5 @@
+# NOTE: Preflight = INVARIANTS ONLY (provenance, determinism, safety). Style/tooling stays optional.
+echo "[preflight] invariants-only policy: see docs/policy/fitness-lens.md"
 #!/usr/bin/env bash
 set -Eeuo pipefail
 

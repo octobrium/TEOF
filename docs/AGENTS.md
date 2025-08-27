@@ -16,3 +16,10 @@ Agents may fetch and use that as their **system** message.
 ## Safety
 - No network/tool use beyond repo unless explicitly granted.
 - Budgets must be respected (tokens/cost), see `policy.json`.
+
+## Fitness (Stage F)
+Before recommending any new tool/process:
+1) Map to **one OCERS trait**.
+2) Demand **receipts** (observable failure it would catch) or keep **optional**.
+3) Prefer **editor/git-level** hygiene over new runtimes.
+4) Propose a **sunset** and **fallback**.
