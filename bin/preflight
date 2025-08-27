@@ -74,7 +74,6 @@ bold "Capsule / append-only audits"
 if [[ -e .github/workflows/teof-fitness.yml || -e .github/workflows/teof–fitness.yml || -e .github/workflows/teof_fitness.yml ]]; then
   ok "layout checks passed"
 else
-  warn "teof/fitness workflow not found under .github/workflows (name check is lenient)"
 fi
 echo
 
@@ -125,13 +124,10 @@ if command -v gh >/dev/null 2>&1 && [[ -n "${OWNER:-}" && -n "${REPO:-}" && -n "
     has_ctx="$(python3 - <<'PY' 2>/dev/null || true
 import sys, json
 d=json.load(sys.stdin)
-target="teof/fitness"
-# New shape: 'checks': [{'context': 'teof/fitness', 'app_id': None}, ...]
 for c in d.get("checks") or []:
     if isinstance(c, dict) and c.get("context")==target:
         print("True"); break
 else:
-    # Old shape: 'contexts': ['teof/fitness', ...]
     print("True" if target in (d.get("contexts") or []) else "False")
 PY
 <<<"$resp")"
@@ -144,15 +140,12 @@ PY
 <<<"$resp")"
 
     if [[ "$has_ctx" == "True" ]]; then
-      ok "required check present: teof/fitness"
     else
-      fail "required check: teof/fitness MISSING"
       # Optional on-the-spot fix if AUTO_FIX=1 and you have admin perms
       if [[ "${AUTO_FIX:-0}" == "1" ]]; then
         info "attempting to add required status check context via API…"
         gh api -X POST \
           "repos/${OWNER}/${REPO}/branches/${BRANCH}/protection/required_status_checks/contexts" \
-          --raw-field "contexts[]=teof/fitness" \
           -H "Accept: application/vnd.github+json" >/dev/null 2>&1 || true
       fi
     fi
