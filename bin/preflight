@@ -44,7 +44,7 @@ echo
 # ---------------- Markdown hygiene ------------
 if command -v npx >/dev/null 2>&1; then
   # Non-fatal: report problems but do not block
-  npx --yes markdownlint-cli2 "**/*.md" || true
+  npx --yes markdownlint-cli2 --config .github/markdownlint.yaml "**/*.md" || true
 else
   info "markdownlint not available (skipped)"
 fi
