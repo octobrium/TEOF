@@ -79,3 +79,7 @@ _report/
 .markdownlint-cli2.jsonc
 .markdownlintignore
 governance/ledger.jsonl
+# teof capsule seed hygiene
+# We seed new capsule/<ver> locally from prior version but ONLY commit hashes.json.
+capsule/**/*
+!capsule/**/hashes.json
