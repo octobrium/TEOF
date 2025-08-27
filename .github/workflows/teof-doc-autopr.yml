@@ -33,7 +33,16 @@ jobs:
           REQUIRE_ACCEPTED: ${{ github.event.inputs.require_accepted == 'true' && '1' || '0' }}
         run: |
           python3 scripts/bot/doc_autopr.py
-          echo "::group::Generated drafts"; ls -R docs/proposals || true; echo "::endgroup::"
+
+      - name: Verify docs-only changes
+        run: |
+          set -euo pipefail
+          # List staged/untracked modifications; ensure they are only under docs/proposals/
+          CHANGED="$(git status --porcelain)"
+          echo "$CHANGED"
+          if echo "$CHANGED" | awk '{print $2}' | grep -v '^docs/proposals/' | grep -q '.'; then
+            echo "❌ Non-docs/proposals changes detected. Aborting."; exit 1
+          fi
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
