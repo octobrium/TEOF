@@ -1,74 +1,69 @@
 #!/usr/bin/env python3
-import json, os
+import json, os, re
 from pathlib import Path
 
 ROOT   = Path(__file__).resolve().parents[2]
 AREPORT = ROOT/"_report"/"autocollab"
 
-# Tunables (kept simple, deterministic)
-RISK_WEIGHT = float(os.getenv("RISK_WEIGHT", "4.0"))  # penalty applied to risk_score (0.3/0.6/1.0)
-MIN_SCORE   = int(float(os.getenv("MIN_SCORE",   "6")))  # minimum OCERS total to consider
-MAX_RISK    = float(os.getenv("MAX_RISK", "0.80"))       # maximum risk_score to consider
-TOP_N       = int(os.getenv("TOP_N", "5"))
+W_SCORE   = float(os.getenv("SELECT_W_SCORE", "1.0"))
+W_RISK    = float(os.getenv("SELECT_W_RISK",  "4.0"))
+B_ACCEPT  = float(os.getenv("SELECT_B_ACCEPT","0.5"))   # bonus if Acceptance present
+MIN_SCORE = int(float(os.getenv("MIN_SCORE",   "6")))
+MAX_RISK  = float(os.getenv("MAX_RISK",  "0.80"))
+TOP_N     = int(os.getenv("TOP_N", "5"))
 
 def latest_batch():
     if not AREPORT.exists(): return None
-    batches = [p for p in AREPORT.iterdir() if p.is_dir()]
-    return max(batches) if batches else None
+    bs = [p for p in AREPORT.iterdir() if p.is_dir()]
+    return max(bs) if bs else None
 
-def loadj(p): 
+def loadj(p):
     try: return json.loads(p.read_text())
     except: return {}
 
-def desirability(total, risk_score):
-    # higher is better; OCERS total 0..10, risk_score ~ {0.3,0.6,1.0}
-    # simple linear tradeoff: score - (weight * risk)
-    return total - (RISK_WEIGHT * risk_score)
+def has_acceptance(txt:str)->bool:
+    return "acceptance:" in txt
+
+def desirability(total:int, risk:float, accept:bool)->float:
+    return (W_SCORE*total) - (W_RISK*risk) + (B_ACCEPT if accept else 0.0)
 
 def main():
     b = latest_batch()
     if not b:
         print("selector: no batch; run tools/pulse.sh first"); return
     items = sorted(b.glob("item-*"))
-    ranked = []
+    scored = []
     for it in items:
-        s = loadj(it/"score.json"); r = loadj(it/"risk.json"); a = loadj(it/"accepted.json")
-        total = int(s.get("total", 0)); risk = float(r.get("risk_score", 1.0))
         idx = int(it.name.split("-")[-1]) if it.name.split("-")[-1].isdigit() else None
-        if total < MIN_SCORE or risk > MAX_RISK: 
-            reason = []
-            if total < MIN_SCORE: reason.append(f"score<{MIN_SCORE}")
-            if risk > MAX_RISK:   reason.append(f"risk>{MAX_RISK}")
-            ranked.append({"idx": idx, "total": total, "risk": risk, "keep": False, "why": ",".join(reason)})
+        s = loadj(it/"score.json")
+        r = loadj(it/"risk.json")
+        total = int(s.get("total", 0)); risk = float(r.get("risk_score", 1.0))
+        prop = (it/"proposal.md").read_text(encoding="utf-8", errors="ignore") if (it/"proposal.md").exists() else ""
+        accept = has_acceptance(prop)
+
+        if total < MIN_SCORE or risk > MAX_RISK:
+            scored.append({"idx": idx, "total": total, "risk": risk, "accept": accept, "keep": False})
             continue
-        keep = True
-        desir = desirability(total, risk)
-        ranked.append({"idx": idx, "total": total, "risk": risk, "keep": keep, "desir": round(desir, 3)})
+        desir = round(desirability(total, risk, accept), 3)
+        scored.append({"idx": idx, "total": total, "risk": risk, "accept": accept, "keep": True, "desir": desir})
 
-    # choose top KEEP items by desirability
-    kept = [x for x in ranked if x.get("keep")]
-    kept.sort(key=lambda d: (-d["desir"], -d["total"], d["risk"]))
-    top = kept[:TOP_N]
+    kept = [x for x in scored if x.get("keep")]
+    kept.sort(key=lambda d: (-d["desir"], -d["total"], d["risk"], (not d["accept"])))
 
-    # write receipt
     out = {
         "batch": b.name,
-        "params": {"RISK_WEIGHT": RISK_WEIGHT, "MIN_SCORE": MIN_SCORE, "MAX_RISK": MAX_RISK, "TOP_N": TOP_N},
-        "top": top,
-        "filtered_out": [x for x in ranked if not x.get("keep")],
+        "params": {"W_SCORE": W_SCORE, "W_RISK": W_RISK, "B_ACCEPT": B_ACCEPT,
+                   "MIN_SCORE": MIN_SCORE, "MAX_RISK": MAX_RISK, "TOP_N": TOP_N},
+        "top": kept[:TOP_N],
+        "filtered_out": [x for x in scored if not x.get("keep")],
     }
     (b/"selection.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
 
-    # pretty print suggestion
-    print(f"== Selector v0 (batch {b.name}) ==")
-    if not top:
-        print("No candidates meet thresholds.")
-        print(f"(MIN_SCORE>={MIN_SCORE}, MAX_RISK<={MAX_RISK})")
-        return
-    print("Top suggestions (idx  total  risk  desirability):")
-    for x in top:
-        print(f"  {x['idx']:>2}    {x['total']:>2}    {x['risk']:.2f}   {x['desir']:.2f}")
-    print("\nNext step:")
-    print("  tools/accept.sh <idx>   # mark accepted")
-    print("  tools/ledger.sh         # update accept_rate")
-    print("  tools/doc-autopr.sh     # create docs-only draft branch (optional)")
+    print(f"== Selector v1 (batch {b.name}) ==")
+    if not kept:
+        print(f"No candidates meet thresholds (MIN_SCORE>={MIN_SCORE}, MAX_RISK<={MAX_RISK})"); return
+    print("Top suggestions (idx  total  risk  accept  desir):")
+    for x in kept[:TOP_N]:
+        print(f"  {x['idx']:>2}    {x['total']:>2}    {x['risk']:.2f}   {str(x['accept']):>5}   {x['desir']:.2f}")
+    print("\nNext:")
+    print("  tools/accept.sh <idx>  && tools/ledger.sh  && tools/doc-autopr.sh")

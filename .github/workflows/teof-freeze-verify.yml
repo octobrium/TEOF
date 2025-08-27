@@ -1,0 +1,24 @@
+name: teof-freeze-verify
+on:
+  pull_request:
+    paths:
+      - 'capsule/**/hashes.json'
+      - 'scripts/ci/make_hashes.py'
+      - 'tools/capsule_freeze.sh'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify capsule hashes deterministically
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          python3 scripts/ci/verify_hashes.py
+      - name: Upload verify artifacts (if any)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: freeze-verify
+          path: _report/freeze-verify
+          if-no-files-found: ignore
