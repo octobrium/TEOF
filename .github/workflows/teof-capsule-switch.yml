@@ -1,0 +1,30 @@
+name: teof-capsule-switch-verify
+on:
+  pull_request:
+    types: [opened, synchronize, labeled, reopened]
+    paths:
+      - "capsule/current"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Verify switch
+        run: scripts/ci/verify_capsule_switch.sh
+
+  enable-automerge:
+    needs: verify
+    if: contains(toJson(github.event.pull_request.labels), 'capsule-switch')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable GitHub Auto-merge
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: squash
