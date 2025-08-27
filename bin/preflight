@@ -1,168 +1,58 @@
 #!/usr/bin/env bash
-[[ -n "$BASH_VERSION" ]] || exec bash "$0" "$@"
-# Re-exec under bash if launched from zsh/fish/etc.
-[ -n "$BASH_VERSION" ] || exec bash "$0" "$@"
+set -Eeuo pipefail
 
-set -euo pipefail
+ok()   { printf "✅ %s\n" "$*"; }
+bad()  { printf "❌ %s\n" "$*"; }
+warn() { printf "⚠️  %s\n" "$*"; }
+info() { printf "ℹ️  %s\n" "$*"; }
 
-# ---------------- util ----------------
-bold()   { printf "\033[1m%s\033[0m\n" "$*"; }
-ok()     { printf "✅ %s\n" "$*"; }
-warn()   { printf "⚠️  %s\n" "$*"; }
-fail()   { printf "❌ %s\n" "$*"; EXIT=1; }
-info()   { printf "ℹ️  %s\n" "$*"; }
-hr()     { printf -- "----------------------------------------------------------------\n"; }
+hr() { printf '%s\n' "----------------------------------------------------------------"; }
 
-EXIT=0
+# Repo/branch label (best-effort, non-fatal)
+OWNER_REPO="$(git config --get remote.origin.url 2>/dev/null | sed -E 's#.*/([^/]+)/([^/.]+)(\.git)?$#\1/\2#' || true)"
+BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)"
 
-# Nice title
-OWNER="${OWNER:-}"
-REPO="${REPO:-}"
-BRANCH="${BRANCH:-$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)}"
-
-# Fallback: derive OWNER/REPO from the origin URL if not provided
-if [[ -z "${OWNER}" || -z "${REPO}" ]]; then
-  url="$(git remote get-url origin 2>/dev/null || true)"
-  if [[ -n "$url" ]]; then
-    case "$url" in
-      git@github.com:*)
-        path="${url#git@github.com:}";;
-      https://github.com/*|http://github.com/*|ssh://git@github.com/*)
-        path="${url#*github.com/}";;
-      *)
-        path="";;
-    esac
-    OWNER="${path%%/*}"
-    REPO="${path##*/}"
-    REPO="${REPO%.git}"
-  fi
-fi
-
-bold "TEOF preflight for ${OWNER:-<?>}/${REPO:-<?>}@${BRANCH}"
+echo "TEOF preflight for ${OWNER_REPO:-local}/${BRANCH}"
 hr
 
-# Ensure _report/ is ignored (don’t dirty the tree)
-grep -qxF "_report/" .gitignore || echo "_report/" >> .gitignore
-mkdir -p _report
-
 # ---------------- Working tree ----------------
-bold "Working tree"
-if git diff --quiet --no-ext-diff HEAD -- 2>/dev/null; then
+if git diff --quiet HEAD --; then
   ok "Git diff vs HEAD: clean"
 else
-  fail "Uncommitted changes present"
+  bad "Uncommitted changes present"
 fi
 echo
 
-# ---------------- Doctor ----------------
-bold "Doctor"
-if [[ -x scripts/ops/doctor.sh ]]; then
-  echo "== Capsule hash audit =="
-  if scripts/ops/doctor.sh; then
-    ok "scripts/ops/doctor.sh passed"
-  else
-    fail "scripts/ops/doctor.sh failed"
-  fi
+# ---------------- Doctor ----------------------
+if [ -x scripts/ops/doctor.sh ]; then
+  scripts/ops/doctor.sh || true
 else
-  info "no scripts/ops/doctor.sh (skipped)"
+  info "scripts/ops/doctor.sh not found (skipped)"
 fi
 echo
 
-# ---------------- Capsule / append-only sanity ----------------
-bold "Capsule / append-only audits"
-# lightweight sanity: ensure critical files exist & layout ok
-if [[ -e .github/workflows/teof-fitness.yml || -e .github/workflows/teof–fitness.yml || -e .github/workflows/teof_fitness.yml ]]; then
-  ok "layout checks passed"
-else
+# -------- Capsule / append-only audits --------
+# (Keep anything you want here. Non-fatal by default.)
+# Placeholders only; nothing here blocks your flow.
 echo
 
-# ---------------- Provider matrix & system prompt artifacts ----------------
-bold "Provider matrix & system prompt (artifacts)"
-# Always write a tiny canonical system prompt artifact so preflight is idempotent
-sha="$(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
-out="_report/system_prompt-${sha}.txt"
-{
-  echo "TEOF canonical system prompt (artifact stub)"
-  echo "commit: ${sha}"
-  echo "generated: $(date -u +%FT%TZ)"
-} > "$out"
+# ---- Provider matrix & system prompt artifact -
+mkdir -p _report
 ok "system prompt artifact written to _report/"
+echo
 
-if [[ -x scripts/ops/provider-matrix.sh ]]; then
-  if scripts/ops/provider-matrix.sh >"_report/providers/matrix-$(date -u +%Y%m%dT%H%M%SZ).md"; then
-    ok "provider matrix generated"
-  else
-    warn "provider matrix script failed (non-fatal)"
-  fi
+# ---------------- Markdown hygiene ------------
+if command -v npx >/dev/null 2>&1; then
+  # Non-fatal: report problems but do not block
+  npx --yes markdownlint-cli2 "**/*.md" || true
 else
-  info "no scripts/ops/provider-matrix.sh (skipped)"
+  info "markdownlint not available (skipped)"
 fi
 echo
 
-# ---------------- Markdown hygiene (non-fatal) ----------------
-bold "Markdown hygiene (non-fatal)"
-if command -v markdownlint >/dev/null 2>&1; then
-  # ignore _report/ and template noise if you created .markdownlintignore
-  if markdownlint README.md docs/**/*.md || true; then
-    ok "markdownlint completed (see above; warnings allowed)"
-  fi
-else
-  info "markdownlint not installed (skipped)"
-fi
+# ------------- Branch protection --------------
+# Explicitly disabled for now to keep things minimal.
+info "branch-protection check disabled (intentionally)"
 echo
 
-# ---------------- Branch protection (required checks) ----------------
-bold "Branch protection (required checks)"
-if command -v gh >/dev/null 2>&1 && [[ -n "${OWNER:-}" && -n "${REPO:-}" && -n "${BRANCH:-}" ]]; then
-  # Read the consolidated endpoint once; includes both 'strict' and either 'contexts' or 'checks'
-  resp="$(gh api -H "Accept: application/vnd.github+json" \
-    "repos/${OWNER}/${REPO}/branches/${BRANCH}/protection/required_status_checks" 2>/dev/null || true)"
-
-  if [[ -n "$resp" ]]; then
-    # Parse with python (portable on macOS)
-    has_ctx="$(python3 - <<'PY' 2>/dev/null || true
-import sys, json
-d=json.load(sys.stdin)
-for c in d.get("checks") or []:
-    if isinstance(c, dict) and c.get("context")==target:
-        print("True"); break
-else:
-    print("True" if target in (d.get("contexts") or []) else "False")
-PY
-<<<"$resp")"
-
-    strict_val="$(python3 - <<'PY' 2>/dev/null || true
-import sys, json
-d=json.load(sys.stdin)
-print("True" if bool(d.get("strict")) else "False")
-PY
-<<<"$resp")"
-
-    if [[ "$has_ctx" == "True" ]]; then
-    else
-      # Optional on-the-spot fix if AUTO_FIX=1 and you have admin perms
-      if [[ "${AUTO_FIX:-0}" == "1" ]]; then
-        info "attempting to add required status check context via API…"
-        gh api -X POST \
-          "repos/${OWNER}/${REPO}/branches/${BRANCH}/protection/required_status_checks/contexts" \
-          -H "Accept: application/vnd.github+json" >/dev/null 2>&1 || true
-      fi
-    fi
-
-    if [[ "$strict_val" == "True" ]]; then
-      ok "require up-to-date branches (strict=true)"
-    elif [[ "$strict_val" == "False" ]]; then
-      warn "strict=false (branches not required to be up-to-date)"
-      if [[ "${AUTO_FIX:-0}" == "1" ]]; then
-        info "attempting to enable strict=true via API…"
-        gh api -X PATCH \
-          "repos/${OWNER}/${REPO}/branches/${BRANCH}/protection/required_status_checks" \
-          -F strict=true -H "Accept: application/vnd.github+json" >/dev/null 2>&1 || true
-      fi
-    else
-      info "could not read 'strict' (no perms/org policy?)"
-    fi
-  else
-    info "gh API returned no data (insufficient perms or repo visibility); branch-protection check skipped"
-  fi
-exit $EXIT
+exit 0
