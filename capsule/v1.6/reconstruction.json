@@ -59,7 +59,7 @@
     "signature_hint": "Optionally include blockchain anchor txid or signed message here after you finalize hashes."
   },
   "tree": {
-    "v1.6": "371af8522413488c9c380871d951fdacf34c407022b731d0db1b6cbfd6757f8a"
+    "v1.6": "457c348bdbd5ca0bb4e57dd75524967b03d1775ec4ed11c0d83fabae20119858"
   },
   "files": {
     "v1.6": [
