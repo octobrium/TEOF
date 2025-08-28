@@ -87,3 +87,7 @@ capsule/**/*
 # --- allow capsule metadata needed by CI ---
 !capsule/current
 !capsule/**/reconstruction.json
+
+# --- allow capsule metadata needed by CI ---
+!capsule/current
+!capsule/**/reconstruction.json
