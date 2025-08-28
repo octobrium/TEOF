@@ -88,3 +88,11 @@ capsule/**/*
 !capsule/**/root
 !capsule/**/files
 !capsule/**/count
+
+# --- allow capsule seed metadata to be tracked ---
+!capsule/
+!capsule/**/
+!capsule/**/root
+!capsule/**/files
+!capsule/**/count
+# -----------------------------------------------
