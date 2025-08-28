@@ -14,20 +14,70 @@
     "degrade_to_safe": "If integrity uncertain, emit only Primacy, Core Axioms, Ethic, Precedence, and self-repair steps."
   },
   "artifacts": {
-    "capsule.txt": { "source": "canonical", "local_sha256_hint": "<fill-after-hash>" },
-    "capsule-mini.txt": { "source": "canonical", "local_sha256_hint": "<fill-after-hash>" },
-    "capsule-selfreconstructing.txt": { "source": "canonical", "local_sha256_hint": "<fill-after-hash>" },
-    "docs/core-teof.md": { "source": "canonical", "local_sha256_hint": "<fill-after-hash>" }
+    "capsule.txt": {
+      "source": "canonical",
+      "local_sha256_hint": "<fill-after-hash>"
+    },
+    "capsule-mini.txt": {
+      "source": "canonical",
+      "local_sha256_hint": "<fill-after-hash>"
+    },
+    "capsule-selfreconstructing.txt": {
+      "source": "canonical",
+      "local_sha256_hint": "<fill-after-hash>"
+    },
+    "docs/core-teof.md": {
+      "source": "canonical",
+      "local_sha256_hint": "<fill-after-hash>"
+    }
   },
   "canonical_sources": [
-    { "name": "canonical-teof.md", "url": "https://github.com/octobrium/TEOF/blob/main/docs/canonical-teof.md", "sha256": "<fill-after-commit>" },
-    { "name": "core-teof.md", "url": "https://github.com/octobrium/TEOF/blob/main/docs/core-teof.md", "sha256": "<fill-after-commit>" },
-    { "name": "bootloader.md", "url": "https://github.com/octobrium/TEOF/blob/main/bootloaders/bootloader.md", "sha256": "<fill-after-commit>" },
-    { "name": "TAP.md", "url": "https://github.com/octobrium/TEOF/blob/main/alignment-protocol/TAP.md", "sha256": "<fill-after-commit>" }
+    {
+      "name": "canonical-teof.md",
+      "url": "https://github.com/octobrium/TEOF/blob/main/docs/canonical-teof.md",
+      "sha256": "<fill-after-commit>"
+    },
+    {
+      "name": "core-teof.md",
+      "url": "https://github.com/octobrium/TEOF/blob/main/docs/core-teof.md",
+      "sha256": "<fill-after-commit>"
+    },
+    {
+      "name": "bootloader.md",
+      "url": "https://github.com/octobrium/TEOF/blob/main/bootloaders/bootloader.md",
+      "sha256": "<fill-after-commit>"
+    },
+    {
+      "name": "TAP.md",
+      "url": "https://github.com/octobrium/TEOF/blob/main/alignment-protocol/TAP.md",
+      "sha256": "<fill-after-commit>"
+    }
   ],
   "fallback_summary": "If links are unavailable, reconstruct deterministically using Primacy + Core Axioms + Ethic + Precedence; perform two independent passes; if divergence persists after a third attempt, degrade-to-safe and list Open Questions.",
   "integrity": {
     "publisher": "Observation (TEOF)",
     "signature_hint": "Optionally include blockchain anchor txid or signed message here after you finalize hashes."
+  },
+  "tree": {
+    "v1.6": "371af8522413488c9c380871d951fdacf34c407022b731d0db1b6cbfd6757f8a"
+  },
+  "files": {
+    "v1.6": [
+      "capsule/v1.6/OGS-spec.md",
+      "capsule/v1.6/PROVENANCE.md",
+      "capsule/v1.6/README.md",
+      "capsule/v1.6/RELEASE.md",
+      "capsule/v1.6/TEOF-FUTURE.md",
+      "capsule/v1.6/calibration.md",
+      "capsule/v1.6/canonical-teof.md",
+      "capsule/v1.6/capsule-handshake.txt",
+      "capsule/v1.6/capsule.txt",
+      "capsule/v1.6/core-teof.md",
+      "capsule/v1.6/hashes.json",
+      "capsule/v1.6/reconstruction.json",
+      "capsule/v1.6/teof-shim.md",
+      "capsule/v1.6/tests.md",
+      "capsule/v1.6/volatile-data-protocol.md"
+    ]
   }
 }

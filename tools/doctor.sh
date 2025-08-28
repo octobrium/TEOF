@@ -44,3 +44,9 @@ for s in tools/bootstrap.sh tools/doctor.sh extensions/validator/teof-validate.s
 done
 
 echo "✅ doctor: repo health OK"
+
+# --- Capsule content-tree verification (path-agnostic) ---
+if command -v jq >/dev/null 2>&1 && [ -f "capsule/$(tr -d '\n' < capsule/current)/reconstruction.json" ]; then
+  echo "→ Verifying capsule content tree (path-agnostic)…"
+  bash tools/capsule-verify.sh
+fi

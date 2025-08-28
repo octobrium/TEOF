@@ -83,3 +83,7 @@ governance/ledger.jsonl
 # We seed new capsule/<ver> locally from prior version but ONLY commit hashes.json.
 capsule/**/*
 !capsule/**/hashes.json
+
+# --- allow capsule metadata needed by CI ---
+!capsule/current
+!capsule/**/reconstruction.json
