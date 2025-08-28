@@ -58,3 +58,9 @@ info "branch-protection check disabled (intentionally)"
 echo
 
 exit 0
+
+# apoptosis guard
+scripts/ci/guard_apoptosis.sh
+
+# dna guard
+scripts/ci/guard_dna.sh
