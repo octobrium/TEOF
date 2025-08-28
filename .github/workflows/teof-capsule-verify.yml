@@ -1,0 +1,15 @@
+name: teof-capsule-verify
+on:
+  pull_request:
+    branches: [ main ]
+permissions:
+  contents: read
+jobs:
+  verify-tree:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify capsule content tree (path-agnostic)
+        run: tools/capsule-verify.sh
