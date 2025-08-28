@@ -84,6 +84,7 @@ governance/ledger.jsonl
 capsule/**/*
 !capsule/**/hashes.json
 
+<<<<<<< HEAD
 # --- allow capsule metadata needed by CI ---
 !capsule/current
 !capsule/**/reconstruction.json
@@ -91,3 +92,17 @@ capsule/**/*
 # --- allow capsule metadata needed by CI ---
 !capsule/current
 !capsule/**/reconstruction.json
+=======
+# Allow capsule metadata seeds to be tracked
+!capsule/**/root
+!capsule/**/files
+!capsule/**/count
+
+# --- allow capsule seed metadata to be tracked ---
+!capsule/
+!capsule/**/
+!capsule/**/root
+!capsule/**/files
+!capsule/**/count
+# -----------------------------------------------
+>>>>>>> origin/main
