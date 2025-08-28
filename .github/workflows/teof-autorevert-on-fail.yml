@@ -1,0 +1,41 @@
+name: teof-autorevert-on-fail
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Doctor on main
+        id: doc
+        continue-on-error: true
+        run: |
+          set -e
+          tools/doctor.sh
+      - name: Prepare revert (only on failure)
+        if: steps.doc.outcome == 'failure'
+        run: |
+          set -e
+          # Find latest merge commit that likely came from docs autoprops
+          MERGE_SHA="$(git log --merges --grep='autoprops/' -n 1 --pretty='%H' || true)"
+          if [ -z "$MERGE_SHA" ]; then
+            echo "No matching merge commit found; skipping revert."; exit 0
+          fi
+          echo "Found merge to revert: $MERGE_SHA"
+          git checkout -b "revert/${MERGE_SHA}"
+          git revert --no-edit -m 1 "$MERGE_SHA"
+      - name: Create revert PR
+        if: steps.doc.outcome == 'failure'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "revert: last docs merge broke invariants"
+          title: "autorevert: last docs merge broke invariants"
+          body: "Doctor failed on main; this reverts the latest docs autoprops merge.\nPlease review and merge to restore invariants."
+          labels: auto-revert, invariants
+          branch: "revert/auto-docs"
+          delete-branch: true
