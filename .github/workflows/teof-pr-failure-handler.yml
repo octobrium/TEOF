@@ -1,0 +1,37 @@
+name: teof-pr-failure-handler
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+    branches: [main]
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  gate-docs:
+    if: contains(join(fromJson(toJson(github.event.pull_request.labels)).*.name, ','), 'auto-merge-docs')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Doctor (invariants-only)
+        id: doc
+        run: |
+          set -e
+          # Your doctor should be fast & invariants-only by policy.
+          tools/doctor.sh
+      - name: On failure: stop auto-merge & explain
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            // Remove the auto-merge-docs label to halt automerge
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: pr.number, name: 'auto-merge-docs'
+            }).catch(()=>{});
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: pr.number,
+              body: "⛔ Invariants failed (`tools/doctor.sh`). Auto-merge disabled. Please fix or close."
+            });
