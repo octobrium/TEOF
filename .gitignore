@@ -83,3 +83,8 @@ governance/ledger.jsonl
 # We seed new capsule/<ver> locally from prior version but ONLY commit hashes.json.
 capsule/**/*
 !capsule/**/hashes.json
+
+# Allow capsule metadata seeds to be tracked
+!capsule/**/root
+!capsule/**/files
+!capsule/**/count
