@@ -106,3 +106,5 @@ capsule/**/*
 !capsule/**/count
 # -----------------------------------------------
 >>>>>>> origin/main
+_apoptosis/
+_report/
