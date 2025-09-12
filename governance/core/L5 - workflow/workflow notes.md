@@ -1,3 +1,4 @@
+L4 workflow must serve L3 architecture
 All systems must maintain homeostasis over time, against entropy
 
 Workflow directly serves and operates to maintain / expand architecture

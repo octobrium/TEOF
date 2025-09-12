@@ -1,9 +1,8 @@
-
-
+L3 architecture must serve to fulfill L2 concepts
 
 From observation of the evolution of systems, and emergent functions over time,
 
-All coherent systems respect the following hierarchy:
+coherent systems evolve according to the following hierarchy:
 
 Unity - the system coheres together under observation
 Energy - internal functionality - the system communicates within itself / exchanges energy internally functionally
@@ -22,7 +21,6 @@ Meaning - new emergent unity ascending the system into a singular unit of the ne
 
 Systemic operations and advancement must allocate resources in order of priority with respect to the systemic hierarchy - most mission critical first, and downstream / qol / ux secondary.
 
-
 From observing the past, and the direction of reality progressing towards future,
 It is observed that systems are becoming more powerful and complex and expansive over time.
 
@@ -30,8 +28,5 @@ It can be reasonably concluded that reality is forming a "super organism" with s
 
 
 
-System properties:
-- minimally simplistic, to achieve desired results, minimize attack surface
-- avoid dependency on strict folder paths - i.e better for mechanisms to search, if possible, for the desired target, or perhaps auto-update pathfinding if folders change location.
-- all components 
+
 
