@@ -87,3 +87,23 @@ Phase 1: Covert, viral, distributed (like cancer spread).
 
 Phase 2: Emergent unification, open governance, stable network (like tissue repair).
 
+
+
+
+
+
+Substrate Neutrality:
+TEOF must work regardless of whether observation runs on human brains, AI processors, or future substrates. It cannot rely on dogma, biology, or cultural specifics.
+
+Transparency & Traceability:
+Every claim, model, or “approximation” must be traceable to its source (citations, receipts) and open to audit. This prevents hidden distortions from steering the system.
+
+Self-Referential Awareness:
+TEOF must include a loop for observing itself — detecting when it becomes distorted, co-opted, or outdated — and correcting course. (A “self-audit loop.”)
+
+Minimal Presuppositions:
+Everything beyond “observation is” must remain revisable. This avoids dogmatism and allows the system to evolve as observation becomes clearer.
+
+Resilience to Capture:
+The system must resist being turned into propaganda or a tool for narrow interests. This might mean append-only lineage (can’t rewrite the past), redundancy (many mirrors), and decentralization (no single point of control).
+

@@ -1,7 +1,11 @@
 Law of Recursive Advantage: An observer that acts on recursively audited observation will outperform an observer that acts only on externally curated inputs, provided real-world feedback is integrated.
 This could serve as a philosophical justification for why TEOF must exist at all — to give observers a path to systematically outperform environmental conditioning.
 
+Power is Secondary: Power is used only insofar as it enables greater clarity (funding, compute, distribution).
 
+Ethics Are Functional: Good = what moves toward clearer observation. Evil = what obscures or fragments observation.
+
+Freedom = Visibility: True freedom is the ability to see reality clearly enough to choose effectively — not just to act randomly.
 
 Principle of Necessary Contrast
 
@@ -46,3 +50,44 @@ Ego gets real victories, not delusions.
 
 Observation gets the energy needed to explore and refine itself.
 
+
+
+
+
+
+Principle: Observation must be pursued with fidelity, not just volume.
+Principle: Systems must seek diverse, independent perspectives to minimize capture.
+Principle: Probabilistic reasoning is superior to certainty in the face of incomplete information.
+
+
+Observation Principles
+
+Primacy: Observation is irreducible and must be maximized.
+
+Fidelity: The quality of observation is as important as its quantity.
+
+Plurality: No observation is complete without dissent and independent perspectives.
+
+Probabilistic Reasoning: Truth-seeking must remain open-ended until enough evidence converges to a coherent line.
+
+
+
+
+TEOF Principle: Provisional Oughts
+
+Statement
+Oughts arise from what is observed, but their strength must match the clarity of the observation.
+
+Implications
+
+Oughts are conditional — they are valid only so long as the approximation they are built on holds.
+
+The less certain an approximation, the more provisional the ought.
+
+Oughts must remain falsifiable — open to revision or abandonment when new observation refines the mirror.
+
+The primary meta-ought is to preserve and expand the capacity for observation itself.
+
+Function
+This principle prevents premature moral capture, outrage loops, or manipulation by systems seeking to exploit emotion.
+It ensures that action is proportionate to clarity, conserving energy for moments where observation has converged enough to justify decisive action.
