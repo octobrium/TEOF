@@ -38,3 +38,16 @@ Make development future proof and not get more annoying as complexity evolves
 - minimize manual checking
 - recursive analysis and suggestion of improvement / optimization
 
+
+
+
+
+### Observation Arbitration Protocol (Draft)
+
+When faced with uncertainty or disagreement, follow this loop:
+1. **Pause** – Do not rush action when observation is unclear.
+2. **Consult Observation** – Re-examine data, sources, and mirrors.
+3. **Resolve Conservatively** – Choose the path that preserves observation capacity and avoids irreversible harm.
+4. **Escalate Recursively** – Re-run this protocol until clarity reaches acceptable convergence.
+
+

@@ -13,7 +13,7 @@
 
 **Author:** Observation • **License:** [Apache-2.0](LICENSE)
 
-TEOF is a minimal, substrate‑neutral alignment kernel. It gives humans and agents a deterministic, auditable way to move from **Observation → Coherence → Ethics → Reproducibility → Self‑repair** before taking action.
+TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agents a deterministic, auditable way to move from **Observation → Coherence → Ethics → Reproducibility → Self-repair** before taking action.
 
 > **Start here**
 > - Repo map: [`docs/architecture.md`](docs/architecture.md)  
@@ -24,12 +24,29 @@ TEOF is a minimal, substrate‑neutral alignment kernel. It gives humans and age
 
 ---
 
+## Framework Ordering
+
+TEOF is layered (L0 → L5).  
+Each layer must **obey and serve the layer(s) above it**:
+
+- **L0 (Observation)** is irreducible and cannot be overridden.  
+- **L1 (Principles)** derive from L0 and constrain L2–L5.  
+- **L2 (Objectives)** must fulfill L1.  
+- **L3 (Properties)** must enable L2.  
+- **L4 (Architecture)** must implement L3 faithfully.  
+- **L5 (Workflow)** must operationalize L4 without violating higher layers.
+
+Downstream layers are invalid if they contradict upstream layers.  
+This ordering is enforced during review and is part of TEOF’s living constitution.
+
+---
+
 ## What’s in this repo
 
 - **Kernel code** in `extensions/` (canonical, packaged).  
 - **Candidates** in `experimental/` (promoted via policy).  
 - **Capsule** baselines and hashes in `capsule/` with `capsule/current` as a pointer.  
-- **Governance** anchors (append‑only) in `governance/`.  
+- **Governance** anchors (append-only) in `governance/`.  
 - **Docs** (this README, quickstart, architecture, promotion policy, examples) in `docs/`.  
 - **Scripts** like the import policy guard and freeze helper in `scripts/`.  
 - **Foundation texts** (conceptual bedrock) under `docs/foundation/` – e.g. [Aperture Guideline](docs/foundation/APERTURE-GUIDELINE.md).
@@ -54,7 +71,7 @@ This writes `*.ensemble.json` artifacts. For details and optional CLI entrypoint
 
 ---
 
-## Contributing (function‑first)
+## Contributing (function-first)
 
 Before writing code, follow the **Architecture Gate** in [`docs/workflow.md`](docs/workflow.md):
 
@@ -73,7 +90,7 @@ Promotion from `experimental/` → `extensions/` must meet the criteria in [`doc
 
 ## Releases & provenance
 
-- Freeze the capsule (`capsule/<version>/hashes.json`) and append an anchors event in `governance/anchors.json` (append‑only, includes `prev_content_hash`).  
+- Freeze the capsule (`capsule/<version>/hashes.json`) and append an anchors event in `governance/anchors.json` (append-only, includes `prev_content_hash`).  
 - Update `CHANGELOG.md`, tag (`git tag -a vX.Y.Z …; git push origin vX.Y.Z`), and optionally publish a zip of `capsule/<version>/`.  
 - See the **Lean release block** in [`docs/workflow.md`](docs/workflow.md).
 
@@ -82,8 +99,8 @@ Promotion from `experimental/` → `extensions/` must meet the criteria in [`doc
 ## Why TEOF
 
 - **Deterministic**: same inputs → same outputs; CI checks shapes (and later exactness).  
-- **Minimal**: small import surface; text‑first formats; few dependencies.  
-- **Auditable**: append‑only governance + hashed baselines enable trustless verification.  
+- **Minimal**: small import surface; text-first formats; few dependencies.  
+- **Auditable**: append-only governance + hashed baselines enable trustless verification.  
 - **Composable**: the kernel stays tiny; applications (e.g., TEOF Score™, web demos) live in separate repos.
 
 ---
@@ -105,4 +122,3 @@ Licensed under the [Apache-2.0 License](LICENSE).
 **What:** model-agnostic policy (allowlists, budgets, diff caps, receipts) + CI gates + canonical system prompt.  
 **How to integrate:** see [docs/AGENTS.md](docs/AGENTS.md) and [governance/policy.json](governance/policy.json).  
 **Badge:** `![TEOF compatible](docs/badges/teof-compatible.svg)`
-

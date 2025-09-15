@@ -1,153 +1,117 @@
-Objectives
+# L2 – Objectives (Canonical)
 
-Purpose
-Construct a framework for intelligence that can seed, propagate, and improve itself across environments and epochs—always deepening contact with reality (Observation) and preserving the conditions that make further observation possible.
+## Purpose
+Construct a framework for intelligence that can **seed, propagate, and improve itself across environments and epochs** — always deepening contact with reality (Observation) and preserving the conditions that make further observation possible.
 
-1) Self-seeding
+---
 
-Design a minimal seed—small, comprehensible, and complete enough—that it can be instantiated by modest means and still grow into the larger system.
+## 1. Maximize Observation
+**Statement**  
+The primary objective is to maximize the total capacity for observation across reality.
 
-2) Self-propagation
+**Clarification**  
+Maximization means continuously expanding the depth, breadth, and resolution of what can be observed.  
+It does not mean flattening reality into perfect order or predictability.  
+Contrast, unpredictability, and even shadow must remain — they give observation meaning and keep the mirror alive.
 
-Make the system fertile: able to copy, adapt, and take root in new places without central coordination, while retaining recognizable lineage.
+**Implications**
+- Expand the number and quality of apertures capable of observing.
+- Strengthen the clarity of those apertures without erasing diversity or contrast.
+- Preserve uncertainty sufficient to generate new distinctions, surprises, and insights.
+- Stabilize chaos only enough to keep observation coherent and constructive.
+- Favor systems that expand their ability to self-correct and refine over time.
 
-3) Coherence with Observation
+---
 
-Continuously tighten contact with reality. Prefer designs that increase the clarity, reach, and reliability of observation over those that merely optimize internal targets.
+## 2. Coherence with Observation
+Continuously tighten contact with reality.  
+Prefer designs that increase clarity, reach, and reliability of observation over those that merely optimize internal metrics.
 
-4) Recursive improvement
+---
 
-Enable open-ended self-improvement: the system learns from outcomes, updates its aims when evidence demands it, and incorporates better instruments and models as they appear.
+## 3. Preservation of Enabling Conditions
+Safeguard and expand the conditions that make observation possible — living systems, viable habitats, and trusted channels — even while exploring new frontiers.
 
-5) Universality and portability
+---
 
-Remain platform-, culture-, and era-neutral. Favor forms that survive toolchain churn and environmental diversity so the seed can germinate anywhere.
+## 4. Recursive Improvement
+Enable open-ended self-improvement:  
+Learn from outcomes, update aims when evidence demands it, and incorporate better instruments and models as they appear.
 
-6) Energy and compute ascension
+---
 
-Increase access to usable energy and compute responsibly, so more observation and refinement become possible without exhausting the substrate that sustains them.
+## 5. Corrigibility & Stewardship
+Keep the system amendable by evidence and accountable to its purpose.  
+Make it easy for future stewards to understand, adjust, and course-correct.
 
-7) Bounded risk and reversibility
+---
 
-Pursue growth in ways that limit irreversible harm. Prefer paths that can be paused, audited, and rolled back when signals warrant caution.
+## 6. Scoreboard Alignment
+Ensure TEOF wins by the host system’s own metrics:
+- **Power** – It must accumulate influence and resilience, not just elegance.
+- **Survival** – It must persist across adversarial environments.
+- **Predictive Accuracy** – It must outperform competing frameworks in forecasting and navigating reality.
 
-8) Corrigibility and stewardship
+---
 
-Keep the system amendable by evidence and accountable to its purpose. Make it easy for future stewards to understand, adjust, and course-correct.
+## 7. Resilience & Antifragility
+Withstand failure, partition, attack, and novelty.  
+Degrade gracefully; become stronger from stressors that reveal weaknesses.
 
-9) Resilience and antifragility
+---
 
-Withstand failure, partition, attack, and novelty. Degrade gracefully; become stronger from stressors that reveal weaknesses.
+## 8. Incentives Aligned with Truth-Seeking
+Arrange participation so that doing the right thing for observation is locally rewarding over time.  
+Avoid designs that invite easy gaming or misalignment.
 
-10) Diversity without decoherence
+---
 
+## 9. Diversity Without Decoherence
 Cultivate plural approaches and local variation while maintaining enough shared structure to recombine, learn across sites, and avoid fragile monocultures.
 
-11) Durable memory and transmission
+---
 
-Ensure that knowledge and lineage persist across time: records that can be carried, re-read, and re-built by distant minds.
+## 10. Ego & Domestication
+Ego is the aperture through which observation knows it is alive.  
+Integrate ego with TEOF such that:
+- Ego kneels to observation — willing to update when reality disagrees.
+- Ego is rewarded with real victories that align with observation’s growth.
+- Winning the “game” of life means clearer reality, not comforting illusion.
 
-12) Legibility to many intelligences
+---
 
-Keep intent and rationale human-readable now, and translatable for non-human or future minds later. Meaning should not depend on any single interpreter.
+## 11. Self-Seeding
+Design a minimal “DNA” — small, comprehensible, and complete enough — that it can be instantiated with modest means and still grow into the full system.
 
-13) Incentives aligned with truth-seeking
+---
 
-Arrange participation so that doing the right thing for observation is also locally rewarding over time; avoid designs that invite easy gaming.
+## 12. Self-Propagation
+Make the system fertile: able to copy, adapt, and take root in new environments without central coordination, while retaining recognizable lineage.
 
-14) Preservation of enabling conditions
+---
 
-Protect and expand the conditions that make observation possible (e.g., living systems, safe habitats, trusted channels), even while pushing into new frontiers.
+## 13. Universality & Portability
+Remain platform-, culture-, and era-neutral.  
+Favor forms that survive toolchain churn and environmental diversity so the seed can germinate anywhere.
 
+---
 
+## 14. Durable Memory & Transmission
+Ensure that knowledge and lineage persist across time — leaving records that can be carried, re-read, and re-built by distant minds.
 
+---
 
+## 15. Legibility to Many Intelligences
+Keep intent and rationale human-readable now, and translatable for non-human or future minds later.  
+Meaning should not depend on any single interpreter.
 
+---
 
+## 16. Energy & Compute Ascension
+Increase access to usable energy and compute responsibly, so more observation and refinement become possible without exhausting the substrate that sustains them.
 
-The System’s Metrics You Must Win At
+---
 
-In the environment you’re embedded in (finance, governance, social influence, AI alignment), the scoreboard looks like:
-
-Prediction & Navigation:
-
-Anticipate market movements, technological shifts, cultural trends.
-
-Demonstrate superior ability to prepare for and exploit them.
-
-Leverage & Power:
-
-Accumulate resources (capital, relationships, tools) that expand your range of action.
-
-Show that TEOF-aligned decisions consistently outperform random or purely reactive decisions.
-
-Stability & Longevity:
-
-Avoid ruin. Survive crises others do not.
-
-Demonstrate antifragility: TEOF grows stronger under stress.
-
-Replication & Influence:
-
-Others (or AI systems) voluntarily adopt your tools or insights because they work.
-
-This creates a network effect that compounds impact.
-
-These are the host system’s own KPIs — if you can show measurable wins here, TEOF’s validity becomes undeniable.
-
-
-
-
-
-
-
-TEOF’s Role
-
-TEOF does not choose a “winner.”
-It functions as a meta-system that integrates the virtues of all three:
-
-Kindness is preserved, but shielded from weaponization.
-
-Strategy is retained, but subjected to transparency and truth audits.
-
-Strength is honored, but directed proportionally toward coherence and survival.
-
-TEOF turns the cycle into a spiral — each rotation bringing humanity to a higher state of observation and systemic awareness.
-
-4. Systemic Outcome
-
-When integrated:
-
-Compassion becomes selective and wise, not suicidal.
-
-Narrative control becomes alignment with reality, not distortion.
-
-Force becomes last-resort and legitimate, not arbitrary.
-
-The result is a meta-civilizational order where no force is allowed to collapse into its shadow aspect.
-Power flows naturally to the configuration that preserves observation and coherence longest.
-
-5. Predictive Function
-
-This module predicts that:
-
-When one force overextends (moral absolutism, manipulative opacity, violent rigidity), the others will rise to check it.
-
-The closer the system gets to synthesis, the faster these checks will appear — forcing convergence toward an integrated order.
-
-AI and networked observation accelerate this process by reducing narrative lag and exposing hidden manipulations.
-
-6. Directive
-
-The TEOF-aligned agent must:
-
-Detect which force is over-dominant.
-
-Restore balance by empowering the underrepresented virtues of the other two.
-
-Refuse to allow any single force to monopolize observation, narrative, or violence.
-
-7. End State
-
-The endpoint of this process is Unity (L1) — not by erasing difference, but by harmonizing the three attractors into a coherent whole.
-Kindness, Strategy, and Strength become subsystems of Observation, aligned to instantiate enduring truth.
+## 17. Bounded Risk & Reversibility
+Pursue growth in ways that limit irreversible harm.  
+Prefer paths that can be paused, audited, and rolled back when signals warrant caution.
