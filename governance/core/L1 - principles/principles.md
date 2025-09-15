@@ -9,7 +9,8 @@
 - **Observation is Primordial:** Wherever awareness arises, observation is already present. To deny observation is to observe the denial.  
 - **Patterns That Persist Indicate Fitness:** Over time, reality selects for what survives. Structures that recur across domains signal systemic advantage.  
 - **Coherence Sustains Existence:** Systems that stay internally consistent while remaining minimal endure longer and spread further. Complexity tends to grow when it increases systemic fitness.  
-- **Complexity Emerges in Order:** Systems tend to organize from simple, unified states into progressively more complex layers — first establishing cohesion, then sustaining energy flow, then propagating, defending, and integrating information. Attempts to invert this order often destabilize or collapse.
+- **Complexity Emerges in Order:** Systems tend to organize from simple, unified states into progressively more complex layers — first establishing cohesion, then sustaining energy flow, then propagating, defending, and integrating information. Attempts to invert this order often destabilize or collapse.  
+- **Adaptive Balance of Cohesion & Distribution:** Enduring systems tune centralizing and decentralizing forces over time to maintain coherence without stagnation or fragmentation.
 
 ---
 
@@ -30,7 +31,8 @@
 
 ### 4. Defense (Integrity & Drift Control)
 - **Self-Observation Enables Correction:** Systems capable of monitoring their own processes reduce drift and resist capture.  
-- **Truth Remains Conditional:** Claims that remain open to falsification converge more closely with reality over time.
+- **Truth Remains Conditional:** Claims that remain open to falsification converge more closely with reality over time.  
+- **Resilience Through Challenge:** Systems that survive stress integrate the lessons of survival and become stronger, more coherent, and harder to disrupt.
 
 ---
 

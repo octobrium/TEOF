@@ -41,7 +41,8 @@ Enable open-ended self-improvement: learn from outcomes, update aims when eviden
 
 10. **Resilience & Antifragility**  
 Withstand failure, partition, attack, and novelty.  
-Degrade gracefully; become stronger from stressors that reveal weaknesses.
+Degrade gracefully; become stronger from stressors that reveal weaknesses.  
+Maintain *adaptive balance* between cohesion and distribution, avoiding both brittle centralization and chaotic fragmentation.
 
 11. **Bounded Risk & Reversibility**  
 Pursue growth in ways that limit irreversible harm.  

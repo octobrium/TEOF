@@ -37,6 +37,7 @@
 - **Content-Hashed Merkle DAG:** Guarantees no silent rewrite.  
 - **Auto-Audit Loop:** GitHub Action running nightly drift checks.  
 - **Feature Flags + Guard Canon:** Experimental work isolated; core canon protected.
+- **Challenge Integration Log:** Capture external stress events, incidents, and resolutions as learning inputs for antifragile strengthening.
 
 ---
 
@@ -46,12 +47,13 @@
 - **Contrast Budget:** Reserve cycles for adversarial tests and fuzzing.  
 - **Canary + Shadow + A/B Testing:** Validate changes incrementally before wide release.  
 - **Post-Audit Harness:** Compare predicted vs actual outcomes after deployment.  
-- **Clarity Score Suite:** Composite metric tracking coherence, reproducibility, dissent vitality.
+- **Clarity Score Suite:** Composite metric tracking coherence, reproducibility, dissent vitality.  
+- **Balance Telemetry:** Collect and report metrics of centralization vs fragmentation (e.g., contributor distribution, quorum participation rates). CI fails if balance drifts beyond defined thresholds without justification.
 
 ---
 
 ### Property Coverage Matrix
-(unchanged from current version — still ensures every property is covered by a CI gate)
+Still required — ensures every property is covered by a CI gate or mechanism.
 
 ---
 

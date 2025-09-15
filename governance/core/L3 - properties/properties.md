@@ -12,9 +12,10 @@ Properties are organized in the natural order of systemic emergence: **Unity →
 
 ---
 
-### 1. Unity
-1. **Substrate Neutrality** – keeps the seed portable across substrates and epochs.  
-2. **Emergent Unity** – ensures integration with host systems without parasitism, maintaining internal coherence.
+### 1. Unity  
+- **Substrate Neutrality:** The system must be able to exist and run on any platform, medium, or substrate without dependence on a specific one.  
+- **Emergent Unity:** The system encourages distributed participation and ensures that parts reinforce, rather than compete with, the coherence of the whole.  
+- **Aligned Incentive Gradient:** Contributions that enhance clarity and coherence are naturally rewarded — recognition and influence accrue to those who help the system thrive, but participation remains open so anyone can benefit by aligning.
 
 ---
 
@@ -42,7 +43,8 @@ Properties are organized in the natural order of systemic emergence: **Unity →
 
 ### 5. Intelligence & Truth
 13. **Clarity-Weighted Action** – scales action to the clarity of evidence.  
-14. **Dynamic Equilibrium** – preserves contrast and diversity without losing stability.  
+14. **Dynamic Equilibrium** – preserves contrast and diversity without losing stability, 
+actively tuning the balance between unifying forces and decentralizing pressures over time.
 15. **Adaptive Mutation with Core Integrity** – allows safe experimentation without losing canon.  
 16. **Iterative Integration** – learns from change and converges toward coherence.  
 17. **Mirror Fitness Function** – quantifies clarity and coherence as a north-star metric.
