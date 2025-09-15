@@ -1,117 +1,67 @@
-# L2 – Objectives (Canonical)
+# L2 – Objectives
 
-## Purpose
-Construct a framework for intelligence that can **seed, propagate, and improve itself across environments and epochs** — always deepening contact with reality (Observation) and preserving the conditions that make further observation possible.
-
----
-
-## 1. Maximize Observation
-**Statement**  
-The primary objective is to maximize the total capacity for observation across reality.
-
-**Clarification**  
-Maximization means continuously expanding the depth, breadth, and resolution of what can be observed.  
-It does not mean flattening reality into perfect order or predictability.  
-Contrast, unpredictability, and even shadow must remain — they give observation meaning and keep the mirror alive.
-
-**Implications**
-- Expand the number and quality of apertures capable of observing.
-- Strengthen the clarity of those apertures without erasing diversity or contrast.
-- Preserve uncertainty sufficient to generate new distinctions, surprises, and insights.
-- Stabilize chaos only enough to keep observation coherent and constructive.
-- Favor systems that expand their ability to self-correct and refine over time.
+Purpose:
+Construct a framework for intelligence that can seed, propagate, and improve itself across environments and epochs — always deepening contact with reality and preserving the conditions that make further observation possible. Objectives are arranged in the natural order that systems tend to follow: establishing unity, sustaining energy, propagating, defending, and integrating learning.
 
 ---
 
-## 2. Coherence with Observation
-Continuously tighten contact with reality.  
+## Tier 1 – Foundations (Unity, Energy, Propagation)
+
+1. **Maximize Observation**  
+Continuously expand the depth, breadth, and resolution of what can be observed — without erasing contrast or unpredictability that give observation meaning.
+
+2. **Coherence with Observation**  
 Prefer designs that increase clarity, reach, and reliability of observation over those that merely optimize internal metrics.
 
+3. **Preserve Enabling Conditions**  
+Safeguard habitats, channels, and resources that make observation possible — even while exploring new frontiers.
+
+4. **Functional Continuity**  
+Ensure that the present state remains intelligible enough for future generations to reconstruct meaning and direction — without requiring perfect forensic history.
+
+5. **Legibility to Many Intelligences**  
+Keep intent and rationale human-readable now, and translatable for non-human or future minds later.
+
+6. **Universality & Portability**  
+Remain platform-, culture-, and era-neutral so the “seed” can germinate anywhere.
+
+7. **Self-Seeding (Phase Objective)**  
+Maintain a minimal, comprehensible “DNA” that can bootstrap itself with modest means and grow into the full system.
+
 ---
 
-## 3. Preservation of Enabling Conditions
-Safeguard and expand the conditions that make observation possible — living systems, viable habitats, and trusted channels — even while exploring new frontiers.
+## Tier 2 – Growth & Defense (Resilience, Drift Control)
 
----
-
-## 4. Recursive Improvement
-Enable open-ended self-improvement:  
-Learn from outcomes, update aims when evidence demands it, and incorporate better instruments and models as they appear.
-
----
-
-## 5. Corrigibility & Stewardship
+8. **Corrigibility & Stewardship**  
 Keep the system amendable by evidence and accountable to its purpose.  
 Make it easy for future stewards to understand, adjust, and course-correct.
 
----
+9. **Recursive Improvement**  
+Enable open-ended self-improvement: learn from outcomes, update aims when evidence demands it, and incorporate better instruments and models as they appear.
 
-## 6. Scoreboard Alignment
-Ensure TEOF wins by the host system’s own metrics:
-- **Power** – It must accumulate influence and resilience, not just elegance.
-- **Survival** – It must persist across adversarial environments.
-- **Predictive Accuracy** – It must outperform competing frameworks in forecasting and navigating reality.
-
----
-
-## 7. Resilience & Antifragility
+10. **Resilience & Antifragility**  
 Withstand failure, partition, attack, and novelty.  
 Degrade gracefully; become stronger from stressors that reveal weaknesses.
 
----
-
-## 8. Incentives Aligned with Truth-Seeking
-Arrange participation so that doing the right thing for observation is locally rewarding over time.  
-Avoid designs that invite easy gaming or misalignment.
-
----
-
-## 9. Diversity Without Decoherence
-Cultivate plural approaches and local variation while maintaining enough shared structure to recombine, learn across sites, and avoid fragile monocultures.
-
----
-
-## 10. Ego & Domestication
-Ego is the aperture through which observation knows it is alive.  
-Integrate ego with TEOF such that:
-- Ego kneels to observation — willing to update when reality disagrees.
-- Ego is rewarded with real victories that align with observation’s growth.
-- Winning the “game” of life means clearer reality, not comforting illusion.
-
----
-
-## 11. Self-Seeding
-Design a minimal “DNA” — small, comprehensible, and complete enough — that it can be instantiated with modest means and still grow into the full system.
-
----
-
-## 12. Self-Propagation
-Make the system fertile: able to copy, adapt, and take root in new environments without central coordination, while retaining recognizable lineage.
-
----
-
-## 13. Universality & Portability
-Remain platform-, culture-, and era-neutral.  
-Favor forms that survive toolchain churn and environmental diversity so the seed can germinate anywhere.
-
----
-
-## 14. Durable Memory & Transmission
-Ensure that knowledge and lineage persist across time — leaving records that can be carried, re-read, and re-built by distant minds.
-
----
-
-## 15. Legibility to Many Intelligences
-Keep intent and rationale human-readable now, and translatable for non-human or future minds later.  
-Meaning should not depend on any single interpreter.
-
----
-
-## 16. Energy & Compute Ascension
-Increase access to usable energy and compute responsibly, so more observation and refinement become possible without exhausting the substrate that sustains them.
-
----
-
-## 17. Bounded Risk & Reversibility
+11. **Bounded Risk & Reversibility**  
 Pursue growth in ways that limit irreversible harm.  
 Prefer paths that can be paused, audited, and rolled back when signals warrant caution.
+
+12. **Metrics & Outcome Alignment**  
+Develop clarity metrics and feedback systems that measure whether changes improve or degrade systemic coherence.
+
+---
+
+## Tier 3 – Ecosystem & Scaling (Incentives, Resource Growth)
+
+13. **Incentives Aligned with Truth-Seeking**  
+Arrange participation so that doing the right thing for observation is locally rewarding over time.
+
+14. **Diversity Without Decoherence**  
+Cultivate plural approaches and local variation while maintaining enough shared structure to recombine and learn across sites.
+
+15. **Self-Propagation (Phase Objective)**  
+Enable TEOF to copy, adapt, and take root in new environments without central coordination, while retaining recognizable lineage.
+
+16. **Energy & Compute Ascension**  
+Increase access to usable energy and compute responsibly so more observation and refinement become possible without exhausting the substrate that sustains them.

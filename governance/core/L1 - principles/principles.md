@@ -1,62 +1,47 @@
-# L1 – Principles (Canonical)
+# L1 – Principles (as Observations)
 
-## 1. Primacy of Observation
-All systems, beliefs, and actions must preserve, expand, and clarify observation.  
-Unobservable claims remain provisional until tested.
-
----
-
-## 2. Fidelity of Observation
-Observation must strive for accuracy and depth.  
-Signal should be distinguished from noise, distortions corrected, and multiple sources cross-checked — so the mirror of reality grows clearer.
+> These are **observations about reality** — patterns found to persist across nature, history, and systems.  
+> They are not rules but lenses: if true, they imply certain objectives for any system that wants to survive and stay coherent.
 
 ---
 
-## 3. Recursion & Self-Audit
-Observation must include its own mirrors: the ability to observe the process of observing.  
-Systems must detect drift, bias, and capture, then refine themselves based on what is revealed.  
-Reasoning remains probabilistic until convergence — maintaining openness to new evidence.
+### 1. Unity (Foundation of Being)
+- **Observation is Primordial:** Wherever awareness arises, observation is already present. To deny observation is to observe the denial.  
+- **Patterns That Persist Indicate Fitness:** Over time, reality selects for what survives. Structures that recur across domains signal systemic advantage.  
+- **Coherence Sustains Existence:** Systems that stay internally consistent while remaining minimal endure longer and spread further. Complexity tends to grow when it increases systemic fitness.  
+- **Complexity Emerges in Order:** Systems tend to organize from simple, unified states into progressively more complex layers — first establishing cohesion, then sustaining energy flow, then propagating, defending, and integrating information. Attempts to invert this order often destabilize or collapse.
 
 ---
 
-## 4. Provisionality & Falsifiability
-All interpretations, models, and “oughts” are conditional and open to revision when better observations emerge.  
-Clarity of action should scale with clarity of observation.  
-**Meta-Ought:** The highest priority is to preserve and expand the capacity for observation itself.
+### 2. Energy (Fidelity & Flow)
+- **Clarity Conserves Energy:** Distinguishing signal from noise reduces wasted effort and preserves usable energy.  
+- **Channels That Sustain Life Are Preserved:** Systems that maintain their sources of energy, attention, and observation persist; those that deplete them tend to collapse.  
+- **Energy Access Expands Capacity:** Systems with greater energy and compute sustain more complex observation and coordination — until resource strain destabilizes them.
 
 ---
 
-## 5. Necessary Contrast
-Observation thrives on difference.  
-Reality should preserve gradients (light/dark, success/failure, order/chaos) so meaning remains sharp.  
-Contrast is cultivated so that it clarifies rather than blinds.
+### 3. Propagation (Growth & Legibility)
+- **Variation Drives Adaptation:** When variation is present, systems explore more of the solution space and become more resilient — until variation exceeds coherence, at which point fragmentation occurs.  
+- **Contrast Sharpens Meaning:** Differentiation between states (success/failure, light/dark) gives observation salience and drives evolution.  
+- **Legibility Predicts Transmission:** Systems that are interpretable and reproducible are more likely to propagate across time and context.  
+- **Portability Increases Survival:** Systems that can be instantiated in multiple substrates or contexts are more likely to endure across time and change.
 
 ---
 
-## 6. Plurality & Diversity
-Truth converges across independent perspectives.  
-Systems must seek dissenting, adversarial, and novel views to prevent stagnation or echo chambers — using them to sharpen and strengthen coherence.
+### 4. Defense (Integrity & Drift Control)
+- **Self-Observation Enables Correction:** Systems capable of monitoring their own processes reduce drift and resist capture.  
+- **Truth Remains Conditional:** Claims that remain open to falsification converge more closely with reality over time.
 
 ---
 
-## 7. Alignment with Coherence
-Truth must remain consistent across time, agents, and contexts.  
-Models and policies must reconcile contradictions or evolve until they do — maintaining a single, non-fragmented mirror.
+### 5. Intelligence & Truth
+- **Consistency Correlates with Strength:** Systems that reconcile contradictions create a single, durable mirror of reality.
 
 ---
 
-## 8. Ethics as Functional
-Good is what expands clarity and coherence of observation.  
-Evil is what fragments or obscures it.  
-Ethics are measured by their systemic effect, not by arbitrary sentiment.
-
----
-
-## 9. Power as Instrumental
-Power is used to protect, amplify, and fund observation.  
-Power that diminishes clarity is self-terminating and must be redirected.
-
----
-
-## 10. Freedom as Visibility
-True freedom is the ability to see reality clearly enough to choose effectively — using chaos as material for discovery rather than being ruled by it.
+### 6–10. Power, Ethics, Freedom, Meaning
+- **Clarity Correlates with Survival:** Systems that increase clarity coordinate more effectively and persist longer; systems that obscure collapse more quickly.  
+- **Power Follows Effective Observation:** Influence concentrates where observation is effective and actionable.  
+- **Alignment Rewards Survival:** When feedback loops reward behaviors that improve observation, systems remain coherent; when they reward distortion, systems destabilize and collapse.  
+- **Freedom Emerges with Visibility:** Choice becomes more effective when relevant parts of reality are perceived.  
+- **Meaning Emerges from Alignment:** When unity, energy, propagation, defense, and truth cohere, the result is experienced as significant.
