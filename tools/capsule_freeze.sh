@@ -33,18 +33,22 @@ fi
 python3 scripts/ci/make_hashes.py "$SRC" > "$SRC/hashes.json"
 echo "→ wrote $SRC/hashes.json"
 
-# Prepare anchors event stub (do not append; write to _report)
-# prev_content_hash = SHA-256(HEAD:governance/anchors.json)
-HEAD_HASH="$(git show HEAD:governance/anchors.json 2>/dev/null | shasum -a 256 | awk '{print $1}')"
-[ -z "${HEAD_HASH}" ] && HEAD_HASH="$(python3 - <<'PY'
-import sys,hashlib,subprocess
+compute_head_hash() {
+  python3 - <<'PY'
+import hashlib
+import subprocess
 try:
-    b = subprocess.check_output(["git","show","HEAD:governance/anchors.json"])
-    print(hashlib.sha256(b).hexdigest())
+    data = subprocess.check_output(["git", "show", "HEAD:governance/anchors.json"], stderr=subprocess.DEVNULL)
 except Exception:
     print("")
+else:
+    print(hashlib.sha256(data).hexdigest())
 PY
-)"
+}
+
+# Prepare anchors event stub (do not append; write to _report)
+# prev_content_hash = SHA-256(HEAD:governance/anchors.json)
+HEAD_HASH="$(compute_head_hash)"
 TS="$(date -u +%Y%m%dT%H%M%SZ)"
 mkdir -p _report/anchors
 cat > "_report/anchors/new_event.${V}.json" <<EOF

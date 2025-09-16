@@ -3,6 +3,7 @@ set -euo pipefail
 
 BASE=${1:-origin/main}
 fail=0
+# Hard-fail sections should set fail=1 via err(); warn-only sections print via warn().
 err(){ printf '%s\n' "$@" >&2; fail=1; }
 warn(){ printf '%s\n' "$@" >&2; }
 
@@ -61,8 +62,6 @@ if git_non_archive | grep -zE '(\.bak$|\.save$|(^|/)\.DS_Store$)' >/dev/null; th
   fail=1
 fi
 
-exit $fail
-
 # --- UPPERCASE docs filename policy (warn by default; fail if STRICT_CAPS=1) ---
 if [ -d "docs" ]; then
   upper_docs="$(git ls-files docs | grep -E 'docs/.*/.*[A-Z].*\.md$' || true)"
@@ -80,3 +79,5 @@ fi
 if [ ! -L "capsule/current" ]; then
   echo "WARN: capsule/current is not a symlink (prefer symlink -> version dir)"
 fi
+
+exit $fail

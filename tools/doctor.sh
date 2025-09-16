@@ -4,10 +4,12 @@ echo "🩺  Running doctor (invariants first)..."
 
 # 1) Delegate to ops doctor if present, but filter a known harmless noise line.
 if [ -x "scripts/ops/doctor.sh" ]; then
-  set +e
-  _OUT="$(scripts/ops/doctor.sh 2>&1)"
-  _CODE=$?
-  set -e
+  _OUT=""
+  if ! _OUT="$(scripts/ops/doctor.sh 2>&1)"; then
+    _CODE=$?
+  else
+    _CODE=0
+  fi
   # Show everything except the benign queue notice; preserve exit code.
   printf "%s\n" "$_OUT" | awk '$0!="Unexpected top-level dir: queue"'
   if [ $_CODE -ne 0 ]; then

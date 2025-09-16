@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
-DIR="capsule/v1.5"
+# Optional arg may be a capsule path (capsule/vX.Y) or bare version (vX.Y); default uses capsule/current.
+TARGET="${1:-}"
+if [[ -z "$TARGET" ]]; then
+  if [[ -f "capsule/current" ]]; then
+    TARGET="capsule/$(tr -d '\n' < capsule/current)"
+  else
+    TARGET="capsule/v1.5"
+  fi
+elif [[ "$TARGET" != capsule/* ]]; then
+  TARGET="capsule/${TARGET}"
+fi
+
+DIR="$TARGET"
 J="$DIR/hashes.json"
 
 if ! command -v jq >/dev/null 2>&1; then

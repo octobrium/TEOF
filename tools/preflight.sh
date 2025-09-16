@@ -42,6 +42,20 @@ ensure_labels() {
     --color "2ea043" --description "Docs-only: allow auto-merge when checks pass" >/dev/null 2>&1 || true
 }
 
+json_field() {
+  printf '%s\n' "$1" | python3 - "$2" <<'PY'
+import json
+import sys
+
+try:
+    data = json.load(sys.stdin)
+except Exception:
+    print("")
+else:
+    print(data.get(sys.argv[1], ""))
+PY
+}
+
 git_dirty() { git status --porcelain=v1 | grep -q .; }
 fail() { echo "ERROR: $*" >&2; exit 1; }
 
@@ -125,8 +139,17 @@ cmd_ship() {
   git push -u origin "$branch"
 
   echo "→ Create PR"
-  PR_URL=$(gh pr create -H "$branch" -B main -t "$MSG" -b "" | tail -n1)
-  PR_NUM=$(gh pr view "$PR_URL" --json number -q .number)
+  PR_URL=""; PR_NUM=""; _PR_JSON=""
+  if _PR_JSON=$(gh pr create -H "$branch" -B main -t "$MSG" -b "" --json url,number 2>/dev/null); then
+    PR_URL=$(json_field "$_PR_JSON" url)
+    PR_NUM=$(json_field "$_PR_JSON" number)
+  else
+    _PR_JSON=$(gh pr view "$branch" --json url,number 2>/dev/null || true)
+    if [ -n "$_PR_JSON" ]; then
+      PR_URL=$(json_field "$_PR_JSON" url)
+      PR_NUM=$(json_field "$_PR_JSON" number)
+    fi
+  fi
 
   if [[ "$TYPE" == "docs" ]]; then
     echo "→ Label & arm auto-merge"

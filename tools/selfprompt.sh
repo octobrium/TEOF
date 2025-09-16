@@ -10,7 +10,21 @@ if [[ ! -f "$POLICY_FILE" ]]; then
 fi
 
 # Parse a couple of knobs (safe if jq missing)
-jqget(){ command -v jq >/dev/null 2>&1 && jq -r "$1" "$POLICY_FILE" || echo "$2"; }
+jqget(){
+  local expr="$1" default="$2" value=""
+  if command -v jq >/dev/null 2>&1; then
+    if value="$(jq -r "$expr" "$POLICY_FILE" 2>/dev/null)"; then
+      if [ -n "$value" ] && [ "$value" != "null" ]; then
+        echo "$value"
+        return
+      fi
+    fi
+    echo "selfprompt: jq failed for $expr in $POLICY_FILE; defaulting to $default" >&2
+  else
+    echo "selfprompt: jq not found; defaulting $expr to $default" >&2
+  fi
+  echo "$default"
+}
 MAX_STEPS="$(jqget '.max_steps // 10' 10)"
 NO_CAND_LIMIT="$(jqget '.no_candidate_streak // 3' 3)"
 

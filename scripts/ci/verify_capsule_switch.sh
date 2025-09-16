@@ -8,7 +8,15 @@ CHANGED="$(git diff --name-only "$BASE"...HEAD)"
 echo "Changed paths:"; echo "$CHANGED" | sed 's/^/  - /'
 
 # Exactly one file changed and it must be capsule/current
-if [ "$(echo "$CHANGED" | wc -l | tr -d ' ')" != "1" ] || [ "$CHANGED" != "capsule/current" ]; then
+non_empty=0
+first_path=""
+while IFS= read -r path; do
+  [ -z "$path" ] && continue
+  non_empty=$((non_empty + 1))
+  [ -z "$first_path" ] && first_path="$path"
+done <<<"$CHANGED"
+
+if [ "$non_empty" -ne 1 ] || [ "$first_path" != "capsule/current" ]; then
   echo "ERROR: switch PR must change only 'capsule/current'."; exit 1
 fi
 
