@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-reconcile-pipeline",
+  "created": "2025-09-17T20:24:30Z",
+  "actor": "Octo",
+  "summary": "Compose reconciliation pipeline",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Draft end-to-end flow",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement pipeline script",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Demo run + receipts",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
