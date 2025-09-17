@@ -7,6 +7,7 @@ import json
 import re
 import subprocess
 import sys
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 from typing import Iterable, List
@@ -255,6 +256,92 @@ def cmd_show(args: argparse.Namespace) -> int:
         print("plan receipts: " + ", ".join(receipts))
     return 0
 
+
+def _collect_plan_rows(strict: bool) -> tuple[List[dict], List[tuple[Path, List[str]]]]:
+    rows: List[dict] = []
+    failures: List[tuple[Path, List[str]]] = []
+    for path in sorted(DEFAULT_PLAN_DIR.glob("*.plan.json")):
+        result = validate_plan(path, strict=strict)
+        if not result.ok or result.plan is None:
+            failures.append((path, result.errors))
+            continue
+        plan = result.plan
+        steps = plan.get("steps") or []
+        total_steps = len(steps)
+        done_steps = sum(1 for step in steps if step.get("status") == "done")
+        rows.append(
+            {
+                "plan_id": plan.get("plan_id"),
+                "status": plan.get("status"),
+                "checkpoint": (plan.get("checkpoint") or {}).get("status"),
+                "steps_total": total_steps,
+                "steps_done": done_steps,
+                "receipts": len(plan.get("receipts") or []),
+                "path": str(path.relative_to(ROOT)),
+            }
+        )
+    return rows, failures
+
+
+def _print_plan_table(rows: List[dict]) -> None:
+    if not rows:
+        print("(no plans found)")
+        return
+
+    headers = ["plan_id", "status", "checkpoint", "steps", "receipts"]
+    widths = {key: len(key) for key in headers}
+    formatted: List[dict] = []
+    for row in rows:
+        cell_map = {
+            "plan_id": row["plan_id"],
+            "status": row["status"],
+            "checkpoint": row["checkpoint"] or "-",
+            "steps": f"{row['steps_done']}/{row['steps_total']}",
+            "receipts": str(row["receipts"]),
+        }
+        for key, value in cell_map.items():
+            widths[key] = max(widths[key], len(str(value)))
+        formatted.append(cell_map)
+
+    def format_row(cell_map: dict) -> str:
+        return "  ".join(str(cell_map[key]).ljust(widths[key]) for key in headers)
+
+    print(format_row({key: key for key in headers}))
+    print("  ".join("-" * widths[key] for key in headers))
+    for cell_map in formatted:
+        print(format_row(cell_map))
+
+    counter = Counter(row["status"] for row in rows)
+    summary = ", ".join(f"{status}={counter[status]}" for status in sorted(counter))
+    print(f"\nplans: {len(rows)} ({summary})")
+
+
+def cmd_list(args: argparse.Namespace) -> int:
+    rows, failures = _collect_plan_rows(strict=args.strict)
+    if failures:
+        for path, errs in failures:
+            print(f"error:{path.relative_to(ROOT)}", file=sys.stderr)
+            for err in errs:
+                print(f"  - {err}", file=sys.stderr)
+        return 2
+
+    if args.format == "json":
+        payload = [
+            {
+                "plan_id": row["plan_id"],
+                "status": row["status"],
+                "checkpoint": row["checkpoint"],
+                "steps": {"done": row["steps_done"], "total": row["steps_total"]},
+                "receipts": row["receipts"],
+                "path": row["path"],
+            }
+            for row in rows
+        ]
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        _print_plan_table(rows)
+    return 0
+
 def cmd_status(args: argparse.Namespace) -> int:
     plan_path = _resolve_plan_path(args.plan)
     data = _load_plan(plan_path)
@@ -407,6 +494,10 @@ def build_parser() -> argparse.ArgumentParser:
     status.add_argument("status", choices=PLAN_STATUS_VALUES, help="New status")
     status.set_defaults(func=cmd_status)
 
+    plist = sub.add_parser("list", help="List plans and their statuses")
+    plist.add_argument("--format", choices=["table", "json"], default="table")
+    plist.add_argument("--strict", action="store_true", help="Validate plans strictly before listing")
+    plist.set_defaults(func=cmd_list)
 
     show = sub.add_parser("show", help="Display plan summary")
     show.add_argument("plan", help="Plan path or id")

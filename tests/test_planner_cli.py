@@ -283,3 +283,73 @@ def test_cli_show_outputs_summary(planner_root: Path, capsys: pytest.CaptureFixt
     assert exit_code == 0
     out = capsys.readouterr().out
     assert "plan_id: 2025-09-17-show" in out
+
+
+
+def test_cli_list_outputs_table(planner_root: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    plan_dir = planner_root / "_plans"
+    run_cli(
+        [
+            "new",
+            "list-table",
+            "--summary",
+            "Table plan",
+            "--actor",
+            "tester",
+            "--plan-dir",
+            str(plan_dir),
+            "--timestamp",
+            "2025-09-17T00:00:00Z",
+        ]
+    )
+    capsys.readouterr()
+    run_cli(
+        [
+            "new",
+            "list-done",
+            "--summary",
+            "Done plan",
+            "--actor",
+            "tester",
+            "--plan-dir",
+            str(plan_dir),
+            "--timestamp",
+            "2025-09-18T00:00:00Z",
+        ]
+    )
+    capsys.readouterr()
+    plan_path = plan_dir / "2025-09-18-list-done.plan.json"
+    data = read_plan(plan_path)
+    data["status"] = "done"
+    data["steps"][0]["status"] = "done"
+    plan_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    exit_code = run_cli(["list"])
+    assert exit_code == 0
+    out = capsys.readouterr().out
+    assert "plan_id" in out
+    assert "2025-09-17-list-table" in out
+    assert "plans:" in out
+
+
+def test_cli_list_outputs_json(planner_root: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    plan_dir = planner_root / "_plans"
+    run_cli(
+        [
+            "new",
+            "list-json",
+            "--summary",
+            "JSON plan",
+            "--actor",
+            "tester",
+            "--plan-dir",
+            str(plan_dir),
+            "--timestamp",
+            "2025-09-19T00:00:00Z",
+        ]
+    )
+    capsys.readouterr()
+    exit_code = run_cli(["list", "--format", "json"])
+    assert exit_code == 0
+    data = json.loads(capsys.readouterr().out)
+    assert any(item["plan_id"] == "2025-09-19-list-json" for item in data)

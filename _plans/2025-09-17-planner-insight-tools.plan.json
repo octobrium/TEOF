@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-planner-insight-tools",
+  "created": "2025-09-17T07:57:30Z",
+  "actor": "codex",
+  "summary": "Add planner list/report helpers for quick status insight",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design CLI list/report UX",
+      "status": "done",
+      "notes": "Finalized CLI list UX (table/json)",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement list command + tests",
+      "status": "done",
+      "receipts": [
+        "_report/planner/20250917T080220Z-714227ed.json"
+      ],
+      "notes": "Implemented list command + tests"
+    },
+    {
+      "id": "S3",
+      "title": "Document usage and update memory",
+      "status": "done",
+      "receipts": [],
+      "notes": "Documented list usage and logged memory entry"
+    }
+  ],
+  "checkpoint": {
+    "description": "planner list surfaces actionable status totals and passes strict validation",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/planner/20250917T080220Z-714227ed.json"
+  ]
+}
