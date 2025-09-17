@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-reconciliation",
+  "created": "2025-09-17T19:27:50Z",
+  "actor": "Octo",
+  "summary": "Sketch cross-instance reconciliation",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Survey existing provenance hooks",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Draft handshake outline",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Note next steps + receipts",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
