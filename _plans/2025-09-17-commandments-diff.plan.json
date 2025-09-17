@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-commandments-diff",
+  "created": "2025-09-17T21:03:31Z",
+  "actor": "Octo",
+  "summary": "Prototype semantic diff for commandments",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review existing hashes",
+      "status": "done",
+      "notes": "Hashes available via reconcile_hello; diff should annotate actual line changes.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement diff script",
+      "status": "done",
+      "notes": "Added tools/reconcile_commandments_diff.py (unified diff).",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Test + receipts",
+      "status": "done",
+      "notes": "Runner receipt _report/runner/20250917T210558Z-0623753d.json for commandments diff demo.",
+      "receipts": [
+        "_report/runner/20250917T210558Z-0623753d.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": [
+    "_report/runner/20250917T210558Z-0623753d.json"
+  ]
+}
