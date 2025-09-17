@@ -21,15 +21,18 @@ EXAMPLES_DIR = ROOT / "docs" / "examples" / "brief" / "inputs"
 ARTIFACT_ROOT = ROOT / "artifacts" / "ocers_out"
 
 
-def _write_brief_outputs(output_dir: pathlib.Path) -> None:
+def _write_brief_outputs(output_dir: pathlib.Path) -> list[dict[str, object]]:
     """Score bundled brief inputs and write ensemble outputs."""
     files = sorted(EXAMPLES_DIR.glob("*.txt"))
+    records: list[dict[str, object]] = []
     for path in files:
         result = score_file(path)
         out_path = output_dir / f"{path.stem}.ensemble.json"
         with out_path.open("w", encoding="utf-8") as handle:
             json.dump(result, handle, ensure_ascii=False, indent=2)
             handle.write("\n")
+        records.append({"input": path.name, "output": out_path.name, "result": result})
+    return records
 
 
 def cmd_brief(_: argparse.Namespace) -> int:
@@ -38,7 +41,19 @@ def cmd_brief(_: argparse.Namespace) -> int:
     dest = ARTIFACT_ROOT / timestamp
     dest.mkdir(parents=True, exist_ok=True)
 
-    _write_brief_outputs(dest)
+    records = _write_brief_outputs(dest)
+
+    summary = {
+        "generated_at": timestamp,
+        "inputs": [record["input"] for record in records],
+        "artifacts": [record["output"] for record in records],
+    }
+    with (dest / "brief.json").open("w", encoding="utf-8") as handle:
+        json.dump(summary, handle, ensure_ascii=False, indent=2)
+        handle.write("\n")
+
+    with (dest / "score.txt").open("w", encoding="utf-8") as handle:
+        handle.write("ensemble_count=" + str(len(records)) + "\n")
 
     latest = ARTIFACT_ROOT / "latest"
     if latest.exists() or latest.is_symlink():
