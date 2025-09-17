@@ -4,35 +4,39 @@
   "created": "2025-09-17T18:25:28Z",
   "actor": "Octo",
   "summary": "Smooth runner command UX",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Audit current runner ergonomics",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Identified friction: commands requiring shell pipes need manual tokenization; frequent runpy warnings noted.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Improve command parsing",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Added --shell flag for runner; shell commands now reuse /bin/zsh and receipts flag usage.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Add tests + receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Pytest receipt captured via runner to verify --shell behaviour.",
+      "receipts": [
+        "_report/runner/20250917T183031Z-9bf8e413.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T183031Z-9bf8e413.json"
+  ]
 }

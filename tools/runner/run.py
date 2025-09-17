@@ -23,6 +23,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--force", action="store_true", help="Ignore cache even if present")
     parser.add_argument("--label", help="Optional label for the receipt")
     parser.add_argument("--receipt-dir", default=str(DEFAULT_RECEIPT_DIR))
+    parser.add_argument("--shell", action="store_true", help="Treat the remainder as a shell command (runs via $SHELL)")
     parser.add_argument("cmd", nargs=argparse.REMAINDER, help="Command to execute (prefix with --)")
     args = parser.parse_args()
     if not args.cmd:
@@ -70,7 +71,8 @@ def save_receipt(receipt_dir: Path, payload: dict) -> Path:
 def main() -> int:
     args = parse_args()
     cwd = Path.cwd()
-    digest = command_hash(args.cmd, cwd)
+    hash_tokens = args.cmd if not args.shell else ["__shell__", " \n".join(args.cmd)]
+    digest = command_hash(hash_tokens, cwd)
     cache_path = CACHE_DIR / f"{digest}.json"
 
     cached_payload = None
@@ -85,19 +87,34 @@ def main() -> int:
             sys.stderr.write(cached_payload["stderr"])
         return cached_payload.get("exit_code", 0)
 
-    print(f"[runner] exec: {' '.join(args.cmd)}")
-    proc = subprocess.run(args.cmd, capture_output=True, text=True)
+    if args.shell:
+        shell_cmd = " \n".join(args.cmd)
+        shell_exe = os.environ.get("SHELL") or "/bin/sh"
+        print(f"[runner] exec (shell): {shell_cmd}")
+        proc = subprocess.run(
+            shell_cmd,
+            capture_output=True,
+            text=True,
+            shell=True,
+            executable=shell_exe,
+        )
+        command_payload = shell_cmd
+    else:
+        print(f"[runner] exec: {' '.join(args.cmd)}")
+        proc = subprocess.run(args.cmd, capture_output=True, text=True)
+        command_payload = args.cmd
 
     payload = {
         "timestamp": datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
         "label": args.label,
-        "command": args.cmd,
+        "command": command_payload,
         "cwd": str(cwd),
         "exit_code": proc.returncode,
         "stdout": proc.stdout,
         "stderr": proc.stderr,
         "hash": digest,
         "cached": False,
+        "shell": args.shell,
     }
 
     plan_id = os.environ.get("TEOF_PLAN_ID")
@@ -108,7 +125,8 @@ def main() -> int:
         payload["plan_step_id"] = plan_step_id
 
     save_cache(cache_path, payload)
-    receipt_path = save_receipt(Path(args.receipt_dir), payload)
+    receipt_dir = Path(args.receipt_dir).resolve()
+    receipt_path = save_receipt(receipt_dir, payload)
     print(f"[runner] receipt: {receipt_path.relative_to(ROOT)}")
 
     sys.stdout.write(proc.stdout)
