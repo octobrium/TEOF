@@ -59,6 +59,7 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
     assert data["actor"] == "tester"
     assert data["status"] == "queued"
     assert [step["id"] for step in data["steps"]] == ["S1", "S2"]
+    assert all(step["notes"] == "(CMD-__)" for step in data["steps"])
     assert data["checkpoint"]["description"] == "Ensure test coverage"
 
     result = validate_plan(plan_path, strict=True)
@@ -172,6 +173,7 @@ def test_cli_step_add_and_set(planner_root: Path) -> None:
     new_step = data["steps"][1]
     assert new_step["title"] == "Implement feature"
     assert new_step["status"] == "queued"
+    assert new_step["notes"] == "(CMD-__)"
 
     exit_code = run_cli(
         [

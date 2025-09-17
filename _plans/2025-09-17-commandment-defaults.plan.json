@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-commandment-defaults",
+  "created": "2025-09-17T22:13:49Z",
+  "actor": "Octo",
+  "summary": "Embed CMD tag reminder in plan notes",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review planner CLI output",
+      "status": "done",
+      "notes": "Planner CLI defaults previously ignored commandments tags.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Update templates with CMD placeholder",
+      "status": "done",
+      "notes": "Planner CLI now seeds notes with (CMD-__).",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Verify workflow + receipts",
+      "status": "done",
+      "notes": "Runner receipt recorded to prove placeholder change.",
+      "receipts": [
+        "_report/runner/20250917T215047Z-b5be6a55.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/runner/20250917T215047Z-b5be6a55.json"
+  ]
+}

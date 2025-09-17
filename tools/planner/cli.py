@@ -21,6 +21,7 @@ PLAN_ID_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$")
 PLAN_STATUS_VALUES = tuple(sorted(PLAN_STATUS))
 STEP_STATUS_VALUES = tuple(sorted(STEP_STATUS))
 LEGACY_STATUS = {"pending": "queued"}
+CMD_PLACEHOLDER = "(CMD-__)"
 
 
 class PlannerCliError(RuntimeError):
@@ -75,7 +76,7 @@ def _parse_steps(raw_steps: List[str], *, summary: str) -> List[dict]:
                 "id": "S1",
                 "title": summary,
                 "status": "queued",
-                "notes": "",
+                "notes": CMD_PLACEHOLDER,
                 "receipts": [],
             }
         ]
@@ -93,7 +94,7 @@ def _parse_steps(raw_steps: List[str], *, summary: str) -> List[dict]:
         if sid in seen_ids:
             raise PlannerCliError(f"duplicate step id '{sid}'")
         seen_ids.add(sid)
-        steps.append({"id": sid, "title": title, "status": "queued", "notes": "", "receipts": []})
+        steps.append({"id": sid, "title": title, "status": "queued", "notes": CMD_PLACEHOLDER, "receipts": []})
     return steps
 
 
@@ -382,7 +383,7 @@ def cmd_step_add(args: argparse.Namespace) -> int:
             "id": step_id,
             "title": description,
             "status": "queued",
-            "notes": args.note or "",
+            "notes": args.note if args.note is not None else CMD_PLACEHOLDER,
             "receipts": [],
         }
     )
