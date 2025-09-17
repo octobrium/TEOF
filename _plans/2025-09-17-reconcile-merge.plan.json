@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-reconcile-merge",
+  "created": "2025-09-17T20:19:03Z",
+  "actor": "Octo",
+  "summary": "Prototype reconciliation merge summary",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design merge output",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement summary CLI",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Test + receipts",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
