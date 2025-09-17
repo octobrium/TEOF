@@ -1,6 +1,6 @@
 {
   "version": 0,
-  "plan_id": "2025-09-17-ledger-upkeep",
+  "plan_id": "2025-09-17-commandment-tags",
   "created": "2025-09-17T17:00:47Z",
   "actor": "Octo",
   "summary": "Automate ledger updates post-autocollab",
@@ -24,7 +24,7 @@
       "id": "S3",
       "title": "Document receipts & link memory",
       "status": "done",
-      "notes": "Captured ledger tail receipt via runner; ready to link memory.",
+      "notes": "Captured queue state after archival via runner receipt. (CMD-2, CMD-4)",
       "receipts": [
         "_report/runner/20250917T170313Z-c5a82a16.json"
       ]
@@ -38,5 +38,6 @@
   "links": [],
   "receipts": [
     "_report/runner/20250917T170313Z-c5a82a16.json"
-  ]
+  ],
+  "plan_step_id": "S3"
 }

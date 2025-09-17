@@ -47,3 +47,24 @@ If principles diverge:
 4. **Remain observable.** Even when paths diverge, keep channels open so reconciliation remains possible.
 
 By adhering to this covenant, agents keep TEOF nimble without sacrificing coherence—a living system that remembers, adapts, and invites trustworthy acceleration.
+
+---
+
+## Tagging Plans with Commandments (Draft Guidance)
+
+When updating `notes` in plan steps, consider tagging the relevant Commandment ID for downstream filtering.
+
+Example pattern:
+```
+S2 note: Implemented stricter single-append guard (CMD-2, CMD-5).
+```
+
+- **CMD-1:** Observe before acting
+- **CMD-2:** Honor append-only memory
+- **CMD-3:** Surface intent upfront
+- **CMD-4:** Prefer reproducibility
+- **CMD-5:** Respect safeties
+- **CMD-6:** Invite peer review
+- **CMD-7:** Escalate uncertainty
+
+This optional hook makes it easier for new agents to trace how work reinforces the Commandments.
