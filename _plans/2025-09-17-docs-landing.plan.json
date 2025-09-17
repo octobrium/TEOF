@@ -10,15 +10,13 @@
       "id": "S1",
       "title": "Assess existing README structure",
       "status": "done",
-      "notes": "README lacks explicit pointer to commandments; good candidate for quick reference.",
-      "receipts": []
+      "notes": "README lacks explicit pointer to commandments; good candidate for quick reference."
     },
     {
       "id": "S2",
       "title": "Add quick pointers to Commandments",
       "status": "done",
-      "notes": "README Callout now links to docs/commandments.md as fast onboarding.",
-      "receipts": []
+      "notes": "README Callout now links to docs/commandments.md as fast onboarding."
     },
     {
       "id": "S3",
@@ -26,7 +24,6 @@
       "status": "done",
       "notes": "Runner receipt for README link captured (_report/runner/20250917T184606Z-081c2de3.json).",
       "receipts": [
-        "_report/runner/20250917T184606Z-081c2de3.json",
         "_report/runner/20250917T184606Z-081c2de3.json"
       ]
     }
@@ -38,7 +35,6 @@
   },
   "links": [],
   "receipts": [
-    "_report/runner/20250917T184606Z-081c2de3.json",
     "_report/runner/20250917T184606Z-081c2de3.json"
   ]
 }
