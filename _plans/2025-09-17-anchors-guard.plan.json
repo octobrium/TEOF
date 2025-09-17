@@ -9,8 +9,8 @@
     {
       "id": "S1",
       "title": "Review current guard + anchors usage",
-      "status": "in_progress",
-      "notes": "",
+      "status": "done",
+      "notes": "Reviewed current guard logic, existing receipts, and anchors policies; ready to implement stricter checks.",
       "receipts": []
     },
     {
