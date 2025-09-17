@@ -4,35 +4,39 @@
   "created": "2025-09-17T19:39:25Z",
   "actor": "Octo",
   "summary": "Diff reconciliation hello packets",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Define comparison schema",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Diff should report mismatched hashes, missing receipts, capability differences.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Implement diff CLI",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Implemented tools/reconcile_diff.py for hash/capability/receipt comparison.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Test + receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Runner diff receipt _report/runner/20250917T194433Z-120f2a58.json captured.",
+      "receipts": [
+        "_report/runner/20250917T194433Z-120f2a58.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T194433Z-120f2a58.json"
+  ]
 }
