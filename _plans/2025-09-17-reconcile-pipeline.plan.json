@@ -4,35 +4,39 @@
   "created": "2025-09-17T20:24:30Z",
   "actor": "Octo",
   "summary": "Compose reconciliation pipeline",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Draft end-to-end flow",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Pipeline order: emit hello, diff + fetch, merge summary, optional anchor draft.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Implement pipeline script",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Created tools/reconcile_pipeline.py to chain hello/diff/fetch/merge.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Demo run + receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Pipeline demo captured via runner receipt _report/runner/20250917T202753Z-66093e6d.json.",
+      "receipts": [
+        "_report/runner/20250917T202753Z-66093e6d.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T202753Z-66093e6d.json"
+  ]
 }
