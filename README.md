@@ -10,6 +10,7 @@
 - [Promotion Policy](docs/promotion-policy.md)
 - [Workflow](docs/workflow.md)
 - [Plans](./_plans/README.md)
+- [Automation](docs/automation.md)
 
 
 **Author:** Observation • **License:** [Apache-2.0](LICENSE)

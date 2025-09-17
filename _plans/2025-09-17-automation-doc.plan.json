@@ -4,35 +4,39 @@
   "created": "2025-09-17T20:15:20Z",
   "actor": "Octo",
   "summary": "Draft automation layer vision",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Outline automation responsibilities",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Automation should enforce safeties, emit receipts, expose capabilities, and remain overrideable by human workflows.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Author docs/automation.md",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Drafted docs/automation.md describing duties, modes, interfaces, questions.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Update references + receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Linked README repo map to docs/automation.md; receipt _report/runner/20250917T201639Z-40f275bd.json.",
+      "receipts": [
+        "_report/runner/20250917T201639Z-40f275bd.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T201639Z-40f275bd.json"
+  ]
 }
