@@ -293,6 +293,8 @@ jobs:
     needs: verify
     if: always()
     continue-on-error: true
+    env:
+      PYTHONPATH: ${{ github.workspace }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
