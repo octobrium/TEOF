@@ -16,14 +16,21 @@ jobs:
   gate-docs:
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
-    env:
-      DOCS_LABEL_PRESENT: ${{ contains(join(fromJson(toJson(github.event.pull_request.labels)).*.name, ','), 'auto-merge-docs') }}
     steps:
+      - name: Detect docs label
+        id: flags
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = context.payload.pull_request?.labels || [];
+            const hasDocs = labels.some(label => label.name === 'auto-merge-docs');
+            core.setOutput('has_docs_label', hasDocs ? 'true' : 'false');
+
       - uses: actions/checkout@v4
-        if: env.DOCS_LABEL_PRESENT == 'true'
+        if: steps.flags.outputs.has_docs_label == 'true'
         with: { fetch-depth: 0 }
       - name: Doctor (invariants-only)
-        if: env.DOCS_LABEL_PRESENT == 'true'
+        if: steps.flags.outputs.has_docs_label == 'true'
         id: doc
         run: |
           set -e
