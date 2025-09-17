@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-convergence-metrics",
+  "created": "2025-09-17T20:39:48Z",
+  "actor": "Octo",
+  "summary": "Explore convergence metrics",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Survey existing signals",
+      "status": "done",
+      "notes": "Existing signals: OCERS artifacts, runner receipts, reconcile summaries, memory entries.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Draft metric candidates",
+      "status": "done",
+      "notes": "Drafted convergence metrics reflection (docs/reflections/20250917-convergence-metrics.md).",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document plan + receipts",
+      "status": "done",
+      "notes": "Runner receipt _report/runner/20250917T204119Z-279e13b9.json for metrics reflection.",
+      "receipts": [
+        "_report/runner/20250917T204119Z-279e13b9.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/runner/20250917T204119Z-279e13b9.json"
+  ]
+}
