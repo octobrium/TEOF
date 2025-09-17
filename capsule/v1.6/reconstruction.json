@@ -59,7 +59,7 @@
     "signature_hint": "Optionally include blockchain anchor txid or signed message here after you finalize hashes."
   },
   "tree": {
-    "v1.6": "457c348bdbd5ca0bb4e57dd75524967b03d1775ec4ed11c0d83fabae20119858"
+    "v1.6": "38677357b6c5b46360d34bb7b3786d99d34c252003b2be47efb2157b7a5bf08c"
   },
   "files": {
     "v1.6": [
@@ -73,8 +73,11 @@
       "capsule/v1.6/capsule-handshake.txt",
       "capsule/v1.6/capsule.txt",
       "capsule/v1.6/core-teof.md",
+      "capsule/v1.6/count",
+      "capsule/v1.6/files",
       "capsule/v1.6/hashes.json",
       "capsule/v1.6/reconstruction.json",
+      "capsule/v1.6/root",
       "capsule/v1.6/teof-shim.md",
       "capsule/v1.6/tests.md",
       "capsule/v1.6/volatile-data-protocol.md"

@@ -1,6 +1,6 @@
 {
   "root": "v1.6",
-  "count": 15,
+  "count": 18,
   "files": [
     {
       "path": "OGS-spec.md",
@@ -43,12 +43,24 @@
       "sha256": "6e8a9b44d693ebfb7484ae804d3f8327a26f3cc8f75f1bae5b224a9f8ff11fe1"
     },
     {
+      "path": "count",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "files",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
       "path": "hashes.json",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "path": "reconstruction.json",
-      "sha256": "b49693c4ba6c846527b9d7dbae5b57097265845202ce63f63e8d2806e5c3d420"
+      "sha256": "70fa0c3bef6289f39a91a67ab0615c4ccd21cf03e6e664ae11ca94ac057d5b60"
+    },
+    {
+      "path": "root",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "path": "teof-shim.md",
