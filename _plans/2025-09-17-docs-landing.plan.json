@@ -4,35 +4,41 @@
   "created": "2025-09-17T18:44:40Z",
   "actor": "Octo",
   "summary": "Link key covenants from README",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Assess existing README structure",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "README lacks explicit pointer to commandments; good candidate for quick reference.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Add quick pointers to Commandments",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "README Callout now links to docs/commandments.md as fast onboarding.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Attach receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Runner receipt for README link captured (_report/runner/20250917T184606Z-081c2de3.json).",
+      "receipts": [
+        "_report/runner/20250917T184606Z-081c2de3.json",
+        "_report/runner/20250917T184606Z-081c2de3.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T184606Z-081c2de3.json",
+    "_report/runner/20250917T184606Z-081c2de3.json"
+  ]
 }
