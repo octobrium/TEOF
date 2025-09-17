@@ -94,5 +94,6 @@ capsule/**/*
 !capsule/**/root
 !capsule/**/files
 !capsule/**/count
+memory/hot_index.json
 _apoptosis/
 _report/

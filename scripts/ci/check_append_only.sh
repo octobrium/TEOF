@@ -13,7 +13,7 @@ fi
 [ -n "${files:-}" ] || { echo "append-only: OK (no changes)"; exit 0; }
 
 # Allowlist of top-level buckets (add 'queue')
-allowed="capsule docs governance tools scripts extensions cli teof .github queue"
+allowed=". capsule docs governance tools scripts extensions cli teof .github queue memory"
 
 status=0
 # shellcheck disable=SC2086
