@@ -50,6 +50,11 @@ jobs:
             echo "::error ::Placeholder token(s) introduced in this PR. Remove them before merging."
             exit 1
           fi
+
+      - name: Memory log policy
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: python3 scripts/ci/check_memory_log.py
       - name: Build brief (staging)
         shell: bash
         run: |
