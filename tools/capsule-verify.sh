@@ -1,7 +1,19 @@
 #!/usr/bin/env sh
 set -eu
 
-ver=$(tr -d '\n' < capsule/current)
+if [ -L "capsule/current" ]; then
+  ver="$(readlink "capsule/current")"
+elif [ -f "capsule/current" ]; then
+  ver="$(tr -d '\n' < capsule/current)"
+else
+  ver=""
+fi
+ver="${ver#capsule/}"
+
+if [ -z "$ver" ]; then
+  echo "ERROR: capsule/current does not point to a version"
+  exit 1
+fi
 
 if [ ! -f "capsule/$ver/reconstruction.json" ]; then
   echo "ERROR: capsule/$ver/reconstruction.json is missing (seed the tree first)."

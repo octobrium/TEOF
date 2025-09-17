@@ -48,7 +48,18 @@ done
 echo "✅ doctor: repo health OK"
 
 # --- Capsule content-tree verification (path-agnostic) ---
-if command -v jq >/dev/null 2>&1 && [ -f "capsule/$(tr -d '\n' < capsule/current)/reconstruction.json" ]; then
-  echo "→ Verifying capsule content tree (path-agnostic)…"
-  bash tools/capsule-verify.sh
+if command -v jq >/dev/null 2>&1; then
+  current_target=""
+  if [ -L "capsule/current" ]; then
+    current_target="$(readlink "capsule/current")"
+  elif [ -f "capsule/current" ]; then
+    current_target="$(tr -d '\n' < capsule/current)"
+  fi
+
+  current_target="${current_target#capsule/}"
+
+  if [ -n "$current_target" ] && [ -f "capsule/${current_target}/reconstruction.json" ]; then
+    echo "→ Verifying capsule content tree (path-agnostic)…"
+    bash tools/capsule-verify.sh
+  fi
 fi
