@@ -8,7 +8,7 @@ permissions:
   pull-requests: write
 jobs:
   gate-docs:
-    if: contains(join(fromJson(toJson(github.event.pull_request.labels)).*.name, ','), 'auto-merge-docs')
+    if: ${{ github.event_name == 'pull_request' && contains(join(fromJson(toJson(github.event.pull_request.labels)).*.name, ','), 'auto-merge-docs') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
