@@ -4,7 +4,7 @@
   "created": "2025-09-17T16:42:17Z",
   "actor": "Octo",
   "summary": "Tighten anchors append-only guard",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -23,16 +23,27 @@
     {
       "id": "S3",
       "title": "Document and sync receipts",
-      "status": "in_progress",
-      "notes": "",
+      "status": "done",
+      "notes": "Pytest receipt attached; ready to link memory.",
       "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Attach pytest receipt",
+      "status": "done",
+      "notes": "Attached runner receipt for pytest pass.",
+      "receipts": [
+        "_report/runner/20250917T165832Z-5488bcc3.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T165832Z-5488bcc3.json"
+  ]
 }
