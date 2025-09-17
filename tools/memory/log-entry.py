@@ -50,7 +50,7 @@ def main() -> None:
     }
 
     with LOG_PATH.open("a", encoding="utf-8") as handle:
-        json.dump(record, handle, ensure_ascii=False)
+        json.dump(record, handle, ensure_ascii=False, separators=(",", ":"))
         handle.write("\n")
 
     print("Appended memory entry", record["ts"], "->", LOG_PATH)

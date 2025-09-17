@@ -55,6 +55,18 @@ python tools/memory/query.py --ref PR-28 --limit 3
 
 The script prints the newest entries first, including artifact and signature metadata.
 
+To speed up frequent queries, build a hot index:
+
+```bash
+python tools/memory/hot_index.py build --limit 200
+```
+
+Then query using the cached index:
+
+```bash
+python tools/memory/hot_index.py query --use-index --limit 20 --json
+```
+
 ## Policy
 
 - Every PR touching `extensions/`, `tools/`, `scripts/`, or `docs/` (excluding `memory/`) must append at least one memory entry.

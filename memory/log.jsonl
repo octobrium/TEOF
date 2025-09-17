@@ -1,1 +1,2 @@
 {"ts":"2025-09-17T04:25:00Z","actor":"codex","summary":"Scaffold persistent memory log and CI guard","ref":"branch:policy/persistent-memory","artifacts":["docs/policy/iteration-memory.md","scripts/ci/check_memory_log.py"],"signatures":[]}
+{"ts":"2025-09-17T05:28:00Z","actor":"Octo","summary":"Add hot memory index utility","ref":"PR-29","artifacts":["tools/memory/hot_index.py","memory/README.md"],"signatures":[]}

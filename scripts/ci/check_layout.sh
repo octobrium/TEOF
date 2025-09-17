@@ -33,7 +33,7 @@ fi
 # --- Top-level hygiene (WARN for now) ---
 # Allowlist of top-level dirs/files currently present
 allow_dirs=( archive capsule docs extensions experimental .github .githooks scripts bin
-             governance reports teof tests tools )
+             governance memory reports teof tests tools )
 allow_files=( README.md LICENSE .gitignore .editorconfig .gitattributes
               .markdownlint-cli2.jsonc .markdownlint.jsonc .markdownlintignore
               CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md NOTICE SECURITY.md TRADEMARKS.md
@@ -42,6 +42,7 @@ allow_files=( README.md LICENSE .gitignore .editorconfig .gitattributes
 # unexpected top-level directories
 while IFS= read -r d; do
   [[ -z "$d" ]] && continue
+  [[ "$d" == "." ]] && continue
   case " ${allow_dirs[*]} " in *" $d "*) : ;; *)
     # ignore nested paths; only top-level
     [[ "$d" == */* ]] || warn "Unexpected top–level dir: $d"
