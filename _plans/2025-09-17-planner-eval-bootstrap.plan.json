@@ -1,0 +1,60 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-planner-eval-bootstrap",
+  "created": "2025-09-17T05:59:30Z",
+  "actor": "codex",
+  "summary": "Bootstrap planner directory, validation script, and evaluation CI hook",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Create planner scaffolding",
+      "status": "done",
+      "notes": "README + initial plan artifacts committed",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Wire plan validation + checkpoint enforcement",
+      "status": "done",
+      "notes": "Added validator, tests, and CI guard",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Add minimal evaluation battery",
+      "status": "done",
+      "notes": "Runner-backed minimal evaluation wired into CI",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Document + log provenance",
+      "status": "done",
+      "notes": "Docs updated and memory log appended",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "CI rejects PRs unless planner validation and minimal evaluation artifacts succeed",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "memory",
+      "ref": "PR-28"
+    },
+    {
+      "type": "memory",
+      "ref": "PR-29"
+    },
+    {
+      "type": "memory",
+      "ref": "PR-30"
+    }
+  ],
+  "receipts": [
+    "_report/runner/20250917T060245Z-205e24b5.json"
+  ],
+  "status": "done"
+}

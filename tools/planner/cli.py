@@ -1,0 +1,453 @@
+#!/usr/bin/env python3
+"""Utilities for authoring planner artifacts."""
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import subprocess
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Iterable, List
+
+from tools.planner.validate import PLAN_STATUS, STEP_STATUS, strict_checks, validate_plan
+
+ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_PLAN_DIR = ROOT / "_plans"
+SLUG_NORMALIZER = re.compile(r"[^a-z0-9-]+")
+PLAN_ID_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$")
+PLAN_STATUS_VALUES = tuple(sorted(PLAN_STATUS))
+STEP_STATUS_VALUES = tuple(sorted(STEP_STATUS))
+LEGACY_STATUS = {"pending": "queued"}
+
+
+class PlannerCliError(RuntimeError):
+    """Raised when a planner CLI command cannot complete."""
+
+
+def _default_actor() -> str:
+    """Return the git user.name when available, else 'unknown'."""
+    try:
+        result = subprocess.run(
+            ["git", "config", "user.name"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError:
+        return "unknown"
+    name = result.stdout.strip()
+    return name or "unknown"
+
+
+def _normalize_slug(slug: str) -> str:
+    slug = slug.strip().lower()
+    slug = SLUG_NORMALIZER.sub("-", slug)
+    slug = slug.strip("-")
+    return slug
+
+
+def _parse_timestamp(raw: str | None) -> datetime:
+    if not raw:
+        return datetime.utcnow()
+    try:
+        return datetime.strptime(raw, "%Y-%m-%dT%H:%M:%SZ")
+    except ValueError as exc:
+        raise PlannerCliError("timestamp must be ISO8601 UTC (e.g., 2025-09-17T00:00:00Z)") from exc
+
+
+def _normalize_status(value: str, *, allowed: Iterable[str]) -> str:
+    if not isinstance(value, str):
+        raise PlannerCliError("status must be a string")
+    lowered = value.strip().lower()
+    lowered = LEGACY_STATUS.get(lowered, lowered)
+    if lowered not in allowed:
+        raise PlannerCliError(f"status must be one of {sorted(set(allowed))}")
+    return lowered
+
+
+def _parse_steps(raw_steps: List[str], *, summary: str) -> List[dict]:
+    if not raw_steps:
+        return [
+            {
+                "id": "S1",
+                "title": summary,
+                "status": "queued",
+                "notes": "",
+                "receipts": [],
+            }
+        ]
+
+    steps: List[dict] = []
+    seen_ids: set[str] = set()
+    for idx, entry in enumerate(raw_steps, 1):
+        if ":" not in entry:
+            raise PlannerCliError(f"step {idx} must use format 'ID:Title'")
+        sid, title = entry.split(":", 1)
+        sid = sid.strip()
+        title = title.strip()
+        if not sid or not title:
+            raise PlannerCliError(f"step {idx} requires non-empty id and title")
+        if sid in seen_ids:
+            raise PlannerCliError(f"duplicate step id '{sid}'")
+        seen_ids.add(sid)
+        steps.append({"id": sid, "title": title, "status": "queued", "notes": "", "receipts": []})
+    return steps
+
+
+def _write_plan(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    text = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    path.write_text(text, encoding="utf-8")
+
+
+def _load_plan(path: Path) -> dict:
+    if not path.exists():
+        raise PlannerCliError(f"plan not found: {path}")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _ensure_valid(path: Path) -> None:
+    result = validate_plan(path, strict=False)
+    if not result.ok:
+        raise PlannerCliError("plan validation failed: " + "; ".join(result.errors))
+    strict_errors = strict_checks(result.plan, repo_root=ROOT) if result.plan else []
+    if strict_errors:
+        raise PlannerCliError("plan strict checks failed: " + "; ".join(strict_errors))
+
+
+def cmd_new(args: argparse.Namespace) -> int:
+    slug = _normalize_slug(args.slug)
+    if not slug:
+        raise PlannerCliError("slug must contain at least one alphanumeric character")
+
+    timestamp = _parse_timestamp(args.timestamp)
+    plan_id = f"{timestamp:%Y-%m-%d}-{slug}"
+    if not PLAN_ID_PATTERN.match(plan_id):
+        raise PlannerCliError(
+            "plan_id derived from slug is invalid; ensure slug uses lowercase letters, numbers, or hyphens"
+        )
+
+    plan_dir = Path(args.plan_dir).resolve()
+    plan_path = plan_dir / f"{plan_id}.plan.json"
+    if plan_path.exists() and not args.force:
+        raise PlannerCliError(f"plan already exists: {plan_path}")
+
+    actor = args.actor or _default_actor()
+    summary = args.summary.strip()
+    if not summary:
+        raise PlannerCliError("summary must be non-empty")
+
+    owner = (args.owner or actor).strip() or actor
+    checkpoint_desc = args.checkpoint or "Define verification + receipts"
+    steps = _parse_steps(args.step, summary=summary)
+
+    payload = {
+        "version": 0,
+        "plan_id": plan_id,
+        "created": f"{timestamp:%Y-%m-%dT%H:%M:%SZ}",
+        "actor": actor,
+        "summary": summary,
+        "status": "queued",
+        "steps": steps,
+        "checkpoint": {
+            "description": checkpoint_desc,
+            "owner": owner,
+            "status": "pending",
+        },
+        "links": [],
+        "receipts": [],
+    }
+
+    _write_plan(plan_path, payload)
+    try:
+        _ensure_valid(plan_path)
+    except Exception:
+        plan_path.unlink(missing_ok=True)
+        raise
+
+    print(plan_path)
+    return 0
+
+
+def _resolve_plan_path(raw: str) -> Path:
+    path = Path(raw)
+    if path.is_dir():
+        raise PlannerCliError("plan path must be a file, not directory")
+    if path.exists():
+        return path.resolve()
+
+    slug = raw
+    for suffix in (".plan.json", ".plan", ".json"):
+        if slug.endswith(suffix):
+            slug = slug[: -len(suffix)]
+            break
+    candidate = DEFAULT_PLAN_DIR / f"{slug}.plan.json"
+    if candidate.exists():
+        return candidate
+
+    if not path.suffix:
+        candidate = DEFAULT_PLAN_DIR / f"{raw}.plan.json"
+        if candidate.exists():
+            return candidate
+
+    raise PlannerCliError(f"plan not found: {raw}")
+
+
+STATUS_TRANSITIONS = {
+    "queued": {"queued", "in_progress", "blocked", "done"},
+    "in_progress": {"in_progress", "blocked", "done"},
+    "blocked": {"blocked", "in_progress", "done"},
+    "done": {"done"},
+}
+
+
+def _guard_transition(current: str, new: str, *, context: str) -> None:
+    allowed = STATUS_TRANSITIONS.get(current, {current})
+    if new not in allowed:
+        raise PlannerCliError(
+            f"illegal status transition for {context}: {current} → {new}"
+        )
+
+
+
+
+def _format_step_line(step: dict) -> str:
+    receipts = step.get("receipts") or []
+    notes = step.get("notes")
+    lines = [f"- {step.get('id')} [{step.get('status')}] {step.get('title')}"]
+    if notes:
+        lines.append(f"    note: {notes}")
+    if receipts:
+        lines.append(f"    receipts: {', '.join(receipts)}")
+    return '\n'.join(lines)
+
+
+def cmd_show(args: argparse.Namespace) -> int:
+    plan_path = _resolve_plan_path(args.plan)
+    result = validate_plan(plan_path, strict=args.strict)
+    if not result.ok or result.plan is None:
+        for err in result.errors:
+            print(f"error: {err}", file=sys.stderr)
+        return 2
+
+    plan = result.plan
+    created = plan.get("created")
+    created_iso = created.strftime("%Y-%m-%dT%H:%M:%SZ") if isinstance(created, datetime) else str(created)
+    print(f"plan_id: {plan.get('plan_id')}")
+    print(f"summary: {plan.get('summary')}")
+    print(f"status: {plan.get('status')}")
+    print(f"created: {created_iso}")
+    checkpoint = plan.get('checkpoint') or {}
+    print(
+        "checkpoint: "
+        f"{checkpoint.get('status')} — {checkpoint.get('description')} "
+        f"(owner: {checkpoint.get('owner')})"
+    )
+    steps = plan.get("steps") or []
+    if steps:
+        print("steps:")
+        for step in steps:
+            print(_format_step_line(step))
+    receipts = plan.get("receipts") or []
+    if receipts:
+        print("plan receipts: " + ", ".join(receipts))
+    return 0
+
+def cmd_status(args: argparse.Namespace) -> int:
+    plan_path = _resolve_plan_path(args.plan)
+    data = _load_plan(plan_path)
+    new_status = _normalize_status(args.status, allowed=PLAN_STATUS_VALUES)
+    current = data.get("status", "queued")
+    _guard_transition(current, new_status, context="plan")
+    data["status"] = new_status
+    _write_plan(plan_path, data)
+    _ensure_valid(plan_path)
+    print(f"status={new_status}")
+    return 0
+
+
+def cmd_step_add(args: argparse.Namespace) -> int:
+    plan_path = _resolve_plan_path(args.plan)
+    data = _load_plan(plan_path)
+    steps = data.setdefault("steps", [])
+    existing_ids = {step.get("id") for step in steps if isinstance(step, dict)}
+    if args.id:
+        step_id = args.id.strip()
+        if not step_id:
+            raise PlannerCliError("--id must be non-empty when provided")
+        if step_id in existing_ids:
+            raise PlannerCliError(f"step id '{step_id}' already exists")
+    else:
+        idx = 1
+        step_id = f"S{idx}"
+        while step_id in existing_ids:
+            idx += 1
+            step_id = f"S{idx}"
+
+    description = args.desc.strip()
+    if not description:
+        raise PlannerCliError("--desc must be non-empty")
+
+    steps.append(
+        {
+            "id": step_id,
+            "title": description,
+            "status": "queued",
+            "notes": args.note or "",
+            "receipts": [],
+        }
+    )
+    _write_plan(plan_path, data)
+    _ensure_valid(plan_path)
+    print(step_id)
+    return 0
+
+
+def cmd_step_set(args: argparse.Namespace) -> int:
+    plan_path = _resolve_plan_path(args.plan)
+    data = _load_plan(plan_path)
+    steps = data.get("steps", [])
+    for step in steps:
+        if step.get("id") == args.step_id:
+            current = _normalize_status(step.get("status", "queued"), allowed=STEP_STATUS_VALUES)
+            new_status = _normalize_status(args.status, allowed=STEP_STATUS_VALUES)
+            _guard_transition(current, new_status, context=f"step {args.step_id}")
+            step["status"] = new_status
+            if args.note is not None:
+                step["notes"] = args.note
+            break
+    else:
+        raise PlannerCliError(f"no step with id '{args.step_id}'")
+
+    _write_plan(plan_path, data)
+    _ensure_valid(plan_path)
+    print(f"{args.step_id}={new_status}")
+    return 0
+
+
+def _relative_receipt(path: Path) -> str:
+    try:
+        return str(path.resolve().relative_to(ROOT))
+    except ValueError as exc:
+        raise PlannerCliError("receipt must live inside repository") from exc
+
+
+def cmd_attach_receipt(args: argparse.Namespace) -> int:
+    plan_path = _resolve_plan_path(args.plan)
+    data = _load_plan(plan_path)
+    rel_receipt = _relative_receipt(Path(args.file))
+
+    target_step = None
+    for step in data.get("steps", []):
+        if step.get("id") == args.step_id:
+            target_step = step
+            break
+    if not target_step:
+        raise PlannerCliError(f"no step with id '{args.step_id}'")
+
+    receipts = list(target_step.get("receipts", []))
+    if rel_receipt not in receipts:
+        receipts.append(rel_receipt)
+    target_step["receipts"] = receipts
+
+    plan_receipts = set(data.get("receipts", []))
+    plan_receipts.add(rel_receipt)
+    data["receipts"] = sorted(plan_receipts)
+
+    receipt_path = ROOT / rel_receipt
+    if not receipt_path.exists():
+        raise PlannerCliError(f"receipt not found: {rel_receipt}")
+    try:
+        payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise PlannerCliError(f"receipt must be valid JSON: {rel_receipt}") from exc
+
+    if isinstance(payload, dict):
+        changed = False
+        if payload.get("plan_id") != data.get("plan_id"):
+            payload["plan_id"] = data.get("plan_id")
+            changed = True
+        if payload.get("plan_step_id") != args.step_id:
+            payload["plan_step_id"] = args.step_id
+            changed = True
+        if changed:
+            receipt_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    _write_plan(plan_path, data)
+    _ensure_valid(plan_path)
+    print(rel_receipt)
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="planner", description="Planner authoring helpers")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    new = sub.add_parser("new", help="Create a plan skeleton")
+    new.add_argument("slug", help="slug portion of plan_id (lowercase preferred)")
+    new.add_argument("--summary", required=True, help="One-line intent for the plan")
+    new.add_argument("--actor", help="Actor to record; defaults to git user.name")
+    new.add_argument("--owner", help="Checkpoint owner; defaults to actor")
+    new.add_argument("--checkpoint", help="Checkpoint description")
+    new.add_argument(
+        "--step",
+        action="append",
+        default=[],
+        help="Add a step in format ID:Title (may be repeated)",
+    )
+    new.add_argument("--plan-dir", default=str(DEFAULT_PLAN_DIR), help="Directory for plan artifacts")
+    new.add_argument("--timestamp", help="Override creation timestamp (UTC, e.g. 2025-09-17T00:00:00Z)")
+    new.add_argument("--force", action="store_true", help="Overwrite existing plan if present")
+    new.set_defaults(func=cmd_new)
+
+    status = sub.add_parser("status", help="Update the overall plan status")
+    status.add_argument("plan", help="Path or plan_id of the plan JSON")
+    status.add_argument("status", choices=PLAN_STATUS_VALUES, help="New status")
+    status.set_defaults(func=cmd_status)
+
+
+    show = sub.add_parser("show", help="Display plan summary")
+    show.add_argument("plan", help="Plan path or id")
+    show.add_argument("--strict", action="store_true", help="Validate with strict checks before printing")
+    show.set_defaults(func=cmd_show)
+    step_add = sub.add_parser("step", help="Modify steps")
+    step_sub = step_add.add_subparsers(dest="step_cmd", required=True)
+
+    step_add_parser = step_sub.add_parser("add", help="Add a new step")
+    step_add_parser.add_argument("plan", help="Plan path or id")
+    step_add_parser.add_argument("--desc", required=True, help="Step description/title")
+    step_add_parser.add_argument("--id", help="Optional step id (default next S#)")
+    step_add_parser.add_argument("--note", help="Optional notes for the step")
+    step_add_parser.set_defaults(func=cmd_step_add)
+
+    step_set_parser = step_sub.add_parser("set", help="Update an existing step")
+    step_set_parser.add_argument("plan", help="Plan path or id")
+    step_set_parser.add_argument("step_id", help="Step identifier")
+    step_set_parser.add_argument("--status", required=True, choices=STEP_STATUS_VALUES)
+    step_set_parser.add_argument("--note", help="Replace the step notes")
+    step_set_parser.set_defaults(func=cmd_step_set)
+
+    attach = sub.add_parser("attach-receipt", help="Attach a receipt to a step")
+    attach.add_argument("plan", help="Plan path or id")
+    attach.add_argument("step_id", help="Step identifier to receive the receipt")
+    attach.add_argument("--file", required=True, help="Path to receipt JSON")
+    attach.set_defaults(func=cmd_attach_receipt)
+
+    return parser
+
+
+def main(argv: Iterable[str] | None = None) -> int:
+    parser = build_parser()
+    try:
+        args = parser.parse_args(list(argv) if argv is not None else None)
+        return args.func(args)
+    except PlannerCliError as exc:
+        parser.error(str(exc))
+    except KeyboardInterrupt:
+        return 130
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

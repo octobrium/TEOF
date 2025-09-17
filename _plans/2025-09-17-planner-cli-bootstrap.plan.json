@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-planner-cli-bootstrap",
+  "created": "2025-09-17T06:33:50Z",
+  "actor": "codex",
+  "summary": "Add CLI tooling to scaffold plans and enforce repo-friendly defaults",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Assess planner authoring pain points",
+      "status": "done",
+      "notes": "Manual scaffold requires hand-written JSON; want CLI that honors schema",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement CLI scaffold + tests",
+      "status": "done",
+      "notes": "Added tools/planner/cli.py with plan generator + pytest coverage",
+      "receipts": [
+        "_report/runner/20250917T063748Z-714227ed.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document usage and capture receipts",
+      "status": "done",
+      "notes": "Updated README + recorded runner receipt for CLI tests",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "New plan CLI creates valid artifacts (validated + receipt) and docs reference it",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/runner/20250917T063748Z-714227ed.json"
+  ],
+  "status": "done"
+}

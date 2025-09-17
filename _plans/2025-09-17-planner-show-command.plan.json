@@ -1,0 +1,30 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-planner-show-command",
+  "created": "2025-09-17T07:31:23Z",
+  "actor": "codex",
+  "summary": "Add CLI show command for plans",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add CLI show command for plans",
+      "status": "done",
+      "notes": "Implemented show command and tests",
+      "receipts": [
+        "_report/planner/20250917T071612Z-714227ed.json",
+        "_report/planner/20250917T073637Z-714227ed.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Show command prints plan status + steps",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/planner/20250917T071612Z-714227ed.json",
+    "_report/planner/20250917T073637Z-714227ed.json"
+  ]
+}

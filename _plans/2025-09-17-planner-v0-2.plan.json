@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-planner-v0-2",
+  "created": "2025-09-17T06:48:14Z",
+  "actor": "codex",
+  "summary": "Planner v0.2 lifecycle + receipts + CI guard",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design schema & invariants",
+      "status": "done",
+      "receipts": [
+        "_report/planner/20250917T071612Z-714227ed.json"
+      ],
+      "notes": "Schema + strict invariants landed"
+    },
+    {
+      "id": "S2",
+      "title": "Implement CLI subcommands + helpers",
+      "status": "done",
+      "receipts": [
+        "_report/planner/20250917T070355Z-714227ed.json"
+      ],
+      "notes": "CLI lifecycle subcommands + receipts"
+    },
+    {
+      "id": "S3",
+      "title": "Harden CI + docs + tests",
+      "status": "done",
+      "receipts": [
+        "_report/planner/20250917T070248Z-714227ed.json"
+      ],
+      "notes": "Docs, CI guard, and tests landed"
+    }
+  ],
+  "checkpoint": {
+    "description": "Planner v0.2 passes strict validation + CI receipts",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/planner/20250917T070248Z-714227ed.json",
+    "_report/planner/20250917T070355Z-714227ed.json",
+    "_report/planner/20250917T071612Z-714227ed.json"
+  ],
+  "status": "done"
+}

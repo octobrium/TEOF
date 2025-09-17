@@ -100,6 +100,13 @@ def main() -> int:
         "cached": False,
     }
 
+    plan_id = os.environ.get("TEOF_PLAN_ID")
+    plan_step_id = os.environ.get("TEOF_PLAN_STEP_ID")
+    if plan_id:
+        payload["plan_id"] = plan_id
+    if plan_step_id:
+        payload["plan_step_id"] = plan_step_id
+
     save_cache(cache_path, payload)
     receipt_path = save_receipt(Path(args.receipt_dir), payload)
     print(f"[runner] receipt: {receipt_path.relative_to(ROOT)}")

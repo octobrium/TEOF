@@ -9,6 +9,7 @@
 - [Specs](docs/specs/)
 - [Promotion Policy](docs/promotion-policy.md)
 - [Workflow](docs/workflow.md)
+- [Plans](./_plans/README.md)
 
 
 **Author:** Observation • **License:** [Apache-2.0](LICENSE)

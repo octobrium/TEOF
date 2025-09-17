@@ -34,6 +34,11 @@ if [ -x "scripts/ci/check_redundancy.py" ]; then
   scripts/ci/check_redundancy.py || true
 fi
 
+# Planner scaffolding must be valid before continuing.
+if [ -x "scripts/ci/check_plans.py" ]; then
+  scripts/ci/check_plans.py
+fi
+
 # 4) Determinism hygiene (CRLF, .DS_Store, exec bits)
 if git ls-files -z | xargs -0 file | grep -q 'CRLF'; then
   echo "❌ CRLF endings found in tracked files"; exit 1

@@ -1,0 +1,100 @@
+import json
+from pathlib import Path
+
+import pytest
+
+from tools.planner import validate as planner_validate
+from tools.planner.validate import validate_plan
+
+
+def base_payload(plan_id: str = "2025-09-17-sample") -> dict:
+    return {
+        "version": 0,
+        "plan_id": plan_id,
+        "created": "2025-09-17T00:00:00Z",
+        "actor": "tester",
+        "summary": "Sample plan",
+        "status": "queued",
+        "steps": [
+            {
+                "id": "S1",
+                "title": "Do thing",
+                "status": "queued",
+                "notes": "",
+                "receipts": [],
+            }
+        ],
+        "checkpoint": {
+            "description": "Ensure validator passes",
+            "owner": "tester",
+            "status": "pending",
+        },
+        "receipts": [],
+        "links": [],
+    }
+
+
+def write_plan(tmp_dir: Path, payload: dict) -> Path:
+    path = tmp_dir / f"{payload['plan_id']}.plan.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    return path
+
+
+def test_validate_plan_happy_path(tmp_path: Path) -> None:
+    payload = base_payload()
+    path = write_plan(tmp_path, payload)
+    result = validate_plan(path)
+    assert result.ok, result.errors
+    assert result.plan is not None
+    assert result.plan["plan_id"] == payload["plan_id"]
+
+
+def test_validate_plan_requires_checkpoint_description(tmp_path: Path) -> None:
+    payload = base_payload()
+    payload["checkpoint"]["description"] = ""
+    path = write_plan(tmp_path, payload)
+    result = validate_plan(path)
+    assert not result.ok
+    assert any("checkpoint.description" in err for err in result.errors)
+
+
+def test_validate_plan_rejects_duplicate_step_ids(tmp_path: Path) -> None:
+    payload = base_payload()
+    payload["steps"].append(
+        {
+            "id": "S1",
+            "title": "Duplicate",
+            "status": "queued",
+            "receipts": [],
+        }
+    )
+    path = write_plan(tmp_path, payload)
+    result = validate_plan(path)
+    assert not result.ok
+    assert any("duplicates" in err for err in result.errors)
+
+
+def test_validate_plan_strict_requires_receipt_presence(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    repo_root = tmp_path / "repo"
+    plans_dir = repo_root / "_plans"
+    receipt_dir = repo_root / "_report" / "runner"
+    plans_dir.mkdir(parents=True)
+    receipt_dir.mkdir(parents=True)
+
+    payload = base_payload(plan_id="2025-09-17-with-receipt")
+    payload["checkpoint"]["status"] = "satisfied"
+    payload["receipts"] = ["_report/runner/receipt.json"]
+    payload["steps"][0]["receipts"] = ["_report/runner/receipt.json"]
+    plan_path = write_plan(plans_dir, payload)
+
+    monkeypatch.setattr(planner_validate, "ROOT", repo_root)
+    monkeypatch.setattr(planner_validate, "PLANS_DIR", plans_dir)
+
+    result_missing = validate_plan(plan_path, strict=True)
+    assert not result_missing.ok
+    assert any("receipts[0]" in err for err in result_missing.errors)
+
+    # Create the expected receipt and re-run.
+    (receipt_dir / "receipt.json").write_text("{}", encoding="utf-8")
+    result_ok = validate_plan(plan_path, strict=True)
+    assert result_ok.ok, result_ok.errors

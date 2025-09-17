@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-planner-validator-upgrade",
+  "created": "2025-09-17T06:25:20Z",
+  "actor": "codex",
+  "summary": "Harden planner validation and document strict enforcement",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit existing planner scaffolding",
+      "status": "done",
+      "notes": "Reviewed validator, CI guard, and README",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement stricter parsing + tests",
+      "status": "done",
+      "notes": "Introduced schema module, strict mode, and unit coverage",
+      "receipts": [
+        "_report/runner/20250917T062542Z-205e24b5.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Update docs and verification receipts",
+      "status": "done",
+      "notes": "Documented strict mode and captured runner receipt",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Strict validator (incl. receipts + unique steps) passes locally and in CI",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/runner/20250917T062542Z-205e24b5.json"
+  ],
+  "status": "done"
+}

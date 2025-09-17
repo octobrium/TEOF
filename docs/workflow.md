@@ -28,7 +28,7 @@ Review cadence: Monthly sweep
 
 **Operating order**
 1) Confirm structure matches `docs/architecture.md`.  
-2) Produce an E2E plan using `docs/quickstart.md` (exact commands, no guessing).  
+2) Produce an E2E plan using `docs/quickstart.md` (exact commands, no guessing) and drop it in `_plans/` (`*.plan.json`). Validate with `python3 tools/planner/validate.py`.  
 3) Verify enforcement: confirm `scripts/policy_checks.sh` exists and is called in CI; if missing, output a minimal step to add it.  
 4) Triangulate gaps: if Quickstart or imports/paths are stale, propose the smallest patches to make them true.  
 5) Output a prioritized plan (next 3–6 steps) to make the repo self-propagating (CLI → CI → freeze → docs).  
