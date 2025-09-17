@@ -127,15 +127,47 @@ jobs:
           python - <<'PY'
           import os, json, hashlib, sys
           base_dir = os.environ["BASE_DIR"]; hfile = os.environ["HFILE"]
-          with open(hfile, 'r', encoding='utf-8') as f: expected = json.load(f)
           def sha256_file(p):
               h = hashlib.sha256()
               with open(p,'rb') as f:
                   for chunk in iter(lambda: f.read(8192), b''):
                       h.update(chunk)
               return h.hexdigest()
+
+          with open(hfile, 'r', encoding='utf-8') as f:
+              data = json.load(f)
+
+          manifest = {}
+          expected_count = None
+          manifest_root = None
+
+          if isinstance(data, dict) and isinstance(data.get('files'), list):
+              for item in data['files']:
+                  if not isinstance(item, dict):
+                      continue
+                  rel = item.get('path')
+                  sha = item.get('sha256') or item.get('sha')
+                  if not rel or not sha:
+                      continue
+                  manifest[rel] = sha
+              expected_count = data.get('count') if isinstance(data.get('count'), int) else None
+              manifest_root = data.get('root') if isinstance(data.get('root'), str) else None
+          elif isinstance(data, dict):
+              manifest = {k: v for k, v in data.items() if isinstance(v, str) and k not in {'root', 'count', 'files'}}
+              if 'count' in data and isinstance(data['count'], int):
+                  expected_count = data['count']
+              if 'root' in data and isinstance(data['root'], str):
+                  manifest_root = data['root']
+          else:
+              print('::error::Unsupported hashes.json format');
+              sys.exit(1)
+
+          if expected_count is not None and expected_count != len(manifest):
+              print(f"::error file={hfile}::count mismatch expected={expected_count} got={len(manifest)}")
+              sys.exit(1)
+
           ok = True
-          for rel, exp in expected.items():
+          for rel, exp in sorted(manifest.items()):
               p = os.path.join(base_dir, rel)
               if not os.path.isfile(p):
                   print(f"::error file={p}::missing file listed in hashes.json"); ok = False; continue
@@ -144,6 +176,10 @@ jobs:
                   print(f"::error file={p}::sha256 mismatch expected={exp} got={got}"); ok = False
               else:
                   print(f"OK {rel}")
+
+          if ok and manifest_root:
+              print(f"capsule root: {manifest_root}")
+
           sys.exit(0 if ok else 1)
           PY
 
