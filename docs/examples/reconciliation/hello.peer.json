@@ -1,0 +1,20 @@
+{
+  "instance_id": "peer-demo",
+  "generated": "2025-09-17T20:00:00Z",
+  "commandments_hash": "045d332cc063039e4fbdb582cca129166d1387fa106cc2d651a68f4d73a5b2fd",
+  "commandments_path": "docs/commandments.md",
+  "anchors_hash": "762db607ec9b252ec95cb82771bb5a77a9fba1d0a1d43c2582ea15ec469a84c7",
+  "anchors_path": "governance/anchors.json",
+  "receipts": {
+    "aggregate": "8cc544821065b01d520036410c475041cf1235ef8d053caf9d2fa5ded365b7e2",
+    "items": [
+      {
+        "path": "docs/examples/reconciliation/sample_receipt.json",
+        "sha256": "8cc544821065b01d520036410c475041cf1235ef8d053caf9d2fa5ded365b7e2"
+      }
+    ]
+  },
+  "capabilities": [
+    "test"
+  ]
+}

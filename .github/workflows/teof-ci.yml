@@ -83,6 +83,15 @@ jobs:
           fi
           bash tools/doctor.sh
 
+      - name: Reconciliation pipeline (sample)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/reconcile_pipeline.py docs/examples/reconciliation/hello.peer.json \
+            --instance-id ci \
+            --capability autocollab \
+            --out-dir _report/reconciliation/ci
+
       - name: Smoke test bootloader CLI (non-blocking)
         shell: bash
         run: |

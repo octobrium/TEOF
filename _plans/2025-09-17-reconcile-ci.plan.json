@@ -4,35 +4,39 @@
   "created": "2025-09-17T20:34:11Z",
   "actor": "Octo",
   "summary": "Integrate reconciliation checks into CI",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Design CI hook",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "CI hook idea: optional job running reconcile_pipeline against cached peer packet.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Add workflow / script",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Added reconciliation pipeline step to CI workflow (teof-ci.yml).",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Validate locally",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Runner demo _report/runner/20250917T203713Z-7fc9d5b0.json verifies pipeline run.",
+      "receipts": [
+        "_report/runner/20250917T203713Z-7fc9d5b0.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T203713Z-7fc9d5b0.json"
+  ]
 }
