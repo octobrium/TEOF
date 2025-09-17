@@ -83,6 +83,19 @@ jobs:
           fi
           bash tools/doctor.sh
 
+      - name: Smoke test bootloader CLI (non-blocking)
+        shell: bash
+        run: |
+          set +e
+          python teof/bootloader.py --help > bootloader-help.log 2>&1
+          status=$?
+          if [ $status -ne 0 ]; then
+            echo "::warning::bootloader help failed (status $status)"
+            cat bootloader-help.log || true
+          fi
+          rm -f bootloader-help.log
+          exit 0
+
       # ---- Capsule baseline detection/verification ----
       - name: Detect capsule baseline
         id: detect
