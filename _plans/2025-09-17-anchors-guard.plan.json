@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-anchors-guard",
+  "created": "2025-09-17T16:42:17Z",
+  "actor": "Octo",
+  "summary": "Tighten anchors append-only guard",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review current guard + anchors usage",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement stricter guard + tests",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document and sync receipts",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
