@@ -4,35 +4,39 @@
   "created": "2025-09-17T19:27:50Z",
   "actor": "Octo",
   "summary": "Sketch cross-instance reconciliation",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Survey existing provenance hooks",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Reviewed anchors.json, memory log, and commandments to catalog existing reconciliation primitives (anchors, receipts, covenant).",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Draft handshake outline",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Drafted cross-instance handshake sketch in docs/reflections/20250917-reconciliation-handshake.md.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Note next steps + receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Captured runner receipt for reconciliation sketch and outlined next steps (calibration metrics, semantic diffs).",
+      "receipts": [
+        "_report/runner/20250917T192859Z-f2e12d90.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T192859Z-f2e12d90.json"
+  ]
 }
