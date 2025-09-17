@@ -4,7 +4,7 @@
   "created": "2025-09-17T17:00:47Z",
   "actor": "Octo",
   "summary": "Automate ledger updates post-autocollab",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -16,23 +16,27 @@
     {
       "id": "S2",
       "title": "Automate batch acceptance logging",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Autocollab tooling now calls tools/ledger.sh automatically; ledger rows append per batch run.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Document receipts & link memory",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Captured ledger tail receipt via runner; ready to link memory.",
+      "receipts": [
+        "_report/runner/20250917T170313Z-c5a82a16.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T170313Z-c5a82a16.json"
+  ]
 }
