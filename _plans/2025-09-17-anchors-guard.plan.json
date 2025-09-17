@@ -16,8 +16,8 @@
     {
       "id": "S2",
       "title": "Implement stricter guard + tests",
-      "status": "in_progress",
-      "notes": "",
+      "status": "done",
+      "notes": "Implemented stricter single-append guard + unit tests covering required fields.",
       "receipts": []
     },
     {
