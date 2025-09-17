@@ -24,9 +24,10 @@
       "id": "S3",
       "title": "Verify log output",
       "status": "done",
-      "notes": "Runner receipt _report/runner/20250917T215047Z-b5be6a55.json confirms metrics JSON line.",
+      "notes": "Metrics JSON confirmed; receipts: _report/runner/20250917T215047Z-b5be6a55.json, _report/runner/20250917T220422Z-0b250c8e.json.",
       "receipts": [
-        "_report/runner/20250917T215047Z-b5be6a55.json"
+        "_report/runner/20250917T215047Z-b5be6a55.json",
+        "_report/runner/20250917T220422Z-0b250c8e.json"
       ]
     }
   ],
@@ -37,6 +38,7 @@
   },
   "links": [],
   "receipts": [
-    "_report/runner/20250917T215047Z-b5be6a55.json"
+    "_report/runner/20250917T215047Z-b5be6a55.json",
+    "_report/runner/20250917T220422Z-0b250c8e.json"
   ]
 }

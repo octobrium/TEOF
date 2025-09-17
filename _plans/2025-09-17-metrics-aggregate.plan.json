@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-metrics-aggregate",
+  "created": "2025-09-17T21:59:08Z",
+  "actor": "Octo",
+  "summary": "Summarize reconciliation metrics",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design summary fields",
+      "status": "done",
+      "notes": "Summary should report totals, match ratio, missing receipts count, capability divergences.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement aggregation script",
+      "status": "done",
+      "notes": "Added tools/reconcile_metrics_summary.py to aggregate metrics JSONL.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document usage + receipts",
+      "status": "done",
+      "notes": "Runner summary _report/runner/20250917T220635Z-13b70e44.json confirms aggregation output.",
+      "receipts": [
+        "_report/runner/20250917T220635Z-13b70e44.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/runner/20250917T220635Z-13b70e44.json"
+  ]
+}

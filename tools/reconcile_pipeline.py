@@ -9,6 +9,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from reconcile_diff import compare_packets, load_packet
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT = SCRIPT_DIR.parent
 
@@ -67,6 +68,13 @@ def main() -> int:
         "fetch_exit": fetch_proc.returncode,
         "merge_output": str(merge_summary.relative_to(ROOT)),
     }
+
+    left_packet = load_packet(local_hello)
+    right_packet = load_packet(Path(args.peer_packet))
+    diffs = compare_packets(left_packet, right_packet)
+    missing_receipts = [d for d in diffs if d.startswith('receipt missing')]
+    capability_diffs = [d for d in diffs if 'capabilities only' in d]
+
     metrics_path = out_dir / 'metrics.jsonl'
     metrics_entry = {
         "generated": summary['generated'],
@@ -74,7 +82,10 @@ def main() -> int:
         "peer_packet": summary['peer_packet'],
         "diff_exit": summary['diff_exit'],
         "fetch_exit": summary['fetch_exit'],
-        "matches": summary['diff_exit'] == 0,
+        "matches": len(diffs) == 0,
+        "difference_count": len(diffs),
+        "missing_receipt_count": len(missing_receipts),
+        "capability_diff_count": len(capability_diffs),
     }
     with metrics_path.open('a', encoding='utf-8') as handle:
         handle.write(json.dumps(metrics_entry, ensure_ascii=False) + '\n')
