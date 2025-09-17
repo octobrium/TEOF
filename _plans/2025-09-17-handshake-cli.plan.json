@@ -4,35 +4,39 @@
   "created": "2025-09-17T19:34:48Z",
   "actor": "Octo",
   "summary": "Prototype reconciliation hello packet",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Design data model",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Identified fields: instance_id, commandments hash, anchors hash, receipts digest, capabilities, timestamp.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Implement CLI",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Implemented tools/reconcile_hello.py to emit hello packet with hashes + capabilities.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Test + receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Prototype hello packet emitted; runner receipt _report/runner/20250917T193636Z-4caf3336.json.",
+      "receipts": [
+        "_report/runner/20250917T193636Z-4caf3336.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T193636Z-4caf3336.json"
+  ]
 }
