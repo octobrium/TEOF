@@ -52,6 +52,10 @@ done
 
 echo "✅ doctor: repo health OK"
 
+# Build brief artifacts to ensure latest/ symlink stays valid.
+echo "→ Rebuilding brief artifacts (doctor)"
+OUT_ROOT="$(pwd)/artifacts" PYTHONPATH="$(pwd)" python3 -m teof.cli brief
+
 # --- Capsule content-tree verification (path-agnostic) ---
 if command -v jq >/dev/null 2>&1; then
   current_target=""
