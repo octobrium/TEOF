@@ -14,12 +14,16 @@ jobs:
       - run: echo "non-PR invocation: nothing to do"
 
   gate-docs:
-    if: ${{ github.event_name == 'pull_request' && contains(join(fromJson(toJson(github.event.pull_request.labels)).*.name, ','), 'auto-merge-docs') }}
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
+    env:
+      DOCS_LABEL_PRESENT: ${{ contains(join(fromJson(toJson(github.event.pull_request.labels)).*.name, ','), 'auto-merge-docs') }}
     steps:
       - uses: actions/checkout@v4
+        if: env.DOCS_LABEL_PRESENT == 'true'
         with: { fetch-depth: 0 }
       - name: Doctor (invariants-only)
+        if: env.DOCS_LABEL_PRESENT == 'true'
         id: doc
         run: |
           set -e
