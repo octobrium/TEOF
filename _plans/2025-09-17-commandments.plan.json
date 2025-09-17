@@ -4,35 +4,39 @@
   "created": "2025-09-17T18:41:49Z",
   "actor": "Octo",
   "summary": "Draft TEOF commandments & covenant",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Survey existing governance docs",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Reviewed docs/foundation, governance policy, workflow DNA to ensure new covenant complements existing layers.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Author minimal commandments doc",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Drafted docs/commandments.md capturing quick-start commandments, covenant, onboarding, and dissent guidance.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Publish onboarding path + receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Captured runner receipt for commandments doc and documented onboarding guidance.",
+      "receipts": [
+        "_report/runner/20250917T184251Z-72ee4a99.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T184251Z-72ee4a99.json"
+  ]
 }
