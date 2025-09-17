@@ -1,6 +1,6 @@
 {
   "root": "v1.6",
-  "count": 18,
+  "count": 17,
   "files": [
     {
       "path": "OGS-spec.md",
@@ -49,10 +49,6 @@
     {
       "path": "files",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    },
-    {
-      "path": "hashes.json",
-      "sha256": "76c3c2f445306a0966dafa30f8634b05c75553cbc8beb5711e6b6045354e330d"
     },
     {
       "path": "reconstruction.json",

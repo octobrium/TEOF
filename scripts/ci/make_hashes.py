@@ -27,6 +27,8 @@ def main():
     for rel, p in walk(root):
         # ignore obvious noise
         if rel.startswith(".DS_Store"): continue
+        if rel == "hashes.json":
+            continue
         items.append((rel, sha256_file(p)))
 
     items.sort(key=lambda x: x[0])
