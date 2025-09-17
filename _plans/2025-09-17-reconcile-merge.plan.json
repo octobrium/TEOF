@@ -4,35 +4,39 @@
   "created": "2025-09-17T20:19:03Z",
   "actor": "Octo",
   "summary": "Prototype reconciliation merge summary",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Design merge output",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Merge summary should include commandment/anchor hashes, missing receipts, capability deltas, and suggested anchor note.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Implement summary CLI",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Created tools/reconcile_merge.py to summarize hello packets and draft anchor notes.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Test + receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Generated merge summary JSON; runner receipt _report/runner/20250917T202131Z-51b6f4a1.json.",
+      "receipts": [
+        "_report/runner/20250917T202131Z-51b6f4a1.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T202131Z-51b6f4a1.json"
+  ]
 }
