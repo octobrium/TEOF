@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-meaning-memory",
+  "created": "2025-09-17T19:00:44Z",
+  "actor": "Octo",
+  "summary": "Explore meaning vs memory balance",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Collect existing meaning signals",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Draft reflection + thought experiment",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Propose rationale style guide",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
