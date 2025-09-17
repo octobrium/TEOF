@@ -26,7 +26,6 @@
       "status": "done",
       "notes": "Piloted Commandment tagging on ledger upkeep plan (CMD-2, CMD-4).",
       "receipts": [
-        "_plans/2025-09-17-ledger-upkeep.plan.json",
         "_plans/2025-09-17-ledger-upkeep.plan.json"
       ]
     }
@@ -38,7 +37,6 @@
   },
   "links": [],
   "receipts": [
-    "_plans/2025-09-17-ledger-upkeep.plan.json",
     "_plans/2025-09-17-ledger-upkeep.plan.json"
   ]
 }

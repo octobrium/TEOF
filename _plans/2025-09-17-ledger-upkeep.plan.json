@@ -1,6 +1,6 @@
 {
   "version": 0,
-  "plan_id": "2025-09-17-commandment-tags",
+  "plan_id": "2025-09-17-ledger-upkeep",
   "created": "2025-09-17T17:00:47Z",
   "actor": "Octo",
   "summary": "Automate ledger updates post-autocollab",
@@ -38,6 +38,5 @@
   "links": [],
   "receipts": [
     "_report/runner/20250917T170313Z-c5a82a16.json"
-  ],
-  "plan_step_id": "S3"
+  ]
 }
