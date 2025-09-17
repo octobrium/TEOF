@@ -4,35 +4,39 @@
   "created": "2025-09-17T19:47:48Z",
   "actor": "Octo",
   "summary": "Prototype receipt exchange for reconciliation",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Define data format",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Delta payload should include missing receipt hashes, optional capability diffs, and optional plan summaries.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Implement fetch CLI",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Prototype reconcile_fetch.py copies missing receipts from peer packet.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Test + receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Runner receipt _report/runner/20250917T194927Z-7925d347.json for reconcile_fetch prototype.",
+      "receipts": [
+        "_report/runner/20250917T194927Z-7925d347.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T194927Z-7925d347.json"
+  ]
 }
