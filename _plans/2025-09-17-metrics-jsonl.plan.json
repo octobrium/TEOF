@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-metrics-jsonl",
+  "created": "2025-09-17T21:48:22Z",
+  "actor": "Octo",
+  "summary": "Log reconciliation metrics to JSONL",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design JSONL schema",
+      "status": "done",
+      "notes": "Metrics JSON entry should include generated ts, instance ids, hash match boolean, missing receipt count, capability diff count.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Instrument pipeline logging",
+      "status": "done",
+      "notes": "Pipeline now logs metrics JSONL entries (_report/reconciliation/ci-metrics/metrics.jsonl).",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Verify log output",
+      "status": "done",
+      "notes": "Runner receipt _report/runner/20250917T215047Z-b5be6a55.json confirms metrics JSON line.",
+      "receipts": [
+        "_report/runner/20250917T215047Z-b5be6a55.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/runner/20250917T215047Z-b5be6a55.json"
+  ]
+}

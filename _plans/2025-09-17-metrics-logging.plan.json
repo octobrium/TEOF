@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-metrics-logging",
+  "created": "2025-09-17T21:08:34Z",
+  "actor": "Octo",
+  "summary": "Log reconciliation metrics",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define JSONL schema",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Instrument pipeline to log",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Verify output",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}

@@ -67,6 +67,17 @@ def main() -> int:
         "fetch_exit": fetch_proc.returncode,
         "merge_output": str(merge_summary.relative_to(ROOT)),
     }
+    metrics_path = out_dir / 'metrics.jsonl'
+    metrics_entry = {
+        "generated": summary['generated'],
+        "local_instance": summary['local_packet'],
+        "peer_packet": summary['peer_packet'],
+        "diff_exit": summary['diff_exit'],
+        "fetch_exit": summary['fetch_exit'],
+        "matches": summary['diff_exit'] == 0,
+    }
+    with metrics_path.open('a', encoding='utf-8') as handle:
+        handle.write(json.dumps(metrics_entry, ensure_ascii=False) + '\n')
     print(json.dumps(summary, ensure_ascii=False, indent=2))
     return 0 if merge_proc.returncode == 0 else merge_proc.returncode
 
