@@ -4,35 +4,39 @@
   "created": "2025-09-17T18:12:10Z",
   "actor": "Octo",
   "summary": "Retire completed queue tasks",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Confirm completed tasks",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Anchors guard, ledger automation, OCERS upgrade all shipped; queue items 001-003 redundant.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Move retired tasks to _apoptosis",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Moved queue/001-003 to _apoptosis/20250917T181243Z/ for archival.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Update receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Captured queue state after archival via runner receipt.",
+      "receipts": [
+        "_report/runner/20250917T181302Z-afad3e74.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T181302Z-afad3e74.json"
+  ]
 }
