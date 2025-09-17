@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-layer-update",
+  "created": "2025-09-17T19:54:06Z",
+  "actor": "Octo",
+  "summary": "Assess adding L6 Automation",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review existing layer references",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Draft L6 Automation guidance",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Update docs + receipts",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
