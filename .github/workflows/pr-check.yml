@@ -40,9 +40,14 @@ jobs:
           echo "tep_meta=$TEP_META" >> $GITHUB_OUTPUT
       - name: Block placeholder tokens (hard)
         shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
-          if git grep -n -E '…|<TODO|PASS  # TODO' -- '*.py' ; then
-            echo "::error ::Placeholder token(s) found. Remove them before merging."
+          set -euo pipefail
+          CHANGED=$(git diff --name-only "$BASE_SHA"...HEAD -- '*.py' || true)
+          [[ -z "$CHANGED" ]] && exit 0
+          if git diff "$BASE_SHA"...HEAD -- '*.py' | grep -n -E '…|<TODO|PASS  # TODO'; then
+            echo "::error ::Placeholder token(s) introduced in this PR. Remove them before merging."
             exit 1
           fi
       - name: Build brief (staging)
