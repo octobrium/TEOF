@@ -9,8 +9,8 @@
     {
       "id": "S1",
       "title": "Audit current ledger flow",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Reviewed autocollab batches and ledger CSV; manual runs of tools/ledger.sh append rows post-dry-run but risk/accept data only present for latest heuristic pipeline.",
       "receipts": []
     },
     {
