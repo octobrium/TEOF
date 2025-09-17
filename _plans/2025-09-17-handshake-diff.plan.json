@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-handshake-diff",
+  "created": "2025-09-17T19:39:25Z",
+  "actor": "Octo",
+  "summary": "Diff reconciliation hello packets",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define comparison schema",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement diff CLI",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Test + receipts",
+      "status": "queued",
+      "notes": "",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
