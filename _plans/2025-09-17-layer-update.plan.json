@@ -4,35 +4,39 @@
   "created": "2025-09-17T19:54:06Z",
   "actor": "Octo",
   "summary": "Assess adding L6 Automation",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Review existing layer references",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Checked README, docs/architecture.md, docs/workflow.md; layers stop at L5 and automation is implicit under workflow.",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Draft L6 Automation guidance",
-      "status": "queued",
-      "notes": "",
+      "status": "done",
+      "notes": "Extended README layer list with L6 Automation",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Update docs + receipts",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Runner receipt _report/runner/20250917T195651Z-6d803113.json confirms README L6 update.",
+      "receipts": [
+        "_report/runner/20250917T195651Z-6d803113.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/runner/20250917T195651Z-6d803113.json"
+  ]
 }

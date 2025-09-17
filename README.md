@@ -28,7 +28,7 @@ TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agent
 
 ## Framework Ordering
 
-TEOF is layered (L0 → L5).  
+TEOF is layered (L0 → L6).  
 Each layer must **obey and serve the layer(s) above it**:
 
 - **L0 (Observation)** is irreducible and cannot be overridden.  
@@ -36,7 +36,8 @@ Each layer must **obey and serve the layer(s) above it**:
 - **L2 (Objectives)** must fulfill L1.  
 - **L3 (Properties)** must enable L2.  
 - **L4 (Architecture)** must implement L3 faithfully.  
-- **L5 (Workflow)** must operationalize L4 without violating higher layers.
+- **L5 (Workflow)** must operationalize L4 without violating higher layers.  
+- **L6 (Automation)** executes workflows (bots, scripts, agents) while honoring receipts, reversibility, and all higher layers.
 
 Downstream layers are invalid if they contradict upstream layers.  
 This ordering is enforced during review and is part of TEOF’s living constitution.
