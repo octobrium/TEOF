@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-09-17T15:10:44Z",
+  "label": "planner-eval-minimal",
+  "command": [
+    "python3",
+    "-m",
+    "pytest",
+    "tests/test_planner_validation.py",
+    "tests/test_planner_cli.py"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0\nrootdir: /Users/evan/Documents/GitHub/TEOF\nconfigfile: pyproject.toml\ncollected 13 items\n\ntests/test_planner_validation.py ....                                    [ 30%]\ntests/test_planner_cli.py .........                                      [100%]\n\n============================== 13 passed in 0.04s ==============================\n",
+  "stderr": "",
+  "hash": "714227ed534e71dd702b4fd16dae80c7963b0e87dc57b5c719da9ce088e60506",
+  "cached": false
+}
