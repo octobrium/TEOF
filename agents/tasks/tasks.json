@@ -314,6 +314,42 @@
       "role": "product-strategist",
       "status": "done",
       "title": "Governance Trim"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-2/apoptosis-004",
+      "id": "APOP-004",
+      "notes": "Build automated bus heartbeat monitor with configurable windows and idle alerts.",
+      "plan_id": "2025-09-19-bus-heartbeat",
+      "priority": "high",
+      "receipts": [],
+      "role": "systems-architect",
+      "status": "queued",
+      "title": "Bus Heartbeat Monitor"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-3/apoptosis-005",
+      "id": "APOP-005",
+      "notes": "Automate receipt scaffolding, polish bus_status ergonomics, and streamline session bootstrap.",
+      "plan_id": "2025-09-19-receipt-scaffold",
+      "priority": "high",
+      "receipts": [],
+      "role": "automation-engineer",
+      "status": "queued",
+      "title": "Receipt Scaffold & Bus UX"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-4/apoptosis-006",
+      "id": "APOP-006",
+      "notes": "Add doc quick-links and helper CLI for high-traffic guidance surfaces.",
+      "plan_id": "2025-09-19-docs-quicklinks",
+      "priority": "high",
+      "receipts": [],
+      "role": "product-strategist",
+      "status": "queued",
+      "title": "Docs Quick Links"
     }
   ],
   "version": 1

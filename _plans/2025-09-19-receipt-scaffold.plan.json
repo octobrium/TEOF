@@ -1,0 +1,67 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-19-receipt-scaffold",
+  "created": "2025-09-19T00:00:00Z",
+  "actor": "codex-3",
+  "summary": "Automate receipt scaffolding and polish bus/session tooling",
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design scaffolding flow",
+      "status": "done",
+      "notes": "Document trigger points (plan creation, claim) and desired file layout in _report/agent/codex-3/apoptosis-005/design.md.",
+      "receipts": [
+        "_report/agent/codex-3/apoptosis-005/design.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement scaffold helper",
+      "status": "done",
+      "notes": "Extend tools/receipts or add new CLI to create skeleton directories/files; capture dry-run receipts.",
+      "receipts": [
+        "_report/agent/codex-3/2025-09-19-receipt-scaffold/actions.json",
+        "tests/test_receipt_scaffold.py",
+        "tools/receipts/main.py",
+        "tools/receipts/scaffold.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Enhance bus_status & session bootstrap",
+      "status": "queued",
+      "notes": "Add presets/flags to bus_status, streamline session_boot helpers, update docs accordingly.",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Add coverage + automation",
+      "status": "queued",
+      "notes": "Create tests verifying scaffolding and CLI ergonomics; ensure planner validation receipts recorded.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Receipt scaffolding automated with improved bus/session UX and tests",
+    "owner": "codex-3",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "task",
+      "ref": "agents/tasks/tasks.json#APOP-005"
+    },
+    {
+      "type": "doc",
+      "ref": "docs/AGENTS.md#contract"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-3/2025-09-19-receipt-scaffold/actions.json",
+    "_report/agent/codex-3/apoptosis-005/design.md",
+    "tests/test_receipt_scaffold.py",
+    "tools/receipts/main.py",
+    "tools/receipts/scaffold.py"
+  ]
+}
