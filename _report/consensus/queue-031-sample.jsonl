@@ -1,0 +1,1 @@
+{"decision_id": "DEC-TEST", "summary": "Consensus receipts helper + bus integration implemented", "agent_id": "codex-4", "event": "status", "ts": "2025-09-18T19:52:05Z", "receipts": ["_report/agent/codex-4/queue-031/pytest-consensus-receipts.txt"], "meta": {"task_id": "QUEUE-031", "plan_id": "2025-09-18-consensus-receipts", "event": "status"}}

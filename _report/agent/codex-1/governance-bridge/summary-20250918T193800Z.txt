@@ -1,0 +1,1 @@
+Governance backlog seeded: queue/034-governance-l4-binding.md and queue/035-capsule-status-ledger.md; manager/queue channels updated.

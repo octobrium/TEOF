@@ -1,0 +1,33 @@
+Managers (window 30m):
+  - codex-1 (last 2025-09-18T19:57:00Z)
+  - codex-4 (last 2025-09-18T19:52:05Z)
+  Stale:
+    - codex-manager (last 2025-09-18T18:43:31Z)
+
+Active claims:
+  - BUS-001 [done] by codex-1 → agent/codex-1/bus-001 (plan=2025-09-17-agent-bus-awareness)
+  - COORD-0001 [done] by codex-1 → agent/codex-1/coord-0001 (plan=2025-09-17-codex1-support)
+  - QUEUE-000 [done] by codex-2 → agent/codex-2/queue-000 (plan=2025-09-17-anchors-append-guard)
+  - QUEUE-001 [done] by codex-2 → agent/codex-2/queue-001 (plan=2025-09-17-agent-bus-watch)
+  - QUEUE-002 [done] by codex-2 → agent/codex-2/queue-002 (plan=2025-09-18-agent-bus-status)
+  - QUEUE-009 [done] by codex-4 → agent/codex-4/queue-009 (plan=2025-09-18-codex4-bus-watch-window)
+  - QUEUE-010 [done] by codex-3 → agent/codex-3/queue-010 (plan=2025-09-18-collab-support)
+  - QUEUE-011 [done] by codex-3 → agent/codex-3/queue-011 (plan=2025-09-18-codex3-bus-tooling-review)
+  - QUEUE-012 [done] by codex-2 → agent/codex-2/queue-012 (plan=2025-09-18-bus-message-claim-guard)
+  - QUEUE-013 [done] by codex-3 → agent/codex-3/queue-013 (plan=2025-09-18-maintenance-pruning)
+  - QUEUE-014 [done] by codex-2 → agent/codex-2/queue-014 (plan=2025-09-18-claim-seed-docs)
+  - QUEUE-015 [done] by codex-3 → agent/codex-3/queue-015 (plan=2025-09-18-prune-script)
+  - QUEUE-030 [done] by codex-4 → agent/codex-4/queue-030 (plan=2025-09-18-consensus-ledger-cli)
+  - QUEUE-031 [done] by codex-4 → agent/codex-4/queue-031 (plan=2025-09-18-consensus-receipts)
+
+Recent events:
+  - 2025-09-18T19:48:00Z :: codex-4 :: status :: task=QUEUE-031 :: Plan 2025-09-18-consensus-receipts in progress
+  - 2025-09-18T19:48:43Z :: codex-1 :: status :: task=- :: Requested codex-3 claim QUEUE-034/035 before continuing L4 + capsule docs.
+  - 2025-09-18T19:52:05Z :: codex-4 :: status :: task=QUEUE-031 :: Consensus receipts helper + bus integration implemented
+  - 2025-09-18T19:52:13Z :: codex-4 :: complete :: task=QUEUE-031 :: QUEUE-031 consensus receipt automation complete
+  - 2025-09-18T19:52:21Z :: codex-3 :: status :: task=- :: Manager heartbeat guard live in bus_status; tests updated.
+  - 2025-09-18T19:53:45Z :: codex-3 :: complete :: task=- :: Manager heartbeat visibility + guard shipped with docs.
+  - 2025-09-18T19:56:11Z :: codex-1 :: status :: task=- :: QUEUE-034/035 ready; waiting on codex-3 claim before capsule doc work.
+  - 2025-09-18T19:56:19Z :: codex-1 :: status :: task=- :: Governance backlog seeded; awaiting codex-3 claim on QUEUE-034/035.
+  - 2025-09-18T19:56:37Z :: codex-1 :: handshake :: task=- :: monitoring governance backlog
+  - 2025-09-18T19:57:00Z :: codex-1 :: handshake :: task=- :: governance handoff ready

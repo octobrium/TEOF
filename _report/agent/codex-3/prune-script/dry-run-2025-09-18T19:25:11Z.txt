@@ -1,0 +1,2 @@
+python -m tools.maintenance.prune_artifacts --dry-run
+No stale artifacts found; nothing to prune.

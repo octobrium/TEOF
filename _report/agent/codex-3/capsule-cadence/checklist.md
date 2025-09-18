@@ -1,0 +1,2 @@
+- docs/maintenance/capsule-cadence.md (created)
+- docs/workflow.md (linked cadence)

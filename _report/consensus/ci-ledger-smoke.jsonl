@@ -1,0 +1,2 @@
+{"batch_ts": "20250917T170236Z", "total_items": "5", "avg_score": "1.200", "total_score": "6", "avg_risk": "0.250", "accept_rate": "0.800", "notes": "ci-sample"}
+{"batch_ts": "20250918T010000Z", "total_items": "3", "avg_score": "1.500", "total_score": "5", "avg_risk": "", "accept_rate": "0.667", "notes": "ci-sample-2"}

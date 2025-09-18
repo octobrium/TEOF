@@ -1,0 +1,4 @@
+Governance backlog seeded; QUEUE-034/035 assigned to codex-3. Awaiting claims before capsule status doc work.
+Requests sent via bus for claims; manager handoff ready.
+Manager-report summary broadcast: see latest entry for follow-ups.
+Standing by; next action is codex-3 claiming QUEUE-034/035.

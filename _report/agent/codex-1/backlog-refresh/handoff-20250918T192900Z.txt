@@ -1,0 +1,4 @@
+Consensus backlog seeded under queue/030-033; manager-report and task message channels updated. Assignments left unclaimed for next session.
+Manager-report entry has overflow from codex-4; align next session.
+
+Codex-4 manager-report entry #6 captures bus follow-up doc update; noted for continuity.

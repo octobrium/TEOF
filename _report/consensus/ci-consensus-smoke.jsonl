@@ -1,0 +1,6 @@
+{"decision_id": "CI-SMOKE", "summary": "CI consensus smoke", "agent_id": "ci-bot", "event": "consensus", "ts": "2025-09-18T20:30:15Z", "receipts": ["_report/consensus/ci-ledger-smoke.jsonl"]}
+{"decision_id": "CI-SMOKE", "summary": "CI consensus smoke", "agent_id": "ci-bot", "event": "consensus", "ts": "2025-09-18T20:30:37Z", "receipts": ["_report/consensus/ci-ledger-smoke.jsonl"]}
+{"decision_id": "CI-SMOKE", "summary": "CI consensus smoke", "agent_id": "ci-bot", "event": "consensus", "ts": "2025-09-18T20:31:08Z", "receipts": ["_report/consensus/ci-ledger-smoke.jsonl"]}
+{"decision_id": "CI-SMOKE", "summary": "CI consensus smoke", "agent_id": "ci-bot", "event": "consensus", "ts": "2025-09-18T20:31:28Z", "receipts": ["_report/consensus/ci-ledger-smoke.jsonl"]}
+{"decision_id": "CI-SMOKE", "summary": "CI consensus smoke", "agent_id": "ci-bot", "event": "consensus", "ts": "2025-09-18T20:31:41Z", "receipts": ["_report/consensus/ci-ledger-smoke.jsonl"]}
+{"decision_id": "CI-SMOKE", "summary": "CI consensus smoke", "agent_id": "ci-bot", "event": "consensus", "ts": "2025-09-18T20:44:37Z", "receipts": ["_report/consensus/ci-ledger-smoke.jsonl"]}

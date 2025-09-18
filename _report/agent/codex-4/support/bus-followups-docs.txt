@@ -1,0 +1,4 @@
+codex-4 doc update summary — 2025-09-18T19:24Z
+- Updated docs/parallel-codex.md with a Follow-up Logging section (sample bus_event/bus_message commands + receipt guidance).
+- Updated docs/collab-support.md adding section 5 (Log Follow-ups) and renumbered Review & Sunset to section 6.
+- Commands referenced: python3 -m tools.agent.bus_event log --event status ... --receipt <path>; python3 -m tools.agent.bus_message --task manager-report --type status ... --receipt <path>.
