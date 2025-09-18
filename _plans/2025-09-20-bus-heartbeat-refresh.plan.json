@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-bus-heartbeat-refresh",
+  "created": "2025-09-19T00:00:00Z",
+  "actor": "codex-2",
+  "summary": "Automate bus heartbeat monitoring and idle alerts",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Map heartbeat requirements",
+      "status": "queued",
+      "notes": "Catalog manager cadence, idle windows, and alert thresholds; record findings in _report/agent/codex-2/apoptosis-004/requirements.md.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Prototype heartbeat watcher",
+      "status": "queued",
+      "notes": "Implement watcher script/service that tails _bus/events/messages with configurable filters; capture dry-run receipts.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Integrate alerts + docs",
+      "status": "queued",
+      "notes": "Wire alerts into manager report or dedicated bus channel; update docs references.",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Add coverage and receipts",
+      "status": "queued",
+      "notes": "Add unit/smoke tests and capture planner validation receipts demonstrating deterministic behaviour.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Heartbeat automation emitting actionable alerts with tests and receipts",
+    "owner": "codex-2",
+    "status": "pending"
+  },
+  "links": [
+    {"type": "task", "ref": "agents/tasks/tasks.json#APOP-004"},
+    {"type": "doc", "ref": "docs/parallel-codex.md#self-audit"}
+  ],
+  "receipts": []
+}
