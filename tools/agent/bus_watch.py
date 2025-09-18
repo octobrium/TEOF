@@ -6,13 +6,14 @@ import argparse
 import json
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable, List, Mapping, Sequence
 
 ROOT = Path(__file__).resolve().parents[2]
 EVENT_LOG = ROOT / "_bus" / "events" / "events.jsonl"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
+DEFAULT_WINDOW_HOURS = 24.0
 
 
 class BusWatchError(RuntimeError):
@@ -28,6 +29,27 @@ def parse_iso8601(ts: str | None) -> datetime | None:
         raise BusWatchError(
             "--since must be ISO8601 UTC (e.g. 2025-09-17T23:00:00Z)"
         ) from exc
+
+
+def utc_now() -> datetime:
+    """Return the current UTC timestamp."""
+
+    return datetime.now(timezone.utc)
+
+
+def compute_window_since(
+    window_hours: float | None, *, now: datetime | None = None
+) -> datetime | None:
+    """Resolve the cutoff timestamp implied by the window size."""
+
+    if window_hours is None:
+        return None
+    if window_hours < 0:
+        raise BusWatchError("--window-hours must be >= 0")
+    if window_hours == 0:
+        return None
+    reference = now or utc_now()
+    return reference - timedelta(hours=window_hours)
 
 
 def load_events(path: Path) -> list[Mapping[str, object]]:
@@ -177,6 +199,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--event", dest="event_type", action="append", help="Filter by event name")
     parser.add_argument("--follow", action="store_true", help="Follow the log for new events")
     parser.add_argument("--limit", type=int, help="Restrict to the last N events before filtering")
+    parser.add_argument(
+        "--window-hours",
+        type=float,
+        default=DEFAULT_WINDOW_HOURS,
+        help="Restrict to events within the most recent N hours (default: %(default)s; use 0 to disable)",
+    )
     return parser
 
 
@@ -191,9 +219,20 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     try:
+        window_since = compute_window_since(args.window_hours)
+    except BusWatchError as exc:
+        parser.error(str(exc))
+        return 2
+
+    effective_since = None
+    candidates = [cutoff for cutoff in (since, window_since) if cutoff is not None]
+    if candidates:
+        effective_since = max(candidates)
+
+    try:
         stream_events(
             EVENT_LOG,
-            since=since,
+            since=effective_since,
             agents=args.agent,
             events_filter=args.event_type,
             follow=args.follow,

@@ -1,10 +1,14 @@
 import datetime as dt
+import json
 from datetime import timezone
+from pathlib import Path
 
 import pytest
 
+from tools.agent import bus_watch
 from tools.agent.bus_watch import (
     BusWatchError,
+    compute_window_since,
     event_matches,
     filter_events,
     format_event,
@@ -73,3 +77,73 @@ def test_format_event_includes_receipts():
 def test_event_matches_invalid_timestamp_skips():
     event = make_event("not-at-time")
     assert not event_matches(event, since=None, allowed_agents=None, allowed_events=None)
+
+
+def test_compute_window_since_positive_hours():
+    reference = dt.datetime(2025, 9, 18, 12, 0, tzinfo=timezone.utc)
+    cutoff = compute_window_since(2, now=reference)
+    assert cutoff == reference - dt.timedelta(hours=2)
+
+
+def test_compute_window_since_zero_disables_window():
+    reference = dt.datetime(2025, 9, 18, 12, 0, tzinfo=timezone.utc)
+    assert compute_window_since(0, now=reference) is None
+
+
+def test_compute_window_since_rejects_negative():
+    reference = dt.datetime(2025, 9, 18, 12, 0, tzinfo=timezone.utc)
+    with pytest.raises(BusWatchError):
+        compute_window_since(-1, now=reference)
+
+
+def test_bus_watch_applies_window_hours_default(tmp_path, capsys, monkeypatch):
+    events_log = tmp_path / "events.jsonl"
+    fake_now = dt.datetime(2025, 9, 18, 12, 0, tzinfo=timezone.utc)
+
+    def iso(hours_ago: int) -> str:
+        return (fake_now - dt.timedelta(hours=hours_ago)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    events = [
+        {"ts": iso(6), "agent_id": "codex-1", "event": "status", "summary": "recent"},
+        {"ts": iso(30), "agent_id": "codex-2", "event": "status", "summary": "stale"},
+    ]
+    events_log.write_text("\n".join([json.dumps(ev) for ev in events]) + "\n", encoding="utf-8")
+
+    monkeypatch.setattr(bus_watch, "EVENT_LOG", events_log)
+    monkeypatch.setattr(bus_watch, "utc_now", lambda: fake_now)
+
+    exit_code = bus_watch.main(["--limit", "10"])
+    assert exit_code == 0
+    out = capsys.readouterr().out
+    assert "recent" in out
+    assert "stale" not in out
+
+
+def test_bus_watch_window_zero_includes_full_history(tmp_path, capsys, monkeypatch):
+    events_log = tmp_path / "events.jsonl"
+    fake_now = dt.datetime(2025, 9, 18, 12, 0, tzinfo=timezone.utc)
+
+    def iso(hours_ago: int) -> str:
+        return (fake_now - dt.timedelta(hours=hours_ago)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    events = [
+        {"ts": iso(6), "agent_id": "codex-1", "event": "status", "summary": "recent"},
+        {"ts": iso(30), "agent_id": "codex-2", "event": "status", "summary": "stale"},
+    ]
+    events_log.write_text("\n".join([json.dumps(ev) for ev in events]) + "\n", encoding="utf-8")
+
+    monkeypatch.setattr(bus_watch, "EVENT_LOG", events_log)
+    monkeypatch.setattr(bus_watch, "utc_now", lambda: fake_now)
+
+    exit_code = bus_watch.main(["--limit", "10", "--window-hours", "0"])
+    assert exit_code == 0
+    out = capsys.readouterr().out
+    assert "recent" in out
+    assert "stale" in out
+
+
+def test_bus_watch_window_negative_rejected(monkeypatch):
+    monkeypatch.setattr(bus_watch, "EVENT_LOG", Path("/nonexistent"))
+    with pytest.raises(SystemExit) as exc:
+        bus_watch.main(["--window-hours", "-2"])
+    assert exc.value.code == 2

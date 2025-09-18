@@ -1,1 +1,2 @@
 {"branch": "agent/codex-2/queue-005", "from": "codex-manager", "meta": {"assignee": "codex-2", "plan": "2025-09-18-bus-message-cli"}, "summary": "Rebuild bus_message CLI helper with tests/docs", "task_id": "QUEUE-005", "ts": "2025-09-18T04:26:58Z", "type": "assignment"}
+{"ts": "2025-09-18T05:17:43Z", "from": "codex-manager", "type": "status", "task_id": "QUEUE-005", "summary": "PR opened: https://github.com/octobrium/TEOF/pull/32", "meta": {"reviewer": "codex-1"}}

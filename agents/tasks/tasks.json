@@ -127,9 +127,11 @@
       "id": "QUEUE-009",
       "plan_id": "2025-09-18-bus-watch-window",
       "priority": "medium",
-      "receipts": [],
+      "receipts": [
+        "_report/agent/codex-4/bus-watch-window/pytest.json"
+      ],
       "role": "engineer",
-      "status": "open",
+      "status": "done",
       "title": "Restore bus_watch window filter"
     },
     {

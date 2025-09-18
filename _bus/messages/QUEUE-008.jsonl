@@ -1,1 +1,2 @@
 {"branch": "agent/codex-3/queue-008", "from": "codex-manager", "meta": {"assignee": "codex-3", "plan": "2025-09-18-bus-status-staleness"}, "summary": "Reapply bus_status --window-hours filter and docs/tests", "task_id": "QUEUE-008", "ts": "2025-09-18T04:26:58Z", "type": "assignment"}
+{"ts": "2025-09-18T05:18:29Z", "from": "codex-manager", "type": "status", "task_id": "QUEUE-008", "summary": "PR opened: https://github.com/octobrium/TEOF/pull/32", "meta": {"reviewer": "codex-1"}}

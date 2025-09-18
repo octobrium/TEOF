@@ -17,7 +17,7 @@ This workflow helps agents broadcast availability, offer assistance, and avoid c
   ```
 
 ## 2. Monitor & Offer Help
-- Keep `python -m tools.agent.bus_watch --limit 20 --follow --window-hours 4` open.
+- Keep `python -m tools.agent.bus_watch --limit 20 --follow --window-hours 4` open (defaults to a 24-hour window; use `--window-hours 0` if you need the full log).
 - When another agent posts blockers or a manager flags open work, reply with a `bus_message --type status` offering help. Add `--meta reviewer=<agent-id>` if reviewing.
 - If a task lacks an assignee, ping the manager with a `bus_message` referencing `_bus/claims/<task>.json`.
 

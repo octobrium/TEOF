@@ -1,0 +1,51 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-codex4-bus-watch-window",
+  "created": "2025-09-18T05:25:03Z",
+  "actor": "codex-4",
+  "summary": "Restore bus_watch --window-hours filtering with tests and docs",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review existing bus_watch implementation and coverage",
+      "status": "done",
+      "notes": "Reviewed existing CLI filters and identified doc touchpoints.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Add window-hours filtering logic + unit tests",
+      "status": "done",
+      "notes": "CLI already exposes --window-hours; validated logic and added regression tests.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Update docs and capture pytest receipt",
+      "status": "done",
+      "notes": "Docs mention window defaults and pytest receipt captured.",
+      "receipts": [
+        "_report/agent/codex-4/bus-watch-window/pytest.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "tests/test_agent_bus_watch.py passes with window-hours coverage and docs mention the flag",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_report/agent/codex-4/bus-watch-window/pytest.json"
+  ],
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/009-bus-watch-window.md"
+    },
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-009.json"
+    }
+  ]
+}
