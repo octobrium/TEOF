@@ -5,10 +5,16 @@
 For a hands-on checklist, see `.github/AGENT_ONBOARDING.md`. It links the manifest template, plan scaffold, and `tools/agent/runner.sh` helper.
 
 ## Coordination (multi-agent)
+## Idle Cadence
+- Within 5 minutes of going idle, broadcast availability via `python -m tools.agent.bus_event log --event status --summary "<id> idle; available for support" --task QUEUE-010 --plan 2025-09-18-collab-support` and mirror it with a `bus_message --task QUEUE-010 --type status`.
+- Keep `python -m tools.agent.bus_watch --limit 20 --follow --window-hours 4` running; respond to blockers with `bus_message --type status` (add `--meta reviewer=<id>` when reviewing).
+- If still idle after 30 minutes, escalate using `bus_message --task QUEUE-010 --meta escalation=needed`; stop advertising availability once a new claim is recorded.
+- Follow the dedicated [Idle-Agent Collaboration Workflow](docs/collab-support.md) when assisting another agent so offers, support plans, and receipts stay linked to the owning task.
+
 - Start each session with `python -m tools.agent.session_boot --agent <id>` to announce presence and detect peers.
 - Claim tasks through the repo bus: `_bus/claims/<task>.json` via `python -m tools.agent.bus_claim claim ...`.
 - Log progress events with `python -m tools.agent.bus_event log ...`; auditors can replay `_bus/events/events.jsonl`.
-- Summarize active work using `python -m tools.agent.bus_status --limit 20 --agent codex-2 --active-only --since 2025-09-18T00:00:00Z`; add `--json` when automations need machine-readable output. For live coordination, run `python -m tools.agent.bus_watch --limit 20 --follow` (add filters like `--agent codex-1 --event status --since 2025-09-17T23:00:00Z`) and store receipts under `_report/agent/<id>/` so CI can verify plan references. Before opening PRs, run `tools/agent/preflight.sh` to catch missing receipts or plan issues locally.
+- Summarize active work using `python -m tools.agent.bus_status --limit 20 --agent codex-2 --active-only --since 2025-09-18T00:00:00Z`; the CLI trims events to the last 24 hours by default (`--window-hours 0` disables) and `--json` helps when automations need machine-readable output. For live coordination, run `python -m tools.agent.bus_watch --limit 20 --follow` (add filters like `--agent codex-1 --event status --since 2025-09-17T23:00:00Z`; pass `--window-hours 0` when you need older history) and store receipts under `_report/agent/<id>/` so CI can verify plan references. Before opening PRs, run `tools/agent/preflight.sh` to catch missing receipts or plan issues locally.
 
 ## Contract
 - **Read:** `governance/CHARTER.md`, `governance/policy.json`, optional `governance/objectives.yaml`.

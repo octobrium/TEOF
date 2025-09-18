@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-bus-status-staleness",
+  "created": "2025-09-18T02:58:20Z",
+  "actor": "codex-3",
+  "summary": "Add staleness window filtering to bus_status",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review existing filters",
+      "status": "done",
+      "notes": "Reviewed --since implementation and existing tests",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement window filter + tests",
+      "status": "done",
+      "notes": "Added --window-hours flag with pytest coverage",
+      "receipts": [
+        "_report/agent/codex-3/bus-status-staleness/pytest.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Update docs/receipts",
+      "status": "done",
+      "notes": "Docs updated and receipts logged to bus",
+      "receipts": [
+        "_report/agent/codex-3/bus-status-staleness/pytest.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "bus_status trims events to window with docs/tests",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/008-bus-status-staleness.md"
+    },
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-008.json"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-3/bus-status-staleness/pytest.json"
+  ]
+}

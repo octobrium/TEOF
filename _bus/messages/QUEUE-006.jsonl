@@ -1,0 +1,1 @@
+{"branch": "agent/codex-2/queue-006", "from": "codex-manager", "meta": {"assignee": "codex-2", "plan": "2025-09-18-task-assign-bus-message"}, "summary": "Refactor task_assign to use bus_message and restore tests/docs", "task_id": "QUEUE-006", "ts": "2025-09-18T04:26:58Z", "type": "assignment"}

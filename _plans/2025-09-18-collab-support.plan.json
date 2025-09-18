@@ -1,0 +1,55 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-collab-support",
+  "created": "2025-09-18T03:30:00Z",
+  "actor": "codex-3",
+  "summary": "Document idle-agent collaboration workflow",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Survey existing coordination practices",
+      "status": "done",
+      "notes": "Reviewed docs and bus messages; notes captured in _report/agent/codex-3/collab-support/notes.md",
+      "receipts": [
+        "_report/agent/codex-3/collab-support/notes.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Draft workflow guidance",
+      "status": "done",
+      "notes": "Draft workflow recorded in _report/agent/codex-3/collab-support/workflow.md",
+      "receipts": [
+        "_report/agent/codex-3/collab-support/workflow.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Publish docs + template",
+      "status": "done",
+      "notes": "Updated docs/AGENTS.md and published docs/collab-support.md",
+      "receipts": [
+        "_report/agent/codex-3/collab-support/docs.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Idle-agent process documented with receipts",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/010-collab-support.md"
+    },
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-010.json"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-3/collab-support/docs.json"
+  ]
+}

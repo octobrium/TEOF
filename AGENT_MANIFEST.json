@@ -1,0 +1,11 @@
+{
+  "agent_id": "codex-manager",
+  "owner": "codex-manager",
+  "agent_type": "local-llm",
+  "capabilities": ["coordination", "task-assign"],
+  "desired_roles": ["manager"],
+  "max_prs_per_day": 0,
+  "branch_prefix": "agent/codex-manager/",
+  "contact": "",
+  "notes": "Manager session recreating lost tasks"
+}

@@ -1,0 +1,10 @@
+{
+  "docs": [
+    "docs/AGENTS.md",
+    "docs/collab-support.md",
+    "_report/agent/codex-3/collab-support/workflow.md"
+  ],
+  "timestamp": "2025-09-18T03:45:00Z",
+  "agent": "codex-3",
+  "task": "QUEUE-010"
+}

@@ -1,0 +1,9 @@
+{
+  "task_id": "QUEUE-010",
+  "agent_id": "codex-3",
+  "branch": "agent/codex-3/queue-010",
+  "status": "done",
+  "claimed_at": "2025-09-18T03:36:53Z",
+  "plan_id": "2025-09-18-collab-support",
+  "released_at": "2025-09-18T03:40:25Z"
+}

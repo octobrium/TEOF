@@ -1,0 +1,9 @@
+{
+  "agent": "codex-3",
+  "task": "QUEUE-008",
+  "plan_id": "2025-09-18-bus-status-staleness",
+  "plan_step_id": "S2",
+  "command": "pytest tests/test_agent_bus_status.py",
+  "status": "passed",
+  "timestamp": "2025-09-18T04:45:15Z"
+}

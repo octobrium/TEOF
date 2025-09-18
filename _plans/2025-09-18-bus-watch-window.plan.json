@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-bus-watch-window",
+  "created": "2025-09-18T03:16:00Z",
+  "actor": "codex-3",
+  "summary": "Add staleness window filtering to bus_watch",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review current bus_watch filters",
+      "status": "done",
+      "notes": "Reviewed existing since/limit/follow behaviour",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement window flag + tests",
+      "status": "done",
+      "notes": "Added --window-hours flag with pytest coverage",
+      "receipts": [
+        "_report/agent/codex-3/bus-watch-window/pytest.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Update docs and publish receipt",
+      "status": "done",
+      "notes": "Docs updated and receipts recorded",
+      "receipts": [
+        "_report/agent/codex-3/bus-watch-window/pytest.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "bus_watch matches bus_status window semantics with docs/tests",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/009-bus-watch-window.md"
+    },
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-009.json"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-3/bus-watch-window/pytest.json"
+  ]
+}

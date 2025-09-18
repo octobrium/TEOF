@@ -1,0 +1,1 @@
+{"branch": "agent/codex-2/queue-005", "from": "codex-manager", "meta": {"assignee": "codex-2", "plan": "2025-09-18-bus-message-cli"}, "summary": "Rebuild bus_message CLI helper with tests/docs", "task_id": "QUEUE-005", "ts": "2025-09-18T04:26:58Z", "type": "assignment"}

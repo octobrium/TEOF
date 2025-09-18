@@ -48,9 +48,12 @@
       "id": "QUEUE-003",
       "plan_id": "2025-09-18-agent-bus-cli-tests",
       "priority": "medium",
+      "receipts": [
+        "_report/agent/codex-3/agent-bus-cli-tests/pytest.json"
+      ],
       "role": "engineer",
-      "status": "open",
-      "title": "QUEUE-003"
+      "status": "done",
+      "title": "Add bus CLI regression tests"
     },
     {
       "assigned_by": "codex-1",
@@ -65,6 +68,93 @@
       "role": "engineer",
       "status": "done",
       "title": "Enhance bus_status filters"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-2/queue-005",
+      "id": "QUEUE-005",
+      "plan_id": "2025-09-18-bus-message-cli",
+      "priority": "medium",
+      "receipts": [
+        "_report/agent/codex-2/bus-message-cli/pytest.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "Ship bus_message CLI"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-2/queue-006",
+      "id": "QUEUE-006",
+      "plan_id": "2025-09-18-task-assign-bus-message",
+      "priority": "medium",
+      "receipts": [
+        "_report/agent/codex-2/task-assign-bus-message/pytest.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "Align task_assign with bus_message"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-3/queue-007",
+      "id": "QUEUE-007",
+      "plan_id": "2025-09-18-bus-event-severity",
+      "priority": "medium",
+      "receipts": [
+        "_report/agent/codex-3/bus-event-severity/pytest.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "Add bus_event severity tagging"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-3/queue-008",
+      "id": "QUEUE-008",
+      "plan_id": "2025-09-18-bus-status-staleness",
+      "priority": "medium",
+      "receipts": [
+        "_report/agent/codex-3/bus-status-staleness/pytest.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "Document bus_status staleness window"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-3/queue-009",
+      "id": "QUEUE-009",
+      "plan_id": "2025-09-18-bus-watch-window",
+      "priority": "medium",
+      "receipts": [],
+      "role": "engineer",
+      "status": "open",
+      "title": "Restore bus_watch window filter"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-3/queue-010",
+      "id": "QUEUE-010",
+      "plan_id": "2025-09-18-collab-support",
+      "priority": "medium",
+      "receipts": [
+        "_report/agent/codex-3/collab-support/docs.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "Document idle-agent workflow"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-1/queue-011",
+      "id": "QUEUE-011",
+      "plan_id": "2025-09-18-bus-tooling-review",
+      "priority": "medium",
+      "receipts": [],
+      "role": "engineer",
+      "status": "open",
+      "title": "Pre-review bus tooling"
     }
   ],
   "version": 1

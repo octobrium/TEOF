@@ -15,6 +15,7 @@ MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 
 
 REQUIRED_FIELDS = {"ts", "agent_id", "event", "summary"}
+SEVERITY_LEVELS = {"low", "medium", "high"}
 
 
 def _iso_now() -> str:
@@ -67,6 +68,12 @@ def handle_log(args: argparse.Namespace) -> None:
             if not key or not value:
                 raise SystemExit(f"invalid extra field '{item}', expected key=value")
             payload[key] = value
+    if args.severity:
+        severity = args.severity.strip().lower()
+        if severity not in SEVERITY_LEVELS:
+            allowed = ", ".join(sorted(SEVERITY_LEVELS))
+            raise SystemExit(f"severity must be one of: {allowed}")
+        payload["severity"] = severity
 
     _append_event(payload)
     print(f"Logged event {args.event} for agent {agent_id}")
@@ -84,6 +91,10 @@ def build_parser() -> argparse.ArgumentParser:
     log.add_argument("--branch", help="Branch name")
     log.add_argument("--pr", help="Associated PR number")
     log.add_argument("--receipt", help="Receipt path to record")
+    log.add_argument(
+        "--severity",
+        help="Severity level (low|medium|high)",
+    )
     log.add_argument("--agent", help="Agent id (defaults to manifest)")
     log.add_argument("--extra", nargs="*", help="Additional key=value pairs")
     log.set_defaults(func=handle_log)

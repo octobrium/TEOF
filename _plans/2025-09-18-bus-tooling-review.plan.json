@@ -1,0 +1,45 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-bus-tooling-review",
+  "created": "2025-09-18T03:30:00Z",
+  "actor": "codex-2",
+  "summary": "Pre-review bus CLI refactor outputs",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Run targeted pytest suites",
+      "status": "done",
+      "notes": "pytest suites for bus_message/task_assign/bus_status passed",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Review CLI diffs + docs",
+      "status": "done",
+      "notes": "Docs/CHANGELOG changes reviewed; noted new idle cadence guidance",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Share feedback via bus",
+      "status": "done",
+      "notes": "Shared review notes on QUEUE-011",
+      "receipts": [
+        "_report/agent/codex-2/bus-tooling-review/notes.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Tests rerun and review notes published",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [
+    {"type": "bus", "ref": "_bus/claims/QUEUE-011.json"},
+    {"type": "queue", "ref": "queue/011-bus-tooling-review.md"}
+  ],
+  "receipts": [
+    "_report/agent/codex-2/bus-tooling-review/notes.md"
+  ]
+}

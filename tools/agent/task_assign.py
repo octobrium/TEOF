@@ -6,7 +6,9 @@ import argparse
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Dict, List
+
+from tools.agent import bus_message
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "AGENT_MANIFEST.json"
@@ -37,16 +39,18 @@ def load_tasks() -> dict[str, Any]:
         return {}
 
 
-def update_tasks(task_id: str, engineer: str, plan_id: str | None, branch: str | None) -> None:
+def update_tasks(task_id: str, engineer: str, plan_id: str | None, branch: str | None, manager: str) -> None:
     data = load_tasks()
     tasks = data.setdefault("tasks", []) if isinstance(data, dict) else []
     for task in tasks:
         if task.get("id") == task_id:
-            task["assigned_by"] = task.get("assigned_by") or engineer
+            task["assigned_by"] = manager
             if plan_id:
                 task["plan_id"] = plan_id
             if branch:
                 task["branch"] = branch
+            task.setdefault("role", "engineer")
+            task.setdefault("priority", "medium")
             task["status"] = task.get("status", "open")
             break
     else:
@@ -58,9 +62,10 @@ def update_tasks(task_id: str, engineer: str, plan_id: str | None, branch: str |
             "status": "open",
             "plan_id": plan_id,
             "branch": branch,
-            "assigned_by": engineer,
+            "assigned_by": manager,
         }
         tasks.append(entry)
+    TASKS_FILE.parent.mkdir(parents=True, exist_ok=True)
     TASKS_FILE.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
@@ -81,24 +86,22 @@ def write_assignment(task_id: str, engineer: str, manager: str, plan_id: str | N
 
 
 def append_message(task_id: str, manager: str, engineer: str, plan_id: str | None, branch: str | None, note: str | None) -> None:
-    MESSAGES_DIR.mkdir(parents=True, exist_ok=True)
-    message = {
-        "ts": iso_now(),
-        "from": manager,
-        "type": "assignment",
-        "task_id": task_id,
-        "summary": f"Assigned to {engineer}",
-        "branch": branch,
-        "meta": {"assignee": engineer, "plan": plan_id},
-    }
-    if note:
-        message["note"] = note
-    msg_path = MESSAGES_DIR / f"{task_id}.jsonl"
-    with msg_path.open("a", encoding="utf-8") as fh:
-        fh.write(json.dumps(message, sort_keys=True) + "\n")
+    meta: Dict[str, Any] = {"assignee": engineer}
+    if plan_id:
+        meta.setdefault("plan", plan_id)
+    bus_message.log_message(
+        task_id=task_id,
+        msg_type="assignment",
+        summary=f"Assigned to {engineer}",
+        agent_id=manager,
+        branch=branch,
+        plan_id=plan_id,
+        meta=meta,
+        note=note,
+    )
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Assign tasks via the coordination bus")
     parser.add_argument("--task", required=True, help="Task identifier (e.g., QUEUE-001)")
     parser.add_argument("--engineer", required=True, help="Agent id to assign the task to")
@@ -106,17 +109,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--branch", help="Working branch for the assignee")
     parser.add_argument("--manager", help="Manager agent id (defaults to manifest agent_id)")
     parser.add_argument("--note", help="Optional note to include in assignment message")
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> int:
-    args = parse_args()
+    args = parse_args(argv)
     manifest = load_manifest()
     manager = args.manager or manifest.get("agent_id") or "manager"
     assignment_path = write_assignment(args.task, args.engineer, manager, args.plan, args.branch, args.note)
     append_message(args.task, manager, args.engineer, args.plan, args.branch, args.note)
-    update_tasks(args.task, args.engineer, args.plan, args.branch)
-    print(f"Recorded assignment → {assignment_path.relative_to(ROOT)}")
+    update_tasks(args.task, args.engineer, args.plan, args.branch, manager)
+    try:
+        display_path = assignment_path.relative_to(ROOT)
+    except ValueError:
+        display_path = assignment_path
+    print(f"Recorded assignment → {display_path}")
     return 0
 
 

@@ -47,8 +47,8 @@ Recommended fields: `branch`, `plan_id`, `pr`, `receipts`.
 ## Tooling (planned)
 
 - `python -m tools.agent.bus_claim` — create/release claims safely.
-- `python -m tools.agent.bus_event` — append events with validation.
-- `python -m tools.agent.bus_status` — render current claims + latest events (`--agent <id>`, `--active-only`, `--json`).
+- `python -m tools.agent.bus_event` — append events with validation (supports `--severity` values `low|medium|high`).
+- `python -m tools.agent.bus_status` — render current claims + latest events (`--agent <id>`, `--active-only`, `--since <ISO>`, `--json`).
 - `python -m tools.agent.bus_watch` — stream or filter events (`--follow`, `--since <ISO>`, `--agent <id>`, `--event <type>`).
 
 ## Workflow
