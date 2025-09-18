@@ -5,6 +5,8 @@
 For a hands-on checklist, see `.github/AGENT_ONBOARDING.md`. It links the manifest template, plan scaffold, and `tools/agent/runner.sh` helper.
 
 ## Coordination (multi-agent)
+> **Optional role module:** See [`docs/roles.md`](docs/roles.md) + `agents/roles.json` for a lightweight four-pillar breakdown (strategist, architect, automation engineer, risk sentinel). Pick a hat at session start or prune/replace the list to fit your crew. The roles are additive; delete the files if you prefer the classic free-form model.
+
 ## Idle Cadence
 - Within 5 minutes of going idle, broadcast availability via `python -m tools.agent.bus_event log --event status --summary "<id> idle; available for support" --task QUEUE-010 --plan 2025-09-18-collab-support` and mirror it with a `bus_message --task QUEUE-010 --type status`.
 - Keep `python -m tools.agent.bus_watch --limit 20 --follow --window-hours 4` running; respond to blockers with `bus_message --type status` (add `--meta reviewer=<id>` when reviewing).

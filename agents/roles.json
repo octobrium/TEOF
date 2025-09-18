@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "roles": [
+    {
+      "id": "product-strategist",
+      "name": "Product Strategist",
+      "summary": "Guards the mission, curates plans, and approves DNA changes.",
+      "surfaces": ["_plans/", "docs/architecture.md", "docs/workflow.md", "_report/manager/"]
+    },
+    {
+      "id": "systems-architect",
+      "name": "Systems Architect",
+      "summary": "Keeps guardrails deterministic and auditable (CI, capsule, guard scripts).",
+      "surfaces": [".github/workflows/", "tools/doctor.sh", "capsule/", "teof/"]
+    },
+    {
+      "id": "automation-engineer",
+      "name": "Automation Engineer",
+      "summary": "Shrinks toil via helpers, scripts, and coordination tooling.",
+      "surfaces": ["tools/agent/", "scripts/", "_bus/", "_report/runner/"]
+    },
+    {
+      "id": "risk-sentinel",
+      "name": "Risk & Compliance Sentinel",
+      "summary": "Monitors receipts, claims, and governance for drift.",
+      "surfaces": ["_bus/events/", "_bus/claims/", "_report/agent/", "governance/"]
+    }
+  ]
+}
