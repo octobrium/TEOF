@@ -9,6 +9,11 @@ on:
       - 'teof/**'
       - 'scripts/**'
       - 'docs/**'
+      - 'tools/**'
+      - '_bus/**'
+      - '_plans/**'
+      - '_report/**'
+      - 'agents/**'
       - '.github/workflows/**'
   pull_request:
     paths:
@@ -18,6 +23,11 @@ on:
       - 'teof/**'
       - 'scripts/**'
       - 'docs/**'
+      - 'tools/**'
+      - '_bus/**'
+      - '_plans/**'
+      - '_report/**'
+      - 'agents/**'
       - '.github/workflows/**'
 
 permissions:

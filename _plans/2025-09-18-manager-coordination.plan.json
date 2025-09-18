@@ -1,0 +1,62 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-manager-coordination",
+  "created": "2025-09-18T02:30:00Z",
+  "actor": "codex-1",
+  "summary": "Introduce manager/engineer coordination workflow",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add task graph, assignments, and messaging",
+      "status": "done",
+      "receipts": [
+        "agents/tasks/tasks.json",
+        "_bus/messages/QUEUE-001.jsonl"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Ship manager/engineer tooling + docs",
+      "status": "done",
+      "receipts": [
+        "tools/agent/task_assign.py",
+        "tools/agent/manager_report.py",
+        "docs/parallel-codex.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Enforce receipts + assignments in CI",
+      "status": "done",
+      "receipts": [
+        "scripts/ci/check_agent_bus.py"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Add receipts preflight + tests",
+      "status": "done",
+      "receipts": [
+        "tools/agent/preflight.sh",
+        "tests/test_agent_bus_claim.py",
+        "tests/test_agent_bus_status.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Manager and engineer agents can coordinate via assignments, messages, and summarise work with receipts",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_report/manager/manager-report-2025-09-18T02:07:19Z.md",
+    "_report/agent/codex-2/agent-bus-status/pytest.json"
+  ],
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/002-bus-status-filters.md"
+    }
+  ]
+}

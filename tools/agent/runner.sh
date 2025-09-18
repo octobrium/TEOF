@@ -51,4 +51,6 @@ echo "   git commit -m 'agent: <summary>'"
 echo "   git push origin $BRANCH_NAME"
 echo "   gh pr create --draft --fill (optional)"
 
+echo "Run tools/agent/preflight.sh before opening the PR to validate receipts and plans."
+
 echo "Remember to attach plan receipts and update _plans/<id>.plan.json before opening the PR."

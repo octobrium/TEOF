@@ -58,6 +58,7 @@ def _setup_bus(tmp_path, monkeypatch):
     monkeypatch.setattr(bus_status, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(bus_status, "EVENT_LOG", events_log)
     monkeypatch.setattr(bus_status, "ROOT", tmp_path)
+    return iso
 
 
 def test_bus_status_filters_by_agent(tmp_path, monkeypatch, capsys):
@@ -92,3 +93,16 @@ def test_bus_status_json_output(tmp_path, monkeypatch, capsys):
     assert payload["claims"][0]["agent_id"] == "codex-1"
     assert len(payload["events"]) == 1
     assert payload["events"][0]["agent_id"] == "codex-1"
+    assert payload["filters"]["since"] is None
+
+
+def test_bus_status_since_filters_events(tmp_path, monkeypatch, capsys):
+    iso = _setup_bus(tmp_path, monkeypatch)
+    cutoff = iso(1)
+    exit_code = bus_status.main(["--json", "--since", cutoff, "--limit", "5"])
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["filters"]["since"] == cutoff
+    assert len(payload["claims"]) == 2
+    assert len(payload["events"]) == 1
+    assert payload["events"][0]["agent_id"] == "codex-2"

@@ -12,6 +12,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 CLAIMS_DIR = ROOT / "_bus" / "claims"
+ASSIGNMENTS_DIR = ROOT / "_bus" / "assignments"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 
 
@@ -98,6 +99,23 @@ def _build_branch(agent_id: str, task_id: str, branch: str | None) -> str:
     return f"agent/{agent_id}/{slug}"
 
 
+def _require_assignment(task_id: str, engineer: str) -> None:
+    assign_path = ASSIGNMENTS_DIR / f"{task_id}.json"
+    if not assign_path.exists():
+        raise SystemExit(
+            f"assignment missing for {task_id}; run tools.agent.task_assign first or use --allow-unassigned"
+        )
+    try:
+        data = json.loads(assign_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"Invalid assignment JSON {assign_path}: {exc}") from exc
+    assignee = data.get("engineer")
+    if assignee and assignee != engineer:
+        raise SystemExit(
+            f"assignment for {task_id} targets {assignee}; update assignment or claim with --allow-unassigned"
+        )
+
+
 def handle_claim(args: argparse.Namespace) -> None:
     agent_id = args.agent or _default_agent()
     if not agent_id:
@@ -112,6 +130,8 @@ def handle_claim(args: argparse.Namespace) -> None:
         raise SystemExit(
             f"task {args.task} already claimed by {existing.agent_id}; current status={existing.status}"
         )
+    if existing is None and not args.allow_unassigned:
+        _require_assignment(args.task, agent_id)
     claim = Claim(
         task_id=args.task,
         agent_id=agent_id,
@@ -158,6 +178,11 @@ def build_parser() -> argparse.ArgumentParser:
     claim.add_argument("--branch", help="Working branch name")
     claim.add_argument("--status", default="active", help="Claim status")
     claim.add_argument("--notes", help="Optional notes")
+    claim.add_argument(
+        "--allow-unassigned",
+        action="store_true",
+        help="Bypass assignment requirement (manager override)",
+    )
     claim.set_defaults(func=handle_claim)
 
     release = sub.add_parser("release", help="Release a task claim")

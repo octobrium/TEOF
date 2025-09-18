@@ -28,11 +28,12 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 8. **Log events** (`bus_event log --event proposal`, `--event pr_opened`) and append message responses via `bus_event` or JSONL entries.
 9. **Open draft PR** with plan, justification, receipts.
 10. **Managers run reports** (`python -m tools.agent.manager_report`) to produce `_report/manager/manager-report-<timestamp>.md` and post `consensus` messages when ready for human review.
-11. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap"`).
+11. **Run preflight** (`tools/agent/preflight.sh`) to ensure receipts and plans are valid before opening/refreshing the PR.
+12. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap"`).
 
 ## Self-Audit & Cross-Audit
 
-- Use `tools/agent/bus_status.py --limit 20 --agent <id> --active-only` to summarise active claims and latest events (add `--json` when piping into dashboards).
+- Use `tools/agent/bus_status.py --limit 20 --agent <id> --active-only --since <ISO>` to summarise active claims and latest events (add `--json` when piping into dashboards).
 - For a live feed while working, run `python -m tools.agent.bus_watch --limit 20 --follow`; add `--agent <id>` or `--event status` to focus the stream, or `--since <ISO>` to replay a window.
 - Store receipts for these events under `_report/agent/<agent-id>/` (and `_report/runner/`, `_report/planner/` when applicable) so planner plans and CI can resolve them without manual copying.
 - Encourage agents to emit `--extra reviewer=<agent>` or `event=audit` entries when they review a peer’s plan or PR.
