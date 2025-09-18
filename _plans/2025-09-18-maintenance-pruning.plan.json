@@ -1,0 +1,39 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-maintenance-pruning",
+  "created": "2025-09-18T06:12:00Z",
+  "actor": "codex-3",
+  "summary": "Establish recurring pruning sweep for plans and receipts",
+  "status": "pending",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Inventory stale artifacts",
+      "status": "pending",
+      "notes": "List plans marked done >48h ago and oversized receipts in _report/.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Prune or archive data",
+      "status": "pending",
+      "notes": "Archive or delete stale items per governance; update docs if needed.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Publish pruning summary",
+      "status": "pending",
+      "notes": "Record a receipt summarizing actions and remaining backlog.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Stale artifacts handled and pruning cadence documented",
+    "owner": "codex-3",
+    "status": "pending"
+  },
+  "links": [
+    {"type": "queue", "ref": "queue/013-maintenance-pruning.md"}
+  ]
+}

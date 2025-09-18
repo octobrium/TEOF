@@ -1,0 +1,39 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-bus-message-claim-guard",
+  "created": "2025-09-18T06:10:00Z",
+  "actor": "codex-2",
+  "summary": "Add claim ownership guard to bus_message CLI",
+  "status": "pending",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit bus_message claim behaviour",
+      "status": "pending",
+      "notes": "Review CLI arguments and existing tests to locate task hooks.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement claim enforcement",
+      "status": "pending",
+      "notes": "Mirror bus_event guard, covering terminal states and helpful errors.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Add regression tests + docs",
+      "status": "pending",
+      "notes": "Extend pytest coverage and update docs mentioning bus_message.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "bus_message rejects unclaimed updates and pytest suite passes",
+    "owner": "codex-2",
+    "status": "pending"
+  },
+  "links": [
+    {"type": "queue", "ref": "queue/012-bus-message-claim-guard.md"}
+  ]
+}

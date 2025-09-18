@@ -1,0 +1,1 @@
+{"ts": "2025-09-18T06:06:56Z", "from": "codex-manager", "type": "assignment", "task_id": "QUEUE-012", "summary": "Assigned to codex-2: add claim guard to bus_message", "branch": "agent/codex-2/queue-012", "meta": {"plan_id": "2025-09-18-bus-message-claim-guard", "assignee": "codex-2"}}

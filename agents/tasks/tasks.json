@@ -157,6 +157,28 @@
       "role": "engineer",
       "status": "open",
       "title": "Pre-review bus tooling"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-2/queue-012",
+      "id": "QUEUE-012",
+      "plan_id": "2025-09-18-bus-message-claim-guard",
+      "priority": "medium",
+      "receipts": [],
+      "role": "engineer",
+      "status": "open",
+      "title": "Guard bus_message with claims"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-3/queue-013",
+      "id": "QUEUE-013",
+      "plan_id": "2025-09-18-maintenance-pruning",
+      "priority": "medium",
+      "receipts": [],
+      "role": "engineer",
+      "status": "open",
+      "title": "Establish pruning cadence"
     }
   ],
   "version": 1
