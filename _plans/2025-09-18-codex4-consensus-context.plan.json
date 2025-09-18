@@ -1,0 +1,47 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-codex4-consensus-context",
+  "created": "2025-09-18T19:28:30Z",
+  "actor": "codex-4",
+  "summary": "Consolidate context for consensus queue drafting",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Collect references",
+      "status": "done",
+      "notes": "Collected references from manager-report, codex-2 handoff, and coordination review mentioning queues 030-033.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Summarise themes",
+      "status": "done",
+      "notes": "Outlined ledger CLI, artifact schema, runner hook, and manager reporting as candidate queue themes with outstanding questions.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Publish support note",
+      "status": "done",
+      "notes": "Stored support note under _report/agent/codex-4/consensus/ and notified manager-report with receipt link.",
+      "receipts": [
+        "_report/agent/codex-4/consensus/context-20250918T1928Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Consensus backlog context summarised with receipts",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "plan",
+      "ref": "_plans/2025-09-18-backlog-refresh.plan.json"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-4/consensus/context-20250918T1928Z.md"
+  ]
+}

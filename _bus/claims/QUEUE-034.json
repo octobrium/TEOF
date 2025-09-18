@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-3",
+  "branch": "agent/codex-3/queue-034",
+  "claimed_at": "2025-09-18T20:12:51Z",
+  "notes": "Bindings doc + references live.",
+  "plan_id": "2025-09-18-l4-bindings",
+  "released_at": "2025-09-18T20:13:05Z",
+  "status": "done",
+  "task_id": "QUEUE-034"
+}

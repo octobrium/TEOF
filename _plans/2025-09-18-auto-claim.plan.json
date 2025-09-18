@@ -1,0 +1,61 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-auto-claim",
+  "created": "2025-09-18T20:03:43Z",
+  "actor": "codex-1",
+  "summary": "Auto-claim tasks on assignment",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit current assignment & claim flows",
+      "status": "done",
+      "notes": "(CMD-__)",
+      "receipts": [
+        "_report/agent/codex-1/auto-claim/analysis-20250918T200100Z.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement auto-claim option in task_assign",
+      "status": "done",
+      "notes": "(CMD-__)",
+      "receipts": [
+        "_report/agent/codex-1/auto-claim/pytest-20250918T200300Z.txt",
+        "tests/test_agent_task_assign.py",
+        "tools/agent/task_assign.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Update docs/tests",
+      "status": "done",
+      "notes": "(CMD-__)",
+      "receipts": [
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Broadcast change on bus",
+      "status": "done",
+      "notes": "(CMD-__)",
+      "receipts": [
+        "_bus/messages/manager-report.jsonl",
+        "_report/agent/codex-1/auto-claim/summary-20250918T200400Z.txt"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Assignments optionally create claims",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-1/auto-claim/analysis-20250918T200100Z.md",
+    "_report/agent/codex-1/auto-claim/pytest-20250918T200300Z.txt",
+    "_report/agent/codex-1/auto-claim/summary-20250918T200400Z.txt"
+  ]
+}

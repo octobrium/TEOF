@@ -205,6 +205,66 @@
       "role": "engineer",
       "status": "done",
       "title": "Automate pruning helper"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": "agent/codex-3/queue-034",
+      "id": "QUEUE-034",
+      "plan_id": "2025-09-18-l4-binding-brief",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-034"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": "agent/codex-3/queue-035",
+      "id": "QUEUE-035",
+      "plan_id": "2025-09-18-capsule-status-ledger",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-035"
+    },
+    {
+      "assigned_by": "codex-2",
+      "branch": "agent/codex-2/queue-036",
+      "id": "QUEUE-036",
+      "plan_id": "2025-09-18-macro-hygiene",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-036"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": null,
+      "id": "QUEUE-038",
+      "plan_id": "2025-09-18-consensus-ci",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-038"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": "agent/codex-2/queue-037",
+      "id": "QUEUE-037",
+      "plan_id": "2025-09-18-manifest-helper",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-037"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": "agent/codex-2/queue-039",
+      "id": "QUEUE-039",
+      "plan_id": "2025-09-18-capsule-cadence",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-039"
     }
   ],
   "version": 1

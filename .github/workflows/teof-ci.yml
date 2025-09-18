@@ -80,6 +80,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .
+          pip install pytest
 
       # ---- Make-free repo health (run with bash) ----
       - name: Repo health
@@ -114,6 +115,14 @@ jobs:
           fi
           rm -f bootloader-help.log
           exit 0
+
+      - name: Consensus tooling smoke
+        shell: bash
+        run: scripts/ci/consensus_smoke.sh
+
+      - name: Consensus pytest suite
+        shell: bash
+        run: pytest tests/test_consensus_ledger_cli.py tests/test_consensus_receipts.py tests/test_consensus_dashboard.py
 
       # ---- Capsule baseline detection/verification ----
       - name: Detect capsule baseline
@@ -304,6 +313,15 @@ jobs:
         with:
           name: ocers_out
           path: artifacts/ocers_out/latest/
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Upload consensus artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: consensus-smoke
+          path: artifacts/consensus/
           if-no-files-found: warn
           retention-days: 7
 

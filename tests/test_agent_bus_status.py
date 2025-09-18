@@ -12,6 +12,8 @@ def _setup_bus(tmp_path, monkeypatch):
     events_dir = tmp_path / "events"
     events_dir.parent.mkdir(parents=True, exist_ok=True)
     events_log = events_dir / "events.jsonl"
+    assignments_dir = tmp_path / "assignments"
+    assignments_dir.mkdir()
 
     now = datetime(2025, 9, 18, 0, 30, tzinfo=timezone.utc)
     def iso(offset_minutes: int) -> str:
@@ -47,7 +49,13 @@ def _setup_bus(tmp_path, monkeypatch):
     )
 
     events = [
-        {"ts": iso(0), "agent_id": "codex-1", "event": "claim", "task_id": "QUEUE-010", "summary": "claimed"},
+        {
+            "ts": iso(0),
+            "agent_id": "codex-1",
+            "event": "status",
+            "task_id": "QUEUE-010",
+            "summary": "manager heartbeat",
+        },
         {"ts": iso(2), "agent_id": "codex-2", "event": "complete", "task_id": "QUEUE-011", "summary": "complete"},
     ]
     events_dir.mkdir(parents=True, exist_ok=True)
@@ -55,9 +63,31 @@ def _setup_bus(tmp_path, monkeypatch):
         for entry in events:
             fh.write(json.dumps(entry) + "\n")
 
+    assignment_payload = {
+        "task_id": "QUEUE-010",
+        "manager": "codex-1",
+        "status": "unassigned",
+    }
+    (assignments_dir / "QUEUE-010.json").write_text(json.dumps(assignment_payload), encoding="utf-8")
+
+    manifest = tmp_path / "AGENT_MANIFEST.codex-1.json"
+    manifest.write_text(
+        json.dumps({"agent_id": "codex-1", "desired_roles": ["manager"]}),
+        encoding="utf-8",
+    )
+
+    class _FixedDatetime(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            if tz is None:
+                return now.replace(tzinfo=None)
+            return now.astimezone(tz)
+
     monkeypatch.setattr(bus_status, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(bus_status, "EVENT_LOG", events_log)
+    monkeypatch.setattr(bus_status, "ASSIGNMENTS_DIR", assignments_dir)
     monkeypatch.setattr(bus_status, "ROOT", tmp_path)
+    monkeypatch.setattr(bus_status, "datetime", _FixedDatetime)
     return iso
 
 
@@ -66,6 +96,7 @@ def test_bus_status_filters_by_agent(tmp_path, monkeypatch, capsys):
     exit_code = bus_status.main(["--limit", "5", "--agent", "codex-1"])
     assert exit_code == 0
     out = capsys.readouterr().out
+    assert "Managers (window 30m):" in out
     assert "codex-1" in out
     assert "codex-2" not in out
     assert ":: codex-1 ::" in out
@@ -76,8 +107,10 @@ def test_bus_status_active_only(tmp_path, monkeypatch, capsys):
     exit_code = bus_status.main(["--active-only", "--limit", "5"])
     assert exit_code == 0
     out = capsys.readouterr().out
-    assert "QUEUE-010" in out
-    claims_section = out.split("\n\nRecent events:")[0]
+    assert "Managers (window 30m):" in out
+    claims_section = out.split("Active claims:", 1)[1]
+    claims_section = claims_section.split("Recent events:", 1)[0]
+    assert "QUEUE-010" in claims_section
     assert "QUEUE-011" not in claims_section
 
 
@@ -89,11 +122,16 @@ def test_bus_status_json_output(tmp_path, monkeypatch, capsys):
     payload = json.loads(out)
     assert payload["filters"]["agents"] == ["codex-1"]
     assert payload["filters"]["active_only"] is False
+    assert payload["filters"]["manager_window"] == bus_status.DEFAULT_MANAGER_WINDOW_MINUTES
     assert len(payload["claims"]) == 1
     assert payload["claims"][0]["agent_id"] == "codex-1"
     assert len(payload["events"]) == 1
     assert payload["events"][0]["agent_id"] == "codex-1"
     assert payload["filters"]["since"] is None
+    manager_status = payload["manager_status"]
+    assert manager_status["active"][0]["agent_id"] == "codex-1"
+    assert not manager_status["stale"]
+    assert not manager_status["missing"]
 
 
 def test_bus_status_since_filters_events(tmp_path, monkeypatch, capsys):
@@ -106,3 +144,26 @@ def test_bus_status_since_filters_events(tmp_path, monkeypatch, capsys):
     assert len(payload["claims"]) == 2
     assert len(payload["events"]) == 1
     assert payload["events"][0]["agent_id"] == "codex-2"
+    manager_status = payload["manager_status"]
+    assert not manager_status["active"]
+    assert manager_status["missing"][0]["agent_id"] == "codex-1"
+
+
+def test_manager_warning_when_no_recent_heartbeat(tmp_path, monkeypatch, capsys):
+    _setup_bus(tmp_path, monkeypatch)
+
+    future = datetime(2025, 9, 18, 1, 10, tzinfo=timezone.utc)
+
+    class _LateDatetime(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            if tz is None:
+                return future.replace(tzinfo=None)
+            return future.astimezone(tz)
+
+    monkeypatch.setattr(bus_status, "datetime", _LateDatetime)
+    exit_code = bus_status.main(["--limit", "5", "--manager-window", "10"])
+    assert exit_code == 0
+    out = capsys.readouterr().out
+    assert "WARNING: No manager heartbeat within window." in out
+    assert "Stale:" in out

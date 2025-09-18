@@ -1,0 +1,67 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-consensus-receipts",
+  "created": "2025-09-18T19:46:55Z",
+  "actor": "codex-4",
+  "summary": "Automate consensus receipt logging",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define schema + integration points",
+      "status": "done",
+      "notes": "Schema: decision_id, recorded_ts, source (bus_event/cli), summary, receipts (list), metadata. Integrate with bus_event optional flag plus standalone CLI `python -m tools.consensus.receipts append`.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement receipt helper + CLI glue",
+      "status": "done",
+      "notes": "Added tools/consensus/receipts.append_receipt helper and integrated bus_event --consensus-decision option.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Add tests + docs",
+      "status": "done",
+      "notes": "Documented usage and added pytest coverage for consensus receipts + bus integration.",
+      "receipts": [
+        "docs/consensus/README.md",
+        "docs/parallel-codex.md",
+        "tests/test_consensus_receipts.py"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Log receipts + bus updates",
+      "status": "done",
+      "notes": "Capture pytest receipt under _report/agent/codex-4/queue-031/ and post status on manager-report/QUEUE-031 threads.",
+      "receipts": [
+        "_report/agent/codex-4/queue-031/pytest-consensus-receipts.txt"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Consensus receipt helper appends JSONL entries and updates docs/tests",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/031-consensus-receipts.md"
+    },
+    {
+      "type": "plan",
+      "ref": "_plans/2025-09-18-backlog-refresh.plan.json"
+    },
+    {
+      "type": "plan",
+      "ref": "_plans/2025-09-18-consensus-ledger-cli.plan.json"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-consensus-receipts.justification.md",
+    "_report/agent/codex-4/queue-031/pytest-consensus-receipts.txt"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-backlog-refresh",
+  "created": "2025-09-18T19:25:12Z",
+  "actor": "codex-1",
+  "summary": "Seed next consensus queue items",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review pending consensus needs",
+      "status": "done",
+      "notes": "Scan memory, queue, and handoff notes (QUEUE-030..033 context).",
+      "receipts": [
+        "_report/agent/codex-1/backlog-refresh/analysis-20250918T192600Z.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Draft queue entries 030-033",
+      "status": "done",
+      "notes": "Author queue/030-*.md entries with OCERS framing and receipt expectations.",
+      "receipts": [
+        "_report/agent/codex-1/backlog-refresh/handoff-20250918T192900Z.txt",
+        "queue/030-consensus-ledger-cli.md",
+        "queue/031-consensus-receipts.md",
+        "queue/032-consensus-cadence.md",
+        "queue/033-consensus-dashboard.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Log coordination summary",
+      "status": "done",
+      "notes": "Update manager-report + coordination review with backlog summary.",
+      "receipts": [
+        "_bus/messages/manager-report.jsonl",
+        "_report/agent/codex-1/backlog-refresh/summary-20250918T192800Z.txt"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Consensus backlog drafted with receipts",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-1/backlog-refresh/analysis-20250918T192600Z.md",
+    "_report/agent/codex-1/backlog-refresh/handoff-20250918T192900Z.txt",
+    "_report/agent/codex-1/backlog-refresh/summary-20250918T192800Z.txt"
+  ]
+}

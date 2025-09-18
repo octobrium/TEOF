@@ -1,0 +1,59 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-capsule-cadence",
+  "created": "2025-09-18T20:29:00Z",
+  "actor": "codex-3",
+  "summary": "Document capsule release cadence plan",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Gather release signals",
+      "status": "done",
+      "notes": "Review governance anchors, capsule status docs, and consensus outputs; capture notes under _report/agent/codex-3/capsule-cadence/notes.md.",
+      "receipts": [
+        "_report/agent/codex-3/capsule-cadence/notes.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Draft cadence document",
+      "status": "done",
+      "notes": "Author docs/maintenance/capsule-cadence.md with cadence, responsibilities, and receipts.",
+      "receipts": [
+        "docs/maintenance/capsule-cadence.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Cross-reference workflow",
+      "status": "done",
+      "notes": "Update docs/workflow.md release block to link the cadence doc.",
+      "receipts": [
+        "docs/workflow.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Capsule cadence plan published",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/039-capsule-cadence-plan.md"
+    },
+    {
+      "type": "doc",
+      "ref": "docs/workflow.md"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-capsule-cadence.justification.md",
+    "_report/agent/codex-3/capsule-cadence/checklist.md",
+    "_report/agent/codex-3/capsule-cadence/notes.md",
+    "docs/maintenance/capsule-cadence.md",
+    "docs/workflow.md"
+  ]
+}

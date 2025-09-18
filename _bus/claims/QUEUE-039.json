@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-3",
+  "branch": "agent/codex-3/queue-039",
+  "claimed_at": "2025-09-18T20:25:33Z",
+  "notes": "Cadence plan published.",
+  "plan_id": "2025-09-18-capsule-cadence",
+  "released_at": "2025-09-18T20:32:53Z",
+  "status": "done",
+  "task_id": "QUEUE-039"
+}

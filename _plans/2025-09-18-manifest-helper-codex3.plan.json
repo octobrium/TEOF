@@ -1,0 +1,70 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-manifest-helper-codex3",
+  "created": "2025-09-18T20:28:00Z",
+  "actor": "codex-3",
+  "summary": "Implement manifest swap helper CLI",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Map current manifest usage",
+      "status": "done",
+      "notes": "Audit existing AGENT_MANIFEST variants, manager guidance, and autop-claim workflow; capture notes under _report/agent/codex-3/manifest-helper/notes.md.",
+      "receipts": [
+        "_report/agent/codex-3/manifest-helper/notes.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement helper CLI",
+      "status": "done",
+      "notes": "Add tools/agent/manifest_helper.py (or similar) with list/activate/restore commands and safety checks.",
+      "receipts": [
+        "tools/agent/manifest_helper.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add tests",
+      "status": "done",
+      "notes": "Create tests/test_manifest_helper.py verifying list + switch behaviour using tmp path fixtures.",
+      "receipts": [
+        "_report/agent/codex-3/manifest-helper/pytest.json"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Document workflow",
+      "status": "done",
+      "notes": "Update docs/parallel-codex.md and docs/AGENTS.md to describe using the helper during multi-agent sessions.",
+      "receipts": [
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Manifest helper CLI with tests and docs",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/037-manifest-helper.md"
+    },
+    {
+      "type": "doc",
+      "ref": "docs/parallel-codex.md"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-manifest-helper-codex3.justification.md",
+    "_report/agent/codex-3/manifest-helper/notes.md",
+    "_report/agent/codex-3/manifest-helper/pytest.json",
+    "docs/AGENTS.md",
+    "docs/parallel-codex.md",
+    "tools/agent/manifest_helper.py"
+  ]
+}

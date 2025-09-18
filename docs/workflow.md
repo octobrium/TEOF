@@ -32,8 +32,9 @@ Review cadence: Monthly sweep
 3) Verify enforcement: confirm `scripts/policy_checks.sh` exists and is called in CI; if missing, output a minimal step to add it.  
 4) Triangulate gaps: if Quickstart or imports/paths are stale, propose the smallest patches to make them true.  
 5) Output a prioritized plan (next 3–6 steps) to make the repo self-propagating (CLI → CI → freeze → docs).  
-6) After releasing a claim, run `python -m tools.agent.task_sync` so `agents/tasks/tasks.json` mirrors claim status.  
-7) Only if rules block progress: propose a minimal DNA edit via a one-page Meta‑TEP (Problem, Proposal, Alternatives, Impact, Rollback).
+6) Seed `_bus/claims/<task>.json` before posting assignment/status bus messages: `python -m tools.agent.claim_seed --task <id> --agent <future-owner> --plan <plan-id> --branch agent/<future-owner>/<slug>` (check `--help` for `--status`/`--notes`). This keeps the `bus_message` claim guard satisfied; include a `python -m tools.agent.session_brief --task <id>` snippet in the assignment hand-off so the assignee can replay the staged context.  
+7) After releasing a claim, run `python -m tools.agent.task_sync` so `agents/tasks/tasks.json` mirrors claim status.  
+8) Only if rules block progress: propose a minimal DNA edit via a one-page Meta‑TEP (Problem, Proposal, Alternatives, Impact, Rollback).
 
 **Response format**
 - Summary (2–4 bullets)  
@@ -123,10 +124,20 @@ Review cadence: Monthly sweep
    (cd capsule && zip -r "../artifacts/teof-vX.Y.Z.zip" "vX.Y")
    ```
 5) Publish the release with the zip (optional).
+6) Update capsule status markers: adjust `capsule/README.md` and add/update `capsule/vX.Y/STATUS.md` when promoting a new baseline so downstream tooling sees the active release.  
+7) Review `docs/maintenance/capsule-cadence.md` and capture receipts (`_report/manager/…`) before tagging a release.  
 
 ---
 
 ## Working order (day‑to‑day)
+
+## Consensus review cadence
+
+- **Daily (async):** rotate through engineers to run `python -m tools.consensus.ledger --limit 5` and `python -m tools.consensus.dashboard --format table --since <24h>`; log `bus_event --consensus-decision <id>` for any decisions touched and stash the output under `_report/agent/<id>/consensus/`.
+- **Weekly (manager):** the current manager runs both CLIs for the trailing week, appends a receipt via `python -m tools.consensus.receipts --decision WEEKLY-<ISO>` and shares a short summary in `manager-report.jsonl`.
+- **Escalation:** if a decision lacks receipts after a daily sweep, post `bus_message --type request --meta escalation=consensus` tagging the owner and record the follow-up in the next sweep.
+- **Receipts:** daily sweep logs live under `_report/agent/<id>/consensus/`; weekly summaries go to `_report/manager/` (linkable from manager reports) so audits and automation confirm cadence compliance.
+
 1) Confirm placement vs Architecture; fix anchors ↔ baseline as needed.  
 2) Make CI **verify** green (import policy + brief shape checks).  
 3) If reasoning changed, wire evaluator + update goldens.  

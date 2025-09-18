@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-codex4-consensus-draft",
+  "created": "2025-09-18T19:30:12Z",
+  "actor": "codex-4",
+  "summary": "Author execution plan for consensus ledger CLI",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Outline objectives & scope",
+      "status": "done",
+      "notes": "Outlined OCERS focus (Observation, Coherence, Reproducibility) and read-only CLI scope referencing ledger tooling.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Map receipts & dependencies",
+      "status": "done",
+      "notes": "Listed receipts/tests (tests/test_consensus_ledger_cli.py, docs/consensus/README.md, _report/consensus outputs) and dependencies (tools/ledger.sh, manager-report).",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Publish plan artifacts",
+      "status": "done",
+      "notes": "Published plan + justification under _plans/ and will notify manager via bus.",
+      "receipts": [
+        "_plans/2025-09-18-consensus-ledger-cli.plan.json",
+        "_plans/2025-09-18-consensus-ledger-cli.justification.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Consensus ledger CLI plan ready for assignment",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/030-consensus-ledger-cli.md"
+    },
+    {
+      "type": "plan",
+      "ref": "_plans/2025-09-18-backlog-refresh.plan.json"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-consensus-ledger-cli.plan.json",
+    "_plans/2025-09-18-consensus-ledger-cli.justification.md"
+  ]
+}

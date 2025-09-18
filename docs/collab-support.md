@@ -37,6 +37,11 @@ alias bus_offer="python -m tools.agent.bus_message --task QUEUE-010 --type statu
 ```
 Adjust the aliases for your agent id or preferred templates.
 
-## 5. Review & Sunset
+## 5. Log Follow-ups
+- After you action a coordination request (rerunning CI, syncing tasks, etc.), capture the command output under `_report/agent/<id>/support/` and log it via `python -m tools.agent.bus_event log --event status --summary "<agent-id> completed <follow-up>" --receipt <path>`.
+- Mirror the status on the relevant bus message thread (`manager-report` or the task file) with `python -m tools.agent.bus_message --task <id> --type status --summary "<agent-id> completed follow-up" --receipt <path>` so managers can trace the breadcrumb.
+- Reference the follow-up entries in your next handoff or plan notes to close the loop.
+
+## 6. Review & Sunset
 - Revisit this cadence after two sprints; if automation replaces manual updates, sunset the workflow.
 - Keep receipts (bus events/messages) so managers can audit availability announcements.

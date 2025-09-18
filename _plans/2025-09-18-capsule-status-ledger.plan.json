@@ -1,0 +1,74 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-capsule-status-ledger",
+  "created": "2025-09-18T20:12:00Z",
+  "actor": "codex-3",
+  "summary": "Document capsule status and ledger guidance",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit capsule structure",
+      "status": "done",
+      "notes": "Review capsule/current pointer, contents of v1.5/v1.6, and existing docs; capture notes under _report/agent/codex-3/capsule-status/notes.md.",
+      "receipts": [
+        "_report/agent/codex-3/capsule-status/notes.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add status files",
+      "status": "done",
+      "notes": "Create capsule/README.md and capsule/v1.5/STATUS.md, capsule/v1.6/STATUS.md detailing active vs archived state.",
+      "receipts": [
+        "capsule/README.md",
+        "capsule/v1.5/STATUS.md",
+        "capsule/v1.6/STATUS.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Update docs",
+      "status": "done",
+      "notes": "Reference status files from docs/architecture.md and docs/workflow.md (release guidance).",
+      "receipts": [
+        "docs/architecture.md",
+        "docs/workflow.md"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Record receipts",
+      "status": "done",
+      "notes": "Summarize decisions in _report/agent/codex-3/capsule-status/diff-review.json (include file list).",
+      "receipts": [
+        "_report/agent/codex-3/capsule-status/diff-review.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Capsule status docs published and referenced",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/035-capsule-status-ledger.md"
+    },
+    {
+      "type": "doc",
+      "ref": "docs/architecture.md"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-capsule-status-ledger.justification.md",
+    "_report/agent/codex-3/capsule-status/diff-review.json",
+    "_report/agent/codex-3/capsule-status/notes.md",
+    "capsule/README.md",
+    "capsule/v1.5/STATUS.md",
+    "capsule/v1.6/STATUS.md",
+    "docs/architecture.md",
+    "docs/workflow.md"
+  ]
+}

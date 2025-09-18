@@ -10,12 +10,13 @@ from typing import Any, Dict, List
 
 from tools.usage.logger import record_usage
 
-from tools.agent import bus_message
+from tools.agent import bus_message, bus_claim
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "AGENT_MANIFEST.json"
 ASSIGN_DIR = ROOT / "_bus" / "assignments"
 MESSAGES_DIR = ROOT / "_bus" / "messages"
+CLAIMS_DIR = ROOT / "_bus" / "claims"
 TASKS_FILE = ROOT / "agents" / "tasks" / "tasks.json"
 
 
@@ -110,8 +111,48 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--plan", help="Plan id associated with the task")
     parser.add_argument("--branch", help="Working branch for the assignee")
     parser.add_argument("--manager", help="Manager agent id (defaults to manifest agent_id)")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        "--auto-claim",
+        dest="auto_claim",
+        action="store_true",
+        help="Immediately create a claim for the assigned engineer (default)",
+    )
+    group.add_argument(
+        "--no-auto-claim",
+        dest="auto_claim",
+        action="store_false",
+        help="Skip automatic claim creation",
+    )
+    parser.set_defaults(auto_claim=True)
     parser.add_argument("--note", help="Optional note to include in assignment message")
     return parser.parse_args(argv)
+
+
+def auto_claim(task_id: str, engineer: str, plan_id: str | None, branch: str | None) -> None:
+    """Create a claim entry for the assigned engineer."""
+
+    claim_args = [
+        "claim",
+        "--task",
+        task_id,
+        "--agent",
+        engineer,
+    ]
+    if plan_id:
+        claim_args.extend(["--plan", plan_id])
+    if branch:
+        claim_args.extend(["--branch", branch])
+
+    # Ensure bus_claim writes into the same claims directory during tests.
+    bus_claim.CLAIMS_DIR = CLAIMS_DIR
+
+    try:
+        rc = bus_claim.main(claim_args)
+    except SystemExit as exc:  # pragma: no cover - passthrough for bus_claim errors
+        raise SystemExit(f"auto-claim failed for {task_id}: {exc}") from exc
+    if rc != 0:
+        raise SystemExit(f"auto-claim failed for {task_id}; exit code {rc}")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -121,6 +162,9 @@ def main(argv: list[str] | None = None) -> int:
     assignment_path = write_assignment(args.task, args.engineer, manager, args.plan, args.branch, args.note)
     append_message(args.task, manager, args.engineer, args.plan, args.branch, args.note)
     update_tasks(args.task, args.engineer, args.plan, args.branch, manager)
+
+    if args.auto_claim:
+        auto_claim(args.task, args.engineer, args.plan, args.branch)
     try:
         display_path = assignment_path.relative_to(ROOT)
     except ValueError:

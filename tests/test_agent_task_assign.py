@@ -9,6 +9,7 @@ from tools.agent import task_assign, bus_message
 def setup_env(tmp_path, monkeypatch):
     assign_dir = tmp_path / "assignments"
     messages_dir = tmp_path / "messages"
+    claims_dir = tmp_path / "claims"
     tasks_file = tmp_path / "tasks" / "tasks.json"
     manifest = tmp_path / "AGENT_MANIFEST.json"
     manifest.write_text(json.dumps({"agent_id": "codex-manager"}), encoding="utf-8")
@@ -17,6 +18,7 @@ def setup_env(tmp_path, monkeypatch):
 
     monkeypatch.setattr(task_assign, "ASSIGN_DIR", assign_dir)
     monkeypatch.setattr(task_assign, "MESSAGES_DIR", messages_dir)
+    monkeypatch.setattr(task_assign, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(task_assign, "TASKS_FILE", tasks_file)
     monkeypatch.setattr(task_assign, "MANIFEST", manifest)
     monkeypatch.setattr(task_assign, "record_usage", lambda *args, **kwargs: None)
@@ -25,11 +27,15 @@ def setup_env(tmp_path, monkeypatch):
     monkeypatch.setattr(bus_message, "MANIFEST_PATH", manifest)
     monkeypatch.setattr(bus_message, "record_usage", lambda *args, **kwargs: None)
 
-    return assign_dir, messages_dir, tasks_file
+    monkeypatch.setattr(task_assign.bus_claim, "CLAIMS_DIR", claims_dir)
+    monkeypatch.setattr(task_assign.bus_claim, "ASSIGNMENTS_DIR", assign_dir)
+    monkeypatch.setattr(task_assign.bus_claim, "ROOT", tmp_path)
+
+    return assign_dir, messages_dir, claims_dir, tasks_file
 
 
 def test_task_assign_records_assignment(tmp_path, monkeypatch, capsys):
-    assign_dir, messages_dir, tasks_file = setup_env(tmp_path, monkeypatch)
+    assign_dir, messages_dir, claims_dir, tasks_file = setup_env(tmp_path, monkeypatch)
 
     rc = task_assign.main(
         [
@@ -70,9 +76,14 @@ def test_task_assign_records_assignment(tmp_path, monkeypatch, capsys):
     out = capsys.readouterr().out
     assert "Recorded assignment" in out
 
+    claim_payload = json.loads((claims_dir / "QUEUE-006.json").read_text(encoding="utf-8"))
+    assert claim_payload["agent_id"] == "codex-2"
+    assert claim_payload.get("plan_id") == "2025-09-18-task-assign-bus-message"
+    assert claim_payload["status"] == "active"
+
 
 def test_task_assign_custom_manager(tmp_path, monkeypatch):
-    assign_dir, messages_dir, tasks_file = setup_env(tmp_path, monkeypatch)
+    assign_dir, messages_dir, claims_dir, tasks_file = setup_env(tmp_path, monkeypatch)
 
     task_assign.main(
         [
@@ -82,6 +93,7 @@ def test_task_assign_custom_manager(tmp_path, monkeypatch):
             "codex-4",
             "--manager",
             "codex-lead",
+            "--no-auto-claim",
         ]
     )
 
@@ -91,3 +103,5 @@ def test_task_assign_custom_manager(tmp_path, monkeypatch):
     tasks_payload = json.loads(tasks_file.read_text(encoding="utf-8"))
     entry = next(item for item in tasks_payload["tasks"] if item["id"] == "QUEUE-007")
     assert entry["assigned_by"] == "codex-lead"
+
+    assert not (claims_dir / "QUEUE-007.json").exists()

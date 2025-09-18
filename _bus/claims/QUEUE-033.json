@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-3",
+  "branch": "agent/codex-3/queue-033",
+  "claimed_at": "2025-09-18T20:03:42Z",
+  "notes": "Dashboard CLI, tests, docs complete.",
+  "plan_id": "2025-09-18-consensus-dashboard",
+  "released_at": "2025-09-18T20:08:56Z",
+  "status": "done",
+  "task_id": "QUEUE-033"
+}

@@ -1,0 +1,76 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-consensus-ledger-cli",
+  "created": "2025-09-18T19:30:40Z",
+  "actor": "codex-4",
+  "summary": "Implement read-only consensus ledger CLI",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Survey existing ledger tooling",
+      "status": "done",
+      "notes": "Reviewed tools/ledger.sh, scripts/bot/ledger.py, and existing ledger outputs to capture schema.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Design CLI interface",
+      "status": "done",
+      "notes": "CLI will live at tools/consensus/ledger.py with `python -m tools.consensus.ledger`. Options: --ledger PATH, --format {table,jsonl}, --decision <id> (repeatable), --agent <id>, --since <ISO>, --limit N, --output <receipt>. Rows derived from ledger CSV; agent filter applies when column present.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement CLI + tests",
+      "status": "done",
+      "notes": "Add CLI entry point, integrate with existing ledger loader, and create pytest coverage (tests/test_consensus_ledger_cli.py).",
+      "receipts": [
+        "_report/agent/codex-4/queue-030/pytest-consensus-ledger-cli.txt",
+        "tests/test_consensus_ledger_cli.py"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Wire receipts + docs",
+      "status": "done",
+      "notes": "Document usage in docs/consensus/README.md (new) and update docs/parallel-codex.md consensus section; ensure CLI writes receipts to _report/consensus/ when invoked in CI.",
+      "receipts": [
+        "_report/consensus/ledger-cli-sample.jsonl",
+        "docs/consensus/README.md"
+      ]
+    },
+    {
+      "id": "S5",
+      "title": "Update manager tooling",
+      "status": "done",
+      "notes": "Documented manager-facing invocation in docs/parallel-codex.md Consensus Toolkit section.",
+      "receipts": [
+        "docs/parallel-codex.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "`python -m tools.consensus.ledger` prints filtered ledger summaries with tests + docs",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/030-consensus-ledger-cli.md"
+    },
+    {
+      "type": "plan",
+      "ref": "_plans/2025-09-18-backlog-refresh.plan.json"
+    },
+    {
+      "type": "receipt",
+      "ref": "_report/runner/20250917T220635Z-13b70e44.json"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-consensus-ledger-cli.justification.md",
+    "_report/agent/codex-4/queue-030/pytest-consensus-ledger-cli.txt"
+  ]
+}

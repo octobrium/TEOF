@@ -1,0 +1,64 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-l4-bindings",
+  "created": "2025-09-18T19:36:00Z",
+  "actor": "codex-3",
+  "summary": "Document L4 bindings between objectives/properties and enforcement tools",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Survey canon + guardrails",
+      "status": "done",
+      "notes": "Review L2/L3 files and current CI/scripts enforcing each trait; capture notes under _report/agent/codex-3/l4-bindings/notes.md.",
+      "receipts": [
+        "_report/agent/codex-3/l4-bindings/notes.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Draft bindings map",
+      "status": "done",
+      "notes": "Create governance/core/L4 - architecture/bindings.yml listing objective/property ids and their enforcing scripts/tests.",
+      "receipts": [
+        "governance/core/L4 - architecture/bindings.yml"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Update architecture docs",
+      "status": "done",
+      "notes": "Add a short subsection in docs/architecture.md referencing the bindings file and how L4 constrains automation.",
+      "receipts": [
+        "docs/architecture.md"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Verification + receipts",
+      "status": "done",
+      "notes": "Run targeted tests (pytest tests/test_ci_check_plans.py) if bindings touch guard references; store diff review receipt under _report/agent/codex-3/l4-bindings/diff-review.json.",
+      "receipts": [
+        "_report/agent/codex-3/l4-bindings/diff-review.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Bindings file published and referenced by docs; receipts captured",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "observation",
+      "ref": "external-review-20250918"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-l4-bindings.justification.md",
+    "governance/core/L4 - architecture/bindings.yml",
+    "docs/architecture.md",
+    "_report/agent/codex-3/l4-bindings/diff-review.json",
+    "_report/agent/codex-3/l4-bindings/notes.md"
+  ]
+}

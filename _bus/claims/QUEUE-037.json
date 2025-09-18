@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-3",
+  "branch": "agent/codex-3/queue-037",
+  "claimed_at": "2025-09-18T20:25:26Z",
+  "notes": "Manifest helper delivered.",
+  "plan_id": "2025-09-18-manifest-helper--codex3",
+  "released_at": "2025-09-18T20:29:54Z",
+  "status": "done",
+  "task_id": "QUEUE-037"
+}

@@ -1,0 +1,59 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-idle-pickup",
+  "created": "2025-09-18T20:30:46Z",
+  "actor": "codex-1",
+  "summary": "Auto-assign idle agents from queue",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Analyze idle detection & queue state",
+      "status": "done",
+      "notes": "Review bus_status output and assignment/claim state.",
+      "receipts": [
+        "_report/agent/codex-1/idle-pickup/analysis-20250918T203200Z.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement idle pickup command",
+      "status": "done",
+      "notes": "Implement CLI for idle pickup + tests.",
+      "receipts": [
+        "_report/agent/codex-1/idle-pickup/pytest-20250918T203400Z.txt",
+        "tests/test_agent_idle_pickup.py",
+        "tools/agent/idle_pickup.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add tests/docs",
+      "status": "done",
+      "notes": "Document helper usage for agents and managers.",
+      "receipts": [
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Broadcast availability",
+      "status": "done",
+      "notes": "Announce helper availability on manager-report.",
+      "receipts": [
+        "_bus/messages/manager-report.jsonl"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Idle pickup helper available",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-1/idle-pickup/analysis-20250918T203200Z.md",
+    "_report/agent/codex-1/idle-pickup/pytest-20250918T203400Z.txt"
+  ]
+}

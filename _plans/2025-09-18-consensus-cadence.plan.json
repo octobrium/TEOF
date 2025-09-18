@@ -1,0 +1,65 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-consensus-cadence",
+  "created": "2025-09-18T19:55:00Z",
+  "actor": "codex-3",
+  "summary": "Document consensus review cadence and escalation workflow",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Survey existing consensus signals",
+      "status": "done",
+      "notes": "Reviewed queue brief, manager reports, and new consensus tooling to capture cadence expectations (daily health check + weekly review).",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Draft cadence outline",
+      "status": "done",
+      "notes": "Defined daily async sweep and weekly manager review, including escalation + receipt requirements.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Update documentation",
+      "status": "done",
+      "notes": "Update docs/parallel-codex.md and docs/workflow.md with the cadence loop; ensure cross-references to manager heartbeat and consensus tooling.",
+      "receipts": [
+        "_report/agent/codex-4/queue-032/consensus-cadence-notes.md",
+        "docs/parallel-codex.md",
+        "docs/workflow.md"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Record receipts",
+      "status": "queued",
+      "notes": "Summarize the cadence decisions in _report/agent/codex-3/consensus-cadence/notes.md and capture doc diffs or key commands.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Consensus cadence documented with receipts",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/032-consensus-cadence.md"
+    },
+    {
+      "type": "queue",
+      "ref": "queue/030-consensus-ledger-cli.md"
+    },
+    {
+      "type": "queue",
+      "ref": "queue/031-consensus-receipts.md"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-consensus-cadence.justification.md",
+    "_report/agent/codex-4/queue-032/consensus-cadence-notes.md"
+  ]
+}

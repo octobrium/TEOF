@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-governance-bridge",
+  "created": "2025-09-18T19:36:09Z",
+  "actor": "codex-1",
+  "summary": "Bridge governance feedback with L4 binding + capsule status docs",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Assess governance feedback + existing docs",
+      "status": "done",
+      "notes": "Review codex-2 outline + governance docs.",
+      "receipts": [
+        "_report/agent/codex-1/governance-bridge/analysis-20250918T193600Z.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Create queue tasks for L4 binding + capsule status",
+      "status": "done",
+      "notes": "Author queue items for L4 binding + capsule status ledger.",
+      "receipts": [
+        "queue/034-governance-l4-binding.md",
+        "queue/035-capsule-status-ledger.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Coordinate assignments via bus",
+      "status": "done",
+      "notes": "Log manager-report summary + queue messages.",
+      "receipts": [
+        "_bus/messages/manager-report.jsonl",
+        "_report/agent/codex-1/governance-bridge/summary-20250918T193800Z.txt"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Docs drafted and paths assigned",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-1/governance-bridge/analysis-20250918T193600Z.md",
+    "_report/agent/codex-1/governance-bridge/summary-20250918T193800Z.txt"
+  ]
+}

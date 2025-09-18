@@ -1,0 +1,52 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-release-readiness",
+  "created": "2025-09-18T20:41:00Z",
+  "actor": "codex-2",
+  "summary": "Compile release readiness checklist",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Inventory blockers",
+      "status": "done",
+      "notes": "Gather outstanding tasks (missing CLIs, governance docs, CI wiring, capsule freeze, clean tree).",
+      "receipts": [
+        "_report/manager/direction-20250918T1948Z.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Document readiness checklist",
+      "status": "done",
+      "notes": "Author docs/maintenance/release-readiness.md summarizing required actions before committing to main.",
+      "receipts": [
+        "docs/maintenance/release-readiness.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Broadcast guidance",
+      "status": "done",
+      "notes": "Share checklist via manager-report so all agents align on release goal.",
+      "receipts": [
+        "_bus/messages/manager-report.jsonl"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Release readiness checklist published and broadcast",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "note",
+      "ref": "_report/manager/direction-20250918T1948Z.md"
+    }
+  ],
+  "receipts": [
+    "docs/maintenance/release-readiness.md",
+    "_bus/messages/manager-report.jsonl"
+  ]
+}

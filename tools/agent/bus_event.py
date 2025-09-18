@@ -7,7 +7,7 @@ import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Dict
 
 ROOT = Path(__file__).resolve().parents[2]
 EVENT_LOG = ROOT / "_bus" / "events" / "events.jsonl"
@@ -119,6 +119,18 @@ def _ensure_claim_owner(agent_id: str, task_id: str, event: str) -> None:
         raise SystemExit(reason)
 
 
+def _parse_kv_pairs(pairs: list[str] | None, *, context: str) -> Dict[str, str]:
+    data: Dict[str, str] = {}
+    if not pairs:
+        return data
+    for item in pairs:
+        key, sep, value = item.partition("=")
+        if not sep:
+            raise SystemExit(f"invalid {context} field '{item}', expected key=value")
+        data[key] = value
+    return data
+
+
 def handle_log(args: argparse.Namespace) -> None:
     agent_id = args.agent or _default_agent()
     if not agent_id:
@@ -140,12 +152,8 @@ def handle_log(args: argparse.Namespace) -> None:
         payload["pr"] = args.pr
     if args.receipt:
         payload.setdefault("receipts", []).append(args.receipt)
-    if args.extra:
-        for item in args.extra:
-            key, _, value = item.partition("=")
-            if not key or not value:
-                raise SystemExit(f"invalid extra field '{item}', expected key=value")
-            payload[key] = value
+    extra_fields = _parse_kv_pairs(args.extra, context="extra")
+    payload.update(extra_fields)
     if args.severity:
         severity = args.severity.strip().lower()
         if severity not in SEVERITY_LEVELS:
@@ -156,6 +164,31 @@ def handle_log(args: argparse.Namespace) -> None:
     guarded_events = {"status", "complete", "proposal", "pr_opened", "audit", "release"}
     if args.task and args.event in guarded_events:
         _ensure_claim_owner(agent_id, args.task, args.event)
+
+    if args.consensus_decision:
+        from tools.consensus import receipts as consensus_receipts
+
+        meta = {
+            "task_id": args.task or "",
+            "plan_id": args.plan or "",
+            "event": args.event,
+        }
+        meta.update(_parse_kv_pairs(args.consensus_meta, context="consensus meta"))
+        existing_receipts = payload.get("receipts", []) or []
+        output_path = None
+        if args.consensus_output:
+            output_path = Path(args.consensus_output)
+        receipt_file = consensus_receipts.append_receipt(
+            decision_id=args.consensus_decision,
+            summary=args.summary,
+            agent_id=agent_id,
+            event=args.event,
+            receipts=existing_receipts,
+            metadata=meta,
+            output=output_path,
+        )
+        rel_path = receipt_file.relative_to(ROOT)
+        payload.setdefault("receipts", []).append(str(rel_path))
 
     _append_event(payload)
     print(f"Logged event {args.event} for agent {agent_id}")
@@ -173,6 +206,19 @@ def build_parser() -> argparse.ArgumentParser:
     log.add_argument("--branch", help="Branch name")
     log.add_argument("--pr", help="Associated PR number")
     log.add_argument("--receipt", help="Receipt path to record")
+    log.add_argument(
+        "--consensus-decision",
+        help="Append a consensus receipt for the specified decision id",
+    )
+    log.add_argument(
+        "--consensus-output",
+        help="Override consensus receipt filename (relative to _report/consensus/)",
+    )
+    log.add_argument(
+        "--consensus-meta",
+        nargs="*",
+        help="Additional key=value metadata for the consensus receipt",
+    )
     log.add_argument(
         "--severity",
         help="Severity level (low|medium|high)",

@@ -1,0 +1,66 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-manager-heartbeat",
+  "created": "2025-09-18T19:41:00Z",
+  "actor": "codex-3",
+  "summary": "Add manager heartbeat + visibility to coordination tooling",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Survey manager signals",
+      "status": "done",
+      "notes": "Audit manifests, bus events, and assignments to determine reliable manager indicators; capture notes under _report/agent/codex-3/manager-heartbeat/notes.md.",
+      "receipts": [
+        "_report/agent/codex-3/manager-heartbeat/notes.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement visibility + guard",
+      "status": "done",
+      "notes": "Update tools.agent.bus_status (and helper module if needed) to display active managers and warn when none seen within window; add CLI flags for thresholds.",
+      "receipts": [
+        "tools/agent/bus_status.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add regression tests",
+      "status": "done",
+      "notes": "Create unit tests covering manager detection + warning behaviour.",
+      "receipts": [
+        "_report/agent/codex-3/manager-heartbeat/tests.json"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Document workflow",
+      "status": "done",
+      "notes": "Update docs/AGENTS.md or docs/parallel-codex.md to explain manager heartbeat usage and escalation when no manager is active.",
+      "receipts": [
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Manager heartbeat visible via bus_status with tests + documentation",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "observation",
+      "ref": "external-review-20250918"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-manager-heartbeat.justification.md",
+    "_report/agent/codex-3/manager-heartbeat/notes.md",
+    "_report/agent/codex-3/manager-heartbeat/tests.json",
+    "docs/AGENTS.md",
+    "docs/parallel-codex.md",
+    "tools/agent/bus_status.py"
+  ]
+}

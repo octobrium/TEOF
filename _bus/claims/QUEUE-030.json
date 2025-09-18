@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-4",
+  "branch": "agent/codex-4/queue-030",
+  "claimed_at": "2025-09-18T19:36:15Z",
+  "notes": "Implementing consensus ledger CLI",
+  "plan_id": "2025-09-18-consensus-ledger-cli",
+  "released_at": "2025-09-18T19:42:49Z",
+  "status": "done",
+  "task_id": "QUEUE-030"
+}

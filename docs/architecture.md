@@ -9,7 +9,7 @@ Compatibility: SemVer; deprecations get one minor window
 ## Allowed top-level
 
 
-- `capsule/`        — immutable capsule + hashes
+- `capsule/`        — immutable capsule + hashes (see `capsule/README.md` for active version and per-release `STATUS.md` markers)
 
 - `extensions/`     — canonical, packaged code (import surface: `extensions.…`)
 
@@ -62,3 +62,9 @@ Authoritative criteria and process live in [`docs/promotion-policy.md`](promotio
 ## New top-level folders
 
 Avoid by default. If truly needed, add a 1-page TEP in `rfcs/` (purpose, contract, alternatives, rollback) and update this file.
+
+## L4 bindings (canon ↔ automation)
+
+- Binding matrix: [`governance/core/L4 - architecture/bindings.yml`](../governance/core/L4%20-%20architecture/bindings.yml) records which objectives/properties are enforced by specific tests, scripts, and receipts.
+- Update the matrix whenever a new guard lands or coverage shifts; gaps stay explicit until automation exists.
+

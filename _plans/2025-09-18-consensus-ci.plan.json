@@ -1,0 +1,60 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-consensus-ci",
+  "created": "2025-09-18T20:26:30Z",
+  "actor": "codex-4",
+  "summary": "Integrate consensus tooling into CI",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add consensus smoke script",
+      "status": "done",
+      "notes": "Added scripts/ci/consensus_smoke.sh to exercise ledger/receipts/dashboard CLIs.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Update workflow",
+      "status": "done",
+      "notes": "teof-ci workflow runs consensus smoke script, pytest suite, and uploads artifacts.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Capture receipts",
+      "status": "done",
+      "notes": "Store smoke output under _report/agent/codex-4/queue-038/, run pytest locally, and log bus status/complete events.",
+      "receipts": [
+        "_report/agent/codex-4/queue-038/consensus-ci-smoke.log"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "CI workflow runs consensus smoke script + pytest, receipts stored",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/038-ci-consensus-integration.md"
+    },
+    {
+      "type": "plan",
+      "ref": "_plans/2025-09-18-consensus-ledger-cli.plan.json"
+    },
+    {
+      "type": "plan",
+      "ref": "_plans/2025-09-18-consensus-receipts.plan.json"
+    },
+    {
+      "type": "plan",
+      "ref": "_plans/2025-09-18-consensus-cadence.plan.json"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-consensus-ci.justification.md",
+    "_report/agent/codex-4/queue-038/consensus-ci-smoke.log"
+  ]
+}

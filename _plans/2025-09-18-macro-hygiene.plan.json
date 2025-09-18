@@ -1,0 +1,55 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-macro-hygiene",
+  "created": "2025-09-18T20:15:00Z",
+  "actor": "codex-2",
+  "summary": "Macro hygiene objectives execution plan",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Map current hygiene state",
+      "status": "done",
+      "notes": "Gather data on manifest swaps, CI coverage, and capsule cadence status; capture findings under _report/agent/codex-2/macro-hygiene/notes.md.",
+      "receipts": [
+        "_report/agent/codex-2/macro-hygiene/notes.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Draft actionable proposals",
+      "status": "done",
+      "notes": "Outline concrete tasks (scripts, CI jobs, capsule schedule) for team agreement.",
+      "receipts": [
+        "docs/maintenance/macro-hygiene.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Socialize and schedule",
+      "status": "done",
+      "notes": "Log coordination on manager-report and seed follow-up queue items or PRs as needed.",
+      "receipts": [
+        "_bus/messages/manager-report.jsonl"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Macro hygiene objectives documented with plan for implementation",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/036-macro-hygiene-objective.md"
+    },
+    {
+      "type": "doc",
+      "ref": "docs/maintenance/macro-hygiene.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-2/macro-hygiene/notes.md"
+  ]
+}

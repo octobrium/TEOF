@@ -1,0 +1,70 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-consensus-dashboard",
+  "created": "2025-09-18T19:58:00Z",
+  "actor": "codex-3",
+  "summary": "Build consensus status dashboard CLI",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Collect sample data",
+      "status": "done",
+      "notes": "Extract relevant consensus events/messages to drive dashboard design; capture notes under _report/agent/codex-3/consensus-dashboard/notes.md.",
+      "receipts": [
+        "_report/agent/codex-3/consensus-dashboard/notes.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement dashboard CLI",
+      "status": "done",
+      "notes": "Add tools/consensus/dashboard.py with table/JSON output and filters (decision, assignee, status).",
+      "receipts": [
+        "tools/consensus/dashboard.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add regression tests",
+      "status": "done",
+      "notes": "Create tests/test_consensus_dashboard.py validating parsing and formatting against fixtures.",
+      "receipts": [
+        "_report/agent/codex-3/consensus-dashboard/pytest.json"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Document usage",
+      "status": "done",
+      "notes": "Document the dashboard in docs/parallel-codex.md and docs/workflow.md consensus sections; store sample output under _report/agent/codex-3/consensus-dashboard/sample-output.md.",
+      "receipts": [
+        "_report/agent/codex-3/consensus-dashboard/sample-output.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Consensus dashboard CLI with tests and docs",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/033-consensus-dashboard.md"
+    },
+    {
+      "type": "queue",
+      "ref": "queue/031-consensus-receipts.md"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-consensus-dashboard.justification.md",
+    "_report/agent/codex-3/consensus-dashboard/notes.md",
+    "_report/agent/codex-3/consensus-dashboard/pytest.json",
+    "_report/agent/codex-3/consensus-dashboard/sample-output.md",
+    "docs/parallel-codex.md",
+    "docs/workflow.md",
+    "tools/consensus/dashboard.py"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-codex4-bus-followups",
+  "created": "2025-09-18T19:22:30Z",
+  "actor": "codex-4",
+  "summary": "Document follow-up logging habit in collab playbooks",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review existing collaboration docs",
+      "status": "done",
+      "notes": "Reviewed parallel-codex and collab-support docs to identify follow-up section gaps.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Add follow-up logging guidance",
+      "status": "done",
+      "notes": "Added follow-up logging guidance to docs/parallel-codex.md and docs/collab-support.md.",
+      "receipts": [
+        "docs/parallel-codex.md",
+        "docs/collab-support.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Record receipt + notify bus",
+      "status": "done",
+      "notes": "Recorded receipt and posted bus status/message updates with new doc guidance.",
+      "receipts": [
+        "_report/agent/codex-4/support/bus-followups-docs.txt"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Collab docs mention logging follow-up actions with example commands",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/messages/manager-report.jsonl"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-4/support/bus-followups-docs.txt"
+  ]
+}

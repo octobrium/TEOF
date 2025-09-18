@@ -1,0 +1,150 @@
+# L4 Bindings — Objective & Property Enforcement Map
+#
+# Maps higher-layer canon (L2 objectives, L3 properties) to concrete
+# enforcement surfaces (tests, CI scripts, receipts). Use this file to
+# audit automation coverage and spot gaps before they become regressions.
+
+objectives:
+  L2.1:
+    title: Maximize Observation
+    enforced_by:
+      tests:
+        - tests/test_agent_bus_watch.py
+      scripts:
+        - tools/agent/bus_watch.py
+    receipts:
+      - _report/agent/codex-2/agent-bus-watch/pytest.json
+    coverage: active
+    notes: "Live bus_watch regression protects observation channels."
+  L2.2:
+    title: Coherence with Observation
+    enforced_by:
+      tests:
+        - tests/test_agent_bus_status.py
+      scripts:
+        - scripts/ci/check_plans.py
+    receipts:
+      - _report/agent/codex-2/agent-bus-status/pytest.json
+    coverage: active
+    notes: "Status filters + plan validator ensure coherence signals remain reliable."
+  L2.3:
+    title: Preserve Enabling Conditions
+    enforced_by:
+      scripts:
+        - scripts/ops/apoptosis.sh
+        - tools/maintenance/prune_artifacts.py
+    receipts:
+      - _report/agent/codex-3/prune-script/pytest.json
+    coverage: partial
+    notes: "Pruning helper keeps habitats clear; still need automated trigger cadence."
+  L2.4:
+    title: Functional Continuity
+    enforced_by:
+      tests:
+        - tests/test_ci_check_plans.py
+      scripts:
+        - tools/planner/validate.py
+    receipts:
+      - _report/runner/20250917T220635Z-13b70e44.json
+    coverage: active
+    notes: "Plan lifecycle validator keeps historical intent reconstructible."
+  L2.5:
+    title: Legibility to Many Intelligences
+    enforced_by:
+      scripts:
+        - scripts/ci/check_docs.sh
+    receipts: []
+    coverage: gap
+    notes: "Docs lint exists but we lack explicit multilingual/readability tests."
+  L2.11:
+    title: Bounded Risk & Reversibility
+    enforced_by:
+      scripts:
+        - scripts/ci/guard_apoptosis.sh
+      tests:
+        - tests/test_agent_bus_claim.py
+    receipts:
+      - _report/agent/codex-2/bus-message-claim-guard/pytest.json
+    coverage: active
+    notes: "Claims guard + apoptosis checks enforce reversible workflows."
+  L2.12:
+    title: Metrics & Outcome Alignment
+    enforced_by:
+      tests:
+        - tests/test_reconcile_metrics_summary.py
+        - tests/test_reconcile_pipeline.py
+    receipts:
+      - _report/runner/reconciliation/pipeline/metrics.jsonl
+    coverage: partial
+    notes: "Metrics tests cover reconciliation; consensus metrics still TODO."
+  L2.13:
+    title: Incentives Aligned with Truth-Seeking
+    enforced_by:
+      planned:
+        - queue/030-consensus-ledger-cli.md
+        - queue/031-consensus-receipts.md
+    receipts: []
+    coverage: todo
+    notes: "Consensus backlog will introduce concrete checks; track once implemented."
+
+properties:
+  P1-substrate-neutrality:
+    title: Substrate Neutrality
+    enforced_by:
+      docs:
+        - docs/architecture.md
+    coverage: advisory
+    notes: "Maintained by policy; no CI hook yet."
+  P2-emergent-unity:
+    title: Emergent Unity
+    enforced_by:
+      tests:
+        - tests/test_agent_bus_event.py
+        - tests/test_agent_bus_message.py
+    receipts:
+      - _report/agent/codex-2/bus-message-cli/pytest.json
+    coverage: active
+    notes: "Bus APIs keep agents coordinated without central bottlenecks."
+  P4-modularity-extensibility:
+    title: Modularity & Extensibility
+    enforced_by:
+      scripts:
+        - scripts/ci/check_plans.py
+        - tools/preflight.sh
+    coverage: partial
+    notes: "Plan + preflight guard prevent tangled changes; need module boundary tests."
+  P5-redundancy-resilience:
+    title: Redundancy & Resilience
+    enforced_by:
+      tests:
+        - tests/test_agent_bus_watch.py
+        - tests/test_agent_task_assign.py
+    coverage: partial
+    notes: "Distributed queue/claim tests ensure redundancy; more failure drills pending."
+  P11-self-audit-drift-detection:
+    title: Self-Audit & Drift Detection
+    enforced_by:
+      scripts:
+        - tools/maintenance/prune_artifacts.py
+        - tools/agent/bus_status.py
+    receipts:
+      - _report/agent/codex-3/prune-script/dry-run-2025-09-18T19:25:19Z.txt
+    coverage: active
+    notes: "Regular pruning and bus overviews surface drift."
+  P12-outcome-auditing-distortion:
+    title: Outcome Auditing of Distortion
+    enforced_by:
+      tests:
+        - tests/test_reconcile_pipeline.py
+      receipts:
+        - _report/reconciliation/pipeline/metrics.jsonl
+    coverage: partial
+    notes: "Pipeline metrics catch divergence; integrate consensus metrics next."
+
+meta:
+  updated: 2025-09-18T19:40:00Z
+  owner: codex-3
+  gaps:
+    - L2.5 requires readability guard.
+    - L2.6/L2.7/L2.8 coverage still implicit; schedule follow-up once consensus tooling lands.
+    - Property list not exhaustive; add cards as new automation boots.

@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-09-18T20:27:29Z",
+  "branch": "agent/codex-2/queue-037",
+  "engineer": "codex-2",
+  "manager": "codex-4",
+  "note": "Codex-3 owns this; codex-2 can support if needed",
+  "plan_id": "2025-09-18-manifest-helper",
+  "task_id": "QUEUE-037"
+}
