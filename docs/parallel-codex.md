@@ -1,6 +1,6 @@
 # Parallel Codex Playbook
 
-Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in parallel without stepping on one another. For the lightweight onboarding entry point use `.github/AGENT_ONBOARDING.md`; this playbook is the canonical reference once you enter the loop.
+Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in parallel without stepping on one another. For the lightweight onboarding entry point use `.github/AGENT_ONBOARDING.md`; this playbook is the canonical reference once you enter the loop. Quick index: `python -m tools.agent.doc_links list` (`docs/quick-links.md`).
 
 ## Branch & Manifest Discipline
 
@@ -20,10 +20,10 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 ## Suggested Session Loop
 
 1. **Sync** (`git pull origin main`).
-2. **Announce session** (`python -m tools.agent.session_boot --agent <id>` to log a handshake + view peers).
+2. **Announce session** (`python -m tools.agent.session_boot --agent <id> --focus <role>` logs a handshake + intent; add `--with-status` to grab an immediate bus summary receipt).
 3. **Managers assign tasks** (`python -m tools.agent.task_assign --task <id> --engineer <id> --plan <plan>`). Claims are created automatically for the assignee; add `--no-auto-claim` if you need to stage the backlog without starting the work immediately. Engineers should still acknowledge with a quick `bus_event` status.
 4. **Review queue** (`queue/`, `_bus/claims/`, `_bus/messages/`, `_bus/events/`).
-5. **Heartbeat check** run `python -m tools.agent.bus_status --window-hours 4 --manager-window 30` to confirm a manager heartbeat; if you see the warning, announce a manager handshake or escalate in `manager-report`.
+5. **Heartbeat check** run `python -m tools.agent.bus_status --preset manager --manager-window 30` to confirm a manager heartbeat; if you see the warning, announce a manager handshake or escalate in `manager-report`.
 6. **Claim / pick up** — auto-claim covers common assignments, but engineers can:
    - run `python -m tools.agent.idle_pickup list` to view unclaimed backlog items, or `... claim --task <id>` to auto-assign themselves when idle;
    - re-run `tools/agent/bus_claim.py claim ...` to reclaim stalled work, switch branches, or update status. Keep `bus_watch` open for coordination either way.
@@ -33,12 +33,12 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 10. **Open draft PR** with plan, justification, receipts.
 11. **Managers run reports** (`python -m tools.agent.manager_report`) to produce `_report/manager/manager-report-<timestamp>.md` and post `consensus` messages when ready for human review.
 12. **Run preflight** (`tools/agent/preflight.sh`) to ensure receipts and plans are valid before opening/refreshing the PR.
-13. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap"`).
+13. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap" --focus idle`).
 
 <a id="self-audit"></a>
 ## Self-Audit & Cross-Audit
 
-- Use `tools/agent/bus_status.py --limit 20 --agent <id> --active-only --window-hours 4` to summarise active claims and latest events (add `--json` when piping into dashboards).
+- Use `tools/agent/bus_status.py --preset support --agent <id>` to summarise active claims and latest events (add `--json` when piping into dashboards or `--summary` for a compact bullet list).
 - For a live feed while working, run `python -m tools.agent.bus_watch --limit 20 --follow`; add `--agent <id>` or `--event status` to focus the stream, or `--since <ISO>` to replay a window.
 - Store receipts for these events under `_report/agent/<agent-id>/` (and `_report/runner/`, `_report/planner/` when applicable) so planner plans and CI can resolve them without manual copying.
 - Encourage agents to emit `--extra reviewer=<agent>` or `event=audit` entries when they review a peer’s plan or PR.

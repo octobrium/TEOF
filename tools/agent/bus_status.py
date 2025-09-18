@@ -18,6 +18,20 @@ HEARTBEAT_EVENTS = {"handshake", "status"}
 DEFAULT_MANAGER_WINDOW_MINUTES = 30.0
 DEFAULT_WINDOW_HOURS = 24.0
 
+PRESETS = {
+    "support": {
+        "limit": 20,
+        "active_only": True,
+        "window_hours": 6.0,
+    },
+    "manager": {
+        "limit": 20,
+        "active_only": False,
+        "window_hours": 4.0,
+        "manager_window": DEFAULT_MANAGER_WINDOW_MINUTES,
+    },
+}
+
 
 def load_claims() -> list[dict[str, Any]]:
     claims: list[dict[str, Any]] = []
@@ -280,9 +294,80 @@ def summarize(
         print(f"\n{msg}")
 
 
+def _print_summary(
+    claims: list[dict[str, Any]],
+    events: list[dict[str, Any]],
+    manager_status: dict[str, Any],
+    *,
+    agents: Sequence[str] | None,
+    active_only: bool,
+    since_filter: bool,
+    preset: str | None,
+    limit: int,
+) -> None:
+    filtered_claims = _filter_claims(claims, agents=agents, active_only=active_only)
+    filtered_events = _filter_events(events, agents=agents)
+
+    print("Summary")
+    meta_parts = [f"limit={limit}"]
+    if preset:
+        meta_parts.append(f"preset={preset}")
+    if since_filter:
+        meta_parts.append("since-filter")
+    meta_parts.append("active-only" if active_only else "all-claims")
+    print(f"- settings: {', '.join(meta_parts)}")
+
+    if filtered_claims:
+        print(f"- claims ({len(filtered_claims)}):")
+        for claim in filtered_claims:
+            status = claim.get("status", "unknown")
+            print(
+                f"  * {claim.get('task_id')} [{status}] by {claim.get('agent_id')}"
+                f" → {claim.get('branch')}"
+            )
+    else:
+        print("- claims: none")
+
+    if filtered_events:
+        print(f"- events ({len(filtered_events)}):")
+        for entry in filtered_events:
+            print(
+                f"  * {entry.get('ts')} :: {entry.get('agent_id')} :: {entry.get('event')}"
+                f" :: {entry.get('summary', '')}"
+            )
+    else:
+        print("- events: none")
+
+    active = manager_status.get("active", [])
+    stale = manager_status.get("stale", [])
+    missing = manager_status.get("missing", [])
+    if active:
+        print("- manager heartbeat: active")
+        for entry in active:
+            print(f"  * {entry['agent_id']} (last {entry['last_seen']})")
+    elif stale or missing:
+        print("- manager heartbeat: stale")
+        for entry in stale:
+            print(f"  * stale {entry['agent_id']} (last {entry['last_seen']})")
+        for entry in missing:
+            print(f"  * missing {entry['agent_id']}")
+    else:
+        print("- manager heartbeat: none detected")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Summarize the agent bus state")
-    parser.add_argument("--limit", type=int, default=10, help="Number of recent events to display")
+    parser.add_argument(
+        "--preset",
+        choices=sorted(PRESETS.keys()),
+        help="Apply a presets of recommended flags (support|manager)",
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Number of recent events to display (defaults to 10)",
+    )
     parser.add_argument(
         "--agent",
         action="append",
@@ -317,6 +402,11 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_MANAGER_WINDOW_MINUTES,
         help="Minutes to look back for manager heartbeat (0 disables the check)",
     )
+    parser.add_argument(
+        "--summary",
+        action="store_true",
+        help="Print a condensed bullet summary instead of verbose sections",
+    )
     return parser
 
 
@@ -334,8 +424,22 @@ def main(argv: list[str] | None = None) -> int:
             parser.error("--since must be ISO8601 UTC (YYYY-MM-DDTHH:MM:SSZ)")
     elif args.window_hours:
         since = datetime.now(timezone.utc) - timedelta(hours=args.window_hours)
+    preset_applied = None
+    if args.preset:
+        preset_applied = args.preset
+        preset = PRESETS[args.preset]
+        if args.limit is None and "limit" in preset:
+            args.limit = preset["limit"]
+        if not args.active_only and preset.get("active_only"):
+            args.active_only = True
+        if args.window_hours == DEFAULT_WINDOW_HOURS and "window_hours" in preset:
+            args.window_hours = preset["window_hours"]
+        if args.manager_window == DEFAULT_MANAGER_WINDOW_MINUTES and "manager_window" in preset:
+            args.manager_window = preset["manager_window"]
+
+    limit = args.limit if args.limit is not None else 10
     all_events = load_events(limit=None, since=since)
-    events = all_events[-args.limit :] if args.limit else all_events
+    events = all_events[-limit:] if limit else all_events
     agents = args.agent
 
     manifests = _load_manifests()
@@ -355,24 +459,37 @@ def main(argv: list[str] | None = None) -> int:
             "filters": {
                 "agents": agents or [],
                 "active_only": args.active_only,
-                "limit": args.limit,
+                "limit": limit,
                 "since": args.since,
                 "window_hours": args.window_hours,
                 "manager_window": args.manager_window,
+                "preset": preset_applied,
             },
             "manager_status": manager_status,
         }
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return 0
 
-    summarize(
-        claims,
-        events,
-        manager_status,
-        agents=agents,
-        active_only=args.active_only,
-        since_filter=since is not None,
-    )
+    if args.summary:
+        _print_summary(
+            claims,
+            events,
+            manager_status,
+            agents=agents,
+            active_only=args.active_only,
+            since_filter=since is not None,
+            preset=preset_applied,
+            limit=limit,
+        )
+    else:
+        summarize(
+            claims,
+            events,
+            manager_status,
+            agents=agents,
+            active_only=args.active_only,
+            since_filter=since is not None,
+        )
     return 0
 
 

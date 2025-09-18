@@ -4,7 +4,7 @@
   "created": "2025-09-19T00:00:00Z",
   "actor": "codex-2",
   "summary": "Automate bus heartbeat monitoring and idle alerts",
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -36,15 +36,18 @@
     {
       "id": "S4",
       "title": "Add coverage and receipts",
-      "status": "queued",
-      "notes": "Add unit/smoke tests and capture planner validation receipts demonstrating deterministic behaviour.",
-      "receipts": []
+      "status": "done",
+      "notes": "Added heartbeat unit/SUT tests and captured runner receipt.",
+      "receipts": [
+        "_report/runner/20250918T232920Z-06191c0d.json",
+        "tests/test_bus_heartbeat.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Heartbeat automation emitting actionable alerts with tests and receipts",
     "owner": "codex-2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -59,6 +62,7 @@
   "receipts": [
     "_report/agent/codex-2/apoptosis-004/alerts/heartbeat-20250918T231956Z.json",
     "_report/agent/codex-2/apoptosis-004/requirements.md",
-    "_report/runner/20250918T231956Z-5c58fec3.json"
+    "_report/runner/20250918T231956Z-5c58fec3.json",
+    "_report/runner/20250918T232920Z-06191c0d.json"
   ]
 }

@@ -346,9 +346,15 @@
       "notes": "Add doc quick-links and helper CLI for high-traffic guidance surfaces.",
       "plan_id": "2025-09-19-docs-quicklinks",
       "priority": "high",
-      "receipts": [],
+      "receipts": [
+        "docs/quick-links.json",
+        "docs/quick-links.md",
+        "tools/agent/doc_links.py",
+        "_report/agent/codex-4/apoptosis-006/pytest-doc-links.log",
+        "_report/agent/codex-4/apoptosis-006/planner-validate-20250919.log"
+      ],
       "role": "product-strategist",
-      "status": "queued",
+      "status": "done",
       "title": "Docs Quick Links"
     }
   ],

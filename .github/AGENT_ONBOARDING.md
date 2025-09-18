@@ -7,16 +7,17 @@ Purpose: give a new human + LLM pair the minimum set of rails to join TEOF safel
 2. **Read the rails** – follow the architecture/workflow overview (`docs/workflow.md#architecture-gate-before-writing-code`) and receipts discipline (`docs/workflow.md#dna-recursion-self-improvement-of-the-rules`) before touching code.
 3. **Capture your manifest** – copy `AGENT_MANIFEST.example.json` → `AGENT_MANIFEST.json`, fill in metadata, and store locally. Reference: `docs/AGENTS.md#files-to-know`.
 4. **Plan before edits** – duplicate `_plans/1970-01-01-agent-template.plan.json`, add a justification, and log the plan per `docs/AGENTS.md#contract`.
-5. **Announce + claim** – run `python3 -m tools.agent.session_boot --agent <id>` and follow the coordination loop in `docs/parallel-codex.md#suggested-session-loop` (auto-claiming via task assignments when available).
+5. **Announce + claim** – run `python3 -m tools.agent.session_boot --agent <id> --focus <role> --with-status` and follow the coordination loop in `docs/parallel-codex.md#suggested-session-loop` (auto-claiming via task assignments when available). The helper logs a handshake and captures a `bus_status` summary receipt for you.
 
 ## Operating Rhythm
 - **Receipts-first** – no step is “done” until receipts exist. Record artifacts under `_report/agent/<id>/…` and cite them in the plan. (Governance anchor: `docs/workflow.md#architecture-gate-before-writing-code`.)
 - **Install the guard hook once per clone** – run `tools/hooks/install.sh` to wire the repo-managed pre-push hook (it runs receipts check, planner validation, and targeted pytest before every push).
 - **Preflight every push** – run `tools/agent/preflight.sh` before pushing or requesting review; it mirrors the hook (receipts, plan guard, planner validate, bus status, targeted pytest) and enforces the manager directive in `_bus/messages/manager-report.jsonl`.
-- **Stay on the bus** – log progress with `python3 -m tools.agent.bus_event log --event status …` and monitor peers via `docs/parallel-codex.md#self-audit`.
-- **Close cleanly** – release the claim (`python3 -m tools.agent.bus_claim release …`) and refresh the handshake when wrapping up (`session_boot --summary "session wrap"`).
+- **Stay on the bus** – log progress with `python3 -m tools.agent.bus_event log --event status …` and monitor peers via `docs/parallel-codex.md#self-audit` (`python -m tools.agent.bus_status --preset support --agent <id>` for quick snapshots).
+- **Close cleanly** – release the claim (`python3 -m tools.agent.bus_claim release …`) and refresh the handshake when wrapping up (`session_boot --summary "session wrap" --focus idle`).
 
 ## Where to Go Deeper
+- **Quick links** – `python -m tools.agent.doc_links list` (see `docs/quick-links.md`) for a canonical index of guidance surfaces.
 - **Daily rhythms** – `docs/AGENTS.md` for idle cadence, claim seeding, and optional role coordination.
 - **Multi-agent coordination** – `docs/parallel-codex.md` for detailed bus usage, follow-up logging, and consensus tooling.
 - **Tooling reference** – `_plans/README.md` (plan schema), `_bus/README.md` (claims/events), `tools/agent/runner.sh` (optional helper).

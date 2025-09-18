@@ -4,7 +4,7 @@
   "created": "2025-09-19T00:00:00Z",
   "actor": "codex-3",
   "summary": "Automate receipt scaffolding and polish bus/session tooling",
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -30,22 +30,32 @@
     {
       "id": "S3",
       "title": "Enhance bus_status & session bootstrap",
-      "status": "queued",
+      "status": "done",
       "notes": "Add presets/flags to bus_status, streamline session_boot helpers, update docs accordingly.",
-      "receipts": []
+      "receipts": [
+        ".github/AGENT_ONBOARDING.md",
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md",
+        "tools/agent/bus_status.py",
+        "tools/agent/session_boot.py"
+      ]
     },
     {
       "id": "S4",
       "title": "Add coverage + automation",
-      "status": "queued",
+      "status": "done",
       "notes": "Create tests verifying scaffolding and CLI ergonomics; ensure planner validation receipts recorded.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-3/2025-09-19-receipt-scaffold/summary.json",
+        "_report/agent/codex-3/2025-09-19-receipt-scaffold/tests.json",
+        "tests/test_session_boot.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Receipt scaffolding automated with improved bus/session UX and tests",
     "owner": "codex-3",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -58,9 +68,17 @@
     }
   ],
   "receipts": [
+    ".github/AGENT_ONBOARDING.md",
     "_report/agent/codex-3/2025-09-19-receipt-scaffold/actions.json",
+    "_report/agent/codex-3/2025-09-19-receipt-scaffold/summary.json",
+    "_report/agent/codex-3/2025-09-19-receipt-scaffold/tests.json",
     "_report/agent/codex-3/apoptosis-005/design.md",
-    "tests/test_receipt_scaffold.py",
+    "docs/AGENTS.md",
+    "docs/parallel-codex.md",
+    "tests/test_agent_bus_status.py",
+    "tests/test_session_boot.py",
+    "tools/agent/bus_status.py",
+    "tools/agent/session_boot.py",
     "tools/receipts/main.py",
     "tools/receipts/scaffold.py"
   ]

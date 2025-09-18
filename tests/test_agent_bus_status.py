@@ -122,6 +122,7 @@ def test_bus_status_json_output(tmp_path, monkeypatch, capsys):
     payload = json.loads(out)
     assert payload["filters"]["agents"] == ["codex-1"]
     assert payload["filters"]["active_only"] is False
+    assert payload["filters"]["preset"] is None
     assert payload["filters"]["window_hours"] == bus_status.DEFAULT_WINDOW_HOURS
     assert payload["filters"]["manager_window"] == bus_status.DEFAULT_MANAGER_WINDOW_MINUTES
     assert len(payload["claims"]) == 1
@@ -201,3 +202,24 @@ def test_bus_status_window_hours_zero_disables_filter(tmp_path, monkeypatch, cap
     tasks = {event.get("task_id") for event in payload["events"]}
     assert "QUEUE-999" in tasks
     assert payload["filters"]["window_hours"] == 0
+
+
+def test_bus_status_presets_apply_defaults(tmp_path, monkeypatch, capsys):
+    _setup_bus(tmp_path, monkeypatch)
+    exit_code = bus_status.main(["--json", "--preset", "support"])
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    filters = payload["filters"]
+    assert filters["preset"] == "support"
+    assert filters["limit"] == 20
+    assert filters["window_hours"] == pytest.approx(6.0)
+    assert filters["active_only"] is True
+
+
+def test_bus_status_summary_output(tmp_path, monkeypatch, capsys):
+    _setup_bus(tmp_path, monkeypatch)
+    exit_code = bus_status.main(["--summary", "--preset", "manager"])
+    assert exit_code == 0
+    out = capsys.readouterr().out
+    assert "Summary" in out
+    assert "manager heartbeat" in out

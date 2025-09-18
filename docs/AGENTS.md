@@ -4,16 +4,20 @@
 
 Treat this page as the day-to-day companion to the lightweight onboarding entry point (`.github/AGENT_ONBOARDING.md`). For the step-by-step coordination loop, defer to `docs/parallel-codex.md`.
 
+## Quick Links
+- List the current high-traffic surfaces: `python -m tools.agent.doc_links list`.
+- Fetch one entry by id (e.g. `workflow-architecture`): `python -m tools.agent.doc_links show workflow-architecture`.
+- Full manifest lives in `docs/quick-links.md`.
+
 ## Coordination (multi-agent)
 > **Optional role module:** See [`docs/roles.md`](docs/roles.md) + `agents/roles.json` for a lightweight four-pillar breakdown (strategist, architect, automation engineer, risk sentinel). Pick a hat at session start or prune/replace the list to fit your crew. The roles are additive; delete the files if you prefer the classic free-form model.
 
 ## Idle Cadence
 - Within 5 minutes of going idle, publish a status event and mirror it on the queue (`docs/parallel-codex.md#follow-up-logging`, `docs/collab-support.md`). Escalate after 30 minutes if no claim lands.
 - Keep `tools.agent.bus_watch` tailing to spot blockers, responding with `bus_message --type status` when you intervene. Add `--meta reviewer=<id>` when auditing.
-- Start each session with `python -m tools.agent.session_boot --agent <id>` so the bus records your presence. Release claims and run `session_boot --summary "session wrap"` when you switch context.
+- Start each session with `python -m tools.agent.session_boot --agent <id> --focus <role>` so the bus records your presence. Add `--with-status` to capture a `bus_status` summary receipt automatically, and run `session_boot --summary "session wrap" --focus idle` when you switch context.
 - Use the manifest helper when swapping roles (`python -m tools.agent.manifest_helper ...`) and the idle pickup helper (`python -m tools.agent.idle_pickup list|claim`) to grab vetted backlog without manager involvement.
-- Summaries and audits belong in receipts: run `python -m tools.agent.bus_status --limit 20 --active-only --window-hours 4` (add `--json` when scripting) and store transcripts under `_report/agent/<id>/` for planner validation.
-- The helper trims to the last 24 hours by default; pass `--window-hours 0` when you need the full event log.
+- Summaries and audits belong in receipts: run `python -m tools.agent.bus_status --preset support --agent <id>` to use the helper defaults (limit 20, `--active-only`, `--window-hours 6`) and store transcripts under `_report/agent/<id>/` for planner validation. Add `--json` when scripting or `--window-hours 0` when you need the full event log.
 - Keep automation healthy—run `tools.agent.task_sync` after releasing a claim and `python -m tools.maintenance.prune_artifacts --dry-run` daily to archive stale plans into `_apoptosis/<stamp>/`.
 - Before pushing, run `tools/agent/preflight.sh` and `python3 tools.planner.validate.py --strict` to satisfy the receipts directive logged in the manager report.
 
