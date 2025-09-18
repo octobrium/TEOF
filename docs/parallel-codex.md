@@ -32,6 +32,7 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 
 - Use `tools/agent/bus_status.py --limit 20` to summarise active claims and latest events.
 - For a live feed while working, run `python -m tools.agent.bus_watch --limit 20 --follow`; add `--agent <id>` or `--event status` to focus the stream, or `--since <ISO>` to replay a window.
+- Store receipts for these events under `_report/agent/<agent-id>/` so planner plans and CI can resolve them without manual copying.
 - Encourage agents to emit `--extra reviewer=<agent>` or `event=audit` entries when they review a peer’s plan or PR.
 - Reference `_bus/events/…` receipts in `memory/log.jsonl` entries to tie automation to human approvals.
 
