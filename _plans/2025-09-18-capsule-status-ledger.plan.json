@@ -17,13 +17,11 @@
     },
     {
       "id": "S2",
-      "title": "Add status files",
+      "title": "Document capsule state",
       "status": "done",
-      "notes": "Create capsule/README.md and capsule/v1.5/STATUS.md, capsule/v1.6/STATUS.md detailing active vs archived state.",
+      "notes": "Summarise active capsule pointer and outstanding release steps in docs/maintenance/capsule-cadence.md.",
       "receipts": [
-        "capsule/README.md",
-        "capsule/v1.5/STATUS.md",
-        "capsule/v1.6/STATUS.md"
+        "docs/maintenance/capsule-cadence.md"
       ]
     },
     {
@@ -65,9 +63,7 @@
     "_plans/2025-09-18-capsule-status-ledger.justification.md",
     "_report/agent/codex-3/capsule-status/diff-review.json",
     "_report/agent/codex-3/capsule-status/notes.md",
-    "capsule/README.md",
-    "capsule/v1.5/STATUS.md",
-    "capsule/v1.6/STATUS.md",
+    "docs/maintenance/capsule-cadence.md",
     "docs/architecture.md",
     "docs/workflow.md"
   ]
