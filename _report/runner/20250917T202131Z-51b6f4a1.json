@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-09-17T20:21:31Z",
+  "label": "merge-summary",
+  "command": [
+    "tools/reconcile_merge.py",
+    "_report/reconciliation/hello.json",
+    "_report/reconciliation/hello-alt.json",
+    "--output",
+    "_report/reconciliation/merge-summary.json"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "wrote _report/reconciliation/merge-summary.json\n",
+  "stderr": "",
+  "hash": "51b6f4a1813655c80ca3da824be760fdeca88d3e80e8b854a81f13b19ef961a3",
+  "cached": false,
+  "shell": false,
+  "plan_id": "2025-09-17-reconcile-merge",
+  "plan_step_id": "S3"
+}

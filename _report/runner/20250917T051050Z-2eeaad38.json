@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-09-17T05:10:50Z",
+  "label": null,
+  "command": [
+    "ls"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "_apoptosis\n_report\nartifacts\nbin\ncapsule\nCHANGELOG.md\nCODE_OF_CONDUCT.md\nCONTRIBUTING.md\ndocs\nextensions\ngovernance\nLICENSE\nmemory\nNOTICE\npyproject.toml\nqueue\nREADME.md\nscripts\nSECURITY.md\nteof\ntests\ntools\n",
+  "stderr": "",
+  "hash": "2eeaad38fb753b20af279d8f8a0741188e47ba97351394946ba3c624cb043a80",
+  "cached": false
+}

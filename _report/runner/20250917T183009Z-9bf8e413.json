@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-09-17T18:30:09Z",
+  "label": "runner-shell-test",
+  "command": [
+    "pytest",
+    "tests/test_runner_cli.py"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0\nrootdir: /Users/evan/Documents/GitHub/TEOF\nconfigfile: pyproject.toml\ncollected 2 items\n\ntests/test_runner_cli.py ..                                              [100%]\n\n============================== 2 passed in 0.07s ===============================\n",
+  "stderr": "",
+  "hash": "9bf8e413534c6fceaa10c236b47234aa3db37cc6b00b9ffdc1382e2074484620",
+  "cached": false,
+  "shell": false
+}

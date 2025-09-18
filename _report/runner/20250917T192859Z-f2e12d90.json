@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-17T19:28:59Z",
+  "label": "reconciliation-handshake",
+  "command": "head -n 20 docs/reflections/20250917-reconciliation-handshake.md",
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "# Cross-Instance Reconciliation (Sketch)\n\nGoal: let two autonomous TEOF nodes compare state, negotiate meaning, and merge (or diverge) without a central arbiter.\n\n## Minimal Handshake\n\n1. **Hello packet**\n   - `instance_id` (self-declared)\n   - `commandments_hash` (SHA-256 of docs/commandments.md)\n   - `latest_anchor_hash` (SHA-256 of governance/anchors.json)\n   - `head_receipts_digest` (sorted hash of recent plan receipts)\n\n2. **Delta exchange**\n   - Each side shares receipts missing on the other (plans + `_report/...`)\n   - Optional capability list (policies, safeties available)\n\n3. **Meaning alignment**\n   - Compare `commandments_hash`. If mismatch, exchange diff; annotate which commandment indices changed and why.\n   - Swap latest reflections summaries (`docs/reflections/**`) to see how meaning evolved.\n\n",
+  "stderr": "",
+  "hash": "f2e12d90c5590db3c26f49aa149d23f8961ac255cdc3a135faad29772295e652",
+  "cached": false,
+  "shell": true
+}

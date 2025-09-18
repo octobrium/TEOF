@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-09-17T19:36:36Z",
+  "label": "hello-packet",
+  "command": [
+    "cat",
+    "_report/reconciliation/hello.json"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "{\n  \"instance_id\": \"teof-main\",\n  \"generated\": \"2025-09-17T19:36:29.342162+00:00\",\n  \"commandments_hash\": \"045d332cc063039e4fbdb582cca129166d1387fa106cc2d651a68f4d73a5b2fd\",\n  \"commandments_path\": \"docs/commandments.md\",\n  \"anchors_hash\": \"762db607ec9b252ec95cb82771bb5a77a9fba1d0a1d43c2582ea15ec469a84c7\",\n  \"anchors_path\": \"governance/anchors.json\",\n  \"receipts\": {\n    \"aggregate\": \"4e7e38707dca0a03c20ac3d97592a57e21497f61d2d246480975188d445203d0\",\n    \"items\": [\n      {\n        \"path\": \"_report/runner/20250917T190232Z-daabde71.json\",\n        \"sha256\": \"c3496bcb5d65de5eed0bd8cfe91b314e5681303c45770e58d8c8e723e6d7600c\"\n      }\n    ]\n  },\n  \"capabilities\": [\n    \"autocollab\",\n    \"ledger\"\n  ]\n}\n",
+  "stderr": "",
+  "hash": "4caf3336a3357d6dc9eb1093b38c12d4a86d70a384655727a591c2ad18bedaae",
+  "cached": false,
+  "shell": false,
+  "plan_id": "2025-09-17-handshake-cli",
+  "plan_step_id": "S3"
+}

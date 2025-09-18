@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-09-17T20:16:39Z",
+  "label": "automation-doc",
+  "command": [
+    "head",
+    "-n",
+    "20",
+    "docs/automation.md"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "# L6 Automation (Working Notes)\n\n**Purpose:** describe how automated actors (bots, scripts, agents) operate inside TEOF while serving L0–L5.\n\n## Core Duties\n\n1. **Obey upper layers.** Automation inherits obligations from Observation (L0) through Workflow (L5); it may not bypass safeties or append-only rules.\n2. **Emit receipts.** Every automated action must generate auditable receipts (`_report/…`) and, when appropriate, link to plans or memory entries.\n3. **Expose capabilities.** Bots publish what they can do (e.g., `autocollab`, `ledger`) via hello packets or README snippets so peers know when to trust them.\n4. **Stay reversible.** Prefer actions that can be rolled back or replayed from receipts; if irreversibility is unavoidable, require human checkpointing.\n5. **Request consent signals.** When touching shared governance (anchors, capsules), automation should wait for maintainers or policy scripts to confirm.\n\n## Operational Modes\n\n- **Fast lane:** low-risk tasks (e.g., queue hygiene, ledger append) with auto receipts and immediate logging.\n- **Guarded lane:** higher-risk operations require an open plan step and manual approval before execution.\n- **Dissent lane:** if automation detects conflicts (hash mismatches, policy failures), it pauses, emits a warning, and prompts human review.\n\n## Interfaces\n\n",
+  "stderr": "",
+  "hash": "40f275bd9dc4d9c136608eec633a7e30f73010f73f2c070cd4bf0d80c7bdb719",
+  "cached": false,
+  "shell": false,
+  "plan_id": "2025-09-17-automation-doc",
+  "plan_step_id": "S3"
+}

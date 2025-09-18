@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-09-17T21:50:47Z",
+  "label": "metrics-jsonl",
+  "command": [
+    "head",
+    "-n",
+    "1",
+    "_report/reconciliation/ci-metrics/metrics.jsonl"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "{\"generated\": \"2025-09-17T21:49:54.161805+00:00\", \"local_instance\": \"_report/reconciliation/ci-metrics/hello.local.json\", \"peer_packet\": \"docs/examples/reconciliation/hello.peer.json\", \"diff_exit\": 1, \"fetch_exit\": 0, \"matches\": false}\n",
+  "stderr": "",
+  "hash": "b5be6a5519984e80afafceb3f2fb17fbb5ca1b7281ff10d201f50984478f502d",
+  "cached": false,
+  "shell": false,
+  "plan_id": "2025-09-17-metrics-jsonl",
+  "plan_step_id": "S3"
+}

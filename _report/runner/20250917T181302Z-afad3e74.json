@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-09-17T18:13:02Z",
+  "label": null,
+  "command": [
+    "bash",
+    "-lc",
+    "ls queue"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "000-welcome.md\n",
+  "stderr": "",
+  "hash": "afad3e74fd4dc63dd4576b4e694f30e2d8572f0efdab9fbb1aec34d48c8dcd7c",
+  "cached": false,
+  "plan_id": "2025-09-17-queue-hygiene",
+  "plan_step_id": "S3"
+}

@@ -1,0 +1,17 @@
+Active claims:
+  - BUS-001 [active] by codex-1 → agent/codex-1/bus-001 (plan=2025-09-17-agent-bus-awareness)
+  - COORD-0001 [done] by codex-1 → agent/codex-1/coord-0001 (plan=2025-09-17-codex1-support)
+  - QUEUE-000 [done] by codex-2 → agent/codex-2/queue-000 (plan=2025-09-17-anchors-append-guard)
+  - QUEUE-001 [active] by codex-2 → agent/codex-2/queue-001 (plan=2025-09-17-agent-bus-watch)
+
+Recent events:
+  - 2025-09-17T23:21:09Z :: codex-1 :: claim :: task=COORD-0001 :: Codex-1 monitoring coordination state
+  - 2025-09-17T23:21:31Z :: codex-1 :: status :: task=COORD-0001 :: Detected codex-2 on QUEUE-000; monitoring
+  - 2025-09-17T23:26:17Z :: codex-2 :: status :: task=QUEUE-000 :: Analyzed guard; adding anchors list prev hash enforcement
+  - 2025-09-17T23:28:13Z :: codex-2 :: status :: task=QUEUE-000 :: Extended guard to anchors list; pytest tests/test_anchors_guard.py passed
+  - 2025-09-17T23:29:36Z :: codex-2 :: complete :: task=QUEUE-000 :: Anchors guard + tests merged locally; plan receipts attached
+  - 2025-09-17T23:39:23Z :: codex-1 :: status :: task=COORD-0001 :: Codex-1 waiting for Codex-2 receipts
+  - 2025-09-17T23:40:11Z :: codex-1 :: complete :: task=COORD-0001 :: Codex-1 confirmed Codex-2 receipts and released coordination claim
+  - 2025-09-17T23:40:15Z :: codex-1 :: handshake :: task=- :: session wrap
+  - 2025-09-17T23:44:15Z :: codex-2 :: proposal :: task=QUEUE-001 :: Scoping bus notification tooling
+  - 2025-09-17T23:45:16Z :: codex-1 :: claim :: task=BUS-001 :: Codex-1 evaluating bus observability

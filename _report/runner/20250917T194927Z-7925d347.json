@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-09-17T19:49:27Z",
+  "label": "fetch-delta",
+  "command": [
+    "tools/reconcile_fetch.py",
+    "_report/reconciliation/hello.json",
+    "_report/reconciliation/fetched"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "Copied 1 receipts to _report/reconciliation/fetched\n",
+  "stderr": "",
+  "hash": "7925d347e52af7746347dc2732d45bacdf1c574a7fcaf3e75ea00dc2e8cb69a1",
+  "cached": false,
+  "shell": false,
+  "plan_id": "2025-09-17-delta-exchange",
+  "plan_step_id": "S3"
+}

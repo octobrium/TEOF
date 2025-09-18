@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-09-17T17:03:13Z",
+  "label": null,
+  "command": [
+    "bash",
+    "-lc",
+    "tail -n1 _report/ledger.csv"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "20250917T170236Z,4,8.750,35,0.225,0.750,dry-run\n",
+  "stderr": "",
+  "hash": "c5a82a1676a2fd931dbec096d173fa019b6a909a4942e0eb4547002cc643b0ed",
+  "cached": false,
+  "plan_id": "2025-09-17-ledger-upkeep",
+  "plan_step_id": "S3"
+}

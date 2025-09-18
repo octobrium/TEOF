@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-09-17T20:41:19Z",
+  "label": "convergence-metrics",
+  "command": [
+    "head",
+    "-n",
+    "20",
+    "docs/reflections/20250917-convergence-metrics.md"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "# Convergence Metrics (Draft)\n\nGoal: track whether independent TEOF nodes are moving toward consistent meaning and memory.\n\n## Signals to Observe\n\n1. **Hash alignment rate** — fraction of exchanges where commandments/anchors hashes match.\n2. **Receipt coverage** — percentage of peer receipts fetched successfully (low missing receipts).\n3. **Anchor reconciliation latency** — time from diff detection to recorded anchor note.\n4. **Commandment tag adoption** — proportion of plan notes referencing CMD-* labels.\n5. **Automation calibration** — compare automated decisions vs. post-hoc review outcomes.\n\n## Potential Metrics\n\n| Metric | Definition | Frequency | Owner |\n| --- | --- | --- | --- |\n| `hash_match_rate` | (# merges with matching hashes) / (total merges) | weekly | reconciliation maintainer |\n| `receipt_gap` | missing receipts / total receipts per merge | per merge | pipeline |\n| `commandment_usage` | plan steps with CMD-tags / total steps | weekly | plans maintainer |\n| `automation_accuracy` | correct automation decisions / total audited | monthly | automation steward |\n",
+  "stderr": "",
+  "hash": "279e13b93554b6022192d8878fbdd97841ec5f5484771ba76a9c03cb348e8584",
+  "cached": false,
+  "shell": false
+}

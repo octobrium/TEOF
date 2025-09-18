@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-17T19:02:32Z",
+  "label": "rationale-guide-check",
+  "command": "head -n 20 docs/reflections/rationale-style-guide.md",
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "# Rationale Style Guide (Draft)\n\nPurpose: help humans and agents capture concise, evidence-linked explanations that teach future nodes.\n\n## Structural Checklist\n\n1. **Claim → Evidence → Intent.** Start with the decision, cite receipts or observations, state how it advances Observation/Commandments.\n2. **Link receipts explicitly.** Reference `_report/...` or plan steps so auditors can replay.\n3. **Call out risk & fallback.** Include the confidence level and the contingency if wrong.\n4. **Close the loop.** Say what evidence will be gathered to check the decision later.\n\n## Example Template\n\n```\nDecision: Enable autoupdate of ledger after autocollab.\nEvidence: _report/autocollab/20250917T170236Z (risk<=0.2); ledger tail receipt _report/runner/...-c5a82a16.json.\nIntent: Supports Commandment 2 (append-only memory) and accelerates low-risk paths.\nRisk: Low — failure mode limited to ledger append; fallback = revert hook + manual run.\nFollow-up: Verify ledger row via tools/runner in <24h> and log in memory.\n```\n",
+  "stderr": "",
+  "hash": "daabde71a7357a8b663c59afa684b9ec03307901f9931c621677ef737871e5cb",
+  "cached": false,
+  "shell": true
+}

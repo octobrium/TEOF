@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-09-17T22:06:35Z",
+  "label": "metrics-summary",
+  "command": [
+    "python3",
+    "tools/reconcile_metrics_summary.py",
+    "_report/reconciliation/ci-metrics2/metrics.jsonl"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "{\n  \"total_runs\": 1,\n  \"match_ratio\": 0.0,\n  \"difference_total\": 4,\n  \"missing_receipt_total\": 1,\n  \"capability_diff_total\": 2\n}\n",
+  "stderr": "",
+  "hash": "13b70e44f67504764c82aa0d9502b8cbdf01a59c1b6f587f829127bb2a3c7d4d",
+  "cached": false,
+  "shell": false,
+  "plan_id": "2025-09-17-metrics-aggregate",
+  "plan_step_id": "S3"
+}

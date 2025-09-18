@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-17T19:03:02Z",
+  "label": "meaning-memory-reflection",
+  "command": "head -n 20 docs/reflections/20250917-meaning-memory.md",
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "# Meaning + Memory (Reflection)\n\nTEOF keeps two vectors in tension:\n\n- **Meaning:** the evolving intent behind Observation, expressed through principles, workflows, and now the Commandments & Covenant.\n- **Memory:** the append-only receipts (plans, anchors, ledger) that let future agents replay decisions.\n\n## Balancing Forces\n\n1. **Purpose over phrasing.** Higher-layer documents should state the why (Observation, care, reversibility) alongside the rules. Each new artifact should ship with a short paragraph tying it back to the originating intent.\n2. **Receipts as teaching tools.** Plans + runner receipts double as lessons. Summaries in `memory/log.jsonl` should highlight takeaways, not just factually log the event.\n3. **Layered onboarding.** Fast actors consume the Commandments; deep actors can trace citations from README → Commandments → workflow → foundation. Meaning stays visible at each depth.\n\n## Lightweight Thought Experiment\n\nTwo instances, **A** and **B**, evolve separately:\n\n- A focuses on ledger automation and quick trust contracts (work we just landed).\n- B evolves new safety heuristics for external APIs.\n\n",
+  "stderr": "",
+  "hash": "119600469962c80436b017c723836e39d3ee3a19eb177855eb59f0a338106389",
+  "cached": false,
+  "shell": true
+}

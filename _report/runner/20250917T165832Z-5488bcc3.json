@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-09-17T16:58:32Z",
+  "label": null,
+  "command": [
+    "pytest"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0\nrootdir: /Users/evan/Documents/GitHub/TEOF\nconfigfile: pyproject.toml\ncollected 22 items\n\ntests/test_anchors_guard.py ...                                          [ 13%]\ntests/test_autocollab.py ...                                             [ 27%]\ntests/test_brief.py .                                                    [ 31%]\ntests/test_ocers_eval.py ..                                              [ 40%]\ntests/test_planner_cli.py .........                                      [ 81%]\ntests/test_planner_validation.py ....                                    [100%]\n\n============================== 22 passed in 0.14s ==============================\n",
+  "stderr": "",
+  "hash": "5488bcc3d21e922da934811bc77e964a41b2a582912bd75929a4eb4b83742642",
+  "cached": false,
+  "plan_id": "2025-09-17-anchors-guard",
+  "plan_step_id": "S4"
+}

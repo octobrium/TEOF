@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-09-17T20:27:53Z",
+  "label": "reconcile-pipeline",
+  "command": [
+    "python3",
+    "tools/reconcile_pipeline.py",
+    "_report/reconciliation/hello-alt.json",
+    "--instance-id",
+    "teof-main-pipeline",
+    "--capability",
+    "autocollab",
+    "--include-receipt",
+    "_report/runner/20250917T190232Z-daabde71.json",
+    "--out-dir",
+    "_report/reconciliation/pipeline-demo2"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "differences detected:\n - capabilities only in left: ['autocollab']\n - capabilities only in right: ['test']\n - receipt missing in right: _report/runner/20250917T190232Z-daabde71.json\n - receipts aggregate mismatch: 4e7e38707dca0a03c20ac3d97592a57e21497f61d2d246480975188d445203d0 != None\nCopied 0 receipts to /Users/evan/Documents/GitHub/TEOF/_report/reconciliation/pipeline-demo2/fetched\nwrote /Users/evan/Documents/GitHub/TEOF/_report/reconciliation/pipeline-demo2/merge-summary.json\n{\n  \"generated\": \"2025-09-17T20:27:53.964391+00:00\",\n  \"local_packet\": \"_report/reconciliation/pipeline-demo2/hello.local.json\",\n  \"peer_packet\": \"_report/reconciliation/hello-alt.json\",\n  \"diff_exit\": 1,\n  \"fetch_exit\": 0,\n  \"merge_output\": \"_report/reconciliation/pipeline-demo2/merge-summary.json\"\n}\n",
+  "stderr": "",
+  "hash": "66093e6d3e5bb24da1292ba0aeb9a18b21d1a0cb6014228d08ecb0914d03ce19",
+  "cached": false,
+  "shell": false,
+  "plan_id": "2025-09-17-reconcile-pipeline",
+  "plan_step_id": "S3"
+}

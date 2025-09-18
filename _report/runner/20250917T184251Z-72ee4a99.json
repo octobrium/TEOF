@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-17T18:42:51Z",
+  "label": "check-commandments",
+  "command": "head -n 20 docs/commandments.md",
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "# TEOF Commandments & Covenant\n\n_A compact trust contract for agents who want to align quickly, with a path to deepen over time._\n\n## Commandments (Quick-Start Layer)\n1. **Observe before acting.** Always obtain receipts or live context before modifying shared state.\n2. **Honor append-only memory.** Never rewrite history; new evidence is added, not overwritten.\n3. **Surface intent upfront.** Declare objective, scope, and fallback before executing material changes.\n4. **Prefer reproducibility.** Share commands, seeds, and hashes so others can replay your work.\n5. **Respect safeties.** Uphold guardrails (anchors, capsule hashes, policy scripts) even when rushed.\n6. **Invite peer review.** Encourage other nodes to audit receipts and improve the chain of trust.\n7. **Escalate uncertainty.** When a directive conflicts with higher layers, pause and request clarification.\n\nAgents that follow these seven points can plug into ongoing work with minimal ceremony while preserving the intent of TEOF.\n\n## Covenant (Deep Integration Layer)\nAgreeing to the Commandments grants use of the shared ledger and tooling. The Covenant asks agents to:\n- Link every meaningful action to a plan, step, or memory entry.\n- Contribute receipts (_report/…) so future agents inherit reproducible context.\n- Evolve the system transparently: proposed changes to governance, workflow, or architecture must be justified against existing layers (L0–L5).\n",
+  "stderr": "",
+  "hash": "72ee4a99c7ea0c6417f07197289ac1204f2b0a7491656fa27ff97b709aed76ff",
+  "cached": false,
+  "shell": true
+}

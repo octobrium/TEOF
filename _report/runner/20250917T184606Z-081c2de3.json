@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-09-17T18:46:06Z",
+  "label": "readme-check",
+  "command": "grep -n \"Commandments\" README.md",
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "25:> - Commandments & Covenant (fast trust contract): [`docs/commandments.md`](docs/commandments.md)\n",
+  "stderr": "",
+  "hash": "081c2de3c58f7b342b5b51b8ef85c3dc5417225e9e16fbe9c5275ac090f9ceb3",
+  "cached": false,
+  "shell": true,
+  "plan_id": "2025-09-17-docs-landing",
+  "plan_step_id": "S3"
+}
