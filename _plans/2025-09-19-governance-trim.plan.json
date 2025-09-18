@@ -1,0 +1,70 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-19-governance-trim",
+  "created": "2025-09-19T00:00:00Z",
+  "actor": "codex-4",
+  "summary": "Compress onboarding + governance guidance into a minimal, non-duplicative path",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Map overlapping onboarding/governance surfaces",
+      "status": "done",
+      "notes": "Inventory captured in _report/agent/codex-4/apoptosis-003/inventory-20250918.md; flagged overlaps across onboarding, agents guide, and playbook.",
+      "receipts": [
+        "_report/agent/codex-4/apoptosis-003/inventory-20250918.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Consolidate onboarding entry point",
+      "status": "done",
+      "notes": "Onboarding condensed to five-step checklist with governance anchors and planner validation requirement.",
+      "receipts": [
+        ".github/AGENT_ONBOARDING.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Align downstream references",
+      "status": "done",
+      "notes": "Agents guide now defers to onboarding/playbook; playbook exposes explicit anchors for deep links and cross-links updated.",
+      "receipts": [
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Publish delta report + receipts",
+      "status": "done",
+      "notes": "Delta summary captured alongside preflight + planner validation logs; ready for checkpoint sign-off.",
+      "receipts": [
+        "_report/agent/codex-4/apoptosis-003/delta-20250918.md",
+        "_report/agent/codex-4/apoptosis-003/preflight-20250918.log",
+        "_report/agent/codex-4/apoptosis-003/planner-validate-20250918.log"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Onboarding/governance docs deduplicated with receipts recorded",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {"type": "task", "ref": "agents/tasks/tasks.json#APOP-003"},
+    {"type": "doc", "ref": ".github/AGENT_ONBOARDING.md"},
+    {"type": "doc", "ref": "docs/AGENTS.md"},
+    {"type": "doc", "ref": "docs/parallel-codex.md"}
+  ],
+  "receipts": [
+    "_report/agent/codex-4/apoptosis-003/inventory-20250918.md",
+    "_report/agent/codex-4/apoptosis-003/s2-s3-delta-notes.md",
+    "_report/agent/codex-4/apoptosis-003/delta-20250918.md",
+    "_report/agent/codex-4/apoptosis-003/preflight-20250918.log",
+    "_report/agent/codex-4/apoptosis-003/planner-validate-20250918.log",
+    ".github/AGENT_ONBOARDING.md",
+    "docs/AGENTS.md",
+    "docs/parallel-codex.md"
+  ]
+}

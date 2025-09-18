@@ -265,6 +265,55 @@
       "role": "engineer",
       "status": "done",
       "title": "QUEUE-039"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-2/apoptosis-001",
+      "id": "APOP-001",
+      "notes": "Trisect validator/eval overlap, remove redundant heuristics, tighten deterministic tests.",
+      "plan_id": "2025-09-19-kernel-slimdown",
+      "priority": "high",
+      "receipts": [
+        "_report/agent/codex-2/kernel-slimdown/heuristic-audit.md",
+        "_report/agent/codex-2/kernel-slimdown/heuristic-refactor.md",
+        "_report/agent/codex-2/kernel-slimdown/deterministic-coverage.md",
+        "_report/runner/20250918T221405Z-20155a7c.json"
+      ],
+      "role": "systems-architect",
+      "status": "done",
+      "title": "Kernel Slimdown"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-3/apoptosis-002",
+      "id": "APOP-002",
+      "notes": "Prune stale automation tooling, align bus CLI UX, add smoke coverage for survivors.",
+      "plan_id": "2025-09-19-tooling-prune",
+      "priority": "high",
+      "receipts": [
+        "_report/agent/codex-3/tooling-prune/actions.json",
+        "_report/agent/codex-3/tooling-prune/summary.json",
+        "_report/agent/codex-3/tooling-prune/tests.json"
+      ],
+      "role": "automation-engineer",
+      "status": "done",
+      "title": "Tooling Prune & Harden"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": "agent/codex-4/apoptosis-003",
+      "id": "APOP-003",
+      "notes": "Compress onboarding/governance docs, remove redundant guidance, publish delta report.",
+      "plan_id": "2025-09-19-governance-trim",
+      "priority": "high",
+      "receipts": [
+        "_report/agent/codex-4/apoptosis-003/delta-20250918.md",
+        "_report/agent/codex-4/apoptosis-003/preflight-20250918.log",
+        "_report/agent/codex-4/apoptosis-003/planner-validate-20250918.log"
+      ],
+      "role": "product-strategist",
+      "status": "done",
+      "title": "Governance Trim"
     }
   ],
   "version": 1

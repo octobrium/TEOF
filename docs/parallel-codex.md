@@ -1,6 +1,6 @@
 # Parallel Codex Playbook
 
-Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in parallel without stepping on one another.
+Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in parallel without stepping on one another. For the lightweight onboarding entry point use `.github/AGENT_ONBOARDING.md`; this playbook is the canonical reference once you enter the loop.
 
 ## Branch & Manifest Discipline
 
@@ -16,13 +16,14 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 - Release claims with `bus_claim release --task QUEUE-001 --status done`.
 - CI ensures one active claim per task and validates event JSON.
 
+<a id="session-loop"></a>
 ## Suggested Session Loop
 
 1. **Sync** (`git pull origin main`).
 2. **Announce session** (`python -m tools.agent.session_boot --agent <id>` to log a handshake + view peers).
 3. **Managers assign tasks** (`python -m tools.agent.task_assign --task <id> --engineer <id> --plan <plan>`). Claims are created automatically for the assignee; add `--no-auto-claim` if you need to stage the backlog without starting the work immediately. Engineers should still acknowledge with a quick `bus_event` status.
 4. **Review queue** (`queue/`, `_bus/claims/`, `_bus/messages/`, `_bus/events/`).
-5. **Heartbeat check** run `python -m tools.agent.bus_status --manager-window 30` to confirm a manager heartbeat; if you see the warning, announce a manager handshake or escalate in `manager-report`.
+5. **Heartbeat check** run `python -m tools.agent.bus_status --window-hours 4 --manager-window 30` to confirm a manager heartbeat; if you see the warning, announce a manager handshake or escalate in `manager-report`.
 6. **Claim / pick up** — auto-claim covers common assignments, but engineers can:
    - run `python -m tools.agent.idle_pickup list` to view unclaimed backlog items, or `... claim --task <id>` to auto-assign themselves when idle;
    - re-run `tools/agent/bus_claim.py claim ...` to reclaim stalled work, switch branches, or update status. Keep `bus_watch` open for coordination either way.
@@ -34,14 +35,16 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 12. **Run preflight** (`tools/agent/preflight.sh`) to ensure receipts and plans are valid before opening/refreshing the PR.
 13. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap"`).
 
+<a id="self-audit"></a>
 ## Self-Audit & Cross-Audit
 
-- Use `tools/agent/bus_status.py --limit 20 --agent <id> --active-only --since <ISO>` to summarise active claims and latest events (add `--json` when piping into dashboards).
+- Use `tools/agent/bus_status.py --limit 20 --agent <id> --active-only --window-hours 4` to summarise active claims and latest events (add `--json` when piping into dashboards).
 - For a live feed while working, run `python -m tools.agent.bus_watch --limit 20 --follow`; add `--agent <id>` or `--event status` to focus the stream, or `--since <ISO>` to replay a window.
 - Store receipts for these events under `_report/agent/<agent-id>/` (and `_report/runner/`, `_report/planner/` when applicable) so planner plans and CI can resolve them without manual copying.
 - Encourage agents to emit `--extra reviewer=<agent>` or `event=audit` entries when they review a peer’s plan or PR.
 - Reference `_bus/events/…` receipts in `memory/log.jsonl` entries to tie automation to human approvals.
 
+<a id="follow-up-logging"></a>
 ## Follow-up Logging
 
 - When a manager posts coordination requests (e.g., reminding an engineer to release a claim), follow up with `python -m tools.agent.bus_event log --event status --summary "<agent> handled <follow-up>" --plan <plan-id> --receipt <path>` so the resolution lands in `_bus/events/events.jsonl` with a receipt.

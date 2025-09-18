@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/apoptosis-001",
+  "claimed_at": "2025-09-18T21:47:47Z",
+  "notes": "Kernel slimdown complete; shared heuristics + tests landed.",
+  "plan_id": "2025-09-19-kernel-slimdown",
+  "released_at": "2025-09-18T22:14:37Z",
+  "status": "done",
+  "task_id": "APOP-001"
+}

@@ -14,7 +14,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable
 
+from extensions.validator.ocers_rules import (
+    MANUAL_RECOVERY_TERMS,
+    REFERENCE_TERMS,
+    RISK_TERMS,
+    TOOL_TERMS,
+    contains_any,
+)
+
 SECTION_RE = re.compile(r"^[#*\-\s]*([A-Za-z][A-Za-z0-9 /+_-]*)\s*:\s*(.+)$")
+
 
 @dataclass(frozen=True)
 class Signals:
@@ -77,11 +86,6 @@ def parse_sections(text: str) -> Dict[str, str]:
     return sections
 
 
-def _contains(patterns: Iterable[str], text: str) -> bool:
-    text_lower = text.lower()
-    return any(p in text_lower for p in patterns)
-
-
 def build_signals(text: str, sections: Dict[str, str]) -> Signals:
     goal = sections.get("goal", "")
     acceptance = sections.get("acceptance", "")
@@ -90,27 +94,30 @@ def build_signals(text: str, sections: Dict[str, str]) -> Signals:
     fallback = sections.get("fallback", "")
 
     acceptance_lower = acceptance.lower()
-    fallback_lower = fallback.lower()
-    target_lower = ocers_target.lower()
-    full_lower = text.lower()
 
     return Signals(
         sections=sections,
         has_goal=bool(goal.strip()),
         goal_substantial=len(goal.split()) >= 6,
         has_acceptance=bool(acceptance.strip()),
-        acceptance_has_metrics=bool(re.search(r"(>=|<=|\\bpass\\b|\\bfail\\b|\\bsha-?256\\b|\\bjson\\b)", acceptance_lower) or re.search(r"\\d", acceptance)),
-        acceptance_has_paths=bool(re.search(r"[/\\\\]", acceptance) or re.search(r"\\.(json|py|sh|md|txt|yml|yaml)", acceptance_lower)),
-        acceptance_mentions_tools=_contains(("tools/", "scripts/", "python", "bash", "teof"), acceptance_lower),
+        acceptance_has_metrics=bool(
+            re.search(r"(>=|<=|\\bpass\\b|\\bfail\\b|\\bsha-?256\\b|\\bjson\\b)", acceptance_lower)
+            or re.search(r"\\d", acceptance)
+        ),
+        acceptance_has_paths=bool(
+            re.search(r"[/\\\\]", acceptance)
+            or re.search(r"\\.(json|py|sh|md|txt|yml|yaml)", acceptance_lower)
+        ),
+        acceptance_mentions_tools=contains_any(acceptance, TOOL_TERMS),
         has_ocers_target=bool(ocers_target.strip()),
-        target_mentions_safety="safety" in target_lower,
-        target_mentions_ethics=_contains(("ethic", "cohere", "fair"), target_lower),
+        target_mentions_safety=contains_any(ocers_target, ("safety",)),
+        target_mentions_ethics=contains_any(ocers_target, ("ethic", "cohere", "fair")),
         has_sunset=bool(sunset.strip()),
-        sunset_mentions_trigger=_contains(("if", "when", "until", "unless", "threshold", ">"), sunset.lower()),
+        sunset_mentions_trigger=contains_any(sunset, ("if", "when", "until", "unless", "threshold", ">")),
         has_fallback=bool(fallback.strip()),
-        fallback_mentions_manual=_contains(("revert", "manual", "fallback", "use current", "prior"), fallback_lower),
-        mentions_risk_terms=_contains(("risk", "hazard", "safety", "guard", "rollback"), full_lower),
-        has_references=_contains(("docs/", "README", "see ", "refer", "http", "https", "capsule", "_report"), text),
+        fallback_mentions_manual=contains_any(fallback, MANUAL_RECOVERY_TERMS),
+        mentions_risk_terms=contains_any(text, RISK_TERMS),
+        has_references=contains_any(text, REFERENCE_TERMS),
         has_numbers=bool(re.search(r"\\d", text)),
         section_count=len(sections),
     )

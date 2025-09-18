@@ -4,36 +4,52 @@
   "created": "2025-09-18T06:12:00Z",
   "actor": "codex-3",
   "summary": "Establish recurring pruning sweep for plans and receipts",
-  "status": "pending",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Inventory stale artifacts",
-      "status": "pending",
+      "status": "done",
       "notes": "List plans marked done >48h ago and oversized receipts in _report/.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-3/maintenance-pruning/inventory.json"
+      ]
     },
     {
       "id": "S2",
       "title": "Prune or archive data",
-      "status": "pending",
+      "status": "done",
       "notes": "Archive or delete stale items per governance; update docs if needed.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-3/maintenance-pruning/actions.json",
+        "_report/agent/codex-3/maintenance-pruning/dry-run.log"
+      ]
     },
     {
       "id": "S3",
       "title": "Publish pruning summary",
-      "status": "pending",
+      "status": "done",
       "notes": "Record a receipt summarizing actions and remaining backlog.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-3/maintenance-pruning/summary.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Stale artifacts handled and pruning cadence documented",
     "owner": "codex-3",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
-    {"type": "queue", "ref": "queue/013-maintenance-pruning.md"}
+    {
+      "type": "queue",
+      "ref": "queue/013-maintenance-pruning.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-3/maintenance-pruning/actions.json",
+    "_report/agent/codex-3/maintenance-pruning/dry-run.log",
+    "_report/agent/codex-3/maintenance-pruning/inventory.json",
+    "_report/agent/codex-3/maintenance-pruning/summary.json"
   ]
 }

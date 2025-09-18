@@ -122,6 +122,7 @@ def test_bus_status_json_output(tmp_path, monkeypatch, capsys):
     payload = json.loads(out)
     assert payload["filters"]["agents"] == ["codex-1"]
     assert payload["filters"]["active_only"] is False
+    assert payload["filters"]["window_hours"] == bus_status.DEFAULT_WINDOW_HOURS
     assert payload["filters"]["manager_window"] == bus_status.DEFAULT_MANAGER_WINDOW_MINUTES
     assert len(payload["claims"]) == 1
     assert payload["claims"][0]["agent_id"] == "codex-1"
@@ -167,3 +168,36 @@ def test_manager_warning_when_no_recent_heartbeat(tmp_path, monkeypatch, capsys)
     out = capsys.readouterr().out
     assert "WARNING: No manager heartbeat within window." in out
     assert "Stale:" in out
+
+
+def test_bus_status_window_hours_zero_disables_filter(tmp_path, monkeypatch, capsys):
+    _setup_bus(tmp_path, monkeypatch)
+    events_log = tmp_path / "events" / "events.jsonl"
+    older = datetime(2025, 9, 16, 0, 30, tzinfo=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    with events_log.open("a", encoding="utf-8") as fh:
+        fh.write(
+            json.dumps(
+                {
+                    "ts": older,
+                    "agent_id": "codex-1",
+                    "event": "status",
+                    "task_id": "QUEUE-999",
+                    "summary": "legacy heartbeat",
+                }
+            )
+            + "\n"
+        )
+
+    # Default window hides the legacy event
+    exit_code = bus_status.main(["--json", "--limit", "10"])
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert all(event.get("task_id") != "QUEUE-999" for event in payload["events"])
+
+    # Disabling the window surfaces all events
+    exit_code = bus_status.main(["--json", "--limit", "10", "--window-hours", "0"])
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    tasks = {event.get("task_id") for event in payload["events"]}
+    assert "QUEUE-999" in tasks
+    assert payload["filters"]["window_hours"] == 0

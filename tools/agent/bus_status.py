@@ -16,6 +16,7 @@ ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 MANIFEST_PATTERN = "AGENT_MANIFEST*.json"
 HEARTBEAT_EVENTS = {"handshake", "status"}
 DEFAULT_MANAGER_WINDOW_MINUTES = 30.0
+DEFAULT_WINDOW_HOURS = 24.0
 
 
 def load_claims() -> list[dict[str, Any]]:
@@ -39,7 +40,11 @@ def _parse_ts(raw: str) -> datetime | None:
         return None
 
 
-def load_events(limit: int | None = None, *, since: datetime | None = None) -> list[dict[str, Any]]:
+def load_events(
+    limit: int | None = None,
+    *,
+    since: datetime | None = None,
+) -> list[dict[str, Any]]:
     if not EVENT_LOG.exists():
         return []
     events: list[dict[str, Any]] = []
@@ -298,6 +303,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="Filter events at or after the ISO8601 UTC timestamp (e.g. 2025-09-18T00:00:00Z)",
     )
     parser.add_argument(
+        "--window-hours",
+        type=float,
+        default=DEFAULT_WINDOW_HOURS,
+        help=(
+            "Restrict events to the most recent N hours (default: %(default).0f). "
+            "Use 0 to disable the window."
+        ),
+    )
+    parser.add_argument(
         "--manager-window",
         type=float,
         default=DEFAULT_MANAGER_WINDOW_MINUTES,
@@ -310,12 +324,16 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     claims = load_claims()
+    if args.window_hours is not None and args.window_hours < 0:
+        parser.error("--window-hours must be greater than or equal to 0")
     since: datetime | None = None
     if args.since:
         try:
             since = datetime.strptime(args.since, ISO_FMT).replace(tzinfo=timezone.utc)
         except ValueError:
             parser.error("--since must be ISO8601 UTC (YYYY-MM-DDTHH:MM:SSZ)")
+    elif args.window_hours:
+        since = datetime.now(timezone.utc) - timedelta(hours=args.window_hours)
     all_events = load_events(limit=None, since=since)
     events = all_events[-args.limit :] if args.limit else all_events
     agents = args.agent
@@ -339,6 +357,7 @@ def main(argv: list[str] | None = None) -> int:
                 "active_only": args.active_only,
                 "limit": args.limit,
                 "since": args.since,
+                "window_hours": args.window_hours,
                 "manager_window": args.manager_window,
             },
             "manager_status": manager_status,

@@ -1,0 +1,75 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-19-tooling-prune",
+  "created": "2025-09-19T00:00:00Z",
+  "actor": "codex-3",
+  "summary": "Prune stale automation tooling and align bus CLI UX",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit automation helpers and bus CLI drift",
+      "status": "done",
+      "notes": "Catalog automation helpers under tools/agent/ and related scripts; capture drift + ownership notes in _report/agent/codex-3/tooling-prune/notes.md.",
+      "receipts": [
+        "_report/agent/codex-3/tooling-prune/notes.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Prune/archive stale helpers",
+      "status": "done",
+      "notes": "Retire or archive stale helpers into _apoptosis/ with receipts, documenting replacements.",
+      "receipts": [
+        "_report/agent/codex-3/tooling-prune/actions.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Normalize bus CLI UX + docs",
+      "status": "done",
+      "notes": "Align bus CLI UX (argument names/help consistency) and refresh docs referencing the commands.",
+      "receipts": [
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md",
+        "tools/agent/bus_status.py"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Add smoke coverage and receipts",
+      "status": "done",
+      "notes": "Add smoke/regression coverage for surviving helpers (pytest + CLI smoke) and store receipts.",
+      "receipts": [
+        "_report/agent/codex-3/tooling-prune/summary.json",
+        "_report/agent/codex-3/tooling-prune/tests.json",
+        "tests/test_agent_bus_status.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Automation helpers pruned with aligned CLI + smoke coverage",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "task",
+      "ref": "agents/tasks/tasks.json#L284"
+    },
+    {
+      "type": "bus",
+      "ref": "_bus/claims/APOP-002.json"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-3/tooling-prune/actions.json",
+    "_report/agent/codex-3/tooling-prune/notes.md",
+    "_report/agent/codex-3/tooling-prune/summary.json",
+    "_report/agent/codex-3/tooling-prune/tests.json",
+    "docs/AGENTS.md",
+    "docs/parallel-codex.md",
+    "tests/test_agent_bus_status.py",
+    "tools/agent/bus_status.py"
+  ]
+}
