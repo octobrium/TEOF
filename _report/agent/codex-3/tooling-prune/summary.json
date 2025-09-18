@@ -1,0 +1,15 @@
+{
+  "plan_id": "2025-09-19-tooling-prune",
+  "generated_at": "2025-09-18T22:13:59.419945+00:00",
+  "steps": {
+    "S1": "Inventory captured across tools/agent helpers",
+    "S2": "No helpers pruned; retention decisions recorded",
+    "S3": "Added --window-hours flag to bus_status and refreshed docs",
+    "S4": "Extended tests/test_agent_bus_status.py to cover new flag"
+  },
+  "receipts": {
+    "notes": "_report/agent/codex-3/tooling-prune/notes.md",
+    "actions": "_report/agent/codex-3/tooling-prune/actions.json",
+    "tests": "_report/agent/codex-3/tooling-prune/tests.json"
+  }
+}

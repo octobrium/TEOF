@@ -1,0 +1,17 @@
+{
+  "plan_id": "2025-09-18-maintenance-pruning",
+  "generated_at": "2025-09-18T21:44:09.962912+00:00",
+  "cutoff_hours": 48,
+  "stale_plan_count": 0,
+  "stale_report_count": 0,
+  "moves_executed": 0,
+  "notes": [
+    "No artifacts older than 48h detected; pruning skipped.",
+    "Daily sweep remains scheduled; revisit cutoff if backlog grows."
+  ],
+  "receipts": {
+    "inventory": "_report/agent/codex-3/maintenance-pruning/inventory.json",
+    "dry_run": "_report/agent/codex-3/maintenance-pruning/dry-run.log",
+    "actions": "_report/agent/codex-3/maintenance-pruning/actions.json"
+  }
+}

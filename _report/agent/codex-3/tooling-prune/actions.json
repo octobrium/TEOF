@@ -1,0 +1,74 @@
+{
+  "plan_id": "2025-09-19-tooling-prune",
+  "generated_at": "2025-09-18T22:10:56.346253+00:00",
+  "cutoff_hours": 0,
+  "pruned": [],
+  "retained": {
+    "tools/agent/bus_claim.py": {
+      "decision": "retain",
+      "reason": "Manual override still required when managers hand off legacy claims; docs reference fallback usage."
+    },
+    "tools/agent/bus_event.py": {
+      "decision": "retain",
+      "reason": "Primary interface for logging coordination events; actively used across docs and recent receipts."
+    },
+    "tools/agent/bus_message.py": {
+      "decision": "retain",
+      "reason": "Assignments/status posts depend on claim guard; referenced in docs/collab-support.md and live bus threads."
+    },
+    "tools/agent/bus_status.py": {
+      "decision": "retain",
+      "reason": "New manager heartbeat guard requires this CLI; referenced in docs/AGENTS.md."
+    },
+    "tools/agent/bus_watch.py": {
+      "decision": "retain",
+      "reason": "Only streaming follower for bus events; upcoming S3 handles UX alignment."
+    },
+    "tools/agent/claim_seed.py": {
+      "decision": "retain",
+      "reason": "Managers rely on helper to satisfy bus_message guard before assignments; see docs/workflow.md."
+    },
+    "tools/agent/idle_pickup.py": {
+      "decision": "retain",
+      "follow_up": "Evaluate JSON output or filters in future iteration; no archival yet.",
+      "reason": "Docs advertise idle pickup; keeping until replacement shipped."
+    },
+    "tools/agent/manager_report.py": {
+      "decision": "retain",
+      "follow_up": "Add smoke coverage in S4; manager receipts still generated (see _report/manager/).",
+      "reason": "Tool still produces manager-report receipts; not safe to archive."
+    },
+    "tools/agent/manifest_helper.py": {
+      "decision": "retain",
+      "reason": "New manifest workflow depends on helper; recently updated by codex-3."
+    },
+    "tools/agent/session_boot.py": {
+      "decision": "retain",
+      "reason": "Session handshakes rely on helper; bus instructions reference it."
+    },
+    "tools/agent/session_brief.py": {
+      "decision": "retain",
+      "reason": "Managers insert session_brief output in assignments; still needed."
+    },
+    "tools/agent/task_assign.py": {
+      "decision": "retain",
+      "reason": "Auto-claims during assignment; critical for guard compliance."
+    },
+    "tools/agent/task_sync.py": {
+      "decision": "retain",
+      "reason": "Docs require syncing tasks.json after release; helper active."
+    },
+    "tools/agent/preflight.sh": {
+      "decision": "retain",
+      "reason": "Preflight script called out in docs; guard for receipts and plan validation."
+    },
+    "tools/agent/runner.sh": {
+      "decision": "retain",
+      "reason": "Agent onboarding references helper; still used to scaffold branches."
+    }
+  },
+  "notes": [
+    "Surveyed all helpers; none qualify for archival this pass.",
+    "Documented follow-up needs (idle_pickup filters, manager_report coverage) for future steps."
+  ]
+}

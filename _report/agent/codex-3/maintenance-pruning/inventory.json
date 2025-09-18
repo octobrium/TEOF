@@ -1,0 +1,609 @@
+{
+  "generated_at": "2025-09-18T21:43:13.742574+00:00",
+  "cutoff_hours": 48,
+  "stale_plan_threshold_met": [],
+  "stale_report_threshold_met": [],
+  "plan_inventory": [
+    {
+      "plan": "2025-09-17-agent-bus-awareness.plan.json",
+      "created": "2025-09-17T23:45:00Z",
+      "age_hours": 21.97,
+      "summary": "Improve bus observability for parallel agents"
+    },
+    {
+      "plan": "2025-09-17-agent-bus-watch.plan.json",
+      "created": "2025-09-17T23:44:19Z",
+      "age_hours": 21.98,
+      "summary": "Add tools so agents can follow bus activity"
+    },
+    {
+      "plan": "2025-09-17-anchors-append-guard.plan.json",
+      "created": "2025-09-17T23:16:21Z",
+      "age_hours": 22.45,
+      "summary": "Enforce anchors append-only prev hash policy"
+    },
+    {
+      "plan": "2025-09-17-anchors-guard.plan.json",
+      "created": "2025-09-17T16:42:17Z",
+      "age_hours": 29.02,
+      "summary": "Tighten anchors append-only guard"
+    },
+    {
+      "plan": "2025-09-17-automation-doc.plan.json",
+      "created": "2025-09-17T20:15:20Z",
+      "age_hours": 25.46,
+      "summary": "Draft automation layer vision"
+    },
+    {
+      "plan": "2025-09-17-codex1-support.plan.json",
+      "created": "2025-09-17T23:20:00Z",
+      "age_hours": 22.39,
+      "summary": "Coordinate with Codex-2 via the agent bus and surface shared status"
+    },
+    {
+      "plan": "2025-09-17-commandment-defaults.plan.json",
+      "created": "2025-09-17T22:13:49Z",
+      "age_hours": 23.49,
+      "summary": "Embed CMD tag reminder in plan notes"
+    },
+    {
+      "plan": "2025-09-17-commandment-tags.plan.json",
+      "created": "2025-09-17T19:15:08Z",
+      "age_hours": 26.47,
+      "summary": "Tag plans with commandment hooks"
+    },
+    {
+      "plan": "2025-09-17-commandments-diff.plan.json",
+      "created": "2025-09-17T21:03:31Z",
+      "age_hours": 24.66,
+      "summary": "Prototype semantic diff for commandments"
+    },
+    {
+      "plan": "2025-09-17-commandments.plan.json",
+      "created": "2025-09-17T18:41:49Z",
+      "age_hours": 27.02,
+      "summary": "Draft TEOF commandments & covenant"
+    },
+    {
+      "plan": "2025-09-17-convergence-metrics.plan.json",
+      "created": "2025-09-17T20:39:48Z",
+      "age_hours": 25.06,
+      "summary": "Explore convergence metrics"
+    },
+    {
+      "plan": "2025-09-17-delta-exchange.plan.json",
+      "created": "2025-09-17T19:47:48Z",
+      "age_hours": 25.92,
+      "summary": "Prototype receipt exchange for reconciliation"
+    },
+    {
+      "plan": "2025-09-17-docs-landing.plan.json",
+      "created": "2025-09-17T18:44:40Z",
+      "age_hours": 26.98,
+      "summary": "Link key covenants from README"
+    },
+    {
+      "plan": "2025-09-17-handshake-cli.plan.json",
+      "created": "2025-09-17T19:34:48Z",
+      "age_hours": 26.14,
+      "summary": "Prototype reconciliation hello packet"
+    },
+    {
+      "plan": "2025-09-17-handshake-diff.plan.json",
+      "created": "2025-09-17T19:39:25Z",
+      "age_hours": 26.06,
+      "summary": "Diff reconciliation hello packets"
+    },
+    {
+      "plan": "2025-09-17-layer-update.plan.json",
+      "created": "2025-09-17T19:54:06Z",
+      "age_hours": 25.82,
+      "summary": "Assess adding L6 Automation"
+    },
+    {
+      "plan": "2025-09-17-ledger-upkeep.plan.json",
+      "created": "2025-09-17T17:00:47Z",
+      "age_hours": 28.71,
+      "summary": "Automate ledger updates post-autocollab"
+    },
+    {
+      "plan": "2025-09-17-meaning-memory.plan.json",
+      "created": "2025-09-17T19:00:44Z",
+      "age_hours": 26.71,
+      "summary": "Explore meaning vs memory balance"
+    },
+    {
+      "plan": "2025-09-17-metrics-aggregate.plan.json",
+      "created": "2025-09-17T21:59:08Z",
+      "age_hours": 23.73,
+      "summary": "Summarize reconciliation metrics"
+    },
+    {
+      "plan": "2025-09-17-metrics-jsonl.plan.json",
+      "created": "2025-09-17T21:48:22Z",
+      "age_hours": 23.91,
+      "summary": "Log reconciliation metrics to JSONL"
+    },
+    {
+      "plan": "2025-09-17-planner-cli-bootstrap.plan.json",
+      "created": "2025-09-17T06:33:50Z",
+      "age_hours": 39.16,
+      "summary": "Add CLI tooling to scaffold plans and enforce repo-friendly defaults"
+    },
+    {
+      "plan": "2025-09-17-planner-eval-bootstrap.plan.json",
+      "created": "2025-09-17T05:59:30Z",
+      "age_hours": 39.73,
+      "summary": "Bootstrap planner directory, validation script, and evaluation CI hook"
+    },
+    {
+      "plan": "2025-09-17-planner-insight-tools.plan.json",
+      "created": "2025-09-17T07:57:30Z",
+      "age_hours": 37.76,
+      "summary": "Add planner list/report helpers for quick status insight"
+    },
+    {
+      "plan": "2025-09-17-planner-show-command.plan.json",
+      "created": "2025-09-17T07:31:23Z",
+      "age_hours": 38.2,
+      "summary": "Add CLI show command for plans"
+    },
+    {
+      "plan": "2025-09-17-planner-v0-2.plan.json",
+      "created": "2025-09-17T06:48:14Z",
+      "age_hours": 38.92,
+      "summary": "Planner v0.2 lifecycle + receipts + CI guard"
+    },
+    {
+      "plan": "2025-09-17-planner-validator-upgrade.plan.json",
+      "created": "2025-09-17T06:25:20Z",
+      "age_hours": 39.3,
+      "summary": "Harden planner validation and document strict enforcement"
+    },
+    {
+      "plan": "2025-09-17-queue-hygiene.plan.json",
+      "created": "2025-09-17T18:12:10Z",
+      "age_hours": 27.52,
+      "summary": "Retire completed queue tasks"
+    },
+    {
+      "plan": "2025-09-17-reconcile-ci.plan.json",
+      "created": "2025-09-17T20:34:11Z",
+      "age_hours": 25.15,
+      "summary": "Integrate reconciliation checks into CI"
+    },
+    {
+      "plan": "2025-09-17-reconcile-merge.plan.json",
+      "created": "2025-09-17T20:19:03Z",
+      "age_hours": 25.4,
+      "summary": "Prototype reconciliation merge summary"
+    },
+    {
+      "plan": "2025-09-17-reconcile-pipeline.plan.json",
+      "created": "2025-09-17T20:24:30Z",
+      "age_hours": 25.31,
+      "summary": "Compose reconciliation pipeline"
+    },
+    {
+      "plan": "2025-09-17-reconciliation.plan.json",
+      "created": "2025-09-17T19:27:50Z",
+      "age_hours": 26.26,
+      "summary": "Sketch cross-instance reconciliation"
+    },
+    {
+      "plan": "2025-09-17-runner-ux.plan.json",
+      "created": "2025-09-17T18:25:28Z",
+      "age_hours": 27.3,
+      "summary": "Smooth runner command UX"
+    },
+    {
+      "plan": "2025-09-18-agent-bus-status.plan.json",
+      "created": "2025-09-18T02:04:48Z",
+      "age_hours": 19.64,
+      "summary": "Enhance bus_status filtering and JSON output"
+    },
+    {
+      "plan": "2025-09-18-auto-claim.plan.json",
+      "created": "2025-09-18T20:03:43Z",
+      "age_hours": 1.66,
+      "summary": "Auto-claim tasks on assignment"
+    },
+    {
+      "plan": "2025-09-18-backlog-refresh.plan.json",
+      "created": "2025-09-18T19:25:12Z",
+      "age_hours": 2.3,
+      "summary": "Seed next consensus queue items"
+    },
+    {
+      "plan": "2025-09-18-capsule-cadence.plan.json",
+      "created": "2025-09-18T20:29:00Z",
+      "age_hours": 1.24,
+      "summary": "Document capsule release cadence plan"
+    },
+    {
+      "plan": "2025-09-18-capsule-status-ledger.plan.json",
+      "created": "2025-09-18T20:12:00Z",
+      "age_hours": 1.52,
+      "summary": "Document capsule status and ledger guidance"
+    },
+    {
+      "plan": "2025-09-18-claim-seed-docs.plan.json",
+      "created": "2025-09-18T06:45:00Z",
+      "age_hours": 14.97,
+      "summary": "Document claim seeding workflow"
+    },
+    {
+      "plan": "2025-09-18-claim-session-cli.plan.json",
+      "created": "2025-09-18T20:35:00Z",
+      "age_hours": 1.14,
+      "summary": "Ship claim_seed and session_brief agent helpers"
+    },
+    {
+      "plan": "2025-09-18-codex4-bus-followups.plan.json",
+      "created": "2025-09-18T19:22:30Z",
+      "age_hours": 2.35,
+      "summary": "Document follow-up logging habit in collab playbooks"
+    },
+    {
+      "plan": "2025-09-18-codex4-bus-watch-window.plan.json",
+      "created": "2025-09-18T05:25:03Z",
+      "age_hours": 16.3,
+      "summary": "Restore bus_watch --window-hours filtering with tests and docs"
+    },
+    {
+      "plan": "2025-09-18-codex4-consensus-context.plan.json",
+      "created": "2025-09-18T19:28:30Z",
+      "age_hours": 2.25,
+      "summary": "Consolidate context for consensus queue drafting"
+    },
+    {
+      "plan": "2025-09-18-codex4-consensus-draft.plan.json",
+      "created": "2025-09-18T19:30:12Z",
+      "age_hours": 2.22,
+      "summary": "Author execution plan for consensus ledger CLI"
+    },
+    {
+      "plan": "2025-09-18-collab-support.plan.json",
+      "created": "2025-09-18T03:30:00Z",
+      "age_hours": 18.22,
+      "summary": "Document idle-agent collaboration workflow"
+    },
+    {
+      "plan": "2025-09-18-consensus-cadence.plan.json",
+      "created": "2025-09-18T19:55:00Z",
+      "age_hours": 1.8,
+      "summary": "Document consensus review cadence and escalation workflow"
+    },
+    {
+      "plan": "2025-09-18-consensus-ci.plan.json",
+      "created": "2025-09-18T20:26:30Z",
+      "age_hours": 1.28,
+      "summary": "Integrate consensus tooling into CI"
+    },
+    {
+      "plan": "2025-09-18-consensus-dashboard.plan.json",
+      "created": "2025-09-18T19:58:00Z",
+      "age_hours": 1.75,
+      "summary": "Build consensus status dashboard CLI"
+    },
+    {
+      "plan": "2025-09-18-consensus-ledger-cli.plan.json",
+      "created": "2025-09-18T19:30:40Z",
+      "age_hours": 2.21,
+      "summary": "Implement read-only consensus ledger CLI"
+    },
+    {
+      "plan": "2025-09-18-consensus-receipts.plan.json",
+      "created": "2025-09-18T19:46:55Z",
+      "age_hours": 1.94,
+      "summary": "Automate consensus receipt logging"
+    },
+    {
+      "plan": "2025-09-18-governance-bridge.plan.json",
+      "created": "2025-09-18T19:36:09Z",
+      "age_hours": 2.12,
+      "summary": "Bridge governance feedback with L4 binding + capsule status docs"
+    },
+    {
+      "plan": "2025-09-18-idle-pickup.plan.json",
+      "created": "2025-09-18T20:30:46Z",
+      "age_hours": 1.21,
+      "summary": "Auto-assign idle agents from queue"
+    },
+    {
+      "plan": "2025-09-18-l4-bindings.plan.json",
+      "created": "2025-09-18T19:36:00Z",
+      "age_hours": 2.12,
+      "summary": "Document L4 bindings between objectives/properties and enforcement tools"
+    },
+    {
+      "plan": "2025-09-18-macro-hygiene.plan.json",
+      "created": "2025-09-18T20:15:00Z",
+      "age_hours": 1.47,
+      "summary": "Macro hygiene objectives execution plan"
+    },
+    {
+      "plan": "2025-09-18-manager-coordination.plan.json",
+      "created": "2025-09-18T02:30:00Z",
+      "age_hours": 19.22,
+      "summary": "Introduce manager/engineer coordination workflow"
+    },
+    {
+      "plan": "2025-09-18-manager-heartbeat.plan.json",
+      "created": "2025-09-18T19:41:00Z",
+      "age_hours": 2.04,
+      "summary": "Add manager heartbeat + visibility to coordination tooling"
+    },
+    {
+      "plan": "2025-09-18-manifest-helper-codex3.plan.json",
+      "created": "2025-09-18T20:28:00Z",
+      "age_hours": 1.25,
+      "summary": "Implement manifest swap helper CLI"
+    },
+    {
+      "plan": "2025-09-18-prune-script.plan.json",
+      "created": "2025-09-18T06:46:00Z",
+      "age_hours": 14.95,
+      "summary": "Automate pruning via helper script"
+    },
+    {
+      "plan": "2025-09-18-release-readiness.plan.json",
+      "created": "2025-09-18T20:41:00Z",
+      "age_hours": 1.04,
+      "summary": "Compile release readiness checklist"
+    }
+  ],
+  "report_inventory_sample": [
+    {
+      "path": "_report/agent/codex-1/auto-claim/analysis-20250918T200100Z.md",
+      "age_hours": 1.65,
+      "size_bytes": 1402
+    },
+    {
+      "path": "_report/agent/codex-1/auto-claim/pytest-20250918T200300Z.txt",
+      "age_hours": 1.6,
+      "size_bytes": 39
+    },
+    {
+      "path": "_report/agent/codex-1/auto-claim/summary-20250918T200400Z.txt",
+      "age_hours": 1.58,
+      "size_bytes": 163
+    },
+    {
+      "path": "_report/agent/codex-1/backlog-refresh/analysis-20250918T192600Z.md",
+      "age_hours": 2.27,
+      "size_bytes": 1414
+    },
+    {
+      "path": "_report/agent/codex-1/backlog-refresh/handoff-20250918T192900Z.txt",
+      "age_hours": 2.19,
+      "size_bytes": 299
+    },
+    {
+      "path": "_report/agent/codex-1/backlog-refresh/summary-20250918T192800Z.txt",
+      "age_hours": 2.25,
+      "size_bytes": 217
+    },
+    {
+      "path": "_report/agent/codex-1/bus-status-20250917T234600Z.txt",
+      "age_hours": 15.13,
+      "size_bytes": 1548
+    },
+    {
+      "path": "_report/agent/codex-1/bus-status-20250918T1904Z.txt",
+      "age_hours": 2.64,
+      "size_bytes": 3639
+    },
+    {
+      "path": "_report/agent/codex-1/bus-watch-20250917T234700Z.txt",
+      "age_hours": 15.13,
+      "size_bytes": 500
+    },
+    {
+      "path": "_report/agent/codex-1/coordination-review-20250918T190900Z.md",
+      "age_hours": 1.76,
+      "size_bytes": 4034
+    },
+    {
+      "path": "_report/agent/codex-1/governance-bridge/analysis-20250918T193600Z.md",
+      "age_hours": 2.11,
+      "size_bytes": 1210
+    },
+    {
+      "path": "_report/agent/codex-1/governance-bridge/handoff-20250918T195700Z.txt",
+      "age_hours": 1.75,
+      "size_bytes": 294
+    },
+    {
+      "path": "_report/agent/codex-1/governance-bridge/status-20250918T195700Z.txt",
+      "age_hours": 1.77,
+      "size_bytes": 2708
+    },
+    {
+      "path": "_report/agent/codex-1/governance-bridge/summary-20250918T193800Z.txt",
+      "age_hours": 2.1,
+      "size_bytes": 133
+    },
+    {
+      "path": "_report/agent/codex-1/idle-pickup/analysis-20250918T203200Z.md",
+      "age_hours": 1.19,
+      "size_bytes": 1875
+    },
+    {
+      "path": "_report/agent/codex-1/idle-pickup/pytest-20250918T203400Z.txt",
+      "age_hours": 1.14,
+      "size_bytes": 39
+    },
+    {
+      "path": "_report/agent/codex-1/save-point/consensus-ledger-20250918T204100Z.txt",
+      "age_hours": 0.86,
+      "size_bytes": 0
+    },
+    {
+      "path": "_report/agent/codex-1/save-point/pytest-20250918T204000Z.txt",
+      "age_hours": 0.86,
+      "size_bytes": 18
+    },
+    {
+      "path": "_report/agent/codex-2/agent-bus-status/pytest.json",
+      "age_hours": 17.46,
+      "size_bytes": 231
+    },
+    {
+      "path": "_report/agent/codex-2/agent-bus-watch/pytest.json",
+      "age_hours": 15.13,
+      "size_bytes": 229
+    },
+    {
+      "path": "_report/agent/codex-2/anchors-append-guard/pytest.json",
+      "age_hours": 15.13,
+      "size_bytes": 232
+    },
+    {
+      "path": "_report/agent/codex-2/bus-message-claim-guard/pytest.json",
+      "age_hours": 15.32,
+      "size_bytes": 239
+    },
+    {
+      "path": "_report/agent/codex-2/bus-message-cli/pytest.json",
+      "age_hours": 15.98,
+      "size_bytes": 231
+    },
+    {
+      "path": "_report/agent/codex-2/claim-seed-docs/notes.txt",
+      "age_hours": 2.4,
+      "size_bytes": 881
+    },
+    {
+      "path": "_report/agent/codex-2/coordination/governance-alignment-20250918.md",
+      "age_hours": 2.14,
+      "size_bytes": 2025
+    },
+    {
+      "path": "_report/agent/codex-2/coordination/l4-binding-mapping.md",
+      "age_hours": 1.52,
+      "size_bytes": 0
+    },
+    {
+      "path": "_report/agent/codex-2/handoff/handoff-2025-09-18T18-58-58Z.txt",
+      "age_hours": 2.73,
+      "size_bytes": 1030
+    },
+    {
+      "path": "_report/agent/codex-2/macro-hygiene/notes.md",
+      "age_hours": 1.38,
+      "size_bytes": 1720
+    },
+    {
+      "path": "_report/agent/codex-2/options-playbook/notes.txt",
+      "age_hours": 4.75,
+      "size_bytes": 267
+    },
+    {
+      "path": "_report/agent/codex-2/session-brief-diff/notes.txt",
+      "age_hours": 5.27,
+      "size_bytes": 327
+    },
+    {
+      "path": "_report/agent/codex-2/session-brief-diff/pytest.json",
+      "age_hours": 5.27,
+      "size_bytes": 236
+    },
+    {
+      "path": "_report/agent/codex-2/session-brief-upgrade/notes.txt",
+      "age_hours": 7.01,
+      "size_bytes": 307
+    },
+    {
+      "path": "_report/agent/codex-2/session-brief-upgrade/pytest.json",
+      "age_hours": 7.03,
+      "size_bytes": 239
+    },
+    {
+      "path": "_report/agent/codex-2/task-assign-bus-message/pytest.json",
+      "age_hours": 15.98,
+      "size_bytes": 239
+    },
+    {
+      "path": "_report/agent/codex-3/bus-event-severity/pytest.json",
+      "age_hours": 15.98,
+      "size_bytes": 232
+    },
+    {
+      "path": "_report/agent/codex-3/bus-status-staleness/pytest.json",
+      "age_hours": 15.98,
+      "size_bytes": 235
+    },
+    {
+      "path": "_report/agent/codex-3/bus-status-task-filter/notes.md",
+      "age_hours": 5.43,
+      "size_bytes": 346
+    },
+    {
+      "path": "_report/agent/codex-3/bus-status-task-filter/pytest.json",
+      "age_hours": 5.43,
+      "size_bytes": 213
+    },
+    {
+      "path": "_report/agent/codex-3/bus-watch-window/pytest.json",
+      "age_hours": 17.13,
+      "size_bytes": 230
+    },
+    {
+      "path": "_report/agent/codex-3/capsule-cadence/checklist.md",
+      "age_hours": 1.18,
+      "size_bytes": 84
+    },
+    {
+      "path": "_report/agent/codex-3/capsule-cadence/notes.md",
+      "age_hours": 1.2,
+      "size_bytes": 376
+    },
+    {
+      "path": "_report/agent/codex-3/capsule-status/diff-review.json",
+      "age_hours": 1.45,
+      "size_bytes": 326
+    },
+    {
+      "path": "_report/agent/codex-3/capsule-status/notes.md",
+      "age_hours": 1.48,
+      "size_bytes": 360
+    },
+    {
+      "path": "_report/agent/codex-3/claim-seed-cli/notes.md",
+      "age_hours": 6.95,
+      "size_bytes": 427
+    },
+    {
+      "path": "_report/agent/codex-3/claim-seed-cli/pytest.json",
+      "age_hours": 7.03,
+      "size_bytes": 205
+    },
+    {
+      "path": "_report/agent/codex-3/collab-support/docs.json",
+      "age_hours": 15.98,
+      "size_bytes": 211
+    },
+    {
+      "path": "_report/agent/codex-3/collab-support/notes.md",
+      "age_hours": 17.16,
+      "size_bytes": 770
+    },
+    {
+      "path": "_report/agent/codex-3/collab-support/workflow.md",
+      "age_hours": 17.16,
+      "size_bytes": 1290
+    },
+    {
+      "path": "_report/agent/codex-3/consensus-dashboard/notes.md",
+      "age_hours": 1.65,
+      "size_bytes": 544
+    },
+    {
+      "path": "_report/agent/codex-3/consensus-dashboard/pytest.json",
+      "age_hours": 1.62,
+      "size_bytes": 190
+    }
+  ],
+  "report_inventory_total": 122
+}

@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-09-18T22:14:05Z",
+  "label": "kernel-slimdown-tests",
+  "command": [
+    "pytest",
+    "tests/test_ocers_rules.py",
+    "tests/test_ocers_eval.py",
+    "tests/test_brief.py"
+  ],
+  "cwd": "/Users/evan/Documents/GitHub/TEOF",
+  "exit_code": 0,
+  "stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0\nrootdir: /Users/evan/Documents/GitHub/TEOF\nconfigfile: pyproject.toml\ncollected 6 items\n\ntests/test_ocers_rules.py ...                                            [ 50%]\ntests/test_ocers_eval.py ..                                              [ 83%]\ntests/test_brief.py .                                                    [100%]\n\n============================== 6 passed in 0.05s ===============================\n",
+  "stderr": "",
+  "hash": "20155a7cb4e53c8f5035d400706fc6594d3f76d6ca3bd85a0efa81c0cf4cd45d",
+  "cached": false,
+  "shell": false,
+  "plan_id": "2025-09-19-kernel-slimdown",
+  "plan_step_id": "S3"
+}
