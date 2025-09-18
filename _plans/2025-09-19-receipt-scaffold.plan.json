@@ -4,82 +4,45 @@
   "created": "2025-09-19T00:00:00Z",
   "actor": "codex-3",
   "summary": "Automate receipt scaffolding and polish bus/session tooling",
-  "status": "done",
+  "status": "queued",
   "steps": [
     {
       "id": "S1",
       "title": "Design scaffolding flow",
-      "status": "done",
+      "status": "queued",
       "notes": "Document trigger points (plan creation, claim) and desired file layout in _report/agent/codex-3/apoptosis-005/design.md.",
-      "receipts": [
-        "_report/agent/codex-3/apoptosis-005/design.md"
-      ]
+      "receipts": []
     },
     {
       "id": "S2",
       "title": "Implement scaffold helper",
-      "status": "done",
+      "status": "queued",
       "notes": "Extend tools/receipts or add new CLI to create skeleton directories/files; capture dry-run receipts.",
-      "receipts": [
-        "_report/agent/codex-3/2025-09-19-receipt-scaffold/actions.json",
-        "tests/test_receipt_scaffold.py",
-        "tools/receipts/main.py",
-        "tools/receipts/scaffold.py"
-      ]
+      "receipts": []
     },
     {
       "id": "S3",
       "title": "Enhance bus_status & session bootstrap",
-      "status": "done",
+      "status": "queued",
       "notes": "Add presets/flags to bus_status, streamline session_boot helpers, update docs accordingly.",
-      "receipts": [
-        ".github/AGENT_ONBOARDING.md",
-        "docs/AGENTS.md",
-        "docs/parallel-codex.md",
-        "tools/agent/bus_status.py",
-        "tools/agent/session_boot.py"
-      ]
+      "receipts": []
     },
     {
       "id": "S4",
       "title": "Add coverage + automation",
-      "status": "done",
+      "status": "queued",
       "notes": "Create tests verifying scaffolding and CLI ergonomics; ensure planner validation receipts recorded.",
-      "receipts": [
-        "_report/agent/codex-3/2025-09-19-receipt-scaffold/summary.json",
-        "_report/agent/codex-3/2025-09-19-receipt-scaffold/tests.json",
-        "tests/test_session_boot.py"
-      ]
+      "receipts": []
     }
   ],
   "checkpoint": {
     "description": "Receipt scaffolding automated with improved bus/session UX and tests",
     "owner": "codex-3",
-    "status": "satisfied"
+    "status": "pending"
   },
   "links": [
-    {
-      "type": "task",
-      "ref": "agents/tasks/tasks.json#APOP-005"
-    },
-    {
-      "type": "doc",
-      "ref": "docs/AGENTS.md#contract"
-    }
+    {"type": "task", "ref": "agents/tasks/tasks.json#APOP-005"},
+    {"type": "doc", "ref": "docs/AGENTS.md#contract"}
   ],
-  "receipts": [
-    ".github/AGENT_ONBOARDING.md",
-    "_report/agent/codex-3/2025-09-19-receipt-scaffold/actions.json",
-    "_report/agent/codex-3/2025-09-19-receipt-scaffold/summary.json",
-    "_report/agent/codex-3/2025-09-19-receipt-scaffold/tests.json",
-    "_report/agent/codex-3/apoptosis-005/design.md",
-    "docs/AGENTS.md",
-    "docs/parallel-codex.md",
-    "tests/test_agent_bus_status.py",
-    "tests/test_session_boot.py",
-    "tools/agent/bus_status.py",
-    "tools/agent/session_boot.py",
-    "tools/receipts/main.py",
-    "tools/receipts/scaffold.py"
-  ]
+  "receipts": []
 }

@@ -4,65 +4,45 @@
   "created": "2025-09-19T00:00:00Z",
   "actor": "codex-2",
   "summary": "Automate bus heartbeat monitoring and idle alerts",
-  "status": "done",
+  "status": "queued",
   "steps": [
     {
       "id": "S1",
       "title": "Map heartbeat requirements",
-      "status": "done",
-      "notes": "Heartbeat requirements catalogued; see requirements.md.",
-      "receipts": [
-        "_report/agent/codex-2/apoptosis-004/requirements.md"
-      ]
+      "status": "queued",
+      "notes": "Catalog manager cadence, idle windows, and alert thresholds; record findings in _report/agent/codex-2/apoptosis-004/requirements.md.",
+      "receipts": []
     },
     {
       "id": "S2",
       "title": "Prototype heartbeat watcher",
-      "status": "done",
-      "notes": "Heartbeat watcher CLI implemented with dry-run receipt generation.",
-      "receipts": [
-        "_report/agent/codex-2/apoptosis-004/alerts/heartbeat-20250918T231956Z.json",
-        "_report/runner/20250918T231956Z-5c58fec3.json",
-        "tools/agent/bus_heartbeat.py"
-      ]
+      "status": "queued",
+      "notes": "Implement watcher script/service that tails _bus/events/messages with configurable filters; capture dry-run receipts.",
+      "receipts": []
     },
     {
       "id": "S3",
       "title": "Integrate alerts + docs",
-      "status": "in_progress",
-      "notes": "Integrating alert channel + doc updates in progress.",
+      "status": "queued",
+      "notes": "Wire alerts into manager report or dedicated bus channel; update docs references.",
       "receipts": []
     },
     {
       "id": "S4",
       "title": "Add coverage and receipts",
-      "status": "done",
-      "notes": "Added heartbeat unit/SUT tests and captured runner receipt.",
-      "receipts": [
-        "_report/runner/20250918T232920Z-06191c0d.json",
-        "tests/test_bus_heartbeat.py"
-      ]
+      "status": "queued",
+      "notes": "Add unit/smoke tests and capture planner validation receipts demonstrating deterministic behaviour.",
+      "receipts": []
     }
   ],
   "checkpoint": {
     "description": "Heartbeat automation emitting actionable alerts with tests and receipts",
     "owner": "codex-2",
-    "status": "satisfied"
+    "status": "pending"
   },
   "links": [
-    {
-      "type": "task",
-      "ref": "agents/tasks/tasks.json#APOP-004"
-    },
-    {
-      "type": "doc",
-      "ref": "docs/parallel-codex.md#self-audit"
-    }
+    {"type": "task", "ref": "agents/tasks/tasks.json#APOP-004"},
+    {"type": "doc", "ref": "docs/parallel-codex.md#self-audit"}
   ],
-  "receipts": [
-    "_report/agent/codex-2/apoptosis-004/alerts/heartbeat-20250918T231956Z.json",
-    "_report/agent/codex-2/apoptosis-004/requirements.md",
-    "_report/runner/20250918T231956Z-5c58fec3.json",
-    "_report/runner/20250918T232920Z-06191c0d.json"
-  ]
+  "receipts": []
 }

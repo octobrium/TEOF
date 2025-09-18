@@ -4,62 +4,45 @@
   "created": "2025-09-19T00:00:00Z",
   "actor": "codex-4",
   "summary": "Deliver doc quick-links and helper CLI for guidance surfaces",
-  "status": "done",
+  "status": "queued",
   "steps": [
     {
       "id": "S1",
       "title": "Inventory high-traffic sections",
-      "status": "done",
-      "notes": "High-traffic doc surfaces and anchor needs recorded in _report/agent/codex-4/apoptosis-006/inventory-20250919.md.",
-      "receipts": [
-        "_report/agent/codex-4/apoptosis-006/inventory-20250919.md"
-      ]
+      "status": "queued",
+      "notes": "Use usage logs + agent feedback to choose canonical anchors; record findings in _report/agent/codex-4/apoptosis-006/inventory.md.",
+      "receipts": []
     },
     {
       "id": "S2",
       "title": "Build quick-link surfaces",
-      "status": "done",
-      "notes": "docs/quick-links.{json,md} created alongside tools.agent.doc_links CLI for tabulated and JSON output.",
-      "receipts": [
-        "docs/quick-links.json",
-        "docs/quick-links.md",
-        "tools/agent/doc_links.py",
-        "tests/test_doc_links.py"
-      ]
+      "status": "queued",
+      "notes": "Add docs index + CLI helper for quick access; ensure deterministic output and receipts.",
+      "receipts": []
     },
     {
       "id": "S3",
       "title": "Update onboarding references",
-      "status": "done",
-      "notes": "Onboarding, agents guide, and parallel playbook reference the quick-links CLI + manifest.",
-      "receipts": [
-        ".github/AGENT_ONBOARDING.md",
-        "docs/AGENTS.md",
-        "docs/parallel-codex.md"
-      ]
+      "status": "queued",
+      "notes": "Refresh .github/AGENT_ONBOARDING.md, docs/AGENTS.md, and docs/parallel-codex.md to point at the new surface.",
+      "receipts": []
     },
     {
       "id": "S4",
       "title": "Document + validate",
-      "status": "done",
-      "notes": "Delta summary and validation receipts recorded (pytest + planner validate).",
-      "receipts": [
-        "_report/agent/codex-4/apoptosis-006/delta-20250919.md",
-        "_report/agent/codex-4/apoptosis-006/pytest-doc-links.log",
-        "_report/agent/codex-4/apoptosis-006/planner-validate-20250919.log"
-      ]
+      "status": "queued",
+      "notes": "Capture delta report, run planner validate + targeted tests, store receipts.",
+      "receipts": []
     }
   ],
   "checkpoint": {
     "description": "Quick-link surface live with docs updated and receipts logged",
     "owner": "codex-4",
-    "status": "satisfied"
+    "status": "pending"
   },
   "links": [
     {"type": "task", "ref": "agents/tasks/tasks.json#APOP-006"},
     {"type": "doc", "ref": ".github/AGENT_ONBOARDING.md"}
   ],
-  "receipts": [
-    "_report/agent/codex-4/apoptosis-006/delta-20250919.md"
-  ]
+  "receipts": []
 }
