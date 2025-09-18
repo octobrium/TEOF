@@ -1,0 +1,47 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-agent-bus-watch",
+  "created": "2025-09-17T23:44:19Z",
+  "actor": "codex-2",
+  "summary": "Add tools so agents can follow bus activity",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Assess current bus tooling",
+      "status": "done",
+      "notes": "Reviewed bus_claim/event/status utilities and event log schema",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement bus watch command",
+      "status": "done",
+      "notes": "Implemented bus_watch CLI with filters/follow support",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document usage and add tests",
+      "status": "done",
+      "notes": "Documented bus_watch usage and captured pytest receipt",
+      "receipts": [
+        "_report/agent/codex-2/agent-bus-watch/pytest.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Agents can tail or query bus events with docs/tests",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-001.json"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-2/agent-bus-watch/pytest.json"
+  ]
+}

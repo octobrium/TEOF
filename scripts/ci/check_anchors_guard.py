@@ -18,7 +18,8 @@ ROOT = Path(__file__).resolve().parents[2]
 P = ROOT / "governance" / "anchors.json"
 
 ISO_TS_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
-REQUIRED_KEYS = {"ts", "by", "note", "prev_content_hash"}
+EVENT_REQUIRED_KEYS = {"ts", "by", "note", "prev_content_hash"}
+ANCHOR_REQUIRED_KEYS = {"ts", "prev_content_hash"}
 
 
 class AnchorsGuardError(Exception):
@@ -44,7 +45,7 @@ def load_json_bytes(b: bytes):
 
 
 def _require_event_fields(event: Mapping[str, object]) -> None:
-    missing = [key for key in REQUIRED_KEYS if key not in event]
+    missing = [key for key in EVENT_REQUIRED_KEYS if key not in event]
     if missing:
         raise AnchorsGuardError(
             f"appended event missing required fields: {', '.join(sorted(missing))}"
@@ -62,6 +63,25 @@ def _require_event_fields(event: Mapping[str, object]) -> None:
     prev_hash = str(event.get("prev_content_hash", ""))
     if len(prev_hash) != 64 or not all(c in "0123456789abcdef" for c in prev_hash.lower()):
         raise AnchorsGuardError("prev_content_hash must be 64 hex characters")
+
+
+def _require_anchor_fields(anchor: Mapping[str, object], *, last_ts: str | None) -> None:
+    missing = [key for key in ANCHOR_REQUIRED_KEYS if key not in anchor]
+    if missing:
+        raise AnchorsGuardError(
+            f"appended anchor missing required fields: {', '.join(sorted(missing))}"
+        )
+
+    ts = str(anchor.get("ts", ""))
+    if not ISO_TS_RE.match(ts):
+        raise AnchorsGuardError("anchor ts must be ISO8601 UTC (YYYY-MM-DDTHH:MM:SSZ)")
+
+    if last_ts is not None and ts < last_ts:
+        raise AnchorsGuardError(f"anchor non-monotonic ts: {ts} < {last_ts}")
+
+    prev_hash = str(anchor.get("prev_content_hash", ""))
+    if len(prev_hash) != 64 or not all(c in "0123456789abcdef" for c in prev_hash.lower()):
+        raise AnchorsGuardError("anchor prev_content_hash must be 64 hex characters")
 
 
 def validate_events(
@@ -91,7 +111,7 @@ def validate_events(
             raise AnchorsGuardError("anchors.json has no events")
 
     if len(events) == prefix_len:
-        return "anchors-guard: OK (no new events)"
+        return "events unchanged"
 
     added = events[prefix_len:]
     if len(added) != 1:
@@ -114,7 +134,62 @@ def validate_events(
             "prev_content_hash must match SHA-256 of HEAD:governance/anchors.json"
         )
 
-    return "anchors-guard: OK (append-only; tip hash valid; fields present)"
+    return "events append-only; tip hash valid; fields present"
+
+
+def validate_anchor_appends(
+    head_json: MutableMapping[str, object] | None,
+    current_json: MutableMapping[str, object],
+    head_bytes: bytes,
+) -> str:
+    anchors = current_json.get("anchors")
+    if not isinstance(anchors, list):
+        raise AnchorsGuardError("current anchors.json is invalid or missing 'anchors' list")
+
+    head_anchors: Sequence[object] = []
+    if head_json is not None:
+        raw = head_json.get("anchors", []) if isinstance(head_json.get("anchors", []), list) else []
+        head_anchors = raw
+
+    if head_json is not None:
+        if len(anchors) < len(head_anchors):
+            raise AnchorsGuardError(
+                f"anchors truncated: head={len(head_anchors)} current={len(anchors)}"
+            )
+        prefix_len = len(head_anchors)
+        if anchors[:prefix_len] != list(head_anchors):
+            raise AnchorsGuardError("mid-file edits detected in anchors list")
+    else:
+        prefix_len = 0
+
+    if len(anchors) == prefix_len:
+        return "anchors unchanged"
+
+    appended = anchors[prefix_len:]
+    if len(appended) != 1:
+        raise AnchorsGuardError("append exactly one anchor event per change")
+
+    appended_anchor = appended[0]
+    if not isinstance(appended_anchor, dict):
+        raise AnchorsGuardError("appended anchor must be a JSON object")
+
+    last_ts: str | None = None
+    if head_anchors:
+        prev_anchor = head_anchors[-1]
+        if isinstance(prev_anchor, dict):
+            prev_ts = prev_anchor.get("ts")
+            if isinstance(prev_ts, str):
+                last_ts = prev_ts
+
+    _require_anchor_fields(appended_anchor, last_ts=last_ts)
+
+    head_hash = sha256_bytes(head_bytes)
+    if appended_anchor["prev_content_hash"] != head_hash:
+        raise AnchorsGuardError(
+            "anchor prev_content_hash must match SHA-256 of HEAD:governance/anchors.json"
+        )
+
+    return "anchors append-only; tip hash valid; fields present"
 
 
 def fail(msg: str) -> None:
@@ -136,11 +211,13 @@ def main() -> None:
         fail("current anchors.json is not valid JSON")
 
     try:
-        msg = validate_events(head_j, cur_j, head_b if head_b else b"")
+        event_msg = validate_events(head_j, cur_j, head_b if head_b else b"")
+        anchor_msg = validate_anchor_appends(head_j, cur_j, head_b if head_b else b"")
     except AnchorsGuardError as exc:
         fail(str(exc))
     else:
-        print(msg)
+        details = [event_msg, anchor_msg]
+        print(f"anchors-guard: OK ({'; '.join(details)})")
 
 
 if __name__ == "__main__":

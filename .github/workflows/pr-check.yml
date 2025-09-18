@@ -51,6 +51,15 @@ jobs:
             exit 1
           fi
 
+      - name: Agent branch guard
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_REF: ${{ github.head_ref }}
+        run: python3 scripts/ci/check_agent_branch.py
+
+      - name: Agent bus validation
+        run: python3 scripts/ci/check_agent_bus.py
+
       - name: Memory log policy
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}

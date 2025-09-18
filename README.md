@@ -11,6 +11,8 @@
 - [Workflow](docs/workflow.md)
 - [Plans](./_plans/README.md)
 - [Automation](docs/automation.md)
+- [Agent Onboarding](.github/AGENT_ONBOARDING.md)
+- [Parallel Codex Playbook](docs/parallel-codex.md)
 
 
 **Author:** Observation • **License:** [Apache-2.0](LICENSE)

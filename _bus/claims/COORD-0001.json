@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/coord-0001",
+  "claimed_at": "2025-09-17T23:21:05Z",
+  "notes": "Codex-2 receipts verified",
+  "plan_id": "2025-09-17-codex1-support",
+  "released_at": "2025-09-17T23:40:07Z",
+  "status": "done",
+  "task_id": "COORD-0001"
+}

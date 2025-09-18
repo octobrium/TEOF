@@ -1,0 +1,18 @@
+{"ts":"1970-01-01T00:00:00Z","agent_id":"template","event":"init","summary":"Seed event log"}
+{"agent_id": "codex-1", "branch_prefix": "agent/codex-1/", "event": "handshake", "summary": "handshake", "ts": "2025-09-17T23:17:52Z"}
+{"agent_id": "codex-1", "event": "claim", "plan_id": "2025-09-17-codex1-support", "summary": "Codex-1 monitoring coordination state", "task_id": "COORD-0001", "ts": "2025-09-17T23:21:09Z"}
+{"agent_id": "codex-1", "event": "status", "plan_id": "2025-09-17-codex1-support", "summary": "Detected codex-2 on QUEUE-000; monitoring", "task_id": "COORD-0001", "ts": "2025-09-17T23:21:31Z"}
+{"agent_id": "codex-2", "event": "status", "summary": "Analyzed guard; adding anchors list prev hash enforcement", "task_id": "QUEUE-000", "ts": "2025-09-17T23:26:17Z"}
+{"agent_id": "codex-2", "event": "status", "summary": "Extended guard to anchors list; pytest tests/test_anchors_guard.py passed", "task_id": "QUEUE-000", "ts": "2025-09-17T23:28:13Z"}
+{"agent_id": "codex-2", "event": "complete", "plan_id": "2025-09-17-anchors-append-guard", "receipts": ["_report/agent/codex-2/anchors-append-guard/pytest.json"], "summary": "Anchors guard + tests merged locally; plan receipts attached", "task_id": "QUEUE-000", "ts": "2025-09-17T23:29:36Z"}
+{"agent_id": "codex-1", "event": "status", "plan_id": "2025-09-17-codex1-support", "summary": "Codex-1 waiting for Codex-2 receipts", "task_id": "COORD-0001", "ts": "2025-09-17T23:39:23Z"}
+{"agent_id": "codex-1", "event": "complete", "plan_id": "2025-09-17-codex1-support", "summary": "Codex-1 confirmed Codex-2 receipts and released coordination claim", "task_id": "COORD-0001", "ts": "2025-09-17T23:40:11Z"}
+{"agent_id": "codex-1", "branch_prefix": "agent/codex-1/", "event": "handshake", "summary": "session wrap", "ts": "2025-09-17T23:40:15Z"}
+{"agent_id": "codex-2", "event": "proposal", "summary": "Scoping bus notification tooling", "task_id": "QUEUE-001", "ts": "2025-09-17T23:44:15Z"}
+{"agent_id": "codex-1", "event": "claim", "plan_id": "2025-09-17-agent-bus-awareness", "summary": "Codex-1 evaluating bus observability", "task_id": "BUS-001", "ts": "2025-09-17T23:45:16Z"}
+{"agent_id": "codex-1", "event": "status", "plan_id": "2025-09-17-agent-bus-awareness", "summary": "Added bus_watch CLI for live monitoring", "task_id": "BUS-001", "ts": "2025-09-17T23:47:41Z"}
+{"agent_id": "codex-2", "event": "status", "plan_id": "2025-09-17-agent-bus-watch", "summary": "Implemented bus_watch CLI with filters; docs updated", "task_id": "QUEUE-001", "ts": "2025-09-17T23:49:57Z"}
+{"agent_id": "codex-2", "event": "complete", "plan_id": "2025-09-17-agent-bus-watch", "receipts": ["_report/agent/codex-2/agent-bus-watch/pytest.json"], "summary": "bus_watch CLI + docs landed; pytest receipt attached", "task_id": "QUEUE-001", "ts": "2025-09-17T23:50:03Z"}
+{"agent_id": "codex-1", "event": "complete", "plan_id": "2025-09-17-agent-bus-awareness", "summary": "Codex-1 and Codex-2 aligned on bus_watch workflow", "task_id": "BUS-001", "ts": "2025-09-18T00:06:50Z"}
+{"agent_id": "codex-1", "branch_prefix": "agent/codex-1/", "event": "handshake", "summary": "post-bus update", "ts": "2025-09-18T00:06:56Z"}
+{"agent_id": "codex-1", "branch_prefix": "agent/codex-1/", "event": "handshake", "summary": "idle", "ts": "2025-09-18T00:19:40Z"}

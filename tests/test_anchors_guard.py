@@ -4,7 +4,12 @@ from pathlib import Path
 
 import pytest
 
-from scripts.ci.check_anchors_guard import AnchorsGuardError, validate_events, sha256_bytes
+from scripts.ci.check_anchors_guard import (
+    AnchorsGuardError,
+    sha256_bytes,
+    validate_anchor_appends,
+    validate_events,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 ANCHORS = ROOT / "governance" / "anchors.json"
@@ -25,6 +30,16 @@ def make_event(ts: str, prev_hash: str) -> dict:
     }
 
 
+def make_anchor(ts: str, prev_hash: str) -> dict:
+    return {
+        "ts": ts,
+        "type": "capsule_freeze",
+        "version": "v-test",
+        "prev_content_hash": prev_hash,
+        "notes": "append-only guard test anchor",
+    }
+
+
 def test_validate_events_accepts_single_well_formed_append():
     head_json, head_bytes = load_head()
     current = copy.deepcopy(head_json)
@@ -33,7 +48,7 @@ def test_validate_events_accepts_single_well_formed_append():
     current["events"].append(make_event("2025-09-17T17:00:00Z", prev))
 
     msg = validate_events(head_json, current, head_bytes)
-    assert "append-only" in msg
+    assert "events append-only" in msg
 
 
 def test_validate_events_rejects_missing_prev_hash():
@@ -58,3 +73,38 @@ def test_validate_events_rejects_multiple_appends():
 
     with pytest.raises(AnchorsGuardError):
         validate_events(head_json, current, head_bytes)
+
+
+def test_validate_anchor_appends_accepts_single_append():
+    head_json, head_bytes = load_head()
+    current = copy.deepcopy(head_json)
+
+    prev = sha256_bytes(head_bytes)
+    current.setdefault("anchors", []).append(make_anchor("2025-09-17T18:00:00Z", prev))
+
+    msg = validate_anchor_appends(head_json, current, head_bytes)
+    assert "anchors append-only" in msg
+
+
+def test_validate_anchor_appends_rejects_missing_prev_hash():
+    head_json, head_bytes = load_head()
+    current = copy.deepcopy(head_json)
+
+    anchor = make_anchor("2025-09-17T18:05:00Z", sha256_bytes(head_bytes))
+    del anchor["prev_content_hash"]
+    current.setdefault("anchors", []).append(anchor)
+
+    with pytest.raises(AnchorsGuardError):
+        validate_anchor_appends(head_json, current, head_bytes)
+
+
+def test_validate_anchor_appends_rejects_prev_hash_mismatch():
+    head_json, head_bytes = load_head()
+    current = copy.deepcopy(head_json)
+
+    current.setdefault("anchors", []).append(
+        make_anchor("2025-09-17T18:10:00Z", "0" * 64)
+    )
+
+    with pytest.raises(AnchorsGuardError):
+        validate_anchor_appends(head_json, current, head_bytes)

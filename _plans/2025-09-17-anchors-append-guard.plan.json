@@ -1,0 +1,47 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-anchors-append-guard",
+  "created": "2025-09-17T23:16:21Z",
+  "actor": "codex-2",
+  "summary": "Enforce anchors append-only prev hash policy",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review anchors guard + anchor workflow",
+      "status": "done",
+      "notes": "Reviewed existing anchors guard/tests; identified need to cover anchors list append-only with prev hash",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement prev hash append guard",
+      "status": "done",
+      "notes": "Extended anchors guard to cover anchors list with prev hash + monotonic ts",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Add tests and documentation",
+      "status": "done",
+      "notes": "Added anchor guard regression tests and captured pytest receipt",
+      "receipts": [
+        "_report/agent/codex-2/anchors-append-guard/pytest.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Guard prevents out-of-order anchors with tests passing",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-000.json"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-2/anchors-append-guard/pytest.json"
+  ]
+}

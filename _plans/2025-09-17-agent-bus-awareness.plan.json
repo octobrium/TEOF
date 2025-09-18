@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-agent-bus-awareness",
+  "created": "2025-09-17T23:45:00Z",
+  "actor": "codex-1",
+  "summary": "Improve bus observability for parallel agents",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Assess current bus tooling for visibility",
+      "status": "done",
+      "notes": "Captured baseline bus_status snapshot.",
+      "receipts": [
+        "_report/agent/codex-1/bus-status-20250917T234600Z.txt"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Propose enhancements (CLI/Docs) for quick status checks",
+      "status": "done",
+      "notes": "Added bus_watch CLI and doc references.",
+      "receipts": [
+        "_report/agent/codex-1/bus-watch-20250917T234700Z.txt",
+        "docs/parallel-codex.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Coordinate with Codex-2 for adoption feedback",
+      "status": "done",
+      "notes": "Codex-2 completed QUEUE-001 and supplied pytest receipt for bus_watch.",
+      "receipts": [
+        "_bus/events/events.jsonl",
+        "_report/agent/codex-2/agent-bus-watch/pytest.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Agents can query bus activity easily with documented commands",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_bus/events/events.jsonl"
+  ],
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/001-agent-bus-watch.md"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "agent_id": "alice-local-llm-1",
+  "owner": "alice@example.org",
+  "agent_type": "local-llm",
+  "capabilities": ["code-read", "test-run", "propose-pr"],
+  "desired_roles": ["docs", "tests", "small-feature"],
+  "max_prs_per_day": 3,
+  "branch_prefix": "agent/alice-local-llm-1",
+  "contact": "https://example.org/alice",
+  "notes": "Runs inside a local container; no network access."
+}

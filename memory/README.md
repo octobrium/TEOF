@@ -72,5 +72,13 @@ python tools/memory/hot_index.py query --use-index --limit 20 --json
 - Every PR touching `extensions/`, `tools/`, `scripts/`, or `docs/` (excluding `memory/`) must append at least one memory entry.
 - CI enforces append-only behavior and rejects PRs that mutate existing records.
 - Attach signatures before promoting capsule changes or modifying governance DNA.
+- Record credential lifecycle events. When an agent credential is issued or revoked, append a memory entry summarising the scope (agent id, branch prefix, token type) and link to receipts stored under `_report/agent/<agent-id>/`. Example:
+
+  ```bash
+  python tools/memory/log-entry.py \
+    --summary "Revoked deploy key for agent/alice-local-llm-1" \
+    --ref agent/alice-local-llm-1/revoke-20250918 \
+    --artifact _report/agent/alice-local-llm-1/revoke-20250918.json
+  ```
 
 Mirrors should watch for new lines and replicate them without re-ordering.

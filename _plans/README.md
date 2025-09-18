@@ -46,12 +46,15 @@ Purpose: codify session/workstream plans as deterministic artifacts that feed CI
   - `--actor/--owner` override the actor and checkpoint owner (default: `git config user.name`).
   - `--checkpoint` customises the initial verification description.
   - `--plan-dir` controls output location, `--timestamp` fixes the `created` field for deterministic tests, and `--force` overwrites existing files.
+- Agents may copy `_plans/1970-01-01-agent-template.plan.json` as a starting point when proposing micro tasks; update `plan_id`, `created`, and `actor` before committing.
 - `python -m tools.planner.cli status <plan.json> <queued|in_progress|blocked|done>` updates the plan lifecycle, enforcing monotonic transitions (`done` is terminal).
 - `python -m tools.planner.cli step add <plan.json> --desc "…" [--id S4] [--note "…"]` appends a queued step (auto-assigns the next `S#` when `--id` is omitted).
 - `python -m tools.planner.cli step set <plan.json> <step_id> --status <…> [--note "…"]` advances a step. Re-opening `done` steps or reverting to `queued` is rejected.
 - `python -m tools.planner.cli attach-receipt <plan.json> <step_id> --file _report/.../receipt.json` records the receipt under the step and plan, updating the receipt JSON to include `plan_id` + `plan_step_id`.
 - `python -m tools.planner.link_memory <plan.json>` appends a provenance entry to `memory/log.jsonl`, bundling the plan artifact and latest receipts.
 - `python -m tools.planner.cli show <plan>` prints a summary (status, steps, receipts). Add `--strict` to enforce strict validation before output.
+- Use `_plans/agent-proposal-justification.md` as a Markdown pattern when writing proposal evidence for each plan.
+- Add `{ "type": "bus", "ref": "_bus/claims/<task>.json" }` inside `links` to connect plans to active bus claims.
 
 ## Plan hygiene
 - Allowed status transitions: `queued → in_progress|blocked|done`, `in_progress → blocked|done`, `blocked → in_progress|done`, `done` is terminal. CI (`scripts/ci/check_plans.py`) rejects regressions (e.g., `done → in_progress`).

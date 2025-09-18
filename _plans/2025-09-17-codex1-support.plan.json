@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-17-codex1-support",
+  "created": "2025-09-17T23:20:00Z",
+  "actor": "codex-1",
+  "summary": "Coordinate with Codex-2 via the agent bus and surface shared status",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Log session handshake and detect peer activity",
+      "status": "done",
+      "receipts": [
+        "_bus/events/events.jsonl"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Claim coordination task and publish status summary",
+      "status": "done",
+      "receipts": [
+        "_bus/claims/COORD-0001.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Review Codex-2 outputs and note follow-ups",
+      "status": "done",
+      "receipts": [
+        "_report/agent/codex-2/anchors-append-guard/pytest.json"
+      ],
+      "notes": "Verified Codex-2 pytest receipt and completion event."
+    }
+  ],
+  "checkpoint": {
+    "description": "Both agents visible on bus with clear task ownership",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_bus/events/events.jsonl"
+  ],
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/events/events.jsonl"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "version": 0,
+  "plan_id": "1970-01-01-agent-template",
+  "created": "1970-01-01T00:00:00Z",
+  "actor": "template",
+  "summary": "Example scaffold for agent micro-proposals",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Describe the minimal change the agent intends to ship",
+      "status": "queued",
+      "notes": "Replace with a concrete, auditable action",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Human review + receipts attached before merge",
+    "owner": "template",
+    "status": "pending"
+  },
+  "receipts": [],
+  "links": [
+    {
+      "type": "doc",
+      "ref": ".github/AGENT_ONBOARDING.md"
+    }
+  ]
+}

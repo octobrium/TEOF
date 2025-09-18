@@ -1,0 +1,9 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/queue-000",
+  "claimed_at": "2025-09-17T23:20:07Z",
+  "plan_id": "2025-09-17-anchors-append-guard",
+  "released_at": "2025-09-17T23:29:24Z",
+  "status": "done",
+  "task_id": "QUEUE-000"
+}
