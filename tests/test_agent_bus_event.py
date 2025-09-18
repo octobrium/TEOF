@@ -14,6 +14,7 @@ def setup_bus_event(monkeypatch, tmp_path):
     monkeypatch.setattr(bus_event, "EVENT_LOG", log_path)
     monkeypatch.setattr(bus_event, "MANIFEST_PATH", manifest_path)
     monkeypatch.setattr(bus_event, "CLAIMS_DIR", claims_dir)
+    monkeypatch.setattr(bus_event, "AGENT_REPORT_DIR", tmp_path / "_report" / "agent")
     claims_dir.mkdir(parents=True, exist_ok=True)
     return log_path, manifest_path, claims_dir
 
@@ -169,6 +170,7 @@ def test_bus_event_rejects_invalid_severity(monkeypatch, tmp_path):
 
 def test_bus_event_rejects_foreign_claim(monkeypatch, tmp_path):
     log_path, _, claims_dir = setup_bus_event(monkeypatch, tmp_path)
+    error_log = tmp_path / "_report" / "agent" / "codex-4" / "errors.jsonl"
     claims_dir.joinpath("QUEUE-123.json").write_text(
         json.dumps(
             {
@@ -196,8 +198,51 @@ def test_bus_event_rejects_foreign_claim(monkeypatch, tmp_path):
                 "QUEUE-123",
             ]
         )
-    assert "claimed by codex-3" in str(exc.value)
+    message = str(exc.value)
+    assert "claimed by codex-3" in message
+    assert "before logging status" in message
     assert not log_path.exists()
+    assert error_log.exists()
+    entries = [json.loads(line) for line in error_log.read_text(encoding="utf-8").splitlines() if line]
+    assert len(entries) == 1
+    entry = entries[0]
+    assert entry["agent_id"] == "codex-4"
+    assert entry["event"] == "status"
+    assert entry["task_id"] == "QUEUE-123"
+    assert entry["claim_owner"] == "codex-3"
+    assert entry["claim_status"] == "active"
+
+
+def test_bus_event_logs_missing_claim(monkeypatch, tmp_path):
+    log_path, _, _ = setup_bus_event(monkeypatch, tmp_path)
+    errors_path = tmp_path / "_report" / "agent" / "codex-5" / "errors.jsonl"
+
+    with pytest.raises(SystemExit) as exc:
+        bus_event.main(
+            [
+                "log",
+                "--agent",
+                "codex-5",
+                "--event",
+                "status",
+                "--summary",
+                "missing claim",
+                "--task",
+                "QUEUE-404",
+            ]
+        )
+
+    assert "QUEUE-404" in str(exc.value)
+    assert not log_path.exists()
+    assert errors_path.exists()
+    items = [json.loads(line) for line in errors_path.read_text(encoding="utf-8").splitlines() if line]
+    assert len(items) == 1
+    record = items[0]
+    assert record["agent_id"] == "codex-5"
+    assert record["event"] == "status"
+    assert record["task_id"] == "QUEUE-404"
+    assert record.get("claim_owner") is None
+    assert record.get("claim_status") is None
 
 
 def test_bus_event_allows_terminal_claim(monkeypatch, tmp_path):

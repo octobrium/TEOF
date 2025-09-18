@@ -50,6 +50,7 @@ def test_sync_updates_status(monkeypatch, tmp_path):
     monkeypatch.setattr(task_sync, "ROOT", tmp_path)
     monkeypatch.setattr(task_sync, "TASKS_PATH", tmp_path / "agents" / "tasks" / "tasks.json")
     monkeypatch.setattr(task_sync, "CLAIMS_DIR", tmp_path / "_bus" / "claims")
+    monkeypatch.setattr(task_sync, "record_usage", lambda *a, **k: None)
 
     changes = task_sync.sync_tasks(dry_run=False)
 

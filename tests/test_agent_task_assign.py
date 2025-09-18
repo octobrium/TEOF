@@ -19,9 +19,11 @@ def setup_env(tmp_path, monkeypatch):
     monkeypatch.setattr(task_assign, "MESSAGES_DIR", messages_dir)
     monkeypatch.setattr(task_assign, "TASKS_FILE", tasks_file)
     monkeypatch.setattr(task_assign, "MANIFEST", manifest)
+    monkeypatch.setattr(task_assign, "record_usage", lambda *args, **kwargs: None)
 
     monkeypatch.setattr(bus_message, "MESSAGES_DIR", messages_dir)
     monkeypatch.setattr(bus_message, "MANIFEST_PATH", manifest)
+    monkeypatch.setattr(bus_message, "record_usage", lambda *args, **kwargs: None)
 
     return assign_dir, messages_dir, tasks_file
 

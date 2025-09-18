@@ -9,6 +9,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, Mapping, Optional
 
+from tools.usage.logger import record_usage
+
 ROOT = Path(__file__).resolve().parents[2]
 MESSAGES_DIR = ROOT / "_bus" / "messages"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
@@ -92,7 +94,16 @@ def log_message(
         payload["note"] = note
 
     path = MESSAGES_DIR / f"{task_id}.jsonl"
-    return _append_message(path, payload)
+    result = _append_message(path, payload)
+    record_usage(
+        "bus_message",
+        action=msg_type,
+        extra={
+            "task": task_id,
+            "agent": agent_id,
+        },
+    )
+    return result
 
 
 def build_parser() -> argparse.ArgumentParser:

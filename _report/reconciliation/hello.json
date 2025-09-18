@@ -1,0 +1,13 @@
+{
+  "instance_id": "hello",
+  "commandments_hash": "aaa",
+  "anchors_hash": "bbb",
+  "capabilities": ["autocollab", "diff"],
+  "receipts": {
+    "items": [
+      {"path": "docs/architecture.md", "sha256": "111"},
+      {"path": "docs/workflow.md", "sha256": "222"}
+    ],
+    "aggregate": "agg-333"
+  }
+}

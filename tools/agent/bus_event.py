@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 EVENT_LOG = ROOT / "_bus" / "events" / "events.jsonl"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
+AGENT_REPORT_DIR = ROOT / "_report" / "agent"
 
 
 TERMINAL_CLAIM_STATUSES = {"done", "released", "closed", "cancelled", "abandoned"}
@@ -45,6 +46,33 @@ def _append_event(payload: dict[str, Any]) -> None:
         fh.write(json.dumps(payload, sort_keys=True) + "\n")
 
 
+def _record_guard_failure(
+    *,
+    agent_id: str,
+    task_id: str | None,
+    event: str,
+    reason: str,
+    claim_owner: str | None,
+    claim_status: str | None,
+) -> None:
+    report_dir = AGENT_REPORT_DIR / agent_id
+    report_dir.mkdir(parents=True, exist_ok=True)
+    payload: dict[str, Any] = {
+        "ts": _iso_now(),
+        "agent_id": agent_id,
+        "event": event,
+        "reason": reason,
+    }
+    if task_id:
+        payload["task_id"] = task_id
+    if claim_owner is not None:
+        payload["claim_owner"] = claim_owner
+    if claim_status is not None:
+        payload["claim_status"] = claim_status
+    with (report_dir / "errors.jsonl").open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(payload, sort_keys=True) + "\n")
+
+
 def _load_claim(task_id: str) -> dict[str, Any] | None:
     path = CLAIMS_DIR / f"{task_id}.json"
     if not path.exists():
@@ -59,18 +87,36 @@ def _load_claim(task_id: str) -> dict[str, Any] | None:
 def _ensure_claim_owner(agent_id: str, task_id: str, event: str) -> None:
     claim = _load_claim(task_id)
     if claim is None:
-        raise SystemExit(
+        reason = (
             f"task {task_id} has no claim file; run `python -m tools.agent.bus_claim claim --task {task_id}` first"
         )
+        _record_guard_failure(
+            agent_id=agent_id,
+            task_id=task_id,
+            event=event,
+            reason=reason,
+            claim_owner=None,
+            claim_status=None,
+        )
+        raise SystemExit(reason)
     owner = str(claim.get("agent_id", "")).strip()
     status = str(claim.get("status", "")).strip().lower()
     if status in TERMINAL_CLAIM_STATUSES:
         return
     if owner != agent_id:
-        raise SystemExit(
+        reason = (
             f"task {task_id} currently claimed by {owner or 'UNKNOWN'} (status={status or 'active'}); "
-            "run bus_claim release/claim before logging {event}"
+            f"run bus_claim release/claim before logging {event}"
         )
+        _record_guard_failure(
+            agent_id=agent_id,
+            task_id=task_id,
+            event=event,
+            reason=reason,
+            claim_owner=owner or None,
+            claim_status=status or None,
+        )
+        raise SystemExit(reason)
 
 
 def handle_log(args: argparse.Namespace) -> None:

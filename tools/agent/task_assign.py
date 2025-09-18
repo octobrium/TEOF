@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
+from tools.usage.logger import record_usage
+
 from tools.agent import bus_message
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -123,6 +125,14 @@ def main(argv: list[str] | None = None) -> int:
         display_path = assignment_path.relative_to(ROOT)
     except ValueError:
         display_path = assignment_path
+    record_usage(
+        "task_assign",
+        extra={
+            "task": args.task,
+            "engineer": args.engineer,
+            "manager": manager,
+        },
+    )
     print(f"Recorded assignment → {display_path}")
     return 0
 

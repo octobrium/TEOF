@@ -1,0 +1,12 @@
+{
+  "instance_id": "hello-alt",
+  "commandments_hash": "aaa",
+  "anchors_hash": "ccc",
+  "capabilities": ["autocollab"],
+  "receipts": {
+    "items": [
+      {"path": "docs/architecture.md", "sha256": "111"}
+    ],
+    "aggregate": "agg-444"
+  }
+}

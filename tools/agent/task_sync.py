@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 from typing import Iterable, Tuple
 
+from tools.usage.logger import record_usage
+
 ROOT = Path(__file__).resolve().parents[2]
 TASKS_PATH = ROOT / "agents" / "tasks" / "tasks.json"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
@@ -57,8 +59,21 @@ def sync_tasks(*, dry_run: bool = False) -> list[str]:
         if old_status != new_status:
             changes.append(f"{task_id}: {old_status} -> {new_status}")
             task["status"] = new_status
-    if changes and not dry_run:
-        TASKS_PATH.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    if not changes:
+        return changes
+
+    if dry_run:
+        record_usage("task_sync", action="dry-run", extra={"changes": len(changes)})
+        return changes
+
+    TASKS_PATH.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    record_usage(
+        "task_sync",
+        extra={
+            "changes": len(changes),
+            "tasks_path": str(TASKS_PATH.relative_to(ROOT)),
+        },
+    )
     return changes
 
 

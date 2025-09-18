@@ -80,6 +80,10 @@ _report/
 !_report/planner/*.json
 !_report/manager/
 !_report/manager/*.md
+!_report/reconciliation/
+!_report/reconciliation/*.json
+!_report/usage/
+!_report/usage/*.jsonl
 !_bus/
 !_bus/README.md
 !_bus/claims/
