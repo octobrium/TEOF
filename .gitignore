@@ -69,6 +69,7 @@ Makefile.bak
 Makefile
 Makefile.bak
 mk/
+# Runtime receipts live under _report/; keep core subfolders tracked for plans/CI.
 _report/
 !_report/runner/
 !_report/runner/*.json
