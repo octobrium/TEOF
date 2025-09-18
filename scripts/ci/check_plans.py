@@ -10,6 +10,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 PLANS = sorted((ROOT / "_plans").glob("*.plan.json"))
 
+# Ensure repo root is importable when invoked via GitHub Actions (cwd may vary).
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 
 def _load_previous_plan(rel_path: Path) -> dict | None:
     try:
