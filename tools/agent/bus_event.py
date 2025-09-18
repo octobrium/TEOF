@@ -12,6 +12,10 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 EVENT_LOG = ROOT / "_bus" / "events" / "events.jsonl"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
+CLAIMS_DIR = ROOT / "_bus" / "claims"
+
+
+TERMINAL_CLAIM_STATUSES = {"done", "released", "closed", "cancelled", "abandoned"}
 
 
 REQUIRED_FIELDS = {"ts", "agent_id", "event", "summary"}
@@ -39,6 +43,34 @@ def _append_event(payload: dict[str, Any]) -> None:
     EVENT_LOG.parent.mkdir(parents=True, exist_ok=True)
     with EVENT_LOG.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(payload, sort_keys=True) + "\n")
+
+
+def _load_claim(task_id: str) -> dict[str, Any] | None:
+    path = CLAIMS_DIR / f"{task_id}.json"
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"invalid claim JSON in {path}: {exc}") from exc
+    return data
+
+
+def _ensure_claim_owner(agent_id: str, task_id: str, event: str) -> None:
+    claim = _load_claim(task_id)
+    if claim is None:
+        raise SystemExit(
+            f"task {task_id} has no claim file; run `python -m tools.agent.bus_claim claim --task {task_id}` first"
+        )
+    owner = str(claim.get("agent_id", "")).strip()
+    status = str(claim.get("status", "")).strip().lower()
+    if status in TERMINAL_CLAIM_STATUSES:
+        return
+    if owner != agent_id:
+        raise SystemExit(
+            f"task {task_id} currently claimed by {owner or 'UNKNOWN'} (status={status or 'active'}); "
+            "run bus_claim release/claim before logging {event}"
+        )
 
 
 def handle_log(args: argparse.Namespace) -> None:
@@ -74,6 +106,10 @@ def handle_log(args: argparse.Namespace) -> None:
             allowed = ", ".join(sorted(SEVERITY_LEVELS))
             raise SystemExit(f"severity must be one of: {allowed}")
         payload["severity"] = severity
+
+    guarded_events = {"status", "complete", "proposal", "pr_opened", "audit", "release"}
+    if args.task and args.event in guarded_events:
+        _ensure_claim_owner(agent_id, args.task, args.event)
 
     _append_event(payload)
     print(f"Logged event {args.event} for agent {agent_id}")

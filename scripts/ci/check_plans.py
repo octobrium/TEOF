@@ -2,13 +2,13 @@
 """CI guard for planner artifacts."""
 from __future__ import annotations
 
-import sys
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-PLANS = sorted((ROOT / "_plans").glob("*.plan.json"))
+TERMINAL_CLAIM_STATUSES = {"done", "released", "closed", "cancelled", "abandoned"}
 
 # Ensure repo root is importable when invoked via GitHub Actions (cwd may vary).
 if str(ROOT) not in sys.path:
@@ -72,15 +72,56 @@ def _check_status_regressions(rel: Path, plan) -> list[str]:
     return errors
 
 
+def _claim_path(ref: str) -> Path:
+    return ROOT / ref
+
+
+def _check_claim_alignment(rel: Path, plan: dict) -> list[str]:
+    errors: list[str] = []
+    status = str(plan.get("status", "")).strip().lower()
+    if status == "done":
+        return errors
+    actor = plan.get("actor")
+    if not isinstance(actor, str) or not actor.strip():
+        return errors
+    for link in plan.get("links", []):
+        if not isinstance(link, dict):
+            continue
+        if link.get("type") != "bus":
+            continue
+        ref = link.get("ref")
+        if not isinstance(ref, str) or not ref.startswith("_bus/claims/"):
+            continue
+        path = _claim_path(ref)
+        if not path.exists():
+            errors.append(f"plan {plan.get('plan_id')} references missing claim {ref}")
+            continue
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            errors.append(f"invalid claim JSON {ref}: {exc}")
+            continue
+        owner = str(data.get("agent_id", "")).strip()
+        claim_status = str(data.get("status", "")).strip().lower()
+        if claim_status in TERMINAL_CLAIM_STATUSES:
+            continue
+        if owner != actor:
+            errors.append(
+                f"plan {plan.get('plan_id')} expects {actor}, but claim {ref} lists {owner or 'UNKNOWN'} (status={claim_status or 'active'})"
+            )
+    return errors
+
+
 def main() -> int:
-    if not PLANS:
+    plans = sorted((ROOT / "_plans").glob("*.plan.json"))
+    if not plans:
         print("::error::_plans/ missing *.plan.json files", file=sys.stderr)
         return 1
 
     from tools.planner.validate import validate_plan
 
     failures = 0
-    for path in PLANS:
+    for path in plans:
         result = validate_plan(path, strict=True)
         if result.ok:
             plan = result.plan
@@ -88,10 +129,13 @@ def main() -> int:
                 continue
             rel = path.relative_to(ROOT)
             status_errors = _check_status_regressions(rel, plan)
-            if status_errors:
+            claim_errors = _check_claim_alignment(rel, plan)
+            if status_errors or claim_errors:
                 failures += 1
                 print(f"::error::plan invalid {rel}", file=sys.stderr)
                 for err in status_errors:
+                    print(f"::error::{err}", file=sys.stderr)
+                for err in claim_errors:
                     print(f"::error::{err}", file=sys.stderr)
             else:
                 print(f"::notice::plan ok {rel}")
