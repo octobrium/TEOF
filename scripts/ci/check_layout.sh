@@ -33,11 +33,12 @@ fi
 # --- Top-level hygiene (WARN for now) ---
 # Allowlist of top-level dirs/files currently present
 allow_dirs=( archive capsule docs extensions experimental .github .githooks scripts bin
-             governance memory reports teof tests tools )
+             governance memory reports teof tests tools _plans _bus _apoptosis _report agents queue )
 allow_files=( README.md LICENSE .gitignore .editorconfig .gitattributes
               .markdownlint-cli2.jsonc .markdownlint.jsonc .markdownlintignore
               CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md NOTICE SECURITY.md TRADEMARKS.md
-              pyproject.toml quickstart.md examples_hello.json )
+              pyproject.toml quickstart.md examples_hello.json
+              AGENT_MANIFEST.json AGENT_MANIFEST.example.json )
 
 # unexpected top-level directories
 while IFS= read -r d; do
