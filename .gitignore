@@ -76,6 +76,7 @@ _report/
 !_report/agent/
 !_report/agent/**/*.json
 !_report/agent/**/*.txt
+!_report/agent/**/*.md
 !_report/planner/
 !_report/planner/*.json
 !_report/manager/
