@@ -101,4 +101,4 @@ capsule/**/*
 !capsule/**/count
 memory/hot_index.json
 _apoptosis/
-_report/
+# Legacy ignore retained above; keep exceptions active.
