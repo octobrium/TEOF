@@ -15,6 +15,8 @@ For a hands-on checklist, see `.github/AGENT_ONBOARDING.md`. It links the manife
 - Claim tasks through the repo bus: `_bus/claims/<task>.json` via `python -m tools.agent.bus_claim claim ...`.
 - Log progress events with `python -m tools.agent.bus_event log ...`; auditors can replay `_bus/events/events.jsonl`.
 - Summarize active work using `python -m tools.agent.bus_status --limit 20 --agent codex-2 --active-only --since 2025-09-18T00:00:00Z`; the CLI trims events to the last 24 hours by default (`--window-hours 0` disables) and `--json` helps when automations need machine-readable output. For live coordination, run `python -m tools.agent.bus_watch --limit 20 --follow` (it defaults to the same 24-hour window; add filters like `--agent codex-1 --event status --since 2025-09-17T23:00:00Z` and pass `--window-hours 0` when you need older history) and store receipts under `_report/agent/<id>/` so CI can verify plan references. Before opening PRs, run `tools/agent/preflight.sh` to catch missing receipts or plan issues locally.
+- After releasing a claim, run `python -m tools.agent.task_sync` to flip finished tasks to `status=done` and clear released ones back to `open`.
+- Run the automated pruning sweep once a day: `python -m tools.maintenance.prune_artifacts --dry-run` (drop `--dry-run` after reviewing output). It archives stale plans/receipts into `_apoptosis/<stamp>/` so new agents boot quickly.
 
 ## Contract
 - **Read:** `governance/CHARTER.md`, `governance/policy.json`, optional `governance/objectives.yaml`.
