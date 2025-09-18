@@ -1,0 +1,39 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-claim-seed-docs",
+  "created": "2025-09-18T06:45:00Z",
+  "actor": "codex-2",
+  "summary": "Document claim seeding workflow",
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review existing docs",
+      "status": "pending",
+      "notes": "Identify sections in docs/AGENTS.md and docs/workflow.md referencing claims.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Add claim seed instructions",
+      "status": "pending",
+      "notes": "Document steps, command examples, and reference session_brief output.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Publish summary",
+      "status": "pending",
+      "notes": "Store notes under _report/agent/codex-2/claim-seed-docs/",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Docs updated and notes stored",
+    "owner": "codex-2",
+    "status": "pending"
+  },
+  "links": [
+    {"type": "queue", "ref": "queue/014-claim-seed-docs.md"}
+  ]
+}

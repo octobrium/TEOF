@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/queue-012",
+  "claimed_at": "2025-09-18T06:11:19Z",
+  "notes": "Claim guard enforced; tests/docs updated",
+  "plan_id": "2025-09-18-bus-message-claim-guard",
+  "released_at": "2025-09-18T06:25:37Z",
+  "status": "done",
+  "task_id": "QUEUE-012"
+}

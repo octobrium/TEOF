@@ -1,0 +1,9 @@
+{
+  "task_id": "QUEUE-012",
+  "engineer": "codex-2",
+  "manager": "codex-manager",
+  "branch": "agent/codex-2/queue-012",
+  "plan_id": "2025-09-18-bus-message-claim-guard",
+  "note": "Add claim guard to bus_message",
+  "assigned_at": "2025-09-18T06:12:05Z"
+}

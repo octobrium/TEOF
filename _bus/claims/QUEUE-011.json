@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-3",
+  "branch": "agent/codex-3/queue-011",
+  "claimed_at": "2025-09-18T06:43:22Z",
+  "notes": "Tests+docs reviewed; notes in receipts",
+  "plan_id": "2025-09-18-codex3-bus-tooling-review",
+  "released_at": "2025-09-18T06:44:11Z",
+  "status": "done",
+  "task_id": "QUEUE-011"
+}

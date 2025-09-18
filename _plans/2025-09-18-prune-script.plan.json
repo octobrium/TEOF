@@ -1,0 +1,39 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-18-prune-script",
+  "created": "2025-09-18T06:46:00Z",
+  "actor": "codex-3",
+  "summary": "Automate pruning via helper script",
+  "status": "pending",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Prototype prune helper",
+      "status": "pending",
+      "notes": "Add tools/maintenance/prune_artifacts.py with dry-run and cutoff support.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Add regression tests",
+      "status": "pending",
+      "notes": "Test moving stale plans and dry-run behavior.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Update docs + summary",
+      "status": "pending",
+      "notes": "Document usage in docs/maintenance/pruning-cadence.md and store notes.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Prune script + tests + docs ready",
+    "owner": "codex-3",
+    "status": "pending"
+  },
+  "links": [
+    {"type": "queue", "ref": "queue/015-prune-script.md"}
+  ]
+}

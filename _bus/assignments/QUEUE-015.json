@@ -1,0 +1,9 @@
+{
+  "task_id": "QUEUE-015",
+  "engineer": "codex-3",
+  "manager": "codex-manager",
+  "branch": "agent/codex-3/queue-015",
+  "plan_id": "2025-09-18-prune-script",
+  "note": "Implement prune helper",
+  "assigned_at": "2025-09-18T06:46:20Z"
+}

@@ -164,9 +164,11 @@
       "id": "QUEUE-012",
       "plan_id": "2025-09-18-bus-message-claim-guard",
       "priority": "medium",
-      "receipts": [],
+      "receipts": [
+        "_report/agent/codex-2/bus-message-claim-guard/pytest.json"
+      ],
       "role": "engineer",
-      "status": "open",
+      "status": "done",
       "title": "Guard bus_message with claims"
     },
     {
@@ -175,10 +177,34 @@
       "id": "QUEUE-013",
       "plan_id": "2025-09-18-maintenance-pruning",
       "priority": "medium",
+      "receipts": [
+        "_report/agent/codex-3/maintenance-pruning/summary.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "Establish pruning cadence"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-2/queue-014",
+      "id": "QUEUE-014",
+      "plan_id": "2025-09-18-claim-seed-docs",
+      "priority": "medium",
       "receipts": [],
       "role": "engineer",
       "status": "open",
-      "title": "Establish pruning cadence"
+      "title": "Document claim seeding"
+    },
+    {
+      "assigned_by": "codex-manager",
+      "branch": "agent/codex-3/queue-015",
+      "id": "QUEUE-015",
+      "plan_id": "2025-09-18-prune-script",
+      "priority": "medium",
+      "receipts": [],
+      "role": "engineer",
+      "status": "open",
+      "title": "Automate pruning helper"
     }
   ],
   "version": 1

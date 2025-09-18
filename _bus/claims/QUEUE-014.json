@@ -1,0 +1,9 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/queue-014",
+  "claimed_at": "2025-09-18T06:45:20Z",
+  "notes": "Documenting claim_seed workflow",
+  "plan_id": "2025-09-18-claim-seed-docs",
+  "status": "active",
+  "task_id": "QUEUE-014"
+}

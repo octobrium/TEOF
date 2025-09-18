@@ -1,0 +1,9 @@
+{
+  "task_id": "QUEUE-014",
+  "engineer": "codex-2",
+  "manager": "codex-manager",
+  "branch": "agent/codex-2/queue-014",
+  "plan_id": "2025-09-18-claim-seed-docs",
+  "note": "Document claim seed usage",
+  "assigned_at": "2025-09-18T06:45:20Z"
+}

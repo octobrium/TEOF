@@ -1,0 +1,9 @@
+{
+  "agent_id": "codex-3",
+  "branch": "agent/codex-3/queue-015",
+  "claimed_at": "2025-09-18T06:46:20Z",
+  "notes": "Implementing prune helper",
+  "plan_id": "2025-09-18-prune-script",
+  "status": "active",
+  "task_id": "QUEUE-015"
+}

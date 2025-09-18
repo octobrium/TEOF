@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-3",
+  "branch": "agent/codex-3/queue-013",
+  "claimed_at": "2025-09-18T06:11:28Z",
+  "notes": "Pruning cadence doc + archive sweep",
+  "plan_id": "2025-09-18-maintenance-pruning",
+  "released_at": "2025-09-18T06:26:21Z",
+  "status": "done",
+  "task_id": "QUEUE-013"
+}
