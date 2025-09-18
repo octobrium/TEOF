@@ -78,6 +78,16 @@ _report/
 !_report/agent/**/*.txt
 !_report/planner/
 !_report/planner/*.json
+!_report/manager/
+!_report/manager/*.md
+!_bus/
+!_bus/README.md
+!_bus/claims/
+!_bus/claims/*.json
+!_bus/assignments/
+!_bus/assignments/*.json
+!_bus/messages/
+!_bus/messages/*.jsonl
 *.save
 *.bak
 *.bak.*

@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable, Sequence
 
 ROOT = Path(__file__).resolve().parents[2]
 CLAIMS_DIR = ROOT / "_bus" / "claims"
@@ -46,21 +46,66 @@ def load_events(limit: int | None = None) -> list[dict[str, Any]]:
     return events
 
 
-def summarize(claims: list[dict[str, Any]], events: list[dict[str, Any]]) -> None:
-    if claims:
+ACTIVE_STATUSES = {"active", "paused"}
+
+
+def _filter_claims(
+    claims: Iterable[dict[str, Any]],
+    *,
+    agents: Sequence[str] | None,
+    active_only: bool,
+) -> list[dict[str, Any]]:
+    selected: list[dict[str, Any]] = []
+    for claim in claims:
+        agent_id = str(claim.get("agent_id", ""))
+        if agents and agent_id not in agents:
+            continue
+        if active_only and claim.get("status") not in ACTIVE_STATUSES:
+            continue
+        selected.append(claim)
+    return selected
+
+
+def _filter_events(
+    events: Iterable[dict[str, Any]],
+    *,
+    agents: Sequence[str] | None,
+) -> list[dict[str, Any]]:
+    selected: list[dict[str, Any]] = []
+    for event in events:
+        agent_id = str(event.get("agent_id", ""))
+        if agents and agent_id not in agents:
+            continue
+        selected.append(event)
+    return selected
+
+
+def summarize(
+    claims: list[dict[str, Any]],
+    events: list[dict[str, Any]],
+    *,
+    agents: Sequence[str] | None,
+    active_only: bool,
+) -> None:
+    filters_applied = bool(agents) or active_only
+    filtered_claims = _filter_claims(claims, agents=agents, active_only=active_only)
+    filtered_events = _filter_events(events, agents=agents)
+
+    if filtered_claims:
         print("Active claims:")
-        for claim in claims:
+        for claim in filtered_claims:
             status = claim.get("status", "unknown")
             print(
                 f"  - {claim.get('task_id')} [{status}] by {claim.get('agent_id')}"
                 f" → {claim.get('branch')} (plan={claim.get('plan_id', 'N/A')})"
             )
     else:
-        print("No claims recorded.")
+        msg = "No claims matching filters." if filters_applied else "No claims recorded."
+        print(msg)
 
-    if events:
+    if filtered_events:
         print("\nRecent events:")
-        for entry in events:
+        for entry in filtered_events:
             task = entry.get("task_id", "-")
             summary = entry.get("summary", "")
             print(
@@ -68,12 +113,28 @@ def summarize(claims: list[dict[str, Any]], events: list[dict[str, Any]]) -> Non
                 f" :: task={task} :: {summary}"
             )
     else:
-        print("\nNo events recorded.")
+        msg = "No events matching filters." if agents else "No events recorded."
+        print(f"\n{msg}")
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Summarize the agent bus state")
     parser.add_argument("--limit", type=int, default=10, help="Number of recent events to display")
+    parser.add_argument(
+        "--agent",
+        action="append",
+        help="Filter claims and events by agent id (repeatable)",
+    )
+    parser.add_argument(
+        "--active-only",
+        action="store_true",
+        help="Show only active or paused claims",
+    )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Emit JSON summary instead of plain text",
+    )
     return parser
 
 
@@ -82,7 +143,24 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     claims = load_claims()
     events = load_events(limit=args.limit)
-    summarize(claims, events)
+    agents = args.agent
+
+    if args.json:
+        filtered_claims = _filter_claims(claims, agents=agents, active_only=args.active_only)
+        filtered_events = _filter_events(events, agents=agents)
+        payload = {
+            "claims": filtered_claims,
+            "events": filtered_events,
+            "filters": {
+                "agents": agents or [],
+                "active_only": args.active_only,
+                "limit": args.limit,
+            },
+        }
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return 0
+
+    summarize(claims, events, agents=agents, active_only=args.active_only)
     return 0
 
 

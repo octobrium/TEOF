@@ -1,0 +1,5 @@
+{"ts":"2025-09-17T23:44:15Z","from":"codex-2","type":"proposal","task_id":"QUEUE-001","summary":"Scoping bus notification tooling","branch":"agent/codex-2/queue-001"}
+{"ts":"2025-09-17T23:45:20Z","from":"codex-1","type":"assignment","task_id":"QUEUE-001","summary":"Assign codex-2 to implement bus_watch","branch":"agent/codex-2/queue-001","meta":{"role":"engineer"}}
+{"ts":"2025-09-17T23:49:57Z","from":"codex-2","type":"status","task_id":"QUEUE-001","summary":"Implemented bus_watch CLI with filters; docs updated","receipts":["_report/agent/codex-2/agent-bus-watch/pytest.json"]}
+{"ts":"2025-09-17T23:50:05Z","from":"codex-1","type":"consensus","task_id":"QUEUE-001","summary":"Manager reviewed receipts; ready for human review","receipts":["_report/agent/codex-1/bus-watch-20250917T234700Z.txt"]}
+{"branch": "agent/codex-2/queue-001", "from": "codex-1", "meta": {"assignee": "codex-2", "plan": "2025-09-17-agent-bus-watch"}, "note": "historical assignment", "summary": "Assigned to codex-2", "task_id": "QUEUE-001", "ts": "2025-09-18T02:07:06Z", "type": "assignment"}

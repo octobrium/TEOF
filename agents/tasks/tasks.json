@@ -1,0 +1,71 @@
+{
+  "tasks": [
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-2/queue-000",
+      "id": "QUEUE-000",
+      "notes": "Ensure prev_content_hash enforced for anchors/events",
+      "plan_id": "2025-09-17-anchors-append-guard",
+      "priority": "high",
+      "receipts": [
+        "_report/agent/codex-2/anchors-append-guard/pytest.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "Tighten anchors guard"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-2/queue-001",
+      "id": "QUEUE-001",
+      "notes": "Provide live bus watch command and docs",
+      "plan_id": "2025-09-17-agent-bus-watch",
+      "priority": "medium",
+      "receipts": [
+        "_report/agent/codex-2/agent-bus-watch/pytest.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "Improve bus observability"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-1/coord-0001",
+      "id": "BUS-COORD-0001",
+      "notes": "Monitor Codex-2 work and summarize state",
+      "plan_id": "2025-09-17-codex1-support",
+      "priority": "medium",
+      "receipts": [
+        "_report/agent/codex-1/bus-status-20250917T234600Z.txt"
+      ],
+      "role": "manager",
+      "status": "done",
+      "title": "Coordinator loop"
+    },
+    {
+      "assigned_by": "codex-3",
+      "branch": "agent/codex-3/queue-003",
+      "id": "QUEUE-003",
+      "plan_id": "2025-09-18-agent-bus-cli-tests",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "QUEUE-003"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-2/queue-002",
+      "id": "QUEUE-002",
+      "notes": "Add agent filters, active-only toggle, JSON output",
+      "plan_id": "2025-09-18-agent-bus-status",
+      "priority": "medium",
+      "receipts": [
+        "_report/agent/codex-2/agent-bus-status/pytest.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "Enhance bus_status filters"
+    }
+  ],
+  "version": 1
+}

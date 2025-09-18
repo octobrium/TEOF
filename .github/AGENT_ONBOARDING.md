@@ -16,11 +16,13 @@ Purpose: help a human + LLM pair plug into TEOF safely, with auditable micro-pro
 7. **Announce your session.** Run `python -m tools.agent.session_boot --agent <agent-id>` to log a handshake event and see other active agents.
 8. **Claim the task on the bus.** `python -m tools.agent.bus_claim claim --task <id> --plan <plan_id>` records ownership in `_bus/claims/` (one active claim per task).
 9. **Commit to an agent branch.** Use `git checkout -b agent/<agent-id>/<slug>` (or run `tools/agent/runner.sh` which scaffolds the branch and test loop).
-10. **Log progress events.** Append milestones with `python -m tools.agent.bus_event log --event proposal --task <id> --summary "..."` so peers and auditors can track status.
-11. **Open a draft PR.** Include the plan + justification, update receipts, and attach the OCERS evidence in PR body. Label with `bot:autocollab`.
-12. **Release the claim after merge.** `python -m tools.agent.bus_claim release --task <id> --status done` and log a final event.
-13. **Handshake refresh if staying on.** Re-run `python -m tools.agent.session_boot --agent <agent-id> --summary "session wrap"` when you finish or plan to idle, so the bus reflects your state.
-14. **Wait for human review.** CI will validate plans and enforce agent safeties; humans gate merges. Keep tokens revocable and rotate after sessions.
+10. **Managers assign tasks.** Use `python -m tools.agent.task_assign --task <id> --engineer <agent>` to record assignments (writes `_bus/assignments/<task>.json` and appends `_bus/messages/<task>.jsonl`). Engineers should acknowledge with a `bus_event` status message.
+11. **Log progress events.** Append milestones with `python -m tools.agent.bus_event log --event proposal --task <id> --summary "..."`; managers can monitor via `python -m tools.agent.bus_watch --limit 20 --follow` and run `python -m tools.receipts.main check` to validate receipts.
+12. **Open a draft PR.** Include the plan + justification, update receipts, and attach the OCERS evidence in PR body. Label with `bot:autocollab`.
+13. **Generate manager summary.** When a bundle of work is ready, run `python -m tools.agent.manager_report` to emit `_report/manager/manager-report-<timestamp>.md` summarising consensus and linking receipts.
+14. **Release the claim after merge.** `python -m tools.agent.bus_claim release --task <id> --status done` and log a final event; managers can post a `consensus` message via `bus_event log --event consensus ...` to signal readiness.
+15. **Handshake refresh if staying on.** Re-run `python -m tools.agent.session_boot --agent <agent-id> --summary "session wrap"` when you finish or plan to idle, so the bus reflects your state.
+16. **Wait for human review.** CI will validate plans and enforce agent safeties; humans gate merges. Keep tokens revocable and rotate after sessions.
 
 ## Safety Defaults
 
@@ -35,7 +37,9 @@ Purpose: help a human + LLM pair plug into TEOF safely, with auditable micro-pro
 - `_plans/1970-01-01-agent-template.plan.json` → JSON template for receipts-first planning.
 - `_plans/agent-proposal-justification.md` → Markdown pattern for evidence.
 - `tools/agent/runner.sh` → optional helper to stage branches, run tests, and push.
-- `tools/agent/bus_claim.py`, `bus_event.py`, `bus_status.py`, `session_boot.py` → manage the coordination bus.
+- `tools/agent/bus_claim.py`, `bus_event.py`, `bus_status.py`, `session_boot.py` → manage the coordination bus (use `bus_status --agent <id> --active-only --json` to script dashboards).
+- `tools/agent/task_assign.py`, `manager_report.py` → manager utilities for assigning work and producing summaries.
+- `tools/receipts/main.py check` → quick validation that plan receipts exist locally before opening a PR.
 - `tools/agent/bus_watch.py` → tail or filter events (`python -m tools.agent.bus_watch --since <ts> --agent codex-2 --event status`).
 - `_bus/README.md` → explains claims/events schemas and CI guardrails.
 

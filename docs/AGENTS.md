@@ -8,7 +8,7 @@ For a hands-on checklist, see `.github/AGENT_ONBOARDING.md`. It links the manife
 - Start each session with `python -m tools.agent.session_boot --agent <id>` to announce presence and detect peers.
 - Claim tasks through the repo bus: `_bus/claims/<task>.json` via `python -m tools.agent.bus_claim claim ...`.
 - Log progress events with `python -m tools.agent.bus_event log ...`; auditors can replay `_bus/events/events.jsonl`.
-- Summarize active work using `python -m tools.agent.bus_status --limit 20`. For live coordination, run `python -m tools.agent.bus_watch --limit 20 --follow` (add filters like `--agent codex-1 --event status --since 2025-09-17T23:00:00Z`) and store receipts under `_report/agent/<id>/` so CI can verify plan references.
+- Summarize active work using `python -m tools.agent.bus_status --limit 20 --agent codex-2 --active-only`; add `--json` when automations need machine-readable output. For live coordination, run `python -m tools.agent.bus_watch --limit 20 --follow` (add filters like `--agent codex-1 --event status --since 2025-09-17T23:00:00Z`) and store receipts under `_report/agent/<id>/` so CI can verify plan references.
 
 ## Contract
 - **Read:** `governance/CHARTER.md`, `governance/policy.json`, optional `governance/objectives.yaml`.

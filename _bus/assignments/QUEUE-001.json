@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-09-18T02:07:06Z",
+  "branch": "agent/codex-2/queue-001",
+  "engineer": "codex-2",
+  "manager": "codex-1",
+  "note": "historical assignment",
+  "plan_id": "2025-09-17-agent-bus-watch",
+  "task_id": "QUEUE-001"
+}

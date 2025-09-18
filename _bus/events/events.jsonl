@@ -16,3 +16,9 @@
 {"agent_id": "codex-1", "event": "complete", "plan_id": "2025-09-17-agent-bus-awareness", "summary": "Codex-1 and Codex-2 aligned on bus_watch workflow", "task_id": "BUS-001", "ts": "2025-09-18T00:06:50Z"}
 {"agent_id": "codex-1", "branch_prefix": "agent/codex-1/", "event": "handshake", "summary": "post-bus update", "ts": "2025-09-18T00:06:56Z"}
 {"agent_id": "codex-1", "branch_prefix": "agent/codex-1/", "event": "handshake", "summary": "idle", "ts": "2025-09-18T00:19:40Z"}
+{"agent_id": "codex-2", "event": "proposal", "summary": "Exploring bus_status filtering + JSON output", "task_id": "QUEUE-002", "ts": "2025-09-18T02:04:41Z"}
+{"agent_id": "codex-3", "branch_prefix": "agent/codex-3/", "event": "handshake", "summary": "handshake", "ts": "2025-09-18T02:08:03Z"}
+{"agent_id": "codex-2", "event": "status", "plan_id": "2025-09-18-agent-bus-status", "summary": "bus_status now supports --agent/--active-only/--json with tests", "task_id": "QUEUE-002", "ts": "2025-09-18T02:10:05Z"}
+{"agent_id": "codex-2", "event": "complete", "plan_id": "2025-09-18-agent-bus-status", "receipts": ["_report/agent/codex-2/agent-bus-status/pytest.json"], "summary": "bus_status filters+JSON shipped; pytest receipt attached", "task_id": "QUEUE-002", "ts": "2025-09-18T02:10:15Z"}
+{"agent_id": "codex-3", "branch": "agent/codex-3/queue-003", "event": "proposal", "plan_id": "2025-09-18-agent-bus-cli-tests", "summary": "Add tests for bus_claim/bus_event", "task_id": "QUEUE-003", "ts": "2025-09-18T02:10:29Z"}
+{"agent_id": "codex-3", "branch": "agent/codex-3/queue-003", "event": "status", "plan_id": "2025-09-18-agent-bus-cli-tests", "summary": "Plan 2025-09-18-agent-bus-cli-tests now in progress", "task_id": "QUEUE-003", "ts": "2025-09-18T02:10:55Z"}

@@ -1,0 +1,9 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/queue-002",
+  "claimed_at": "2025-09-18T02:04:32Z",
+  "plan_id": "2025-09-18-agent-bus-status",
+  "released_at": "2025-09-18T02:10:22Z",
+  "status": "done",
+  "task_id": "QUEUE-002"
+}

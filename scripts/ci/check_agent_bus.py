@@ -12,6 +12,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 EVENTS_LOG = ROOT / "_bus" / "events" / "events.jsonl"
+ASSIGNMENTS_DIR = ROOT / "_bus" / "assignments"
+MESSAGES_DIR = ROOT / "_bus" / "messages"
 
 VALID_STATUS = {"active", "paused", "released", "done"}
 ISO_REGEX = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
@@ -88,6 +90,45 @@ def _validate_events(errors: list[str]) -> None:
                 errors.append(f"_bus/events/events.jsonl line {idx} agent_id must be non-empty string")
 
 
+def _validate_assignments(errors: list[str]) -> None:
+    if not ASSIGNMENTS_DIR.exists():
+        return
+    for path in sorted(ASSIGNMENTS_DIR.glob("*.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            errors.append(f"{path.relative_to(ROOT)} invalid JSON: {exc}")
+            continue
+        for field in ("task_id", "engineer", "manager", "assigned_at"):
+            if field not in data or not isinstance(data[field], str) or not data[field].strip():
+                errors.append(f"{path.relative_to(ROOT)} missing or empty field '{field}'")
+        assigned_at = data.get("assigned_at")
+        if isinstance(assigned_at, str) and not ISO_REGEX.match(assigned_at):
+            errors.append(f"{path.relative_to(ROOT)} assigned_at must be ISO8601 UTC")
+
+
+def _validate_messages(errors: list[str]) -> None:
+    if not MESSAGES_DIR.exists():
+        return
+    for path in sorted(MESSAGES_DIR.glob("*.jsonl")):
+        with path.open(encoding="utf-8") as fh:
+            for idx, line in enumerate(fh, start=1):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    data = json.loads(line)
+                except json.JSONDecodeError as exc:
+                    errors.append(f"{path.relative_to(ROOT)} line {idx} invalid JSON: {exc}")
+                    continue
+                for field in ("ts", "from", "type", "task_id", "summary"):
+                    if field not in data or not isinstance(data[field], str) or not data[field].strip():
+                        errors.append(f"{path.relative_to(ROOT)} line {idx} missing field '{field}'")
+                ts = data.get("ts")
+                if isinstance(ts, str) and not ISO_REGEX.match(ts):
+                    errors.append(f"{path.relative_to(ROOT)} line {idx} ts must be ISO8601 UTC")
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -96,6 +137,8 @@ def main() -> int:
             _validate_claim(path, errors)
 
     _validate_events(errors)
+    _validate_assignments(errors)
+    _validate_messages(errors)
 
     if errors:
         for err in errors:

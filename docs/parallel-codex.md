@@ -20,17 +20,19 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 
 1. **Sync** (`git pull origin main`).
 2. **Announce session** (`python -m tools.agent.session_boot --agent <id>` to log a handshake + view peers).
-3. **Review queue** (`queue/`, `_bus/claims/`, `_bus/events/`).
-4. **Claim** a task with `tools/agent/bus_claim.py claim ...`.
-5. **Plan** modifications under `_plans/` + justification.
-6. **Implement** changes on `agent/<id>/<slug>` branch.
-7. **Log events** (`bus_event log --event proposal`, `--event pr_opened`).
-8. **Open draft PR** with plan, justification, receipts.
-9. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap"`).
+3. **Managers assign tasks** (`python -m tools.agent.task_assign --task <id> --engineer <id> --plan <plan>`); engineers acknowledge with a `bus_event` status.
+4. **Review queue** (`queue/`, `_bus/claims/`, `_bus/messages/`, `_bus/events/`).
+5. **Claim** a task with `tools/agent/bus_claim.py claim ...` (engineer role) and keep `bus_watch` open for coordination.
+6. **Plan** modifications under `_plans/` + justification.
+7. **Implement** changes on `agent/<id>/<slug>` branch, storing receipts under `_report/agent/<id>/` and `_report/runner/` as needed.
+8. **Log events** (`bus_event log --event proposal`, `--event pr_opened`) and append message responses via `bus_event` or JSONL entries.
+9. **Open draft PR** with plan, justification, receipts.
+10. **Managers run reports** (`python -m tools.agent.manager_report`) to produce `_report/manager/manager-report-<timestamp>.md` and post `consensus` messages when ready for human review.
+11. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap"`).
 
 ## Self-Audit & Cross-Audit
 
-- Use `tools/agent/bus_status.py --limit 20` to summarise active claims and latest events.
+- Use `tools/agent/bus_status.py --limit 20 --agent <id> --active-only` to summarise active claims and latest events (add `--json` when piping into dashboards).
 - For a live feed while working, run `python -m tools.agent.bus_watch --limit 20 --follow`; add `--agent <id>` or `--event status` to focus the stream, or `--since <ISO>` to replay a window.
 - Store receipts for these events under `_report/agent/<agent-id>/` (and `_report/runner/`, `_report/planner/` when applicable) so planner plans and CI can resolve them without manual copying.
 - Encourage agents to emit `--extra reviewer=<agent>` or `event=audit` entries when they review a peer’s plan or PR.

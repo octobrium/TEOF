@@ -5,7 +5,9 @@ Purpose: Provide a repo-native coordination lane for multiple agents (Codex sess
 ## Layout
 
 - `_bus/claims/` — one JSON file per claimed task (`<task_id>.json`). Holds the current owner, branch, and timestamps. Only one claim file per task is permitted.
+- `_bus/assignments/` — manager-authored assignment descriptors tying tasks to engineers.
 - `_bus/events/events.jsonl` — append-only log of agent events (handshakes, claims, proposals, PRs, audits). Each line is a JSON object.
+- `_bus/messages/` — task-scoped JSONL channels for richer coordination messages.
 - `_bus/meta/agents.json` *(optional)* — registry of known agents (mirrors `AGENT_MANIFEST.json` entries) for quick lookup.
 
 ## Claim file schema (`_bus/claims/<task_id>.json`)
@@ -46,19 +48,19 @@ Recommended fields: `branch`, `plan_id`, `pr`, `receipts`.
 
 - `python -m tools.agent.bus_claim` — create/release claims safely.
 - `python -m tools.agent.bus_event` — append events with validation.
-- `python -m tools.agent.bus_status` — render current claims + latest events for reporting.
+- `python -m tools.agent.bus_status` — render current claims + latest events (`--agent <id>`, `--active-only`, `--json`).
 - `python -m tools.agent.bus_watch` — stream or filter events (`--follow`, `--since <ISO>`, `--agent <id>`, `--event <type>`).
 
 ## Workflow
 
 1. Agent starts session and logs a handshake (`python -m tools.agent.session_boot --agent <id>`).
-2. Agent selects task (e.g., from `queue/` or `_plans/`).
-3. Calls `bus_claim claim --task QUEUE-001 --plan 2025-09-19-queue-001` to create `_bus/claims/QUEUE-001.json`.
-4. Emits events during work (`bus_event log --event proposal ...`).
-5. Optionally keep a live feed open via `python -m tools.agent.bus_watch --limit 20 --follow` while collaborating.
-6. Updates plan + justification, opens PR.
-7. On completion, releases claim (`bus_claim release`), sets status to `done`, and logs final event (optionally another handshake with `--summary "session wrap"`).
-8. Humans audit via `_bus/events/events.jsonl` and `memory/log.jsonl` links.
+2. Manager assigns tasks with `python -m tools.agent.task_assign --task ... --engineer ...` (writes `_bus/assignments/<task>.json` and appends `_bus/messages/<task>.jsonl`).
+3. Engineer claims assigned task (`bus_claim claim --task QUEUE-001 --plan ...`).
+4. Engineer emits events during work (`bus_event log --event proposal ...`); manager monitors with `bus_watch` and `bus_status`.
+5. Engineers update plan + justification, open PRs, and store receipts under `_report/agent/<id>/...`.
+6. Manager runs `python -m tools.agent.manager_report` to generate `_report/manager/manager-report-<ts>.md` summarising consensus and outstanding work.
+7. On completion, engineer releases claim (`bus_claim release ... --status done`), manager posts a `consensus` message if ready for review.
+8. Humans audit via `_bus/events/*.jsonl`, `_bus/messages/*.jsonl`, and `_report/**` receipts.
 
 ## Interaction with memory + plans
 
