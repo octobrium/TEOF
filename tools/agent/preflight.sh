@@ -15,6 +15,7 @@ if ! command -v pytest >/dev/null 2>&1; then
 fi
 
 python3 tools/receipts/main.py check
+python3 -m tools.maintenance.worktree_guard --max-changes 80
 python3 tools/snippets/render_quickstart.py
 python3 tools/snippets/check_quickstart_docs.py --apply
 git diff --exit-code docs/_generated/quickstart_snippet.md README.md docs/quickstart.md docs/AGENTS.md .github/AGENT_ONBOARDING.md
