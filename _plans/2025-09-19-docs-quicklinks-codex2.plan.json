@@ -18,7 +18,10 @@
   ],
   "plan_id": "2025-09-19-docs-quicklinks-codex2",
   "receipts": [
-    "_report/agent/codex-2/queue-040/summary.json"
+    "docs/quick-links.json",
+    "docs/quick-links.md",
+    "tools/agent/doc_links.py",
+    "tests/test_doc_links.py"
   ],
   "status": "done",
   "steps": [
@@ -37,9 +40,7 @@
       "notes": "Add tools.agent.doc_links helper with list/show commands and pytest coverage.",
       "receipts": [
         "tools/agent/doc_links.py",
-        "tests/test_doc_links.py",
-        "_report/runner/20250919T061220Z-doc-links-pytest.json",
-        "_report/runner/20250919T062057Z-manifest-doc-links-pytest.json"
+        "tests/test_doc_links.py"
       ],
       "status": "done",
       "title": "Implement CLI and tests"
@@ -59,7 +60,7 @@
       "id": "S4",
       "notes": "Record runner/test receipts and add manager-report note with summary.",
       "receipts": [
-        "_report/agent/codex-2/queue-040/summary.json"
+        "_bus/messages/manager-report.jsonl"
       ],
       "status": "done",
       "title": "Capture receipts + announcement"

@@ -18,7 +18,10 @@
   ],
   "plan_id": "2025-09-19-manifest-swap",
   "receipts": [
-    "_report/agent/codex-2/queue-040/summary.json"
+    "tools/agent/manifest_helper.py",
+    "tests/test_manifest_helper.py",
+    ".github/AGENT_ONBOARDING.md",
+    "docs/parallel-codex.md"
   ],
   "status": "done",
   "steps": [
@@ -37,8 +40,7 @@
       "notes": "Extended tools.agent.manifest_helper with session-save/session-restore commands plus metadata storage and branch checkout.",
       "receipts": [
         "tools/agent/manifest_helper.py",
-        "tests/test_manifest_helper.py",
-        "_report/runner/20250919T062057Z-manifest-doc-links-pytest.json"
+        "tests/test_manifest_helper.py"
       ],
       "status": "done",
       "title": "Implement session save/restore"

@@ -14,8 +14,9 @@
   ],
   "plan_id": "2025-09-19-coordination-dashboard-codex2",
   "receipts": [
-    "_report/manager/coordination-dashboard-latest.md",
-    "_report/agent/codex-2/queue-042/summary.json"
+    "tools/agent/coord_dashboard.py",
+    "tests/test_coord_dashboard.py",
+    "docs/parallel-codex.md"
   ],
   "status": "done",
   "steps": [
@@ -33,8 +34,7 @@
       "notes": "Add tools.agent.coord_dashboard report command, integrating plan/claim/heartbeat summarizers.",
       "receipts": [
         "tools/agent/coord_dashboard.py",
-        "tests/test_coord_dashboard.py",
-        "_report/runner/20250919T063334Z-coord-dashboard-pytest.json"
+        "tests/test_coord_dashboard.py"
       ],
       "status": "done",
       "title": "Implement dashboard CLI"
@@ -43,7 +43,8 @@
       "id": "S3",
       "notes": "Create pytest coverage + markdown/JSON output verification; document usage in onboarding/parallel playbook.",
       "receipts": [
-        "docs/quick-links.md",
+        ".github/AGENT_ONBOARDING.md",
+        "docs/AGENTS.md",
         "docs/parallel-codex.md"
       ],
       "status": "done",
@@ -53,8 +54,7 @@
       "id": "S4",
       "notes": "Run dashboard generation, store receipts, and log manager-report status.",
       "receipts": [
-        "_report/manager/coordination-dashboard-latest.md",
-        "_report/manager/coordination-dashboard-latest.json"
+        "_bus/messages/manager-report.jsonl"
       ],
       "status": "done",
       "title": "Capture receipts + announcement"

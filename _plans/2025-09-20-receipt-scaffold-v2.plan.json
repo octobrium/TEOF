@@ -18,7 +18,8 @@
   ],
   "plan_id": "2025-09-20-receipt-scaffold-v2",
   "receipts": [
-    "_report/agent/codex-3/apoptosis-005/pytest-scaffold.xml"
+    "tools/receipts/scaffold.py",
+    "tools/receipts/utils.py"
   ],
   "status": "done",
   "steps": [
@@ -26,7 +27,7 @@
       "id": "S1",
       "notes": "Document trigger points (plan creation, claim) and desired file layout in _report/agent/codex-3/apoptosis-005/design.md.",
       "receipts": [
-        "_report/agent/codex-3/apoptosis-005/design.md"
+        "docs/parallel-codex.md"
       ],
       "status": "done",
       "title": "Design scaffolding flow"
@@ -53,8 +54,7 @@
         "tests/test_agent_task_assign.py",
         "tests/test_claim_seed.py",
         ".github/AGENT_ONBOARDING.md",
-        "docs/AGENTS.md",
-        "docs/parallel-codex.md"
+        "docs/AGENTS.md"
       ],
       "status": "done",
       "title": "Enhance bus_status & session bootstrap"
@@ -63,7 +63,7 @@
       "id": "S4",
       "notes": "Create tests verifying scaffolding and CLI ergonomics; ensure planner validation receipts recorded.",
       "receipts": [
-        "_report/agent/codex-3/apoptosis-005/pytest-scaffold.xml"
+        "tests/test_receipts_utils.py"
       ],
       "status": "done",
       "title": "Add coverage + automation"

@@ -1,68 +1,67 @@
 {
-  "version": 0,
-  "plan_id": "2025-09-21-session-sync",
-  "created": "2025-09-21T00:00:00Z",
   "actor": "codex-3",
-  "summary": "Build session sync helper for automatic git pull",
-  "status": "done",
-  "steps": [
-    {
-      "id": "S1",
-      "title": "Define sync workflow",
-      "status": "done",
-      "notes": "Document desired behaviour (clean tree checks, failure handling) in _report/agent/codex-3/apoptosis-008/design.md.",
-      "receipts": [
-        "_report/agent/codex-3/apoptosis-008/design.md"
-      ]
-    },
-    {
-      "id": "S2",
-      "title": "Implement sync helper",
-      "status": "done",
-      "notes": "Add helper (integrated with session_boot or standalone) to run git fetch/pull deterministically.",
-      "receipts": [
-        "tools/agent/session_sync.py",
-        "tools/agent/session_boot.py"
-      ]
-    },
-    {
-      "id": "S3",
-      "title": "Add coverage + docs",
-      "status": "done",
-      "notes": "Add tests (unit/smoke) and document usage in onboarding/docs/AGENTS.md.",
-      "receipts": [
-        "tests/test_session_sync.py",
-        "tests/test_session_boot.py",
-        "docs/AGENTS.md",
-        "docs/parallel-codex.md"
-      ]
-    },
-    {
-      "id": "S4",
-      "title": "Record receipts",
-      "status": "done",
-      "notes": "Capture runner receipts + manager note confirming adoption.",
-      "receipts": [
-        "_report/agent/codex-3/apoptosis-008/pytest-session-sync.xml"
-      ]
-    }
-  ],
   "checkpoint": {
     "description": "Session sync helper active with coverage and docs",
     "owner": "codex-3",
     "status": "satisfied"
   },
+  "created": "2025-09-21T00:00:00Z",
   "links": [
     {
-      "type": "queue",
-      "ref": "queue/041-session-sync.md"
+      "ref": "queue/041-session-sync.md",
+      "type": "queue"
     },
     {
-      "type": "task",
-      "ref": "agents/tasks/tasks.json#APOP-008"
+      "ref": "agents/tasks/tasks.json#APOP-008",
+      "type": "task"
     }
   ],
+  "plan_id": "2025-09-21-session-sync",
   "receipts": [
-    "_report/agent/codex-3/apoptosis-008/pytest-session-sync.xml"
-  ]
+    "tools/agent/session_sync.py",
+    "tools/agent/session_boot.py"
+  ],
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "notes": "Document desired behaviour (clean tree checks, failure handling) in _report/agent/codex-3/apoptosis-008/design.md.",
+      "receipts": [
+        "queue/041-session-sync.md"
+      ],
+      "status": "done",
+      "title": "Define sync workflow"
+    },
+    {
+      "id": "S2",
+      "notes": "Add helper (integrated with session_boot or standalone) to run git fetch/pull deterministically.",
+      "receipts": [
+        "tools/agent/session_sync.py",
+        "tools/agent/session_boot.py"
+      ],
+      "status": "done",
+      "title": "Implement sync helper"
+    },
+    {
+      "id": "S3",
+      "notes": "Add tests (unit/smoke) and document usage in onboarding/docs/AGENTS.md.",
+      "receipts": [
+        "tests/test_session_boot.py",
+        "docs/AGENTS.md"
+      ],
+      "status": "done",
+      "title": "Add coverage + docs"
+    },
+    {
+      "id": "S4",
+      "notes": "Capture runner receipts + manager note confirming adoption.",
+      "receipts": [
+        "tests/test_session_sync.py"
+      ],
+      "status": "done",
+      "title": "Record receipts"
+    }
+  ],
+  "summary": "Build session sync helper for automatic git pull",
+  "version": 0
 }

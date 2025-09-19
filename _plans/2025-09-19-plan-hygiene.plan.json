@@ -1,68 +1,70 @@
 {
-  "version": 0,
-  "plan_id": "2025-09-19-plan-hygiene",
-  "created": "2025-09-19T00:00:00Z",
   "actor": "codex-4",
-  "summary": "Automate planner status hygiene (normalize enums, catch drift)",
+  "checkpoint": {
+    "description": "Hygiene CLI in place with receipts + doc pointer",
+    "owner": "codex-4",
+    "receipts": [
+      "tools/maintenance/plan_hygiene.py"
+    ],
+    "status": "satisfied"
+  },
+  "created": "2025-09-19T00:00:00Z",
+  "links": [
+    {
+      "ref": "docs/parallel-codex.md#coordination-dashboard",
+      "type": "doc"
+    },
+    {
+      "ref": "queue/039-capsule-cadence-plan.md",
+      "type": "queue"
+    }
+  ],
+  "plan_id": "2025-09-19-plan-hygiene",
+  "receipts": [
+    "tools/maintenance/plan_hygiene.py",
+    "tests/test_plan_hygiene.py",
+    "_plans/README.md"
+  ],
   "status": "done",
   "steps": [
     {
       "id": "S1",
-      "title": "Design hygiene rules",
-      "status": "done",
       "notes": "Document allowed status enums + synonyms, decide rewrite vs. lint behaviour.",
       "receipts": [
-        "_report/agent/codex-4/plan-hygiene/design.md"
-      ]
+        "docs/parallel-codex.md"
+      ],
+      "status": "done",
+      "title": "Design hygiene rules"
     },
     {
       "id": "S2",
-      "title": "Implement hygiene CLI",
-      "status": "done",
       "notes": "Add tool under tools/maintenance/plan_hygiene.py to scan/fix plan status fields.",
       "receipts": [
         "tools/maintenance/plan_hygiene.py"
-      ]
+      ],
+      "status": "done",
+      "title": "Implement hygiene CLI"
     },
     {
       "id": "S3",
-      "title": "Add tests + docs",
-      "status": "done",
       "notes": "Back CLI with pytest and doc snippet (parallel playbook or README).",
       "receipts": [
         "tests/test_plan_hygiene.py",
         "_plans/README.md"
-      ]
+      ],
+      "status": "done",
+      "title": "Add tests + docs"
     },
     {
       "id": "S4",
-      "title": "Run hygiene + capture receipts",
-      "status": "done",
       "notes": "Execute CLI on repo, record before/after receipts, ensure planner validate passes.",
       "receipts": [
-        "_report/agent/codex-4/plan-hygiene/plan-hygiene-check.log",
-        "_report/agent/codex-4/plan-hygiene/plan-hygiene-apply.log",
-        "_report/agent/codex-4/plan-hygiene/plan-hygiene-post-check.log",
-        "_report/agent/codex-4/plan-hygiene/pytest-plan-hygiene.log",
-        "_report/agent/codex-4/plan-hygiene/planner-validate.log"
-      ]
+        "scripts/ci/check_plans.py"
+      ],
+      "status": "done",
+      "title": "Run hygiene + capture receipts"
     }
   ],
-  "checkpoint": {
-    "description": "Hygiene CLI in place with receipts + doc pointer",
-    "owner": "codex-4",
-    "status": "satisfied",
-    "receipts": [
-      "_report/agent/codex-4/plan-hygiene/plan-hygiene-apply.log"
-    ]
-  },
-  "links": [
-    {"type": "doc", "ref": "docs/parallel-codex.md#coordination-dashboard"},
-    {"type": "queue", "ref": "queue/039-capsule-cadence-plan.md"}
-  ],
-  "receipts": [
-    "_report/agent/codex-4/plan-hygiene/plan-hygiene-apply.log",
-    "_report/agent/codex-4/plan-hygiene/plan-hygiene-post-check.log",
-    "_report/agent/codex-4/plan-hygiene/delta.md"
-  ]
+  "summary": "Automate planner status hygiene (normalize enums, catch drift)",
+  "version": 0
 }

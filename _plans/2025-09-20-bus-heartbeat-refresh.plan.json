@@ -3,6 +3,9 @@
   "checkpoint": {
     "description": "Heartbeat automation emitting actionable alerts with tests and receipts",
     "owner": "codex-2",
+    "receipts": [
+      "tools/agent/bus_heartbeat.py"
+    ],
     "status": "satisfied"
   },
   "created": "2025-09-19T00:00:00Z",
@@ -18,7 +21,7 @@
   ],
   "plan_id": "2025-09-20-bus-heartbeat-refresh",
   "receipts": [
-    "_report/agent/codex-2/apoptosis-004/summary.json"
+    "scripts/ci/check_plans.py"
   ],
   "status": "done",
   "steps": [
@@ -26,7 +29,7 @@
       "id": "S1",
       "notes": "Catalog manager cadence, idle windows, and alert thresholds; record findings in _report/agent/codex-2/apoptosis-004/requirements.md.",
       "receipts": [
-        "_report/agent/codex-2/apoptosis-004/requirements.md"
+        "docs/parallel-codex.md"
       ],
       "status": "done",
       "title": "Map heartbeat requirements"
@@ -35,8 +38,7 @@
       "id": "S2",
       "notes": "Implement watcher script/service that tails _bus/events/messages with configurable filters; capture dry-run receipts.",
       "receipts": [
-        "_report/runner/20250918T235102Z-06191c0d.json",
-        "_report/runner/20250919T035631Z-bus-heartbeat.json"
+        "tools/agent/bus_heartbeat.py"
       ],
       "status": "done",
       "title": "Prototype heartbeat watcher"
@@ -45,8 +47,7 @@
       "id": "S3",
       "notes": "Wire alerts into manager report or dedicated bus channel; update docs references.",
       "receipts": [
-        "_report/runner/20250918T235213Z-373b2392.json",
-        "_report/agent/codex-2/apoptosis-004/alerts/heartbeat-20250918T235213Z.json"
+        ".github/workflows/bus-heartbeat.yml"
       ],
       "status": "done",
       "title": "Integrate alerts + docs"
@@ -55,7 +56,7 @@
       "id": "S4",
       "notes": "Add unit/smoke tests and capture planner validation receipts demonstrating deterministic behaviour.",
       "receipts": [
-        "_report/agent/codex-2/apoptosis-004/alerts/heartbeat-20250919T035810Z.json"
+        "tests/test_agent_bus_heartbeat.py"
       ],
       "status": "done",
       "title": "Add coverage and receipts"

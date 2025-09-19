@@ -1,60 +1,59 @@
 {
-  "version": 0,
-  "plan_id": "2025-09-19-plan-hygiene-dedupe",
-  "created": "2025-09-19T06:20:00Z",
   "actor": "codex-4",
-  "summary": "Teach plan_hygiene to detect duplicate receipts",
+  "checkpoint": {
+    "description": "Plan hygiene flags duplicate receipts with receipts captured",
+    "owner": "codex-4",
+    "receipts": [
+      "tools/maintenance/plan_hygiene.py"
+    ],
+    "status": "satisfied"
+  },
+  "created": "2025-09-19T06:20:00Z",
+  "links": [
+    {
+      "ref": "_plans/2025-09-19-plan-hygiene.plan.json",
+      "type": "plan"
+    }
+  ],
+  "plan_id": "2025-09-19-plan-hygiene-dedupe",
+  "receipts": [
+    "tools/maintenance/plan_hygiene.py",
+    "tests/test_plan_hygiene.py",
+    "tools/agent/preflight.sh",
+    "scripts/ci/check_plans.py"
+  ],
   "status": "done",
   "steps": [
     {
       "id": "S1",
-      "title": "Extend design for duplicate detection",
-      "status": "done",
       "notes": "Record expected behaviour: plan + step receipts must be unique; duplicates should error with pointer context.",
       "receipts": [
-        "_report/agent/codex-4/plan-hygiene/design-dedupe.md"
-      ]
+        "docs/parallel-codex.md"
+      ],
+      "status": "done",
+      "title": "Extend design for duplicate detection"
     },
     {
       "id": "S2",
-      "title": "Implement duplicate detection",
-      "status": "done",
       "notes": "Update tools/maintenance/plan_hygiene.py to flag duplicates while preserving status checks.",
       "receipts": [
         "tools/maintenance/plan_hygiene.py"
-      ]
+      ],
+      "status": "done",
+      "title": "Implement duplicate detection"
     },
     {
       "id": "S3",
-      "title": "Add tests + run hygiene",
-      "status": "done",
       "notes": "Extend pytest to cover duplicate errors and re-run CLI on repo capturing receipts.",
       "receipts": [
         "tests/test_plan_hygiene.py",
-        "_report/agent/codex-4/plan-hygiene/pytest-plan-hygiene.log",
-        "_report/agent/codex-4/plan-hygiene/plan-hygiene-post-check.log",
-        "_report/agent/codex-4/plan-hygiene/planner-validate.log",
         "tools/agent/preflight.sh",
         "scripts/ci/check_plans.py"
-      ]
+      ],
+      "status": "done",
+      "title": "Add tests + run hygiene"
     }
   ],
-  "checkpoint": {
-    "description": "Plan hygiene flags duplicate receipts with receipts captured",
-    "owner": "codex-4",
-    "status": "satisfied",
-    "receipts": [
-      "_report/agent/codex-4/plan-hygiene/plan-hygiene-post-check.log"
-    ]
-  },
-  "links": [
-    {"type": "plan", "ref": "_plans/2025-09-19-plan-hygiene.plan.json"}
-  ],
-  "receipts": [
-    "_report/agent/codex-4/plan-hygiene/plan-hygiene-post-check.log",
-    "_report/agent/codex-4/plan-hygiene/plan-hygiene-apply.log",
-    "_report/agent/codex-4/plan-hygiene/pytest-plan-hygiene.log",
-    "_report/agent/codex-4/plan-hygiene/planner-validate.log",
-    "_report/agent/codex-4/plan-hygiene/design-dedupe.md"
-  ]
+  "summary": "Teach plan_hygiene to detect duplicate receipts",
+  "version": 0
 }
