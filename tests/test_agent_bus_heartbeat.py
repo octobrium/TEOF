@@ -97,6 +97,39 @@ def test_bus_heartbeat_flags_stale_manager_and_idle_agent(tmp_path, monkeypatch)
     assert len(log_lines) == 1
 
 
+def test_bus_heartbeat_ignore_manager(tmp_path, monkeypatch):
+    root = tmp_path
+    _setup_paths(root, monkeypatch)
+
+    _write_json(root / "AGENT_MANIFEST.json", {"agent_id": "codex-2"})
+    _write_json(
+        root / "AGENT_MANIFEST.codex-manager.json",
+        {"agent_id": "codex-manager", "desired_roles": ["manager"]},
+    )
+
+    exit_code = bus_heartbeat.main(
+        [
+            "--manager-window",
+            "30",
+            "--now",
+            "2025-09-19T00:00:00Z",
+            "--dry-run",
+            "--ignore-manager",
+            "codex-manager",
+            "--no-bus-event",
+            "--no-bus-message",
+        ]
+    )
+    assert exit_code == 0
+
+    receipt_dir = root / "_report" / "agent" / "codex-2" / "apoptosis-004" / "alerts"
+    receipts = list(receipt_dir.glob("heartbeat-*.json"))
+    assert len(receipts) == 1
+    alert_data = json.loads(receipts[0].read_text(encoding="utf-8"))
+    assert alert_data.get("alerts", []) == []
+    assert alert_data.get("manager", {}).get("candidates", []) == []
+
+
 def test_bus_heartbeat_emits_bus_event_and_message(tmp_path, monkeypatch):
     root = tmp_path
     _setup_paths(root, monkeypatch)
@@ -171,4 +204,3 @@ def test_bus_heartbeat_emits_bus_event_and_message(tmp_path, monkeypatch):
     assert bus_msg["type"] == bus_heartbeat.DEFAULT_MESSAGE_TYPE
     assert bus_msg["task_id"] == bus_heartbeat.DEFAULT_MESSAGE_TASK
     assert receipts[0] in bus_msg.get("receipts", [])
-

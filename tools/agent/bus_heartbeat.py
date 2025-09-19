@@ -468,6 +468,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional note to attach to the bus message",
     )
     parser.add_argument(
+        "--ignore-manager",
+        action="append",
+        default=[],
+        help="Manager id to exclude from heartbeat checks (repeatable)",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Skip bus_event/bus_message writes; still records receipts",
@@ -517,6 +523,10 @@ def main(argv: list[str] | None = None) -> int:
     except HeartbeatError as exc:
         parser.error(str(exc))
         return 2
+
+    ignore_managers = {m.strip() for m in (args.ignore_manager or []) if m and m.strip()}
+    if ignore_managers:
+        manager_ids = {mid for mid in manager_ids if mid not in ignore_managers}
 
     manager_status = summarize_manager_status(
         events=events,

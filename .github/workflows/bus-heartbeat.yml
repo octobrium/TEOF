@@ -41,6 +41,7 @@ jobs:
             --plan 2025-09-20-bus-heartbeat-refresh \
             --task APOP-004 \
             --note "ci sweep" \
+            --ignore-manager codex-manager \
             --dry-run \
             --no-bus-event \
             --no-bus-message \
