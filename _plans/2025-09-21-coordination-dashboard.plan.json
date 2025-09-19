@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-coordination-dashboard",
+  "created": "2025-09-21T00:00:00Z",
+  "actor": "codex-4",
+  "summary": "Deliver coordination dashboard/report",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define dashboard schema",
+      "status": "queued",
+      "notes": "Specify required signals (active plans, heartbeats, receipts) and record in _report/agent/codex-4/apoptosis-009/design.md.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement dashboard CLI/report",
+      "status": "queued",
+      "notes": "Build CLI/report generator outputting deterministic JSON/Markdown under _report/manager/.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Integrate with workflow",
+      "status": "queued",
+      "notes": "Hook dashboard into manager cadence (maybe scheduled or manual) and update docs.",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Capture receipts + tests",
+      "status": "queued",
+      "notes": "Add tests/receipts proving deterministic output; log manager adoption note.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Dashboard live with receipts and workflow adoption",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "links": [
+    {"type": "queue", "ref": "queue/042-coordination-dashboard.md"},
+    {"type": "task", "ref": "agents/tasks/tasks.json#APOP-009"}
+  ],
+  "receipts": []
+}

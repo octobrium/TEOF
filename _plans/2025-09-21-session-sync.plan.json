@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-session-sync",
+  "created": "2025-09-21T00:00:00Z",
+  "actor": "codex-3",
+  "summary": "Build session sync helper for automatic git pull",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define sync workflow",
+      "status": "queued",
+      "notes": "Document desired behaviour (clean tree checks, failure handling) in _report/agent/codex-3/apoptosis-008/design.md.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement sync helper",
+      "status": "queued",
+      "notes": "Add helper (integrated with session_boot or standalone) to run git fetch/pull deterministically.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Add coverage + docs",
+      "status": "queued",
+      "notes": "Add tests (unit/smoke) and document usage in onboarding/docs/AGENTS.md.",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Record receipts",
+      "status": "queued",
+      "notes": "Capture runner receipts + manager note confirming adoption.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Session sync helper active with coverage and docs",
+    "owner": "codex-3",
+    "status": "pending"
+  },
+  "links": [
+    {"type": "queue", "ref": "queue/041-session-sync.md"},
+    {"type": "task", "ref": "agents/tasks/tasks.json#APOP-008"}
+  ],
+  "receipts": []
+}

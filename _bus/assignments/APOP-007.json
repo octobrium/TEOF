@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-09-21T00:05:00Z",
+  "branch": "agent/codex-2/apoptosis-007",
+  "engineer": "codex-2",
+  "manager": "codex-1",
+  "note": "Compact shared code",
+  "plan_id": "2025-09-21-code-compaction",
+  "task_id": "APOP-007"
+}

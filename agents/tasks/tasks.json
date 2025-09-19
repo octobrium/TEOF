@@ -346,10 +346,54 @@
       "notes": "Add doc quick-links and helper CLI for high-traffic guidance surfaces.",
       "plan_id": "2025-09-20-docs-quicklinks-v2",
       "priority": "high",
+      "receipts": [
+        "docs/quick-links.json",
+        "docs/quick-links.md",
+        "tools/agent/doc_links.py",
+        "tests/test_doc_links.py",
+        "_report/agent/codex-4/apoptosis-006/pytest-doc-links.log",
+        "_report/agent/codex-4/apoptosis-006/planner-validate.log",
+        "_report/agent/codex-4/apoptosis-006/delta.md"
+      ],
+      "role": "product-strategist",
+      "status": "done",
+      "title": "Docs Quick Links"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-2/apoptosis-007",
+      "id": "APOP-007",
+      "notes": "Compact shared code without changing OCERS behaviour.",
+      "plan_id": "2025-09-21-code-compaction",
+      "priority": "high",
+      "receipts": [],
+      "role": "systems-architect",
+      "status": "queued",
+      "title": "Code Compaction"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-3/apoptosis-008",
+      "id": "APOP-008",
+      "notes": "Ship session sync helper so every session starts on the latest commit.",
+      "plan_id": "2025-09-21-session-sync",
+      "priority": "high",
+      "receipts": [],
+      "role": "automation-engineer",
+      "status": "queued",
+      "title": "Session Sync Helper"
+    },
+    {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-4/apoptosis-009",
+      "id": "APOP-009",
+      "notes": "Deliver coordination dashboard/report for live situational awareness.",
+      "plan_id": "2025-09-21-coordination-dashboard",
+      "priority": "high",
       "receipts": [],
       "role": "product-strategist",
       "status": "queued",
-      "title": "Docs Quick Links"
+      "title": "Coordination Dashboard"
     }
   ],
   "version": 1
