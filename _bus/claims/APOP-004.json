@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/apoptosis-004",
+  "claimed_at": "2025-09-19T06:02:21Z",
+  "notes": "Heartbeat monitor refresh receipts in place.",
+  "plan_id": "2025-09-20-bus-heartbeat-refresh",
+  "released_at": "2025-09-19T06:03:58Z",
+  "status": "done",
+  "task_id": "APOP-004"
+}

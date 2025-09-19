@@ -4,6 +4,7 @@
   "claimed_at": "2025-09-18T21:52:21Z",
   "notes": "Tooling prune & harden sweep",
   "plan_id": "2025-09-19-tooling-prune",
-  "status": "active",
-  "task_id": "APOP-002"
+  "status": "done",
+  "task_id": "APOP-002",
+  "released_at": "2025-09-19T05:51:54Z"
 }

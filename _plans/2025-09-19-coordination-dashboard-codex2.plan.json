@@ -1,0 +1,65 @@
+{
+  "actor": "codex-2",
+  "checkpoint": {
+    "description": "Coordination dashboard CLI live with docs/tests",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "created": "2025-09-19T06:30:00Z",
+  "links": [
+    {
+      "ref": "queue/042-coordination-dashboard.md",
+      "type": "queue"
+    }
+  ],
+  "plan_id": "2025-09-19-coordination-dashboard-codex2",
+  "receipts": [
+    "_report/manager/coordination-dashboard-latest.md",
+    "_report/agent/codex-2/queue-042/summary.json"
+  ],
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "notes": "Inspect plans, claims, events, and manager directives to define dashboard schema.",
+      "receipts": [
+        "queue/042-coordination-dashboard.md"
+      ],
+      "status": "done",
+      "title": "Survey coordination signals"
+    },
+    {
+      "id": "S2",
+      "notes": "Add tools.agent.coord_dashboard report command, integrating plan/claim/heartbeat summarizers.",
+      "receipts": [
+        "tools/agent/coord_dashboard.py",
+        "tests/test_coord_dashboard.py",
+        "_report/runner/20250919T063334Z-coord-dashboard-pytest.json"
+      ],
+      "status": "done",
+      "title": "Implement dashboard CLI"
+    },
+    {
+      "id": "S3",
+      "notes": "Create pytest coverage + markdown/JSON output verification; document usage in onboarding/parallel playbook.",
+      "receipts": [
+        "docs/quick-links.md",
+        "docs/parallel-codex.md"
+      ],
+      "status": "done",
+      "title": "Add tests and docs"
+    },
+    {
+      "id": "S4",
+      "notes": "Run dashboard generation, store receipts, and log manager-report status.",
+      "receipts": [
+        "_report/manager/coordination-dashboard-latest.md",
+        "_report/manager/coordination-dashboard-latest.json"
+      ],
+      "status": "done",
+      "title": "Capture receipts + announcement"
+    }
+  ],
+  "summary": "Ship coordination dashboard CLI + docs",
+  "version": 0
+}

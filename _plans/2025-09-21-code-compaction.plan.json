@@ -1,48 +1,77 @@
 {
-  "version": 0,
-  "plan_id": "2025-09-21-code-compaction",
-  "created": "2025-09-21T00:00:00Z",
   "actor": "codex-2",
-  "summary": "Compact shared code without changing OCERS outcomes",
-  "status": "queued",
-  "steps": [
-    {
-      "id": "S1",
-      "title": "Inventory duplication",
-      "status": "queued",
-      "notes": "Scan extensions/, tools/, and docs for duplicate heuristics or unused helpers; record findings in _report/agent/codex-2/apoptosis-007/inventory.md.",
-      "receipts": []
-    },
-    {
-      "id": "S2",
-      "title": "Refactor & remove duplicates",
-      "status": "queued",
-      "notes": "Consolidate code (e.g., shared heuristics) and excise dead paths. Stage changes with receipts documenting LOC delta.",
-      "receipts": []
-    },
-    {
-      "id": "S3",
-      "title": "Verify deterministic behaviour",
-      "status": "queued",
-      "notes": "Run targeted pytest + golden comparisons to prove outputs unchanged; capture runner receipts.",
-      "receipts": []
-    },
-    {
-      "id": "S4",
-      "title": "Document compaction impact",
-      "status": "queued",
-      "notes": "Summarize reductions and any follow-on work in receipts; update manager-report if further automation needed.",
-      "receipts": []
-    }
-  ],
   "checkpoint": {
     "description": "Duplicate code removed with deterministic receipts and tests",
     "owner": "codex-2",
-    "status": "pending"
+    "status": "satisfied"
   },
+  "created": "2025-09-21T00:00:00Z",
   "links": [
-    {"type": "queue", "ref": "queue/040-code-compaction.md"},
-    {"type": "task", "ref": "agents/tasks/tasks.json#APOP-007"}
+    {
+      "ref": "queue/040-code-compaction.md",
+      "type": "queue"
+    },
+    {
+      "ref": "agents/tasks/tasks.json#APOP-007",
+      "type": "task"
+    }
   ],
-  "receipts": []
+  "notes": [
+    {
+      "diff_summary": "26 files changed, 393 insertions(+), 121 deletions(-)",
+      "receipt_hash": "087ba23c7d1c2b047990d7faa5c2055571e3cf31",
+      "tests_receipt": "_report/agent/codex-2/apoptosis-007/tests.json",
+      "timestamp": "2025-09-19T05:31:55Z"
+    }
+  ],
+  "plan_id": "2025-09-21-code-compaction",
+  "receipts": [
+    "_report/agent/codex-2/apoptosis-007/tests.json"
+  ],
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "notes": "Scan extensions/, tools/, and docs for duplicate heuristics or unused helpers; record findings in _report/agent/codex-2/apoptosis-007/inventory.md.",
+      "receipts": [
+        "_report/agent/codex-2/apoptosis-007/plan.md",
+        "_report/agent/codex-2/apoptosis-007/inventory.json"
+      ],
+      "status": "done",
+      "title": "Inventory duplication"
+    },
+    {
+      "id": "S2",
+      "notes": "Consolidate code (e.g., shared heuristics) and excise dead paths. Stage changes with receipts documenting LOC delta.",
+      "receipts": [
+        "_report/agent/codex-2/apoptosis-007/diff-plan.md"
+      ],
+      "status": "done",
+      "title": "Refactor & remove duplicates"
+    },
+    {
+      "id": "S3",
+      "notes": "Run targeted pytest + golden comparisons to prove outputs unchanged; capture runner receipts.",
+      "receipts": [
+        "_report/runner/20250919T052610Z-receipts-utils-pytest.json",
+        "_report/runner/20250919T052610Z-consensus-pytest.json",
+        "_report/runner/20250919T052611Z-ocers-brief.json",
+        "_report/runner/20250919T052611Z-reconcile-pipeline.json",
+        "_report/agent/codex-2/apoptosis-007/tests.json"
+      ],
+      "status": "done",
+      "title": "Verify deterministic behaviour"
+    },
+    {
+      "id": "S4",
+      "notes": "Summarize reductions and any follow-on work in receipts; update manager-report if further automation needed.",
+      "receipts": [
+        "_report/agent/codex-2/apoptosis-007/summary.json"
+      ],
+      "status": "done",
+      "title": "Document compaction impact"
+    }
+  ],
+  "summary": "Compact shared code without changing OCERS outcomes",
+  "version": 0
 }

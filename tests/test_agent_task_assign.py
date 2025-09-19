@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from tools.agent import task_assign, bus_message
+from tools.receipts import scaffold as receipt_scaffold
 
 
 def setup_env(tmp_path, monkeypatch):
@@ -22,6 +23,7 @@ def setup_env(tmp_path, monkeypatch):
     monkeypatch.setattr(task_assign, "TASKS_FILE", tasks_file)
     monkeypatch.setattr(task_assign, "MANIFEST", manifest)
     monkeypatch.setattr(task_assign, "record_usage", lambda *args, **kwargs: None)
+    monkeypatch.setattr(task_assign, "ROOT", tmp_path)
 
     monkeypatch.setattr(bus_message, "MESSAGES_DIR", messages_dir)
     monkeypatch.setattr(bus_message, "MANIFEST_PATH", manifest)
@@ -30,6 +32,11 @@ def setup_env(tmp_path, monkeypatch):
     monkeypatch.setattr(task_assign.bus_claim, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(task_assign.bus_claim, "ASSIGNMENTS_DIR", assign_dir)
     monkeypatch.setattr(task_assign.bus_claim, "ROOT", tmp_path)
+
+    monkeypatch.setattr(receipt_scaffold, "ROOT", tmp_path)
+    monkeypatch.setattr(receipt_scaffold, "REPORT_ROOT", tmp_path / "_report" / "agent")
+    monkeypatch.setattr(task_assign, "scaffold_claim", receipt_scaffold.scaffold_claim)
+    monkeypatch.setattr(task_assign, "format_created", receipt_scaffold.format_created)
 
     return assign_dir, messages_dir, claims_dir, tasks_file
 
@@ -105,3 +112,33 @@ def test_task_assign_custom_manager(tmp_path, monkeypatch):
     assert entry["assigned_by"] == "codex-lead"
 
     assert not (claims_dir / "QUEUE-007.json").exists()
+
+
+def test_task_assign_with_scaffold(tmp_path, monkeypatch, capsys):
+    setup_env(tmp_path, monkeypatch)
+
+    rc = task_assign.main(
+        [
+            "--task",
+            "QUEUE-010",
+            "--engineer",
+            "codex-3",
+            "--plan",
+            "2025-09-20-receipt-scaffold-v2",
+            "--branch",
+            "agent/codex-3/queue-010",
+            "--scaffold",
+        ]
+    )
+    assert rc == 0
+
+    receipt_dir = tmp_path / "_report" / "agent" / "codex-3" / "2025-09-20-receipt-scaffold-v2"
+    assert (receipt_dir / "notes.md").exists()
+    summary_payload = json.loads((receipt_dir / "summary.json").read_text(encoding="utf-8"))
+    assert summary_payload["plan_id"] == "2025-09-20-receipt-scaffold-v2"
+    claim_payload = json.loads((receipt_dir / "claim.json").read_text(encoding="utf-8"))
+    assert claim_payload["task_id"] == "QUEUE-010"
+    assert claim_payload["agent"] == "codex-3"
+
+    out = capsys.readouterr().out
+    assert "Created" in out

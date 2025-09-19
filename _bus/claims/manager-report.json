@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/manager-report",
+  "claimed_at": "2025-09-19T05:32:51Z",
+  "notes": "Policy logged",
+  "plan_id": "2025-09-18-manager-heartbeat",
+  "released_at": "2025-09-19T05:59:00Z",
+  "status": "done",
+  "task_id": "manager-report"
+}

@@ -3,58 +3,15 @@
 from __future__ import annotations
 
 import argparse
-import json
+import sys
 from pathlib import Path
-from typing import List
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+ROOT = SCRIPT_DIR.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-def load_packet(path: Path) -> dict:
-    data = json.loads(path.read_text(encoding="utf-8"))
-    if "instance_id" not in data:
-        raise ValueError(f"{path} missing instance_id")
-    return data
-
-
-def compare_hash(name: str, left: str, right: str, diffs: List[str]) -> None:
-    if left != right:
-        diffs.append(f"{name} mismatch: {left} != {right}")
-
-
-def compare_capabilities(left: list, right: list, diffs: List[str]) -> None:
-    lset = set(left)
-    rset = set(right)
-    only_l = sorted(lset - rset)
-    only_r = sorted(rset - lset)
-    if only_l:
-        diffs.append(f"capabilities only in left: {only_l}")
-    if only_r:
-        diffs.append(f"capabilities only in right: {only_r}")
-
-
-def compare_receipts(left: dict, right: dict, diffs: List[str]) -> None:
-    litems = {item["path"]: item["sha256"] for item in left.get("items", [])}
-    ritems = {item["path"]: item["sha256"] for item in right.get("items", [])}
-
-    for path, sha in litems.items():
-        rsha = ritems.get(path)
-        if rsha is None:
-            diffs.append(f"receipt missing in right: {path}")
-        elif rsha != sha:
-            diffs.append(f"receipt hash mismatch for {path}: {sha} != {rsha}")
-    for path in ritems:
-        if path not in litems:
-            diffs.append(f"receipt missing in left: {path}")
-
-    compare_hash("receipts aggregate", left.get("aggregate"), right.get("aggregate"), diffs)
-
-
-def compare_packets(left: dict, right: dict) -> List[str]:
-    diffs: List[str] = []
-    compare_hash("commandments_hash", left.get("commandments_hash"), right.get("commandments_hash"), diffs)
-    compare_hash("anchors_hash", left.get("anchors_hash"), right.get("anchors_hash"), diffs)
-    compare_capabilities(left.get("capabilities", []), right.get("capabilities", []), diffs)
-    compare_receipts(left.get("receipts", {}), right.get("receipts", {}), diffs)
-    return diffs
+from tools.reconcile_utils import compare_packets, load_packet
 
 
 def main() -> int:

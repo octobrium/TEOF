@@ -60,6 +60,7 @@ Purpose: codify session/workstream plans as deterministic artifacts that feed CI
 - Allowed status transitions: `queued → in_progress|blocked|done`, `in_progress → blocked|done`, `blocked → in_progress|done`, `done` is terminal. CI (`scripts/ci/check_plans.py`) rejects regressions (e.g., `done → in_progress`).
 - Steps flagged `done` should carry at least one receipt; attach paths must resolve inside the repo and parse as UTF-8 JSON. CI fails if a receipt is missing, not JSON, or duplicated.
 - When the plan-level checkpoint reports `satisfied`, the plan must list at least one receipt (enforced by the validator’s strict mode).
+- Lint status enums with `python -m tools.maintenance.plan_hygiene`. Add `--apply` to normalize common variants (`in-progress` → `in_progress`, `completed` → `done`, etc.).
 
 ## Validation + CI
 - `python tools/planner/validate.py` checks structural invariants.

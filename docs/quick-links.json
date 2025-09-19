@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "updated": "2025-09-19",
+  "links": [
+    {
+      "id": "onboarding-first-session",
+      "title": "First Session Checklist",
+      "summary": "Seat-up instructions for pairing the repo checkout with governance rails on day one.",
+      "path": ".github/AGENT_ONBOARDING.md",
+      "anchor": "#first-session-checklist",
+      "category": "onboarding"
+    },
+    {
+      "id": "onboarding-rhythm",
+      "title": "Operating Rhythm",
+      "summary": "Daily cadence reminder covering receipts discipline, hooks, and preflight guardrails.",
+      "path": ".github/AGENT_ONBOARDING.md",
+      "anchor": "#operating-rhythm",
+      "category": "onboarding"
+    },
+    {
+      "id": "workflow-architecture",
+      "title": "Architecture Gate",
+      "summary": "Explains the governance gate that blocks edits without a plan and receipts.",
+      "path": "docs/workflow.md",
+      "anchor": "#architecture-gate-before-writing-code",
+      "category": "workflow"
+    },
+    {
+      "id": "workflow-receipts",
+      "title": "DNA Recursion (Receipts)",
+      "summary": "Details the receipts-first mandate used by manager directives and CI guards.",
+      "path": "docs/workflow.md",
+      "anchor": "#dna-recursion-self-improvement-of-the-rules",
+      "category": "workflow"
+    },
+    {
+      "id": "agents-idle-cadence",
+      "title": "Idle Cadence",
+      "summary": "Idle escalation loop for agents broadcasting availability and claiming work.",
+      "path": "docs/AGENTS.md",
+      "anchor": "#idle-cadence",
+      "category": "cadence"
+    },
+    {
+      "id": "agents-claim-seeding",
+      "title": "Claim Seeding (Managers)",
+      "summary": "Manager flow for staging claims before assignments so auto-claim succeeds.",
+      "path": "docs/AGENTS.md",
+      "anchor": "#claim-seeding-managers",
+      "category": "cadence"
+    },
+    {
+      "id": "parallel-session-loop",
+      "title": "Suggested Session Loop",
+      "summary": "Canonical 13-step loop covering sync, bus traffic, planning, and release.",
+      "path": "docs/parallel-codex.md",
+      "anchor": "#suggested-session-loop",
+      "category": "coordination"
+    },
+    {
+      "id": "parallel-follow-ups",
+      "title": "Follow-up Logging",
+      "summary": "How to close manager follow-ups with mirrored bus events and receipts.",
+      "path": "docs/parallel-codex.md",
+      "anchor": "#follow-up-logging",
+      "category": "coordination"
+    },
+    {
+      "id": "coordination-dashboard",
+      "title": "Coordination Dashboard",
+      "summary": "Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts.",
+      "path": "docs/parallel-codex.md",
+      "anchor": "#coordination-dashboard",
+      "category": "coordination"
+    },
+    {
+      "id": "collab-support-offer-help",
+      "title": "Monitor & Offer Help",
+      "summary": "Live support loop for idle agents watching the bus and responding to blockers.",
+      "path": "docs/collab-support.md",
+      "anchor": "#2-monitor--offer-help",
+      "category": "coordination"
+    },
+    {
+      "id": "bus-claims-schema",
+      "title": "Claim File Schema",
+      "summary": "Schema for `_bus/claims/<task>.json` guarded by automation and CI.",
+      "path": "_bus/README.md",
+      "anchor": "#claim-file-schema-_busclaimstask_idjson",
+      "category": "tooling"
+    },
+    {
+      "id": "plans-schema",
+      "title": "Plan File Format (v0)",
+      "summary": "Planner contract describing required fields, receipts, and lifecycle.",
+      "path": "_plans/README.md",
+      "anchor": "#file-format-v0",
+      "category": "tooling"
+    },
+    {
+      "id": "consensus-ledger",
+      "title": "Consensus Ledger Usage",
+      "summary": "Entry point for `tools.consensus.ledger` commands and receipt capture.",
+      "path": "docs/consensus/README.md",
+      "anchor": "#usage",
+      "category": "consensus"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "actor": "codex-2",
+  "checkpoint": {
+    "description": "Quick-link manifest + CLI live with docs updated and tests recorded",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "created": "2025-09-19T06:10:00Z",
+  "links": [
+    {
+      "ref": "queue/040-code-compaction.md",
+      "type": "queue"
+    },
+    {
+      "ref": "docs/quick-links.md",
+      "type": "doc"
+    }
+  ],
+  "plan_id": "2025-09-19-docs-quicklinks-codex2",
+  "receipts": [
+    "_report/agent/codex-2/queue-040/summary.json"
+  ],
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "notes": "Curate high-traffic anchors across onboarding, workflow, coordination, and tooling docs; record manifest at docs/quick-links.json and human-readable index at docs/quick-links.md.",
+      "receipts": [
+        "docs/quick-links.json",
+        "docs/quick-links.md"
+      ],
+      "status": "done",
+      "title": "Define quick-link manifest"
+    },
+    {
+      "id": "S2",
+      "notes": "Add tools.agent.doc_links helper with list/show commands and pytest coverage.",
+      "receipts": [
+        "tools/agent/doc_links.py",
+        "tests/test_doc_links.py",
+        "_report/runner/20250919T061220Z-doc-links-pytest.json",
+        "_report/runner/20250919T062057Z-manifest-doc-links-pytest.json"
+      ],
+      "status": "done",
+      "title": "Implement CLI and tests"
+    },
+    {
+      "id": "S3",
+      "notes": "Ensure .github/AGENT_ONBOARDING.md, docs/AGENTS.md, and docs/parallel-codex.md point at the CLI + manifest.",
+      "receipts": [
+        ".github/AGENT_ONBOARDING.md",
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ],
+      "status": "done",
+      "title": "Refresh onboarding references"
+    },
+    {
+      "id": "S4",
+      "notes": "Record runner/test receipts and add manager-report note with summary.",
+      "receipts": [
+        "_report/agent/codex-2/queue-040/summary.json"
+      ],
+      "status": "done",
+      "title": "Capture receipts + announcement"
+    }
+  ],
+  "summary": "Publish docs quick-link manifest + helper CLI",
+  "version": 0
+}

@@ -1,0 +1,60 @@
+{
+  "actor": "codex-3",
+  "checkpoint": {
+    "description": "Heartbeat emitted during manager sweeps",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "created": "2025-09-19T06:04:47Z",
+  "links": [],
+  "plan_id": "2025-09-19-manager-heartbeat-auto",
+  "receipts": [
+    "_report/agent/codex-3/2025-09-19-manager-heartbeat-auto/pytest-manager-report.xml",
+    "_report/manager/manager-report-2025-09-19T06:10:45Z.md"
+  ],
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "notes": "(CMD-__)",
+      "receipts": [
+        "_report/agent/codex-3/2025-09-19-manager-heartbeat-auto/design.md"
+      ],
+      "status": "done",
+      "title": "Design"
+    },
+    {
+      "id": "S2",
+      "notes": "(CMD-__)",
+      "receipts": [
+        "tools/agent/bus_status.py",
+        "tools/agent/manager_report.py"
+      ],
+      "status": "done",
+      "title": "Implement"
+    },
+    {
+      "id": "S3",
+      "notes": "(CMD-__)",
+      "receipts": [
+        "tests/test_manager_report.py",
+        ".github/AGENT_ONBOARDING.md",
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ],
+      "status": "done",
+      "title": "Tests+Docs"
+    },
+    {
+      "id": "S4",
+      "notes": "(CMD-__)",
+      "receipts": [
+        "_report/manager/manager-report-2025-09-19T06:10:45Z.md"
+      ],
+      "status": "done",
+      "title": "BusReceipts"
+    }
+  ],
+  "summary": "Automate manager heartbeat when reports run",
+  "version": 0
+}

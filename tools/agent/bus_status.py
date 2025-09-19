@@ -147,7 +147,7 @@ def _detect_manager_status(
             "missing": [],
         }
 
-    last_seen: dict[str, datetime] = {}
+    last_seen: dict[str, tuple[datetime, dict[str, Any]]] = {}
     for entry in events:
         agent_id = str(entry.get("agent_id", ""))
         if agent_id not in manager_ids:
@@ -158,17 +158,40 @@ def _detect_manager_status(
         ts = _parse_ts(str(entry.get("ts", "")))
         if ts is None:
             continue
-        last_seen[agent_id] = ts
+        prev = last_seen.get(agent_id)
+        if prev is None or ts > prev[0]:
+            last_seen[agent_id] = (ts, dict(entry))
 
     now = datetime.now(timezone.utc)
     threshold: timedelta | None = None
     if window_minutes is not None and window_minutes > 0:
         threshold = timedelta(minutes=window_minutes)
 
-    def _entry(agent: str, ts: datetime | None) -> dict[str, Any]:
+    excluded_meta_keys = {
+        "agent_id",
+        "event",
+        "summary",
+        "task_id",
+        "plan_id",
+        "branch",
+        "ts",
+        "_ts",
+    }
+
+    def _entry(agent: str, record: tuple[datetime, dict[str, Any]] | None) -> dict[str, Any]:
+        ts = record[0] if record else None
+        raw = record[1] if record else {}
+        summary = raw.get("summary") if raw else None
+        meta = {
+            key: value
+            for key, value in (raw or {}).items()
+            if key not in excluded_meta_keys
+        }
         return {
             "agent_id": agent,
             "last_seen": ts.strftime(ISO_FMT) if ts else None,
+            "summary": summary,
+            "meta": meta,
         }
 
     active: list[dict[str, Any]] = []
@@ -176,14 +199,15 @@ def _detect_manager_status(
     missing: list[dict[str, Any]] = []
 
     for agent in sorted(manager_ids):
-        ts = last_seen.get(agent)
-        if ts is None:
+        record = last_seen.get(agent)
+        if record is None:
             missing.append(_entry(agent, None))
             continue
+        ts = record[0]
         if threshold is not None and now - ts > threshold:
-            stale.append(_entry(agent, ts))
+            stale.append(_entry(agent, record))
         else:
-            active.append(_entry(agent, ts))
+            active.append(_entry(agent, record))
 
     return {
         "window_minutes": window_minutes,
@@ -192,6 +216,21 @@ def _detect_manager_status(
         "stale": stale,
         "missing": missing,
     }
+
+
+def _format_manager_entry(entry: dict[str, Any]) -> str:
+    agent = entry.get("agent_id")
+    last_seen = entry.get("last_seen") or "unknown"
+    parts = [f"{agent} (last {last_seen})"]
+    summary = entry.get("summary")
+    if summary:
+        parts.append(summary)
+    meta = entry.get("meta") or {}
+    if meta:
+        meta_str = ", ".join(f"{key}={value}" for key, value in sorted(meta.items()))
+        if meta_str:
+            parts.append(meta_str)
+    return " :: ".join(parts)
 
 
 def _filter_claims(
@@ -250,17 +289,17 @@ def summarize(
             print(f"Managers (window {window_str}):")
             if active_managers:
                 for entry in active_managers:
-                    print(f"  - {entry['agent_id']} (last {entry['last_seen']})")
+                    print(f"  - {_format_manager_entry(entry)}")
             if stale_managers:
                 print("  Stale:")
                 for entry in stale_managers:
-                    print(f"    - {entry['agent_id']} (last {entry['last_seen']})")
+                    print(f"    - {_format_manager_entry(entry)}")
             if not active_managers:
                 print("WARNING: No manager heartbeat within window.")
             if missing_managers:
                 print("  Missing heartbeat:")
                 for entry in missing_managers:
-                    print(f"    - {entry['agent_id']}")
+                    print(f"    - {_format_manager_entry(entry)}")
             print()
 
     claim_filters = bool(agents) or active_only
@@ -344,13 +383,13 @@ def _print_summary(
     if active:
         print("- manager heartbeat: active")
         for entry in active:
-            print(f"  * {entry['agent_id']} (last {entry['last_seen']})")
+            print(f"  * {_format_manager_entry(entry)}")
     elif stale or missing:
         print("- manager heartbeat: stale")
         for entry in stale:
-            print(f"  * stale {entry['agent_id']} (last {entry['last_seen']})")
+            print(f"  * stale {_format_manager_entry(entry)}")
         for entry in missing:
-            print(f"  * missing {entry['agent_id']}")
+            print(f"  * missing {_format_manager_entry(entry)}")
     else:
         print("- manager heartbeat: none detected")
 

@@ -9,9 +9,12 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from reconcile_diff import compare_packets, load_packet
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT = SCRIPT_DIR.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from tools.reconcile_utils import compare_packets, load_packet
 
 HELLO = SCRIPT_DIR / "reconcile_hello.py"
 DIFF = SCRIPT_DIR / "reconcile_diff.py"

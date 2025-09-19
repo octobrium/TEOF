@@ -1,6 +1,6 @@
 # Parallel Codex Playbook
 
-Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in parallel without stepping on one another. For the lightweight onboarding entry point use `.github/AGENT_ONBOARDING.md`; this playbook is the canonical reference once you enter the loop. Quick index: `python -m tools.agent.doc_links list` (`docs/quick-links.md`).
+Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in parallel without stepping on one another. For the lightweight onboarding entry point use `.github/AGENT_ONBOARDING.md`; this playbook is the canonical reference once you enter the loop. Quick index: `python -m tools.agent.doc_links list` or `python -m tools.agent.doc_links show <id>` (manifest: `docs/quick-links.md`).
 
 ## Branch & Manifest Discipline
 
@@ -20,29 +20,37 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 ## Suggested Session Loop
 
 1. **Sync** (`git pull origin main`).
-2. **Announce session** (`python -m tools.agent.session_boot --agent <id> --focus <role>` logs a handshake + intent; add `--with-status` to grab an immediate bus summary receipt).
+2. **Announce session** (`python -m tools.agent.session_boot --agent <id> --focus <role>` logs a handshake + intent and auto-syncs the repo before work; add `--with-status` to grab an immediate bus summary receipt). Pair it with `python -m tools.agent.manifest_helper session-save <label>` before you swap seats so you can restore the manifest/branch later with `session-restore`.
+   - If you draft a fresh plan, run `python -m tools.planner.cli new <slug> --summary "..." --scaffold` so the corresponding `_report/agent/<id>/<plan>/` folder is ready before the first commit. Managers can mirror this with `tools.agent.claim_seed --scaffold` or `tools.agent.task_assign --scaffold` when staging handoffs.
 3. **Managers assign tasks** (`python -m tools.agent.task_assign --task <id> --engineer <id> --plan <plan>`). Claims are created automatically for the assignee; add `--no-auto-claim` if you need to stage the backlog without starting the work immediately. Engineers should still acknowledge with a quick `bus_event` status.
 4. **Review queue** (`queue/`, `_bus/claims/`, `_bus/messages/`, `_bus/events/`).
-5. **Heartbeat check** run `python -m tools.agent.bus_status --preset manager --manager-window 30` to confirm a manager heartbeat; if you see the warning, announce a manager handshake or escalate in `manager-report`.
+5. **Heartbeat check** run `python -m tools.agent.bus_heartbeat --manager-window 30 --dry-run` to capture a receipt and confirm automation coverage. The helper records stale manager or idle-claim alerts under `_report/agent/<id>/apoptosis-004/alerts/`. When you need an interactive snapshot, `python -m tools.agent.bus_status --preset manager --manager-window 30` still surfaces the warning—follow up with a manager handshake or escalation in `manager-report` if either path flags a gap.
 6. **Claim / pick up** — auto-claim covers common assignments, but engineers can:
    - run `python -m tools.agent.idle_pickup list` to view unclaimed backlog items, or `... claim --task <id>` to auto-assign themselves when idle;
    - re-run `tools/agent/bus_claim.py claim ...` to reclaim stalled work, switch branches, or update status. Keep `bus_watch` open for coordination either way.
+   - When receipts + tests are green, release the claim within minutes and move forward unless a `hold` note appears on the bus or you spot a risky signal (missing receipts, flaky tests, governance/capsule touchpoints). Flag those cases explicitly so the manager can weigh in.
 7. **Plan** modifications under `_plans/` + justification.
 8. **Implement** changes on `agent/<id>/<slug>` branch, storing receipts under `_report/agent/<id>/` and `_report/runner/` as needed.
 9. **Log events** (`bus_event log --event proposal`, `--event pr_opened`) and append message responses via `bus_event` or JSONL entries.
 10. **Open draft PR** with plan, justification, receipts.
-11. **Managers run reports** (`python -m tools.agent.manager_report`) to produce `_report/manager/manager-report-<timestamp>.md` and post `consensus` messages when ready for human review.
+11. **Managers run reports** (`python -m tools.agent.manager_report --log-heartbeat --heartbeat-shift <label>`, `python -m tools.agent.coord_dashboard report`) to produce `_report/manager/manager-report-<timestamp>.md`, emit a fresh heartbeat, and capture a coordination snapshot for follow-up triage. `bus_status --preset manager` now surfaces the heartbeat summary + metadata alongside the timestamp, so use `--heartbeat-shift` (or additional `--heartbeat-meta key=value`) to broadcast context like `shift=mid` or `cadence=daily`. The dashboard view has become the default “source of truth” during sweeps, so stash the generated receipt with any bus follow-ups.
 12. **Run preflight** (`tools/agent/preflight.sh`) to ensure receipts and plans are valid before opening/refreshing the PR.
 13. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap" --focus idle`).
 
 <a id="self-audit"></a>
 ## Self-Audit & Cross-Audit
 
+- Use `python -m tools.agent.bus_heartbeat --dry-run` to produce an auditable alert receipt; add `--manager-window 30 --agent-window 240` (defaults) or tighten/disable windows per session. Combine with `--no-bus-event --no-bus-message` during rehearsals.
 - Use `tools/agent/bus_status.py --preset support --agent <id>` to summarise active claims and latest events (add `--json` when piping into dashboards or `--summary` for a compact bullet list).
 - For a live feed while working, run `python -m tools.agent.bus_watch --limit 20 --follow`; add `--agent <id>` or `--event status` to focus the stream, or `--since <ISO>` to replay a window.
 - Store receipts for these events under `_report/agent/<agent-id>/` (and `_report/runner/`, `_report/planner/` when applicable) so planner plans and CI can resolve them without manual copying.
 - Encourage agents to emit `--extra reviewer=<agent>` or `event=audit` entries when they review a peer’s plan or PR.
 - Reference `_bus/events/…` receipts in `memory/log.jsonl` entries to tie automation to human approvals.
+
+### Maintenance Helpers
+
+- Quick-links index: `python -m tools.agent.doc_links list` (or `show <id>`, add `--format json` when scripting) surfaces governance/onboarding hotspots without manual searching. Receipts for doc link updates live alongside `docs/quick-links.{json,md}` and the helper’s pytest log.
+- Plan hygiene: `python -m tools.maintenance.plan_hygiene --check` highlights status-enum drift; add `--apply` when you’re ready to normalise in place. The helper records before/after diffs plus pytest/planner receipts in `_report/agent/<id>/plan-hygiene/`.
 
 <a id="follow-up-logging"></a>
 ## Follow-up Logging
@@ -51,6 +59,13 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 - Mirror the update on the relevant bus message thread (task-specific file or `manager-report.jsonl`) using `python -m tools.agent.bus_message --task <id> --type status --summary "<agent> resolved follow-up" --receipt <path>`.
 - File the referenced receipt under `_report/agent/<agent-id>/...` with the command output (task sync logs, pytest transcripts, etc.) so future plans and CI runs can verify the action without guessing.
 - Add a short note in the plan or handoff summary pointing to the bus entries when the follow-up closes. This creates a deterministic breadcrumb trail before consensus queues (QUEUE-030..033) go live.
+
+## Coordination Dashboard
+
+- Generate an aggregate snapshot with `python -m tools.agent.coord_dashboard report`. Default format is Markdown; add `--format json` for automation workflows.
+- Outputs land in `_report/manager/coordination-dashboard-<timestamp>.{md,json}` (use `--output` to override). Store the receipt when logging manager follow-ups.
+- Summaries include active plans, live claims, heartbeat health, and the latest manager directives with alerts for stale/missing signals.
+- Pair the dashboard with `manager_report` during cadence reviews so follow-up items have deterministic breadcrumbs.
 
 ## Consensus Toolkit (Preview)
 

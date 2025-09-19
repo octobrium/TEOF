@@ -3,7 +3,9 @@
 
 Logs a handshake event on the coordination bus and reports other active agents
 and their claimed tasks so operators can coordinate without manual back-and-forth.
-Can optionally run `bus_status` immediately after the handshake to capture a
+Runs a repository sync (`git fetch --prune && git pull --ff-only`) before the
+handshake by default so each session starts from the latest commit. Can
+optionally run `bus_status` immediately after the handshake to capture a
 current snapshot for receipts.
 """
 from __future__ import annotations
@@ -11,6 +13,7 @@ from __future__ import annotations
 import argparse
 import json
 import contextlib
+import sys
 from io import StringIO
 from collections import defaultdict
 from datetime import datetime, timezone
@@ -22,7 +25,7 @@ EVENT_LOG = ROOT / "_bus" / "events" / "events.jsonl"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 
-from tools.agent import bus_status
+from tools.agent import bus_status, session_sync
 
 
 def _iso_now() -> str:
@@ -92,6 +95,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="Run bus_status after the handshake to capture a quick summary",
     )
     parser.add_argument(
+        "--sync",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Run git fetch/pull before logging the handshake (default: enabled)",
+    )
+    parser.add_argument(
+        "--sync-allow-dirty",
+        action="store_true",
+        help="Allow sync to proceed even with local changes present",
+    )
+    parser.add_argument(
         "--status-preset",
         choices=sorted(bus_status.PRESETS.keys()),
         default="support",
@@ -117,6 +131,28 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("Agent id missing; provide --agent or populate AGENT_MANIFEST.json")
 
     printed_messages: list[str] = []
+
+    if args.sync:
+        try:
+            sync_result = session_sync.run_sync(allow_dirty=args.sync_allow_dirty)
+        except session_sync.DirtyWorktreeError as exc:
+            print(
+                "Session sync aborted: working tree has local changes; commit/stash or rerun with --sync-allow-dirty.",
+                file=sys.stderr,
+            )
+            for line in exc.status_output.splitlines():
+                print(f"  {line}", file=sys.stderr)
+            return 1
+        except session_sync.SessionSyncError as exc:
+            print(f"Session sync failed: {exc}", file=sys.stderr)
+            return 1
+        else:
+            summary = "updates applied" if sync_result.changed else "repository already up to date"
+            if sync_result.dirty:
+                summary = f"{summary}, local changes retained"
+            printed_messages.append(f"Session sync: {summary}")
+    else:
+        printed_messages.append("Session sync skipped (--no-sync)")
 
     if not args.no_announce:
         payload = {

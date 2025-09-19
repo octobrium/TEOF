@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Iterable, List
 
 from tools.planner.validate import PLAN_STATUS, STEP_STATUS, strict_checks, validate_plan
+from tools.receipts.scaffold import scaffold_plan, format_created, ScaffoldError
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_PLAN_DIR = ROOT / "_plans"
@@ -169,7 +170,17 @@ def cmd_new(args: argparse.Namespace) -> int:
         plan_path.unlink(missing_ok=True)
         raise
 
+    scaffold_message: str | None = None
+    if getattr(args, "scaffold", False):
+        try:
+            result = scaffold_plan(plan_id, agent=actor, include_design=True)
+        except ScaffoldError as exc:
+            raise PlannerCliError(f"scaffold failed: {exc}") from exc
+        scaffold_message = format_created(result.created)
+
     print(plan_path)
+    if scaffold_message:
+        print(scaffold_message)
     return 0
 
 
@@ -488,7 +499,20 @@ def build_parser() -> argparse.ArgumentParser:
     new.add_argument("--plan-dir", default=str(DEFAULT_PLAN_DIR), help="Directory for plan artifacts")
     new.add_argument("--timestamp", help="Override creation timestamp (UTC, e.g. 2025-09-17T00:00:00Z)")
     new.add_argument("--force", action="store_true", help="Overwrite existing plan if present")
-    new.set_defaults(func=cmd_new)
+    scaffold_group = new.add_mutually_exclusive_group()
+    scaffold_group.add_argument(
+        "--scaffold",
+        dest="scaffold",
+        action="store_true",
+        help="Create a default receipt scaffold for the plan",
+    )
+    scaffold_group.add_argument(
+        "--no-scaffold",
+        dest="scaffold",
+        action="store_false",
+        help="Skip scaffold generation (default)",
+    )
+    new.set_defaults(func=cmd_new, scaffold=False)
 
     status = sub.add_parser("status", help="Update the overall plan status")
     status.add_argument("plan", help="Path or plan_id of the plan JSON")

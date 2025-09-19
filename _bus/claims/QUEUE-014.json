@@ -2,9 +2,9 @@
   "agent_id": "codex-2",
   "branch": "agent/codex-2/queue-014",
   "claimed_at": "2025-09-18T06:45:20Z",
-  "notes": "Docs updated per plan; receipts in _report/agent/codex-2/claim-seed-docs/notes.txt",
+  "notes": "Docs updated; clearing claim.",
   "plan_id": "2025-09-18-claim-seed-docs",
-  "released_at": "2025-09-18T19:17:00Z",
+  "released_at": "2025-09-19T05:55:45Z",
   "status": "done",
   "task_id": "QUEUE-014"
 }

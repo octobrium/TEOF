@@ -55,6 +55,7 @@ def _setup_bus(tmp_path, monkeypatch):
             "event": "status",
             "task_id": "QUEUE-010",
             "summary": "manager heartbeat",
+            "shift": "mid",
         },
         {"ts": iso(2), "agent_id": "codex-2", "event": "complete", "task_id": "QUEUE-011", "summary": "complete"},
     ]
@@ -132,6 +133,8 @@ def test_bus_status_json_output(tmp_path, monkeypatch, capsys):
     assert payload["filters"]["since"] is None
     manager_status = payload["manager_status"]
     assert manager_status["active"][0]["agent_id"] == "codex-1"
+    assert manager_status["active"][0]["summary"] == "manager heartbeat"
+    assert manager_status["active"][0]["meta"].get("shift") == "mid"
     assert not manager_status["stale"]
     assert not manager_status["missing"]
 

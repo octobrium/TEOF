@@ -1,0 +1,60 @@
+{
+  "actor": "codex-2",
+  "checkpoint": {
+    "description": "Manifest helper backs up manifest + branch with docs/tests",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "created": "2025-09-19T06:18:00Z",
+  "links": [
+    {
+      "ref": "queue/037-manifest-swap-helper.md",
+      "type": "queue"
+    },
+    {
+      "ref": "docs/maintenance/macro-hygiene.md",
+      "type": "doc"
+    }
+  ],
+  "plan_id": "2025-09-19-manifest-swap",
+  "receipts": [
+    "_report/agent/codex-2/queue-040/summary.json"
+  ],
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "notes": "Reviewed docs/maintenance/macro-hygiene.md and queue/037 notes to capture environment hygiene needs.",
+      "receipts": [
+        "docs/maintenance/macro-hygiene.md",
+        "queue/037-manifest-swap-helper.md"
+      ],
+      "status": "done",
+      "title": "Confirm macro hygiene requirements"
+    },
+    {
+      "id": "S2",
+      "notes": "Extended tools.agent.manifest_helper with session-save/session-restore commands plus metadata storage and branch checkout.",
+      "receipts": [
+        "tools/agent/manifest_helper.py",
+        "tests/test_manifest_helper.py",
+        "_report/runner/20250919T062057Z-manifest-doc-links-pytest.json"
+      ],
+      "status": "done",
+      "title": "Implement session save/restore"
+    },
+    {
+      "id": "S3",
+      "notes": "Updated onboarding and coordination docs to reference session-save/session-restore usage.",
+      "receipts": [
+        ".github/AGENT_ONBOARDING.md",
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ],
+      "status": "done",
+      "title": "Document new workflow"
+    }
+  ],
+  "summary": "Add session swap helper for manifest + branch hygiene",
+  "version": 0
+}

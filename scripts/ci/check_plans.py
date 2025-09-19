@@ -113,6 +113,14 @@ def _check_claim_alignment(rel: Path, plan: dict) -> list[str]:
 
 
 def main() -> int:
+    # Run hygiene lint in check mode; ensure status enums + receipt duplicates are clean before deeper validation.
+    from tools.maintenance import plan_hygiene
+
+    hygiene_rc = plan_hygiene.run([], apply=False, root=ROOT)
+    if hygiene_rc != 0:
+        print("::error::plan hygiene check failed; run python -m tools.maintenance.plan_hygiene --apply", file=sys.stderr)
+        return 1
+
     plans = sorted((ROOT / "_plans").glob("*.plan.json"))
     if not plans:
         print("::error::_plans/ missing *.plan.json files", file=sys.stderr)

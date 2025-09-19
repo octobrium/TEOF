@@ -4,45 +4,63 @@
   "created": "2025-09-21T00:00:00Z",
   "actor": "codex-4",
   "summary": "Deliver coordination dashboard/report",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Define dashboard schema",
-      "status": "queued",
+      "status": "done",
       "notes": "Specify required signals (active plans, heartbeats, receipts) and record in _report/agent/codex-4/apoptosis-009/design.md.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-4/apoptosis-009/design.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Implement dashboard CLI/report",
-      "status": "queued",
+      "status": "done",
       "notes": "Build CLI/report generator outputting deterministic JSON/Markdown under _report/manager/.",
-      "receipts": []
+      "receipts": [
+        "tools/agent/coord_dashboard.py",
+        "_report/agent/codex-4/apoptosis-009/dashboard-sample.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Integrate with workflow",
-      "status": "queued",
+      "status": "done",
       "notes": "Hook dashboard into manager cadence (maybe scheduled or manual) and update docs.",
-      "receipts": []
+      "receipts": [
+        "docs/parallel-codex.md",
+        "docs/quick-links.md",
+        "docs/quick-links.json"
+      ]
     },
     {
       "id": "S4",
       "title": "Capture receipts + tests",
-      "status": "queued",
+      "status": "done",
       "notes": "Add tests/receipts proving deterministic output; log manager adoption note.",
-      "receipts": []
+      "receipts": [
+        "tests/test_coord_dashboard.py",
+        "_report/agent/codex-4/apoptosis-009/pytest-coord-dashboard.log",
+        "_report/agent/codex-4/apoptosis-009/planner-validate.log"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Dashboard live with receipts and workflow adoption",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied",
+    "receipts": [
+      "_report/agent/codex-4/apoptosis-009/dashboard-sample.md"
+    ]
   },
   "links": [
     {"type": "queue", "ref": "queue/042-coordination-dashboard.md"},
     {"type": "task", "ref": "agents/tasks/tasks.json#APOP-009"}
   ],
-  "receipts": []
+  "receipts": [
+    "_report/agent/codex-4/apoptosis-009/dashboard-sample.md"
+  ]
 }

@@ -1,0 +1,144 @@
+name: bus-heartbeat
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bus-heartbeat
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Run heartbeat monitor (dry-run)
+        id: heartbeat
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m tools.agent.bus_heartbeat \
+            --agent-id codex-2 \
+            --plan 2025-09-20-bus-heartbeat-refresh \
+            --task APOP-004 \
+            --note "ci sweep" \
+            --dry-run \
+            --no-bus-event \
+            --no-bus-message \
+            --manager-window 30 \
+            --agent-window 240 \
+            > heartbeat.log
+          cat heartbeat.log
+          receipt=$(python - <<'PY'
+import pathlib, sys
+root = pathlib.Path("_report/agent/codex-2/apoptosis-004/alerts")
+if not root.exists():
+    sys.exit("No alerts directory generated")
+latest = None
+for path in root.glob("heartbeat-*.json"):
+    if latest is None or path.stat().st_mtime > latest.stat().st_mtime:
+        latest = path
+if latest is None:
+    sys.exit("Heartbeat monitor did not produce a receipt")
+print(latest.as_posix())
+PY
+)
+          echo "receipt=$receipt" >> "$GITHUB_OUTPUT"
+
+      - name: Summarize results
+        id: summary
+        env:
+          RECEIPT: ${{ steps.heartbeat.outputs.receipt }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+import json, os, pathlib
+
+def compute_severity(entries):
+    severity = 'low'
+    for entry in entries:
+        alert_type = entry.get('type')
+        if alert_type in {'manager_heartbeat_missing', 'manager_heartbeat_stale'}:
+            return 'high'
+        if alert_type == 'agent_idle':
+            severity = 'medium'
+    return severity
+
+receipt = pathlib.Path(os.environ['RECEIPT'])
+if not receipt.exists():
+    raise SystemExit(f"Receipt not found: {receipt}")
+with receipt.open('r', encoding='utf-8') as fh:
+    payload = json.load(fh)
+alerts = payload.get('alerts', [])
+count = len(alerts)
+severity = compute_severity(alerts)
+
+text_lines = [
+    "### Bus heartbeat sweep",
+    f"- receipt: `{receipt.as_posix()}`",
+    f"- alerts detected: {count}",
+    f"- severity: {severity}",
+]
+for entry in alerts:
+    text_lines.append(
+        f"  - {entry.get('type', 'unknown')} :: agent={entry.get('agent_id', 'n/a')} :: last={entry.get('last_seen') or entry.get('last_activity') or 'n/a'}"
+    )
+
+summary_text = "\n".join(text_lines) + "\n"
+with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as fh:
+    fh.write(summary_text)
+
+with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as fh:
+    fh.write(f"alert_count={count}\n")
+    fh.write(f"severity={severity}\n")
+
+if severity == 'high':
+    print(f"::error::Heartbeat alerts detected ({count}) with HIGH severity")
+elif alerts:
+    print(f"::warning::Heartbeat alerts detected ({count})")
+else:
+    print("Heartbeat nominal")
+PY
+
+      - name: Upload heartbeat receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: heartbeat-alerts
+          path: _report/agent/codex-2/apoptosis-004/alerts/
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload heartbeat log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: heartbeat-log
+          path: heartbeat.log
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Fail on high severity alerts
+        if: steps.summary.outputs.severity == 'high'
+        run: |
+          echo "::error::Failing workflow due to high severity heartbeat alerts"
+          exit 1

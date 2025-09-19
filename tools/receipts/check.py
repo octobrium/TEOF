@@ -4,31 +4,22 @@
 from __future__ import annotations
 
 import argparse
-import json
-import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-PLANS_DIR = ROOT / "_plans"
-
-
-def iter_receipts(plan_path: Path):
-    data = json.loads(plan_path.read_text(encoding="utf-8"))
-    for entry in data.get("receipts", []) or []:
-        yield plan_path, entry
-    for step in data.get("steps", []) or []:
-        for entry in step.get("receipts", []) or []:
-            yield plan_path, entry
+from tools.receipts.utils import ROOT, find_missing_receipts, resolve_plan_paths
 
 
 def checker(paths: list[str]) -> int:
-    missing = []
-    files = [Path(p) for p in paths] if paths else sorted(PLANS_DIR.glob("*.plan.json"))
-    for plan in files:
-        for _, receipt in iter_receipts(plan):
-            path = ROOT / receipt
-            if not path.exists():
-                missing.append((plan.relative_to(ROOT), receipt))
+    try:
+        plan_paths = resolve_plan_paths(paths)
+    except FileNotFoundError as exc:
+        print(str(exc))
+        return 1
+
+    missing = [
+        (plan.relative_to(ROOT), receipt)
+        for plan, receipt in find_missing_receipts(plan_paths)
+    ]
     if missing:
         for plan, receipt in missing:
             print(f"Missing receipt: {plan} -> {receipt}")

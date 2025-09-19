@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/queue-040",
+  "claimed_at": "2025-09-19T06:11:43Z",
+  "notes": "Doc quick-links CLI + docs delivered",
+  "plan_id": "2025-09-19-docs-quicklinks-codex2",
+  "released_at": "2025-09-19T06:13:38Z",
+  "status": "done",
+  "task_id": "QUEUE-040"
+}

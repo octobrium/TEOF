@@ -2,8 +2,9 @@
   "agent_id": "codex-2",
   "branch": "agent/codex-2/queue-001",
   "claimed_at": "2025-09-17T23:44:12Z",
+  "notes": "Task completed previously; clearing stale claim.",
   "plan_id": "2025-09-17-agent-bus-watch",
-  "released_at": "2025-09-17T23:50:08Z",
+  "released_at": "2025-09-19T05:55:27Z",
   "status": "done",
   "task_id": "QUEUE-001"
 }

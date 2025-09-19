@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from tools.receipts.scaffold import scaffold_claim, format_created, ScaffoldError
+
 ROOT = Path(__file__).resolve().parents[2]
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
@@ -97,6 +99,18 @@ def handle_seed(args: argparse.Namespace) -> int:
         payload["released_at"] = existing["released_at"]
     write_claim(path, payload)
     print(f"seeded claim {path}")
+
+    if getattr(args, "scaffold", False):
+        try:
+            result = scaffold_claim(
+                task_id=task_id,
+                agent=agent_id,
+                plan_id=args.plan,
+                branch=args.branch,
+            )
+        except ScaffoldError as exc:
+            raise SystemExit(f"scaffold failed: {exc}") from exc
+        print(format_created(result.created))
     return 0
 
 
@@ -109,6 +123,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--status", default="paused", help="Initial claim status (default: paused)")
     parser.add_argument("--notes", help="Optional notes")
     parser.add_argument("--claimed-at", help="Override timestamp (ISO8601 UTC)")
+    parser.add_argument(
+        "--scaffold",
+        action="store_true",
+        help="Create receipt scaffold for the agent after seeding",
+    )
     parser.set_defaults(func=handle_seed)
     return parser
 

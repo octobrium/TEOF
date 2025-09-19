@@ -15,6 +15,7 @@ if ! command -v pytest >/dev/null 2>&1; then
 fi
 
 python3 tools/receipts/main.py check
+python3 -m tools.maintenance.plan_hygiene
 python3 scripts/ci/check_plans.py
 python3 tools/planner/validate.py --strict
 python3 tools/agent/bus_status.py --json --limit 5 >/dev/null

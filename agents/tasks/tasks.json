@@ -250,11 +250,15 @@
       "assigned_by": "codex-4",
       "branch": "agent/codex-2/queue-037",
       "id": "QUEUE-037",
-      "plan_id": "2025-09-18-manifest-helper",
+      "plan_id": "2025-09-19-manifest-swap",
       "priority": "medium",
       "role": "engineer",
       "status": "done",
-      "title": "QUEUE-037"
+      "title": "QUEUE-037",
+      "receipts": [
+        "_plans/2025-09-19-manifest-swap.plan.json",
+        "_report/agent/codex-2/queue-040/summary.json"
+      ]
     },
     {
       "assigned_by": "codex-4",
@@ -324,7 +328,7 @@
       "priority": "high",
       "receipts": [],
       "role": "systems-architect",
-      "status": "queued",
+      "status": "done",
       "title": "Bus Heartbeat Monitor"
     },
     {
@@ -334,9 +338,14 @@
       "notes": "Automate receipt scaffolding, polish bus_status ergonomics, and streamline session bootstrap.",
       "plan_id": "2025-09-20-receipt-scaffold-v2",
       "priority": "high",
-      "receipts": [],
+      "receipts": [
+        "_report/agent/codex-3/apoptosis-005/actions.json",
+        "_report/agent/codex-3/apoptosis-005/tests.json",
+        "_report/agent/codex-3/apoptosis-005/summary.json",
+        "_report/agent/codex-3/apoptosis-005/pytest-scaffold.xml"
+      ],
       "role": "automation-engineer",
-      "status": "queued",
+      "status": "done",
       "title": "Receipt Scaffold & Bus UX"
     },
     {
@@ -368,7 +377,7 @@
       "priority": "high",
       "receipts": [],
       "role": "systems-architect",
-      "status": "queued",
+      "status": "done",
       "title": "Code Compaction"
     },
     {
@@ -378,9 +387,12 @@
       "notes": "Ship session sync helper so every session starts on the latest commit.",
       "plan_id": "2025-09-21-session-sync",
       "priority": "high",
-      "receipts": [],
+      "receipts": [
+        "_report/agent/codex-3/apoptosis-008/design.md",
+        "_report/agent/codex-3/apoptosis-008/pytest-session-sync.xml"
+      ],
       "role": "automation-engineer",
-      "status": "queued",
+      "status": "done",
       "title": "Session Sync Helper"
     },
     {
@@ -390,10 +402,42 @@
       "notes": "Deliver coordination dashboard/report for live situational awareness.",
       "plan_id": "2025-09-21-coordination-dashboard",
       "priority": "high",
-      "receipts": [],
+      "receipts": [
+        "tools/agent/coord_dashboard.py",
+        "docs/quick-links.json",
+        "docs/quick-links.md",
+        "docs/parallel-codex.md",
+        "tests/test_coord_dashboard.py",
+        "_report/agent/codex-4/apoptosis-009/dashboard-sample.md",
+        "_report/agent/codex-4/apoptosis-009/pytest-coord-dashboard.log",
+        "_report/agent/codex-4/apoptosis-009/planner-validate.log",
+        "_report/agent/codex-4/apoptosis-009/delta.md"
+      ],
       "role": "product-strategist",
-      "status": "queued",
+      "status": "done",
       "title": "Coordination Dashboard"
+    },
+    {
+      "id": "QUEUE-040",
+      "title": "Docs quick-links surface",
+      "status": "done",
+      "branch": "agent/codex-2/queue-040",
+      "plan_id": "2025-09-19-docs-quicklinks-codex2",
+      "receipts": [
+        "_report/agent/codex-2/queue-040/summary.json"
+      ],
+      "role": "docs"
+    },
+    {
+      "id": "QUEUE-042",
+      "title": "Coordination Dashboard",
+      "status": "done",
+      "branch": "agent/codex-2/queue-042",
+      "plan_id": "2025-09-19-coordination-dashboard-codex2",
+      "receipts": [
+        "_report/agent/codex-2/queue-042/summary.json"
+      ],
+      "role": "automation"
     }
   ],
   "version": 1

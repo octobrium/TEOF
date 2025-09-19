@@ -104,9 +104,63 @@ def write_report(manager_id: str, tasks: list[dict[str, Any]], assignments: dict
     return report_path
 
 
+def _parse_meta(pairs: list[str]) -> list[str]:
+    extras: list[str] = []
+    for pair in pairs:
+        if "=" not in pair:
+            raise ValueError(f"heartbeat meta must be key=value (got: {pair})")
+        key, value = pair.split("=", 1)
+        key = key.strip()
+        if not key:
+            raise ValueError("heartbeat meta key must be non-empty")
+        extras.append(f"{key}={value.strip()}")
+    return extras
+
+
+def log_heartbeat(manager_id: str, summary: str, *, extras: list[str] | None = None) -> None:
+    """Emit a status event so manager heartbeats stay fresh."""
+
+    from tools.agent import bus_event
+
+    argv = [
+        "log",
+        "--event",
+        "status",
+        "--summary",
+        summary,
+        "--agent",
+        manager_id,
+    ]
+    for item in _parse_meta(extras or []):
+        argv.extend(["--extra", item])
+    rc = bus_event.main(argv)
+    if rc != 0:
+        raise RuntimeError(f"heartbeat logging failed with exit code {rc}")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Generate manager summary")
     parser.add_argument("--manager", help="Manager agent id")
+    parser.add_argument(
+        "--log-heartbeat",
+        action="store_true",
+        help="Emit a status event after generating the report",
+    )
+    parser.add_argument(
+        "--heartbeat-summary",
+        default="Manager report generated",
+        help="Summary text for the heartbeat event (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--heartbeat-meta",
+        action="append",
+        default=[],
+        help="Additional key=value metadata to attach to the heartbeat event",
+    )
+    parser.add_argument(
+        "--heartbeat-shift",
+        help="Shortcut for adding shift=<value> to the heartbeat metadata",
+    )
     args = parser.parse_args(argv)
 
     manager_id = args.manager or load_json(MANIFEST := ROOT / "AGENT_MANIFEST.json") or {}
@@ -120,6 +174,15 @@ def main(argv: list[str] | None = None) -> int:
     claims = collect_claims()
     report_path = write_report(manager_id, tasks, assignments, claims)
     print(f"Manager report written to {report_path.relative_to(ROOT)}")
+
+    if args.log_heartbeat:
+        extras = list(args.heartbeat_meta)
+        if args.heartbeat_shift:
+            extras.append(f"shift={args.heartbeat_shift}")
+        try:
+            log_heartbeat(manager_id, args.heartbeat_summary, extras=extras)
+        except Exception as exc:
+            raise SystemExit(str(exc))
     return 0
 
 

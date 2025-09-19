@@ -8,12 +8,12 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-# Import helpers from reconcile_diff for consistency
 SCRIPT_DIR = Path(__file__).resolve().parent
-if str(SCRIPT_DIR) not in sys.path:
-    sys.path.insert(0, str(SCRIPT_DIR))
+ROOT = SCRIPT_DIR.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-from reconcile_diff import compare_packets, load_packet  # type: ignore
+from tools.reconcile_utils import compare_packets, load_packet
 
 
 def summarize(left_path: Path, right_path: Path) -> dict:

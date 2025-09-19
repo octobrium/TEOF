@@ -11,6 +11,7 @@ from typing import Any, Dict, List
 from tools.usage.logger import record_usage
 
 from tools.agent import bus_message, bus_claim
+from tools.receipts.scaffold import scaffold_claim, format_created, ScaffoldError
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "AGENT_MANIFEST.json"
@@ -126,6 +127,11 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
     )
     parser.set_defaults(auto_claim=True)
     parser.add_argument("--note", help="Optional note to include in assignment message")
+    parser.add_argument(
+        "--scaffold",
+        action="store_true",
+        help="Create receipt scaffold for the assigned agent (default: disabled)",
+    )
     return parser.parse_args(argv)
 
 
@@ -165,6 +171,19 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.auto_claim:
         auto_claim(args.task, args.engineer, args.plan, args.branch)
+
+    scaffold_message: str | None = None
+    if args.scaffold:
+        try:
+            result = scaffold_claim(
+                task_id=args.task,
+                agent=args.engineer,
+                plan_id=args.plan,
+                branch=args.branch,
+            )
+        except ScaffoldError as exc:
+            raise SystemExit(f"scaffold failed: {exc}") from exc
+        scaffold_message = format_created(result.created)
     try:
         display_path = assignment_path.relative_to(ROOT)
     except ValueError:
@@ -178,6 +197,8 @@ def main(argv: list[str] | None = None) -> int:
         },
     )
     print(f"Recorded assignment → {display_path}")
+    if scaffold_message:
+        print(scaffold_message)
     return 0
 
 

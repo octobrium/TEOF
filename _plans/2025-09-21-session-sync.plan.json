@@ -4,45 +4,65 @@
   "created": "2025-09-21T00:00:00Z",
   "actor": "codex-3",
   "summary": "Build session sync helper for automatic git pull",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Define sync workflow",
-      "status": "queued",
+      "status": "done",
       "notes": "Document desired behaviour (clean tree checks, failure handling) in _report/agent/codex-3/apoptosis-008/design.md.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-3/apoptosis-008/design.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Implement sync helper",
-      "status": "queued",
+      "status": "done",
       "notes": "Add helper (integrated with session_boot or standalone) to run git fetch/pull deterministically.",
-      "receipts": []
+      "receipts": [
+        "tools/agent/session_sync.py",
+        "tools/agent/session_boot.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Add coverage + docs",
-      "status": "queued",
+      "status": "done",
       "notes": "Add tests (unit/smoke) and document usage in onboarding/docs/AGENTS.md.",
-      "receipts": []
+      "receipts": [
+        "tests/test_session_sync.py",
+        "tests/test_session_boot.py",
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ]
     },
     {
       "id": "S4",
       "title": "Record receipts",
-      "status": "queued",
+      "status": "done",
       "notes": "Capture runner receipts + manager note confirming adoption.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-3/apoptosis-008/pytest-session-sync.xml"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Session sync helper active with coverage and docs",
     "owner": "codex-3",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
-    {"type": "queue", "ref": "queue/041-session-sync.md"},
-    {"type": "task", "ref": "agents/tasks/tasks.json#APOP-008"}
+    {
+      "type": "queue",
+      "ref": "queue/041-session-sync.md"
+    },
+    {
+      "type": "task",
+      "ref": "agents/tasks/tasks.json#APOP-008"
+    }
   ],
-  "receipts": []
+  "receipts": [
+    "_report/agent/codex-3/apoptosis-008/pytest-session-sync.xml"
+  ]
 }
