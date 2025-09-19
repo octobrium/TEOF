@@ -1,0 +1,9 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/plan-2025-09-17-metrics-logging",
+  "claimed_at": "2025-09-19T21:29:23Z",
+  "notes": "Manager closure: satisfied via metrics-jsonl receipts",
+  "plan_id": "2025-09-17-metrics-logging",
+  "status": "done",
+  "task_id": "PLAN-2025-09-17-metrics-logging"
+}

@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/bus-coord-0003",
+  "claimed_at": "2025-09-19T22:24:16Z",
+  "notes": "Dashboard refreshed; heartbeat plans staged",
+  "plan_id": "2025-09-19-heartbeat-integration-codex4",
+  "released_at": "2025-09-19T22:24:33Z",
+  "status": "done",
+  "task_id": "BUS-COORD-0003"
+}

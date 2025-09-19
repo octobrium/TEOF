@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/retire-codex-observer",
+  "claimed_at": "2025-09-19T22:00:41Z",
+  "notes": "Plan complete; codex-observer retired",
+  "plan_id": "2025-09-19-retire-codex-observer",
+  "released_at": "2025-09-19T22:03:50Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-19-retire-codex-observer"
+}

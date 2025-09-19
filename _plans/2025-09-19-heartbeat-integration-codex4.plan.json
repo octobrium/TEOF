@@ -1,0 +1,37 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-19-heartbeat-integration-codex4",
+  "created": "2025-09-19T21:50:00Z",
+  "actor": "codex-4",
+  "summary": "Verify heartbeat automation across runner + manager receipts",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Integration test design",
+      "status": "queued",
+      "notes": "Plan how to exercise session loop + dashboard with new heartbeat hook.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement verification",
+      "status": "queued",
+      "notes": "Add integration/regression coverage ensuring dashboard clears after session.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Capture manager receipts",
+      "status": "queued",
+      "notes": "Record session brief + dashboard snapshot proving green state.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "End-to-end receipts confirm heartbeats auto emit and dashboard clears",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "receipts": []
+}

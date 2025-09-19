@@ -24,10 +24,19 @@ DEFAULT_MANAGER_WINDOW_MINUTES = 30.0
 DEFAULT_AGENT_WINDOW_MINUTES = 60.0
 DEFAULT_DIRECTIVE_LIMIT = 10
 
+# Personas moved out of rotation should live here until their manifests/plans
+# disappear entirely. This keeps historical events from forcing perpetual
+# heartbeat alerts.
+RETIRED_AGENTS = {"codex-observer"}
+
 DISPLAY_ALIASES = {
     "Octo": "Octo",
     "template": "template (sample)",
 }
+
+
+def _is_retired(agent_id: str | None) -> bool:
+    return bool(agent_id) and agent_id in RETIRED_AGENTS
 
 
 def _display_actor(value: str | None) -> str:
@@ -404,14 +413,14 @@ def _determine_state(ts: datetime | None, window_minutes: float | None, now: dat
 def _collect_agent_candidates(plans: list[PlanSummary], claims: list[ClaimSummary], events: list[dict[str, Any]]) -> set[str]:
     agents: set[str] = set()
     for plan in plans:
-        if plan.actor:
+        if plan.actor and not _is_retired(plan.actor):
             agents.add(plan.actor)
     for claim in claims:
-        if claim.agent_id:
+        if claim.agent_id and not _is_retired(claim.agent_id):
             agents.add(claim.agent_id)
     for entry in events:
         agent = entry.get("agent_id")
-        if isinstance(agent, str):
+        if isinstance(agent, str) and not _is_retired(agent):
             agents.add(agent)
     return agents
 
@@ -430,6 +439,8 @@ def _collect_heartbeats(
     managers = _collect_manager_candidates(root)
     manager_records: list[HeartbeatRecord] = []
     for agent_id in sorted(managers):
+        if _is_retired(agent_id):
+            continue
         ts = last_seen.get(agent_id)
         manager_records.append(
             HeartbeatRecord(
@@ -441,6 +452,8 @@ def _collect_heartbeats(
     agent_candidates = _collect_agent_candidates(plans, claims, events)
     agent_records: list[HeartbeatRecord] = []
     for agent_id in sorted(agent_candidates):
+        if _is_retired(agent_id):
+            continue
         ts = last_seen.get(agent_id)
         agent_records.append(
             HeartbeatRecord(
@@ -514,6 +527,54 @@ def _build_alerts(
     return alerts
 
 
+def _collect_heartbeat_initiatives(plans: list[PlanSummary]) -> list[dict[str, Any]]:
+    """Summarize active heartbeat-focused plans for quick reference."""
+
+    initiatives: list[dict[str, Any]] = []
+    for plan in plans:
+        if "heartbeat" not in plan.plan_id.lower():
+            continue
+        initiatives.append(
+            {
+                "plan_id": plan.plan_id,
+                "actor": plan.actor,
+                "status": plan.status,
+                "pending_steps": list(plan.pending_steps),
+            }
+        )
+    return initiatives
+
+
+def _render_heartbeat_notes(meta: dict[str, Any], *, prefix: str = "") -> list[str]:
+    """Produce explanatory lines about heartbeat automation for markdown output."""
+
+    if not meta:
+        return []
+
+    lines: list[str] = []
+    manager_window = meta.get("manager_window_minutes")
+    agent_window = meta.get("agent_window_minutes")
+    window_parts: list[str] = []
+    if manager_window is not None:
+        window_parts.append(f"managers: {manager_window:g}m")
+    if agent_window is not None:
+        window_parts.append(f"agents: {agent_window:g}m")
+    if window_parts:
+        lines.append(f"{prefix}Heartbeat windows — " + ", ".join(window_parts) + ".")
+
+    automation = meta.get("automation_plans") or []
+    if automation:
+        lines.append(f"{prefix}Heartbeat automation in flight:")
+        for item in automation:
+            actor = _display_actor(item.get("actor"))
+            status = item.get("status") or "queued"
+            pending = ", ".join(item.get("pending_steps") or []) or "none"
+            lines.append(
+                f"{prefix}- {item.get('plan_id', '?')}: {actor} (status={status}; pending={pending})"
+            )
+    return lines
+
+
 def build_dashboard(
     root: Path,
     *,
@@ -534,6 +595,11 @@ def build_dashboard(
     directives = _collect_directives(root, directive_limit)
     pruning = _collect_pruning_candidates(root)
     alerts = _build_alerts(plans, heartbeats, unclaimed_plans)
+    heartbeat_meta = {
+        "manager_window_minutes": manager_window,
+        "agent_window_minutes": agent_window,
+        "automation_plans": _collect_heartbeat_initiatives(plans),
+    }
     return {
         "generated_at": iso_now(),
         "plans": [plan.to_payload() for plan in plans],
@@ -546,6 +612,7 @@ def build_dashboard(
         "alerts": alerts,
         "unclaimed_plans": [plan.to_payload() for plan in unclaimed_plans],
         "pruning_candidates": pruning,
+        "heartbeat_meta": heartbeat_meta,
     }
 
 
@@ -697,6 +764,11 @@ def render_markdown(data: dict[str, Any], *, compact: bool = False) -> str:
     lines.append("")
 
     lines.append("## Heartbeats")
+    heartbeat_meta = data.get("heartbeat_meta", {})
+    note_lines = _render_heartbeat_notes(heartbeat_meta)
+    if note_lines:
+        lines.extend(note_lines)
+        lines.append("")
     lines.append("### Managers")
     managers = data.get("heartbeats", {}).get("managers", [])
     if managers:

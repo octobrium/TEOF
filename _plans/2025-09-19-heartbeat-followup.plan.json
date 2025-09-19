@@ -1,0 +1,45 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-19-heartbeat-followup",
+  "created": "2025-09-19T21:53:29Z",
+  "actor": "codex-4",
+  "summary": "Follow up on stale heartbeats for codex-2/3/observer",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Nudge stale agents",
+      "status": "done",
+      "notes": "Follow-up ping recorded in BUS-COORD-0002; awaiting codex-observer response.",
+      "receipts": [
+        "_bus/messages/BUS-COORD-0002.jsonl"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Capture coord dashboard snapshot",
+      "status": "done",
+      "notes": "Dashboard rerun after retiring codex-observer; alerts limited to active personas.",
+      "receipts": [
+        "_report/manager/coordination-dashboard-2025-09-19T22:02:06Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Confirm guardrails status",
+      "status": "done",
+      "notes": "codex-observer removed from heartbeat rotation; no further guardrails action required.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "All manager heartbeats green",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_bus/messages/BUS-COORD-0002.jsonl",
+    "_report/manager/coordination-dashboard-2025-09-19T22:02:06Z.json"
+  ]
+}

@@ -4,35 +4,47 @@
   "created": "2025-09-17T21:08:34Z",
   "actor": "Octo",
   "summary": "Log reconciliation metrics",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Define JSONL schema",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Schema delivered via metrics-jsonl plan; runner receipt captures initial logging run.",
+      "receipts": [
+        "_report/runner/20250917T215047Z-b5be6a55.json"
+      ]
     },
     {
       "id": "S2",
       "title": "Instrument pipeline to log",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Pipeline logging implemented alongside metrics-jsonl; second runner receipt documents the instrumentation run.",
+      "receipts": [
+        "_report/runner/20250917T220422Z-0b250c8e.json"
+      ]
     },
     {
       "id": "S3",
       "title": "Verify output",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "Verification note summarises the emitted metrics JSONL checks.",
+      "receipts": [
+        "_report/agent/codex-1/metrics-logging/verification.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
-  "links": [],
-  "receipts": []
+  "links": [
+    {"type": "plan", "ref": "_plans/2025-09-17-metrics-jsonl.plan.json"}
+  ],
+  "receipts": [
+    "_report/runner/20250917T215047Z-b5be6a55.json",
+    "_report/runner/20250917T220422Z-0b250c8e.json",
+    "_report/agent/codex-1/metrics-logging/verification.md"
+  ]
 }

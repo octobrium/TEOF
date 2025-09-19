@@ -69,6 +69,17 @@ def dashboard_env(tmp_path, monkeypatch):
     }
     (plans_dir / "plan-003.plan.json").write_text(json.dumps(plan_done), encoding="utf-8")
 
+    heartbeat_plan = {
+        "plan_id": "2025-09-19-heartbeat-docs-codex3",
+        "actor": "codex-3",
+        "status": "queued",
+        "steps": [
+            {"id": "S1", "status": "queued"},
+            {"id": "S2", "status": "queued"},
+        ],
+    }
+    (plans_dir / "heartbeat-docs.plan.json").write_text(json.dumps(heartbeat_plan), encoding="utf-8")
+
     claims_dir = tmp_path / coord_dashboard.CLAIMS_DIRNAME
     claims_dir.mkdir(parents=True)
     claim_payload = {
@@ -109,6 +120,12 @@ def dashboard_env(tmp_path, monkeypatch):
             "agent_id": "codex-4",
             "event": "handshake",
             "summary": "active agent",
+        },
+        {
+            "ts": iso(now - timedelta(days=2)),
+            "agent_id": "codex-observer",
+            "event": "status",
+            "summary": "retired persona",
         },
     ]
     events_path.write_text("\n".join(json.dumps(item) for item in events), encoding="utf-8")
@@ -158,7 +175,8 @@ def test_json_report(tmp_path, dashboard_env, capsys):
     )
     assert rc == 0
     data = json.loads(output.read_text(encoding="utf-8"))
-    assert data["plans"][0]["plan_id"] == "PLAN-001"
+    plan_ids = {plan["plan_id"] for plan in data["plans"]}
+    assert "PLAN-001" in plan_ids
     # PLAN-002 should flag missing receipts
     missing_plan = next(item for item in data["plans"] if item["plan_id"] == "PLAN-002")
     assert missing_plan["missing_receipts"] is True
@@ -170,6 +188,7 @@ def test_json_report(tmp_path, dashboard_env, capsys):
     assert managers[0]["state"] == "active"
     agents = {record["agent_id"]: record for record in data["heartbeats"]["agents"]}
     assert agents["codex-2"]["state"] == "stale"
+    assert "codex-observer" not in agents
     directives = data["manager_directives"]
     assert directives[-1]["summary"] == "idle agent available"
     pruning = data["pruning_candidates"]
@@ -177,6 +196,11 @@ def test_json_report(tmp_path, dashboard_env, capsys):
     assert "PLAN-003" in plan_inventory
     claim_inventory = {entry["task_id"] for entry in pruning.get("claims", [])}
     assert "APOP-010" in claim_inventory
+    heartbeat_meta = data["heartbeat_meta"]
+    assert heartbeat_meta["manager_window_minutes"] == coord_dashboard.DEFAULT_MANAGER_WINDOW_MINUTES
+    assert heartbeat_meta["agent_window_minutes"] == coord_dashboard.DEFAULT_AGENT_WINDOW_MINUTES
+    automation_plans = {item["plan_id"] for item in heartbeat_meta["automation_plans"]}
+    assert "2025-09-19-heartbeat-docs-codex3" in automation_plans
     captured = capsys.readouterr().out
     assert "Output written" in captured
 
@@ -200,3 +224,6 @@ def test_markdown_default_output(tmp_path, dashboard_env):
     assert "idle agent available" in content
     assert "## Unclaimed Plans" in content
     assert "PLAN-002" in content
+    assert "Heartbeat windows — managers: 30m, agents: 60m." in content
+    assert "Heartbeat automation in flight" in content
+    assert "2025-09-19-heartbeat-docs-codex3" in content

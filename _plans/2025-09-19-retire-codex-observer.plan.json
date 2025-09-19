@@ -1,0 +1,55 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-19-retire-codex-observer",
+  "created": "2025-09-19T22:02:00Z",
+  "actor": "codex-1",
+  "summary": "Retire codex-observer persona and remove stale heartbeat alert",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update governance docs",
+      "status": "done",
+      "notes": "Docs/parallel-codex.md and docs/AGENTS.md now explain how to park personas.",
+      "receipts": [
+        "docs/parallel-codex.md",
+        "docs/AGENTS.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Adjust dashboard skip list",
+      "status": "done",
+      "notes": "Added RETIRED_AGENTS + regression coverage in coord_dashboard.",
+      "receipts": [
+        "tools/agent/coord_dashboard.py",
+        "tests/test_coord_dashboard.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Close follow-up plan",
+      "status": "done",
+      "notes": "Heartbeat follow-up plan closed; bus status recorded.",
+      "receipts": [
+        "_plans/2025-09-19-heartbeat-followup.plan.json",
+        "_report/manager/coordination-dashboard-2025-09-19T22:02:06Z.json",
+        "_bus/messages/PLAN-2025-09-19-retire-codex-observer.jsonl"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Dashboard alert cleared; docs updated; receipts captured",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "docs/parallel-codex.md",
+    "docs/AGENTS.md",
+    "tools/agent/coord_dashboard.py",
+    "tests/test_coord_dashboard.py",
+    "_plans/2025-09-19-heartbeat-followup.plan.json",
+    "_report/manager/coordination-dashboard-2025-09-19T22:02:06Z.json",
+    "_bus/messages/PLAN-2025-09-19-retire-codex-observer.jsonl"
+  ]
+}

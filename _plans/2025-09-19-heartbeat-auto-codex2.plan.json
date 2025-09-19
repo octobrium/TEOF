@@ -1,0 +1,58 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-19-heartbeat-auto-codex2",
+  "created": "2025-09-19T21:49:48Z",
+  "actor": "codex-2",
+  "summary": "Auto-emit status heartbeat at session close",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design heartbeat hook",
+      "status": "done",
+      "notes": "Captured heartbeat auto-hook approach for session-save.",
+      "receipts": [
+        "_report/agent/codex-2/heartbeat-auto/design.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement and test",
+      "status": "done",
+      "notes": "Session-save now logs status heartbeats via tools.agent.heartbeat with pytest coverage (dry-run + real).",
+      "receipts": [
+        "tools/agent/manifest_helper.py",
+        "tools/agent/heartbeat.py",
+        "tests/test_manifest_helper.py",
+        "tests/test_agent_heartbeat.py",
+        "_report/agent/codex-2/heartbeat-auto/pytest.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document usage",
+      "status": "done",
+      "notes": "Docs now mention automatic heartbeat, overrides, and shift tagging.",
+      "receipts": [
+        "docs/parallel-codex.md",
+        "docs/AGENTS.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Heartbeat hook lands with tests and docs",
+    "owner": "codex-2",
+    "status": "satisfied",
+    "receipts": [
+      "tests/test_agent_heartbeat.py",
+      "tools/agent/manifest_helper.py"
+    ]
+  },
+  "receipts": [
+    "_report/agent/codex-2/heartbeat-auto/design.md",
+    "_report/agent/codex-2/heartbeat-auto/pytest.json",
+    "tools/agent/manifest_helper.py",
+    "tools/agent/heartbeat.py",
+    "tests/test_agent_heartbeat.py"
+  ]
+}

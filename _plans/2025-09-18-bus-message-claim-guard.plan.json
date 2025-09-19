@@ -3,7 +3,7 @@
   "checkpoint": {
     "description": "bus_message rejects unclaimed updates and pytest suite passes",
     "owner": "codex-2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "created": "2025-09-18T06:10:00Z",
   "links": [
@@ -13,30 +13,42 @@
     }
   ],
   "plan_id": "2025-09-18-bus-message-claim-guard",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
-      "notes": "Review CLI arguments and existing tests to locate task hooks.",
-      "receipts": [],
-      "status": "queued",
+      "notes": "Audit complete; documented current claim behaviour before enforcing guard.",
+      "receipts": [
+        "_report/agent/codex-2/bus-message-claim-guard/audit.json"
+      ],
+      "status": "done",
       "title": "Audit bus_message claim behaviour"
     },
     {
       "id": "S2",
-      "notes": "Mirror bus_event guard, covering terminal states and helpful errors.",
-      "receipts": [],
-      "status": "queued",
+      "notes": "Guard rejects claimless updates and mirrors bus_event failures (implementation receipt).",
+      "receipts": [
+        "_report/agent/codex-2/bus-message-claim-guard/implementation.json"
+      ],
+      "status": "done",
       "title": "Implement claim enforcement"
     },
     {
       "id": "S3",
-      "notes": "Extend pytest coverage and update docs mentioning bus_message.",
-      "receipts": [],
-      "status": "queued",
+      "notes": "Regression tests + docs verified; docs receipt stored separately.",
+      "receipts": [
+        "_report/agent/codex-2/bus-message-claim-guard/docs.json"
+      ],
+      "status": "done",
       "title": "Add regression tests + docs"
     }
   ],
   "summary": "Add claim ownership guard to bus_message CLI",
-  "version": 0
+  "version": 0,
+  "receipts": [
+    "_report/agent/codex-2/bus-message-claim-guard/audit.json",
+    "_report/agent/codex-2/bus-message-claim-guard/implementation.json",
+    "_report/agent/codex-2/bus-message-claim-guard/docs.json",
+    "_report/agent/codex-2/bus-message-claim-guard/pytest.json"
+  ]
 }

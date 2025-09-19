@@ -1,0 +1,1 @@
+{"ts": "2025-09-19T21:29:51Z", "from": "codex-1", "type": "status", "task_id": "PLAN-2025-09-17-metrics-logging", "summary": "Plan closed; metrics logging satisfied via metrics-jsonl receipts", "meta": {"plan_id": "2025-09-17-metrics-logging", "status": "done"}, "receipts": ["_report/runner/20250917T215047Z-b5be6a55.json", "_report/runner/20250917T220422Z-0b250c8e.json"]}
