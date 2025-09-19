@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from tools import reconcile_metrics_summary as metrics_summary
+
 ROOT = Path(__file__).resolve().parents[2]
 ASSIGN_DIR = ROOT / "_bus" / "assignments"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
@@ -69,7 +71,13 @@ def summarize_messages(task_id: str) -> list[str]:
     return lines
 
 
-def write_report(manager_id: str, tasks: list[dict[str, Any]], assignments: dict[str, Any], claims: dict[str, Any]) -> Path:
+def write_report(
+    manager_id: str,
+    tasks: list[dict[str, Any]],
+    assignments: dict[str, Any],
+    claims: dict[str, Any],
+    metrics: dict[str, Any] | None,
+) -> Path:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     ts = iso_now()
     report_path = REPORT_DIR / f"manager-report-{ts}.md"
@@ -98,6 +106,21 @@ def write_report(manager_id: str, tasks: list[dict[str, Any]], assignments: dict
             lines.extend([f"  {msg}" for msg in message_lines])
         if task.get("notes"):
             lines.append(f"- Notes: {task['notes']}")
+        lines.append("")
+
+    if metrics:
+        match_ratio = metrics.get("match_ratio")
+        ratio_str = f"{match_ratio:.2f}" if isinstance(match_ratio, (int, float)) and match_ratio is not None else "n/a"
+        lines.append("## Reconciliation Metrics")
+        lines.append(
+            f"- Runs: {metrics['total_runs']} | Match ratio: {ratio_str}"
+        )
+        lines.append(
+            f"- Differences: {metrics['difference_total']} | Missing receipts: {metrics['missing_receipt_total']} | Capability diffs: {metrics['capability_diff_total']}"
+        )
+        files_scanned = metrics.get("files_scanned")
+        if files_scanned is not None:
+            lines.append(f"- Metrics files scanned: {files_scanned}")
         lines.append("")
 
     report_path.write_text("\n".join(lines), encoding="utf-8")
@@ -138,6 +161,21 @@ def log_heartbeat(manager_id: str, summary: str, *, extras: list[str] | None = N
         raise RuntimeError(f"heartbeat logging failed with exit code {rc}")
 
 
+def gather_metrics(metrics_dir: Path) -> dict[str, Any] | None:
+    directory = Path(metrics_dir)
+    if not directory.exists():
+        return None
+    metrics_files = sorted(directory.glob("**/metrics.jsonl"))
+    entries: list[dict[str, Any]] = []
+    for path in metrics_files:
+        entries.extend(metrics_summary.load_entries(path))
+    if not entries:
+        return None
+    summary = metrics_summary.summarize(entries)
+    summary["files_scanned"] = len(metrics_files)
+    return summary
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Generate manager summary")
     parser.add_argument("--manager", help="Manager agent id")
@@ -161,6 +199,16 @@ def main(argv: list[str] | None = None) -> int:
         "--heartbeat-shift",
         help="Shortcut for adding shift=<value> to the heartbeat metadata",
     )
+    parser.add_argument(
+        "--include-metrics",
+        action="store_true",
+        help="Append reconciliation metrics summary to the report",
+    )
+    parser.add_argument(
+        "--metrics-dir",
+        default=str(ROOT / "_report" / "reconciliation"),
+        help="Directory containing reconciliation metrics JSONL files",
+    )
     args = parser.parse_args(argv)
 
     manager_id = args.manager or load_json(MANIFEST := ROOT / "AGENT_MANIFEST.json") or {}
@@ -172,7 +220,8 @@ def main(argv: list[str] | None = None) -> int:
     tasks = load_tasks()
     assignments = collect_assignments()
     claims = collect_claims()
-    report_path = write_report(manager_id, tasks, assignments, claims)
+    metrics_data = gather_metrics(Path(args.metrics_dir)) if args.include_metrics else None
+    report_path = write_report(manager_id, tasks, assignments, claims, metrics_data)
     print(f"Manager report written to {report_path.relative_to(ROOT)}")
 
     if args.log_heartbeat:

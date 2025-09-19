@@ -1,7 +1,71 @@
 {
-  "version": 1,
+  "version": 2,
   "updated": "2025-09-19",
   "links": [
+    {
+      "id": "agents-claim-seeding",
+      "title": "Claim Seeding (Managers)",
+      "summary": "Manager flow for staging claims before assignments so auto-claim succeeds.",
+      "path": "docs/AGENTS.md",
+      "anchor": "#claim-seeding-managers",
+      "category": "cadence"
+    },
+    {
+      "id": "agents-idle-cadence",
+      "title": "Idle Cadence",
+      "summary": "Idle escalation loop for agents broadcasting availability and claiming work.",
+      "path": "docs/AGENTS.md",
+      "anchor": "#idle-cadence",
+      "category": "cadence"
+    },
+    {
+      "id": "bus-claims-schema",
+      "title": "Claim File Schema",
+      "summary": "Schema for `_bus/claims/<task>.json` guarded by automation and CI.",
+      "path": "_bus/README.md",
+      "anchor": "#claim-file-schema-_busclaimstask_idjson",
+      "category": "tooling"
+    },
+    {
+      "id": "capsule-cadence",
+      "title": "Capsule Release Cadence",
+      "summary": "Follow the freeze/release checklist using coordination dashboard, plan hygiene, and anchors.",
+      "path": "docs/maintenance/capsule-cadence.md",
+      "anchor": "#capsule-release-cadence",
+      "category": "maintenance"
+    },
+    {
+      "id": "capsule-status-ledger",
+      "title": "Capsule Status Ledger",
+      "summary": "Snapshot of the active capsule, required receipts, and verification commands.",
+      "path": "docs/maintenance/capsule-status-ledger.md",
+      "anchor": "#capsule-status-ledger",
+      "category": "maintenance"
+    },
+    {
+      "id": "collab-support-offer-help",
+      "title": "Monitor & Offer Help",
+      "summary": "Live support loop for idle agents watching the bus and responding to blockers.",
+      "path": "docs/collab-support.md",
+      "anchor": "#2-monitor--offer-help",
+      "category": "coordination"
+    },
+    {
+      "id": "consensus-ledger",
+      "title": "Consensus Ledger Usage",
+      "summary": "Entry point for `tools.consensus.ledger` commands and receipt capture.",
+      "path": "docs/consensus/README.md",
+      "anchor": "#usage",
+      "category": "consensus"
+    },
+    {
+      "id": "coordination-dashboard",
+      "title": "Coordination Dashboard",
+      "summary": "Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts.",
+      "path": "docs/parallel-codex.md",
+      "anchor": "#coordination-dashboard",
+      "category": "coordination"
+    },
     {
       "id": "onboarding-first-session",
       "title": "First Session Checklist",
@@ -19,6 +83,62 @@
       "category": "onboarding"
     },
     {
+      "id": "parallel-follow-ups",
+      "title": "Follow-up Logging",
+      "summary": "How to close manager follow-ups with mirrored bus events and receipts.",
+      "path": "docs/parallel-codex.md",
+      "anchor": "#follow-up-logging",
+      "category": "coordination"
+    },
+    {
+      "id": "parallel-session-loop",
+      "title": "Suggested Session Loop",
+      "summary": "Canonical 13-step loop covering sync, bus traffic, planning, and release.",
+      "path": "docs/parallel-codex.md",
+      "anchor": "#suggested-session-loop",
+      "category": "coordination"
+    },
+    {
+      "id": "plans-schema",
+      "title": "Plan File Format (v0)",
+      "summary": "Planner contract describing required fields, receipts, and lifecycle.",
+      "path": "_plans/README.md",
+      "anchor": "#file-format-v0",
+      "category": "tooling"
+    },
+    {
+      "id": "quickstart-agents-bootstrap",
+      "title": "Agent Bootstrap",
+      "summary": "One-minute agent bootstrap snippet with install + teof brief.",
+      "path": "docs/AGENTS.md",
+      "anchor": "#bootstrap-one-minute",
+      "category": "quickstart"
+    },
+    {
+      "id": "quickstart-readme",
+      "title": "Quickstart (README)",
+      "summary": "Root README snippet: install locally then run `teof brief`.",
+      "path": "README.md",
+      "anchor": "#quickstart",
+      "category": "quickstart"
+    },
+    {
+      "id": "quickstart-smoke",
+      "title": "Quickstart Smoke",
+      "summary": "Install locally then run `teof brief` to produce OCERS receipts under artifacts/ocers_out/",
+      "path": "docs/quickstart.md",
+      "anchor": "#quickstart",
+      "category": "quickstart"
+    },
+    {
+      "id": "reconciliation-pipeline",
+      "title": "Reconciliation Pipeline",
+      "summary": "Run hello/diff/fetch/merge via `python -m tools.reconcile_pipeline` (supports --fail-on-diff).",
+      "path": "docs/cli.md",
+      "anchor": "#reconciliation-pipeline",
+      "category": "automation"
+    },
+    {
       "id": "workflow-architecture",
       "title": "Architecture Gate",
       "summary": "Explains the governance gate that blocks edits without a plan and receipts.",
@@ -33,78 +153,6 @@
       "path": "docs/workflow.md",
       "anchor": "#dna-recursion-self-improvement-of-the-rules",
       "category": "workflow"
-    },
-    {
-      "id": "agents-idle-cadence",
-      "title": "Idle Cadence",
-      "summary": "Idle escalation loop for agents broadcasting availability and claiming work.",
-      "path": "docs/AGENTS.md",
-      "anchor": "#idle-cadence",
-      "category": "cadence"
-    },
-    {
-      "id": "agents-claim-seeding",
-      "title": "Claim Seeding (Managers)",
-      "summary": "Manager flow for staging claims before assignments so auto-claim succeeds.",
-      "path": "docs/AGENTS.md",
-      "anchor": "#claim-seeding-managers",
-      "category": "cadence"
-    },
-    {
-      "id": "parallel-session-loop",
-      "title": "Suggested Session Loop",
-      "summary": "Canonical 13-step loop covering sync, bus traffic, planning, and release.",
-      "path": "docs/parallel-codex.md",
-      "anchor": "#suggested-session-loop",
-      "category": "coordination"
-    },
-    {
-      "id": "parallel-follow-ups",
-      "title": "Follow-up Logging",
-      "summary": "How to close manager follow-ups with mirrored bus events and receipts.",
-      "path": "docs/parallel-codex.md",
-      "anchor": "#follow-up-logging",
-      "category": "coordination"
-    },
-    {
-      "id": "coordination-dashboard",
-      "title": "Coordination Dashboard",
-      "summary": "Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts.",
-      "path": "docs/parallel-codex.md",
-      "anchor": "#coordination-dashboard",
-      "category": "coordination"
-    },
-    {
-      "id": "collab-support-offer-help",
-      "title": "Monitor & Offer Help",
-      "summary": "Live support loop for idle agents watching the bus and responding to blockers.",
-      "path": "docs/collab-support.md",
-      "anchor": "#2-monitor--offer-help",
-      "category": "coordination"
-    },
-    {
-      "id": "bus-claims-schema",
-      "title": "Claim File Schema",
-      "summary": "Schema for `_bus/claims/<task>.json` guarded by automation and CI.",
-      "path": "_bus/README.md",
-      "anchor": "#claim-file-schema-_busclaimstask_idjson",
-      "category": "tooling"
-    },
-    {
-      "id": "plans-schema",
-      "title": "Plan File Format (v0)",
-      "summary": "Planner contract describing required fields, receipts, and lifecycle.",
-      "path": "_plans/README.md",
-      "anchor": "#file-format-v0",
-      "category": "tooling"
-    },
-    {
-      "id": "consensus-ledger",
-      "title": "Consensus Ledger Usage",
-      "summary": "Entry point for `tools.consensus.ledger` commands and receipt capture.",
-      "path": "docs/consensus/README.md",
-      "anchor": "#usage",
-      "category": "consensus"
     }
   ]
 }

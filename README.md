@@ -62,18 +62,20 @@ See the full map in [`docs/architecture.md`](docs/architecture.md).
 ---
 
 ## Quickstart
-
-From a clean checkout:
-
+<!-- generated: quickstart snippet -->
+Run this smoke test on a fresh checkout:
 ```bash
-# 1) Install
-pip install -e .
-
-# 2) Run the minimal ensemble scorer on the brief example
-python -m extensions.validator.scorers.ensemble_cli   --in docs/examples/brief/inputs   --out artifacts/ocers_out/$(date -u +%Y%m%dT%H%M%SZ)
+python3 -m pip install -e .
+teof brief
+ls artifacts/ocers_out/latest
+cat artifacts/ocers_out/latest/brief.json
 ```
 
-This writes `*.ensemble.json` artifacts. For details and optional CLI entrypoints (`teof-validate`, `teof-ensemble`) see [`docs/quickstart.md`](docs/quickstart.md).
+- Install exposes the teof console script.
+- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
+
+For additional CLIs (`teof-validate`, `teof-ensemble`) and extension examples, see [`docs/quickstart.md`](docs/quickstart.md).
+
 
 ---
 

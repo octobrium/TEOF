@@ -23,7 +23,7 @@ def test_list_json_output(capsys):
     rc = doc_links.main(["list", "--format", "json"])
     assert rc == 0
     data = json.loads(capsys.readouterr().out)
-    assert data["version"] == 1
+    assert data["version"] >= 1
     assert any(link["id"] == "consensus-ledger" for link in data["links"])
 
 
@@ -41,3 +41,21 @@ def test_missing_manifest(monkeypatch, tmp_path):
     with pytest.raises(SystemExit) as excinfo:
         doc_links.main(["list"])
     assert "Manifest error" in str(excinfo.value)
+
+def test_list_category_filter(capsys):
+    rc = doc_links.main(["list", "--category", "quickstart"])
+    assert rc == 0
+    out = capsys.readouterr().out
+    assert "quickstart-readme" in out
+    assert "quickstart-smoke" in out
+    assert "workflow-architecture" not in out
+
+
+def test_list_json_category(capsys):
+    rc = doc_links.main(["list", "--format", "json", "--category", "quickstart"])
+    assert rc == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload.get("category") == "quickstart"
+    ids = [link["id"] for link in payload["links"]]
+    assert "quickstart-readme" in ids
+    assert all(link_id.startswith("quickstart") for link_id in ids)

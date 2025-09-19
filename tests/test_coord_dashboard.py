@@ -61,6 +61,14 @@ def dashboard_env(tmp_path, monkeypatch):
     }
     (plans_dir / "plan-002.plan.json").write_text(json.dumps(plan_missing), encoding="utf-8")
 
+    plan_done = {
+        "plan_id": "PLAN-003",
+        "actor": "codex-2",
+        "status": "done",
+        "steps": [],
+    }
+    (plans_dir / "plan-003.plan.json").write_text(json.dumps(plan_done), encoding="utf-8")
+
     claims_dir = tmp_path / coord_dashboard.CLAIMS_DIRNAME
     claims_dir.mkdir(parents=True)
     claim_payload = {
@@ -71,6 +79,15 @@ def dashboard_env(tmp_path, monkeypatch):
         "claimed_at": iso(now - timedelta(minutes=5)),
     }
     (claims_dir / "APOP-009.json").write_text(json.dumps(claim_payload), encoding="utf-8")
+
+    claim_done = {
+        "agent_id": "codex-3",
+        "status": "done",
+        "plan_id": "PLAN-003",
+        "claimed_at": iso(now - timedelta(days=1)),
+        "released_at": iso(now - timedelta(hours=12)),
+    }
+    (claims_dir / "APOP-010.json").write_text(json.dumps(claim_done), encoding="utf-8")
 
     events_path = tmp_path / coord_dashboard.EVENT_LOG
     events_path.parent.mkdir(parents=True, exist_ok=True)
@@ -145,7 +162,9 @@ def test_json_report(tmp_path, dashboard_env, capsys):
     # PLAN-002 should flag missing receipts
     missing_plan = next(item for item in data["plans"] if item["plan_id"] == "PLAN-002")
     assert missing_plan["missing_receipts"] is True
-    assert any("PLAN-002" in alert for alert in data["alerts"])
+    assert any("PLAN PLAN-002" in alert or "Plan PLAN-002" in alert for alert in data["alerts"])
+    unclaimed = {entry["plan_id"] for entry in data["unclaimed_plans"]}
+    assert "PLAN-002" in unclaimed
     managers = data["heartbeats"]["managers"]
     assert managers[0]["agent_id"] == "codex-1"
     assert managers[0]["state"] == "active"
@@ -153,6 +172,11 @@ def test_json_report(tmp_path, dashboard_env, capsys):
     assert agents["codex-2"]["state"] == "stale"
     directives = data["manager_directives"]
     assert directives[-1]["summary"] == "idle agent available"
+    pruning = data["pruning_candidates"]
+    plan_inventory = {entry["plan_id"] for entry in pruning.get("plans", [])}
+    assert "PLAN-003" in plan_inventory
+    claim_inventory = {entry["task_id"] for entry in pruning.get("claims", [])}
+    assert "APOP-010" in claim_inventory
     captured = capsys.readouterr().out
     assert "Output written" in captured
 
@@ -174,3 +198,5 @@ def test_markdown_default_output(tmp_path, dashboard_env):
     assert "PLAN-001" in content
     assert "- Heartbeat codex-2 is stale" in content
     assert "idle agent available" in content
+    assert "## Unclaimed Plans" in content
+    assert "PLAN-002" in content

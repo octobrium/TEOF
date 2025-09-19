@@ -13,6 +13,7 @@ requires-python = ">=3.9"
 teof = "teof.bootloader:main"
 teof-validate = "extensions.validator.teof_ocers_min:main"
 teof-ensemble = "extensions.validator.scorers.ensemble_cli:main"
+teof-plan = "tools.planner.cli:main"
 
 [tool.setuptools]
 include-package-data = true

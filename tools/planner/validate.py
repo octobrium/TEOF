@@ -21,6 +21,9 @@ CHECKPOINT_STATUS = {"pending", "satisfied", "superseded"}
 PlanDict = Dict[str, Any]
 
 
+DEFAULT_SUMMARY_DIR = ROOT / "_report" / "planner" / "validate"
+
+
 @dataclass
 class ValidationResult:
     path: Path
@@ -269,6 +272,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate planner artifacts")
     parser.add_argument("paths", nargs="*", help="Optional plan file paths; defaults to all *.plan.json under _plans/")
     parser.add_argument("--strict", action="store_true", help="Enforce repository-coupled invariants (e.g., receipt existence)")
+    parser.add_argument("--output", help="Write JSON summary to this path")
     return parser.parse_args()
 
 
@@ -296,6 +300,30 @@ def validate_plan(path: Path, *, strict: bool = False) -> ValidationResult:
     return ValidationResult(path, errors, plan)
 
 
+def _relative_to_root(path: Path) -> Path:
+    try:
+        return path.relative_to(ROOT)
+    except ValueError:
+        return path.resolve()
+
+
+def _default_summary_path() -> Path:
+    stamp = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    DEFAULT_SUMMARY_DIR.mkdir(parents=True, exist_ok=True)
+    return DEFAULT_SUMMARY_DIR / f"summary-{stamp}.json"
+
+
+def _write_summary(results: List[Dict[str, Any]], *, output: Path, strict: bool, exit_code: int) -> None:
+    payload = {
+        "generated_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "strict": strict,
+        "exit_code": exit_code,
+        "plans": results,
+    }
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def main() -> int:
     args = parse_args()
     plan_paths = iter_plan_paths(args.paths)
@@ -303,19 +331,39 @@ def main() -> int:
         print("no plan files found", file=sys.stderr)
         return 1
 
+    results: List[Dict[str, Any]] = []
     failures = 0
     for path in plan_paths:
         result = validate_plan(path, strict=args.strict)
-        rel = path.relative_to(ROOT)
+        rel = _relative_to_root(path)
+        rel_str = str(rel)
+        entry: Dict[str, Any] = {"path": rel_str, "ok": result.ok, "errors": list(result.errors)}
+        if result.plan and result.plan.get("plan_id"):
+            entry["plan_id"] = result.plan["plan_id"]
+        results.append(entry)
+
         if result.ok:
-            print(f"OK {rel}")
+            print(f"OK {rel_str}")
         else:
             failures += 1
-            print(f"FAIL {rel}", file=sys.stderr)
+            print(f"FAIL {rel_str}", file=sys.stderr)
             for err in result.errors:
                 print(f"  - {err}", file=sys.stderr)
 
-    return 0 if failures == 0 else 2
+    exit_code = 0 if failures == 0 else 2
+
+    if args.output:
+        output_path = Path(args.output)
+        if not output_path.is_absolute():
+            output_path = (ROOT / output_path).resolve()
+    else:
+        output_path = _default_summary_path()
+
+    _write_summary(results, output=output_path, strict=args.strict, exit_code=exit_code)
+    rel_out = _relative_to_root(output_path)
+    print(f"wrote summary to {rel_out}")
+
+    return exit_code
 
 
 if __name__ == "__main__":

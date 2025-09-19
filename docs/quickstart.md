@@ -1,36 +1,32 @@
 # Quickstart
 
-## 1) Clone
+<!-- generated: quickstart snippet -->
+Run this smoke test on a fresh checkout:
 ```bash
-git clone https://github.com/octobrium/TEOF.git
-cd TEOF
+python3 -m pip install -e .
+teof brief
+ls artifacts/ocers_out/latest
+cat artifacts/ocers_out/latest/brief.json
+```
 
-cat > quickstart.md <<'EOF'
-# Quickstart
+- Install exposes the teof console script.
+- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
 
-## 1) Clone
+> Update the snippet via `python3 tools/snippets/render_quickstart.py` after editing `tools/snippets/quickstart.json`.
+
+## Extend the run (optional)
+To score your own OCERS drafts, point the ensemble CLI at any directory of `.txt` files:
 ```bash
-git clone https://github.com/octobrium/TEOF.git
-cd TEOF
+python3 -m extensions.validator.scorers.ensemble_cli \
+  --in /path/to/notes \
+  --out artifacts/ocers_out/$(date -u +%Y%m%dT%H%M%SZ)
+```
 
-cat > STATUS.md <<'EOF'
-<!-- repo-health:status -->
-_Repo health checks (bootstrap+doctor) enforce workflow deterministically before every commit._
+For the minimal validator only, use:
+```bash
+python3 -m extensions.validator.teof_ocers_min input.txt artifacts/outdir
+```
 
-# TEOF Status (2025-08-25T00:20:46+00:00Z)
-
-## Snapshot
-- Capsule: /Users/evan/Documents/GitHub/TEOF/capsule/current -> v1.5
-- Package: teof 0.1.0a2
-- CLI: `teof brief` → writes `artifacts/ocers_out/<UTCSTAMP>/` and updates `artifacts/ocers_out/latest/`
-- Artifacts latest: /Users/evan/Documents/GitHub/TEOF/artifacts/ocers_out/latest (ready: yes)
-
-## Auto Objectives (detected)
-- [todo] OBJ-A5 — Append STATUS refresh to pre-commit — Add `teof status --quiet || true` and `git add docs/STATUS.md || true` to .githooks/pre-commit
-
-## Manual Objectives (optional)
-- (none listed)
-
-## Notes
-- Keep `capsule/current` as a symlink.
-- Python ≥3.9 for local dev.
+## Next checkpoints
+- If you change validator behaviour, update the goldens under `docs/examples/**/expected/`
+- When packaging for others, freeze the capsule (`scripts/freeze.sh`) and append a governance anchor

@@ -37,7 +37,7 @@ def write_plan(
                 "summary": "Test plan",
                 "status": status,
                 "steps": [
-                    {"id": "S1", "title": "Step", "status": "pending"}
+                    {"id": "S1", "title": "Step", "status": "queued"}
                 ],
                 "links": [
                     {"type": "bus", "ref": "_bus/claims/QUEUE-999.json"}

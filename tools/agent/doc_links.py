@@ -143,6 +143,9 @@ def _format_table(rows: Iterable[dict[str, str]], columns: Sequence[tuple[str, s
 
 def handle_list(args: argparse.Namespace) -> None:
     version, updated, links = load_manifest()
+    if args.category:
+        category = args.category.lower().strip()
+        links = [link for link in links if (link.category or '').lower() == category]
     if args.format not in VALID_LIST_FORMATS:
         raise SystemExit(f"Unsupported format '{args.format}'. Choose from: {sorted(VALID_LIST_FORMATS)}")
 
@@ -151,6 +154,7 @@ def handle_list(args: argparse.Namespace) -> None:
             "version": version,
             "updated": updated,
             "links": [link.to_payload() for link in links],
+            "category": args.category,
         }
         print(json.dumps(payload, indent=2, sort_keys=True))
         return
@@ -206,6 +210,10 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_LIST_FORMAT,
         help="Output format (default: table)",
     )
+    list_parser.add_argument(
+        "--category",
+        help="Filter results to a specific category (e.g., quickstart, coordination)",
+    )
     list_parser.set_defaults(func=handle_list)
 
     show_parser = subparsers.add_parser("show", help="Show a single quick-link entry")
@@ -236,6 +244,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     extra: dict[str, Any] = {}
     if args.command == "list":
         extra = {"format": args.format}
+        if args.category:
+            extra["category"] = args.category
     elif args.command == "show":
         extra = {"format": args.format, "id": args.link_id}
     record_usage("agent.doc_links", action=args.command, extra=extra)

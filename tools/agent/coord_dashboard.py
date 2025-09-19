@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
+import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -21,6 +23,25 @@ ASSIGN_DIRNAME = "_bus/assignments"
 DEFAULT_MANAGER_WINDOW_MINUTES = 30.0
 DEFAULT_AGENT_WINDOW_MINUTES = 60.0
 DEFAULT_DIRECTIVE_LIMIT = 10
+
+DISPLAY_ALIASES = {
+    "Octo": "Octo",
+    "template": "template (sample)",
+}
+
+
+def _display_actor(value: str | None) -> str:
+    if not value:
+        return "—"
+    return DISPLAY_ALIASES.get(value, value)
+
+
+def _format_alert(message: str) -> str:
+    formatted = message
+    for raw, pretty in DISPLAY_ALIASES.items():
+        formatted = formatted.replace(f"actor={raw}", f"actor={pretty}")
+        formatted = formatted.replace(f"Heartbeat {raw}", f"Heartbeat {pretty}")
+    return formatted
 
 
 class DashboardError(RuntimeError):
@@ -246,6 +267,74 @@ def _collect_claims(root: Path) -> list[ClaimSummary]:
     return summaries
 
 
+def _identify_unclaimed_plans(
+    plans: list[PlanSummary],
+    claims: list[ClaimSummary],
+) -> list[PlanSummary]:
+    """Return active plans that currently lack an open claim."""
+
+    active_claims: set[str] = set()
+    for claim in claims:
+        status = (claim.status or "").lower()
+        if status in {"done", "completed", "closed"}:
+            continue
+        if claim.plan_id:
+            active_claims.add(claim.plan_id)
+
+    unclaimed: list[PlanSummary] = []
+    for plan in plans:
+        status = (plan.status or "").lower()
+        if status in {"done", "completed", "closed"}:
+            continue
+        if plan.plan_id not in active_claims:
+            unclaimed.append(plan)
+    return unclaimed
+
+
+def _collect_pruning_candidates(root: Path) -> dict[str, list[dict[str, str]]]:
+    """Inventory plan/claim files that are already marked complete."""
+
+    plans: list[dict[str, str]] = []
+    claims: list[dict[str, str]] = []
+
+    plans_dir = root / PLANS_DIRNAME
+    if plans_dir.exists():
+        for path in sorted(plans_dir.glob("*.plan.json")):
+            payload = _optional_json(path)
+            if not isinstance(payload, dict):
+                continue
+            status = (payload.get("status") or "").lower()
+            if status in {"done", "completed", "closed"}:
+                plans.append(
+                    {
+                        "plan_id": str(payload.get("plan_id", path.stem)),
+                        "status": status or "done",
+                        "path": str(path.relative_to(root)),
+                    }
+                )
+
+    claims_dir = root / CLAIMS_DIRNAME
+    if claims_dir.exists():
+        for path in sorted(claims_dir.glob("*.json")):
+            payload = _optional_json(path)
+            if not isinstance(payload, dict):
+                continue
+            status = (payload.get("status") or "").lower()
+            if status in {"done", "completed", "closed"}:
+                claims.append(
+                    {
+                        "task_id": path.stem,
+                        "status": status or "done",
+                        "path": str(path.relative_to(root)),
+                    }
+                )
+
+    return {
+        "plans": plans,
+        "claims": claims,
+    }
+
+
 def _collect_manager_candidates(root: Path) -> set[str]:
     managers: set[str] = set()
     for path in root.glob("AGENT_MANIFEST*.json"):
@@ -399,6 +488,7 @@ def _collect_directives(root: Path, limit: int) -> list[DirectiveRecord]:
 def _build_alerts(
     plans: list[PlanSummary],
     heartbeats: dict[str, list[HeartbeatRecord]],
+    unclaimed_plans: list[PlanSummary],
 ) -> list[str]:
     alerts: list[str] = []
     seen: set[str] = set()
@@ -409,6 +499,12 @@ def _build_alerts(
             if message not in seen:
                 alerts.append(message)
                 seen.add(message)
+    for plan in unclaimed_plans:
+        actor = plan.actor or "unknown"
+        message = f"Plan {plan.plan_id} has no active claim (actor={actor})"
+        if message not in seen:
+            alerts.append(message)
+            seen.add(message)
     for record in heartbeats.get("managers", []) + heartbeats.get("agents", []):
         if record.state != "active":
             message = f"Heartbeat {record.agent_id} is {record.state}"
@@ -427,6 +523,7 @@ def build_dashboard(
 ) -> dict[str, Any]:
     plans = _collect_plan_summary(root)
     claims = _collect_claims(root)
+    unclaimed_plans = _identify_unclaimed_plans(plans, claims)
     heartbeats = _collect_heartbeats(
         root,
         plans,
@@ -435,7 +532,8 @@ def build_dashboard(
         agent_window=agent_window,
     )
     directives = _collect_directives(root, directive_limit)
-    alerts = _build_alerts(plans, heartbeats)
+    pruning = _collect_pruning_candidates(root)
+    alerts = _build_alerts(plans, heartbeats, unclaimed_plans)
     return {
         "generated_at": iso_now(),
         "plans": [plan.to_payload() for plan in plans],
@@ -446,6 +544,8 @@ def build_dashboard(
         },
         "manager_directives": [record.to_payload() for record in directives],
         "alerts": alerts,
+        "unclaimed_plans": [plan.to_payload() for plan in unclaimed_plans],
+        "pruning_candidates": pruning,
     }
 
 
@@ -468,8 +568,65 @@ def _render_table(headers: Sequence[str], rows: Iterable[Sequence[str]]) -> list
     return lines
 
 
-def render_markdown(data: dict[str, Any]) -> str:
-    lines: list[str] = [f"# Coordination Dashboard — {data['generated_at']}", ""]
+def render_markdown(data: dict[str, Any], *, compact: bool = False) -> str:
+    generated_at = data.get("generated_at", iso_now())
+    if compact:
+        lines: list[str] = [f"# Coordination Dashboard — {generated_at}", ""]
+
+        plans = data.get("plans", [])
+        lines.append("## Active Work")
+        if plans:
+            rows = []
+            for plan in plans:
+                rows.append(
+                    (
+                        _display_actor(plan.get("actor")),
+                        plan.get("plan_id", "-"),
+                        plan.get("status", "-"),
+                        f"{plan.get('steps_completed', 0)}/{plan.get('steps_total', 0)}",
+                        ",".join(plan.get("pending_steps") or []) or "—",
+                        "yes" if plan.get("missing_receipts") else "no",
+                    )
+                )
+            lines.extend(
+                _render_table(
+                    ("agent", "plan", "status", "steps", "pending", "missing_receipts"),
+                    rows,
+                )
+            )
+        else:
+            lines.append("No active plans.")
+        lines.append("")
+
+        unclaimed = data.get("unclaimed_plans", [])
+        lines.append("## Unclaimed Plans")
+        if unclaimed:
+            rows = []
+            for plan in unclaimed:
+                rows.append(
+                    (
+                        _display_actor(plan.get("actor")),
+                        plan.get("plan_id", "-"),
+                        plan.get("status", "-"),
+                        ",".join(plan.get("pending_steps") or []) or "—",
+                    )
+                )
+            lines.extend(_render_table(("actor", "plan", "status", "pending"), rows))
+        else:
+            lines.append("None")
+        lines.append("")
+
+        alerts = data.get("alerts", [])
+        lines.append("## Alerts")
+        if alerts:
+            for alert in alerts:
+                lines.append(f"- {_format_alert(alert)}")
+        else:
+            lines.append("- none")
+
+        return "\n".join(lines)
+
+    lines: list[str] = [f"# Coordination Dashboard — {generated_at}", ""]
 
     plans = data.get("plans", [])
     lines.append("## Active Plans")
@@ -479,7 +636,7 @@ def render_markdown(data: dict[str, Any]) -> str:
             table_rows.append(
                 (
                     plan.get("plan_id", "?"),
-                    plan.get("actor", "-"),
+                    _display_actor(plan.get("actor")),
                     plan.get("status", "-"),
                     f"{plan.get('steps_completed', 0)}/{plan.get('steps_total', 0)}",
                     "; ".join(plan.get("pending_steps", [])) or "-",
@@ -518,6 +675,25 @@ def render_markdown(data: dict[str, Any]) -> str:
         )
     else:
         lines.append("No claims found.")
+    lines.append("")
+
+    lines.append("## Unclaimed Plans")
+    unclaimed = data.get("unclaimed_plans", [])
+    if unclaimed:
+        rows = []
+        for entry in unclaimed:
+            pending = entry.get("pending_steps") or []
+            rows.append(
+                (
+                    entry.get("plan_id", "-"),
+                    _display_actor(entry.get("actor")),
+                    entry.get("status", "-"),
+                    ",".join(pending) if pending else "-",
+                )
+            )
+        lines.extend(_render_table(("plan", "actor", "status", "pending"), rows))
+    else:
+        lines.append("No active plans without claims.")
     lines.append("")
 
     lines.append("## Heartbeats")
@@ -560,7 +736,7 @@ def render_markdown(data: dict[str, Any]) -> str:
     lines.append("## Alerts")
     if alerts:
         for alert in alerts:
-            lines.append(f"- {alert}")
+            lines.append(f"- {_format_alert(alert)}")
     else:
         lines.append("- none")
 
@@ -585,6 +761,9 @@ def run_report(
     agent_window: float,
     directive_limit: int,
     output_path: Path | None,
+    write_output_file: bool = True,
+    compact: bool = False,
+    stream=None,
 ) -> dict[str, Any]:
     data = build_dashboard(
         root,
@@ -595,17 +774,26 @@ def run_report(
     if fmt == "json":
         content = json.dumps(data, indent=2, sort_keys=True)
     elif fmt == "markdown":
-        content = render_markdown(data)
+        content = render_markdown(data, compact=compact)
     else:
         raise DashboardError(f"Unsupported format '{fmt}'")
-    output = output_path or default_output_path(root, fmt)
-    write_output(content, output)
-    print(content)
-    try:
-        location = output.relative_to(root)
-    except ValueError:
-        location = output
-    print(f"Output written to {location}")
+
+    if stream is None:
+        print(content)
+    else:
+        if not content.endswith("\n"):
+            content += "\n"
+        stream.write(content)
+        stream.flush()
+    if write_output_file:
+        output = output_path or default_output_path(root, fmt)
+        write_output(content, output)
+        try:
+            location = output.relative_to(root)
+        except ValueError:
+            location = output
+        if stream is None:
+            print(f"Output written to {location}")
     return data
 
 
@@ -617,6 +805,22 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--agent-window", type=float, default=DEFAULT_AGENT_WINDOW_MINUTES)
     parser.add_argument("--messages", type=int, default=DEFAULT_DIRECTIVE_LIMIT, help="Number of manager directives to include")
     parser.add_argument("--output", type=Path, help="Optional output path (writes alongside stdout)")
+    parser.add_argument(
+        "--follow",
+        type=float,
+        default=0.0,
+        help="Refresh interval in seconds; when >0, run in watch mode without writing files",
+    )
+    parser.add_argument(
+        "--no-clear",
+        action="store_true",
+        help="Do not clear the terminal between follow iterations",
+    )
+    parser.add_argument(
+        "--compact",
+        action="store_true",
+        help="Emit a minimal agent-focused view",
+    )
     parser.add_argument("--root", type=Path, default=ROOT, help=argparse.SUPPRESS)
     return parser
 
@@ -625,27 +829,65 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
 
+    action = "report"
+    alt_screen = False
     try:
-        run_report(
-            root=args.root,
-            fmt=args.format,
-            manager_window=args.manager_window,
-            agent_window=args.agent_window,
-            directive_limit=args.messages,
-            output_path=args.output,
-        )
+        if args.follow and args.follow > 0:
+            action = "follow"
+            if not args.no_clear:
+                sys.stdout.write("\033[?1049h")  # enter alternate screen buffer
+                sys.stdout.flush()
+                alt_screen = True
+            while True:
+                if args.no_clear:
+                    sys.stdout.write("\033[H")
+                else:
+                    sys.stdout.write("\033[2J\033[H")
+                sys.stdout.flush()
+                run_report(
+                    root=args.root,
+                    fmt=args.format,
+                    manager_window=args.manager_window,
+                    agent_window=args.agent_window,
+                    directive_limit=args.messages,
+                    output_path=args.output,
+                    write_output_file=False,
+                    compact=args.compact,
+                    stream=sys.stdout,
+                )
+                time.sleep(args.follow)
+        else:
+            run_report(
+                root=args.root,
+                fmt=args.format,
+                manager_window=args.manager_window,
+                agent_window=args.agent_window,
+                directive_limit=args.messages,
+                output_path=args.output,
+                compact=args.compact,
+                stream=None,
+            )
+    except KeyboardInterrupt:
+        pass
     except DashboardError as exc:
         raise SystemExit(f"Dashboard error: {exc}") from exc
+    finally:
+        if alt_screen:
+            sys.stdout.write("\033[?1049l")  # leave alternate screen
+            sys.stdout.flush()
 
     record_usage(
         "agent.coord_dashboard",
-        action="report",
+        action=action,
         extra={
             "format": args.format,
             "manager_window": args.manager_window,
-            "agent_window": args.agent_window,
-            "messages": args.messages,
-        },
+        "agent_window": args.agent_window,
+        "messages": args.messages,
+        "follow_interval": args.follow,
+        "no_clear": bool(args.no_clear),
+        "compact": bool(args.compact),
+    },
     )
     return 0
 

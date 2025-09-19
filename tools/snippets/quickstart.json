@@ -1,0 +1,14 @@
+{
+  "snippet_id": "quickstart",
+  "updated": "2025-09-19T18:25:00Z",
+  "commands": [
+    "python3 -m pip install -e .",
+    "teof brief",
+    "ls artifacts/ocers_out/latest",
+    "cat artifacts/ocers_out/latest/brief.json"
+  ],
+  "notes": [
+    "Install exposes the teof console script.",
+    "teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>."
+  ]
+}

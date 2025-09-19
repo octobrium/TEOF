@@ -1,10 +1,14 @@
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
 
 from tools.planner import validate as planner_validate
 from tools.planner.validate import validate_plan
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def base_payload(plan_id: str = "2025-09-17-sample") -> dict:
@@ -98,3 +102,56 @@ def test_validate_plan_strict_requires_receipt_presence(tmp_path: Path, monkeypa
     (receipt_dir / "receipt.json").write_text("{}", encoding="utf-8")
     result_ok = validate_plan(plan_path, strict=True)
     assert result_ok.ok, result_ok.errors
+
+
+def test_cli_output_summary(tmp_path: Path) -> None:
+    payload = base_payload(plan_id="2025-09-17-cli")
+    plan_path = write_plan(tmp_path, payload)
+    output_path = tmp_path / "summary.json"
+
+    proc = subprocess.run(
+        [sys.executable, '-m', 'tools.planner.validate', str(plan_path), '--output', str(output_path)],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+        check=False,
+    )
+
+    assert proc.returncode == 0, proc.stderr
+    assert 'RuntimeWarning' not in proc.stderr
+    assert output_path.exists()
+
+    data = json.loads(output_path.read_text(encoding='utf-8'))
+    assert isinstance(data, dict)
+    assert data['exit_code'] == 0
+    assert data['plans'], 'summary should include plan entries'
+    entry = data['plans'][0]
+    assert entry['ok'] is True
+    assert entry['errors'] == []
+
+
+
+def test_cli_default_output(tmp_path: Path) -> None:
+    payload = base_payload(plan_id="2025-09-17-default")
+    plan_path = write_plan(tmp_path, payload)
+
+    proc = subprocess.run(
+        [sys.executable, '-m', 'tools.planner.validate', str(plan_path)],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+        check=False,
+    )
+
+    assert proc.returncode == 0, proc.stderr
+    line = proc.stdout.strip().splitlines()[-1]
+    assert line.startswith('wrote summary to ')
+    rel = line.split('wrote summary to ', 1)[1].strip()
+    summary_path = (REPO_ROOT / rel).resolve()
+    assert summary_path.exists(), f"expected {summary_path} to exist"
+
+    data = json.loads(summary_path.read_text(encoding='utf-8'))
+    assert data['exit_code'] == 0
+    summary_path.unlink()
+    if not any(summary_path.parent.iterdir()):
+        summary_path.parent.rmdir()

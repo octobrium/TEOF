@@ -3,17 +3,21 @@ from pathlib import Path
 
 import pytest
 
-from tools.agent import manager_report
-from tools.agent import bus_event
+from tools.agent import manager_report, bus_event, bus_status
 
 
 @pytest.fixture
 def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     root = tmp_path
-    (root / "_bus" / "events").mkdir(parents=True)
-    (root / "_bus" / "messages").mkdir(parents=True)
-    (root / "_bus" / "assignments").mkdir(parents=True)
-    (root / "_bus" / "claims").mkdir(parents=True)
+    events_dir = root / "_bus" / "events"
+    messages_dir = root / "_bus" / "messages"
+    assignments_dir = root / "_bus" / "assignments"
+    claims_dir = root / "_bus" / "claims"
+
+    events_dir.mkdir(parents=True)
+    messages_dir.mkdir(parents=True)
+    assignments_dir.mkdir(parents=True)
+    claims_dir.mkdir(parents=True)
     (root / "agents").mkdir()
     (root / "_report" / "manager").mkdir(parents=True)
 
@@ -22,16 +26,27 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     tasks_path.write_text(json.dumps({"tasks": []}), encoding="utf-8")
 
     monkeypatch.setattr(manager_report, "ROOT", root)
-    monkeypatch.setattr(manager_report, "ASSIGN_DIR", root / "_bus" / "assignments")
-    monkeypatch.setattr(manager_report, "CLAIMS_DIR", root / "_bus" / "claims")
-    monkeypatch.setattr(manager_report, "MESSAGES_DIR", root / "_bus" / "messages")
+    monkeypatch.setattr(manager_report, "ASSIGN_DIR", assignments_dir)
+    monkeypatch.setattr(manager_report, "CLAIMS_DIR", claims_dir)
+    monkeypatch.setattr(manager_report, "MESSAGES_DIR", messages_dir)
     monkeypatch.setattr(manager_report, "REPORT_DIR", root / "_report" / "manager")
     monkeypatch.setattr(manager_report, "TASKS_FILE", tasks_path)
 
+    event_log = events_dir / "events.jsonl"
     monkeypatch.setattr(bus_event, "ROOT", root)
-    monkeypatch.setattr(bus_event, "EVENT_LOG", root / "_bus" / "events" / "events.jsonl")
-    monkeypatch.setattr(bus_event, "MANIFEST_PATH", root / "AGENT_MANIFEST.json")
-    (root / "AGENT_MANIFEST.json").write_text(json.dumps({"agent_id": "codex-manager"}), encoding="utf-8")
+    monkeypatch.setattr(bus_event, "EVENT_LOG", event_log)
+    manifest_path = root / "AGENT_MANIFEST.json"
+    manifest_path.write_text(
+        json.dumps({"agent_id": "codex-manager", "desired_roles": ["manager"]}),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(bus_event, "MANIFEST_PATH", manifest_path)
+
+    monkeypatch.setattr(bus_status, "ROOT", root)
+    monkeypatch.setattr(bus_status, "CLAIMS_DIR", claims_dir)
+    monkeypatch.setattr(bus_status, "EVENT_LOG", event_log)
+    monkeypatch.setattr(bus_status, "ASSIGNMENTS_DIR", assignments_dir)
+    monkeypatch.setattr(bus_status, "MANIFEST_PATTERN", "AGENT_MANIFEST.json")
 
     return root
 
@@ -67,3 +82,63 @@ def test_manager_report_logs_heartbeat(repo: Path):
         if entry.get("agent_id") == "codex-manager" and entry.get("summary") == "codex-manager heartbeat"
     )
     assert heartbeat.get("shift") == "mid"
+
+
+def test_manager_report_bus_status_roundtrip(repo: Path, capsys):
+    rc = manager_report.main([
+        "--manager",
+        "codex-manager",
+        "--log-heartbeat",
+        "--heartbeat-summary",
+        "codex-manager heartbeat",
+        "--heartbeat-shift",
+        "mid",
+    ])
+    assert rc == 0
+    capsys.readouterr()
+
+    out_rc = bus_status.main(["--preset", "manager", "--limit", "5", "--json"])
+    assert out_rc == 0
+    payload = json.loads(capsys.readouterr().out)
+    active = payload["manager_status"].get("active", [])
+    assert active and active[0]["summary"] == "codex-manager heartbeat"
+    assert active[0]["meta"].get("shift") == "mid"
+
+
+def test_manager_report_includes_metrics(repo: Path):
+    metrics_dir = repo / "_report" / "reconciliation" / "sample"
+    metrics_dir.mkdir(parents=True, exist_ok=True)
+    metrics_file = metrics_dir / "metrics.jsonl"
+    metrics_file.write_text(
+        "\n".join(
+            [
+                json.dumps({
+                    "matches": True,
+                    "difference_count": 0,
+                    "missing_receipt_count": 0,
+                    "capability_diff_count": 0,
+                }),
+                json.dumps({
+                    "matches": False,
+                    "difference_count": 2,
+                    "missing_receipt_count": 1,
+                    "capability_diff_count": 1,
+                }),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    rc = manager_report.main([
+        "--manager",
+        "codex-manager",
+        "--include-metrics",
+        "--metrics-dir",
+        str(metrics_dir),
+    ])
+    assert rc == 0
+    report_path = sorted((repo / "_report" / "manager").glob("manager-report-*.md"))[-1]
+    content = report_path.read_text(encoding="utf-8")
+    assert "Reconciliation Metrics" in content
+    assert "Differences: 2" in content
