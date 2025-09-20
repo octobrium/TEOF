@@ -1,7 +1,7 @@
-# TEOF Status (2025-08-27T18:19:09+00:00Z)
+# TEOF Status (2025-09-21T19:52:00+00:00Z)
 
 ## Snapshot
-- Capsule: /Users/evan/Documents/GitHub/TEOF/capsule/current -> v1.5
+- Capsule: /Users/evan/Documents/GitHub/TEOF/capsule/current -> v1.6
 - Package: teof 0.1.0a2
 - CLI: `teof brief` → writes `artifacts/ocers_out/<UTCSTAMP>/` and updates `artifacts/ocers_out/latest/`
 - Artifacts latest: /Users/evan/Documents/GitHub/TEOF/artifacts/ocers_out/latest (ready: yes)

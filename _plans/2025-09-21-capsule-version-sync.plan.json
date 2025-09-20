@@ -1,0 +1,43 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-capsule-version-sync",
+  "created": "2025-09-21T19:55:00Z",
+  "actor": "codex-2",
+  "summary": "Synchronize capsule v1.6 metadata and docs",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update capsule artifacts",
+      "status": "done",
+      "notes": "Align capsule/v1.6 headers, provenance, release, reconstruction.",
+      "receipts": [
+        "capsule/v1.6/capsule.txt",
+        "capsule/v1.6/PROVENANCE.md",
+        "capsule/v1.6/RELEASE.md",
+        "capsule/v1.6/reconstruction.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Refresh status docs",
+      "status": "done",
+      "notes": "Update docs/STATUS.md to reflect v1.6 current capsule.",
+      "receipts": [
+        "docs/STATUS.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Capsule v1.6 metadata consistent",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "capsule/v1.6/capsule.txt",
+    "capsule/v1.6/PROVENANCE.md",
+    "capsule/v1.6/RELEASE.md",
+    "capsule/v1.6/reconstruction.json",
+    "docs/STATUS.md"
+  ]
+}

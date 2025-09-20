@@ -1,7 +1,7 @@
-# TEOF Capsule — Release Routine (v1.3)
+# TEOF Capsule — Release Routine (v1.6)
 
 1) Build & Verify
-- Ensure v1.3 files:
+- Ensure v1.6 files:
   - capsule.txt (canonical)
   - capsule-selfreconstructing.txt (offline genome)
   - capsule-mini.txt (portable)
@@ -23,9 +23,9 @@
 - Fill attestation.txt and PROVENANCE.md.
 
 3) Sign (optional)
-- Sign: "TEOF Capsule v1.3 merkle_root=<hex> date=<YYYY-MM-DD>" with your BTC key.
+- Sign: "TEOF Capsule v1.6 merkle_root=<hex> date=<YYYY-MM-DD>" with your BTC key.
 - Add signature (and optional OP_RETURN txid) to PROVENANCE.md.
 
 4) Tag & Archive
-- GitHub: tag v1.3 + changelog + link to PROVENANCE.md.
+- GitHub: tag v1.6 + changelog + link to PROVENANCE.md.
 - Archive: Internet Archive/IPFS/Arweave (optional).
