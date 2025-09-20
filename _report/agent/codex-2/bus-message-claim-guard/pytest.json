@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-09-21T00:00:00Z",
+  "command": "pytest tests/test_agent_bus_message.py tests/test_agent_bus_event.py",
+  "summary": {
+    "passed": 12,
+    "failed": 0,
+    "duration_seconds": 0.03
+  }
+}

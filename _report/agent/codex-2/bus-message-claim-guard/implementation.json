@@ -1,0 +1,12 @@
+{
+  "files": [
+    "tools/agent/bus_event.py",
+    "tools/agent/bus_message.py",
+    "tools/agent/claim_guard.py"
+  ],
+  "tests": [
+    "tests/test_agent_bus_event.py",
+    "tests/test_agent_bus_message.py"
+  ],
+  "notes": "Centralised claim ownership guard shared by bus_event and bus_message with updated regression tests."
+}

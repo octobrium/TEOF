@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-09-19T21:56:30Z",
+  "command": "pytest tests/test_manifest_helper.py tests/test_agent_heartbeat.py",
+  "summary": {
+    "passed": 12,
+    "failed": 0,
+    "duration_seconds": 0.05
+  }
+}

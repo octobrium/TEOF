@@ -1,0 +1,10 @@
+{
+  "plan_id": "2025-09-20-docs-quicklinks-v2",
+  "generated_at": "2025-09-19T19:21:35Z",
+  "status": "done",
+  "highlights": [
+    "Quickstart entries added to quick-links manifest with category filtering.",
+    "doc_links CLI now accepts --category; onboarding docs reference the quickstart surface."
+  ],
+  "blockers": []
+}

@@ -1,0 +1,1167 @@
+{
+  "alerts": [
+    "Plan 2025-09-19-heartbeat-followup has no active claim (actor=codex-4)",
+    "Plan 2025-09-19T220034Z-retire-codex-observer has no active claim (actor=codex-1)",
+    "Heartbeat codex-manager is stale",
+    "Heartbeat template is missing"
+  ],
+  "claims": [
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/apoptosis-001",
+      "claimed_at": "2025-09-18T21:47:47Z",
+      "plan_id": "2025-09-19-kernel-slimdown",
+      "released_at": "2025-09-18T22:14:37Z",
+      "status": "done",
+      "task_id": "APOP-001"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/apoptosis-002",
+      "claimed_at": "2025-09-18T21:52:21Z",
+      "plan_id": "2025-09-19-tooling-prune",
+      "released_at": "2025-09-19T05:51:54Z",
+      "status": "done",
+      "task_id": "APOP-002"
+    },
+    {
+      "agent_id": "codex-4",
+      "branch": "agent/codex-4/apoptosis-003",
+      "claimed_at": "2025-09-18T22:01:31Z",
+      "plan_id": "2025-09-19-governance-trim",
+      "released_at": "2025-09-18T22:28:00Z",
+      "status": "done",
+      "task_id": "APOP-003"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/apoptosis-004",
+      "claimed_at": "2025-09-19T06:02:21Z",
+      "plan_id": "2025-09-20-bus-heartbeat-refresh",
+      "released_at": "2025-09-19T06:03:58Z",
+      "status": "done",
+      "task_id": "APOP-004"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/apoptosis-005",
+      "claimed_at": "2025-09-19T05:36:12Z",
+      "plan_id": "2025-09-20-receipt-scaffold-v2",
+      "released_at": "2025-09-19T05:51:05Z",
+      "status": "done",
+      "task_id": "APOP-005"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/apoptosis-007",
+      "claimed_at": "2025-09-19T05:15:09Z",
+      "plan_id": "2025-09-21-code-compaction",
+      "released_at": "2025-09-19T05:56:47Z",
+      "status": "done",
+      "task_id": "APOP-007"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/apoptosis-008",
+      "claimed_at": "2025-09-19T05:13:39Z",
+      "plan_id": "2025-09-21-session-sync",
+      "released_at": "2025-09-19T05:13:39Z",
+      "status": "done",
+      "task_id": "APOP-008"
+    },
+    {
+      "agent_id": "codex-4",
+      "branch": "agent/codex-4/apoptosis-009",
+      "claimed_at": "2025-09-19T05:11:33Z",
+      "plan_id": "2025-09-21-coordination-dashboard",
+      "released_at": "2025-09-19T05:25:53Z",
+      "status": "done",
+      "task_id": "APOP-009"
+    },
+    {
+      "agent_id": "codex-1",
+      "branch": "agent/codex-1/bus-001",
+      "claimed_at": "2025-09-17T23:45:12Z",
+      "plan_id": "2025-09-17-agent-bus-awareness",
+      "released_at": "2025-09-18T00:06:43Z",
+      "status": "done",
+      "task_id": "BUS-001"
+    },
+    {
+      "agent_id": "codex-4",
+      "branch": "agent/codex-4/bus-coord-0002",
+      "claimed_at": "2025-09-19T21:53:20Z",
+      "plan_id": null,
+      "released_at": null,
+      "status": "active",
+      "task_id": "BUS-COORD-0002"
+    },
+    {
+      "agent_id": "codex-1",
+      "branch": "agent/codex-1/coord-0001",
+      "claimed_at": "2025-09-17T23:21:05Z",
+      "plan_id": "2025-09-17-codex1-support",
+      "released_at": "2025-09-17T23:40:07Z",
+      "status": "done",
+      "task_id": "COORD-0001"
+    },
+    {
+      "agent_id": "codex-1",
+      "branch": "agent/codex-1/plan-2025-09-17-metrics-logging",
+      "claimed_at": "2025-09-19T21:29:23Z",
+      "plan_id": "2025-09-17-metrics-logging",
+      "released_at": null,
+      "status": "done",
+      "task_id": "PLAN-2025-09-17-metrics-logging"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/heartbeat-auto",
+      "claimed_at": "2025-09-19T21:50:14Z",
+      "plan_id": "2025-09-19T214948Z-heartbeat-auto-codex2",
+      "released_at": null,
+      "status": "active",
+      "task_id": "PLAN-2025-09-19T214948Z-heartbeat-auto-codex2"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/heartbeat-docs",
+      "claimed_at": "2025-09-19T21:50:18Z",
+      "plan_id": "2025-09-19T214954Z-heartbeat-docs-codex3",
+      "released_at": null,
+      "status": "active",
+      "task_id": "PLAN-2025-09-19T214954Z-heartbeat-docs-codex3"
+    },
+    {
+      "agent_id": "codex-4",
+      "branch": "agent/codex-4/heartbeat-integration",
+      "claimed_at": "2025-09-19T21:50:23Z",
+      "plan_id": "2025-09-19T215000Z-heartbeat-integration-codex4",
+      "released_at": null,
+      "status": "active",
+      "task_id": "PLAN-2025-09-19T215000Z-heartbeat-integration-codex4"
+    },
+    {
+      "agent_id": "codex-1",
+      "branch": "agent/codex-1/retire-codex-observer",
+      "claimed_at": "2025-09-19T22:00:41Z",
+      "plan_id": "2025-09-19T220200Z-retire-codex-observer",
+      "released_at": null,
+      "status": "active",
+      "task_id": "PLAN-2025-09-19T220200Z-retire-codex-observer"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/queue-000",
+      "claimed_at": "2025-09-17T23:20:07Z",
+      "plan_id": "2025-09-17-anchors-append-guard",
+      "released_at": "2025-09-17T23:29:24Z",
+      "status": "done",
+      "task_id": "QUEUE-000"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/queue-001",
+      "claimed_at": "2025-09-17T23:44:12Z",
+      "plan_id": "2025-09-17-agent-bus-watch",
+      "released_at": "2025-09-19T05:55:27Z",
+      "status": "done",
+      "task_id": "QUEUE-001"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/queue-002",
+      "claimed_at": "2025-09-18T02:04:32Z",
+      "plan_id": "2025-09-18-agent-bus-status",
+      "released_at": "2025-09-18T02:10:22Z",
+      "status": "done",
+      "task_id": "QUEUE-002"
+    },
+    {
+      "agent_id": "codex-4",
+      "branch": "agent/codex-4/queue-009",
+      "claimed_at": "2025-09-18T05:25:00Z",
+      "plan_id": "2025-09-18-codex4-bus-watch-window",
+      "released_at": "2025-09-18T05:31:38Z",
+      "status": "done",
+      "task_id": "QUEUE-009"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/queue-010",
+      "claimed_at": "2025-09-18T03:36:53Z",
+      "plan_id": "2025-09-18-collab-support",
+      "released_at": "2025-09-18T03:40:25Z",
+      "status": "done",
+      "task_id": "QUEUE-010"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/queue-011",
+      "claimed_at": "2025-09-18T06:43:22Z",
+      "plan_id": "2025-09-18-codex3-bus-tooling-review",
+      "released_at": "2025-09-18T06:44:11Z",
+      "status": "done",
+      "task_id": "QUEUE-011"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/queue-012",
+      "claimed_at": "2025-09-18T06:11:19Z",
+      "plan_id": "2025-09-18-bus-message-claim-guard",
+      "released_at": "2025-09-19T05:55:36Z",
+      "status": "done",
+      "task_id": "QUEUE-012"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/queue-013",
+      "claimed_at": "2025-09-18T06:11:28Z",
+      "plan_id": "2025-09-18-maintenance-pruning",
+      "released_at": "2025-09-18T06:26:21Z",
+      "status": "done",
+      "task_id": "QUEUE-013"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/queue-014",
+      "claimed_at": "2025-09-18T06:45:20Z",
+      "plan_id": "2025-09-18-claim-seed-docs",
+      "released_at": "2025-09-19T05:55:45Z",
+      "status": "done",
+      "task_id": "QUEUE-014"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/queue-015",
+      "claimed_at": "2025-09-18T06:46:20Z",
+      "plan_id": "2025-09-18-prune-script",
+      "released_at": "2025-09-18T19:15:03Z",
+      "status": "done",
+      "task_id": "QUEUE-015"
+    },
+    {
+      "agent_id": "codex-4",
+      "branch": "agent/codex-4/queue-030",
+      "claimed_at": "2025-09-18T19:36:15Z",
+      "plan_id": "2025-09-18-consensus-ledger-cli",
+      "released_at": "2025-09-18T19:42:49Z",
+      "status": "done",
+      "task_id": "QUEUE-030"
+    },
+    {
+      "agent_id": "codex-4",
+      "branch": "agent/codex-4/queue-031",
+      "claimed_at": "2025-09-18T19:47:35Z",
+      "plan_id": "2025-09-18-consensus-receipts",
+      "released_at": "2025-09-18T19:52:36Z",
+      "status": "done",
+      "task_id": "QUEUE-031"
+    },
+    {
+      "agent_id": "codex-4",
+      "branch": "agent/codex-4/queue-032",
+      "claimed_at": "2025-09-18T19:59:13Z",
+      "plan_id": null,
+      "released_at": "2025-09-18T20:13:50Z",
+      "status": "done",
+      "task_id": "QUEUE-032"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/queue-033",
+      "claimed_at": "2025-09-18T20:03:42Z",
+      "plan_id": "2025-09-18-consensus-dashboard",
+      "released_at": "2025-09-18T20:08:56Z",
+      "status": "done",
+      "task_id": "QUEUE-033"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/queue-034",
+      "claimed_at": "2025-09-18T20:12:51Z",
+      "plan_id": "2025-09-18-l4-bindings",
+      "released_at": "2025-09-18T20:13:05Z",
+      "status": "done",
+      "task_id": "QUEUE-034"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/queue-035",
+      "claimed_at": "2025-09-18T20:13:46Z",
+      "plan_id": "2025-09-18-capsule-status-ledger",
+      "released_at": "2025-09-18T20:16:29Z",
+      "status": "done",
+      "task_id": "QUEUE-035"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/queue-036",
+      "claimed_at": "2025-09-18T20:13:53Z",
+      "plan_id": "2025-09-18-macro-hygiene",
+      "released_at": "2025-09-19T05:55:54Z",
+      "status": "done",
+      "task_id": "QUEUE-036"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/queue-037",
+      "claimed_at": "2025-09-18T20:25:26Z",
+      "plan_id": "2025-09-19-manifest-swap",
+      "released_at": "2025-09-19T06:22:06Z",
+      "status": "done",
+      "task_id": "QUEUE-037"
+    },
+    {
+      "agent_id": "codex-4",
+      "branch": "agent/codex-4/queue-038",
+      "claimed_at": "2025-09-18T20:25:17Z",
+      "plan_id": "2025-09-18-consensus-ci",
+      "released_at": "2025-09-18T20:33:13Z",
+      "status": "done",
+      "task_id": "QUEUE-038"
+    },
+    {
+      "agent_id": "codex-3",
+      "branch": "agent/codex-3/queue-039",
+      "claimed_at": "2025-09-18T20:25:33Z",
+      "plan_id": "2025-09-18-capsule-cadence",
+      "released_at": "2025-09-18T20:32:53Z",
+      "status": "done",
+      "task_id": "QUEUE-039"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/queue-040",
+      "claimed_at": "2025-09-19T06:11:43Z",
+      "plan_id": "2025-09-19-docs-quicklinks-codex2",
+      "released_at": "2025-09-19T06:13:38Z",
+      "status": "done",
+      "task_id": "QUEUE-040"
+    },
+    {
+      "agent_id": "codex-4",
+      "branch": "agent/codex-4/queue-041",
+      "claimed_at": "2025-09-19T21:23:34Z",
+      "plan_id": null,
+      "released_at": "2025-09-19T21:26:15Z",
+      "status": "done",
+      "task_id": "QUEUE-041"
+    },
+    {
+      "agent_id": "codex-2",
+      "branch": "agent/codex-2/queue-042",
+      "claimed_at": "2025-09-19T06:32:44Z",
+      "plan_id": "2025-09-19-coordination-dashboard-codex2",
+      "released_at": "2025-09-19T06:35:44Z",
+      "status": "done",
+      "task_id": "QUEUE-042"
+    },
+    {
+      "agent_id": "codex-1",
+      "branch": "agent/codex-1/manager-report",
+      "claimed_at": "2025-09-19T05:32:51Z",
+      "plan_id": "2025-09-18-manager-heartbeat",
+      "released_at": "2025-09-19T05:59:00Z",
+      "status": "done",
+      "task_id": "manager-report"
+    }
+  ],
+  "generated_at": "2025-09-19T22:02:06Z",
+  "heartbeats": {
+    "agents": [
+      {
+        "agent_id": "codex-1",
+        "last_seen": "2025-09-19T21:54:10Z",
+        "state": "active"
+      },
+      {
+        "agent_id": "codex-2",
+        "last_seen": "2025-09-19T21:57:22Z",
+        "state": "active"
+      },
+      {
+        "agent_id": "codex-3",
+        "last_seen": "2025-09-19T21:54:14Z",
+        "state": "active"
+      },
+      {
+        "agent_id": "codex-4",
+        "last_seen": "2025-09-19T21:57:25Z",
+        "state": "active"
+      },
+      {
+        "agent_id": "codex-manager",
+        "last_seen": "2025-09-19T21:31:47Z",
+        "state": "active"
+      },
+      {
+        "agent_id": "template",
+        "last_seen": null,
+        "state": "missing"
+      }
+    ],
+    "managers": [
+      {
+        "agent_id": "codex-1",
+        "last_seen": "2025-09-19T21:54:10Z",
+        "state": "active"
+      },
+      {
+        "agent_id": "codex-2",
+        "last_seen": "2025-09-19T21:57:22Z",
+        "state": "active"
+      },
+      {
+        "agent_id": "codex-4",
+        "last_seen": "2025-09-19T21:57:25Z",
+        "state": "active"
+      },
+      {
+        "agent_id": "codex-manager",
+        "last_seen": "2025-09-19T21:31:47Z",
+        "state": "stale"
+      }
+    ]
+  },
+  "manager_directives": [
+    {
+      "from": "codex-4",
+      "summary": "Manager report now accepts --heartbeat-meta for tagging heartbeats.",
+      "ts": "2025-09-19T06:16:25Z",
+      "type": "status"
+    },
+    {
+      "from": "codex-4",
+      "summary": "Plan hygiene follow-up: duplicates resolved, strict validator green",
+      "ts": "2025-09-19T06:18:57Z",
+      "type": "status"
+    },
+    {
+      "from": "codex-4",
+      "summary": "Plan hygiene dedupe follow-up started (plan 2025-09-19-plan-hygiene-dedupe)",
+      "ts": "2025-09-19T06:20:36Z",
+      "type": "status"
+    },
+    {
+      "from": "codex-2",
+      "summary": "Manifest helper gains session save/restore",
+      "ts": "2025-09-19T06:22:23Z",
+      "type": "status"
+    },
+    {
+      "from": "codex-4",
+      "summary": "manager_report adds --heartbeat-shift shortcut; bus_status prints heartbeat meta.",
+      "ts": "2025-09-19T06:22:57Z",
+      "type": "status"
+    },
+    {
+      "from": "codex-4",
+      "summary": "Plan hygiene update: duplicate receipt detection now enforced",
+      "ts": "2025-09-19T06:24:04Z",
+      "type": "status"
+    },
+    {
+      "from": "codex-1",
+      "summary": "TEOF principle: repeated patterns reinforce truth",
+      "ts": "2025-09-19T06:29:26Z",
+      "type": "note"
+    },
+    {
+      "from": "codex-2",
+      "summary": "Coordination dashboard CLI live",
+      "ts": "2025-09-19T06:35:52Z",
+      "type": "status"
+    },
+    {
+      "from": "codex-1",
+      "summary": "New assignments queued: APOP-007 code compaction (codex-2), APOP-008 session sync helper (codex-3), APOP-009 coordination dashboard (codex-4).",
+      "ts": "2025-09-21T00:07:30Z",
+      "type": "status"
+    },
+    {
+      "from": "codex-1",
+      "summary": "Action: Agents pull latest (git pull --ff-only), run tools/agent/preflight.sh, then claim APOP-007/008/009 via bus_claim.",
+      "ts": "2025-09-21T00:10:00Z",
+      "type": "note"
+    }
+  ],
+  "plans": [
+    {
+      "actor": "codex-4",
+      "checkpoint_status": "pending",
+      "missing_details": [],
+      "missing_receipts": false,
+      "pending_steps": [
+        "S2",
+        "S3"
+      ],
+      "plan_id": "2025-09-19-heartbeat-followup",
+      "status": "active",
+      "steps_completed": 1,
+      "steps_total": 3
+    },
+    {
+      "actor": "codex-2",
+      "checkpoint_status": "pending",
+      "missing_details": [],
+      "missing_receipts": false,
+      "pending_steps": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "plan_id": "2025-09-19T214948Z-heartbeat-auto-codex2",
+      "status": "queued",
+      "steps_completed": 0,
+      "steps_total": 3
+    },
+    {
+      "actor": "codex-3",
+      "checkpoint_status": "pending",
+      "missing_details": [],
+      "missing_receipts": false,
+      "pending_steps": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "plan_id": "2025-09-19T214954Z-heartbeat-docs-codex3",
+      "status": "queued",
+      "steps_completed": 0,
+      "steps_total": 3
+    },
+    {
+      "actor": "codex-4",
+      "checkpoint_status": "pending",
+      "missing_details": [],
+      "missing_receipts": false,
+      "pending_steps": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "plan_id": "2025-09-19T215000Z-heartbeat-integration-codex4",
+      "status": "queued",
+      "steps_completed": 0,
+      "steps_total": 3
+    },
+    {
+      "actor": "codex-1",
+      "checkpoint_status": "pending",
+      "missing_details": [],
+      "missing_receipts": false,
+      "pending_steps": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "plan_id": "2025-09-19T220034Z-retire-codex-observer",
+      "status": "queued",
+      "steps_completed": 0,
+      "steps_total": 3
+    }
+  ],
+  "pruning_candidates": {
+    "claims": [
+      {
+        "path": "_bus/claims/APOP-001.json",
+        "status": "done",
+        "task_id": "APOP-001"
+      },
+      {
+        "path": "_bus/claims/APOP-002.json",
+        "status": "done",
+        "task_id": "APOP-002"
+      },
+      {
+        "path": "_bus/claims/APOP-003.json",
+        "status": "done",
+        "task_id": "APOP-003"
+      },
+      {
+        "path": "_bus/claims/APOP-004.json",
+        "status": "done",
+        "task_id": "APOP-004"
+      },
+      {
+        "path": "_bus/claims/APOP-005.json",
+        "status": "done",
+        "task_id": "APOP-005"
+      },
+      {
+        "path": "_bus/claims/APOP-007.json",
+        "status": "done",
+        "task_id": "APOP-007"
+      },
+      {
+        "path": "_bus/claims/APOP-008.json",
+        "status": "done",
+        "task_id": "APOP-008"
+      },
+      {
+        "path": "_bus/claims/APOP-009.json",
+        "status": "done",
+        "task_id": "APOP-009"
+      },
+      {
+        "path": "_bus/claims/BUS-001.json",
+        "status": "done",
+        "task_id": "BUS-001"
+      },
+      {
+        "path": "_bus/claims/COORD-0001.json",
+        "status": "done",
+        "task_id": "COORD-0001"
+      },
+      {
+        "path": "_bus/claims/PLAN-2025-09-17-metrics-logging.json",
+        "status": "done",
+        "task_id": "PLAN-2025-09-17-metrics-logging"
+      },
+      {
+        "path": "_bus/claims/QUEUE-000.json",
+        "status": "done",
+        "task_id": "QUEUE-000"
+      },
+      {
+        "path": "_bus/claims/QUEUE-001.json",
+        "status": "done",
+        "task_id": "QUEUE-001"
+      },
+      {
+        "path": "_bus/claims/QUEUE-002.json",
+        "status": "done",
+        "task_id": "QUEUE-002"
+      },
+      {
+        "path": "_bus/claims/QUEUE-009.json",
+        "status": "done",
+        "task_id": "QUEUE-009"
+      },
+      {
+        "path": "_bus/claims/QUEUE-010.json",
+        "status": "done",
+        "task_id": "QUEUE-010"
+      },
+      {
+        "path": "_bus/claims/QUEUE-011.json",
+        "status": "done",
+        "task_id": "QUEUE-011"
+      },
+      {
+        "path": "_bus/claims/QUEUE-012.json",
+        "status": "done",
+        "task_id": "QUEUE-012"
+      },
+      {
+        "path": "_bus/claims/QUEUE-013.json",
+        "status": "done",
+        "task_id": "QUEUE-013"
+      },
+      {
+        "path": "_bus/claims/QUEUE-014.json",
+        "status": "done",
+        "task_id": "QUEUE-014"
+      },
+      {
+        "path": "_bus/claims/QUEUE-015.json",
+        "status": "done",
+        "task_id": "QUEUE-015"
+      },
+      {
+        "path": "_bus/claims/QUEUE-030.json",
+        "status": "done",
+        "task_id": "QUEUE-030"
+      },
+      {
+        "path": "_bus/claims/QUEUE-031.json",
+        "status": "done",
+        "task_id": "QUEUE-031"
+      },
+      {
+        "path": "_bus/claims/QUEUE-032.json",
+        "status": "done",
+        "task_id": "QUEUE-032"
+      },
+      {
+        "path": "_bus/claims/QUEUE-033.json",
+        "status": "done",
+        "task_id": "QUEUE-033"
+      },
+      {
+        "path": "_bus/claims/QUEUE-034.json",
+        "status": "done",
+        "task_id": "QUEUE-034"
+      },
+      {
+        "path": "_bus/claims/QUEUE-035.json",
+        "status": "done",
+        "task_id": "QUEUE-035"
+      },
+      {
+        "path": "_bus/claims/QUEUE-036.json",
+        "status": "done",
+        "task_id": "QUEUE-036"
+      },
+      {
+        "path": "_bus/claims/QUEUE-037.json",
+        "status": "done",
+        "task_id": "QUEUE-037"
+      },
+      {
+        "path": "_bus/claims/QUEUE-038.json",
+        "status": "done",
+        "task_id": "QUEUE-038"
+      },
+      {
+        "path": "_bus/claims/QUEUE-039.json",
+        "status": "done",
+        "task_id": "QUEUE-039"
+      },
+      {
+        "path": "_bus/claims/QUEUE-040.json",
+        "status": "done",
+        "task_id": "QUEUE-040"
+      },
+      {
+        "path": "_bus/claims/QUEUE-041.json",
+        "status": "done",
+        "task_id": "QUEUE-041"
+      },
+      {
+        "path": "_bus/claims/QUEUE-042.json",
+        "status": "done",
+        "task_id": "QUEUE-042"
+      },
+      {
+        "path": "_bus/claims/manager-report.json",
+        "status": "done",
+        "task_id": "manager-report"
+      }
+    ],
+    "plans": [
+      {
+        "path": "_plans/1970-01-01-agent-template.plan.json",
+        "plan_id": "1970-01-01-agent-template",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-agent-bus-awareness.plan.json",
+        "plan_id": "2025-09-17-agent-bus-awareness",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-agent-bus-watch.plan.json",
+        "plan_id": "2025-09-17-agent-bus-watch",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-anchors-append-guard.plan.json",
+        "plan_id": "2025-09-17-anchors-append-guard",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-anchors-guard.plan.json",
+        "plan_id": "2025-09-17-anchors-guard",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-automation-doc.plan.json",
+        "plan_id": "2025-09-17-automation-doc",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-codex1-support.plan.json",
+        "plan_id": "2025-09-17-codex1-support",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-commandment-defaults.plan.json",
+        "plan_id": "2025-09-17-commandment-defaults",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-commandment-tags.plan.json",
+        "plan_id": "2025-09-17-commandment-tags",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-commandments-diff.plan.json",
+        "plan_id": "2025-09-17-commandments-diff",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-commandments.plan.json",
+        "plan_id": "2025-09-17-commandments",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-convergence-metrics.plan.json",
+        "plan_id": "2025-09-17-convergence-metrics",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-delta-exchange.plan.json",
+        "plan_id": "2025-09-17-delta-exchange",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-docs-landing.plan.json",
+        "plan_id": "2025-09-17-docs-landing",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-handshake-cli.plan.json",
+        "plan_id": "2025-09-17-handshake-cli",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-handshake-diff.plan.json",
+        "plan_id": "2025-09-17-handshake-diff",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-layer-update.plan.json",
+        "plan_id": "2025-09-17-layer-update",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-ledger-upkeep.plan.json",
+        "plan_id": "2025-09-17-ledger-upkeep",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-meaning-memory.plan.json",
+        "plan_id": "2025-09-17-meaning-memory",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-metrics-aggregate.plan.json",
+        "plan_id": "2025-09-17-metrics-aggregate",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-metrics-jsonl.plan.json",
+        "plan_id": "2025-09-17-metrics-jsonl",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-metrics-logging.plan.json",
+        "plan_id": "2025-09-17-metrics-logging",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-planner-cli-bootstrap.plan.json",
+        "plan_id": "2025-09-17-planner-cli-bootstrap",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-planner-eval-bootstrap.plan.json",
+        "plan_id": "2025-09-17-planner-eval-bootstrap",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-planner-insight-tools.plan.json",
+        "plan_id": "2025-09-17-planner-insight-tools",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-planner-show-command.plan.json",
+        "plan_id": "2025-09-17-planner-show-command",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-planner-v0-2.plan.json",
+        "plan_id": "2025-09-17-planner-v0-2",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-planner-validator-upgrade.plan.json",
+        "plan_id": "2025-09-17-planner-validator-upgrade",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-queue-hygiene.plan.json",
+        "plan_id": "2025-09-17-queue-hygiene",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-reconcile-ci.plan.json",
+        "plan_id": "2025-09-17-reconcile-ci",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-reconcile-merge.plan.json",
+        "plan_id": "2025-09-17-reconcile-merge",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-reconcile-pipeline.plan.json",
+        "plan_id": "2025-09-17-reconcile-pipeline",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-reconciliation.plan.json",
+        "plan_id": "2025-09-17-reconciliation",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-17-runner-ux.plan.json",
+        "plan_id": "2025-09-17-runner-ux",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-agent-bus-status.plan.json",
+        "plan_id": "2025-09-18-agent-bus-status",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-auto-claim.plan.json",
+        "plan_id": "2025-09-18-auto-claim",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-backlog-refresh.plan.json",
+        "plan_id": "2025-09-18-backlog-refresh",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-bus-message-claim-guard.plan.json",
+        "plan_id": "2025-09-18-bus-message-claim-guard",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-capsule-cadence.plan.json",
+        "plan_id": "2025-09-18-capsule-cadence",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-capsule-status-ledger.plan.json",
+        "plan_id": "2025-09-18-capsule-status-ledger",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-claim-seed-docs.plan.json",
+        "plan_id": "2025-09-18-claim-seed-docs",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-claim-session-cli.plan.json",
+        "plan_id": "2025-09-18-claim-session-cli",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-codex4-bus-followups.plan.json",
+        "plan_id": "2025-09-18-codex4-bus-followups",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-codex4-bus-watch-window.plan.json",
+        "plan_id": "2025-09-18-codex4-bus-watch-window",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-codex4-consensus-context.plan.json",
+        "plan_id": "2025-09-18-codex4-consensus-context",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-codex4-consensus-draft.plan.json",
+        "plan_id": "2025-09-18-codex4-consensus-draft",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-collab-support.plan.json",
+        "plan_id": "2025-09-18-collab-support",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-consensus-cadence.plan.json",
+        "plan_id": "2025-09-18-consensus-cadence",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-consensus-ci.plan.json",
+        "plan_id": "2025-09-18-consensus-ci",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-consensus-dashboard.plan.json",
+        "plan_id": "2025-09-18-consensus-dashboard",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-consensus-ledger-cli.plan.json",
+        "plan_id": "2025-09-18-consensus-ledger-cli",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-consensus-receipts.plan.json",
+        "plan_id": "2025-09-18-consensus-receipts",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-governance-bridge.plan.json",
+        "plan_id": "2025-09-18-governance-bridge",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-idle-pickup.plan.json",
+        "plan_id": "2025-09-18-idle-pickup",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-l4-bindings.plan.json",
+        "plan_id": "2025-09-18-l4-bindings",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-macro-hygiene.plan.json",
+        "plan_id": "2025-09-18-macro-hygiene",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-maintenance-pruning.plan.json",
+        "plan_id": "2025-09-18-maintenance-pruning",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-manager-coordination.plan.json",
+        "plan_id": "2025-09-18-manager-coordination",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-manager-heartbeat.plan.json",
+        "plan_id": "2025-09-18-manager-heartbeat",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-manifest-helper-codex3.plan.json",
+        "plan_id": "2025-09-18-manifest-helper-codex3",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-prune-script.plan.json",
+        "plan_id": "2025-09-18-prune-script",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-18-release-readiness.plan.json",
+        "plan_id": "2025-09-18-release-readiness",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-19-coordination-dashboard-codex2.plan.json",
+        "plan_id": "2025-09-19-coordination-dashboard-codex2",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-19-docs-quicklinks-codex2.plan.json",
+        "plan_id": "2025-09-19-docs-quicklinks-codex2",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-19-governance-trim.plan.json",
+        "plan_id": "2025-09-19-governance-trim",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-19-kernel-slimdown.plan.json",
+        "plan_id": "2025-09-19-kernel-slimdown",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-19-manager-heartbeat-auto.plan.json",
+        "plan_id": "2025-09-19-manager-heartbeat-auto",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-19-manifest-swap.plan.json",
+        "plan_id": "2025-09-19-manifest-swap",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-19-plan-hygiene-dedupe.plan.json",
+        "plan_id": "2025-09-19-plan-hygiene-dedupe",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-19-plan-hygiene.plan.json",
+        "plan_id": "2025-09-19-plan-hygiene",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-19-queue-041-session-sync.plan.json",
+        "plan_id": "2025-09-19-queue-041-session-sync",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-19-tooling-prune.plan.json",
+        "plan_id": "2025-09-19-tooling-prune",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-20-bus-heartbeat-refresh.plan.json",
+        "plan_id": "2025-09-20-bus-heartbeat-refresh",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-20-docs-quicklinks-v2.plan.json",
+        "plan_id": "2025-09-20-docs-quicklinks-v2",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-20-receipt-scaffold-v2.plan.json",
+        "plan_id": "2025-09-20-receipt-scaffold-v2",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-21-code-compaction.plan.json",
+        "plan_id": "2025-09-21-code-compaction",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-21-coordination-dashboard.plan.json",
+        "plan_id": "2025-09-21-coordination-dashboard",
+        "status": "done"
+      },
+      {
+        "path": "_plans/2025-09-21-session-sync.plan.json",
+        "plan_id": "2025-09-21-session-sync",
+        "status": "done"
+      }
+    ]
+  },
+  "unclaimed_plans": [
+    {
+      "actor": "codex-4",
+      "checkpoint_status": "pending",
+      "missing_details": [],
+      "missing_receipts": false,
+      "pending_steps": [
+        "S2",
+        "S3"
+      ],
+      "plan_id": "2025-09-19-heartbeat-followup",
+      "status": "active",
+      "steps_completed": 1,
+      "steps_total": 3
+    },
+    {
+      "actor": "codex-1",
+      "checkpoint_status": "pending",
+      "missing_details": [],
+      "missing_receipts": false,
+      "pending_steps": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "plan_id": "2025-09-19T220034Z-retire-codex-observer",
+      "status": "queued",
+      "steps_completed": 0,
+      "steps_total": 3
+    }
+  ]
+}
