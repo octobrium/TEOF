@@ -26,6 +26,8 @@ jobs:
         run: scripts/ci/check_readability.py
       - name: Enforce policy checks
         run: scripts/policy_checks.sh
+      - name: Quickstart smoke test
+        run: scripts/ci/quickstart_smoke.sh
       - name: Upload consensus artifacts
         uses: actions/upload-artifact@v4
         with:

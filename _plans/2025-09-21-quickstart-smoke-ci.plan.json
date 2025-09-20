@@ -1,0 +1,51 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-quickstart-smoke-ci",
+  "created": "2025-09-21T20:30:00Z",
+  "actor": "codex-2",
+  "summary": "Run quickstart smoke in guardrails CI",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Document quickstart CI guard",
+      "status": "done",
+      "notes": "Explain in docs/workflow.md/#quickstart how the CI smoke test anchors the snippet.",
+      "receipts": [
+        "docs/workflow.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add quickstart CI script",
+      "status": "done",
+      "notes": "Create scripts/ci/quickstart_smoke.sh to install + run teof brief and verify receipts.",
+      "receipts": [
+        "scripts/ci/quickstart_smoke.sh"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Wire guardrails + add coverage",
+      "status": "done",
+      "notes": "Invoke the script in guardrails workflow; add lightweight pytest to ensure helper script path resolves.",
+      "receipts": [
+        ".github/workflows/guardrails.yml",
+        "_bus/messages/manager-report.jsonl",
+        "tests/test_quickstart_snippet_guard.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Quickstart smoke runs in CI and produces receipts",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "receipts": [
+    ".github/workflows/guardrails.yml",
+    "_bus/messages/manager-report.jsonl",
+    "docs/workflow.md",
+    "scripts/ci/quickstart_smoke.sh",
+    "tests/test_quickstart_snippet_guard.py"
+  ]
+}

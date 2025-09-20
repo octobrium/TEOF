@@ -60,9 +60,10 @@ Review cadence: Monthly sweep
 - **Minimalism:** keep complexity the same or lower for equal capability. If complexity increases, justify in one sentence in the PR body.
 - **Single Source of Truth:** immutable baselines live under `capsule/<version>/` and are covered by `capsule/<version>/hashes.json`. `capsule/current` is a plain‑text pointer to the active version.
 - **Determinism:** commands run reproducibly on a clean machine (no hidden state, same output paths).
-- **Append‑Only Governance:** `governance/anchors.json` is append-only; releases map to a baseline with a `prev_content_hash`.
+- **Append-Only Governance:** `governance/anchors.json` is append-only; releases map to a baseline with a `prev_content_hash`.
 - **Observation Discipline:** claims follow [VDP](foundation/alignment-protocol/TAP.md#volatile-data-protocol-vdp-and-ogs-requirements); reasoning can be scored with [OGS](OGS-spec.md). Use **N/A** when not applicable.
 - **Stable Interfaces:** prefer console scripts (`teof-validate`, `teof-ensemble`) or `python -m …` over deep file paths.
+- **Quickstart Guard:** CI runs the canonical smoke test (`scripts/ci/quickstart_smoke.sh`) so the snippet in docs stays runnable; any divergence fails guardrails.
 
 ---
 
