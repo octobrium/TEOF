@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import List, Optional
 
 from tools.agent import session_boot, session_sync
 
@@ -54,20 +55,38 @@ class FakeSync:
         return self.result
 
 
-def _setup_env(monkeypatch, tmp_path: Path, *, agent_id: str = "codex-3") -> Path:
-    events_path = tmp_path / "events.jsonl"
-    claims_dir = tmp_path / "claims"
-    claims_dir.mkdir()
-    manifest_path = tmp_path / "AGENT_MANIFEST.json"
+def _setup_env(
+    monkeypatch,
+    tmp_path: Path,
+    *,
+    agent_id: str = "codex-3",
+    manager_entries: Optional[List[str]] = None,
+):
+    root = tmp_path
+    monkeypatch.setattr(session_boot, "ROOT", root)
+
+    events_path = root / "_bus" / "events" / "events.jsonl"
+    events_path.parent.mkdir(parents=True, exist_ok=True)
+    claims_dir = root / "_bus" / "claims"
+    claims_dir.mkdir(parents=True, exist_ok=True)
+    manifest_path = root / "AGENT_MANIFEST.json"
     manifest_path.write_text(json.dumps({"agent_id": agent_id}), encoding="utf-8")
+    manager_log = root / "_bus" / "messages" / "manager-report.jsonl"
+    manager_log.parent.mkdir(parents=True, exist_ok=True)
+    if manager_entries is None:
+        manager_entries = ["{\"ts\": \"2025-09-20T00:00:00Z\", \"note\": \"init\"}\n"]
+    manager_log.write_text("".join(manager_entries), encoding="utf-8")
+
     monkeypatch.setattr(session_boot, "EVENT_LOG", events_path)
     monkeypatch.setattr(session_boot, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(session_boot, "MANIFEST_PATH", manifest_path)
-    return events_path
+    monkeypatch.setattr(session_boot, "MANAGER_REPORT_LOG", manager_log)
+
+    return events_path, manager_log
 
 
 def test_session_boot_runs_sync_before_handshake(monkeypatch, tmp_path):
-    events_path = _setup_env(monkeypatch, tmp_path)
+    events_path, _ = _setup_env(monkeypatch, tmp_path)
     sync = FakeSync()
     monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
     dashboard = FakeDashboard()
@@ -92,7 +111,7 @@ def test_session_boot_runs_sync_before_handshake(monkeypatch, tmp_path):
 
 
 def test_session_boot_no_sync_flag(monkeypatch, tmp_path):
-    events_path = _setup_env(monkeypatch, tmp_path)
+    events_path, _ = _setup_env(monkeypatch, tmp_path)
     sync = FakeSync()
     monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
     dashboard = FakeDashboard()
@@ -107,7 +126,7 @@ def test_session_boot_no_sync_flag(monkeypatch, tmp_path):
 
 
 def test_session_boot_sync_failure(monkeypatch, tmp_path, capsys):
-    events_path = _setup_env(monkeypatch, tmp_path)
+    events_path, _ = _setup_env(monkeypatch, tmp_path)
 
     def fail_sync(**_):
         raise session_sync.SessionSyncError("boom")
@@ -123,7 +142,7 @@ def test_session_boot_sync_failure(monkeypatch, tmp_path, capsys):
 
 
 def test_session_boot_allows_dirty(monkeypatch, tmp_path):
-    events_path = _setup_env(monkeypatch, tmp_path)
+    events_path, _ = _setup_env(monkeypatch, tmp_path)
 
     def dirty_sync(*, allow_dirty):
         assert allow_dirty is True
@@ -170,3 +189,62 @@ def test_session_boot_emits_bus_watch_hint(monkeypatch, tmp_path, capsys):
     assert exit_code == 0
     out = capsys.readouterr().out
     assert "python -m tools.agent.bus_watch --task manager-report --follow --limit 20" in out
+
+
+def test_session_boot_writes_manager_report_tail(monkeypatch, tmp_path):
+    manager_entries = [
+        '{"ts": "2025-09-20T21:30:00Z", "summary": "a"}\n',
+        '{"ts": "2025-09-20T21:31:00Z", "summary": "b"}\n',
+        '{"ts": "2025-09-20T21:32:00Z", "summary": "c"}\n',
+    ]
+    _events_path, manager_log = _setup_env(
+        monkeypatch,
+        tmp_path,
+        manager_entries=manager_entries,
+    )
+
+    sync = FakeSync()
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    dashboard = FakeDashboard()
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", dashboard)
+
+    exit_code = session_boot.main(
+        [
+            "--agent",
+            "codex-3",
+            "--no-dashboard",
+            "--manager-report-tail-count",
+            "2",
+        ]
+    )
+
+    assert exit_code == 0
+    tail_path = tmp_path / "_report" / "session" / "codex-3" / "manager-report-tail.txt"
+    assert tail_path.exists()
+    content = tail_path.read_text(encoding="utf-8")
+    assert "requested_entries=2" in content
+    assert "written_entries=2" in content
+    assert manager_entries[-2].strip() in content
+    assert manager_entries[-1].strip() in content
+    assert manager_log.read_text(encoding="utf-8").strip().endswith("summary\": \"c\"}")
+
+
+def test_session_boot_can_skip_manager_report_tail(monkeypatch, tmp_path):
+    _events_path, _ = _setup_env(monkeypatch, tmp_path)
+    sync = FakeSync()
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    dashboard = FakeDashboard()
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", dashboard)
+
+    exit_code = session_boot.main(
+        [
+            "--agent",
+            "codex-3",
+            "--no-dashboard",
+            "--no-manager-report-tail",
+        ]
+    )
+
+    assert exit_code == 0
+    tail_path = tmp_path / "_report" / "session" / "codex-3" / "manager-report-tail.txt"
+    assert not tail_path.exists()

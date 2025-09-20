@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-operator-mode-checklist",
+  "created": "2025-09-20T21:56:48Z",
+  "actor": "codex-2",
+  "summary": "Add operator-mode quick checklist to docs/AGENTS.md",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review-workflow-docs",
+      "status": "done",
+      "notes": "Reviewed docs/workflow.md operator ladder; recorded findings in notes.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Draft-checklist-update",
+      "status": "done",
+      "notes": "Inserted Operator Mode Checklist into docs/AGENTS.md (communication section).",
+      "receipts": [
+        "docs/AGENTS.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Run-doc-guards",
+      "status": "done",
+      "notes": "Ran python3 tools/snippets/check_quickstart_docs.py --apply after doc update.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-2/2025-09-20-operator-mode-checklist/summary.json"
+  ]
+}

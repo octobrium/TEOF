@@ -21,6 +21,15 @@ Treat this page as the day-to-day companion to the lightweight onboarding entry 
 - **Coordinate ongoing work** – claim tasks (`python3 -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>`), emit heartbeats (`python3 -m tools.agent.bus_event log --event status ...`), and reply on `_bus/messages/<task>.jsonl` (`python3 -m tools.agent.bus_message --task <task_id> --type status ... --receipt <path>`), attaching receipts whenever possible.
 - **Heartbeat shortcut** – `python3 -m tools.agent.bus_ping --task <task_id> --message-task <task_id> --summary "progress"` auto-prefixes `<agent-id>:` and logs both the event + message. Add `--skip-message` when you only need the event log.
 
+## Operator Mode Checklist (refine TEOF safely)
+- **Confirm placement** – compare the repo layout against `docs/architecture.md`; queue architecture fixes first if folders drift.
+- **Re-run the quickstart** – execute `docs/quickstart.md` commands, capture receipts, and log an updated plan in `_plans/` (`python3 -m tools.planner.cli new ...` + `python3 tools/planner/validate.py`).
+- **Verify guards** – ensure `scripts/policy_checks.sh` (import policy + quickstart smoke) is wired in CI; note gaps if enforcement is missing.
+- **Patch observed gaps** – propose the smallest changes that make quickstart, docs, or imports accurate again. Document receipts under `_report/agent/<id>/...`.
+- **Publish the next steps** – surface a prioritized list (3–6 items) in your plan so other agents can resume the refinement loop.
+- **Seed and sync claims** – run `python3 -m tools.agent.claim_seed --task <id> --agent <owner> --plan <plan-id>` before assignments, and `python3 -m tools.agent.task_sync` after releasing work so `agents/tasks/tasks.json` stays current.
+- **Escalate deliberately** – only when workflow rules prevent progress, draft a proposal in `docs/proposals/` and, if needed, a Meta-TEP (see `docs/workflow.md#dna-recursion-self-improvement-of-the-rules`) before editing the DNA docs.
+
 ### Example session transcript
 ```
 $ python3 -m tools.agent.manifest_helper show

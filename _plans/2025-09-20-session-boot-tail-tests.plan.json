@@ -1,0 +1,28 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-session-boot-tail-tests",
+  "created": "2025-09-20T21:55:30Z",
+  "actor": "Octo",
+  "summary": "Add regression tests for session_boot manager-report tail receipt",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add regression tests for session_boot manager-report tail receipt",
+      "status": "done",
+      "notes": "Patched tests/test_session_boot.py to sandbox manager-report paths and verify tail receipt capture + opt-out.",
+      "receipts": [
+        "_report/agent/Octo/2025-09-20-session-boot-tail-tests/tests.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex-3",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/Octo/2025-09-20-session-boot-tail-tests/tests.json"
+  ]
+}

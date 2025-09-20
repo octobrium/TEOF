@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/operator-mode-checklist",
+  "claimed_at": "2025-09-20T21:56:16Z",
+  "notes": "Add operator-mode checklist to docs/AGENTS.md",
+  "plan_id": "2025-09-20-operator-mode-checklist",
+  "status": "done",
+  "task_id": "QUEUE-043",
+  "released_at": "2025-09-20T22:08:07Z"
+}
