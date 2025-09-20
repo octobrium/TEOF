@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2025-09-19",
+  "updated": "2025-09-20",
   "links": [
     {
       "id": "agents-claim-seeding",
@@ -49,6 +49,14 @@
       "path": "docs/collab-support.md",
       "anchor": "#2-monitor--offer-help",
       "category": "coordination"
+    },
+    {
+      "id": "comm-mainline",
+      "title": "Communication Quickstart",
+      "summary": "Shows how to claim, broadcast, and monitor the coordination bus (manager-report) on day one.",
+      "path": ".github/AGENT_ONBOARDING.md",
+      "anchor": "#communication-quickstart-manager-report-hub",
+      "category": "onboarding"
     },
     {
       "id": "consensus-ledger",

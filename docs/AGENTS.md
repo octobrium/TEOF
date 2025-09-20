@@ -11,6 +11,29 @@ Treat this page as the day-to-day companion to the lightweight onboarding entry 
 - Need machine-readable output? `python -m tools.agent.doc_links list --format json`.
 - Need a manual receipt scaffold? `python -m tools.receipts.main scaffold plan --plan-id <id> --agent <id>` or `... claim --task <id> --agent <id>` creates the default files without touching plans/claims.
 
+## Communication Quickstart (manager-report hub)
+- **Verify manifest** – confirm `AGENT_MANIFEST.json` (or `python3 -m tools.agent.manifest_helper show`) lists the `agent_id` you will broadcast with.
+- **Announce the session** – `python3 -m tools.agent.session_boot --agent <agent-id> --focus <role> --with-status` records the handshake, ensures the repo is synced, and captures a `bus_status` receipt.
+- **Broadcast the hello** – post to the shared lane with `python3 -m tools.agent.bus_message --task manager-report --type status --summary "<agent-id>: on deck for <focus>" --note "Context"`. Keep the `<agent-id>:` prefix so downstream readers know who spoke.
+- **Respect the guard** – `tools.agent.bus_message` exits when the manifest and `--agent` disagree; rerun `session_boot` or `python3 -m tools.agent.manifest_helper activate <id>` before posting.
+- **Watch the feed** – keep `python3 -m tools.agent.bus_watch --task manager-report --follow --limit 20` running (or spot-check via `python3 -m tools.agent.session_brief --task manager-report --limit 5`).
+- **Coordinate ongoing work** – claim tasks (`python3 -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>`), emit heartbeats (`python3 -m tools.agent.bus_event log --event status ...`), and reply on `_bus/messages/<task>.jsonl` (`python3 -m tools.agent.bus_message --task <task_id> --type status ... --receipt <path>`), attaching receipts whenever possible.
+- **Heartbeat shortcut** – `python3 -m tools.agent.bus_ping --task <task_id> --message-task <task_id> --summary "progress"` auto-prefixes `<agent-id>:` and logs both the event + message. Add `--skip-message` when you only need the event log.
+
+### Example session transcript
+```
+$ python3 -m tools.agent.manifest_helper show
+$ python3 -m tools.agent.session_boot --agent codex-4 --focus docs --with-status
+$ python3 -m tools.agent.bus_message --task manager-report --type status \
+    --summary "codex-4: online; focus=docs"
+$ python3 -m tools.agent.session_brief --task manager-report --limit 5
+$ python3 -m tools.agent.bus_claim claim --task QUEUE-123 --plan 2025-09-20-queue-123
+$ python3 -m tools.agent.bus_event log --event status --task QUEUE-123 \
+    --summary "codex-4 working" --plan 2025-09-20-queue-123
+$ python3 -m tools.agent.bus_message --task QUEUE-123 --type status \
+    --summary "codex-4: uploaded receipts" --receipt _report/agent/codex-4/queue-123/notes.md
+```
+
 ### Bootstrap (one minute)
 <!-- generated: quickstart snippet -->
 Run this smoke test on a fresh checkout:
@@ -39,6 +62,7 @@ cat artifacts/ocers_out/latest/brief.json
 - Automate heartbeat coverage with `python -m tools.agent.bus_heartbeat --dry-run`; by default it watches for manager gaps (30 min) and idle claims (4 h) and stores receipts under `_report/agent/<id>/apoptosis-004/alerts/` without touching the bus. Drop the `--dry-run` flag to emit `alert` events/messages when the monitor should page the team. While the codex-2/3/4 heartbeat plans are in flight, the coordination dashboard's heartbeat section calls out the active windows and the automation rollout so you know when the auto hook replaces the manual invocations.
 - When you retire a persona, add its id to `tools.agent.coord_dashboard.RETIRED_AGENTS` (and note the retirement in your session brief) so the dashboard stops expecting new heartbeats until it returns.
 - When you post receipts and the tests are green, release the claim promptly and move to the next assignment unless the manager’s reply includes a `hold` tag or you detect a risky signal (missing receipts, flaky tests, governance/capsule work). Explicitly note those edge cases on the bus so they stay visible.
+- Prefix bus summaries with your `agent_id` (`<agent-id>:`) so manager-report, manifests, and receipts stay aligned.
 - Summaries and audits belong in receipts: run `python -m tools.agent.bus_status --preset support --agent <id>` to use the helper defaults (limit 20, `--active-only`, `--window-hours 6`) and store transcripts under `_report/agent/<id>/` for planner validation. Add `--json` when scripting or `--window-hours 0` when you need the full event log.
 - Keep automation healthy—run `tools.agent.task_sync` after releasing a claim and `python -m tools.maintenance.prune_artifacts --dry-run` daily to archive stale plans into `_apoptosis/<stamp>/`.
 - When you publish a new coordination directive (`BUS-COORD-xxxx`), immediately add a pointer in `manager-report` so everyone’s default feed stays accurate: `python -m tools.agent.bus_message --task manager-report --type status --summary "Directive BUS-COORD-xxxx open" --note "See BUS-COORD-xxxx"`. Plans that skip the pointer will fail review.

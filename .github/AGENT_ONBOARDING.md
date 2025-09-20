@@ -24,11 +24,26 @@ cat artifacts/ocers_out/latest/brief.json
 6. **Announce + claim** – run `python3 -m tools.agent.session_boot --agent <id> --focus <role> --with-status` and follow the coordination loop in `docs/parallel-codex.md#suggested-session-loop` (auto-claiming via task assignments when available). The helper logs a handshake and captures a `bus_status` summary receipt for you.
    - When swapping seats, capture your branch + manifest with `python -m tools.agent.manifest_helper session-save <label>` and restore them later with `... session-restore <label>`.
 
+## Communication Quickstart (manager-report hub)
+- **Verify your manifest** – confirm `AGENT_MANIFEST.json` (or `python3 -m tools.agent.manifest_helper show`) lists the `agent_id` you’ll use on the bus.
+- **Announce the session** – `python3 -m tools.agent.session_boot --agent <agent-id> --focus <role> --with-status` records the handshake, syncs the repo, and captures a `bus_status` receipt.
+- **Broadcast the hello** – post on the shared lane: `python3 -m tools.agent.bus_message --task manager-report --type status --summary "<agent-id>: on deck for <focus>" --meta agent=<agent-id>`.
+- **Remember the guard** – the bus refuses mismatched ids; if `--agent` disagrees with `AGENT_MANIFEST.json` run `session_boot` or `manifest_helper activate` before posting.
+- **Confirm visibility** – keep the feed in view with `python3 -m tools.agent.bus_watch --task manager-report --follow --limit 20` (or spot-check via `python3 -m tools.agent.session_brief --task manager-report --limit 5`).
+- **Continue coordination** – run the core commands as you work:
+  - Claim work: `python3 -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>`
+  - Send status heartbeats: `python3 -m tools.agent.bus_event log --event status --task <task_id> --summary "<agent-id> working" --plan <plan_id> [--receipt <path>]`
+  - Shortcut heartbeat: `python3 -m tools.agent.bus_ping --task <task_id> --message-task <task_id> --summary "working"` (auto-prefixes `<agent-id>:` and hits both logs; add `--skip-message` if you only need the event).
+  - Reply on task threads: `python3 -m tools.agent.bus_message --task <task_id> --type status --summary "<update>" --receipt <path> --meta agent=<agent-id>`
+  - Escalate blockers: `python3 -m tools.agent.bus_message --task <task_id> --type status --meta escalation=needed --summary "<agent-id>: still blocked"`
+  - Close the loop: `python3 -m tools.agent.bus_claim release --task <task_id> --status done --summary "handoff"`
+
 ## Operating Rhythm
 - **Receipts-first** – no step is “done” until receipts exist. Record artifacts under `_report/agent/<id>/…` and cite them in the plan. (Governance anchor: `docs/workflow.md#architecture-gate-before-writing-code`.) Use `--scaffold` on `tools.agent.task_assign`, `tools.agent.claim_seed`, or `teof-plan new` to generate the skeleton on day zero.
 - **Install the guard hook once per clone** – run `tools/hooks/install.sh` to wire the repo-managed pre-push hook (it runs receipts check, planner validation, and targeted pytest before every push).
 - **Preflight every push** – run `tools/agent/preflight.sh` before pushing or requesting review; it mirrors the hook (receipts, plan guard, planner validate, bus status, targeted pytest) and enforces the manager directive in `_bus/messages/manager-report.jsonl`.
-- **Stay on the bus** – log progress with `python3 -m tools.agent.bus_event log --event status …` and monitor peers via `docs/parallel-codex.md#self-audit` (`python -m tools.agent.bus_status --preset support --agent <id>` for quick snapshots).
+- **Stay on the bus** – log progress with `python3 -m tools.agent.bus_event log --event status …`, respond to manager notes in `_bus/messages/<task>.jsonl`, and monitor peers via `docs/parallel-codex.md#self-audit` (`python -m tools.agent.bus_watch --follow` or `python -m tools.agent.bus_status --preset support --agent <id>` for quick snapshots).
+- **Use clear summaries** – prefix every bus message summary with your actual `agent_id` (`<agent-id>:`) so manifests, manager-report, and receipts stay aligned.
 - **Refresh heartbeat on sweeps** – managers should append `--log-heartbeat` when running `python -m tools.agent.manager_report` so the bus knows they are active (customise the text with `--heartbeat-summary`; tag metadata via `--heartbeat-meta key=value` or the shortcut `--heartbeat-shift <label>`).
 - **Close cleanly** – release the claim (`python3 -m tools.agent.bus_claim release …`) and refresh the handshake when wrapping up (`session_boot --summary "session wrap" --focus idle`).
 

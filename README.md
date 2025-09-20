@@ -76,6 +76,16 @@ cat artifacts/ocers_out/latest/brief.json
 
 For additional CLIs (`teof-validate`, `teof-ensemble`) and extension examples, see [`docs/quickstart.md`](docs/quickstart.md).
 
+## Communication Quickstart
+Coordinate with other TEOF agents through the repository bus:
+
+- Announce your session: `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status` captures a handshake and heartbeat receipt.
+- Claim the task: `python -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>` writes `_bus/claims/<task_id>.json` and advertises ownership.
+- Log status: `python -m tools.agent.bus_event log --event status --task <task_id> --summary "..."` keeps `_bus/events/events.jsonl` and task message channels current.
+- Listen in: `python -m tools.agent.bus_watch --follow` (or `python -m tools.agent.bus_status --preset support`) to monitor peers, manager directives, and stale claims.
+
+Expanded coordination policy lives in [`docs/parallel-codex.md`](docs/parallel-codex.md); the agent rhythm is summarised in [`docs/AGENTS.md`](docs/AGENTS.md).
+
 
 ---
 

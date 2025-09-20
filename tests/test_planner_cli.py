@@ -20,9 +20,12 @@ def run_cli(argv: list[str]) -> int:
 def planner_root(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     root = tmp_path / "repo"
     plan_dir = root / "_plans"
+    claims_dir = root / "_bus" / "claims"
+    claims_dir.mkdir(parents=True)
     plan_dir.mkdir(parents=True)
     monkeypatch.setattr(planner_cli, "ROOT", root)
     monkeypatch.setattr(planner_cli, "DEFAULT_PLAN_DIR", plan_dir)
+    monkeypatch.setattr(planner_cli, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(planner_validate, "ROOT", root)
     monkeypatch.setattr(planner_validate, "PLANS_DIR", plan_dir)
     return root
@@ -50,6 +53,7 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
             str(plan_dir),
             "--timestamp",
             "2025-09-17T00:00:00Z",
+            "--allow-unclaimed",
         ]
     )
     assert exit_code == 0
@@ -80,6 +84,7 @@ def test_cli_new_normalizes_slug(planner_root: Path) -> None:
             str(plan_dir),
             "--timestamp",
             "2025-09-17T00:00:00Z",
+            "--allow-unclaimed",
         ]
     )
     plan_path = plan_dir / "2025-09-17-new-feature.plan.json"
@@ -101,6 +106,7 @@ def test_cli_new_rejects_duplicate_steps(planner_root: Path) -> None:
                 str(plan_dir),
                 "--timestamp",
                 "2025-09-17T00:00:00Z",
+                "--allow-unclaimed",
                 "--step",
                 "S1:Do one",
                 "--step",
@@ -124,6 +130,7 @@ def test_cli_status_updates_plan(planner_root: Path) -> None:
             str(plan_dir),
             "--timestamp",
             "2025-09-17T00:00:00Z",
+            "--allow-unclaimed",
         ]
     )
 
@@ -154,6 +161,7 @@ def test_cli_step_add_and_set(planner_root: Path) -> None:
             str(plan_dir),
             "--timestamp",
             "2025-09-17T00:00:00Z",
+            "--allow-unclaimed",
         ]
     )
 
@@ -206,6 +214,65 @@ def test_cli_step_add_and_set(planner_root: Path) -> None:
         )
 
 
+def test_cli_new_requires_claim_guard(planner_root: Path) -> None:
+    plan_dir = planner_root / "_plans"
+    with pytest.raises(SystemExit):
+        run_cli(
+            [
+                "new",
+                "guard-check",
+                "--summary",
+                "Guard should block",
+                "--actor",
+                "tester",
+                "--plan-dir",
+                str(plan_dir),
+                "--timestamp",
+                "2025-09-17T00:00:00Z",
+            ]
+        )
+
+
+def test_cli_new_allows_when_claim_exists(planner_root: Path) -> None:
+    plan_dir = planner_root / "_plans"
+    claims_dir = planner_root / "_bus" / "claims"
+    claims_dir.mkdir(parents=True, exist_ok=True)
+    plan_id = "2025-09-17-guard-pass"
+    claim_path = claims_dir / "QUEUE-999.json"
+    claim_path.write_text(
+        json.dumps(
+            {
+                "task_id": "QUEUE-999",
+                "agent_id": "tester",
+                "branch": "agent/tester/queue-999",
+                "status": "active",
+                "claimed_at": "2025-09-17T00:00:00Z",
+                "plan_id": plan_id,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    exit_code = run_cli(
+        [
+            "new",
+            "guard-pass",
+            "--summary",
+            "Guard ok",
+            "--actor",
+            "tester",
+            "--plan-dir",
+            str(plan_dir),
+            "--timestamp",
+            "2025-09-17T00:00:00Z",
+        ]
+    )
+    assert exit_code == 0
+    assert (plan_dir / f"{plan_id}.plan.json").exists()
+
+
 def test_cli_attach_receipt_updates_plan_and_receipt(planner_root: Path) -> None:
     plan_dir = planner_root / "_plans"
     report_dir = planner_root / "_report" / "runner"
@@ -224,6 +291,7 @@ def test_cli_attach_receipt_updates_plan_and_receipt(planner_root: Path) -> None
             str(plan_dir),
             "--timestamp",
             "2025-09-17T00:00:00Z",
+            "--allow-unclaimed",
         ]
     )
 
@@ -269,6 +337,7 @@ def test_cli_show_outputs_summary(planner_root: Path, capsys: pytest.CaptureFixt
             str(plan_dir),
             "--timestamp",
             "2025-09-17T00:00:00Z",
+            "--allow-unclaimed",
         ]
     )
 
@@ -302,6 +371,7 @@ def test_cli_list_outputs_table(planner_root: Path, capsys: pytest.CaptureFixtur
             str(plan_dir),
             "--timestamp",
             "2025-09-17T00:00:00Z",
+            "--allow-unclaimed",
         ]
     )
     capsys.readouterr()
@@ -317,6 +387,7 @@ def test_cli_list_outputs_table(planner_root: Path, capsys: pytest.CaptureFixtur
             str(plan_dir),
             "--timestamp",
             "2025-09-18T00:00:00Z",
+            "--allow-unclaimed",
         ]
     )
     capsys.readouterr()
@@ -348,6 +419,7 @@ def test_cli_list_outputs_json(planner_root: Path, capsys: pytest.CaptureFixture
             str(plan_dir),
             "--timestamp",
             "2025-09-19T00:00:00Z",
+            "--allow-unclaimed",
         ]
     )
     capsys.readouterr()

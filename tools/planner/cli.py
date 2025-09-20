@@ -17,6 +17,7 @@ from tools.receipts.scaffold import scaffold_plan, format_created, ScaffoldError
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_PLAN_DIR = ROOT / "_plans"
+CLAIMS_DIR = ROOT / "_bus" / "claims"
 SLUG_NORMALIZER = re.compile(r"[^a-z0-9-]+")
 PLAN_ID_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$")
 PLAN_STATUS_VALUES = tuple(sorted(PLAN_STATUS))
@@ -120,6 +121,37 @@ def _ensure_valid(path: Path) -> None:
         raise PlannerCliError("plan strict checks failed: " + "; ".join(strict_errors))
 
 
+def _active_claims_for_plan(plan_id: str) -> list[Path]:
+    matches: list[Path] = []
+    if not CLAIMS_DIR.exists():
+        return matches
+    for claim_path in CLAIMS_DIR.glob("*.json"):
+        try:
+            payload = json.loads(claim_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        if payload.get("plan_id") == plan_id and payload.get("status") in {"active", "paused"}:
+            matches.append(claim_path)
+    return matches
+
+
+def _enforce_claim_guard(plan_id: str, allow_unclaimed: bool) -> None:
+    if allow_unclaimed:
+        return
+    if _active_claims_for_plan(plan_id):
+        return
+    hint = (
+        "Run 'python -m tools.agent.bus_claim claim --task <TASK_ID> --plan {plan_id}' "
+        "before creating the plan, or pass --allow-unclaimed to bypass (manager override)."
+    ).format(plan_id=plan_id)
+    raise PlannerCliError(
+        "bus_claim guard: no active claim references plan_id '"
+        + plan_id
+        + "'. "
+        + hint
+    )
+
+
 def cmd_new(args: argparse.Namespace) -> int:
     slug = _normalize_slug(args.slug)
     if not slug:
@@ -131,6 +163,8 @@ def cmd_new(args: argparse.Namespace) -> int:
         raise PlannerCliError(
             "plan_id derived from slug is invalid; ensure slug uses lowercase letters, numbers, or hyphens"
         )
+
+    _enforce_claim_guard(plan_id, getattr(args, "allow_unclaimed", False))
 
     plan_dir = Path(args.plan_dir).resolve()
     plan_path = plan_dir / f"{plan_id}.plan.json"
@@ -499,6 +533,11 @@ def build_parser() -> argparse.ArgumentParser:
     new.add_argument("--plan-dir", default=str(DEFAULT_PLAN_DIR), help="Directory for plan artifacts")
     new.add_argument("--timestamp", help="Override creation timestamp (UTC, e.g. 2025-09-17T00:00:00Z)")
     new.add_argument("--force", action="store_true", help="Overwrite existing plan if present")
+    new.add_argument(
+        "--allow-unclaimed",
+        action="store_true",
+        help="Bypass bus_claim guard (manager override)",
+    )
     scaffold_group = new.add_mutually_exclusive_group()
     scaffold_group.add_argument(
         "--scaffold",
@@ -512,7 +551,7 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_false",
         help="Skip scaffold generation (default)",
     )
-    new.set_defaults(func=cmd_new, scaffold=False)
+    new.set_defaults(func=cmd_new, scaffold=False, allow_unclaimed=False)
 
     status = sub.add_parser("status", help="Update the overall plan status")
     status.add_argument("plan", help="Path or plan_id of the plan JSON")

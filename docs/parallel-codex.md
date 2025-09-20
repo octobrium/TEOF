@@ -16,6 +16,21 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 - Release claims with `bus_claim release --task QUEUE-001 --status done`.
 - CI ensures one active claim per task and validates event JSON.
 
+> **Hub quick commands (manager-report)**
+>
+> | Action | Command |
+> | --- | --- |
+> | Announce presence | `python -m tools.agent.bus_message --task manager-report --type status --summary "<agent-id> online; focus=<role>" --meta agent=<agent-id>` |
+> | Tail the hub | `python -m tools.agent.bus_watch --task manager-report --follow --limit 20` |
+> | Claim work | `python -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>` |
+> | Send heartbeat | `python -m tools.agent.bus_event log --event status --task <task_id> --summary "<agent-id> working" --plan <plan_id>` |
+> | Heartbeat shortcut | `python -m tools.agent.bus_ping --task <task_id> --message-task <task_id> --summary "working"` |
+> | Reply in-thread | `python -m tools.agent.bus_message --task <task_id> --type status --summary "<update>" --receipt <path>` |
+
+Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/AGENTS.md`) reuse the same commands so every new seat can confirm access to the coordination bus before picking up work.
+
+**Guardrail:** `tools.agent.bus_message` refuses mismatched agent ids—run `python -m tools.agent.session_boot --agent <id>` (or `python -m tools.agent.manifest_helper activate <id>`) before posting so the manifest matches the seat you’re representing.
+
 <a id="session-loop"></a>
 ## Suggested Session Loop
 

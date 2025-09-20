@@ -1,0 +1,47 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-bus-ping-helper",
+  "created": "2025-09-20T05:10:30Z",
+  "actor": "codex-4",
+  "summary": "Introduce a bus_ping helper wrapping bus_event heartbeats with receipts.",
+  "status": "completed",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Draft bus_ping CLI wrapper and usage contract",
+      "status": "completed",
+      "notes": "CLI implemented in tools/agent/bus_ping.py",
+      "receipts": [
+        "tools/agent/bus_ping.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add tests + docs and collect receipts",
+      "status": "completed",
+      "notes": "Targeted pytest + documentation updates (onboarding/docs).",
+      "receipts": [
+        "tests/test_agent_bus_ping.py",
+        "_report/agent/codex-4/bus-ping-helper/pytest.txt",
+        "_report/agent/codex-4/bus-ping-helper/docs.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "codex-1 review after helper + docs receipts land",
+    "owner": "codex-1",
+    "status": "completed",
+    "notes": "Reviewed by codex-1; pytest receipts captured."
+  },
+  "receipts": [
+    "_report/agent/codex-1/review/pytest-tests_test_planner_cli_and_agent_bus_ping.txt",
+    "_report/agent/codex-1/review/pytest-tests_test_session_boot.txt",
+    "_report/agent/codex-1/review/pytest-tests_test_agent_bus_message.txt"
+  ],
+  "links": [
+    {
+      "type": "doc",
+      "ref": ".github/AGENT_ONBOARDING.md"
+    }
+  ]
+}

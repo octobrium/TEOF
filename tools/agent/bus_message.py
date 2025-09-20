@@ -60,6 +60,23 @@ def _append_message(path: Path, payload: Mapping[str, Any]) -> Path:
     return path
 
 
+def _resolve_agent(explicit: Optional[str]) -> str:
+    manifest_agent = _default_agent()
+    if explicit is not None:
+        agent_id = explicit.strip()
+        if not agent_id:
+            raise SystemExit("agent id required; use --agent or populate AGENT_MANIFEST.json")
+        if manifest_agent and agent_id != manifest_agent:
+            raise SystemExit(
+                "agent mismatch: manifest has"
+                f" '{manifest_agent}' but --agent='{agent_id}'. Run session_boot or update the manifest before posting."
+            )
+        return agent_id
+    if manifest_agent:
+        return manifest_agent
+    raise SystemExit("agent id required; use --agent or populate AGENT_MANIFEST.json")
+
+
 def log_message(
     *,
     task_id: str,
@@ -73,10 +90,7 @@ def log_message(
     note: Optional[str] = None,
     timestamp: Optional[str] = None,
 ) -> Path:
-    if agent_id is None:
-        agent_id = _default_agent()
-    if not agent_id:
-        raise SystemExit("agent id required; use --agent or populate AGENT_MANIFEST.json")
+    agent_id = _resolve_agent(agent_id)
 
     if task_id and msg_type in GUARDED_MESSAGE_TYPES:
         ensure_claim_owner(

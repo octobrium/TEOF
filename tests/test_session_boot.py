@@ -156,3 +156,17 @@ def test_session_boot_allows_disabling_dashboard(monkeypatch, tmp_path):
 
     assert exit_code == 0
     assert not dashboard.calls
+
+
+def test_session_boot_emits_bus_watch_hint(monkeypatch, tmp_path, capsys):
+    _setup_env(monkeypatch, tmp_path)
+    sync = FakeSync()
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    dashboard = FakeDashboard()
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", dashboard)
+
+    exit_code = session_boot.main(["--agent", "codex-3", "--no-dashboard"])
+
+    assert exit_code == 0
+    out = capsys.readouterr().out
+    assert "python -m tools.agent.bus_watch --task manager-report --follow --limit 20" in out

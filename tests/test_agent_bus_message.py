@@ -159,3 +159,50 @@ def test_bus_message_allows_terminal_claim(tmp_path, monkeypatch):
     )
     assert rc == 0
     assert (messages_dir / "QUEUE-777.jsonl").exists()
+
+
+def test_bus_message_rejects_agent_mismatch(tmp_path, monkeypatch):
+    _, claims_dir, report_dir = _configure_paths(tmp_path, monkeypatch)
+    _write_manifest(tmp_path, agent_id="codex-1")
+    _write_claim(claims_dir, "QUEUE-010", "codex-1")
+
+    with pytest.raises(SystemExit) as exc:
+        bus_message.main(
+            [
+                "--task",
+                "QUEUE-010",
+                "--type",
+                "status",
+                "--summary",
+                "should detect mismatch",
+                "--agent",
+                "codex-2",
+            ]
+        )
+
+    message = str(exc.value)
+    assert "agent mismatch" in message
+    # No new error entry should appear for codex-2 because the guard fires first.
+    assert not (report_dir / "codex-2").exists()
+
+
+def test_bus_message_allows_explicit_agent_without_manifest(tmp_path, monkeypatch):
+    messages_dir, claims_dir, _ = _configure_paths(tmp_path, monkeypatch)
+    _write_claim(claims_dir, "QUEUE-020", "codex-5")
+
+    exit_code = bus_message.main(
+        [
+            "--task",
+            "QUEUE-020",
+            "--type",
+            "note",
+            "--summary",
+            "explicit agent",
+            "--agent",
+            "codex-5",
+        ]
+    )
+
+    assert exit_code == 0
+    payload = json.loads((messages_dir / "QUEUE-020.jsonl").read_text(encoding="utf-8").splitlines()[0])
+    assert payload["from"] == "codex-5"
