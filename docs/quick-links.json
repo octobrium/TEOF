@@ -74,6 +74,13 @@
       "category": "governance"
     },
     {
+      "id": "emergent-principles-ledger",
+      "title": "Emergent Principles Ledger",
+      "summary": "Append-only log of new cross-layer rules as they settle.",
+      "path": "governance/core/emergent-principles.jsonl",
+      "category": "governance"
+    },
+    {
       "id": "consensus-ledger",
       "title": "Consensus Ledger Usage",
       "summary": "Entry point for `tools.consensus.ledger` commands and receipt capture.",
