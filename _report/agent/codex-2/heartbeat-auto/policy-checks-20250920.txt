@@ -1,0 +1,3 @@
+command: bash scripts/ci/policy_checks.sh
+status: 0
+note: policy checks ran clean with bus_message/claim guard updates.

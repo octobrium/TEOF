@@ -22,8 +22,8 @@
       "notes": "Local consensus smoke + policy checks succeed; guardrails workflow ready for rerun with team.",
       "receipts": [
         "_report/agent/codex-2/heartbeat-auto/tests-20250920.json",
-        "_report/agent/codex-2/heartbeat-auto/consensus-smoke-20250920.log",
-        "_report/agent/codex-2/heartbeat-auto/policy-checks-20250920.log"
+        "_report/agent/codex-2/heartbeat-auto/consensus-smoke-20250920.txt",
+        "_report/agent/codex-2/heartbeat-auto/policy-checks-20250920.txt"
       ]
     },
     {
@@ -32,8 +32,8 @@
       "status": "done",
       "notes": "Guardrails/preflight rerun succeeded; ready to coordinate push.",
       "receipts": [
-        "_report/agent/codex-2/heartbeat-auto/preflight-20250920.log",
-        "_report/agent/codex-2/heartbeat-auto/preflight-20250920-success.log"
+        "_report/agent/codex-2/heartbeat-auto/preflight-20250920.txt",
+        "_report/agent/codex-2/heartbeat-auto/preflight-20250920-success.txt"
       ]
     }
   ],

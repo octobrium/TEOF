@@ -1,0 +1,3 @@
+command: bash scripts/ci/consensus_smoke.sh
+status: 0
+note: consensus smoke script succeeded locally after heartbeat helper changes.

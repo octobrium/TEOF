@@ -1,0 +1,24 @@
+Summary
+- settings: limit=20, preset=manager, since-filter, all-claims
+- claims (10):
+  * APOP-003 [done] by codex-4 → agent/codex-4/apoptosis-003
+  * APOP-009 [done] by codex-4 → agent/codex-4/apoptosis-009
+  * BUS-COORD-0002 [active] by codex-4 → agent/codex-4/bus-coord-0002
+  * PLAN-2025-09-19-heartbeat-integration-codex4 [active] by codex-4 → agent/codex-4/heartbeat-integration
+  * QUEUE-009 [done] by codex-4 → agent/codex-4/queue-009
+  * QUEUE-030 [done] by codex-4 → agent/codex-4/queue-030
+  * QUEUE-031 [done] by codex-4 → agent/codex-4/queue-031
+  * QUEUE-032 [done] by codex-4 → agent/codex-4/queue-032
+  * QUEUE-038 [done] by codex-4 → agent/codex-4/queue-038
+  * QUEUE-041 [done] by codex-4 → agent/codex-4/queue-041
+- events (6):
+  * 2025-09-19T21:53:33Z :: codex-4 :: status :: codex-4 following up on stale heartbeats per BUS-COORD-0002
+  * 2025-09-19T21:56:23Z :: codex-4 :: status :: codex-4 pinged codex-observer via BUS-COORD-0002
+  * 2025-09-19T21:57:25Z :: codex-4 :: status :: Heartbeat stub until automation lands
+  * 2025-09-19T22:05:36Z :: codex-4 :: handshake :: heartbeat follow-up continuation
+  * 2025-09-19T22:05:51Z :: codex-4 :: status :: Heartbeat follow-up in progress; awaiting codex-observer response
+  * 2025-09-20T02:39:31Z :: codex-4 :: handshake :: heartbeat integration receipt
+- manager heartbeat: active
+  * codex-1 (last 2025-09-20T02:33:44Z) :: Session wrap: wrap-20250920 :: _index=3, session_branch=main, session_commit=8a73a9a3894558af1c2d6cf8535514ccdde3e3a6, session_label=wrap-20250920, shift=late
+  * codex-2 (last 2025-09-20T02:33:57Z) :: codex-2 session heartbeat :: _index=2
+  * codex-4 (last 2025-09-20T02:39:31Z) :: heartbeat integration receipt :: _index=1, branch_prefix=agent/codex-4/, meta={'focus': 'support'}

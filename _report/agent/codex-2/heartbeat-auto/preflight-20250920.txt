@@ -1,0 +1,3 @@
+command: tools/agent/preflight.sh
+status: 1
+note: Preflight flagged _plans/2025-09-20-repo-hygiene-codex4.plan.json status mismatch (active vs in_progress).
