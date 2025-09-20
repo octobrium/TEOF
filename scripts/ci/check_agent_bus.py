@@ -14,6 +14,7 @@ CLAIMS_DIR = ROOT / "_bus" / "claims"
 EVENTS_LOG = ROOT / "_bus" / "events" / "events.jsonl"
 ASSIGNMENTS_DIR = ROOT / "_bus" / "assignments"
 MESSAGES_DIR = ROOT / "_bus" / "messages"
+DIRECTIVE_PREFIX = "BUS-COORD-"
 
 VALID_STATUS = {"active", "paused", "released", "done"}
 ISO_REGEX = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
@@ -129,6 +130,52 @@ def _validate_messages(errors: list[str]) -> None:
                     errors.append(f"{path.relative_to(ROOT)} line {idx} ts must be ISO8601 UTC")
 
 
+def _collect_manager_directives() -> dict[str, list[dict[str, Any]]]:
+    pointers: dict[str, list[dict[str, Any]]] = {}
+    manager_path = MESSAGES_DIR / "manager-report.jsonl"
+    if not manager_path.exists():
+        return pointers
+    with manager_path.open(encoding="utf-8") as fh:
+        for idx, raw in enumerate(fh, start=1):
+            raw = raw.strip()
+            if not raw:
+                continue
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                continue
+            meta = data.get("meta")
+            if isinstance(meta, dict):
+                directive_id = meta.get("directive")
+                if isinstance(directive_id, str) and directive_id.strip():
+                    pointers.setdefault(directive_id.strip(), []).append({"line": idx, "payload": data})
+    return pointers
+
+
+def _validate_directive_pointers(errors: list[str]) -> None:
+    pointers = _collect_manager_directives()
+    if not MESSAGES_DIR.exists():
+        return
+    for path in sorted(MESSAGES_DIR.glob("BUS-COORD-*.jsonl")):
+        directive_id = path.stem
+        has_directive = False
+        with path.open(encoding="utf-8") as fh:
+            for idx, raw in enumerate(fh, start=1):
+                raw = raw.strip()
+                if not raw:
+                    continue
+                try:
+                    data = json.loads(raw)
+                except json.JSONDecodeError:
+                    continue
+                if str(data.get("type")) == "directive":
+                    has_directive = True
+                    break
+        if has_directive and directive_id not in pointers:
+            errors.append(
+                f"manager-report.jsonl missing pointer for directive {directive_id}; run tools.agent.directive_pointer to mirror BUS-COORD threads"
+            )
+
 def main() -> int:
     errors: list[str] = []
 
@@ -139,6 +186,7 @@ def main() -> int:
     _validate_events(errors)
     _validate_assignments(errors)
     _validate_messages(errors)
+    _validate_directive_pointers(errors)
 
     if errors:
         for err in errors:

@@ -68,3 +68,12 @@ Avoid by default. If truly needed, add a 1-page TEP in `rfcs/` (purpose, contrac
 - Binding matrix: [`governance/core/L4 - architecture/bindings.yml`](../governance/core/L4%20-%20architecture/bindings.yml) records which objectives/properties are enforced by specific tests, scripts, and receipts.
 - Update the matrix whenever a new guard lands or coverage shifts; gaps stay explicit until automation exists.
 
+## Fractal governance pattern
+
+TEOF’s hierarchy (L0 Observation → L6 Automation) is intentionally recursive. Every layer carries the same OCERS contract: local actions must expose Observation, align with Coherence/Ethics, prove Reproducibility, and leave behind Self-repair breadcrumbs.
+
+- **Mirror the pattern at every scale.** When you ship a helper CLI or CI guard, document how it satisfies the upstream layer and leaves receipts the next layer can consume. A coordination tweak should produce manager-report visibility just as a governance anchor exposes hashes.
+- **Promote rules downward.** Once a principle lands at L3/L4, add the corresponding workflow guard (L5) and automation check (L6). Example: the bus claim guard lives in `tools.agent.bus_message` *and* in `_plans/…` receipts so CI enforces the same rule humans agree to.
+- **Escalate gaps upward.** If a lower layer cannot satisfy an OCERS trait, flag it in the bindings matrix or memory log and loop with governance before adding exceptions. Missing receipts at L6 are just as blocking as an undefined property at L3.
+
+Use this “fractal” framing as a design smell test: if a change only works at one tier, keep refining until the pattern recurs across the stack.
