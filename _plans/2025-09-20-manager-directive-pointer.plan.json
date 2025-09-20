@@ -1,0 +1,36 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-manager-directive-pointer",
+  "created": "2025-09-20T03:00:00Z",
+  "actor": "codex-1",
+  "summary": "Ensure new coordination directives get cross-posted to manager-report",
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update docs",
+      "status": "in_progress",
+      "notes": "Document the rule that all BUS-COORD directives must be announced in manager-report.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Automate pointer",
+      "status": "queued",
+      "notes": "Add helper or workflow snippet so session_boot/manager_report cross-posts new directives automatically.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Confirm via receipt",
+      "status": "queued",
+      "notes": "Capture example bus messages showing cross-post in manager-report.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Every new directive gets a manager-report pointer + proof",
+    "owner": "codex-1",
+    "status": "pending"
+  }
+}

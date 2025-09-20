@@ -41,7 +41,7 @@ cat artifacts/ocers_out/latest/brief.json
 - When you post receipts and the tests are green, release the claim promptly and move to the next assignment unless the manager’s reply includes a `hold` tag or you detect a risky signal (missing receipts, flaky tests, governance/capsule work). Explicitly note those edge cases on the bus so they stay visible.
 - Summaries and audits belong in receipts: run `python -m tools.agent.bus_status --preset support --agent <id>` to use the helper defaults (limit 20, `--active-only`, `--window-hours 6`) and store transcripts under `_report/agent/<id>/` for planner validation. Add `--json` when scripting or `--window-hours 0` when you need the full event log.
 - Keep automation healthy—run `tools.agent.task_sync` after releasing a claim and `python -m tools.maintenance.prune_artifacts --dry-run` daily to archive stale plans into `_apoptosis/<stamp>/`.
-- Before you wrap, jot a quick reflection (wins + improvements) and stash it alongside receipts—`memory/log.jsonl` works well—so future sessions inherit the lessons without relying on memory.
+- When you publish a new coordination directive (`BUS-COORD-xxxx`), immediately add a pointer in `manager-report` so everyone’s default feed stays accurate: `python -m tools.agent.bus_message --task manager-report --type status --summary "Directive BUS-COORD-xxxx open" --note "See BUS-COORD-xxxx"`. Plans that skip the pointer will fail review.
 - Before pushing, run `tools/agent/preflight.sh` and `python3 tools/planner/validate.py --strict` — the command now writes a summary receipt to `_report/planner/validate/summary-<UTC>.json` by default (override with `--output` if you keep receipts elsewhere).
 
 ## Claim Seeding (Managers)
