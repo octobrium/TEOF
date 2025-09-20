@@ -75,6 +75,14 @@
       "category": "governance"
     },
     {
+      "id": "proposal-inbox",
+      "title": "Proposal Inbox",
+      "summary": "Canonical drop zone for draft improvements awaiting review.",
+      "path": "docs/proposals/README.md",
+      "anchor": "#proposal-inbox-docsproposals",
+      "category": "governance"
+    },
+    {
       "id": "emergent-principles-ledger",
       "title": "Emergent Principles Ledger",
       "summary": "Append-only log of new cross-layer rules as they settle.",

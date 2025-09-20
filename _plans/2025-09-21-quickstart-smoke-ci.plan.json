@@ -44,6 +44,7 @@
   "receipts": [
     ".github/workflows/guardrails.yml",
     "_bus/messages/manager-report.jsonl",
+    "docs/proposals/20250920T211606Z__proposal-sync.md",
     "docs/workflow.md",
     "scripts/ci/quickstart_smoke.sh",
     "tests/test_quickstart_snippet_guard.py"
