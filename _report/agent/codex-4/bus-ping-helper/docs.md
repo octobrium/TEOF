@@ -1,0 +1,1 @@
+- Updated .github/AGENT_ONBOARDING.md, docs/AGENTS.md, docs/parallel-codex.md to reference bus_ping helper.

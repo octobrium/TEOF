@@ -1,0 +1,1 @@
+pytest tests/test_agent_bus_ping.py tests/test_agent_bus_message.py -q

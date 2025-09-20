@@ -21,7 +21,7 @@ python3 tools/snippets/check_quickstart_docs.py --apply
 git diff --exit-code docs/_generated/quickstart_snippet.md README.md docs/quickstart.md docs/AGENTS.md .github/AGENT_ONBOARDING.md
 python3 -m tools.maintenance.plan_hygiene
 python3 scripts/ci/check_plans.py
-python3 tools/planner/validate.py --strict
+python3 tools/planner/validate.py --strict --output _report/planner/validate/summary-latest.json
 python3 tools/agent/bus_status.py --json --limit 5 >/dev/null
 pytest tests/test_agent_bus_status.py tests/test_ocers_rules.py tests/test_brief.py tests/test_ocers_eval.py
 
