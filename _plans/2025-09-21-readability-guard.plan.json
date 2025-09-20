@@ -1,0 +1,62 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-readability-guard",
+  "created": "2025-09-21T12:30:00Z",
+  "actor": "codex-2",
+  "summary": "Add readability guard to enforce L2.5",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define readability target",
+      "status": "done",
+      "notes": "Document in docs/architecture.md and docs/decision-hierarchy how observation expects human-readable guidance (Flesch threshold, plain language).",
+      "receipts": [
+        "docs/architecture.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement readability checker",
+      "status": "done",
+      "notes": "Add script (e.g., tools/maintenance/readability_guard.py) + CI hook to fail on docs falling below threshold; produce _report/readability/summary-latest.json.",
+      "receipts": [
+        "_report/readability/summary-latest.json",
+        "scripts/ci/check_readability.py",
+        "tools/maintenance/readability_guard.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add tests and bindings",
+      "status": "done",
+      "notes": "Cover guard with pytest, update quick-links, extend L4 bindings, log emergent principle entry.",
+      "receipts": [
+        "docs/quick-links.json",
+        "docs/quick-links.md",
+        "governance/core/L4 - architecture/bindings.yml",
+        "governance/core/emergent-principles.jsonl",
+        "tests/test_ci_check_readability.py",
+        "tests/test_readability_guard.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Readability guard enforces Observation-friendly docs",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/036-macro-hygiene-objective.md"
+    }
+  ],
+  "receipts": [
+    "_report/readability/summary-latest.json",
+    "docs/architecture.md",
+    "governance/core/emergent-principles.jsonl",
+    "scripts/ci/check_readability.py",
+    "tools/maintenance/readability_guard.py"
+  ]
+}

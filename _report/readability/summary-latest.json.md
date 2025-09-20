@@ -1,0 +1,4 @@
+- docs/architecture.md: avg_sentence_words=11.93 avg_word_length=5.55
+- docs/decision-hierarchy.md: avg_sentence_words=8.81 avg_word_length=5.57
+- docs/quick-links.md: avg_sentence_words=8.10 avg_word_length=5.78
+- docs/maintenance/capsule-cadence.md: avg_sentence_words=7.46 avg_word_length=5.53

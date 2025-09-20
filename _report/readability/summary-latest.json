@@ -1,0 +1,37 @@
+{
+  "generated_at": "2025-09-20T19:47:03Z",
+  "results": [
+    {
+      "path": "docs/architecture.md",
+      "avg_sentence_words": 11.928571428571429,
+      "avg_word_length": 5.547904191616767,
+      "pass": true,
+      "sentence_threshold": 25.0,
+      "word_threshold": 6.0
+    },
+    {
+      "path": "docs/decision-hierarchy.md",
+      "avg_sentence_words": 8.807017543859649,
+      "avg_word_length": 5.5717131474103585,
+      "pass": true,
+      "sentence_threshold": 25.0,
+      "word_threshold": 6.0
+    },
+    {
+      "path": "docs/quick-links.md",
+      "avg_sentence_words": 8.1010101010101,
+      "avg_word_length": 5.7817955112219455,
+      "pass": true,
+      "sentence_threshold": 25.0,
+      "word_threshold": 6.0
+    },
+    {
+      "path": "docs/maintenance/capsule-cadence.md",
+      "avg_sentence_words": 7.461538461538462,
+      "avg_word_length": 5.5326460481099655,
+      "pass": true,
+      "sentence_threshold": 25.0,
+      "word_threshold": 6.0
+    }
+  ]
+}

@@ -52,10 +52,15 @@ objectives:
     title: Legibility to Many Intelligences
     enforced_by:
       scripts:
-        - scripts/ci/check_docs.sh
-    receipts: []
-    coverage: gap
-    notes: "Docs lint exists but we lack explicit multilingual/readability tests."
+        - scripts/ci/check_readability.py
+        - tools/maintenance/readability_guard.py
+      tests:
+        - tests/test_ci_check_readability.py
+        - tests/test_readability_guard.py
+    receipts:
+      - _report/readability/summary-latest.json
+    coverage: active
+    notes: "Readability guard enforces observation-friendly docs; extend to more surfaces as needed."
   L2.11:
     title: Bounded Risk & Reversibility
     enforced_by:

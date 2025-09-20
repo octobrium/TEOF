@@ -71,6 +71,7 @@
       "title": "Decision Hierarchy",
       "summary": "Map governance objectives before downstream work becomes decidable.",
       "path": "docs/decision-hierarchy.md",
+      "anchor": "#system-themes-in-practice",
       "category": "governance"
     },
     {
@@ -78,6 +79,7 @@
       "title": "Emergent Principles Ledger",
       "summary": "Append-only log of new cross-layer rules as they settle.",
       "path": "governance/core/emergent-principles.jsonl",
+      "anchor": "#",
       "category": "governance"
     },
     {
@@ -93,6 +95,7 @@
       "title": "Consensus CI Guard",
       "summary": "Stable receipts + CI check ensuring QUEUE-030..033 stay covered.",
       "path": "_report/consensus/summary-latest.json",
+      "anchor": "#",
       "category": "consensus"
     },
     {
@@ -100,6 +103,7 @@
       "title": "Capsule Cadence Guard",
       "summary": "Release checklist tied to consensus receipts and capsule hashes.",
       "path": "_report/capsule/summary-latest.json",
+      "anchor": "#",
       "category": "maintenance"
     },
     {

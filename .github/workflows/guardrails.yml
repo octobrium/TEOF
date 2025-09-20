@@ -20,6 +20,10 @@ jobs:
         run: scripts/ci/consensus_smoke.sh
       - name: Validate consensus receipts
         run: scripts/ci/check_consensus_receipts.py
+      - name: Run readability guard
+        run: python3 -m tools.maintenance.readability_guard
+      - name: Validate readability summary
+        run: scripts/ci/check_readability.py
       - name: Upload consensus artifacts
         uses: actions/upload-artifact@v4
         with:
