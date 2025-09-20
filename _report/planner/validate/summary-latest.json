@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-09-20T21:42:12Z",
+  "generated_at": "2025-09-20T22:23:23Z",
   "strict": true,
   "exit_code": 0,
   "plans": [
@@ -490,6 +490,12 @@
       "plan_id": "2025-09-20-manager-directive-pointer"
     },
     {
+      "path": "_plans/2025-09-20-operator-mode-checklist.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-operator-mode-checklist"
+    },
+    {
       "path": "_plans/2025-09-20-receipt-scaffold-v2.plan.json",
       "ok": true,
       "errors": [],
@@ -500,6 +506,12 @@
       "ok": true,
       "errors": [],
       "plan_id": "2025-09-20-repo-hygiene-codex4"
+    },
+    {
+      "path": "_plans/2025-09-20-session-boot-tail-tests.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-session-boot-tail-tests"
     },
     {
       "path": "_plans/2025-09-21-capsule-cadence-automation.plan.json",
