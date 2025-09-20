@@ -4,33 +4,50 @@
   "created": "2025-09-20T03:00:00Z",
   "actor": "codex-1",
   "summary": "Ensure new coordination directives get cross-posted to manager-report",
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Update docs",
-      "status": "in_progress",
+      "status": "done",
       "notes": "Document the rule that all BUS-COORD directives must be announced in manager-report.",
-      "receipts": []
+      "receipts": [
+        ".github/AGENT_ONBOARDING.md",
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Automate pointer",
-      "status": "queued",
+      "status": "done",
       "notes": "Add helper or workflow snippet so session_boot/manager_report cross-posts new directives automatically.",
-      "receipts": []
+      "receipts": [
+        "tools/agent/directive_pointer.py",
+        "tests/test_agent_directive_pointer.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Confirm via receipt",
-      "status": "queued",
+      "status": "done",
       "notes": "Capture example bus messages showing cross-post in manager-report.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-1/manager-directive-pointer/sample-cross-post.jsonl"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Every new directive gets a manager-report pointer + proof",
     "owner": "codex-1",
-    "status": "pending"
-  }
+    "status": "satisfied"
+  },
+  "receipts": [
+    ".github/AGENT_ONBOARDING.md",
+    "docs/AGENTS.md",
+    "docs/parallel-codex.md",
+    "tools/agent/directive_pointer.py",
+    "tests/test_agent_directive_pointer.py",
+    "_report/agent/codex-1/manager-directive-pointer/sample-cross-post.jsonl"
+  ]
 }

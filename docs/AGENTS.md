@@ -65,7 +65,7 @@ cat artifacts/ocers_out/latest/brief.json
 - Prefix bus summaries with your `agent_id` (`<agent-id>:`) so manager-report, manifests, and receipts stay aligned.
 - Summaries and audits belong in receipts: run `python -m tools.agent.bus_status --preset support --agent <id>` to use the helper defaults (limit 20, `--active-only`, `--window-hours 6`) and store transcripts under `_report/agent/<id>/` for planner validation. Add `--json` when scripting or `--window-hours 0` when you need the full event log.
 - Keep automation healthy—run `tools.agent.task_sync` after releasing a claim and `python -m tools.maintenance.prune_artifacts --dry-run` daily to archive stale plans into `_apoptosis/<stamp>/`.
-- When you publish a new coordination directive (`BUS-COORD-xxxx`), immediately add a pointer in `manager-report` so everyone’s default feed stays accurate: `python -m tools.agent.bus_message --task manager-report --type status --summary "Directive BUS-COORD-xxxx open" --note "See BUS-COORD-xxxx"`. Plans that skip the pointer will fail review.
+- When you publish a new coordination directive (`BUS-COORD-xxxx`), run `python -m tools.agent.directive_pointer --task BUS-COORD-xxxx --summary "<directive summary>" --plan <plan-id>` so the helper writes the directive entry **and** mirrors a pointer in `manager-report`. Add `--pointer-summary/--pointer-note` if you need custom manager wording; plans that skip the pointer still fail review.
 - Before pushing, run `tools/agent/preflight.sh` and `python3 tools/planner/validate.py --strict` — the command now writes a summary receipt to `_report/planner/validate/summary-<UTC>.json` by default (override with `--output` if you keep receipts elsewhere).
 
 ## Claim Seeding (Managers)

@@ -28,6 +28,7 @@ cat artifacts/ocers_out/latest/brief.json
 - **Verify your manifest** – confirm `AGENT_MANIFEST.json` (or `python3 -m tools.agent.manifest_helper show`) lists the `agent_id` you’ll use on the bus.
 - **Announce the session** – `python3 -m tools.agent.session_boot --agent <agent-id> --focus <role> --with-status` records the handshake, syncs the repo, and captures a `bus_status` receipt.
 - **Broadcast the hello** – post on the shared lane: `python3 -m tools.agent.bus_message --task manager-report --type status --summary "<agent-id>: on deck for <focus>" --meta agent=<agent-id>`.
+- **Open directives with a pointer** – `python3 -m tools.agent.directive_pointer --task BUS-COORD-xxxx --summary "<directive summary>" --plan <plan-id>` writes the directive entry and mirrors it in `manager-report` so every seat sees the update.
 - **Remember the guard** – the bus refuses mismatched ids; if `--agent` disagrees with `AGENT_MANIFEST.json` run `session_boot` or `manifest_helper activate` before posting.
 - **Confirm visibility** – keep the feed in view with `python3 -m tools.agent.bus_watch --task manager-report --follow --limit 20` (or spot-check via `python3 -m tools.agent.session_brief --task manager-report --limit 5`).
 - **Continue coordination** – run the core commands as you work:

@@ -1,0 +1,2 @@
+{"task_id": "BUS-COORD-0420", "type": "directive", "summary": "Automation guard rollout", "meta": {"plan_id": "2025-09-20-manager-directive-pointer"}, "pointer_task": "manager-report", "note": "Posted via tools.agent.directive_pointer"}
+{"task_id": "manager-report", "type": "status", "summary": "Directive BUS-COORD-0420 posted", "meta": {"directive": "BUS-COORD-0420", "plan_id": "2025-09-20-manager-directive-pointer"}, "note": "See BUS-COORD-0420"}

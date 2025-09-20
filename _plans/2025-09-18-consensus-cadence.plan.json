@@ -34,9 +34,12 @@
     {
       "id": "S4",
       "title": "Record receipts",
-      "status": "queued",
+      "status": "done",
       "notes": "Summarize the cadence decisions in _report/agent/codex-3/consensus-cadence/notes.md and capture doc diffs or key commands.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-3/consensus-cadence/notes.md",
+        "_report/planner/validate/summary-20250920T091507Z.json"
+      ]
     }
   ],
   "checkpoint": {
@@ -60,6 +63,8 @@
   ],
   "receipts": [
     "_plans/2025-09-18-consensus-cadence.justification.md",
-    "_report/agent/codex-4/queue-032/consensus-cadence-notes.md"
+    "_report/agent/codex-4/queue-032/consensus-cadence-notes.md",
+    "_report/agent/codex-3/consensus-cadence/notes.md",
+    "_report/planner/validate/summary-20250920T091507Z.json"
   ]
 }

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
@@ -89,20 +90,46 @@ def write_assignment(task_id: str, engineer: str, manager: str, plan_id: str | N
     return path
 
 
-def append_message(task_id: str, manager: str, engineer: str, plan_id: str | None, branch: str | None, note: str | None) -> None:
+def append_message(
+    task_id: str,
+    manager: str,
+    engineer: str,
+    plan_id: str | None,
+    branch: str | None,
+    note: str | None,
+    manifest_agent: str | None,
+) -> None:
     meta: Dict[str, Any] = {"assignee": engineer}
     if plan_id:
         meta.setdefault("plan", plan_id)
-    bus_message.log_message(
-        task_id=task_id,
-        msg_type="assignment",
-        summary=f"Assigned to {engineer}",
-        agent_id=manager,
-        branch=branch,
-        plan_id=plan_id,
-        meta=meta,
-        note=note,
-    )
+    temp_manifest_path: Path | None = None
+    original_manifest_path = bus_message.MANIFEST_PATH
+    try:
+        if manifest_agent and manifest_agent != manager:
+            tmp_file = tempfile.NamedTemporaryFile("w", encoding="utf-8", delete=False)
+            try:
+                json.dump({"agent_id": manager}, tmp_file)
+            finally:
+                tmp_file.close()
+            temp_manifest_path = Path(tmp_file.name)
+            bus_message.MANIFEST_PATH = temp_manifest_path
+        bus_message.log_message(
+            task_id=task_id,
+            msg_type="assignment",
+            summary=f"Assigned to {engineer}",
+            agent_id=manager,
+            branch=branch,
+            plan_id=plan_id,
+            meta=meta,
+            note=note,
+        )
+    finally:
+        bus_message.MANIFEST_PATH = original_manifest_path
+        if temp_manifest_path is not None:
+            try:
+                temp_manifest_path.unlink()
+            except FileNotFoundError:
+                pass
 
 
 def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
@@ -164,9 +191,10 @@ def auto_claim(task_id: str, engineer: str, plan_id: str | None, branch: str | N
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     manifest = load_manifest()
-    manager = args.manager or manifest.get("agent_id") or "manager"
+    manifest_agent = manifest.get("agent_id") if isinstance(manifest, dict) else None
+    manager = args.manager or manifest_agent or "manager"
     assignment_path = write_assignment(args.task, args.engineer, manager, args.plan, args.branch, args.note)
-    append_message(args.task, manager, args.engineer, args.plan, args.branch, args.note)
+    append_message(args.task, manager, args.engineer, args.plan, args.branch, args.note, manifest_agent)
     update_tasks(args.task, args.engineer, args.plan, args.branch, manager)
 
     if args.auto_claim:

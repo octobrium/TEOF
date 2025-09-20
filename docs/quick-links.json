@@ -59,6 +59,14 @@
       "category": "onboarding"
     },
     {
+      "id": "comm-directive-pointer",
+      "title": "Directive Pointer Helper",
+      "summary": "Run `tools.agent.directive_pointer` to log BUS-COORD directives and mirror them in manager-report.",
+      "path": "docs/AGENTS.md",
+      "anchor": "#idle-cadence",
+      "category": "coordination"
+    },
+    {
       "id": "consensus-ledger",
       "title": "Consensus Ledger Usage",
       "summary": "Entry point for `tools.consensus.ledger` commands and receipt capture.",
