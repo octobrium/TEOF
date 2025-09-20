@@ -14,12 +14,27 @@ if __package__:
 else:
     sys.path.append(str(Path(__file__).resolve().parent))
     from render_quickstart import load_commands, render_markdown
-TARGETS = [
-    ROOT / 'README.md',
+SNIPPET_TARGETS = [
     ROOT / 'docs' / 'quickstart.md',
-    ROOT / 'docs' / 'AGENTS.md',
-    ROOT / '.github' / 'AGENT_ONBOARDING.md',
 ]
+
+REFERENCE_BLOCKS = {
+    ROOT / 'README.md': [
+        '<!-- generated: quickstart snippet -->',
+        'See [`docs/quickstart.md#quickstart`](docs/quickstart.md#quickstart) for the canonical smoke test commands (`python3 -m pip install -e .`, `teof brief`, `ls artifacts/ocers_out/latest`, `cat artifacts/ocers_out/latest/brief.json`) and notes about the receipts they produce under `artifacts/ocers_out/<UTC>`.',
+        '',
+    ],
+    ROOT / 'docs' / 'AGENTS.md': [
+        '<!-- generated: quickstart snippet -->',
+        'See [`quickstart.md#quickstart`](quickstart.md#quickstart) for the canonical smoke test commands (`python3 -m pip install -e .`, `teof brief`, `ls artifacts/ocers_out/latest`, `cat artifacts/ocers_out/latest/brief.json`) and notes about storing receipts under `artifacts/ocers_out/<UTC>`.',
+        '',
+    ],
+    ROOT / '.github' / 'AGENT_ONBOARDING.md': [
+        '<!-- generated: quickstart snippet -->',
+        'See [`docs/quickstart.md#quickstart`](../docs/quickstart.md#quickstart) for the canonical smoke test commands (`python3 -m pip install -e .`, `teof brief`, `ls artifacts/ocers_out/latest`, `cat artifacts/ocers_out/latest/brief.json`) and the notes on receipts under `artifacts/ocers_out/<UTC>`. Need quick references? `python -m tools.agent.doc_links list --category quickstart` points to the same section.',
+        '',
+    ],
+}
 MARKER = '<!-- generated: quickstart snippet -->'
 
 
@@ -29,29 +44,40 @@ def _load_snippet_lines() -> List[str]:
     return snippet.splitlines()
 
 
-def _ensure_doc(doc: Path, snippet_lines: List[str], *, apply: bool) -> bool:
+def _ensure_block(doc: Path, *, expected: List[str], apply: bool) -> bool:
     text = doc.read_text(encoding='utf-8')
     lines = text.splitlines()
     try:
         start = lines.index(MARKER)
     except ValueError as exc:
         raise RuntimeError(f'marker missing in {doc}') from exc
-    end = start + len(snippet_lines)
+    end = start + len(expected)
     doc_slice = lines[start:end]
-    if doc_slice == snippet_lines:
+    if doc_slice == expected:
         return False
     if not apply:
         return True
-    lines[start:end] = snippet_lines
+    lines[start:end] = expected
     doc.write_text('\n'.join(lines) + '\n', encoding='utf-8')
     return True
+
+
+def _ensure_snippet(doc: Path, snippet_lines: List[str], *, apply: bool) -> bool:
+    return _ensure_block(doc, expected=snippet_lines, apply=apply)
 
 
 def run(*, apply: bool, targets: Iterable[Path]) -> List[Path]:
     snippet_lines = _load_snippet_lines()
     mismatches: List[Path] = []
     for doc in targets:
-        changed = _ensure_doc(doc, snippet_lines, apply=apply)
+        if doc in SNIPPET_TARGETS:
+            changed = _ensure_snippet(doc, snippet_lines, apply=apply)
+        else:
+            try:
+                expected = REFERENCE_BLOCKS[doc]
+            except KeyError as exc:
+                raise RuntimeError(f'no quickstart guard configuration for {doc}') from exc
+            changed = _ensure_block(doc, expected=expected, apply=apply)
         if changed:
             mismatches.append(doc)
     return mismatches
@@ -62,7 +88,8 @@ def main(argv: Iterable[str] | None = None) -> int:
     parser.add_argument('--apply', action='store_true', help='Rewrite docs with the current snippet when mismatched')
     parser.add_argument('--targets', nargs='*', type=Path, default=[], help='Override target docs (defaults to canonical list)')
     args = parser.parse_args(list(argv) if argv is not None else None)
-    targets = args.targets or TARGETS
+    default_targets: List[Path] = SNIPPET_TARGETS + list(REFERENCE_BLOCKS)
+    targets = args.targets or default_targets
     mismatches = run(apply=args.apply, targets=targets)
     if mismatches and not args.apply:
         for doc in mismatches:

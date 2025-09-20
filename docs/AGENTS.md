@@ -36,16 +36,7 @@ $ python3 -m tools.agent.bus_message --task QUEUE-123 --type status \
 
 ### Bootstrap (one minute)
 <!-- generated: quickstart snippet -->
-Run this smoke test on a fresh checkout:
-```bash
-python3 -m pip install -e .
-teof brief
-ls artifacts/ocers_out/latest
-cat artifacts/ocers_out/latest/brief.json
-```
-
-- Install exposes the teof console script.
-- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
+See [`quickstart.md#quickstart`](quickstart.md#quickstart) for the canonical smoke test commands (`python3 -m pip install -e .`, `teof brief`, `ls artifacts/ocers_out/latest`, `cat artifacts/ocers_out/latest/brief.json`) and notes about storing receipts under `artifacts/ocers_out/<UTC>`.
 
 
 

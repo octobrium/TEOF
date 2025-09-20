@@ -9,17 +9,7 @@ Purpose: give a new human + LLM pair the minimum set of rails to join TEOF safel
 4. **Plan before edits** – duplicate `_plans/1970-01-01-agent-template.plan.json`, add a justification, and log the plan per `docs/AGENTS.md#contract`. Prefer `teof-plan new <slug> --summary "..." --scaffold` (fallback: `python3 -m tools.planner.cli new ...`) so the receipt folder is created immediately.
 5. **Run the Quickstart smoke** – verify your checkout produces canonical artifacts before touching new work.
 <!-- generated: quickstart snippet -->
-Run this smoke test on a fresh checkout:
-```bash
-python3 -m pip install -e .
-teof brief
-ls artifacts/ocers_out/latest
-cat artifacts/ocers_out/latest/brief.json
-```
-
-- Install exposes the teof console script.
-- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
-- Need quick references? `python -m tools.agent.doc_links list --category quickstart` shows the README/AGENTS/onboarding anchors with the same snippet.
+See [`docs/quickstart.md#quickstart`](../docs/quickstart.md#quickstart) for the canonical smoke test commands (`python3 -m pip install -e .`, `teof brief`, `ls artifacts/ocers_out/latest`, `cat artifacts/ocers_out/latest/brief.json`) and the notes on receipts under `artifacts/ocers_out/<UTC>`. Need quick references? `python -m tools.agent.doc_links list --category quickstart` points to the same section.
 
 6. **Announce + claim** – run `python3 -m tools.agent.session_boot --agent <id> --focus <role> --with-status` and follow the coordination loop in `docs/parallel-codex.md#suggested-session-loop` (auto-claiming via task assignments when available). The helper logs a handshake and captures a `bus_status` summary receipt for you.
    - When swapping seats, capture your branch + manifest with `python -m tools.agent.manifest_helper session-save <label>` and restore them later with `... session-restore <label>`.
