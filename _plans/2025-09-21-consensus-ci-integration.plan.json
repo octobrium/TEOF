@@ -4,7 +4,7 @@
   "created": "2025-09-21T10:30:00Z",
   "actor": "codex-2",
   "summary": "Wire consensus ledger + dashboard into guardrails CI",
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -43,7 +43,7 @@
   "checkpoint": {
     "description": "Consensus CI guard blocks missing receipts with docs/tests proving flow",
     "owner": "codex-2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -54,5 +54,12 @@
       "type": "queue",
       "ref": "queue/038-ci-consensus-integration.md"
     }
+  ],
+  "receipts": [
+    "_report/consensus/summary-latest.json",
+    "docs/quick-links.json",
+    "docs/quick-links.md",
+    "scripts/ci/check_consensus_receipts.py",
+    "tests/test_ci_check_consensus_receipts.py"
   ]
 }
