@@ -4,12 +4,12 @@
   "created": "2025-09-20T05:10:30Z",
   "actor": "codex-4",
   "summary": "Introduce a bus_ping helper wrapping bus_event heartbeats with receipts.",
-  "status": "completed",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Draft bus_ping CLI wrapper and usage contract",
-      "status": "completed",
+      "status": "done",
       "notes": "CLI implemented in tools/agent/bus_ping.py",
       "receipts": [
         "tools/agent/bus_ping.py"
@@ -18,7 +18,7 @@
     {
       "id": "S2",
       "title": "Add tests + docs and collect receipts",
-      "status": "completed",
+      "status": "done",
       "notes": "Targeted pytest + documentation updates (onboarding/docs).",
       "receipts": [
         "tests/test_agent_bus_ping.py",
@@ -30,7 +30,7 @@
   "checkpoint": {
     "description": "codex-1 review after helper + docs receipts land",
     "owner": "codex-1",
-    "status": "completed",
+    "status": "satisfied",
     "notes": "Reviewed by codex-1; pytest receipts captured."
   },
   "receipts": [
