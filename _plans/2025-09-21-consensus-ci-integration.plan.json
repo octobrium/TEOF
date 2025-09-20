@@ -1,0 +1,50 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-consensus-ci-integration",
+  "created": "2025-09-21T10:30:00Z",
+  "actor": "codex-2",
+  "summary": "Wire consensus ledger + dashboard into guardrails CI",
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Document consensus CI contract",
+      "status": "done",
+      "notes": "Explain in docs/architecture.md and docs/workflow.md how consensus receipts gate releases; describe OCERS links.",
+      "receipts": [
+        "_report/agent/codex-2/consensus-ci/notes.md",
+        "docs/architecture.md",
+        "docs/decision-hierarchy.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add CI guard + receipts",
+      "status": "queued",
+      "notes": "Extend guardrails workflow so consensus ledger/dashboard receipts are required; emit deterministic summary under _report/consensus/summary-latest.json.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Add tests + quickstart guidance",
+      "status": "queued",
+      "notes": "Cover the guard with pytest (similar to test_ci_check_agent_bus.py) and update docs/quick-links.* with consensus CI entry.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Consensus CI guard blocks missing receipts with docs/tests proving flow",
+    "owner": "codex-2",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/033-consensus-dashboard.md"
+    },
+    {
+      "type": "queue",
+      "ref": "queue/038-ci-consensus-integration.md"
+    }
+  ]
+}

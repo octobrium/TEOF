@@ -67,6 +67,13 @@
       "category": "coordination"
     },
     {
+      "id": "decision-hierarchy",
+      "title": "Decision Hierarchy",
+      "summary": "Map governance objectives before downstream work becomes decidable.",
+      "path": "docs/decision-hierarchy.md",
+      "category": "governance"
+    },
+    {
       "id": "consensus-ledger",
       "title": "Consensus Ledger Usage",
       "summary": "Entry point for `tools.consensus.ledger` commands and receipt capture.",
