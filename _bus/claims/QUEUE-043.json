@@ -2,9 +2,9 @@
   "agent_id": "codex-2",
   "branch": "agent/codex-2/operator-mode-checklist",
   "claimed_at": "2025-09-20T21:56:16Z",
-  "notes": "Add operator-mode checklist to docs/AGENTS.md",
+  "notes": "codex-2: operator-mode checklist doc update complete",
   "plan_id": "2025-09-20-operator-mode-checklist",
+  "released_at": "2025-09-20T22:16:55Z",
   "status": "done",
-  "task_id": "QUEUE-043",
-  "released_at": "2025-09-20T22:08:07Z"
+  "task_id": "QUEUE-043"
 }
