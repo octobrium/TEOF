@@ -23,6 +23,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 EVENT_LOG = ROOT / "_bus" / "events" / "events.jsonl"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
+MANAGER_REPORT_LOG = ROOT / "_bus" / "messages" / "manager-report.jsonl"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 
 from tools.agent import bus_status, session_sync, coord_dashboard
@@ -77,6 +78,39 @@ def summarize_peers(claims: list[dict[str, Any]], self_agent: str) -> list[str]:
         tasks = ", ".join(f"{row.get('task_id')}[{row.get('status')}]=@{row.get('branch')}" for row in rows)
         summary.append(f"Peer {agent_id}: {tasks}")
     return summary
+
+
+def _tail_manager_report(agent_id: str, limit: int) -> tuple[Path, int]:
+    """Capture the most recent manager-report entries for receipts."""
+
+    if limit <= 0:
+        limit = 10
+
+    lines: list[str] = []
+    if MANAGER_REPORT_LOG.exists():
+        with MANAGER_REPORT_LOG.open("r", encoding="utf-8", errors="ignore") as handle:
+            lines = handle.readlines()
+    tail = lines[-limit:] if limit and len(lines) > limit else lines
+
+    receipt_dir = ROOT / "_report" / "session" / agent_id
+    receipt_dir.mkdir(parents=True, exist_ok=True)
+    receipt_path = receipt_dir / "manager-report-tail.txt"
+
+    captured_at = _iso_now()
+    with receipt_path.open("w", encoding="utf-8") as handle:
+        handle.write(
+            "# manager-report tail\n"
+            f"# source={MANAGER_REPORT_LOG.relative_to(ROOT).as_posix()}\n"
+            f"# captured_at={captured_at}\n"
+            f"# requested_entries={limit}\n"
+            f"# written_entries={len(tail)}\n\n"
+        )
+        if tail:
+            handle.writelines(tail)
+        else:
+            handle.write("(manager-report log missing or empty)\n")
+
+    return receipt_path, len(tail)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -134,6 +168,18 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--dashboard-receipt",
         help="Optional path for the coord_dashboard receipt (defaults under _report/agent/<id>/session_boot/)",
+    )
+    parser.add_argument(
+        "--manager-report-tail",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Capture the latest manager-report entries for this session (default: enabled)",
+    )
+    parser.add_argument(
+        "--manager-report-tail-count",
+        type=int,
+        default=10,
+        help="How many manager-report entries to capture for the receipt (default: 10)",
     )
     return parser
 
@@ -259,6 +305,17 @@ def main(argv: list[str] | None = None) -> int:
         printed_messages.append(f"  receipt={rel_receipt}")
     else:
         printed_messages.append("coord_dashboard skipped (--no-dashboard)")
+
+    if args.manager_report_tail:
+        receipt_path, written = _tail_manager_report(agent_id, args.manager_report_tail_count)
+        printed_messages.append("manager-report tail captured")
+        try:
+            rel_receipt = receipt_path.relative_to(ROOT)
+        except ValueError:
+            rel_receipt = receipt_path
+        printed_messages.append(f"  entries={written} receipt={rel_receipt}")
+    else:
+        printed_messages.append("manager-report tail capture skipped (--no-manager-report-tail)")
 
     for message in printed_messages:
         print(message)

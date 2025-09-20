@@ -14,6 +14,41 @@ if ! command -v pytest >/dev/null 2>&1; then
   exit 1
 fi
 
+agent_id="$(python3 - <<'PY'
+import json, pathlib, sys
+
+manifest = pathlib.Path("AGENT_MANIFEST.json")
+if not manifest.exists():
+    print("preflight: AGENT_MANIFEST.json is missing; run session_boot to activate an agent manifest", file=sys.stderr)
+    sys.exit(1)
+
+try:
+    data = json.loads(manifest.read_text(encoding="utf-8"))
+except Exception as exc:  # pragma: no cover - guard path
+    print(f"preflight: cannot parse AGENT_MANIFEST.json ({exc})", file=sys.stderr)
+    sys.exit(1)
+
+agent = data.get("agent_id", "").strip()
+if not agent:
+    print("preflight: agent_id missing in AGENT_MANIFEST.json; update the manifest or rerun session_boot", file=sys.stderr)
+    sys.exit(1)
+
+print(agent)
+PY
+  )"
+
+if [[ -z "$agent_id" ]]; then
+  echo "preflight: unable to determine agent_id from AGENT_MANIFEST.json" >&2
+  exit 1
+fi
+
+tail_receipt="_report/session/${agent_id}/manager-report-tail.txt"
+if [[ ! -s "$tail_receipt" ]]; then
+  echo "preflight: manager-report tail receipt missing at $tail_receipt" >&2
+  echo "  Run 'python3 -m tools.agent.session_boot' to capture the manager-report tail before preflight." >&2
+  exit 1
+fi
+
 python3 tools/receipts/main.py check
 python3 -m tools.maintenance.worktree_guard --max-changes 80
 python3 tools/snippets/render_quickstart.py

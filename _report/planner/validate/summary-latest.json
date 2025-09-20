@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-09-20T18:26:11Z",
+  "generated_at": "2025-09-20T21:42:12Z",
   "strict": true,
   "exit_code": 0,
   "plans": [
@@ -502,16 +502,46 @@
       "plan_id": "2025-09-20-repo-hygiene-codex4"
     },
     {
+      "path": "_plans/2025-09-21-capsule-cadence-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-capsule-cadence-automation"
+    },
+    {
+      "path": "_plans/2025-09-21-capsule-version-sync.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-capsule-version-sync"
+    },
+    {
       "path": "_plans/2025-09-21-code-compaction.plan.json",
       "ok": true,
       "errors": [],
       "plan_id": "2025-09-21-code-compaction"
     },
     {
+      "path": "_plans/2025-09-21-consensus-ci-integration.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-consensus-ci-integration"
+    },
+    {
       "path": "_plans/2025-09-21-coordination-dashboard.plan.json",
       "ok": true,
       "errors": [],
       "plan_id": "2025-09-21-coordination-dashboard"
+    },
+    {
+      "path": "_plans/2025-09-21-quickstart-smoke-ci.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-quickstart-smoke-ci"
+    },
+    {
+      "path": "_plans/2025-09-21-readability-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-readability-guard"
     },
     {
       "path": "_plans/2025-09-21-session-sync.plan.json",

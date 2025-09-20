@@ -229,3 +229,4 @@
 {"ts": "2025-09-20T05:10:28Z", "agent_id": "codex-3", "event": "consensus", "task_id": "manager-report", "summary": "Documented remaining comm tasks", "meta": {"topic": "communication-mainline"}}
 {"ts": "2025-09-20T05:13:33Z", "agent_id": "codex-3", "event": "consensus", "task_id": "manager-report", "summary": "Recorded consensus snapshot", "meta": {"topic": "communication-mainline"}}
 {"ts": "2025-09-20T05:53:37Z", "agent_id": "codex-3", "event": "consensus", "task_id": "manager-report", "summary": "Recorded consensus post bus_ping", "meta": {"topic": "communication-mainline"}}
+{"agent_id": "codex-4", "branch_prefix": "agent/codex-4/", "event": "handshake", "meta": {"focus": "support"}, "summary": "Session handshake", "ts": "2025-09-20T21:27:52Z"}
