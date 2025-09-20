@@ -8,7 +8,7 @@
     },
     {
       "path": "PROVENANCE.md",
-      "sha256": "044a0534a81c687839eebb3b9eb3e76e27e6d6dcc7644e0ce4ece2d4ea172700"
+      "sha256": "c5af7284d0442ea2556997d1b508f1a933da55e316b64cdf514e58a6852e42a9"
     },
     {
       "path": "README.md",
@@ -16,7 +16,7 @@
     },
     {
       "path": "RELEASE.md",
-      "sha256": "0c40c680b1a508352848de69d25a63d829bc22a228bd4c77273f8601f003ab82"
+      "sha256": "809fa97cea17f89bfbb94ff0c53da22266c10173235e18e1fbe3034873769bdb"
     },
     {
       "path": "TEOF-FUTURE.md",
@@ -36,7 +36,7 @@
     },
     {
       "path": "capsule.txt",
-      "sha256": "ffc9aa3372284be6d94446966440a73ac87a0addf770ccc30b813540dba0a947"
+      "sha256": "4a9d9b1d2f45475ee448fec19fd876ff396826c1c96cf180212fe3220addeaaa"
     },
     {
       "path": "core-teof.md",
@@ -52,7 +52,7 @@
     },
     {
       "path": "reconstruction.json",
-      "sha256": "70fa0c3bef6289f39a91a67ab0615c4ccd21cf03e6e664ae11ca94ac057d5b60"
+      "sha256": "14f9cbf3fa0c37a338d61295d4ce6d1f5a17df679b4fbbab7838d0016747452b"
     },
     {
       "path": "root",
