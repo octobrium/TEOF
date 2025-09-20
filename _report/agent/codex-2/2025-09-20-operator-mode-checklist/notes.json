@@ -1,0 +1,9 @@
+{
+  "notes": [
+    {
+      "ts": "2025-09-20T22:18:00Z",
+      "text": "Autonomy directive stops at git push. Awaiting maintainer review/push to finish deployment."
+    }
+  ],
+  "plan_id": "2025-09-20-operator-mode-checklist"
+}

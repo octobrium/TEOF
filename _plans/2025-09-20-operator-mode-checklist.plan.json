@@ -11,7 +11,9 @@
       "title": "Review-workflow-docs",
       "status": "done",
       "notes": "Reviewed docs/workflow.md operator ladder; recorded findings in notes.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-2/2025-09-20-operator-mode-checklist/notes.json"
+      ]
     },
     {
       "id": "S2",
@@ -27,7 +29,9 @@
       "title": "Run-doc-guards",
       "status": "done",
       "notes": "Ran python3 tools/snippets/check_quickstart_docs.py --apply after doc update.",
-      "receipts": []
+      "receipts": [
+        "_report/agent/codex-2/2025-09-20-operator-mode-checklist/tests.json"
+      ]
     }
   ],
   "checkpoint": {

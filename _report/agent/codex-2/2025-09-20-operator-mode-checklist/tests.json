@@ -1,0 +1,16 @@
+{
+  "plan_id": "2025-09-20-operator-mode-checklist",
+  "tests": [
+    {
+      "command": "python3 tools/snippets/check_quickstart_docs.py --apply",
+      "result": "pass",
+      "ts": "2025-09-20T22:00:12Z"
+    },
+    {
+      "command": "pytest tests/test_session_boot.py",
+      "result": "pass",
+      "ts": "2025-09-20T22:05:34Z"
+    }
+  ],
+  "generated_at": "2025-09-20T22:01:05Z"
+}

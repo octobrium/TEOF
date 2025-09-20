@@ -1,0 +1,13 @@
+{
+  "generated_at": "2025-09-20T21:55:30Z",
+  "plan_id": "2025-09-20-session-boot-tail-tests",
+  "tests": [
+    {
+      "id": "T1",
+      "description": "Targeted regression covering session_boot tail receipt flags",
+      "command": "pytest tests/test_session_boot.py",
+      "status": "pass"
+    }
+  ],
+  "plan_step_id": "S1"
+}
