@@ -89,6 +89,13 @@
       "category": "consensus"
     },
     {
+      "id": "consensus-ci-summary",
+      "title": "Consensus CI Guard",
+      "summary": "Stable receipts + CI check ensuring QUEUE-030..033 stay covered.",
+      "path": "_report/consensus/summary-latest.json",
+      "category": "consensus"
+    },
+    {
       "id": "coordination-dashboard",
       "title": "Coordination Dashboard",
       "summary": "Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts.",

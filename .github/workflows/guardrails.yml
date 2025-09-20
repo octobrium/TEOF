@@ -18,6 +18,8 @@ jobs:
         run: scripts/ci/check_append_only.sh origin/main
       - name: Consensus tooling smoke test
         run: scripts/ci/consensus_smoke.sh
+      - name: Validate consensus receipts
+        run: scripts/ci/check_consensus_receipts.py
       - name: Upload consensus artifacts
         uses: actions/upload-artifact@v4
         with:

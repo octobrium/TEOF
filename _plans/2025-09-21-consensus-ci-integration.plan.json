@@ -20,16 +20,24 @@
     {
       "id": "S2",
       "title": "Add CI guard + receipts",
-      "status": "queued",
+      "status": "done",
       "notes": "Extend guardrails workflow so consensus ledger/dashboard receipts are required; emit deterministic summary under _report/consensus/summary-latest.json.",
-      "receipts": []
+      "receipts": [
+        ".github/workflows/guardrails.yml",
+        "_report/consensus/summary-latest.json",
+        "scripts/ci/check_consensus_receipts.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Add tests + quickstart guidance",
-      "status": "queued",
+      "status": "done",
       "notes": "Cover the guard with pytest (similar to test_ci_check_agent_bus.py) and update docs/quick-links.* with consensus CI entry.",
-      "receipts": []
+      "receipts": [
+        "docs/quick-links.json",
+        "docs/quick-links.md",
+        "tests/test_ci_check_consensus_receipts.py"
+      ]
     }
   ],
   "checkpoint": {

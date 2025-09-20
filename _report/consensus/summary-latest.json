@@ -1,0 +1,37 @@
+{
+  "generated_at": "2025-09-21T11:50:00Z",
+  "tasks": [
+    {
+      "task_id": "QUEUE-030",
+      "plan_id": "2025-09-18-consensus-ledger-cli",
+      "status": "complete",
+      "required_receipts": [
+        "_report/consensus/ci-ledger-smoke.jsonl"
+      ]
+    },
+    {
+      "task_id": "QUEUE-031",
+      "plan_id": "2025-09-18-consensus-receipts",
+      "status": "complete",
+      "required_receipts": [
+        "_report/consensus/ci-consensus-smoke.jsonl"
+      ]
+    },
+    {
+      "task_id": "QUEUE-032",
+      "plan_id": "2025-09-18-consensus-cadence",
+      "status": "complete",
+      "required_receipts": [
+        "docs/parallel-codex.md"
+      ]
+    },
+    {
+      "task_id": "QUEUE-033",
+      "plan_id": "2025-09-18-consensus-dashboard",
+      "status": "complete",
+      "required_receipts": [
+        "_report/consensus/ci-dashboard.txt"
+      ]
+    }
+  ]
+}
