@@ -80,12 +80,17 @@ objectives:
   L2.13:
     title: Incentives Aligned with Truth-Seeking
     enforced_by:
-      planned:
-        - queue/030-consensus-ledger-cli.md
-        - queue/031-consensus-receipts.md
-    receipts: []
-    coverage: todo
-    notes: "Consensus backlog will introduce concrete checks; track once implemented."
+      scripts:
+        - scripts/ci/check_consensus_receipts.py
+        - scripts/ci/check_capsule_cadence.py
+      tests:
+        - tests/test_ci_check_consensus_receipts.py
+        - tests/test_ci_check_capsule_cadence.py
+    receipts:
+      - _report/consensus/summary-latest.json
+      - _report/capsule/summary-latest.json
+    coverage: active
+    notes: "Consensus and capsule guards ensure truth-aligned receipts exist before releases proceed."
 
 properties:
   P1-substrate-neutrality:
@@ -142,9 +147,9 @@ properties:
     notes: "Pipeline metrics catch divergence; integrate consensus metrics next."
 
 meta:
-  updated: 2025-09-18T19:40:00Z
-  owner: codex-3
+  updated: 2025-09-21T12:20:00Z
+  owner: codex-2
   gaps:
     - L2.5 requires readability guard.
-    - L2.6/L2.7/L2.8 coverage still implicit; schedule follow-up once consensus tooling lands.
+    - L2.6/L2.7/L2.8 coverage still implicit; schedule follow-up once consensus + capsule automation matures.
     - Property list not exhaustive; add cards as new automation boots.

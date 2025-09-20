@@ -1,0 +1,10 @@
+{
+  "generated_at": "2025-09-21T12:10:00Z",
+  "capsule_version": "current",
+  "required_receipts": [
+    "capsule/README.md",
+    "capsule/current/hashes.json",
+    "governance/anchors.json"
+  ],
+  "consensus_summary": "_report/consensus/summary-latest.json"
+}

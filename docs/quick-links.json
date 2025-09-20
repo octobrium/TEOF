@@ -96,6 +96,13 @@
       "category": "consensus"
     },
     {
+      "id": "capsule-cadence-summary",
+      "title": "Capsule Cadence Guard",
+      "summary": "Release checklist tied to consensus receipts and capsule hashes.",
+      "path": "_report/capsule/summary-latest.json",
+      "category": "maintenance"
+    },
+    {
       "id": "coordination-dashboard",
       "title": "Coordination Dashboard",
       "summary": "Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts.",

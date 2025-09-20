@@ -1,0 +1,4 @@
+- Capsule receipt: capsule/README.md
+- Capsule receipt: capsule/current/hashes.json
+- Capsule receipt: governance/anchors.json
+- Consensus summary: _report/consensus/summary-latest.json

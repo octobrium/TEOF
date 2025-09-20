@@ -22,6 +22,7 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `emergent-principles-ledger` | Emergent Principles Ledger | Append lessons to reuse patterns before automating. | [governance/core/emergent-principles.jsonl](governance/core/emergent-principles.jsonl) |
 | `consensus-ledger` | Consensus Ledger Usage | Entry point for `tools.consensus.ledger` commands and receipt capture. | [docs/consensus/README.md#usage](docs/consensus/README.md#usage) |
 | `consensus-ci-summary` | Consensus CI Guard | Stable receipts + CI check ensuring QUEUE-030..033 stay covered. | [_report/consensus/summary-latest.json](_report/consensus/summary-latest.json) |
+| `capsule-cadence-summary` | Capsule Cadence Guard | Release checklist tied to consensus receipts and capsule hashes. | [_report/capsule/summary-latest.json](_report/capsule/summary-latest.json) |
 | `coordination-dashboard` | Coordination Dashboard | Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts. | [docs/parallel-codex.md#coordination-dashboard](docs/parallel-codex.md#coordination-dashboard) |
 | `onboarding-first-session` | First Session Checklist | Seat-up instructions for pairing the repo checkout with governance rails on day one. | [.github/AGENT_ONBOARDING.md#first-session-checklist](.github/AGENT_ONBOARDING.md#first-session-checklist) |
 | `onboarding-rhythm` | Operating Rhythm | Daily cadence reminder covering receipts discipline, hooks, and preflight guardrails. | [.github/AGENT_ONBOARDING.md#operating-rhythm](.github/AGENT_ONBOARDING.md#operating-rhythm) |

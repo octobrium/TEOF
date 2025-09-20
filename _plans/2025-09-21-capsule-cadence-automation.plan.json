@@ -1,0 +1,62 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-capsule-cadence-automation",
+  "created": "2025-09-21T12:05:00Z",
+  "actor": "codex-2",
+  "summary": "Automate capsule cadence checks tied to consensus receipts",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Document capsule cadence contract",
+      "status": "done",
+      "notes": "Describe in docs/architecture.md + docs/maintenance/capsule-cadence.md how capsule releases depend on consensus summary-latest receipts.",
+      "receipts": [
+        "docs/architecture.md",
+        "docs/maintenance/capsule-cadence.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add capsule cadence guard",
+      "status": "done",
+      "notes": "Create _report/capsule/summary-latest.json and scripts/ci/check_capsule_cadence.py to verify consensus + capsule artifacts; wire into CI.",
+      "receipts": [
+        ".github/workflows/guardrails.yml",
+        "_report/capsule/summary-latest.json",
+        "scripts/ci/check_capsule_cadence.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add tests and quick links",
+      "status": "done",
+      "notes": "Cover guard with pytest, expose summary in quick-links, append emergent principle entry, update L4 bindings.",
+      "receipts": [
+        "docs/quick-links.json",
+        "docs/quick-links.md",
+        "governance/core/L4 - architecture/bindings.yml",
+        "governance/core/emergent-principles.jsonl",
+        "tests/test_ci_check_capsule_cadence.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Capsule cadence automation blocks releases without consensus receipts",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/039-capsule-cadence-plan.md"
+    }
+  ],
+  "receipts": [
+    "_report/capsule/summary-latest.json",
+    "docs/maintenance/capsule-cadence.md",
+    "governance/core/emergent-principles.jsonl",
+    "scripts/ci/check_capsule_cadence.py",
+    "tests/test_ci_check_capsule_cadence.py"
+  ]
+}
