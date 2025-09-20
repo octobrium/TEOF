@@ -9,7 +9,7 @@
     {
       "id": "S1",
       "title": "Adjust dashboard messaging",
-      "status": "completed",
+      "status": "done",
       "notes": "Patch coord_dashboard to clarify heartbeat window and new auto-hook.",
       "receipts": [
         "tools/agent/coord_dashboard.py"
@@ -18,7 +18,7 @@
     {
       "id": "S2",
       "title": "Refresh documentation",
-      "status": "completed",
+      "status": "done",
       "notes": "Update docs/parallel-codex.md and docs/AGENTS.md with session-close heartbeat guidance.",
       "receipts": [
         "docs/parallel-codex.md",
@@ -28,18 +28,17 @@
     {
       "id": "S3",
       "title": "Add regression coverage",
-      "status": "completed",
+      "status": "done",
       "notes": "Extend existing tests (docs quick-links or guard) to ensure messaging stays in sync.",
       "receipts": [
-        "tests/test_coord_dashboard.py",
-        "pytest tests/test_coord_dashboard.py"
+        "tests/test_coord_dashboard.py"
       ]
     }
   ],
   "checkpoint": {
     "description": "Docs & dashboard reflect new heartbeat automation",
     "owner": "codex-3",
-    "status": "met"
+    "status": "satisfied"
   },
   "receipts": [
     "tools/agent/coord_dashboard.py",

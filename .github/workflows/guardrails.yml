@@ -16,3 +16,13 @@ jobs:
         run: scripts/ci/check_hashes.sh
       - name: Enforce append-only policy
         run: scripts/ci/check_append_only.sh origin/main
+      - name: Consensus tooling smoke test
+        run: scripts/ci/consensus_smoke.sh
+      - name: Upload consensus artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: consensus-smoke
+          path: |
+            artifacts/consensus/ci-ledger-smoke.jsonl
+            artifacts/consensus/ci-consensus-smoke.jsonl
+            artifacts/consensus/ci-dashboard.txt

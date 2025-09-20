@@ -1,0 +1,62 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-bus-guardrails-cleanup",
+  "created": "2025-09-20T02:52:30Z",
+  "actor": "codex-2",
+  "summary": "Finish guardrails/bus-message/manifest helper cleanup (BUS-COORD-0004)",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit dirty surfaces",
+      "status": "done",
+      "notes": "Audit recorded in _report/agent/codex-2/heartbeat-auto/audit-20250920.md.",
+      "receipts": [
+        "_report/agent/codex-2/heartbeat-auto/audit-20250920.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Finalize guardrails + bus helper changes",
+      "status": "done",
+      "notes": "Local consensus smoke + policy checks succeed; guardrails workflow ready for rerun with team.",
+      "receipts": [
+        "_report/agent/codex-2/heartbeat-auto/tests-20250920.json",
+        "_report/agent/codex-2/heartbeat-auto/consensus-smoke-20250920.log",
+        "_report/agent/codex-2/heartbeat-auto/policy-checks-20250920.log"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Coordinate guardrails/preflight run",
+      "status": "done",
+      "notes": "Guardrails/preflight rerun succeeded; ready to coordinate push.",
+      "receipts": [
+        "_report/agent/codex-2/heartbeat-auto/preflight-20250920.log",
+        "_report/agent/codex-2/heartbeat-auto/preflight-20250920-success.log"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Guardrails/bus cleanup complete with tests and guardrails rerun",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "BUS-COORD-0004"
+    },
+    {
+      "type": "queue",
+      "ref": "QUEUE-012-bus-message-claim-guard"
+    },
+    {
+      "type": "queue",
+      "ref": "QUEUE-042-coordination-dashboard"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-2/heartbeat-auto/summary-20250920.md"
+  ]
+}

@@ -9,12 +9,16 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, Mapping, Optional
 
+from tools.agent.claim_guard import ensure_claim_owner
 from tools.usage.logger import record_usage
 
 ROOT = Path(__file__).resolve().parents[2]
 MESSAGES_DIR = ROOT / "_bus" / "messages"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
+CLAIMS_DIR = ROOT / "_bus" / "claims"
+AGENT_REPORT_DIR = ROOT / "_report" / "agent"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
+GUARDED_MESSAGE_TYPES = {"status", "note", "request", "summary", "consensus", "proposal"}
 
 
 def _iso_now() -> str:
@@ -73,6 +77,15 @@ def log_message(
         agent_id = _default_agent()
     if not agent_id:
         raise SystemExit("agent id required; use --agent or populate AGENT_MANIFEST.json")
+
+    if task_id and msg_type in GUARDED_MESSAGE_TYPES:
+        ensure_claim_owner(
+            claims_dir=CLAIMS_DIR,
+            report_root=AGENT_REPORT_DIR,
+            agent_id=agent_id,
+            task_id=task_id,
+            action=msg_type,
+        )
 
     payload: Dict[str, Any] = {
         "ts": timestamp or _iso_now(),

@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/bus-coord-0004",
+  "claimed_at": "2025-09-20T02:50:53Z",
+  "notes": "Directive delivered; awaiting agent responses",
+  "plan_id": "2025-09-20-manager-directive-pointer",
+  "released_at": "2025-09-20T03:13:09Z",
+  "status": "done",
+  "task_id": "BUS-COORD-0004"
+}

@@ -1,0 +1,51 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-repo-hygiene-codex4",
+  "created": "2025-09-20T03:05:47Z",
+  "actor": "codex-4",
+  "summary": "Finalize bus/session_boot/heartbeat edits per BUS-COORD-0004",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review pending diffs and align with directive",
+      "status": "done",
+      "notes": "Reviewed bus_event/bus_message/session_boot/heartbeat diffs; aligned with heartbeat integration directive.",
+      "receipts": [
+        "tools/agent/bus_event.py",
+        "tools/agent/bus_message.py",
+        "tools/agent/session_boot.py",
+        "tools/agent/heartbeat.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Run targeted pytest for bus/session helpers",
+      "status": "done",
+      "notes": "Targeted pytest suites for bus/message/session helpers passed.",
+      "receipts": [
+        "_report/agent/codex-4/2025-09-20-repo-hygiene-codex4/tests.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Log status + receipts on BUS-COORD-0004",
+      "status": "done",
+      "notes": "Posted BUS-COORD-0004 progress update with pytest receipt.",
+      "receipts": [
+        "_bus/messages/BUS-COORD-0004.jsonl"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Bus/session bootstrap receipts ready for push",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-4/2025-09-20-repo-hygiene-codex4/design.md",
+    "_report/agent/codex-4/2025-09-20-repo-hygiene-codex4/tests.json",
+    "_bus/messages/BUS-COORD-0004.jsonl"
+  ]
+}

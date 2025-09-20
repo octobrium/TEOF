@@ -248,9 +248,11 @@ def main(argv: list[str] | None = None) -> int:
         printed_messages.append(
             "coord_dashboard snapshot captured"
         )
-        printed_messages.append(
-            f"  receipt={dash_receipt.relative_to(ROOT) if dash_receipt.is_relative_to(ROOT) else dash_receipt}"
-        )
+        try:
+            rel_receipt = dash_receipt.relative_to(ROOT)
+        except ValueError:
+            rel_receipt = dash_receipt
+        printed_messages.append(f"  receipt={rel_receipt}")
     else:
         printed_messages.append("coord_dashboard skipped (--no-dashboard)")
 

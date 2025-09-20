@@ -1,11 +1,11 @@
 {
-  "agent_id": "codex-4",
-  "owner": "codex-4",
+  "agent_id": "codex-1",
+  "owner": "codex-1",
   "agent_type": "local-llm",
-  "capabilities": ["engineering", "support"],
-  "desired_roles": ["engineer"],
+  "capabilities": ["coordination", "task-assign"],
+  "desired_roles": ["manager"],
   "max_prs_per_day": 0,
-  "branch_prefix": "agent/codex-4/",
+  "branch_prefix": "agent/codex-1/",
   "contact": "",
-  "notes": "Codex-4 session in progress"
+  "notes": "Codex-1 manager session in progress"
 }

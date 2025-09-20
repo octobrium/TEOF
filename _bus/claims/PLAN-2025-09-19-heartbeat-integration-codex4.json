@@ -2,8 +2,9 @@
   "agent_id": "codex-4",
   "branch": "agent/codex-4/heartbeat-integration",
   "claimed_at": "2025-09-19T21:50:23Z",
-  "notes": "Integration receipts for auto heartbeat",
+  "notes": "Plan receipts recorded; dashboard automation verified",
   "plan_id": "2025-09-19-heartbeat-integration-codex4",
-  "status": "active",
+  "released_at": "2025-09-20T02:41:22Z",
+  "status": "done",
   "task_id": "PLAN-2025-09-19-heartbeat-integration-codex4"
 }

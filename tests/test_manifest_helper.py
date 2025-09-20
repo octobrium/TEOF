@@ -90,6 +90,17 @@ def test_session_save_writes_manifest_and_metadata(tmp_path: Path, monkeypatch) 
     }
     monkeypatch.setattr(manifest_helper, "_git", _fake_git(responses))
 
+    captured: dict[str, object] = {}
+
+    def fake_emit(agent_id, summary, *, extras=None, dry_run=False):
+        captured["agent_id"] = agent_id
+        captured["summary"] = summary
+        captured["extras"] = dict(extras or {})
+        captured["dry_run"] = dry_run
+        return {}
+
+    monkeypatch.setattr(manifest_helper.heartbeat, "emit_status", fake_emit)
+
     manifest_helper.save_session("daily")
 
     session_dir = manifest_helper.SESSION_DIR / "daily"
@@ -99,6 +110,12 @@ def test_session_save_writes_manifest_and_metadata(tmp_path: Path, monkeypatch) 
     metadata = json.loads((session_dir / "metadata.json").read_text(encoding="utf-8"))
     assert metadata["branch"] == "agent/codex-2/work"
     assert metadata["agent_id"] == "codex-2"
+    assert captured["agent_id"] == "codex-2"
+    assert captured["summary"] == "Session wrap: daily"
+    assert captured["extras"]["session_label"] == "daily"
+    assert captured["extras"]["session_branch"] == "agent/codex-2/work"
+    assert captured["extras"]["session_commit"] == "abc123"
+    assert captured["dry_run"] is False
 
 
 def test_session_restore_checks_out_branch(tmp_path: Path, monkeypatch) -> None:
@@ -152,3 +169,73 @@ def test_session_list_returns_metadata(tmp_path: Path, monkeypatch) -> None:
 
     sessions = manifest_helper.list_sessions()
     assert sessions and sessions[0]["label"] == "alpha"
+
+
+def test_session_save_dry_run_heartbeat(tmp_path: Path, monkeypatch) -> None:
+    root = tmp_path
+    monkeypatch.setattr(manifest_helper, "ROOT", root)
+    monkeypatch.setattr(manifest_helper, "DEFAULT_MANIFEST", root / "AGENT_MANIFEST.json")
+    monkeypatch.setattr(manifest_helper, "SESSION_DIR", root / ".sessions")
+    monkeypatch.setattr(manifest_helper, "BACKUP_DIR", root / ".manifest_backups")
+
+    _write_manifest(manifest_helper.DEFAULT_MANIFEST, "{\"agent_id\": \"codex-2\"}")
+
+    responses = {
+        "status --porcelain": "",
+        "rev-parse --abbrev-ref HEAD": "agent/codex-2/dev",
+        "rev-parse HEAD": "def456",
+    }
+    monkeypatch.setattr(manifest_helper, "_git", _fake_git(responses))
+
+    captured: dict[str, object] = {}
+
+    def fake_emit(agent_id, summary, *, extras=None, dry_run=False):
+        captured["agent_id"] = agent_id
+        captured["summary"] = summary
+        captured["extras"] = dict(extras or {})
+        captured["dry_run"] = dry_run
+        return {}
+
+    monkeypatch.setattr(manifest_helper.heartbeat, "emit_status", fake_emit)
+
+    manifest_helper.save_session(
+        "closing",
+        dry_run=True,
+        heartbeat_summary="Shift wrap",
+        heartbeat_meta=["shift=mid"],
+    )
+
+    assert captured["agent_id"] == "codex-2"
+    assert captured["summary"] == "Shift wrap"
+    assert captured["extras"]["shift"] == "mid"
+    assert captured["extras"]["session_label"] == "closing"
+    assert captured["dry_run"] is True
+
+
+def test_session_save_with_no_heartbeat(tmp_path: Path, monkeypatch) -> None:
+    root = tmp_path
+    monkeypatch.setattr(manifest_helper, "ROOT", root)
+    monkeypatch.setattr(manifest_helper, "DEFAULT_MANIFEST", root / "AGENT_MANIFEST.json")
+    monkeypatch.setattr(manifest_helper, "SESSION_DIR", root / ".sessions")
+    monkeypatch.setattr(manifest_helper, "BACKUP_DIR", root / ".manifest_backups")
+
+    _write_manifest(manifest_helper.DEFAULT_MANIFEST, "{\"agent_id\": \"codex-2\"}")
+
+    responses = {
+        "status --porcelain": "",
+        "rev-parse --abbrev-ref HEAD": "agent/codex-2/research",
+        "rev-parse HEAD": "abc789",
+    }
+    monkeypatch.setattr(manifest_helper, "_git", _fake_git(responses))
+
+    calls = []
+
+    def fake_emit(*args, **kwargs):  # pragma: no cover - should not be called
+        calls.append((args, kwargs))
+        return {}
+
+    monkeypatch.setattr(manifest_helper.heartbeat, "emit_status", fake_emit)
+
+    manifest_helper.save_session("quiet", heartbeat_enabled=False)
+
+    assert not calls

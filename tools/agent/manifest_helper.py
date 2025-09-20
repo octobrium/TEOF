@@ -8,12 +8,14 @@ import shutil
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Iterable, Mapping, Sequence
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_MANIFEST = ROOT / "AGENT_MANIFEST.json"
 BACKUP_DIR = ROOT / ".manifest_backups"
 SESSION_DIR = ROOT / ".manifest_sessions"
+
+from tools.agent import heartbeat
 
 
 def _iter_variants() -> Iterable[Path]:
@@ -73,6 +75,25 @@ def build_parser() -> argparse.ArgumentParser:
     session_save.add_argument("label", help="Name for the saved session")
     session_save.add_argument("--allow-dirty", action="store_true", help="Allow saving when working tree has changes")
     session_save.add_argument("--force", action="store_true", help="Overwrite existing session with same label")
+    session_save.add_argument(
+        "--no-heartbeat",
+        action="store_true",
+        help="Skip logging the automatic session heartbeat",
+    )
+    session_save.add_argument(
+        "--heartbeat-summary",
+        help="Override the default heartbeat summary",
+    )
+    session_save.add_argument(
+        "--heartbeat-meta",
+        action="append",
+        help="Additional key=value metadata to attach to the heartbeat event",
+    )
+    session_save.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview heartbeat payload without writing to the bus",
+    )
     session_save.set_defaults(func=cmd_session_save)
 
     session_restore = sub.add_parser("session-restore", help="Restore manifest and branch from saved session")
@@ -135,11 +156,30 @@ def _read_manifest_agent() -> str | None:
     return None
 
 
+def _parse_meta_pairs(pairs: Iterable[str] | None) -> Mapping[str, str]:
+    meta: dict[str, str] = {}
+    if not pairs:
+        return meta
+    for item in pairs:
+        key, sep, value = item.partition("=")
+        if not sep:
+            raise SystemExit(f"heartbeat meta must be key=value (got: {item})")
+        key = key.strip()
+        if not key:
+            raise SystemExit("heartbeat meta key must be non-empty")
+        meta[key] = value
+    return meta
+
+
 def save_session(
     label: str,
     *,
     allow_dirty: bool = False,
     force: bool = False,
+    heartbeat_enabled: bool = True,
+    heartbeat_summary: str | None = None,
+    heartbeat_meta: Iterable[str] | None = None,
+    dry_run: bool = False,
 ) -> Path:
     label = label.strip()
     if not label:
@@ -171,6 +211,16 @@ def save_session(
         "created": datetime.now(timezone.utc).isoformat(),
     }
     (session_dir / "metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
+    agent_meta = _parse_meta_pairs(list(heartbeat_meta or []))
+    if heartbeat_enabled:
+        summary = heartbeat_summary or f"Session wrap: {label}"
+        extras = {
+            "session_label": label,
+            "session_branch": branch,
+            "session_commit": commit,
+        }
+        extras.update(agent_meta)
+        heartbeat.emit_status(agent_id or "unknown", summary, extras=extras, dry_run=dry_run)
     return session_dir
 
 
@@ -242,8 +292,22 @@ def delete_session(label: str) -> None:
 
 
 def cmd_session_save(args: argparse.Namespace) -> int:
-    save_session(args.label, allow_dirty=args.allow_dirty, force=args.force)
+    save_session(
+        args.label,
+        allow_dirty=args.allow_dirty,
+        force=args.force,
+        heartbeat_enabled=not args.no_heartbeat,
+        heartbeat_summary=args.heartbeat_summary,
+        heartbeat_meta=args.heartbeat_meta,
+        dry_run=args.dry_run,
+    )
     print(f"Saved session '{args.label}'")
+    if args.no_heartbeat:
+        print("Heartbeat skipped (--no-heartbeat).")
+    elif args.dry_run:
+        print("Heartbeat dry-run only; no bus event written.")
+    else:
+        print("Heartbeat logged via bus_event status event.")
     return 0
 
 

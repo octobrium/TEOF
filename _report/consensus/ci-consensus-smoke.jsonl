@@ -4,3 +4,4 @@
 {"decision_id": "CI-SMOKE", "summary": "CI consensus smoke", "agent_id": "ci-bot", "event": "consensus", "ts": "2025-09-18T20:31:28Z", "receipts": ["_report/consensus/ci-ledger-smoke.jsonl"]}
 {"decision_id": "CI-SMOKE", "summary": "CI consensus smoke", "agent_id": "ci-bot", "event": "consensus", "ts": "2025-09-18T20:31:41Z", "receipts": ["_report/consensus/ci-ledger-smoke.jsonl"]}
 {"decision_id": "CI-SMOKE", "summary": "CI consensus smoke", "agent_id": "ci-bot", "event": "consensus", "ts": "2025-09-18T20:44:37Z", "receipts": ["_report/consensus/ci-ledger-smoke.jsonl"]}
+{"decision_id": "CI-SMOKE", "summary": "CI consensus smoke", "agent_id": "ci-bot", "event": "consensus", "ts": "2025-09-20T03:07:24Z", "receipts": ["_report/consensus/ci-ledger-smoke.jsonl"]}

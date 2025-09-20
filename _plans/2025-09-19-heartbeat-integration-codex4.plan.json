@@ -4,34 +4,52 @@
   "created": "2025-09-19T21:50:00Z",
   "actor": "codex-4",
   "summary": "Verify heartbeat automation across runner + manager receipts",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Integration test design",
-      "status": "queued",
-      "notes": "Plan how to exercise session loop + dashboard with new heartbeat hook.",
-      "receipts": []
+      "status": "done",
+      "notes": "Defined approach: add --with-dashboard flag and heartbeat helper receipts to keep session snapshots fresh.",
+      "receipts": [
+        "_report/agent/codex-4/2025-09-19-heartbeat-integration-codex4/design.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Implement verification",
-      "status": "queued",
-      "notes": "Add integration/regression coverage ensuring dashboard clears after session.",
-      "receipts": []
+      "status": "done",
+      "notes": "session_boot now captures coord_dashboard receipts by default; tests cover dashboard invocation and heartbeat emitter.",
+      "receipts": [
+        "tools/agent/session_boot.py",
+        "tests/test_session_boot.py",
+        "tools/agent/heartbeat.py",
+        "tests/test_agent_heartbeat.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Capture manager receipts",
-      "status": "queued",
-      "notes": "Record session brief + dashboard snapshot proving green state.",
-      "receipts": []
+      "status": "done",
+      "notes": "Captured session_boot heartbeat integration run with bus_status + coord_dashboard receipts.",
+      "receipts": [
+        "_report/agent/codex-4/2025-09-19-heartbeat-integration-codex4/bus-status-manager.txt",
+        "_report/agent/codex-4/2025-09-19-heartbeat-integration-codex4/coord-dashboard.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "End-to-end receipts confirm heartbeats auto emit and dashboard clears",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied"
   },
-  "receipts": []
+  "receipts": [
+    "_report/agent/codex-4/2025-09-19-heartbeat-integration-codex4/design.md",
+    "tools/agent/session_boot.py",
+    "tests/test_session_boot.py",
+    "tools/agent/heartbeat.py",
+    "tests/test_agent_heartbeat.py",
+    "_report/agent/codex-4/2025-09-19-heartbeat-integration-codex4/coord-dashboard.json",
+    "_report/agent/codex-4/2025-09-19-heartbeat-integration-codex4/bus-status-manager.txt"
+  ]
 }

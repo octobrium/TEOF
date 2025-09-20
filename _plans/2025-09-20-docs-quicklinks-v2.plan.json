@@ -4,45 +4,66 @@
   "created": "2025-09-19T00:00:00Z",
   "actor": "codex-4",
   "summary": "Deliver doc quick-links and helper CLI for guidance surfaces",
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Inventory high-traffic sections",
-      "status": "queued",
-      "notes": "Use usage logs + agent feedback to choose canonical anchors; record findings in _report/agent/codex-4/apoptosis-006/inventory.md.",
-      "receipts": []
+      "status": "done",
+      "notes": "Inventory captured in receipts with prioritized anchors for the CLI surface.",
+      "receipts": [
+        "_report/agent/codex-4/apoptosis-006/inventory.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Build quick-link surfaces",
-      "status": "queued",
-      "notes": "Add docs index + CLI helper for quick access; ensure deterministic output and receipts.",
-      "receipts": []
+      "status": "done",
+      "notes": "Docs index plus helper CLI landed with deterministic coverage.",
+      "receipts": [
+        "docs/quick-links.json",
+        "docs/quick-links.md",
+        "tools/agent/doc_links.py",
+        "tests/test_doc_links.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Update onboarding references",
-      "status": "queued",
-      "notes": "Refresh .github/AGENT_ONBOARDING.md, docs/AGENTS.md, and docs/parallel-codex.md to point at the new surface.",
-      "receipts": []
+      "status": "done",
+      "notes": "Documentation updates summarized in manager receipts.",
+      "receipts": [
+        "_report/agent/codex-4/apoptosis-006/actions.md",
+        "_report/agent/codex-4/apoptosis-006/summary.json"
+      ]
     },
     {
       "id": "S4",
       "title": "Document + validate",
-      "status": "queued",
-      "notes": "Capture delta report, run planner validate + targeted tests, store receipts.",
-      "receipts": []
+      "status": "done",
+      "notes": "Planner/tests receipts stored alongside action summary for auditing.",
+      "receipts": [
+        "_report/agent/codex-4/apoptosis-006/tests.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Quick-link surface live with docs updated and receipts logged",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {"type": "task", "ref": "agents/tasks/tasks.json#APOP-006"},
     {"type": "doc", "ref": ".github/AGENT_ONBOARDING.md"}
   ],
-  "receipts": []
+  "receipts": [
+    "_report/agent/codex-4/apoptosis-006/actions.md",
+    "_report/agent/codex-4/apoptosis-006/inventory.md",
+    "_report/agent/codex-4/apoptosis-006/summary.json",
+    "_report/agent/codex-4/apoptosis-006/tests.json",
+    "docs/quick-links.json",
+    "docs/quick-links.md",
+    "tools/agent/doc_links.py",
+    "tests/test_doc_links.py"
+  ]
 }
