@@ -25,7 +25,7 @@ EVENT_LOG = ROOT / "_bus" / "events" / "events.jsonl"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 
-from tools.agent import bus_status, session_sync
+from tools.agent import bus_status, session_sync, coord_dashboard
 
 
 def _iso_now() -> str:
@@ -119,6 +119,22 @@ def build_parser() -> argparse.ArgumentParser:
         "--receipt",
         help="When provided, write the bus_status output to this path",
     )
+    parser.add_argument(
+        "--dashboard",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Run coord_dashboard after the handshake (default: enabled)",
+    )
+    parser.add_argument(
+        "--dashboard-format",
+        choices=["json", "markdown"],
+        default="json",
+        help="Format to capture when running coord_dashboard (default: json)",
+    )
+    parser.add_argument(
+        "--dashboard-receipt",
+        help="Optional path for the coord_dashboard receipt (defaults under _report/agent/<id>/session_boot/)",
+    )
     return parser
 
 
@@ -200,6 +216,43 @@ def main(argv: list[str] | None = None) -> int:
             receipt_path = Path(args.receipt)
             receipt_path.parent.mkdir(parents=True, exist_ok=True)
             receipt_path.write_text(status_output, encoding="utf-8")
+
+    if args.dashboard:
+        dash_receipt = Path(args.dashboard_receipt) if args.dashboard_receipt else None
+        if dash_receipt is None:
+            suffix = "md" if args.dashboard_format == "markdown" else "json"
+            dash_receipt = (
+                ROOT
+                / "_report"
+                / "agent"
+                / agent_id
+                / "session_boot"
+                / f"coordination-dashboard-{_iso_now()}.{suffix}"
+            )
+        dash_receipt.parent.mkdir(parents=True, exist_ok=True)
+        dash_buffer = StringIO()
+        try:
+            coord_dashboard.run_report(
+                root=ROOT,
+                fmt=args.dashboard_format,
+                manager_window=coord_dashboard.DEFAULT_MANAGER_WINDOW_MINUTES,
+                agent_window=coord_dashboard.DEFAULT_AGENT_WINDOW_MINUTES,
+                directive_limit=coord_dashboard.DEFAULT_DIRECTIVE_LIMIT,
+                output_path=dash_receipt,
+                compact=False,
+                stream=dash_buffer,
+            )
+        except coord_dashboard.DashboardError as exc:
+            print(f"coord_dashboard failed: {exc}", file=sys.stderr)
+            return 1
+        printed_messages.append(
+            "coord_dashboard snapshot captured"
+        )
+        printed_messages.append(
+            f"  receipt={dash_receipt.relative_to(ROOT) if dash_receipt.is_relative_to(ROOT) else dash_receipt}"
+        )
+    else:
+        printed_messages.append("coord_dashboard skipped (--no-dashboard)")
 
     for message in printed_messages:
         print(message)

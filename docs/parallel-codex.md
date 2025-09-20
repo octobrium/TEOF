@@ -20,7 +20,7 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 ## Suggested Session Loop
 
 1. **Sync** (`git pull origin main`).
-2. **Announce session** (`python -m tools.agent.session_boot --agent <id> --focus <role>` logs a handshake + intent and auto-syncs the repo before work; add `--with-status` to grab an immediate bus summary receipt). Pair it with `python -m tools.agent.manifest_helper session-save <label>` before you swap seats—`session-save` now emits a status heartbeat automatically, so append `--heartbeat-meta shift=<label>` to tag the broadcast or `--no-heartbeat` if you truly need to skip it.
+2. **Announce session** (`python -m tools.agent.session_boot --agent <id> --focus <role>` logs a handshake, auto-syncs the repo, and now captures a coord_dashboard snapshot under `_report/agent/<id>/session_boot/`). Add `--with-status` if you also want a `bus_status` receipt, or `--no-dashboard` when you explicitly need to skip the dashboard snapshot. Pair it with `python -m tools.agent.manifest_helper session-save <label>` before you swap seats—`session-save` emits a status heartbeat automatically, so append `--heartbeat-meta shift=<label>` to tag the broadcast or `--no-heartbeat` if you truly need to skip it.
    - If you draft a fresh plan, run `python -m tools.planner.cli new <slug> --summary "..." --scaffold` so the corresponding `_report/agent/<id>/<plan>/` folder is ready before the first commit. Managers can mirror this with `tools.agent.claim_seed --scaffold` or `tools.agent.task_assign --scaffold` when staging handoffs.
 3. **Managers assign tasks** (`python -m tools.agent.task_assign --task <id> --engineer <id> --plan <plan>`). Claims are created automatically for the assignee; add `--no-auto-claim` if you need to stage the backlog without starting the work immediately. Engineers should still acknowledge with a quick `bus_event` status.
 4. **Review queue** (`queue/`, `_bus/claims/`, `_bus/messages/`, `_bus/events/`).
@@ -35,7 +35,7 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 10. **Open draft PR** with plan, justification, receipts.
 11. **Managers run reports** (`python -m tools.agent.manager_report --log-heartbeat --heartbeat-shift <label>`, `python -m tools.agent.coord_dashboard report`) to produce `_report/manager/manager-report-<timestamp>.md`, emit a fresh heartbeat, and capture a coordination snapshot for follow-up triage. `bus_status --preset manager` now surfaces the heartbeat summary + metadata alongside the timestamp, so use `--heartbeat-shift` (or additional `--heartbeat-meta key=value`) to broadcast context like `shift=mid` or `cadence=daily`. The dashboard view has become the default “source of truth” during sweeps, so stash the generated receipt with any bus follow-ups.
 12. **Run preflight** (`tools/agent/preflight.sh`) to ensure receipts and plans are valid before opening/refreshing the PR.
-13. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap" --focus idle`).
+13. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap" --focus idle`). Capture a short reflection (`_report/agent/<id>/reflections/<date>.md`) on what worked, what stalled, and any nudges for the next session—the receipts become training data for future automation. Keep reflections there to avoid convenience creep scattering them across docs/ surfaces.
 
 <a id="self-audit"></a>
 ## Self-Audit & Cross-Audit

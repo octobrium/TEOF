@@ -4,6 +4,39 @@ from pathlib import Path
 from tools.agent import session_boot, session_sync
 
 
+class FakeDashboard:
+    def __init__(self):
+        self.calls = []
+
+    def __call__(
+        self,
+        *,
+        root,
+        fmt,
+        manager_window,
+        agent_window,
+        directive_limit,
+        output_path,
+        compact,
+        stream,
+    ):
+        self.calls.append(
+            {
+                "root": root,
+                "fmt": fmt,
+                "manager_window": manager_window,
+                "agent_window": agent_window,
+                "directive_limit": directive_limit,
+                "output_path": output_path,
+                "compact": compact,
+            }
+        )
+        if stream is not None:
+            stream.write("{}")
+        output_path.write_text("{}", encoding="utf-8")
+        return {}
+
+
 class FakeSync:
     def __init__(self):
         self.called = False
@@ -37,8 +70,16 @@ def test_session_boot_runs_sync_before_handshake(monkeypatch, tmp_path):
     events_path = _setup_env(monkeypatch, tmp_path)
     sync = FakeSync()
     monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    dashboard = FakeDashboard()
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", dashboard)
 
-    exit_code = session_boot.main(["--agent", "codex-3"])
+    receipt_path = tmp_path / "dashboard.json"
+    exit_code = session_boot.main([
+        "--agent",
+        "codex-3",
+        "--dashboard-receipt",
+        str(receipt_path),
+    ])
 
     assert exit_code == 0
     assert sync.called is True
@@ -46,18 +87,23 @@ def test_session_boot_runs_sync_before_handshake(monkeypatch, tmp_path):
     payloads = [json.loads(line) for line in events_path.read_text(encoding="utf-8").splitlines()]
     assert payloads, "handshake event should be recorded"
     assert payloads[-1]["agent_id"] == "codex-3"
+    assert receipt_path.exists()
+    assert dashboard.calls, "coord_dashboard should run by default"
 
 
 def test_session_boot_no_sync_flag(monkeypatch, tmp_path):
     events_path = _setup_env(monkeypatch, tmp_path)
     sync = FakeSync()
     monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    dashboard = FakeDashboard()
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", dashboard)
 
     exit_code = session_boot.main(["--agent", "codex-3", "--no-sync"])
 
     assert exit_code == 0
     assert sync.called is False
     assert events_path.exists()
+    assert dashboard.calls, "Dashboard should still run when sync skipped"
 
 
 def test_session_boot_sync_failure(monkeypatch, tmp_path, capsys):
@@ -89,8 +135,24 @@ def test_session_boot_allows_dirty(monkeypatch, tmp_path):
         )
 
     monkeypatch.setattr(session_boot.session_sync, "run_sync", dirty_sync)
+    dashboard = FakeDashboard()
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", dashboard)
 
     exit_code = session_boot.main(["--agent", "codex-3", "--sync-allow-dirty"])
 
     assert exit_code == 0
     assert events_path.exists()
+    assert dashboard.calls
+
+
+def test_session_boot_allows_disabling_dashboard(monkeypatch, tmp_path):
+    _setup_env(monkeypatch, tmp_path)
+    sync = FakeSync()
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    dashboard = FakeDashboard()
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", dashboard)
+
+    exit_code = session_boot.main(["--agent", "codex-3", "--no-dashboard"])
+
+    assert exit_code == 0
+    assert not dashboard.calls
