@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/bus-coord-0002",
+  "claimed_at": "2025-09-20T03:22:54Z",
+  "notes": "Receipt refreshed for plan validation",
+  "plan_id": "2025-09-19-heartbeat-followup",
+  "released_at": "2025-09-20T03:23:11Z",
+  "status": "done",
+  "task_id": "BUS-COORD-0002"
+}
