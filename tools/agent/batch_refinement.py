@@ -7,12 +7,14 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from datetime import datetime, timezone
 from typing import List, Optional
 
 from tools.agent import receipts_hygiene, session_brief
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
+BATCH_LOG_DIR_NAME = "batch-refinement"
 
 
 def _run_pytest(pytest_args: List[str]) -> None:
@@ -44,7 +46,20 @@ def _resolve_agent(agent: Optional[str]) -> str:
     raise SystemExit("agent id required; provide --agent or populate AGENT_MANIFEST.json")
 
 
-def run_batch(*, task: str, agent: Optional[str], pytest_args: List[str], quiet: bool, output: Optional[str]) -> dict:
+def _default_log_dir() -> Path:
+    usage_dir = receipts_hygiene.DEFAULT_USAGE_DIR
+    return usage_dir / BATCH_LOG_DIR_NAME
+
+
+def run_batch(
+    *,
+    task: str,
+    agent: Optional[str],
+    pytest_args: List[str],
+    quiet: bool,
+    output: Optional[str],
+    log_dir: Optional[Path] = None,
+) -> dict:
     resolved_agent = _resolve_agent(agent)
     if not quiet:
         print("Running pytest")
@@ -71,6 +86,26 @@ def run_batch(*, task: str, agent: Optional[str], pytest_args: List[str], quiet:
         print(f"  Summary: {report.get('summary')}")
         print(f"  Receipt: {report.get('receipt_path')}")
     report["receipts_hygiene"] = summary
+
+    log_directory = (log_dir or _default_log_dir()).resolve()
+    log_directory.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    log_path = log_directory / f"batch-refinement-{timestamp}.json"
+
+    log_payload = {
+        "generated_at": timestamp,
+        "task": task.upper(),
+        "agent": resolved_agent,
+        "pytest_args": pytest_args,
+        "operator_preset": {
+            "summary": report.get("summary"),
+            "receipt_path": report.get("receipt_path"),
+        },
+        "receipts_hygiene": summary,
+    }
+    log_path.write_text(json.dumps(log_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    report["log_path"] = str(log_path.relative_to(ROOT)) if log_path.is_relative_to(ROOT) else str(log_path)
+
     return report
 
 
@@ -86,6 +121,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     )
     parser.add_argument("--output", help="Custom path for operator preset receipt")
     parser.add_argument("--quiet", action="store_true", help="Suppress progress output")
+    parser.add_argument("--log-dir", help="Override log directory for batch receipts")
     args = parser.parse_args(argv)
 
     try:
@@ -95,6 +131,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             pytest_args=args.pytest_args,
             quiet=args.quiet,
             output=args.output,
+            log_dir=Path(args.log_dir).resolve() if args.log_dir else None,
         )
     except SystemExit:
         raise

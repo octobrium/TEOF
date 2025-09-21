@@ -157,7 +157,7 @@ Use this lane when trusted automation can land several low-risk refinements with
   - Plan enumerates the intended refinements and cites a low-risk scope.
   - Operator preset receipt from `python -m tools.agent.session_brief --task <id> --preset operator` is fresh (warn statuses resolved or intentionally accepted).
 - **During the batch:**
-  - Prefer the helper: `python -m tools.agent.batch_refinement --task <id> [--agent <id>]` (optionally pass `--pytest-args ...`) to run tests, receipts hygiene, and capture the operator preset receipt in one shot.
+  - Prefer the helper: `python -m tools.agent.batch_refinement --task <id> [--agent <id>]` (optionally pass `--pytest-args ...`) to run tests, receipts hygiene, and capture the operator preset receipt in one shot. The helper writes a batch log under `_report/usage/batch-refinement/` for audit.
   - Run full tests for the touched surfaces; if any command returns non-zero, stop immediately and escalate on `manager-report` with `--meta escalation=batch`.
   - If uncertainty about policy or ethics surfaces, pause and post on the bus before continuing.
 - **Batch handoff:**

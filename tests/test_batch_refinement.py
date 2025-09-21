@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import subprocess
+import json
 from pathlib import Path
 from typing import List
 
@@ -25,6 +26,9 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
 
     hygiene_called = {}
 
+    usage_dir = tmp_path / "usage"
+    monkeypatch.setattr(batch_refinement.receipts_hygiene, "DEFAULT_USAGE_DIR", usage_dir)
+
     def fake_hygiene(**kwargs):
         hygiene_called["kwargs"] = kwargs
         return {"metrics": {"plans_missing_receipts": 0}}
@@ -43,7 +47,8 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
         preset_calls["task"] = task
         preset_calls["claim"] = claim
         preset_calls["output"] = output
-        return {"summary": "pass", "receipt_path": "_report/session/codex-1/session_brief/test.json"}
+        preset_calls["receipt"] = "_report/session/codex-1/session_brief/test.json"
+        return {"summary": "pass", "receipt_path": preset_calls["receipt"]}
 
     monkeypatch.setattr(batch_refinement.session_brief, "_run_operator_preset", fake_preset)
 
@@ -51,12 +56,15 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
     manifest.write_text('{"agent_id": "codex-1"}', encoding="utf-8")
     monkeypatch.setattr(batch_refinement, "MANIFEST_PATH", manifest)
 
+    log_dir = tmp_path / "logs"
+
     result = batch_refinement.run_batch(
         task="QUEUE-999",
         agent=None,
         pytest_args=["-k", "test_stub"],
         quiet=True,
         output=None,
+        log_dir=log_dir,
     )
 
     assert calls[0][:3] == [batch_refinement.sys.executable, "-m", "pytest"]
@@ -65,11 +73,20 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
     assert preset_calls["agent"] == "codex-1"
     assert preset_calls["task"] == "QUEUE-999"
     assert result["receipts_hygiene"]["metrics"]["plans_missing_receipts"] == 0
+    log_path = Path(result["log_path"])
+    if not log_path.is_absolute():
+        log_path = (batch_refinement.ROOT / log_path).resolve()
+    assert log_path.exists()
+    data = json.loads(log_path.read_text(encoding="utf-8"))
+    assert data["task"] == "QUEUE-999"
+    assert data["agent"] == "codex-1"
+    assert data["operator_preset"]["receipt_path"] == preset_calls["receipt"]
 
 
 def test_batch_refinement_requires_agent(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: DummyResult(0))
     monkeypatch.setattr(batch_refinement.receipts_hygiene, "run_hygiene", lambda **_: {})
+    monkeypatch.setattr(batch_refinement.receipts_hygiene, "DEFAULT_USAGE_DIR", tmp_path / "usage")
     monkeypatch.setattr(batch_refinement.session_brief, "load_claim", lambda task: None)
     monkeypatch.setattr(batch_refinement.session_brief, "_run_operator_preset", lambda *a, **k: {})
     monkeypatch.setattr(batch_refinement, "MANIFEST_PATH", tmp_path / "missing.json")
@@ -90,6 +107,7 @@ def test_batch_refinement_main_propagates_pytest_failure(monkeypatch: pytest.Mon
 
     monkeypatch.setattr(subprocess, "run", fail_run)
     monkeypatch.setattr(batch_refinement.receipts_hygiene, "run_hygiene", lambda **_: {})
+    monkeypatch.setattr(batch_refinement.receipts_hygiene, "DEFAULT_USAGE_DIR", tmp_path / "usage")
     monkeypatch.setattr(batch_refinement.session_brief, "load_claim", lambda task: None)
     monkeypatch.setattr(batch_refinement.session_brief, "_run_operator_preset", lambda *a, **k: {})
     monkeypatch.setattr(batch_refinement, "MANIFEST_PATH", tmp_path / "AGENT_MANIFEST.json")

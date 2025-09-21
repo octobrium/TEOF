@@ -36,7 +36,7 @@ Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the
 
 ### Batch refinement runner
 
-For a single command that runs tests, refreshes receipts hygiene, and emits the operator preset receipt, use `python -m tools.agent.batch_refinement --task <id> [--agent <id>] [--pytest-args ...]`. The helper stops on the first failure, writes the receipt path to stdout, and returns non-zero if pytest fails or hygiene cannot complete.
+For a single command that runs tests, refreshes receipts hygiene, and emits the operator preset receipt, use `python -m tools.agent.batch_refinement --task <id> [--agent <id>] [--pytest-args ...]`. The helper stops on the first failure, writes the receipt path to stdout, and returns non-zero if pytest fails or hygiene cannot complete. Each run also records a JSON summary under `_report/usage/batch-refinement/` so auditors can replay the batch.
 
 ## Open Questions
 

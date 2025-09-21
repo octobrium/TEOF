@@ -1,0 +1,47 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-batch-refinement-log",
+  "created": "2025-09-21T11:12:00Z",
+  "actor": "codex-1",
+  "summary": "Capture receipts from batch refinement runs",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Persist batch run summary",
+      "status": "done",
+      "notes": "Batch helper now records summary JSON receipts.",
+      "receipts": [
+        "tools/agent/batch_refinement.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Document and test logging",
+      "status": "done",
+      "notes": "Coverage added via tests and automation docs.",
+      "receipts": [
+        "tests/test_batch_refinement.py",
+        "docs/automation.md",
+        "docs/workflow.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Each batch run writes auditable JSON receipt",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-BATCH-REFINEMENT-LOG.json"
+    }
+  ],
+  "receipts": [
+    "tools/agent/batch_refinement.py",
+    "tests/test_batch_refinement.py",
+    "docs/automation.md",
+    "docs/workflow.md"
+  ]
+}
