@@ -44,10 +44,11 @@ objectives:
         - tests/test_ci_check_plans.py
       scripts:
         - tools/planner/validate.py
+        - scripts/ci/check_plan_receipts_exist.py
     receipts:
       - _report/runner/20250917T220635Z-13b70e44.json
     coverage: active
-    notes: "Plan lifecycle validator keeps historical intent reconstructible."
+    notes: "Plan lifecycle validator keeps historical intent reconstructible; advisory receipts check warns on missing/untracked receipts."
   L2.5:
     title: Legibility to Many Intelligences
     enforced_by:

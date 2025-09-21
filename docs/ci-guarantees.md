@@ -32,3 +32,5 @@ This keeps the guardrail story observable at a glance while we continue to harde
   - Ensures only the expected core governance files (L0–L5) declare `Role: Canonical` and that none are missing the header. Prints WARN lines on mismatch and exits 0.
 - Plan receipts existence — `scripts/ci/check_plan_receipts_exist.py`
   - Warns when receipts listed in plans or steps are missing or not tracked by git. Prints WARN lines and exits 0.
+- Receipts hygiene bundle — `python -m tools.agent.receipts_hygiene`
+  - Generates `_report/usage/receipts-index-latest.jsonl`, `_report/usage/receipts-latency-latest.jsonl`, and `receipts-hygiene-summary.json`. Use for periodic sweeps; leave artifacts for audit.
