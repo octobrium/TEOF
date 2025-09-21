@@ -45,6 +45,7 @@ def _summarise_metrics(entries: List[Dict[str, Any]]) -> Dict[str, Any]:
     return {
         "plans_total": len(plan_entries),
         "plans_missing_receipts": len(missing_plans),
+        "missing_plan_ids": [entry["plan_id"] for entry in missing_plans][:10],
         "slow_plans": slow_plans,
     }
 

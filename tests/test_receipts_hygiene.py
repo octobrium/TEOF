@@ -52,6 +52,7 @@ def test_receipts_hygiene_runs_index_and_metrics(tmp_path: Path, monkeypatch) ->
     assert latency_path.exists()
     assert summary_path.exists()
     assert summary["metrics"]["plans_total"] >= 1
+    assert "missing_plan_ids" in summary["metrics"]
 
 
 def test_receipts_hygiene_cli(tmp_path: Path, monkeypatch, capsys) -> None:

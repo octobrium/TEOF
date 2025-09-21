@@ -1,0 +1,43 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-receipts-hygiene-alerts",
+  "created": "2025-09-21T11:32:00Z",
+  "actor": "codex-1",
+  "summary": "Expose missing plan detail in receipts hygiene summary",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add missing plan ids to summary",
+      "status": "done",
+      "notes": "Summary now includes missing_plan_ids field.",
+      "receipts": [
+        "tools/agent/receipts_hygiene.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Update tests and docs",
+      "status": "done",
+      "notes": "Extended receipts hygiene tests to cover missing_plan_ids output.",
+      "receipts": [
+        "tests/test_receipts_hygiene.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Receipts hygiene summary lists missing plan ids",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-RECEIPTS-HYGIENE-ALERTS.json"
+    }
+  ],
+  "receipts": [
+    "tools/agent/receipts_hygiene.py",
+    "tests/test_receipts_hygiene.py"
+  ]
+}

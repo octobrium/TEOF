@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/receipts-hygiene-alerts",
+  "claimed_at": "2025-09-21T11:31:30Z",
+  "notes": "Expose missing plan ids in hygiene summary",
+  "plan_id": "2025-09-21-receipts-hygiene-alerts",
+  "released_at": "2025-09-21T11:36:00Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-21-RECEIPTS-HYGIENE-ALERTS"
+}
