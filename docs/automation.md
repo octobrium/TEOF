@@ -30,6 +30,10 @@ Run `python -m tools.agent.receipts_index --output receipts-index.jsonl` to emit
 
 To measure how quickly reflections turn into evidence, run `python -m tools.agent.receipts_metrics --output receipts-latency.jsonl`. The CLI reuses the receipts ledger, computes deltas between plan creation, manager-report notes (`meta.plan_id`), and the first/last receipts, and writes per-plan metrics (including missing receipts). Relative output paths also land under `_report/usage/`.
 
+### Receipts hygiene bundle
+
+Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the indexer and latency metrics together, writes `_report/usage/receipts-index-latest.jsonl`, `_report/usage/receipts-latency-latest.jsonl`, and a summary (`receipts-hygiene-summary.json`) listing missing receipts and the slowest plans.
+
 ## Open Questions
 
 - Should automation maintain its own ledger of actions separate from `_report/`? (Potential future work.)

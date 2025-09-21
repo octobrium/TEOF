@@ -131,6 +131,14 @@
       "category": "maintenance"
     },
     {
+      "id": "receipts-hygiene",
+      "title": "Receipts Hygiene Bundle",
+      "summary": "Run index + latency metrics together and review the summary.",
+      "path": "docs/automation.md",
+      "anchor": "#receipts-hygiene-bundle",
+      "category": "maintenance"
+    },
+    {
       "id": "coordination-dashboard",
       "title": "Coordination Dashboard",
       "summary": "Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts.",

@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/receipts-hygiene",
+  "claimed_at": "2025-09-21T09:39:28Z",
+  "notes": "Automate receipts index + metrics run",
+  "plan_id": "2025-09-21-receipts-hygiene",
+  "released_at": "2025-09-21T09:48:50Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-21-RECEIPTS-HYGIENE"
+}

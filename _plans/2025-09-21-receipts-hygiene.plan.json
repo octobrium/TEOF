@@ -1,0 +1,60 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-receipts-hygiene",
+  "created": "2025-09-21T09:39:37Z",
+  "actor": "codex-1",
+  "summary": "Bundle receipts index + metrics hygiene run",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design hygiene workflow",
+      "status": "done",
+      "notes": "Design log captures automation plan",
+      "receipts": [
+        "_report/agent/codex-1/2025-09-21-receipts-hygiene/design.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement hygiene CLI/script",
+      "status": "done",
+      "notes": "Added receipts_hygiene CLI",
+      "receipts": [
+        "tools/agent/receipts_hygiene.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add docs/tests",
+      "status": "done",
+      "notes": "Docs and tests added for hygiene CLI",
+      "receipts": [
+        "tests/test_receipts_hygiene.py",
+        "docs/automation.md",
+        "docs/quick-links.json",
+        "docs/quick-links.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Receipts hygiene script runs both CLIs",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "proposal",
+      "ref": "docs/proposals/20250920T215400Z__receipts-observability__draft.md"
+    },
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-RECEIPTS-HYGIENE.json"
+    }
+  ],
+  "receipts": [
+    "_report/usage/receipts-index-sample.jsonl",
+    "_report/usage/receipts-latency-sample.jsonl",
+    "_report/usage/receipts-hygiene-summary.json"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "blockers": [],
+  "generated_at": "2025-09-21T09:39:37Z",
+  "highlights": [
+    "Receipts hygiene CLI runs index + metrics together",
+    "Docs/quick-links advertise the bundle command"
+  ],
+  "plan_id": "2025-09-21-receipts-hygiene",
+  "status": "complete"
+}
