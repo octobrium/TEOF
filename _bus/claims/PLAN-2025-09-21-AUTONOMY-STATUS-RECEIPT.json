@@ -1,0 +1,9 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/autonomy-status-receipt",
+  "claimed_at": "2025-09-21T17:19:30Z",
+  "notes": "Persist autonomy status receipts",
+  "plan_id": "2025-09-21-autonomy-status-receipt",
+  "status": "active",
+  "task_id": "PLAN-2025-09-21-AUTONOMY-STATUS-RECEIPT"
+}

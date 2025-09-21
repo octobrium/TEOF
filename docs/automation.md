@@ -49,7 +49,7 @@ Use `python -m tools.agent.batch_report [--limit N] [--json]` to list recent bat
 
 ### Autonomy status digest
 
-`python -m tools.agent.autonomy_status [--limit N] [--json]` combines the latest receipts hygiene summary with recent batch logs, highlighting missing receipts, slow plans, and recent batch outcomes in one place.
+`python -m tools.agent.autonomy_status [--limit N] [--json]` combines the latest receipts hygiene summary with recent batch logs, highlighting missing receipts, slow plans, and recent batch outcomes in one place. Each run also writes `_report/usage/autonomy-status.json` unless `--no-write` is supplied.
 
 ## Open Questions
 

@@ -101,14 +101,31 @@ def main(argv: List[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, help="Limit batch logs considered (default: all)")
     parser.add_argument("--json", action="store_true", help="Emit JSON summary")
+    parser.add_argument(
+        "--write",
+        dest="write_path",
+        help="Write summary JSON to path (default: _report/usage/autonomy-status.json)",
+    )
+    parser.add_argument(
+        "--no-write",
+        action="store_true",
+        help="Skip writing the summary JSON receipt",
+    )
     args = parser.parse_args(argv)
 
     hygiene = load_hygiene()
     logs = load_batch_logs(limit=args.limit)
     summary = summarise(hygiene, logs)
 
-    if args.json:
-        serialisable = dict(summary)
+    default_write = not args.no_write
+    target_path = None
+    if args.write_path is not None:
+        target_path = Path(args.write_path)
+    elif default_write:
+        target_path = Path("_report/usage/autonomy-status.json")
+
+    if target_path is not None or args.json:
+        payload = dict(summary)
         if logs:
             entries_detail = []
             for entry in logs:
@@ -124,8 +141,17 @@ def main(argv: List[str] | None = None) -> int:
                     except ValueError:
                         detail["log_path"] = str(path)
                 entries_detail.append(detail)
-            serialisable["batch_logs"]["entries_detail"] = entries_detail
-        print(json.dumps(serialisable, ensure_ascii=False, indent=2))
+            payload.setdefault("batch_logs", {})["entries_detail"] = entries_detail
+
+    if target_path is not None:
+        target = target_path
+        if not target.is_absolute():
+            target = ROOT / target
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    if args.json:
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
     else:
         print_human(summary)
     return 0
