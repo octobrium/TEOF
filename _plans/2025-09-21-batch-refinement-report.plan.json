@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-batch-refinement-report",
+  "created": "2025-09-21T16:50:00Z",
+  "actor": "codex-1",
+  "summary": "Add CLI to summarise batch refinement logs",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Implement log summary CLI",
+      "status": "done",
+      "notes": "Implemented tools.agent.batch_report CLI.",
+      "receipts": [
+        "tools/agent/batch_report.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add tests and docs",
+      "status": "done",
+      "notes": "Added batch_report tests and documentation references.",
+      "receipts": [
+        "tests/test_batch_report.py",
+        "docs/automation.md",
+        "docs/quick-links.md",
+        "docs/quick-links.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Batch logs easily reviewable via CLI",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-BATCH-REFINEMENT-REPORT.json"
+    }
+  ],
+  "receipts": [
+    "tools/agent/batch_report.py",
+    "tests/test_batch_report.py",
+    "docs/automation.md",
+    "docs/quick-links.md",
+    "docs/quick-links.json"
+  ]
+}

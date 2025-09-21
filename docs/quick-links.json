@@ -147,6 +147,14 @@
       "category": "maintenance"
     },
     {
+      "id": "batch-refinement-log",
+      "title": "Batch Refinement Log Summary",
+      "summary": "List recent batch receipts for audit and automation.",
+      "path": "docs/automation.md",
+      "anchor": "#batch-refinement-log-summary",
+      "category": "maintenance"
+    },
+    {
       "id": "coordination-dashboard",
       "title": "Coordination Dashboard",
       "summary": "Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts.",
