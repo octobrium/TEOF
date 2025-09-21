@@ -19,21 +19,9 @@ SNIPPET_TARGETS = [
 ]
 
 REFERENCE_BLOCKS = {
-    ROOT / 'README.md': [
-        '<!-- generated: quickstart snippet -->',
-        'See [`docs/quickstart.md#quickstart`](docs/quickstart.md#quickstart) for the canonical smoke test commands (`python3 -m pip install -e .`, `teof brief`, `ls artifacts/ocers_out/latest`, `cat artifacts/ocers_out/latest/brief.json`) and notes about the receipts they produce under `artifacts/ocers_out/<UTC>`.',
-        '',
-    ],
-    ROOT / 'docs' / 'AGENTS.md': [
-        '<!-- generated: quickstart snippet -->',
-        'See [`quickstart.md#quickstart`](quickstart.md#quickstart) for the canonical smoke test commands (`python3 -m pip install -e .`, `teof brief`, `ls artifacts/ocers_out/latest`, `cat artifacts/ocers_out/latest/brief.json`) and notes about storing receipts under `artifacts/ocers_out/<UTC>`.',
-        '',
-    ],
-    ROOT / '.github' / 'AGENT_ONBOARDING.md': [
-        '<!-- generated: quickstart snippet -->',
-        'See [`docs/quickstart.md#quickstart`](../docs/quickstart.md#quickstart) for the canonical smoke test commands (`python3 -m pip install -e .`, `teof brief`, `ls artifacts/ocers_out/latest`, `cat artifacts/ocers_out/latest/brief.json`) and the notes on receipts under `artifacts/ocers_out/<UTC>`. Need quick references? `python -m tools.agent.doc_links list --category quickstart` points to the same section.',
-        '',
-    ],
+    ROOT / 'README.md': None,
+    ROOT / 'docs' / 'AGENTS.md': None,
+    ROOT / '.github' / 'AGENT_ONBOARDING.md': None,
 }
 MARKER = '<!-- generated: quickstart snippet -->'
 
@@ -77,6 +65,8 @@ def run(*, apply: bool, targets: Iterable[Path]) -> List[Path]:
                 expected = REFERENCE_BLOCKS[doc]
             except KeyError as exc:
                 raise RuntimeError(f'no quickstart guard configuration for {doc}') from exc
+            if expected is None:
+                expected = snippet_lines
             changed = _ensure_block(doc, expected=expected, apply=apply)
         if changed:
             mismatches.append(doc)

@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from tools.agent import idle_pickup, task_assign, bus_claim
+from tools.agent import idle_pickup, task_assign, bus_claim, bus_message
 
 
 def setup_env(tmp_path, monkeypatch):
@@ -28,6 +28,12 @@ def setup_env(tmp_path, monkeypatch):
     monkeypatch.setattr(task_assign, "TASKS_FILE", tmp_path / "tasks" / "tasks.json")
     monkeypatch.setattr(task_assign, "MANIFEST", manifest)
     monkeypatch.setattr(task_assign, "record_usage", lambda *args, **kwargs: None)
+
+    monkeypatch.setattr(bus_message, "MANIFEST_PATH", manifest)
+    monkeypatch.setattr(bus_message, "MESSAGES_DIR", tmp_path / "messages")
+    monkeypatch.setattr(bus_message, "CLAIMS_DIR", claims_dir)
+    monkeypatch.setattr(bus_message, "ROOT", tmp_path)
+    monkeypatch.setattr(bus_message, "AGENT_REPORT_DIR", tmp_path / "_report" / "agent")
 
     monkeypatch.setattr(bus_claim, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(bus_claim, "ASSIGNMENTS_DIR", assignments_dir)

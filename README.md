@@ -63,7 +63,16 @@ See the full map in [`docs/architecture.md`](docs/architecture.md).
 
 ## Quickstart
 <!-- generated: quickstart snippet -->
-See [`docs/quickstart.md#quickstart`](docs/quickstart.md#quickstart) for the canonical smoke test commands (`python3 -m pip install -e .`, `teof brief`, `ls artifacts/ocers_out/latest`, `cat artifacts/ocers_out/latest/brief.json`) and notes about the receipts they produce under `artifacts/ocers_out/<UTC>`.
+Run this smoke test on a fresh checkout:
+```bash
+python3 -m pip install -e .
+teof brief
+ls artifacts/ocers_out/latest
+cat artifacts/ocers_out/latest/brief.json
+```
+
+- Install exposes the teof console script.
+- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
 
 For additional CLIs (`teof-validate`, `teof-ensemble`) and examples, see [`docs/quickstart.md`](docs/quickstart.md).
 

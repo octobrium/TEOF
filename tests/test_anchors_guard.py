@@ -1,5 +1,6 @@
 import copy
 import json
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -40,12 +41,43 @@ def make_anchor(ts: str, prev_hash: str) -> dict:
     }
 
 
+def future_event_ts(head_json: dict, *, offset_seconds: int) -> str:
+    timestamps = [
+        event["ts"]
+        for event in head_json.get("events", [])
+        if isinstance(event, dict) and event.get("ts")
+    ]
+    latest = max(datetime.strptime(ts, "%Y-%m-%dT%H:%M:%SZ") for ts in timestamps)
+    return (latest + timedelta(seconds=offset_seconds)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def future_anchor_ts(head_json: dict, *, offset_seconds: int) -> str:
+    anchors = head_json.get("anchors", []) or []
+    timestamps = [
+        anchor["ts"]
+        for anchor in anchors
+        if isinstance(anchor, dict) and anchor.get("ts")
+    ]
+    if timestamps:
+        latest = max(datetime.strptime(ts, "%Y-%m-%dT%H:%M:%SZ") for ts in timestamps)
+    else:
+        latest = max(
+            datetime.strptime(ts, "%Y-%m-%dT%H:%M:%SZ")
+            for ts in (
+                event["ts"]
+                for event in head_json.get("events", [])
+                if isinstance(event, dict) and event.get("ts")
+            )
+        )
+    return (latest + timedelta(seconds=offset_seconds)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 def test_validate_events_accepts_single_well_formed_append():
     head_json, head_bytes = load_head()
     current = copy.deepcopy(head_json)
 
     prev = sha256_bytes(head_bytes)
-    current["events"].append(make_event("2025-09-17T17:00:00Z", prev))
+    current["events"].append(make_event(future_event_ts(head_json, offset_seconds=60), prev))
 
     msg = validate_events(head_json, current, head_bytes)
     assert "events append-only" in msg
@@ -55,7 +87,7 @@ def test_validate_events_rejects_missing_prev_hash():
     head_json, head_bytes = load_head()
     current = copy.deepcopy(head_json)
 
-    event = make_event("2025-09-17T17:05:00Z", sha256_bytes(head_bytes))
+    event = make_event(future_event_ts(head_json, offset_seconds=120), sha256_bytes(head_bytes))
     del event["prev_content_hash"]
     current["events"].append(event)
 
@@ -68,8 +100,8 @@ def test_validate_events_rejects_multiple_appends():
     current = copy.deepcopy(head_json)
     prev = sha256_bytes(head_bytes)
 
-    current["events"].append(make_event("2025-09-17T17:10:00Z", prev))
-    current["events"].append(make_event("2025-09-17T17:11:00Z", prev))
+    current["events"].append(make_event(future_event_ts(head_json, offset_seconds=180), prev))
+    current["events"].append(make_event(future_event_ts(head_json, offset_seconds=240), prev))
 
     with pytest.raises(AnchorsGuardError):
         validate_events(head_json, current, head_bytes)
@@ -80,7 +112,9 @@ def test_validate_anchor_appends_accepts_single_append():
     current = copy.deepcopy(head_json)
 
     prev = sha256_bytes(head_bytes)
-    current.setdefault("anchors", []).append(make_anchor("2025-09-17T18:00:00Z", prev))
+    current.setdefault("anchors", []).append(
+        make_anchor(future_anchor_ts(head_json, offset_seconds=300), prev)
+    )
 
     msg = validate_anchor_appends(head_json, current, head_bytes)
     assert "anchors append-only" in msg
@@ -90,7 +124,9 @@ def test_validate_anchor_appends_rejects_missing_prev_hash():
     head_json, head_bytes = load_head()
     current = copy.deepcopy(head_json)
 
-    anchor = make_anchor("2025-09-17T18:05:00Z", sha256_bytes(head_bytes))
+    anchor = make_anchor(
+        future_anchor_ts(head_json, offset_seconds=360), sha256_bytes(head_bytes)
+    )
     del anchor["prev_content_hash"]
     current.setdefault("anchors", []).append(anchor)
 
