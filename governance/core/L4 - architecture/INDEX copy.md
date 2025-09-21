@@ -1,3 +1,7 @@
+Status: Advisory (Outdated index; non-canonical)  
+Canonical L4: `governance/core/L4 - architecture/architecture.md`  
+Canonical core map: `governance/core/INDEX.md`
+
 # Docs Index
 
 ## General
@@ -9,17 +13,16 @@
 - [Promotion Policy (experimental → extensions)](./promotion-policy.md)
 - [Quickstart](./quickstart.md)
 - [TEOF Seed (Conceptual v1.0)](./seed.md)
-- [The Eternal Observer Framework (TEOF) — Whitepaper v1.2](./whitepaper.md)
-- [TEOF Master Workflow (Minimal v1.3)](./workflow.md)
+- Whitepaper lives under `docs/whitepaper.md` (advisory)  
+- Workflow lives under `governance/core/L5 - workflow/workflow.md` (canonical)
 
 ## examples
 - [Readme](./examples/brief/goldens/README.md)
 - [Report Examples (Static)](./examples/reports/README.md)
 
 ## foundation
-- [Aperture Guideline](./foundation/APERTURE-GUIDELINE.md)
-- [Roots (Canonical)](./foundation/README.md)
-- [**TAP v3.1: The TEOF Alignment Protocol**](./foundation/alignment-protocol/TAP.md)
+- Aperture Guideline (advisory note in `governance/core/L4 - architecture/APERTURE-GUIDELINE copy.md`)  
+- Roots and TAP are advisory; canonical principles are in `governance/core/L1 - principles/canonical-teof.md`
 
 ## specs
 - [Connectivity & Emergence (Spec)](./specs/connectivity.md)

@@ -1,4 +1,8 @@
 <!-- markdownlint-disable MD013 -->
+Status: Advisory (Concept note; non‑canonical)  
+Canonical L1 principles: `governance/core/L1 - principles/canonical-teof.md`  
+Canonical L4 architecture: `governance/core/L4 - architecture/architecture.md`
+
 # Aperture Guideline
 
 The "Aperture" is the evolving focal point through which observation aligns, guides, and refines the TEOF network.  
