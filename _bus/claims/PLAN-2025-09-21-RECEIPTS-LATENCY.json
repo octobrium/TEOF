@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/receipts-latency",
+  "claimed_at": "2025-09-21T09:10:12Z",
+  "notes": "Add latency metrics for receipts observability",
+  "plan_id": "2025-09-21-receipts-latency",
+  "released_at": "2025-09-21T09:18:00Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-21-RECEIPTS-LATENCY"
+}

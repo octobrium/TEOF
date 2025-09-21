@@ -1,0 +1,10 @@
+{
+  "blockers": [],
+  "generated_at": "2025-09-21T08:56:11Z",
+  "highlights": [
+    "session_brief now supports an operator preset with JSON receipts",
+    "Docs updated to reference the automated checklist"
+  ],
+  "plan_id": "2025-09-21-session-brief-operator",
+  "status": "complete"
+}

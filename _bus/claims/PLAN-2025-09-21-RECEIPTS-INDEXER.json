@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/receipts-indexer",
+  "claimed_at": "2025-09-21T08:17:41Z",
+  "notes": "Implement receipts index CLI per observability proposal",
+  "plan_id": "2025-09-21-receipts-indexer",
+  "released_at": "2025-09-21T08:25:40Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-21-RECEIPTS-INDEXER"
+}

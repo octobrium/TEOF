@@ -115,6 +115,22 @@
       "category": "maintenance"
     },
     {
+      "id": "receipts-index",
+      "title": "Receipts Index CLI",
+      "summary": "Build a JSONL ledger of plans, receipts, and manager messages before handoff.",
+      "path": "docs/automation.md",
+      "anchor": "#receipts-index",
+      "category": "maintenance"
+    },
+    {
+      "id": "receipts-latency",
+      "title": "Receipts Latency Metrics",
+      "summary": "Compute deltas between reflections and receipts using the receipts ledger.",
+      "path": "docs/automation.md",
+      "anchor": "#receipts-latency",
+      "category": "maintenance"
+    },
+    {
       "id": "coordination-dashboard",
       "title": "Coordination Dashboard",
       "summary": "Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts.",

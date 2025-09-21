@@ -12,7 +12,7 @@ This one-pager summarises the invariants enforced by our automation. Each guard 
 | Capsule cadence | `scripts/ci/check_capsule_cadence.py` | Observation — verifies capsule maintenance receipts so releases stay auditable. |
 | Consensus receipts | `scripts/ci/check_consensus_receipts.py` | Coherence — requires recent consensus sweep receipts before merge. |
 | Readability guard | `scripts/ci/check_readability.py` | Ethics & Observation — ensures docs specify agent actions clearly and cite receipts. |
-| Plan hygiene | `scripts/ci/check_plans.py` | Reproducibility — validates plan JSON, requiring steps, receipts, and checkpoints. |
+| Plan hygiene | `scripts/ci/check_plans.py` | Reproducibility — validates plan JSON, requiring steps, git-tracked receipts, and checkpoints. |
 | Memory ledger | `scripts/ci/check_memory_log.py` | Observation — stops malformed entries from landing in `memory/log.jsonl`.
 
 ## Preflight expectations

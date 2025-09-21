@@ -1,0 +1,68 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-receipts-indexer",
+  "created": "2025-09-21T08:17:50Z",
+  "actor": "codex-1",
+  "summary": "Index receipts across repo",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define schema + scan scope",
+      "status": "done",
+      "notes": "Schema recorded in design log",
+      "receipts": [
+        "_report/agent/codex-1/2025-09-21-receipts-indexer/design.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement CLI",
+      "status": "done",
+      "notes": "Implemented CLI in tools/agent/receipts_index.py",
+      "receipts": [
+        "tools/agent/receipts_index.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add tests",
+      "status": "done",
+      "notes": "Added pytest coverage for receipts_index",
+      "receipts": [
+        "tests/test_receipts_index.py",
+        "_report/agent/codex-1/2025-09-21-receipts-indexer/pytest-20250921T082333Z.txt"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Document usage",
+      "status": "done",
+      "notes": "Documented CLI in automation + parallel codex",
+      "receipts": [
+        "docs/automation.md",
+        "docs/parallel-codex.md",
+        "docs/quick-links.json",
+        "docs/quick-links.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Receipts ledger generated with docs/tests",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "proposal",
+      "ref": "docs/proposals/20250920T215400Z__receipts-observability__draft.md"
+    },
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-RECEIPTS-INDEXER.json"
+    }
+  ],
+  "receipts": [
+    "_report/usage/receipts-index-sample.jsonl"
+  ]
+}

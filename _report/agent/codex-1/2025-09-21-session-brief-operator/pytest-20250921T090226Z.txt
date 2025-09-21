@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0
+rootdir: /Users/evan/Documents/GitHub/TEOF
+configfile: pyproject.toml
+collected 12 items
+
+tests/test_session_brief.py ....                                         [ 33%]
+tests/test_receipts_index.py .                                           [ 41%]
+tests/test_planner_validation.py .......                                 [100%]
+
+============================== 12 passed in 0.18s ==============================

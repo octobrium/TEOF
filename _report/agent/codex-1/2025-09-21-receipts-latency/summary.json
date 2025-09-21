@@ -1,0 +1,10 @@
+{
+  "blockers": [],
+  "generated_at": "2025-09-21T09:10:25Z",
+  "highlights": [
+    "Latency metrics CLI publishes plan/receipt deltas",
+    "Docs updated with receipts_index + receipts_metrics guidance"
+  ],
+  "plan_id": "2025-09-21-receipts-latency",
+  "status": "complete"
+}

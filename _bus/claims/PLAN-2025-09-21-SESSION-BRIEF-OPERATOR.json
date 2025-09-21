@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/session-brief-operator",
+  "claimed_at": "2025-09-21T08:56:03Z",
+  "notes": "Add operator preset to session_brief per receipts proposal",
+  "plan_id": "2025-09-21-session-brief-operator",
+  "released_at": "2025-09-21T09:02:10Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-21-SESSION-BRIEF-OPERATOR"
+}

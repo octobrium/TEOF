@@ -1,0 +1,10 @@
+{
+  "generated_at": "2025-09-21T08:17:50Z",
+  "plan_id": "2025-09-21-receipts-indexer",
+  "tests": [
+    {
+      "command": "pytest tests/test_receipts_index.py tests/test_planner_validation.py",
+      "receipt": "_report/agent/codex-1/2025-09-21-receipts-indexer/pytest-20250921T082333Z.txt"
+    }
+  ]
+}

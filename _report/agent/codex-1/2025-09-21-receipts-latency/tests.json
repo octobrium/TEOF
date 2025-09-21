@@ -1,0 +1,10 @@
+{
+  "generated_at": "2025-09-21T09:10:25Z",
+  "plan_id": "2025-09-21-receipts-latency",
+  "tests": [
+    {
+      "command": "pytest tests/test_receipts_metrics.py tests/test_receipts_index.py tests/test_session_brief.py tests/test_planner_validation.py",
+      "receipt": "_report/agent/codex-1/2025-09-21-receipts-latency/pytest-20250921T091704Z.txt"
+    }
+  ]
+}

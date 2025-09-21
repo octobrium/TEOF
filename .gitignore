@@ -79,6 +79,7 @@ _report/
 !_report/agent/**/*.md
 !_report/planner/
 !_report/planner/*.json
+!_report/planner/**/*.json
 !_report/manager/
 !_report/manager/*.md
 !_report/reconciliation/

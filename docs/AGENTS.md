@@ -29,6 +29,7 @@ Treat this page as the day-to-day companion to the lightweight onboarding entry 
 - **Publish the next steps** – surface a prioritized list (3–6 items) in your plan so other agents can resume the refinement loop.
 - **Seed and sync claims** – run `python3 -m tools.agent.claim_seed --task <id> --agent <owner> --plan <plan-id>` before assignments, and `python3 -m tools.agent.task_sync` after releasing work so `agents/tasks/tasks.json` stays current.
 - **Escalate deliberately** – only when workflow rules prevent progress, draft a proposal in `docs/proposals/` and, if needed, a Meta-TEP (see `docs/workflow.md#dna-recursion-self-improvement-of-the-rules`) before editing the DNA docs.
+- **Capture the checklist** – run `python3 -m tools.agent.session_brief --task <queue-id> --preset operator --output _report/agent/<id>/session_brief/operator.json` to emit a JSON receipt showing which prerequisites (manager tail, plan validation, quickstart receipts, claim seed, task sync, receipts index) still need attention.
 
 ### Example session transcript
 ```

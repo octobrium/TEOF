@@ -44,7 +44,7 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/AGENTS.md`) reuse t
    - run `python -m tools.agent.idle_pickup list` to view unclaimed backlog items, or `... claim --task <id>` to auto-assign themselves when idle;
    - re-run `tools/agent/bus_claim.py claim ...` to reclaim stalled work, switch branches, or update status. Keep `bus_watch` open for coordination either way.
    - When receipts + tests are green, release the claim within minutes and move forward unless a `hold` note appears on the bus or you spot a risky signal (missing receipts, flaky tests, governance/capsule touchpoints). Flag those cases explicitly so the manager can weigh in.
-7. **Plan** modifications under `_plans/` + justification.
+7. **Plan** modifications under `_plans/` + justification. Reference only receipts that already live in git (`tools.planner.validate --strict` now rejects missing/ignored files).
 8. **Implement** changes on `agent/<id>/<slug>` branch, storing receipts under `_report/agent/<id>/` and `_report/runner/` as needed.
 9. **Log events** (`bus_event log --event proposal`, `--event pr_opened`) and append message responses via `bus_event` or JSONL entries.
 10. **Open draft PR** with plan, justification, receipts.
@@ -58,6 +58,9 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/AGENTS.md`) reuse t
 - Use `python -m tools.agent.bus_heartbeat --dry-run` to produce an auditable alert receipt; add `--manager-window 30 --agent-window 240` (defaults) or tighten/disable windows per session. Combine with `--no-bus-event --no-bus-message` during rehearsals. As the automation plans land, expect the dashboard heartbeat note to shrink once the auto hook takes over routine beats.
 - Use `tools/agent/bus_status.py --preset support --agent <id>` to summarise active claims and latest events (add `--json` when piping into dashboards or `--summary` for a compact bullet list).
 - For a live feed while working, run `python -m tools.agent.bus_watch --limit 20 --follow`; add `--agent <id>` or `--event status` to focus the stream, or `--since <ISO>` to replay a window.
+- Generate an evidence snapshot with `python -m tools.agent.receipts_index --output receipts-index.jsonl` before handing off; inspect the JSONL to spot missing or untracked receipts across plans and manager messages.
+- Track how fast reflections turn into evidence with `python -m tools.agent.receipts_metrics --output receipts-latency.jsonl`; review the per-plan latency deltas and address outliers.
+- Run `python -m tools.agent.session_brief --task <id> --preset operator --output _report/agent/<id>/session_brief/operator.json` to emit the Operator Mode checklist (manager tail, plan validation, quickstart receipts, claim seed, task sync, receipts index) as a receipt.
 - Store receipts for these events under `_report/agent/<agent-id>/` (and `_report/runner/`, `_report/planner/` when applicable) so planner plans and CI can resolve them without manual copying.
 - Encourage agents to emit `--extra reviewer=<agent>` or `event=audit` entries when they review a peer’s plan or PR.
 - Reference `_bus/events/…` receipts in `memory/log.jsonl` entries to tie automation to human approvals.

@@ -1,0 +1,11 @@
+{
+  "blockers": [],
+  "generated_at": "2025-09-21T08:17:50Z",
+  "highlights": [
+    "Added tools.agent.receipts_index to surface plan/receipt coverage",
+    "Docs/quick-links updated with receipts index entry",
+    "Pytest suite covers CLI wiring"
+  ],
+  "plan_id": "2025-09-21-receipts-indexer",
+  "status": "complete"
+}

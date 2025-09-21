@@ -1,0 +1,18 @@
+{
+  "actions": [
+    {
+      "timestamp": "2025-09-21T08:20:00Z",
+      "summary": "Implemented receipts index CLI and scaffolded tests/docs",
+      "artifacts": [
+        "tools/agent/receipts_index.py",
+        "tests/test_receipts_index.py",
+        "docs/automation.md",
+        "docs/parallel-codex.md",
+        "docs/quick-links.json",
+        "docs/quick-links.md"
+      ]
+    }
+  ],
+  "generated_at": "2025-09-21T08:17:50Z",
+  "plan_id": "2025-09-21-receipts-indexer"
+}

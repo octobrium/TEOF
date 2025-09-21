@@ -1,0 +1,72 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-receipts-latency",
+  "created": "2025-09-21T09:10:25Z",
+  "actor": "codex-1",
+  "summary": "Compute receipts latency metrics",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design latency metric approach",
+      "status": "done",
+      "notes": "Design log outlines latency metrics computation",
+      "receipts": [
+        "_report/agent/codex-1/2025-09-21-receipts-latency/design.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement metrics CLI",
+      "status": "done",
+      "notes": "Added tools.agent.receipts_metrics.py to compute latency deltas",
+      "receipts": [
+        "tools/agent/receipts_metrics.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add tests",
+      "status": "done",
+      "notes": "Pytest covers receipts index + latency metrics",
+      "receipts": [
+        "tests/test_receipts_metrics.py",
+        "tests/test_receipts_index.py",
+        "_report/agent/codex-1/2025-09-21-receipts-latency/tests.json",
+        "_report/agent/codex-1/2025-09-21-receipts-latency/pytest-20250921T091704Z.txt"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Document output",
+      "status": "done",
+      "notes": "Docs and quick-links reference receipts index + latency CLI",
+      "receipts": [
+        "docs/automation.md",
+        "docs/parallel-codex.md",
+        "docs/quick-links.json",
+        "docs/quick-links.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Latency metrics written to ledger",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "proposal",
+      "ref": "docs/proposals/20250920T215400Z__receipts-observability__draft.md"
+    },
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-RECEIPTS-LATENCY.json"
+    }
+  ],
+  "receipts": [
+    "_report/usage/receipts-latency-sample.jsonl",
+    "_report/agent/codex-1/2025-09-21-receipts-latency/actions.json",
+    "_report/agent/codex-1/2025-09-21-receipts-latency/summary.json"
+  ]
+}

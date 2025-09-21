@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-plan-receipt-guard-docs",
+  "created": "2025-09-21T07:39:53Z",
+  "actor": "codex-1",
+  "summary": "Document plan receipt git tracking guard",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update _plans README",
+      "status": "done",
+      "notes": "Updated schema README with git-tracked requirement",
+      "receipts": [
+        "_plans/README.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Revise workflow guard section",
+      "status": "done",
+      "notes": "Mentioned guard in workflow/CI docs",
+      "receipts": [
+        "docs/parallel-codex.md",
+        "docs/ci-guarantees.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Run planner tests",
+      "status": "done",
+      "notes": "Pytest run recorded under _report/agent/codex-1/plan-receipt-guard-docs",
+      "receipts": [
+        "_report/agent/codex-1/plan-receipt-guard-docs/pytest-20250921T0745Z.txt"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Docs mention git-tracked receipts requirement",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-PLAN-RECEIPT-GUARD-DOCS.json"
+    }
+  ],
+  "receipts": [
+    "_report/planner/validate/summary-20250921T074142Z.json",
+    "_report/agent/codex-1/plan-receipt-guard-docs/pytest-20250921T0745Z.txt"
+  ]
+}

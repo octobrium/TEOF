@@ -5,11 +5,13 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
 import sys
 from dataclasses import dataclass
 from datetime import datetime
+from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 ROOT = Path(__file__).resolve().parents[2]
 PLANS_DIR = ROOT / "_plans"
@@ -221,6 +223,21 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
     )
 
 
+@lru_cache(maxsize=None)
+def _git_tracked_paths(repo_root: str) -> Optional[set[str]]:
+    """Return the set of git-tracked paths for `repo_root`, or None if unavailable."""
+    try:
+        output = subprocess.check_output(
+            ["git", "-C", repo_root, "ls-files"],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError, OSError):
+        return None
+    entries = {line.strip() for line in output.splitlines() if line.strip()}
+    return entries
+
+
 def _check_receipt(path_str: str, context: str, repo_root: Path, errors: List[str]) -> None:
     if "://" in path_str:
         return
@@ -242,6 +259,11 @@ def _check_receipt(path_str: str, context: str, repo_root: Path, errors: List[st
             errors.append(f"{context} must be UTF-8 text: '{path_str}'")
         except json.JSONDecodeError:
             errors.append(f"{context} must be valid JSON: '{path_str}'")
+    tracked = _git_tracked_paths(str(repo_root))
+    if tracked is not None:
+        normalized = rec_path.as_posix()
+        if normalized not in tracked:
+            errors.append(f"{context} is not tracked by git: '{path_str}'")
 
 
 def strict_checks(plan: PlanDict, *, repo_root: Path) -> List[str]:

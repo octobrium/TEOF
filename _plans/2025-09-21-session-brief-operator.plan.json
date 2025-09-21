@@ -1,0 +1,68 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-session-brief-operator",
+  "created": "2025-09-21T08:56:11Z",
+  "actor": "codex-1",
+  "summary": "Add operator preset to session_brief",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture operator checklist requirements",
+      "status": "done",
+      "notes": "Design log captures operator checklist",
+      "receipts": [
+        "_report/agent/codex-1/2025-09-21-session-brief-operator/design.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement session_brief preset",
+      "status": "done",
+      "notes": "Updated session_brief CLI with operator preset",
+      "receipts": [
+        "tools/agent/session_brief.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add tests",
+      "status": "done",
+      "notes": "Extended pytest coverage for operator preset",
+      "receipts": [
+        "tests/test_session_brief.py",
+        "_report/agent/codex-1/2025-09-21-session-brief-operator/tests.json",
+        "_report/agent/codex-1/2025-09-21-session-brief-operator/pytest-20250921T090226Z.txt"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Update docs",
+      "status": "done",
+      "notes": "Docs updated with operator preset instructions",
+      "receipts": [
+        "docs/AGENTS.md",
+        "docs/parallel-codex.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Operator preset emits checklist receipts",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "proposal",
+      "ref": "docs/proposals/20250920T215400Z__receipts-observability__draft.md"
+    },
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-SESSION-BRIEF-OPERATOR.json"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-1/2025-09-21-session-brief-operator/summary.json",
+    "_report/agent/codex-1/2025-09-21-session-brief-operator/actions.json"
+  ]
+}

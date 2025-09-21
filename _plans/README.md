@@ -38,7 +38,7 @@ Purpose: codify session/workstream plans as deterministic artifacts that feed CI
 - `status`: lifecycle (`queued|in_progress|blocked|done`).
 - `steps`: ordered list with unique `id` values; each step includes `id`, `title`, `status` (`queued|in_progress|blocked|done`), optional `notes`, and `receipts` (list of receipt paths/URLs). Only one step may be `in_progress` at a time.
 - `checkpoint`: object with `description` (non-empty), `owner`, and `status` (`pending|satisfied|superseded`).
-- `receipts`: optional list of receipt paths/URLs produced by evaluations. Paths are relative to the repo root and must not escape via `..`.
+- `receipts`: optional list of receipt paths/URLs produced by evaluations. Paths are relative to the repo root, must not escape via `..`, and **must be tracked by git** (strict validation fails on ignored/untracked files).
 - `links`: optional structured references (`type`, `ref`).
 
 ## Authoring helpers
@@ -58,7 +58,7 @@ Purpose: codify session/workstream plans as deterministic artifacts that feed CI
 
 ## Plan hygiene
 - Allowed status transitions: `queued → in_progress|blocked|done`, `in_progress → blocked|done`, `blocked → in_progress|done`, `done` is terminal. CI (`scripts/ci/check_plans.py`) rejects regressions (e.g., `done → in_progress`).
-- Steps flagged `done` should carry at least one receipt; attach paths must resolve inside the repo and parse as UTF-8 JSON. CI fails if a receipt is missing, not JSON, or duplicated.
+- Steps flagged `done` should carry at least one receipt; attach paths must resolve inside the repo, parse as UTF-8 JSON, and be tracked in git. CI fails if a receipt is missing, ignored/untracked, not JSON, or duplicated.
 - When the plan-level checkpoint reports `satisfied`, the plan must list at least one receipt (enforced by the validator’s strict mode).
 - Lint status enums with `python -m tools.maintenance.plan_hygiene`. Add `--apply` to normalize common variants (`in-progress` → `in_progress`, `completed` → `done`, etc.).
 

@@ -85,6 +85,8 @@ def test_validate_plan_strict_requires_receipt_presence(tmp_path: Path, monkeypa
     plans_dir.mkdir(parents=True)
     receipt_dir.mkdir(parents=True)
 
+    subprocess.run(["git", "init"], check=True, cwd=repo_root)
+
     payload = base_payload(plan_id="2025-09-17-with-receipt")
     payload["checkpoint"]["status"] = "satisfied"
     payload["receipts"] = ["_report/runner/receipt.json"]
@@ -93,15 +95,46 @@ def test_validate_plan_strict_requires_receipt_presence(tmp_path: Path, monkeypa
 
     monkeypatch.setattr(planner_validate, "ROOT", repo_root)
     monkeypatch.setattr(planner_validate, "PLANS_DIR", plans_dir)
+    planner_validate._git_tracked_paths.cache_clear()
 
     result_missing = validate_plan(plan_path, strict=True)
     assert not result_missing.ok
     assert any("receipts[0]" in err for err in result_missing.errors)
 
     # Create the expected receipt and re-run.
+    receipt_rel = Path("_report/runner/receipt.json")
     (receipt_dir / "receipt.json").write_text("{}", encoding="utf-8")
+    subprocess.run(["git", "add", str(plan_path.relative_to(repo_root))], check=True, cwd=repo_root)
+    subprocess.run(["git", "add", str(receipt_rel)], check=True, cwd=repo_root)
+    planner_validate._git_tracked_paths.cache_clear()
     result_ok = validate_plan(plan_path, strict=True)
     assert result_ok.ok, result_ok.errors
+
+
+def test_validate_plan_strict_rejects_untracked_receipt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    repo_root = tmp_path / "repo"
+    plans_dir = repo_root / "_plans"
+    receipt_dir = repo_root / "_report" / "runner"
+    plans_dir.mkdir(parents=True)
+    receipt_dir.mkdir(parents=True)
+
+    subprocess.run(["git", "init"], check=True, cwd=repo_root)
+
+    payload = base_payload(plan_id="2025-09-17-untracked")
+    payload["receipts"] = ["_report/runner/untracked.json"]
+    payload["steps"][0]["receipts"] = ["_report/runner/untracked.json"]
+    plan_path = write_plan(plans_dir, payload)
+
+    monkeypatch.setattr(planner_validate, "ROOT", repo_root)
+    monkeypatch.setattr(planner_validate, "PLANS_DIR", plans_dir)
+    planner_validate._git_tracked_paths.cache_clear()
+
+    (receipt_dir / "untracked.json").write_text("{}", encoding="utf-8")
+    subprocess.run(["git", "add", str(plan_path.relative_to(repo_root))], check=True, cwd=repo_root)
+
+    result = validate_plan(plan_path, strict=True)
+    assert not result.ok
+    assert any("not tracked by git" in err for err in result.errors)
 
 
 def test_cli_output_summary(tmp_path: Path) -> None:
