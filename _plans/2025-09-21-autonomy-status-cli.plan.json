@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-autonomy-status-cli",
+  "created": "2025-09-21T17:05:00Z",
+  "actor": "codex-1",
+  "summary": "Add autonomy status CLI aggregating hygiene + batch logs",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Implement autonomy status CLI",
+      "status": "done",
+      "notes": "Added autonomy_status CLI summarising hygiene + batch logs.",
+      "receipts": [
+        "tools/agent/autonomy_status.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add tests and docs",
+      "status": "done",
+      "notes": "Added tests and documentation references for autonomy status CLI.",
+      "receipts": [
+        "tests/test_autonomy_status.py",
+        "docs/automation.md",
+        "docs/quick-links.md",
+        "docs/quick-links.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Autonomy status summarises hygiene + batch trends",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-AUTONOMY-STATUS-CLI.json"
+    }
+  ],
+  "receipts": [
+    "tools/agent/autonomy_status.py",
+    "tests/test_autonomy_status.py",
+    "docs/automation.md",
+    "docs/quick-links.md",
+    "docs/quick-links.json"
+  ]
+}

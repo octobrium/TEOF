@@ -155,6 +155,14 @@
       "category": "maintenance"
     },
     {
+      "id": "autonomy-status",
+      "title": "Autonomy Status Digest",
+      "summary": "Aggregate hygiene metrics and batch outcomes.",
+      "path": "docs/automation.md",
+      "anchor": "#autonomy-status-digest",
+      "category": "maintenance"
+    },
+    {
       "id": "coordination-dashboard",
       "title": "Coordination Dashboard",
       "summary": "Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts.",

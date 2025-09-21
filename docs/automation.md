@@ -47,6 +47,10 @@ For a single command that runs tests, refreshes receipts hygiene, and emits the 
 
 Use `python -m tools.agent.batch_report [--limit N] [--json]` to list recent batch receipts. The CLI reads `_report/usage/batch-refinement/*.json`, surfaces the operator preset outcome, missing-receipt counts, and the slowest plan, and can emit structured JSON for downstream automation.
 
+### Autonomy status digest
+
+`python -m tools.agent.autonomy_status [--limit N] [--json]` combines the latest receipts hygiene summary with recent batch logs, highlighting missing receipts, slow plans, and recent batch outcomes in one place.
+
 ## Open Questions
 
 - Should automation maintain its own ledger of actions separate from `_report/`? (Potential future work.)

@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/autonomy-status-cli",
+  "claimed_at": "2025-09-21T17:04:30Z",
+  "notes": "Add autonomy status CLI",
+  "plan_id": "2025-09-21-autonomy-status-cli",
+  "released_at": "2025-09-21T17:15:00Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-21-AUTONOMY-STATUS-CLI"
+}
