@@ -65,7 +65,11 @@ def run_batch(
     resolved_agent = _resolve_agent(agent)
     if not quiet:
         print("Running pytest")
+    import time
+
+    start_ts = time.perf_counter()
     _run_pytest(pytest_args)
+    pytest_duration = time.perf_counter() - start_ts
 
     if not quiet:
         print("Running receipts hygiene bundle")
@@ -76,6 +80,7 @@ def run_batch(
         fail_on_missing=fail_on_missing,
         max_plan_latency=max_plan_latency,
     )
+    hygiene_duration = time.perf_counter() - (start_ts + pytest_duration)
 
     claim = session_brief.load_claim(task.upper())
     report = session_brief._run_operator_preset(  # type: ignore[attr-defined]
@@ -96,11 +101,23 @@ def run_batch(
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     log_path = log_directory / f"batch-refinement-{timestamp}.json"
 
+    metrics_summary = {}
+    if isinstance(summary, dict):
+        metrics_value = summary.get("metrics")
+        if isinstance(metrics_value, dict):
+            metrics_summary = metrics_value
+
     log_payload = {
         "generated_at": timestamp,
         "task": task.upper(),
         "agent": resolved_agent,
         "pytest_args": pytest_args,
+        "metrics": {
+            "pytest_seconds": pytest_duration,
+            "hygiene_seconds": hygiene_duration,
+            "missing_receipts": metrics_summary.get("plans_missing_receipts"),
+            "slow_plan_count": len(metrics_summary.get("slow_plans") or []),
+        },
         "operator_preset": {
             "summary": report.get("summary"),
             "receipt_path": report.get("receipt_path"),

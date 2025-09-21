@@ -50,6 +50,22 @@ def summarise(hygiene: Dict[str, Any] | None, logs: List[Dict[str, Any]]) -> Dic
     latest_log = logs[-1] if logs else None
     failed_batches = [log for log in logs if log.get("operator_preset", {}).get("summary") == "fail"]
     warn_batches = [log for log in logs if log.get("operator_preset", {}).get("summary") == "warn"]
+    average_pytest = None
+    average_hygiene = None
+    metric_counts = 0
+    pytest_total = 0.0
+    hygiene_total = 0.0
+    for entry in logs:
+        metrics_entry = entry.get("metrics") or {}
+        pytest_seconds = metrics_entry.get("pytest_seconds")
+        hygiene_seconds = metrics_entry.get("hygiene_seconds")
+        if isinstance(pytest_seconds, (int, float)) and isinstance(hygiene_seconds, (int, float)):
+            metric_counts += 1
+            pytest_total += pytest_seconds
+            hygiene_total += hygiene_seconds
+    if metric_counts:
+        average_pytest = pytest_total / metric_counts
+        average_hygiene = hygiene_total / metric_counts
 
     return {
         "hygiene": {
@@ -66,6 +82,8 @@ def summarise(hygiene: Dict[str, Any] | None, logs: List[Dict[str, Any]]) -> Dic
             "latest_generated_at": latest_log.get("generated_at") if latest_log else None,
             "warn_count": len(warn_batches),
             "fail_count": len(failed_batches),
+            "avg_pytest_seconds": average_pytest,
+            "avg_hygiene_seconds": average_hygiene,
         },
         "top_slow_plans": top_slow,
     }

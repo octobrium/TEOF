@@ -36,9 +36,13 @@ def format_log(entry: dict) -> str:
     generated = entry.get("generated_at")
     agent = entry.get("agent")
     path = entry.get("_path")
+    metrics = entry.get("metrics", {})
+    pytest_seconds = metrics.get("pytest_seconds")
+    hygiene_seconds = metrics.get("hygiene_seconds")
     return (
         f"{generated} | agent={agent} | summary={summary} | "
-        f"missing={missing} | slowest={slow_top} | receipt={path}"
+        f"missing={missing} | slowest={slow_top} | "
+        f"pytest_s={pytest_seconds} hygiene_s={hygiene_seconds} | receipt={path}"
     )
 
 

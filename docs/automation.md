@@ -42,6 +42,7 @@ Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the
 For a single command that runs tests, refreshes receipts hygiene, and emits the operator preset receipt, use `python -m tools.agent.batch_refinement --task <id> [--agent <id>] [--pytest-args ...]`. The helper stops on the first failure, writes the receipt path to stdout, and returns non-zero if pytest fails or hygiene cannot complete. Each run also records a JSON summary under `_report/usage/batch-refinement/` so auditors can replay the batch.
 
 - `--fail-on-missing` and `--max-plan-latency <seconds>` pass straight through to the hygiene bundle so batches halt when receipts drift.
+- Logs capture runtime metrics (`pytest_seconds`, `hygiene_seconds`) plus missing/slow counts for trend tracking under `_report/usage/batch-refinement/`.
 
 ### Batch refinement log summary
 
@@ -49,7 +50,7 @@ Use `python -m tools.agent.batch_report [--limit N] [--json]` to list recent bat
 
 ### Autonomy status digest
 
-`python -m tools.agent.autonomy_status [--limit N] [--json]` combines the latest receipts hygiene summary with recent batch logs, highlighting missing receipts, slow plans, and recent batch outcomes in one place. Each run also writes `_report/usage/autonomy-status.json` unless `--no-write` is supplied.
+`python -m tools.agent.autonomy_status [--limit N] [--json]` combines the latest receipts hygiene summary with recent batch logs, highlighting missing receipts, slow plans, and recent batch outcomes in one place. Each run also writes `_report/usage/autonomy-status.json` (unless `--no-write` is supplied) with averaged runtime metrics from recent batch runs.
 
 ## Open Questions
 

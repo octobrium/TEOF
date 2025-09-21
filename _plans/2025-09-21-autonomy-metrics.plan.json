@@ -1,0 +1,47 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-autonomy-metrics",
+  "created": "2025-09-21T17:28:00Z",
+  "actor": "codex-1",
+  "summary": "Record runtime metrics in batch logs and autonomy receipts",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture runtime and warnings in batch logs",
+      "status": "done",
+      "notes": "Batch logs now capture runtime metrics and hygiene counts.",
+      "receipts": [
+        "tools/agent/batch_refinement.py",
+        "tools/agent/batch_report.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Expose metrics in autonomy status",
+      "status": "done",
+      "notes": "Autonomy status summaries include batch runtime averages and write receipts.",
+      "receipts": [
+        "tools/agent/autonomy_status.py",
+        "docs/automation.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Batch/autonomy receipts include runtime + warning/failure trend",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-AUTONOMY-METRICS.json"
+    }
+  ],
+  "receipts": [
+    "tools/agent/batch_refinement.py",
+    "tools/agent/batch_report.py",
+    "tools/agent/autonomy_status.py",
+    "docs/automation.md"
+  ]
+}

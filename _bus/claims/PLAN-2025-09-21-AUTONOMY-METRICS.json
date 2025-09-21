@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/autonomy-metrics",
+  "claimed_at": "2025-09-21T17:27:30Z",
+  "notes": "Record runtime metrics in autonomy receipts",
+  "plan_id": "2025-09-21-autonomy-metrics",
+  "released_at": "2025-09-21T17:40:00Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-21-AUTONOMY-METRICS"
+}
