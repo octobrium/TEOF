@@ -209,6 +209,14 @@
       "path": "docs/workflow.md",
       "anchor": "#dna-recursion-self-improvement-of-the-rules",
       "category": "workflow"
+    },
+    {
+      "id": "ci-guardrails",
+      "title": "CI Guardrail Guarantees",
+      "summary": "One-screen summary mapping invariants to the scripts that enforce them.",
+      "path": "docs/ci-guarantees.md",
+      "anchor": "#ci-guardrail-guarantees",
+      "category": "tooling"
     }
   ]
 }

@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-consent-exit",
+  "created": "2025-09-20T23:47:45Z",
+  "actor": "codex-4",
+  "summary": "Add consent & exit text to capsule Section 0",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Draft-language",
+      "status": "done",
+      "notes": "Drafted concise consent & exit language for Section 0.",
+      "receipts": [
+        "capsule/v1.6/canonical-teof.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Review-governance",
+      "status": "done",
+      "notes": "Reviewed language against governance requirements before freezing.",
+      "receipts": [
+        "governance/DNA.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Update-capsule",
+      "status": "done",
+      "notes": "Re-froze capsule hashes after inserting consent paragraph.",
+      "receipts": [
+        "capsule/v1.6/hashes.json",
+        "governance/anchors.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "capsule/v1.6/canonical-teof.md",
+    "capsule/v1.6/hashes.json",
+    "governance/anchors.json"
+  ]
+}

@@ -17,6 +17,10 @@
       "by": "evan",
       "note": "status checkpoint: refresh snapshot + vision note",
       "prev_content_hash": "63eae00fc0acc6cc8b0052410dd0d75a44f5432117d00ba08bb77c45919952ed"
+    },
+    {
+      "type": "freeze",
+      "ts": "2025-09-21T02:26:38Z"
     }
   ],
   "releases": []

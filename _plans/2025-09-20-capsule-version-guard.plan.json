@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-capsule-version-guard",
+  "created": "2025-09-20T23:46:51Z",
+  "actor": "codex-4",
+  "summary": "Guard matching capsule version metadata",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit-current-version-files",
+      "status": "done",
+      "notes": "Inspected capsule metadata files and confirmed version strings match the active release.",
+      "receipts": [
+        "capsule/v1.6/canonical-teof.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add-ci-check",
+      "status": "done",
+      "notes": "Extended guard_dna to assert capsule.txt / PROVENANCE / RELEASE include the active version and that reconstruction.json.version matches.",
+      "receipts": [
+        "scripts/ci/guard_dna.sh"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document-enforcement",
+      "status": "done",
+      "notes": "Documented the guard in CI guarantees reference to keep reviewers aware of the invariant.",
+      "receipts": [
+        "docs/ci-guarantees.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "capsule/v1.6/canonical-teof.md",
+    "scripts/ci/guard_dna.sh",
+    "docs/ci-guarantees.md"
+  ]
+}

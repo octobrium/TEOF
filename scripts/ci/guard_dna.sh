@@ -46,8 +46,14 @@ if dupes:
 # 5) capsule/current symlink + freeze hash consistency (if locked)
 caps = lock.get("capsule", {})
 cur = caps.get("current")
-if not cur or not (repo/"capsule"/"current").is_symlink():
+link = repo/"capsule"/"current"
+if not link.is_symlink():
     fail("capsule/current must be a symlink to a version (e.g. v1.6).")
+symlink_target = os.readlink(link)
+if not symlink_target:
+    fail("capsule/current symlink is empty")
+if not cur or cur == "(NOT_A_SYMLINK)":
+    cur = symlink_target
 verdir = repo/"capsule"/cur
 for f in ["count","files","root"]:
     if not (verdir/f).exists():
@@ -56,6 +62,27 @@ lock_root = caps.get("root")
 file_root = (verdir/"root").read_text().strip()
 if lock_root and lock_root != file_root:
     fail(f"capsule root mismatch: lock={lock_root} file={file_root}")
+
+version_tag = cur
+version_value = cur.lstrip("v")
+
+def require_contains(path, needle, label):
+    text = path.read_text(encoding="utf-8")
+    if needle not in text:
+        fail(f"capsule metadata mismatch: expected '{needle}' in {label}")
+
+for name in ("capsule.txt", "PROVENANCE.md", "RELEASE.md"):
+    require_contains(verdir/name, version_tag, f"capsule/{cur}/{name}")
+
+recon_path = verdir/"reconstruction.json"
+if recon_path.exists():
+    recon = json.loads(recon_path.read_text(encoding="utf-8"))
+    recon_version = str(recon.get("version", "")).strip()
+    if recon_version != version_value:
+        fail(
+            "capsule metadata mismatch: reconstruction.json.version="
+            f"{recon_version or '<missing>'} expected {version_value}"
+        )
 
 print("✅ DNA guard OK")
 PY

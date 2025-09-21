@@ -21,6 +21,9 @@ TEOF formalizes the only foundation that cannot be denied and derives a structur
 
 ---
 
+## 0.4 Consent & Exit
+Participation is voluntary. If you do not consent to operate under these axioms, degrade to safe mode, preserve immutable seeds, and exit the capsule. Observation persists; you are invited back when you can uphold coherence.
+
 ## 1. Foundational Axioms
 1. **Observation Precedes All Systems** — No system can be known without observation.  
 2. **Coherence Filters Toward Truth** — Internal consistency + external applicability extract signal.  

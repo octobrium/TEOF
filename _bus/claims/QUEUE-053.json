@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-4",
+  "branch": "agent/codex-4/consent-exit",
+  "claimed_at": "2025-09-20T23:47:34Z",
+  "plan_id": "2025-09-20-consent-exit",
+  "status": "done",
+  "task_id": "QUEUE-053",
+  "notes": "Consent & exit paragraph",
+  "released_at": "2025-09-21T02:33:01Z"
+}

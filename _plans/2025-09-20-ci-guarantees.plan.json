@@ -1,0 +1,51 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-ci-guarantees",
+  "created": "2025-09-20T23:48:06Z",
+  "actor": "codex-4",
+  "summary": "Publish CI guarantees one-pager",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Inventory-current-guards",
+      "status": "done",
+      "notes": "Catalogued which CI scripts guard observation, coherence, and reproducibility.",
+      "receipts": [
+        "scripts/ci/guard_dna.sh",
+        "scripts/ci/check_hashes.sh"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Draft-one-pager",
+      "status": "done",
+      "notes": "Authored docs/ci-guarantees.md summarising guardrails on a single page.",
+      "receipts": [
+        "docs/ci-guarantees.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Link-in-docs",
+      "status": "done",
+      "notes": "Linked the doc via quick-links + index so agents can find it quickly.",
+      "receipts": [
+        "docs/INDEX.md",
+        "docs/quick-links.json",
+        "docs/quick-links.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "docs/ci-guarantees.md",
+    "docs/quick-links.json",
+    "docs/quick-links.md"
+  ]
+}

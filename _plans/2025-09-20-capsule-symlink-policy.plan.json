@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-capsule-symlink-policy",
+  "created": "2025-09-20T23:46:11Z",
+  "actor": "codex-4",
+  "summary": "Decide capsule/current symlink vs file fallback",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture-current-behavior",
+      "status": "done",
+      "notes": "Documented current symlink + fallback behaviour across workflow docs.",
+      "receipts": [
+        "docs/workflow.md",
+        "governance/core/L5 - workflow/workflow.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Propose-policy-update",
+      "status": "done",
+      "notes": "Updated governance DNA note to prefer symlink with portability fallback.",
+      "receipts": [
+        "governance/DNA.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document-guardrail",
+      "status": "done",
+      "notes": "Linked policy visibility through CI guard one-pager.",
+      "receipts": [
+        "docs/ci-guarantees.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "docs/workflow.md",
+    "governance/DNA.md",
+    "docs/ci-guarantees.md"
+  ]
+}

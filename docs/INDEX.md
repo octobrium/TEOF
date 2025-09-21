@@ -11,6 +11,7 @@
 - [TEOF Seed (Conceptual v1.0)](./seed.md)
 - [The Eternal Observer Framework (TEOF) — Whitepaper v1.2](./whitepaper.md)
 - [TEOF Master Workflow (Minimal v1.3)](./workflow.md)
+- [CI Guardrail Guarantees](./ci-guarantees.md)
 
 ## examples
 - [Readme](./examples/brief/goldens/README.md)

@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-20-memory-tests",
+  "created": "2025-09-20T23:47:21Z",
+  "actor": "codex-4",
+  "summary": "Add smoke tests for tools/memory utilities",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review-memory-apis",
+      "status": "done",
+      "notes": "Reviewed memory CLI surfaces (`log-entry`, `query`, `hot_index`).",
+      "receipts": [
+        "tools/memory/log-entry.py",
+        "tools/memory/query.py",
+        "tools/memory/hot_index.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add-roundtrip-test",
+      "status": "done",
+      "notes": "Added pytest coverage for append/query/index flows.",
+      "receipts": [
+        "tests/test_memory_tools.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Hook-into-ci",
+      "status": "done",
+      "notes": "Documented guarantee via CI guardrail summary.",
+      "receipts": [
+        "docs/ci-guarantees.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "tests/test_memory_tools.py",
+    "docs/ci-guarantees.md"
+  ]
+}

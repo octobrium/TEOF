@@ -36,5 +36,7 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `reconciliation-pipeline` | Reconciliation Pipeline | Run hello/diff/fetch/merge via `python -m tools.reconcile_pipeline` (supports --fail-on-diff). | [docs/cli.md#reconciliation-pipeline](docs/cli.md#reconciliation-pipeline) |
 | `workflow-architecture` | Architecture Gate | Explains the governance gate that blocks edits without a plan and receipts. | [docs/workflow.md#architecture-gate-before-writing-code](docs/workflow.md#architecture-gate-before-writing-code) |
 | `workflow-receipts` | DNA Recursion (Receipts) | Details the receipts-first mandate used by manager directives and CI guards. | [docs/workflow.md#dna-recursion-self-improvement-of-the-rules](docs/workflow.md#dna-recursion-self-improvement-of-the-rules) |
+| `ci-guardrails` | CI Guardrail Guarantees | One-screen summary mapping invariants to the scripts that enforce them. | [docs/ci-guarantees.md#ci-guardrail-guarantees](docs/ci-guarantees.md#ci-guardrail-guarantees) |
+
 
 _Last updated: 2025-09-20
