@@ -275,6 +275,50 @@ def _check_receipts_index() -> dict:
     }
 
 
+def _check_receipts_hygiene() -> dict:
+    summary_path = USAGE_REPORT_DIR / "receipts-hygiene-summary.json"
+    if not summary_path.exists():
+        return {
+            "id": "receipts_hygiene",
+            "title": "Receipts hygiene summary",
+            "status": "warn",
+            "detail": "Missing receipts-hygiene-summary.json; run tools.agent.receipts_hygiene",
+            "paths": [_relative(summary_path)],
+        }
+    try:
+        data = json.loads(summary_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {
+            "id": "receipts_hygiene",
+            "title": "Receipts hygiene summary",
+            "status": "fail",
+            "detail": "receipts-hygiene-summary.json is not valid JSON",
+            "paths": [_relative(summary_path)],
+        }
+
+    metrics = data.get("metrics", {}) if isinstance(data, dict) else {}
+    missing = metrics.get("plans_missing_receipts")
+    slow_plans = metrics.get("slow_plans") if isinstance(metrics, dict) else None
+    slow_count = len(slow_plans) if isinstance(slow_plans, list) else 0
+
+    if isinstance(missing, (int, float)) and missing > 0:
+        status = "warn"
+        detail = f"{int(missing)} plan(s) missing receipts; escalate before continuing"
+    else:
+        status = "pass"
+        detail = "Receipts hygiene summary present"
+        if slow_count:
+            detail += f"; {slow_count} slow plan(s) tracked"
+
+    return {
+        "id": "receipts_hygiene",
+        "title": "Receipts hygiene summary",
+        "status": status,
+        "detail": detail,
+        "paths": [_relative(summary_path)],
+    }
+
+
 def _operator_checklist(agent_id: Optional[str], task: str, claim: dict | None) -> list[dict]:
     return [
         _check_manager_tail(agent_id),
@@ -283,6 +327,7 @@ def _operator_checklist(agent_id: Optional[str], task: str, claim: dict | None) 
         _check_claim_state(task, claim),
         _check_task_sync(agent_id),
         _check_receipts_index(),
+        _check_receipts_hygiene(),
     ]
 
 

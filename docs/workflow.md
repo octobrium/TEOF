@@ -148,6 +148,28 @@ Review cadence: Monthly sweep
 
 > **Placement note:** this file lives **outside** the capsule to avoid baseline churn. After it stabilizes (several cycles without edits), move it into `capsule/current/` and re‑freeze hashes.
 
+## Batch refinement mode (trusted automation)
+
+Use this lane when trusted automation can land several low-risk refinements without a human pausing the loop. It keeps autonomy high while preserving receipts and early-warning signals.
+
+- **Scope:** docs, hygiene tooling, guardrails already covered by tests, coordination helpers, or refactors that stay inside existing policy. Any DNA, governance, ethics, capsule, or manager directive change still pauses for explicit human acknowledgement.
+- **Checklist before the batch starts:**
+  - Plan enumerates the intended refinements and cites a low-risk scope.
+  - Operator preset receipt from `python -m tools.agent.session_brief --task <id> --preset operator` is fresh (warn statuses resolved or intentionally accepted).
+- **During the batch:**
+  - Run full tests for the touched surfaces; if any command returns non-zero, stop immediately and escalate on `manager-report` with `--meta escalation=batch`.
+  - If uncertainty about policy or ethics surfaces, pause and post on the bus before continuing.
+- **Batch handoff:**
+  1. Run `python -m tools.agent.receipts_hygiene --quiet` (or the equivalent helper) to refresh `_report/usage/receipts-hygiene-summary.json`.
+  2. Generate a new operator preset receipt referencing the hygiene summary (`session_brief` now includes this check).
+  3. Post a single bus summary pointing to the operator preset receipt and the hygiene summary path.
+- **Automatic escalations:** the session must stop and ping `manager-report` when:
+  - `receipts-hygiene-summary.json` reports any `plans_missing_receipts > 0` or the CLI fails to run.
+  - Tests fail, guardrails reject a change, or planner validation drops to `warn/fail`.
+  - Work drifts into DNA/governance scope or requires policy interpretation beyond the documented checklist.
+
+These rules let trusted automation keep shipping routine improvements while giving humans a single artifact (the operator preset receipt) to audit the batch.
+
 ## Fitness Lens (tools & CI)
 - **Preflight is invariants-only.** Tools that don’t measurably improve OCERS remain **opt-in**.
 - Use `docs/policy/fitness-lens.md` to justify any blocking check with receipts + sunset.

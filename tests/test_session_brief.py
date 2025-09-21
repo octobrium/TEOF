@@ -151,6 +151,17 @@ def test_session_brief_operator_preset(tmp_path: Path, monkeypatch: pytest.Monke
 
     usage_dir.mkdir(parents=True, exist_ok=True)
     (usage_dir / "receipts-index-sample.jsonl").write_text("{}\n", encoding="utf-8")
+    (usage_dir / "receipts-hygiene-summary.json").write_text(
+        json.dumps(
+            {
+                "metrics": {
+                    "plans_missing_receipts": 0,
+                    "slow_plans": [],
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
 
     output_path = repo_root / "session-brief.json"
     exit_code = session_brief.main(
@@ -177,6 +188,8 @@ def test_session_brief_operator_preset(tmp_path: Path, monkeypatch: pytest.Monke
     assert statuses["manager_tail"] == "pass"
     assert statuses["planner_validate"] == "pass"
     assert statuses["quickstart_receipts"] == "pass"
+    assert statuses["receipts_index"] == "pass"
+    assert statuses["receipts_hygiene"] == "pass"
     assert data["summary"] in {"pass", "warn"}
 
 
@@ -233,4 +246,5 @@ def test_session_brief_operator_preset_flags_failures(tmp_path: Path, monkeypatc
     data = json.loads(output_path.read_text(encoding="utf-8"))
     statuses = {item["id"]: item["status"] for item in data["checklist"]}
     assert statuses["manager_tail"] == "fail"
+    assert statuses["receipts_hygiene"] == "warn"
     assert data["summary"] == "fail"

@@ -32,7 +32,7 @@ To measure how quickly reflections turn into evidence, run `python -m tools.agen
 
 ### Receipts hygiene bundle
 
-Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the indexer and latency metrics together, writes `_report/usage/receipts-index-latest.jsonl`, `_report/usage/receipts-latency-latest.jsonl`, and a summary (`receipts-hygiene-summary.json`) listing missing receipts and the slowest plans.
+Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the indexer and latency metrics together, writes `_report/usage/receipts-index-latest.jsonl`, `_report/usage/receipts-latency-latest.jsonl`, and a summary (`receipts-hygiene-summary.json`) listing missing receipts and the slowest plans. Batch refinement mode expects that summary plus the operator preset receipt from `python -m tools.agent.session_brief --preset operator` to anchor autonomous runs.
 
 ## Open Questions
 

@@ -21,6 +21,12 @@
     {
       "type": "freeze",
       "ts": "2025-09-21T02:26:38Z"
+    },
+    {
+      "ts": "2025-09-21T10:35:00Z",
+      "by": "codex-1",
+      "note": "Document batch refinement mode and trusted automation receipts",
+      "prev_content_hash": "9cdc138b93b2ed413837c0acffb1760b902f9eb7824a978c5328b9b1f59272dc"
     }
   ],
   "releases": []

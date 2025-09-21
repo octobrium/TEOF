@@ -1,0 +1,59 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-reduce-handshake",
+  "created": "2025-09-21T10:27:46Z",
+  "actor": "codex-1",
+  "summary": "Adopt batch refinement autonomy lane",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Document batch refinement policy",
+      "status": "done",
+      "notes": "Added batch refinement mode guidance to workflow and automation docs.",
+      "receipts": [
+        "docs/workflow.md",
+        "docs/automation.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Wire operator preset hygiene check",
+      "status": "done",
+      "notes": "session_brief now checks receipts-hygiene summary and tests cover the path.",
+      "receipts": [
+        "tools/agent/session_brief.py",
+        "tests/test_session_brief.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Anchor policy adoption",
+      "status": "done",
+      "notes": "Appended governance event linking to the autonomy update.",
+      "receipts": [
+        "governance/anchors.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Batch refinement autonomy documented and anchored",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "proposal",
+      "ref": "docs/proposals/20250921T094900Z__refinement-checkpoint-softening__draft.md"
+    },
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-REDUCE-HANDSHAKE.json"
+    }
+  ],
+  "receipts": [
+    "docs/workflow.md",
+    "tools/agent/session_brief.py",
+    "governance/anchors.json"
+  ]
+}
