@@ -243,7 +243,7 @@
       "plan_id": "2025-09-18-consensus-ci",
       "priority": "medium",
       "role": "engineer",
-      "status": "done",
+      "status": "open",
       "title": "QUEUE-038"
     },
     {
@@ -267,7 +267,7 @@
       "plan_id": "2025-09-18-capsule-cadence",
       "priority": "medium",
       "role": "engineer",
-      "status": "done",
+      "status": "open",
       "title": "QUEUE-039"
     },
     {

@@ -39,10 +39,10 @@ Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the
 
 ### Batch refinement runner
 
-For a single command that runs tests, refreshes receipts hygiene, and emits the operator preset receipt, use `python -m tools.agent.batch_refinement --task <id> [--agent <id>] [--pytest-args ...]`. The helper stops on the first failure, writes the receipt path to stdout, and returns non-zero if pytest fails or hygiene cannot complete. Each run also records a JSON summary under `_report/usage/batch-refinement/` so auditors can replay the batch.
+For a single command that runs tests, refreshes receipts hygiene, reconciles task status, emits the operator preset receipt, logs a heartbeat, and (optionally) checks autonomy latency, use `python -m tools.agent.batch_refinement --task <id> [--agent <id>] [--pytest-args ...]`. The helper stops on the first failure, writes the receipt path to stdout, and returns non-zero if pytest fails, task synchronization trips, or hygiene cannot complete. Each run also records a JSON summary under `_report/usage/batch-refinement/` so auditors can replay the batch.
 
 - `--fail-on-missing` and `--max-plan-latency <seconds>` pass straight through to the hygiene bundle so batches halt when receipts drift.
-- Logs capture runtime metrics (`pytest_seconds`, `hygiene_seconds`) plus missing/slow counts for trend tracking under `_report/usage/batch-refinement/`.
+- Logs capture runtime metrics (`pytest_seconds`, `hygiene_seconds`), task synchronization deltas, the refreshed autonomy status receipt under `_report/usage/autonomy-status.json`, the heartbeat payload recorded on the coordination bus, and any autonomy latency alerts generated during the run.
 
 ### Batch refinement log summary
 
@@ -51,6 +51,10 @@ Use `python -m tools.agent.batch_report [--limit N] [--json]` to list recent bat
 ### Autonomy status digest
 
 `python -m tools.agent.autonomy_status [--limit N] [--json]` combines the latest receipts hygiene summary with recent batch logs, highlighting missing receipts, slow plans, and recent batch outcomes in one place. Each run also writes `_report/usage/autonomy-status.json` (unless `--no-write` is supplied) with averaged runtime metrics from recent batch runs.
+
+### Autonomy latency sentinel
+
+Run `python -m tools.agent.autonomy_latency --threshold 3600` to alert on any plan whose receipts latency exceeds the configured number of seconds. The sentinel reads `_report/usage/autonomy-status.json`, mirrors offending plan ids onto the coordination bus as `alert` events, and writes a receipt (`_report/usage/autonomy-latency.json` by default) summarising alert payloads. Use `--dry-run` to inspect without logging events and `--no-write` to skip receipt emission. Batch refinement can also invoke this sentinel automatically via `--latency-threshold` (adding `--latency-dry-run` to avoid logging).
 
 ## Open Questions
 

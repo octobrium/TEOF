@@ -1,9 +1,9 @@
 {
-  "generated_at": "2025-09-21T16:16:23Z",
+  "generated_at": "2025-09-21T20:33:49Z",
   "receipts_index": "_report/usage/receipts-index-latest.jsonl",
   "receipts_latency": "_report/usage/receipts-latency-latest.jsonl",
   "metrics": {
-    "plans_total": 107,
+    "plans_total": 114,
     "plans_missing_receipts": 0,
     "missing_plan_ids": [],
     "slow_plans": [

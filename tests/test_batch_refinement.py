@@ -56,6 +56,63 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
     manifest.write_text('{"agent_id": "codex-1"}', encoding="utf-8")
     monkeypatch.setattr(batch_refinement, "MANIFEST_PATH", manifest)
 
+    def fake_task_sync():
+        return ["QUEUE-999: open -> done"]
+
+    monkeypatch.setattr(batch_refinement.task_sync, "sync_tasks", fake_task_sync)
+
+    monkeypatch.setattr(batch_refinement.autonomy_status, "ROOT", tmp_path)
+    monkeypatch.setattr(
+        batch_refinement.autonomy_status,
+        "HYGIENE_SUMMARY",
+        tmp_path / "_report" / "usage" / "receipts-hygiene-summary.json",
+    )
+    monkeypatch.setattr(
+        batch_refinement.autonomy_status,
+        "BATCH_DIR",
+        tmp_path / "_report" / "usage" / "batch-refinement",
+    )
+
+    def fake_load_hygiene():
+        return {"metrics": {"plans_total": 1}}
+
+    def fake_load_logs(limit=None):
+        return [
+            {
+                "generated_at": "20250101T000000Z",
+                "operator_preset": {"summary": "pass"},
+                "agent": "codex-1",
+                "_path": tmp_path / "_report" / "usage" / "batch-refinement" / "existing.json",
+            }
+        ]
+
+    def fake_summarise(hygiene, logs):
+        return {
+            "hygiene": {"plans_total": hygiene.get("metrics", {}).get("plans_total")},
+            "batch_logs": {"entries": len(logs), "warn_count": 0, "fail_count": 0},
+            "top_slow_plans": [],
+        }
+
+    monkeypatch.setattr(batch_refinement.autonomy_status, "load_hygiene", fake_load_hygiene)
+    monkeypatch.setattr(batch_refinement.autonomy_status, "load_batch_logs", fake_load_logs)
+    monkeypatch.setattr(batch_refinement.autonomy_status, "summarise", fake_summarise)
+
+    heartbeat_called = {}
+
+    def fake_heartbeat(agent_id, summary, extras=None, dry_run=False):
+        heartbeat_called["agent"] = agent_id
+        heartbeat_called["summary"] = summary
+        heartbeat_called["extras"] = extras
+        payload = {"agent_id": agent_id, "summary": summary, "extras": extras or {}}
+        return payload
+
+    monkeypatch.setattr(batch_refinement.heartbeat, "emit_status", fake_heartbeat)
+
+    def fake_latency(**kwargs):
+        return {"alerts": [], "receipt_path": None}
+
+    monkeypatch.setattr(batch_refinement.autonomy_latency, "check_latency", fake_latency)
+
     log_dir = tmp_path / "logs"
 
     result = batch_refinement.run_batch(
@@ -67,6 +124,8 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
         log_dir=log_dir,
         fail_on_missing=True,
         max_plan_latency=123.0,
+        latency_threshold=3600.0,
+        latency_dry_run=True,
     )
 
     assert calls[0][:3] == [batch_refinement.sys.executable, "-m", "pytest"]
@@ -77,6 +136,11 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
     assert result["receipts_hygiene"]["metrics"]["plans_missing_receipts"] == 0
     assert hygiene_called["kwargs"]["fail_on_missing"] is True
     assert hygiene_called["kwargs"]["max_plan_latency"] == 123.0
+    assert result["task_sync"]["changes"]
+    autonomy_receipt = tmp_path / "_report" / "usage" / "autonomy-status.json"
+    assert autonomy_receipt.exists()
+    assert result["autonomy_status"]["summary"]["batch_logs"]["entries"] >= 1
+    assert result["autonomy_status"]["receipt_path"].endswith("autonomy-status.json")
     log_path = Path(result["log_path"])
     if not log_path.is_absolute():
         log_path = (batch_refinement.ROOT / log_path).resolve()
@@ -85,6 +149,13 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
     assert data["task"] == "QUEUE-999"
     assert data["agent"] == "codex-1"
     assert data["operator_preset"]["receipt_path"] == preset_calls["receipt"]
+    assert data["task_sync_changes"]
+    assert data["autonomy_status_receipt"].endswith("autonomy-status.json")
+    assert heartbeat_called["agent"] == "codex-1"
+    assert "QUEUE-999" in heartbeat_called["summary"]
+    assert heartbeat_called["extras"]["batch_log"].endswith(".json")
+    assert result["heartbeat"]["agent_id"] == "codex-1"
+    assert result["latency_alerts"] == []
 
 
 def test_batch_refinement_requires_agent(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
@@ -94,6 +165,8 @@ def test_batch_refinement_requires_agent(monkeypatch: pytest.MonkeyPatch, tmp_pa
     monkeypatch.setattr(batch_refinement.session_brief, "load_claim", lambda task: None)
     monkeypatch.setattr(batch_refinement.session_brief, "_run_operator_preset", lambda *a, **k: {})
     monkeypatch.setattr(batch_refinement, "MANIFEST_PATH", tmp_path / "missing.json")
+    monkeypatch.setattr(batch_refinement.heartbeat, "emit_status", lambda *a, **k: {})
+    monkeypatch.setattr(batch_refinement.autonomy_latency, "check_latency", lambda **k: {"alerts": [], "receipt_path": None})
 
     with pytest.raises(SystemExit):
         batch_refinement.run_batch(
@@ -122,6 +195,8 @@ def test_batch_refinement_main_propagates_pytest_failure(monkeypatch: pytest.Mon
     monkeypatch.setattr(batch_refinement.session_brief, "_run_operator_preset", lambda *a, **k: {})
     monkeypatch.setattr(batch_refinement, "MANIFEST_PATH", tmp_path / "AGENT_MANIFEST.json")
     (tmp_path / "AGENT_MANIFEST.json").write_text('{"agent_id": "codex-1"}', encoding="utf-8")
+    monkeypatch.setattr(batch_refinement.heartbeat, "emit_status", lambda *a, **k: {})
+    monkeypatch.setattr(batch_refinement.autonomy_latency, "check_latency", lambda **k: {"alerts": [], "receipt_path": None})
 
     with pytest.raises(SystemExit) as exc:
         batch_refinement.main([
@@ -150,6 +225,8 @@ def test_batch_refinement_main_passes_hygiene_flags(monkeypatch: pytest.MonkeyPa
     manifest = tmp_path / "AGENT_MANIFEST.json"
     manifest.write_text('{"agent_id": "codex-1"}', encoding="utf-8")
     monkeypatch.setattr(batch_refinement, "MANIFEST_PATH", manifest)
+    monkeypatch.setattr(batch_refinement.heartbeat, "emit_status", lambda *a, **k: {})
+    monkeypatch.setattr(batch_refinement.autonomy_latency, "check_latency", lambda **k: {"alerts": [], "receipt_path": None})
 
     result = batch_refinement.main([
         "--task",
@@ -158,6 +235,9 @@ def test_batch_refinement_main_passes_hygiene_flags(monkeypatch: pytest.MonkeyPa
         "--max-plan-latency",
         "30",
         "--quiet",
+        "--latency-threshold",
+        "3600",
+        "--latency-dry-run",
     ])
     assert result == 0
     assert hygiene_kwargs["fail_on_missing"] is True

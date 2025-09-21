@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-guard-plan-receipt-exists",
+  "created": "2025-09-21T20:22:13Z",
+  "actor": "codex-4",
+  "summary": "Guard: detect plan receipts pointing to missing or untracked files",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design scope and policy (advisory)",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Prototype non-blocking check (script + docs)",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Consensus to wire into CI (if approved)",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
