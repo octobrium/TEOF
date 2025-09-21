@@ -26,3 +26,9 @@ When you extend the suite:
 3. Wire it into CI + preflight so contributors exercise it locally.
 
 This keeps the guardrail story observable at a glance while we continue to harden the system.
+
+## Advisory checks (non-blocking)
+- Canonical status audit — `scripts/ci/check_canonical_status.py`
+  - Ensures only the expected core governance files (L0–L5) declare `Role: Canonical` and that none are missing the header. Prints WARN lines on mismatch and exits 0.
+- Plan receipts existence — `scripts/ci/check_plan_receipts_exist.py`
+  - Warns when receipts listed in plans or steps are missing or not tracked by git. Prints WARN lines and exits 0.

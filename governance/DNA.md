@@ -11,7 +11,7 @@
 - Canonical top-level set only (no surprise roots).
 - Single canonical `extensions/` at repo root (no duplicates elsewhere).
 - Scripts are bucketed: `scripts/ci`, `scripts/dev`, `scripts/ops`.
-- `capsule/current` is a **symlink** to a concrete version (e.g., `v1.6`). Release tooling tolerates a plain-text fallback for portability, but the symlink is canonical. That version contains **freeze artifacts**: `count`, `files`, `root`.
+- `capsule/current` is preferably a **symlink** to a concrete version (e.g., `v1.6`). A plain‑text fallback is accepted for portability. The symlink remains canonical, and teams should restore it when practical. The referenced version contains **freeze artifacts**: `count`, `files`, `root`.
 - DNA is locked by `governance/dna.lock.json` and enforced by:
   - `scripts/ci/guard_apoptosis.sh`
   - `scripts/ci/guard_dna.sh`

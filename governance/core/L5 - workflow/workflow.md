@@ -1,5 +1,6 @@
 <!-- markdownlint-disable MD013 -->
 Status: Living
+Role: Canonical
 Purpose: Process & checklists that enforce Architecture
 Change process: PR + 1 maintainer
 Review cadence: Monthly sweep

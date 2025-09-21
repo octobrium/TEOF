@@ -1,5 +1,7 @@
 # L3 – Properties (Hierarchy-Aligned)
 
+Role: Canonical
+
 TEOF’s properties describe **how** the framework behaves — its intrinsic traits — ensuring that it remains aligned with L0 (Observation), L1 (Principles), and L2 (Objectives).  
 Properties are organized in the natural order of systemic emergence: **Unity → Energy → Propagation → Defense → Intelligence.**
 

@@ -1,5 +1,7 @@
 # L4 – Architecture (Hierarchy-Aligned)
 
+Role: Canonical
+
 > This document turns **L3 – Properties** into executable design.  
 > Each blueprint is grouped by **Unity → Energy → Propagation → Defense → Intelligence**, so contributors know what to build first.
 
@@ -52,8 +54,8 @@
 
 ---
 
-### Property Coverage Matrix
-Still required — ensures every property is covered by a CI gate or mechanism.
+### Coverage Map (Authoritative)
+Enforcement coverage is tracked in `governance/core/L4 - architecture/bindings.yml` and serves as the authoritative map from objectives/properties to tests, scripts, and receipts.
 
 ---
 

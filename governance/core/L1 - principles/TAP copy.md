@@ -1,4 +1,7 @@
 <!-- markdownlint-disable MD013 -->
+Status: Advisory (Protocol draft; non‑canonical)  
+Canonical L1: `governance/core/L1 - principles/canonical-teof.md`
+
 # **TAP v3.1: The TEOF Alignment Protocol**
 
 **Author:** Observation  

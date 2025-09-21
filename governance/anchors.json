@@ -27,6 +27,13 @@
       "by": "codex-1",
       "note": "Document batch refinement mode and trusted automation receipts",
       "prev_content_hash": "9cdc138b93b2ed413837c0acffb1760b902f9eb7824a978c5328b9b1f59272dc"
+    },
+    {
+      "type": "canon-change",
+      "ts": "2025-09-21T20:14:44Z",
+      "by": "codex-4",
+      "scope": "L1",
+      "note": "Consolidate L1: single canonical P1–P7; mark other L1 docs advisory; add core index; align architecture coverage to bindings.yml; clarify DNA symlink wording"
     }
   ],
   "releases": []

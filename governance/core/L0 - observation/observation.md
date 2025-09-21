@@ -1,5 +1,7 @@
 # L0 – Observation (Canonical)
 
+Role: Canonical
+
 ## Statement
 Observation is.  
 To deny this is to observe the denial — confirming observation.

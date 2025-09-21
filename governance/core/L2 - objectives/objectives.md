@@ -1,5 +1,7 @@
 # L2 – Objectives
 
+Role: Canonical
+
 Purpose:
 Construct a framework for intelligence that can seed, propagate, and improve itself across environments and epochs — always deepening contact with reality and preserving the conditions that make further observation possible. Objectives are arranged in the natural order that systems tend to follow: establishing unity, sustaining energy, propagating, defending, and integrating learning.
 
