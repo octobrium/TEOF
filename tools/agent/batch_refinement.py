@@ -59,6 +59,8 @@ def run_batch(
     quiet: bool,
     output: Optional[str],
     log_dir: Optional[Path] = None,
+    fail_on_missing: bool = False,
+    max_plan_latency: Optional[float] = None,
 ) -> dict:
     resolved_agent = _resolve_agent(agent)
     if not quiet:
@@ -71,6 +73,8 @@ def run_batch(
         root=receipts_hygiene.ROOT,
         output_dir=receipts_hygiene.DEFAULT_USAGE_DIR,
         quiet=True,
+        fail_on_missing=fail_on_missing,
+        max_plan_latency=max_plan_latency,
     )
 
     claim = session_brief.load_claim(task.upper())
@@ -122,6 +126,12 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--output", help="Custom path for operator preset receipt")
     parser.add_argument("--quiet", action="store_true", help="Suppress progress output")
     parser.add_argument("--log-dir", help="Override log directory for batch receipts")
+    parser.add_argument("--fail-on-missing", action="store_true", help="Fail batch when receipts hygiene reports missing evidence")
+    parser.add_argument(
+        "--max-plan-latency",
+        type=float,
+        help="Fail batch when plan latency exceeds this many seconds",
+    )
     args = parser.parse_args(argv)
 
     try:
@@ -132,6 +142,8 @@ def main(argv: Optional[List[str]] = None) -> int:
             quiet=args.quiet,
             output=args.output,
             log_dir=Path(args.log_dir).resolve() if args.log_dir else None,
+            fail_on_missing=args.fail_on_missing,
+            max_plan_latency=args.max_plan_latency,
         )
     except SystemExit:
         raise

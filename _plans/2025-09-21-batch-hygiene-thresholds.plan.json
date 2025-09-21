@@ -1,0 +1,45 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-batch-hygiene-thresholds",
+  "created": "2025-09-21T16:33:00Z",
+  "actor": "codex-1",
+  "summary": "Propagate hygiene thresholds through batch refinement helper",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Expose hygiene threshold flags",
+      "status": "done",
+      "notes": "Batch helper now passes receipts hygiene thresholds down to the CLI.",
+      "receipts": [
+        "tools/agent/batch_refinement.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Cover new behavior",
+      "status": "done",
+      "notes": "Extended tests and docs for the new flags.",
+      "receipts": [
+        "tests/test_batch_refinement.py",
+        "docs/automation.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Batch helper can enforce receipts hygiene thresholds",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-BATCH-HYGIENE-THRESHOLDS.json"
+    }
+  ],
+  "receipts": [
+    "tools/agent/batch_refinement.py",
+    "tests/test_batch_refinement.py",
+    "docs/automation.md"
+  ]
+}

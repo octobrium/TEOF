@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/batch-hygiene-thresholds",
+  "claimed_at": "2025-09-21T16:32:30Z",
+  "notes": "Propagate hygiene thresholds through batch helper",
+  "plan_id": "2025-09-21-batch-hygiene-thresholds",
+  "released_at": "2025-09-21T16:43:00Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-21-BATCH-HYGIENE-THRESHOLDS"
+}
