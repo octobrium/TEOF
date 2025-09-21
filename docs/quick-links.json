@@ -139,6 +139,14 @@
       "category": "maintenance"
     },
     {
+      "id": "batch-refinement",
+      "title": "Batch Refinement Runner",
+      "summary": "Run tests, hygiene, and operator preset in one command.",
+      "path": "docs/automation.md",
+      "anchor": "#batch-refinement-runner",
+      "category": "maintenance"
+    },
+    {
       "id": "coordination-dashboard",
       "title": "Coordination Dashboard",
       "summary": "Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts.",

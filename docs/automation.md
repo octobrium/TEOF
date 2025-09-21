@@ -34,6 +34,10 @@ To measure how quickly reflections turn into evidence, run `python -m tools.agen
 
 Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the indexer and latency metrics together, writes `_report/usage/receipts-index-latest.jsonl`, `_report/usage/receipts-latency-latest.jsonl`, and a summary (`receipts-hygiene-summary.json`) listing missing receipts and the slowest plans. Batch refinement mode expects that summary plus the operator preset receipt from `python -m tools.agent.session_brief --preset operator` to anchor autonomous runs.
 
+### Batch refinement runner
+
+For a single command that runs tests, refreshes receipts hygiene, and emits the operator preset receipt, use `python -m tools.agent.batch_refinement --task <id> [--agent <id>] [--pytest-args ...]`. The helper stops on the first failure, writes the receipt path to stdout, and returns non-zero if pytest fails or hygiene cannot complete.
+
 ## Open Questions
 
 - Should automation maintain its own ledger of actions separate from `_report/`? (Potential future work.)

@@ -1,0 +1,50 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-autonomy-batch-runner",
+  "created": "2025-09-21T10:52:00Z",
+  "actor": "codex-1",
+  "summary": "Add batch refinement CLI to automate tests + receipts",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Implement batch refinement helper",
+      "status": "done",
+      "notes": "Implemented tools.agent.batch_refinement.",
+      "receipts": [
+        "tools/agent/batch_refinement.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add tests and docs",
+      "status": "done",
+      "notes": "Added tests and documentation references.",
+      "receipts": [
+        "tests/test_batch_refinement.py",
+        "docs/automation.md",
+        "docs/workflow.md",
+        "docs/quick-links.md",
+        "docs/quick-links.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Batch helper produces receipts hygiene + operator preset automatically",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-AUTONOMY-BATCH-RUNNER.json"
+    }
+  ],
+  "receipts": [
+    "tools/agent/batch_refinement.py",
+    "docs/automation.md",
+    "docs/workflow.md",
+    "docs/quick-links.json",
+    "tests/test_batch_refinement.py"
+  ]
+}
