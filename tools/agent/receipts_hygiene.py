@@ -50,7 +50,14 @@ def _summarise_metrics(entries: List[Dict[str, Any]]) -> Dict[str, Any]:
     }
 
 
-def run_hygiene(*, root: Path, output_dir: Path, quiet: bool) -> Dict[str, Any]:
+def run_hygiene(
+    *,
+    root: Path,
+    output_dir: Path,
+    quiet: bool,
+    fail_on_missing: bool = False,
+    max_plan_latency: Optional[float] = None,
+) -> Dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     receipts_path = output_dir / "receipts-index-latest.jsonl"
@@ -114,6 +121,20 @@ def run_hygiene(*, root: Path, output_dir: Path, quiet: bool) -> Dict[str, Any]:
         else:
             print("  Slow plans: none")
 
+    missing_count = summary["metrics"].get("plans_missing_receipts", 0) or 0
+    slow_plans = summary["metrics"].get("slow_plans") or []
+    if fail_on_missing and missing_count:
+        raise SystemExit(f"missing receipts detected: {missing_count}")
+    if max_plan_latency is not None:
+        for plan_id, first_delta, note_delta in slow_plans:
+            breach = first_delta and first_delta > max_plan_latency
+            note_breach = note_delta and note_delta > max_plan_latency
+            if breach or note_breach:
+                raise SystemExit(
+                    "plan latency threshold exceeded: "
+                    f"{plan_id} first_receipt={first_delta} note_to_receipt={note_delta}"
+                )
+
     return summary
 
 
@@ -122,6 +143,12 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--output-dir", help="Directory for hygiene outputs (default: _report/usage/)")
     parser.add_argument("--root", default=str(ROOT), help=argparse.SUPPRESS)
     parser.add_argument("--quiet", action="store_true", help="Suppress console summary")
+    parser.add_argument("--fail-on-missing", action="store_true", help="Exit non-zero if any plan is missing receipts")
+    parser.add_argument(
+        "--max-plan-latency",
+        type=float,
+        help="Exit non-zero if plan_to_first_receipt or note_to_first_receipt exceeds this many seconds",
+    )
     args = parser.parse_args(argv)
 
     root = Path(args.root).resolve()
@@ -132,7 +159,16 @@ def main(argv: Optional[List[str]] = None) -> int:
     else:
         output_dir = DEFAULT_USAGE_DIR
 
-    run_hygiene(root=root, output_dir=output_dir, quiet=args.quiet)
+    try:
+        run_hygiene(
+            root=root,
+            output_dir=output_dir,
+            quiet=args.quiet,
+            fail_on_missing=args.fail_on_missing,
+            max_plan_latency=args.max_plan_latency,
+        )
+    except SystemExit as exc:
+        raise
     return 0
 
 

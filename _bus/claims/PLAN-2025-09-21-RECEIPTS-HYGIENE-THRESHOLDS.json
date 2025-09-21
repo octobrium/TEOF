@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-1",
+  "branch": "agent/codex-1/receipts-hygiene-thresholds",
+  "claimed_at": "2025-09-21T16:17:30Z",
+  "notes": "Add failure thresholds to receipts_hygiene CLI",
+  "plan_id": "2025-09-21-receipts-hygiene-thresholds",
+  "released_at": "2025-09-21T16:26:00Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-21-RECEIPTS-HYGIENE-THRESHOLDS"
+}

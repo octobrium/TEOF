@@ -1,0 +1,45 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-receipts-hygiene-thresholds",
+  "created": "2025-09-21T16:18:00Z",
+  "actor": "codex-1",
+  "summary": "Add failure thresholds to receipts hygiene CLI",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Implement CLI flags",
+      "status": "done",
+      "notes": "Added fail_on_missing and max_plan_latency controls to receipts_hygiene CLI.",
+      "receipts": [
+        "tools/agent/receipts_hygiene.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add coverage and docs",
+      "status": "done",
+      "notes": "Expanded tests and documentation to describe new flags.",
+      "receipts": [
+        "tests/test_receipts_hygiene.py",
+        "docs/automation.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "CLI can exit non-zero when missing receipts or slow plans exceed thresholds",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/PLAN-2025-09-21-RECEIPTS-HYGIENE-THRESHOLDS.json"
+    }
+  ],
+  "receipts": [
+    "tools/agent/receipts_hygiene.py",
+    "tests/test_receipts_hygiene.py",
+    "docs/automation.md"
+  ]
+}
