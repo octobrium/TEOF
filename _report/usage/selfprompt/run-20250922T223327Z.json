@@ -1,0 +1,9 @@
+{
+  "generated_at": "2025-09-22T22:33:27Z",
+  "command": "python3 -m tools.autonomy.next_step --claim",
+  "result": {
+    "id": "ND-004",
+    "title": "Repo hygiene consolidation",
+    "status": "in_progress"
+  }
+}
