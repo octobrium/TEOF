@@ -1,0 +1,15 @@
+{
+  "generated_at": "2025-09-22T04:17:58Z",
+  "strict": true,
+  "exit_code": 0,
+  "plans": [
+    {
+      "path": "_plans/2025-09-21-autonomy-status-receipt.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-autonomy-status-receipt"
+    }
+  ],
+  "plan_id": "2025-09-21-autonomy-status-receipt",
+  "plan_step_id": "S2"
+}

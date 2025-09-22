@@ -1,0 +1,60 @@
+{
+  "hygiene": {
+    "generated_at": "2025-09-21T20:33:49Z",
+    "plans_total": 114,
+    "plans_missing_receipts": 0,
+    "missing_plan_ids": [],
+    "slow_plans": [
+      [
+        "2025-09-17-planner-eval-bootstrap",
+        176070.0,
+        null
+      ],
+      [
+        "2025-09-17-planner-validator-upgrade",
+        174520.0,
+        null
+      ],
+      [
+        "2025-09-17-planner-cli-bootstrap",
+        174010.0,
+        null
+      ],
+      [
+        "2025-09-17-planner-v0-2",
+        173146.0,
+        null
+      ],
+      [
+        "2025-09-17-planner-show-command",
+        170557.0,
+        null
+      ]
+    ]
+  },
+  "batch_logs": {
+    "entries": 1,
+    "latest_summary": "warn",
+    "latest_agent": "codex-4",
+    "latest_generated_at": "20250921T181427Z",
+    "warn_count": 1,
+    "fail_count": 0,
+    "avg_pytest_seconds": null,
+    "avg_hygiene_seconds": null,
+    "entries_detail": [
+      {
+        "generated_at": "20250921T181427Z",
+        "summary": "warn",
+        "agent": "codex-4",
+        "log_path": "_report/usage/batch-refinement/batch-refinement-20250921T181427Z.json"
+      }
+    ]
+  },
+  "top_slow_plans": [
+    "2025-09-17-planner-eval-bootstrap",
+    "2025-09-17-planner-validator-upgrade",
+    "2025-09-17-planner-cli-bootstrap"
+  ],
+  "plan_id": "2025-09-21-autonomy-status-receipt",
+  "plan_step_id": "S2"
+}

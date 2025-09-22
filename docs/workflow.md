@@ -34,8 +34,9 @@ Review cadence: Monthly sweep
  5) Output a prioritized plan (next 3–6 steps) to make the repo self-propagating (CLI → CI → freeze → docs).  
  6) Seed `_bus/claims/<task>.json` before posting assignment/status bus messages: `python -m tools.agent.claim_seed --task <id> --agent <future-owner> --plan <plan-id> --branch agent/<future-owner>/<slug>` (check `--help` for `--status`/`--notes`). This keeps the `bus_message` claim guard satisfied; include a `python -m tools.agent.session_brief --task <id>` snippet in the assignment hand-off so the assignee can replay the staged context.  
  7) After releasing a claim, run `python -m tools.agent.task_sync` so `agents/tasks/tasks.json` mirrors claim status.  
- 8) Only if rules block progress: propose a minimal DNA edit via a one-page Meta‑TEP (Problem, Proposal, Alternatives, Impact, Rollback).
-  9) For external feeds, open a plan, register the signing key (anchors entry), build `python -m tools.external.adapter` receipts, and extend `scripts/ci/check_vdp.py` + dashboards before promoting.
+ 8) Only if rules block progress: propose a minimal DNA edit via a one-page Meta‑TEP (Problem, Proposal, Alternatives, Impact, Rollback).  
+ 9) For external feeds, open a plan, register the signing key (anchors entry), build `python -m tools.external.adapter` receipts, and extend `scripts/ci/check_vdp.py` + dashboards before promoting.  
+ 10) Keep plan receipts audited: run `python3 scripts/ci/check_plan_receipts_exist.py` regularly and log the summary under `_report/usage/` so missing/untracked evidence is caught early.
    - Draft the idea in `docs/proposals/` first (see `docs/proposals/README.md`) so other seats can review before it graduates to a Meta‑TEP.
 
 **Response format**

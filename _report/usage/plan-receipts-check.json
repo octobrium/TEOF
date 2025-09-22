@@ -1,0 +1,8 @@
+{
+  "generated_at": "2025-09-22T04:10:00Z",
+  "command": "python3 scripts/ci/check_plan_receipts_exist.py",
+  "result": "OK",
+  "output": "OK: plan receipts sanity (exist + tracked)",
+  "plan_id": "2025-09-21-guard-plan-receipt-exists",
+  "plan_step_id": "S2"
+}

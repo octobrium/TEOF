@@ -4,27 +4,31 @@
   "created": "2025-09-21T17:20:00Z",
   "actor": "codex-1",
   "summary": "Persist autonomy status as a shared receipt",
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Write status JSON receipt",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "cmd> python3 -m tools.agent.autonomy_status --json --write _report/usage/autonomy-status.json",
+      "receipts": [
+        "_report/usage/autonomy-status.json"
+      ]
     },
     {
       "id": "S2",
       "title": "Document automation",
-      "status": "queued",
-      "notes": "",
-      "receipts": []
+      "status": "done",
+      "notes": "cmd> apply_patch docs/automation.md (autonomy status section)",
+      "receipts": [
+        "_report/planner/validate/summary-20250922T041758Z.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Autonomy status writes canonical JSON under _report/usage/",
     "owner": "codex-1",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -32,5 +36,8 @@
       "ref": "_bus/claims/PLAN-2025-09-21-AUTONOMY-STATUS-RECEIPT.json"
     }
   ],
-  "receipts": []
+  "receipts": [
+    "_report/planner/validate/summary-20250922T041758Z.json",
+    "_report/usage/autonomy-status.json"
+  ]
 }

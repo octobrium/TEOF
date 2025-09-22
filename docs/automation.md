@@ -52,6 +52,9 @@ Use `python -m tools.agent.batch_report [--limit N] [--json]` to list recent bat
 
 `python -m tools.agent.autonomy_status [--limit N] [--json]` combines the latest receipts hygiene summary with recent batch logs, highlighting missing receipts, slow plans, and recent batch outcomes in one place. Each run also writes `_report/usage/autonomy-status.json` (unless `--no-write` is supplied) with averaged runtime metrics from recent batch runs.
 
+- **Receipt example:** see `_plans/2025-09-21-autonomy-status-receipt.plan.json` and `_report/usage/autonomy-status.json` (attached 2025-09-22) for a live artifact. It includes top-slow plans, warn/fail counts, and links to batch logs.
+- **Adoption KPI:** IRL deployments should track how often the status is generated (target: daily or per batch) and ensure warn/fail counts are triaged via the coordination bus.
+
 ### Autonomy latency sentinel
 
 Run `python -m tools.agent.autonomy_latency --threshold 3600` to alert on any plan whose receipts latency exceeds the configured number of seconds. The sentinel reads `_report/usage/autonomy-status.json`, mirrors offending plan ids onto the coordination bus as `alert` events, and writes a receipt (`_report/usage/autonomy-latency.json` by default) summarising alert payloads. Use `--dry-run` to inspect without logging events and `--no-write` to skip receipt emission. Batch refinement can also invoke this sentinel automatically via `--latency-threshold` (adding `--latency-dry-run` to avoid logging).
