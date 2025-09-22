@@ -38,6 +38,11 @@ try:  # local import guarded for CLI usage
 except ImportError:  # pragma: no cover - during isolated unit tests
     registry_update = None
 
+try:  # optional bus alerting
+    from tools.agent import bus_event as bus_event_module
+except ImportError:  # pragma: no cover - optional dependency
+    bus_event_module = None
+
 if registry_update is not None:
     DEFAULT_REGISTRY_PATH = registry_update.DEFAULT_REGISTRY
     RegistryUpdateError = registry_update.RegistryUpdateError
@@ -109,6 +114,17 @@ def _parse_args(argv: Sequence[str] | None) -> argparse.Namespace:
         "--feedback-out",
         type=Path,
         help="Optional feedback ledger path (default: _report/usage/external-feedback.json)",
+    )
+    parser.add_argument(
+        "--auth-alert-threshold",
+        type=float,
+        default=0.6,
+        help="Emit a bus status alert when a tier average trust drops below this value (0 disables)",
+    )
+    parser.add_argument(
+        "--disable-auth-alert",
+        action="store_true",
+        help="Disable authenticity bus alerts",
     )
     return parser.parse_args(argv)
 
@@ -544,6 +560,89 @@ def _write_feedback(summary: dict[str, Any], output_path: Path) -> dict[str, Any
     return payload
 
 
+def _average(values: Iterable[float]) -> float | None:
+    numbers = [float(v) for v in values if isinstance(v, (int, float))]
+    if not numbers:
+        return None
+    return sum(numbers) / len(numbers)
+
+
+def _alert_authenticity(summary: dict[str, Any], threshold: float | None) -> None:
+    if threshold is None or threshold <= 0:
+        return
+    if bus_event_module is None:
+        return
+    authenticity_index = summary.get("authenticity")
+    if not isinstance(authenticity_index, dict):
+        return
+
+    tier_alerts: list[tuple[str, float]] = []
+    attention_feeds: list[tuple[str, str, float | None]] = []
+    for tier_name, payload in authenticity_index.items():
+        if not isinstance(payload, dict):
+            continue
+        feeds = payload.get("feeds", [])
+        adjusted_values = []
+        if isinstance(feeds, list):
+            for feed in feeds:
+                if isinstance(feed, dict):
+                    adjusted_values.append(feed.get("trust_adjusted"))
+        avg = payload.get("avg_adjusted_trust")
+        if not isinstance(avg, (int, float)):
+            avg_calc = _average(adjusted_values)
+        else:
+            avg_calc = float(avg)
+        if avg_calc is not None and avg_calc < threshold:
+            tier_alerts.append((tier_name, avg_calc))
+        feeds = payload.get("feeds", [])
+        if isinstance(feeds, list):
+            for feed in feeds:
+                if not isinstance(feed, dict):
+                    continue
+                status = feed.get("status")
+                if status and status != "ok":
+                    attention_feeds.append(
+                        (
+                            str(feed.get("feed_id")),
+                            tier_name,
+                            feed.get("trust_adjusted") if isinstance(feed.get("trust_adjusted"), (int, float)) else None,
+                        )
+                    )
+
+    if not tier_alerts and not attention_feeds:
+        return
+
+    summary_parts: list[str] = []
+    if tier_alerts:
+        tier_msg = ", ".join(f"{name}<{threshold:.2f}" for name, _ in tier_alerts)
+        summary_parts.append(f"tiers {tier_msg}")
+    if attention_feeds:
+        feed_msg = ", ".join(feed for feed, _, _ in attention_feeds[:5])
+        summary_parts.append(f"attention feeds {feed_msg}")
+    summary_text = "authenticity alert: " + "; ".join(summary_parts)
+
+    argv = [
+        "log",
+        "--event",
+        "status",
+        "--summary",
+        summary_text,
+        "--agent",
+        "teof-auth-monitor",
+    ]
+    for tier_name, avg in tier_alerts:
+        argv.extend(["--extra", f"{tier_name}_avg={avg:.3f}"])
+    for feed_id, tier_name, trust in attention_feeds[:5]:
+        extras = f"{feed_id}_tier={tier_name}"
+        if trust is not None:
+            extras += f";trust={trust:.3f}"
+        argv.extend(["--extra", extras])
+    try:
+        bus_event_module.main(argv)
+    except Exception:  # pragma: no cover - bus event failures shouldn't break summary
+        return
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
     summary = summarise_receipts(args.threshold_hours, strict=args.strict)
@@ -612,6 +711,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         docs_auth_md = ROOT / "docs" / "usage" / "external-authenticity.md"
         docs_auth_md.parent.mkdir(parents=True, exist_ok=True)
         docs_auth_md.write_text(auth_md.read_text(encoding="utf-8"), encoding="utf-8")
+    auth_threshold = None if args.disable_auth_alert or args.auth_alert_threshold <= 0 else args.auth_alert_threshold
+    _alert_authenticity(summary, auth_threshold)
     if args.strict and (summary["invalid_receipts"] or any(f["invalid_signatures"] for f in summary["feeds"].values())):
         return 1
     return 0

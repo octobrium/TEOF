@@ -27,6 +27,18 @@ def _prepare_environment(tmp_path: Path):
     summary.registry_update.ROOT = tmp_path
     summary.registry_update.DEFAULT_REGISTRY = summary.DEFAULT_REGISTRY_PATH
 
+    class DummyBusEvent:
+        def __init__(self) -> None:
+            self.calls: list[list[str]] = []
+
+        def main(self, argv: list[str]) -> int:
+            self.calls.append(argv)
+            return 0
+
+    dummy_bus = DummyBusEvent()
+    summary.bus_event_module = dummy_bus  # type: ignore[attr-defined]
+    summary._bus_event_calls = dummy_bus.calls  # type: ignore[attr-defined]
+
     adapter.ROOT = tmp_path
     adapter.DEFAULT_REPORT_DIR = tmp_path / "_report" / "external"
     adapter.KEYS_DIR = tmp_path / "governance" / "keys"
@@ -328,6 +340,67 @@ def test_registry_check_reports_ok(tmp_path: Path, signing_pair):
         max_age_hours=48,
     )
     assert not result["issues"]
+
+
+def test_summary_auth_alert_emits_bus_event(tmp_path: Path, signing_pair):
+    _prepare_environment(tmp_path)
+    bus_calls: list[list[str]] = summary._bus_event_calls  # type: ignore[attr-defined]
+    _write_receipt(tmp_path, signing_pair, issued_at="2025-09-21T22:00:00Z")
+
+    summary.DEFAULT_REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
+    summary.DEFAULT_REGISTRY_PATH.write_text(
+        "# External Feed Registry\n\n"
+        "| feed_id | steward | plan_id | key_id | latest_receipt | summary |\n\n",
+        encoding="utf-8",
+    )
+
+    summary.REGISTRY_CONFIG_DEFAULT.parent.mkdir(parents=True, exist_ok=True)
+    summary.REGISTRY_CONFIG_DEFAULT.write_text(
+        json.dumps(
+            {
+                "feeds": {
+                    "sample": {
+                        "steward": "codex-5",
+                        "plan_path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
+                        "key_path": "governance/keys/feed.sample-2025.pub",
+                        "authenticity": "primary_truth",
+                        "steward_profile": {
+                            "id": "codex-5",
+                            "display_name": "Automation Steward",
+                            "capabilities": [
+                                "external_adapter",
+                                "summary_refresh",
+                                "registry_maintenance"
+                            ],
+                            "obligations": [
+                                "refresh_summary_post_run",
+                                "update_registry_post_run",
+                                "respond_to_registry_alerts"
+                            ],
+                            "trust_baseline": 0.2,
+                        }
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    summary.main(
+        [
+            "--threshold-hours",
+            "48",
+            "--out",
+            str(summary.DEFAULT_OUTPUT),
+            "--registry-config",
+            str(summary.REGISTRY_CONFIG_DEFAULT),
+            "--registry-path",
+            str(summary.DEFAULT_REGISTRY_PATH),
+        ]
+    )
+
+    assert bus_calls, "auth alert should emit bus event"
+    assert any("authenticity" in " ".join(argv) for argv in bus_calls)
 
 
 def test_adapter_refresh_summary_updates_registry(tmp_path: Path, signing_pair):

@@ -132,6 +132,7 @@ For tier-level visibility, run `python -m tools.external.authenticity_report` (o
 
 The summary CLI already regenerates both files after each run; use the command above only when you need to recompute dashboards from archived data.
 The Markdown dashboard is also mirrored to `docs/usage/external-authenticity.md` so STATUS reports and docs always reflect the latest run.
+- When a tier’s adjusted trust dropps below `--auth-alert-threshold` (default `0.6`) or any feed enters an attention state, the summary CLI logs a bus status event (`teof-auth-monitor`) so managers can react immediately.
 
 ### External feed adoption playbook
 
