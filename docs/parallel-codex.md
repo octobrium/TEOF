@@ -5,7 +5,7 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 ## Branch & Manifest Discipline
 
 - Every agent works under `agent/<agent_id>/*` branches. Generate `agent_id` inside `AGENT_MANIFEST.json`.
-- Each session keeps a dedicated manifest copy (e.g., `AGENT_MANIFEST.codex-2.json`) and symlinks/swaps it before running if needed.
+- Each session keeps a dedicated manifest copy (e.g., `AGENT_MANIFEST.codex-2.json`) and symlinks/swaps it before running if needed. Sample manifests now live under `docs/examples/agents/`; copy one into the repo root as `AGENT_MANIFEST.json` (or symlink) before swapping seats.
 - Tokens must be least-privilege (fine-grained PAT or GitHub App) scoped to those branches.
 
 ## Coordination Bus

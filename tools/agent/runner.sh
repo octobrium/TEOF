@@ -10,8 +10,9 @@ fi
 
 ROOT="$(git rev-parse --show-toplevel)"
 MANIFEST_PATH="$ROOT/AGENT_MANIFEST.json"
+EXAMPLE_PATH="docs/examples/agents/AGENT_MANIFEST.example.json"
 if [[ ! -f "$MANIFEST_PATH" ]]; then
-  echo "AGENT_MANIFEST.json not found. Copy AGENT_MANIFEST.example.json and fill it in first." >&2
+  echo "AGENT_MANIFEST.json not found. Copy ${EXAMPLE_PATH} and fill it in first." >&2
   exit 1
 fi
 

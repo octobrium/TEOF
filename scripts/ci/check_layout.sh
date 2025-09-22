@@ -38,7 +38,7 @@ allow_files=( README.md LICENSE .gitignore .editorconfig .gitattributes
               .markdownlint-cli2.jsonc .markdownlint.jsonc .markdownlintignore
               CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md NOTICE SECURITY.md TRADEMARKS.md
               pyproject.toml quickstart.md examples_hello.json
-              AGENT_MANIFEST.json AGENT_MANIFEST.example.json )
+              AGENT_MANIFEST.json )
 
 # unexpected top-level directories
 while IFS= read -r d; do

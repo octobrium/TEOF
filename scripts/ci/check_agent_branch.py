@@ -50,7 +50,9 @@ def main() -> int:
 
     manifest_path = Path("AGENT_MANIFEST.json")
     if not manifest_path.exists():
-        errors.append("AGENT_MANIFEST.json missing; copy AGENT_MANIFEST.example.json and fill it in")
+        errors.append(
+            "AGENT_MANIFEST.json missing; copy docs/examples/agents/AGENT_MANIFEST.example.json and fill it in"
+        )
 
     if errors:
         for err in errors:
