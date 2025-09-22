@@ -130,6 +130,8 @@ For tier-level visibility, run `python -m tools.external.authenticity_report` (o
 - `_report/usage/external-authenticity.md` – markdown snapshot with tier weights, counts, and attention feeds
 - `_report/usage/external-authenticity.json` – structured data for downstream automation
 
+The summary CLI already regenerates both files after each run; use the command above only when you need to recompute dashboards from archived data.
+
 ### External feed adoption playbook
 
 **Value proposition.**

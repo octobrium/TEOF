@@ -12,6 +12,7 @@
 - [The Eternal Observer Framework (TEOF) — Whitepaper v1.2](./whitepaper.md)
 - [TEOF Master Workflow (Minimal v1.3)](./workflow.md)
 - [CI Guardrail Guarantees](./ci-guarantees.md)
+- [External Authenticity Dashboard](_report/usage/external-authenticity.md)
 
 ## examples
 - [Readme](./examples/brief/goldens/README.md)

@@ -253,6 +253,9 @@ def test_summary_updates_registry(tmp_path: Path, signing_pair):
     assert summary_payload["authenticity"]["primary_truth"]["count"] >= 1
     assert summary.DEFAULT_AUTH_MD.exists()  # type: ignore[attr-defined]
     assert summary.DEFAULT_AUTH_JSON.exists()  # type: ignore[attr-defined]
+    markdown_content = summary.DEFAULT_AUTH_MD.read_text(encoding="utf-8")  # type: ignore[attr-defined]
+    assert "External Authenticity Dashboard" in markdown_content
+
 
     row = [line for line in registry_path.read_text(encoding="utf-8").splitlines() if line.startswith("| sample")]
     assert row
@@ -425,6 +428,7 @@ def test_adapter_refresh_summary_updates_registry(tmp_path: Path, signing_pair):
     assert any(feed["feed_id"] == "sample" for feed in authenticity_block["feeds"])
     assert summary.DEFAULT_AUTH_MD.exists()  # type: ignore[attr-defined]
     assert summary.DEFAULT_AUTH_JSON.exists()  # type: ignore[attr-defined]
+    assert "External Authenticity Dashboard" in summary.DEFAULT_AUTH_MD.read_text(encoding="utf-8")  # type: ignore[attr-defined]
 
 
 def test_authenticity_report_generates_dashboard(tmp_path: Path, signing_pair):
