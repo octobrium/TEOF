@@ -149,7 +149,7 @@ Run this after ingestion or during audits to surface drift; pass `--strict` to e
 - Provide SDK stubs or REST examples so external partners can call the adapter programmatically.
 - Automate dashboard generation from `_report/usage/external-summary.json` (Markdown/HTML) for exec reporting.
 
-Use the playbook to scope real pilots: everything above runs with today’s toolkit; only the data source and plan context change.
+Use the playbook to scope real pilots: everything above runs with today’s toolkit; only the data source and plan context change. For a full checklist, see [`docs/adoption/external-feed-runbook.md`](../adoption/external-feed-runbook.md).
 
 ## Open Questions
 

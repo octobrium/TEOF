@@ -1,13 +1,13 @@
 {
-  "generated_at": "2025-09-22T04:32:24Z",
+  "generated_at": "2025-09-22T04:43:48Z",
   "strict": true,
   "exit_code": 0,
   "plans": [
     {
-      "path": "_plans/2025-09-22-governance-l1-hardening.plan.json",
+      "path": "_plans/2025-09-22-external-adoption-runbook.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-22-governance-l1-hardening"
+      "plan_id": "2025-09-22-external-adoption-runbook"
     }
   ],
   "plan_id": "2025-09-22-external-adoption-runbook",

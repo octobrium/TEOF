@@ -1,0 +1,47 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-22-external-adoption-runbook",
+  "created": "2025-09-22T04:39:32Z",
+  "actor": "codex-5",
+  "summary": "Document external feed adoption runbook",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Outline",
+      "status": "done",
+      "notes": "cmd> List required sections: overview, prerequisites, step-by-step, KPI/receipts, plan template references.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Draft-runbook",
+      "status": "done",
+      "notes": "cmd> cat > docs/adoption/external-feed-runbook.md",
+      "receipts": [
+        "_report/adoption/external-runbook.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Link-in-docs",
+      "status": "done",
+      "notes": "cmd> apply_patch docs/automation.md (link runbook)",
+      "receipts": [
+        "_report/planner/validate/summary-20250922T043224Z.json",
+        "_report/planner/validate/summary-20250922T044348Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Runbook published under docs/adoption",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/adoption/external-runbook.json",
+    "_report/planner/validate/summary-20250922T043224Z.json",
+    "_report/planner/validate/summary-20250922T044348Z.json"
+  ]
+}
