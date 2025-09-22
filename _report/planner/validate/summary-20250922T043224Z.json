@@ -1,0 +1,15 @@
+{
+  "generated_at": "2025-09-22T04:32:24Z",
+  "strict": true,
+  "exit_code": 0,
+  "plans": [
+    {
+      "path": "_plans/2025-09-22-governance-l1-hardening.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-governance-l1-hardening"
+    }
+  ],
+  "plan_id": "2025-09-22-governance-l1-hardening",
+  "plan_step_id": "S3"
+}

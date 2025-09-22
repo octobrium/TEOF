@@ -1,0 +1,16 @@
+{
+  "generated_at": "2025-09-22T04:30:23Z",
+  "strict": true,
+  "exit_code": 2,
+  "plans": [
+    {
+      "path": "_plans/2025-09-22-governance-l1-hardening.plan.json",
+      "ok": false,
+      "errors": [
+        "checkpoint.status=satisfied requires at least one receipt"
+      ]
+    }
+  ],
+  "plan_id": "2025-09-22-governance-l1-hardening",
+  "plan_step_id": "S2"
+}

@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-22-governance-l1-hardening",
+  "created": "2025-09-22T04:27:35Z",
+  "actor": "codex-5",
+  "summary": "Refine L1 principles with precedence, provenance pointers, and charter cross-link",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review-feedback",
+      "status": "done",
+      "notes": "cmd> summarize GPT-5 Pro feedback and confirm micro patches",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Apply-micro-patches",
+      "status": "done",
+      "notes": "cmd> apply_patch governance/core/L1 - principles/l1.md (precedence, change discipline)\\ncmd> apply_patch governance/CHARTER.md (consent & exit)\\ncmd> apply_patch governance/core/L1 - principles/principles_as_observations.md (informative)",
+      "receipts": [
+        "_report/usage/plan-receipts-check.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Validate-and-commit",
+      "status": "done",
+      "notes": "cmd> python3 tools/planner/validate.py _plans/2025-09-22-governance-l1-hardening.plan.json --strict",
+      "receipts": [
+        "_report/planner/validate/summary-20250922T043023Z.json",
+        "_report/planner/validate/summary-20250922T043224Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "L1 updated with precedence & provenance notes",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/planner/validate/summary-20250922T041758Z.json",
+    "_report/planner/validate/summary-20250922T043023Z.json",
+    "_report/planner/validate/summary-20250922T043224Z.json",
+    "_report/usage/plan-receipts-check.json"
+  ]
+}
