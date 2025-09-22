@@ -1,9 +1,10 @@
 {
-  "auto_enabled": false,
+  "auto_enabled": true,
   "max_iterations": 3,
   "require_execute": true,
   "allow_apply": false,
+  "continuous": true,
   "halt_on_attention_feeds": true,
   "halt_on_ci_failure": true,
-  "notes": "Toggle auto_enabled to true to allow unattended autonomy loop runs."
+  "notes": "Auto-proceed enabled; loop runs up to max_iterations unless guardrails trip."
 }

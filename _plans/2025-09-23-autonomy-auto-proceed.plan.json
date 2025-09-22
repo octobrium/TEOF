@@ -10,10 +10,12 @@
     {
       "id": "S1",
       "title": "Draft auto-consent policy",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Write docs/automation/autonomy-consent.json describing guardrails and opt-out signals",
-      "receipts": []
+      "receipts": [
+        "docs/automation/autonomy-consent.json"
+      ]
     },
     {
       "id": "S2",

@@ -1,0 +1,46 @@
+{
+  "generated_at": "2025-09-22T23:42:14Z",
+  "authenticity": {
+    "source": "_report/usage/external-summary.json",
+    "attention_feeds": 0
+  },
+  "hygiene": {
+    "generated_at": "2025-09-22T23:28:51Z",
+    "dry_run": true,
+    "targets": {
+      "report_usage": {
+        "size_bytes": 1094420,
+        "size_mb": 1.044,
+        "file_count": 18,
+        "path": "_report/usage"
+      },
+      "report_agent": {
+        "size_bytes": 450405,
+        "size_mb": 0.43,
+        "file_count": 310,
+        "path": "_report/agent"
+      },
+      "artifacts": {
+        "size_bytes": 409019,
+        "size_mb": 0.39,
+        "file_count": 1585,
+        "path": "artifacts"
+      },
+      "apoptosis": {
+        "size_bytes": 219473,
+        "size_mb": 0.209,
+        "file_count": 455,
+        "path": "_apoptosis"
+      }
+    },
+    "actions": {
+      "chronicle_rotation": {
+        "removed": []
+      },
+      "selfprompt_rotation": {
+        "removed": []
+      }
+    },
+    "report_path": "_report/usage/autonomy-actions/hygiene-20250922T232851Z.json"
+  }
+}
