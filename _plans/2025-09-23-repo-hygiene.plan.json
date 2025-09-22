@@ -9,9 +9,11 @@
     {
       "id": "S1",
       "title": "Inventory unused assets",
-      "status": "pending",
+      "status": "done",
       "notes": "Catalogue orphaned scripts, docs, and stale _report data; propose removals",
-      "receipts": []
+      "receipts": [
+        "docs/maintenance/repo-hygiene-20250922.md"
+      ]
     },
     {
       "id": "S2",
