@@ -609,6 +609,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             auth_md,
             auth_json,
         )
+        docs_auth_md = ROOT / "docs" / "usage" / "external-authenticity.md"
+        docs_auth_md.parent.mkdir(parents=True, exist_ok=True)
+        docs_auth_md.write_text(auth_md.read_text(encoding="utf-8"), encoding="utf-8")
     if args.strict and (summary["invalid_receipts"] or any(f["invalid_signatures"] for f in summary["feeds"].values())):
         return 1
     return 0

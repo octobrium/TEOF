@@ -131,6 +131,7 @@ For tier-level visibility, run `python -m tools.external.authenticity_report` (o
 - `_report/usage/external-authenticity.json` – structured data for downstream automation
 
 The summary CLI already regenerates both files after each run; use the command above only when you need to recompute dashboards from archived data.
+The Markdown dashboard is also mirrored to `docs/usage/external-authenticity.md` so STATUS reports and docs always reflect the latest run.
 
 ### External feed adoption playbook
 

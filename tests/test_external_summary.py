@@ -255,6 +255,9 @@ def test_summary_updates_registry(tmp_path: Path, signing_pair):
     assert summary.DEFAULT_AUTH_JSON.exists()  # type: ignore[attr-defined]
     markdown_content = summary.DEFAULT_AUTH_MD.read_text(encoding="utf-8")  # type: ignore[attr-defined]
     assert "External Authenticity Dashboard" in markdown_content
+    docs_dash = summary.ROOT / "docs" / "usage" / "external-authenticity.md"  # type: ignore[attr-defined]
+    assert docs_dash.exists()
+    assert "External Authenticity Dashboard" in docs_dash.read_text(encoding="utf-8")
 
 
     row = [line for line in registry_path.read_text(encoding="utf-8").splitlines() if line.startswith("| sample")]
@@ -429,6 +432,8 @@ def test_adapter_refresh_summary_updates_registry(tmp_path: Path, signing_pair):
     assert summary.DEFAULT_AUTH_MD.exists()  # type: ignore[attr-defined]
     assert summary.DEFAULT_AUTH_JSON.exists()  # type: ignore[attr-defined]
     assert "External Authenticity Dashboard" in summary.DEFAULT_AUTH_MD.read_text(encoding="utf-8")  # type: ignore[attr-defined]
+    docs_dash = summary.ROOT / "docs" / "usage" / "external-authenticity.md"  # type: ignore[attr-defined]
+    assert docs_dash.exists()
 
 
 def test_authenticity_report_generates_dashboard(tmp_path: Path, signing_pair):
