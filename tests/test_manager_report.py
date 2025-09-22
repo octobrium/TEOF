@@ -13,11 +13,13 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     messages_dir = root / "_bus" / "messages"
     assignments_dir = root / "_bus" / "assignments"
     claims_dir = root / "_bus" / "claims"
+    usage_dir = root / "_report" / "usage"
 
     events_dir.mkdir(parents=True)
     messages_dir.mkdir(parents=True)
     assignments_dir.mkdir(parents=True)
     claims_dir.mkdir(parents=True)
+    usage_dir.mkdir(parents=True)
     (root / "agents").mkdir()
     (root / "_report" / "manager").mkdir(parents=True)
 
@@ -47,6 +49,33 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(bus_status, "EVENT_LOG", event_log)
     monkeypatch.setattr(bus_status, "ASSIGNMENTS_DIR", assignments_dir)
     monkeypatch.setattr(bus_status, "MANIFEST_PATTERN", "AGENT_MANIFEST.json")
+
+    auth_json = usage_dir / "external-authenticity.json"
+    auth_md = usage_dir / "external-authenticity.md"
+    auth_json.write_text(
+        json.dumps(
+            {
+                "total_feeds": 1,
+                "overall_avg_trust": 0.92,
+                "tiers": [
+                    {
+                        "tier": "primary_truth",
+                        "weight": 1.0,
+                        "feed_count": 1,
+                        "avg_adjusted_trust": 0.92,
+                    }
+                ],
+                "attention_feeds": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    auth_md.write_text(
+        "# External Authenticity Dashboard\n\n- Overall adjusted trust: 0.92\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(manager_report, "AUTH_JSON", auth_json)
+    monkeypatch.setattr(manager_report, "AUTH_MD", auth_md)
 
     return root
 
@@ -142,3 +171,12 @@ def test_manager_report_includes_metrics(repo: Path):
     content = report_path.read_text(encoding="utf-8")
     assert "Reconciliation Metrics" in content
     assert "Differences: 2" in content
+
+
+def test_manager_report_includes_authenticity(repo: Path):
+    rc = manager_report.main(["--manager", "codex-manager"])
+    assert rc == 0
+    report_path = sorted((repo / "_report" / "manager").glob("manager-report-*.md"))[-1]
+    content = report_path.read_text(encoding="utf-8")
+    assert "External Authenticity" in content
+    assert "primary_truth" in content

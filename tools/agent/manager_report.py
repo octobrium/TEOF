@@ -16,6 +16,8 @@ CLAIMS_DIR = ROOT / "_bus" / "claims"
 MESSAGES_DIR = ROOT / "_bus" / "messages"
 REPORT_DIR = ROOT / "_report" / "manager"
 TASKS_FILE = ROOT / "agents" / "tasks" / "tasks.json"
+AUTH_JSON = ROOT / "_report" / "usage" / "external-authenticity.json"
+AUTH_MD = ROOT / "_report" / "usage" / "external-authenticity.md"
 
 
 def iso_now() -> str:
@@ -77,6 +79,7 @@ def write_report(
     assignments: dict[str, Any],
     claims: dict[str, Any],
     metrics: dict[str, Any] | None,
+    authenticity: dict[str, Any] | None,
 ) -> Path:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     ts = iso_now()
@@ -121,6 +124,30 @@ def write_report(
         files_scanned = metrics.get("files_scanned")
         if files_scanned is not None:
             lines.append(f"- Metrics files scanned: {files_scanned}")
+        lines.append("")
+
+    if authenticity:
+        lines.append("## External Authenticity")
+        overall = authenticity.get("overall_avg_trust")
+        overall_str = "n/a" if overall is None else f"{overall:.3f}"
+        lines.append(f"- Overall adjusted trust: {overall_str}")
+        tier_entries = authenticity.get("tiers", [])
+        for tier in tier_entries:
+            tier_name = tier.get("tier")
+            avg = tier.get("avg_adjusted_trust")
+            avg_str = "n/a" if avg is None else f"{avg:.3f}"
+            lines.append(
+                f"  - {tier_name}: feeds={tier.get('feed_count')} | weight={tier.get('weight')} | avg={avg_str}"
+            )
+        attention = authenticity.get("attention_feeds", [])
+        if attention:
+            lines.append("- Attention feeds:")
+            for feed in attention[:5]:
+                lines.append(
+                    f"  - {feed.get('feed_id')} ({feed.get('tier')}) — status={feed.get('status')} trust={feed.get('trust_adjusted')}"
+                )
+        if AUTH_MD.exists():
+            lines.append(f"- Dashboard: `{AUTH_MD}`")
         lines.append("")
 
     report_path.write_text("\n".join(lines), encoding="utf-8")
@@ -221,7 +248,10 @@ def main(argv: list[str] | None = None) -> int:
     assignments = collect_assignments()
     claims = collect_claims()
     metrics_data = gather_metrics(Path(args.metrics_dir)) if args.include_metrics else None
-    report_path = write_report(manager_id, tasks, assignments, claims, metrics_data)
+    authenticity_data = load_json(AUTH_JSON)
+    if not isinstance(authenticity_data, dict):
+        authenticity_data = None
+    report_path = write_report(manager_id, tasks, assignments, claims, metrics_data, authenticity_data)
     print(f"Manager report written to {report_path.relative_to(ROOT)}")
 
     if args.log_heartbeat:
