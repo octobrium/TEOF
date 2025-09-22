@@ -6,7 +6,9 @@ import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, Mapping
+
+from tools.autonomy import actions
 
 ROOT = Path(__file__).resolve().parents[2]
 TODO_PATH = ROOT / "_plans" / "next-development.todo.json"
@@ -119,10 +121,40 @@ def select_next_step(
     return selected
 
 
+def _execute_action(item: Mapping[str, object], *, apply_changes: bool) -> Mapping[str, object] | None:
+    plan_id = item.get("plan_suggestion")
+    if not isinstance(plan_id, str):
+        return None
+    action = actions.resolve(plan_id)
+    if action is None:
+        return None
+    outcome = action(root=ROOT, dry_run=not apply_changes)
+    if outcome is None:
+        return None
+    serialisable = dict(outcome)
+    path_value = serialisable.get("report_path")
+    if isinstance(path_value, Path):
+        try:
+            serialisable["report_path"] = str(path_value.relative_to(ROOT))
+        except ValueError:
+            serialisable["report_path"] = str(path_value)
+    return serialisable
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--claim", action="store_true", help="Mark the first pending item as in-progress")
     parser.add_argument("--out", type=Path, help="Optional path to write the selected item JSON")
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Attempt to execute the action associated with the selected plan",
+    )
+    parser.add_argument(
+        "--apply",
+        action="store_true",
+        help="Allow actions to modify the repository (default runs in dry-run mode)",
+    )
     args = parser.parse_args(argv)
 
     item = select_next_step(
@@ -132,6 +164,14 @@ def main(argv: list[str] | None = None) -> int:
         status_path=STATUS_PATH,
         allow_failure=False,
     )
+    if item is None:
+        raise NextStepError("No pending items found")
+
+    if args.execute:
+        action_result = _execute_action(item, apply_changes=args.apply)
+        if action_result is not None:
+            item = dict(item)
+            item["action"] = action_result
     if args.out:
         args.out.write_text(json.dumps(item, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
