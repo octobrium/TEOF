@@ -35,6 +35,13 @@
       "status": "in_progress",
       "plan_suggestion": "2025-09-23-repo-hygiene",
       "notes": "Trim unused tooling/data, consolidate automation scripts, and refresh docs to reflect the lean surface."
+    },
+    {
+      "id": "ND-005",
+      "title": "Autonomy auto-proceed policy",
+      "status": "pending",
+      "plan_suggestion": "2025-09-23-autonomy-auto-proceed",
+      "notes": "Codify consent policy for unattended autonomy loop and implement auto-run toggle."
     }
   ],
   "history": [
@@ -60,6 +67,10 @@
     {
       "id": "ND-004",
       "claimed_at": "2025-09-22T23:28:51Z"
+    },
+    {
+      "id": "ND-005",
+      "claimed_at": "2025-09-22T23:33:45Z"
     }
   ]
 }

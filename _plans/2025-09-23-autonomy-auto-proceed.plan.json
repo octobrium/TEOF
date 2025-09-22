@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-23-autonomy-auto-proceed",
+  "created": "2025-09-22T23:33:45Z",
+  "actor": "codex-5",
+  "summary": "Codify auto-consent policy and implement unattended autonomy loop",
+  "status": "queued",
+  "stage": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Draft auto-consent policy",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Write docs/automation/autonomy-consent.json describing guardrails and opt-out signals",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Extend autonomy runner",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Add auto loop (--auto) to tools.autonomy.next_step with policy enforcement + receipts",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Prove unattended run",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Execute auto loop run, capture receipts, and document operator switch-off instructions",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Auto-proceed enabled with documented guardrails",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}

@@ -91,3 +91,36 @@ def test_execute_action_apply(tmp_repo: Path, monkeypatch: pytest.MonkeyPatch, c
     assert calls == [False]
     captured = json.loads(capsys.readouterr().out)
     assert captured["action"]["result"]["dry_run"] is False
+
+
+def test_auto_mode(tmp_repo: Path, monkeypatch: pytest.MonkeyPatch, capsys):
+    todo_path = next_step.TODO_PATH
+    data = json.loads(todo_path.read_text(encoding="utf-8"))
+    data["items"].append(
+        {
+            "id": "ND-SECOND",
+            "title": "Second item",
+            "status": "pending",
+            "plan_suggestion": "PLAN-SECOND",
+            "notes": "auto test",
+        }
+    )
+    todo_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    monkeypatch.setattr(
+        next_step,
+        "_load_policy",
+        lambda path=next_step.CONSENT_POLICY_PATH: {
+            "auto_enabled": True,
+            "max_iterations": 2,
+            "require_execute": False,
+            "allow_apply": False,
+            "continuous": True,
+        },
+    )
+    monkeypatch.setattr(next_step.actions, "resolve", lambda plan_id: None)
+
+    rc = next_step.main(["--auto", "--skip-synth"])
+    assert rc == 0
+    output = json.loads(capsys.readouterr().out)
+    assert len(output["runs"]) >= 1

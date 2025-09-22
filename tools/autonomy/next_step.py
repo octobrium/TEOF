@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 TODO_PATH = ROOT / "_plans" / "next-development.todo.json"
 AUTH_JSON = ROOT / "_report" / "usage" / "external-authenticity.json"
 STATUS_PATH = ROOT / "_report" / "planner" / "validate" / "summary-latest.json"
+CONSENT_POLICY_PATH = ROOT / "docs" / "automation" / "autonomy-consent.json"
 
 
 class NextStepError(RuntimeError):
@@ -121,6 +122,25 @@ def select_next_step(
     return selected
 
 
+def _load_policy(path: Path = CONSENT_POLICY_PATH) -> Mapping[str, object]:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(data, Mapping):
+            return data
+    except FileNotFoundError:
+        pass
+    except json.JSONDecodeError:
+        pass
+    return {
+        "auto_enabled": False,
+        "max_iterations": 1,
+        "require_execute": True,
+        "allow_apply": False,
+        "halt_on_attention_feeds": True,
+        "halt_on_ci_failure": True,
+    }
+
+
 def _preflight(todo_path: Path) -> Mapping[str, object] | None:
     health_report = health_sensors.emit_health_report()
     synth = backlog_synth.synthesise(todo_path=todo_path)
@@ -152,6 +172,37 @@ def _execute_action(item: Mapping[str, object], *, apply_changes: bool) -> Mappi
     return serialisable
 
 
+def _run_once(
+    *,
+    claim: bool,
+    execute: bool,
+    apply_changes: bool,
+    skip_synth: bool,
+) -> Mapping[str, object] | None:
+    preflight = None
+    if not skip_synth:
+        preflight = _preflight(TODO_PATH)
+    item = select_next_step(
+        claim=claim,
+        todo_path=TODO_PATH,
+        auth_json=AUTH_JSON,
+        status_path=STATUS_PATH,
+        allow_failure=True,
+    )
+    if item is None:
+        return None
+    payload: Mapping[str, object] = dict(item)
+    if preflight is not None:
+        payload = dict(payload)
+        payload["preflight"] = preflight
+    if execute:
+        action_result = _execute_action(item, apply_changes=apply_changes)
+        if action_result is not None:
+            payload = dict(payload)
+            payload["action"] = action_result
+    return payload
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--claim", action="store_true", help="Mark the first pending item as in-progress")
@@ -171,34 +222,53 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Skip backlog synthesis/audit before selection",
     )
+    parser.add_argument(
+        "--auto",
+        action="store_true",
+        help="Automatically loop through backlog according to consent policy",
+    )
     args = parser.parse_args(argv)
 
-    preflight = None
-    if not args.skip_synth:
-        preflight = _preflight(TODO_PATH)
-    item = select_next_step(
+    if args.auto:
+        policy = _load_policy()
+        if not policy.get("auto_enabled"):
+            raise NextStepError("Auto mode disabled in policy")
+        execute = args.execute or bool(policy.get("require_execute", False))
+        apply_changes = args.apply and bool(policy.get("allow_apply", False))
+        max_iterations = int(policy.get("max_iterations", 1))
+        results: List[Mapping[str, object]] = []
+        for _ in range(max_iterations):
+            payload = _run_once(
+                claim=True,
+                execute=execute,
+                apply_changes=apply_changes,
+                skip_synth=args.skip_synth,
+            )
+            if payload is None:
+                break
+            results.append(payload)
+            if not policy.get("continuous", False):
+                break
+        if not results:
+            raise NextStepError("No pending items found")
+        output = {"runs": results}
+        print(json.dumps(output, ensure_ascii=False, indent=2))
+        if args.out:
+            args.out.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        return 0
+
+    payload = _run_once(
         claim=args.claim,
-        todo_path=TODO_PATH,
-        auth_json=AUTH_JSON,
-        status_path=STATUS_PATH,
-        allow_failure=False,
+        execute=args.execute,
+        apply_changes=args.apply,
+        skip_synth=args.skip_synth,
     )
-    if item is None:
+    if payload is None:
         raise NextStepError("No pending items found")
 
-    if args.execute:
-        action_result = _execute_action(item, apply_changes=args.apply)
-        if action_result is not None:
-            item = dict(item)
-            item["action"] = action_result
-    payload: Mapping[str, object] = item
-    if preflight is not None:
-        payload = dict(item)
-        payload["preflight"] = preflight
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
     if args.out:
         args.out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-
-    print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0
 
 
