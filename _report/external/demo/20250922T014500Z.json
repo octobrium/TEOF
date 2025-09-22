@@ -13,7 +13,6 @@
     }
   ],
   "hash_sha256": "05f64845a72b4c70ca5075cadfab7e039c750e37dbbb9df443de480fa33f5e62",
-  "signature": "YNWBu2n53Wjz50bKh-xK2ZZQ7dILaPYx59uoRwhI6krjFLZQOdwDDaHz5aF9L4ADpIsz4PVLOWKf6NK5gYBICQ==",
-  "public_key_id": "feed.demo-2025",
-  "plan_step_id": "S2"
+  "signature": "o1Emi23exMNG_gF_-veOPtBcD0-G_rmskahwSIbVGkxC0YeLtMedWWOHA3c10b3pUR8etXPuQv8FQQoaku6RDA==",
+  "public_key_id": "feed.demo-2025"
 }

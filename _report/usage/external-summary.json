@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-09-22T02:14:32Z",
+  "generated_at": "2025-09-22T22:05:45Z",
   "threshold_hours": 24.0,
   "feeds": {
     "demo": {
@@ -8,15 +8,142 @@
       "latest_receipt": "_report/external/demo/20250922T014500Z.json",
       "stale_count": 0,
       "invalid_signatures": 0,
-      "latest_age_seconds": 1772.723356
+      "latest_age_seconds": 73245.530231,
+      "latest_age_hours": 20.345980619722223,
+      "trust": {
+        "score": 1.0,
+        "status": "ok",
+        "signals": [],
+        "baseline": 0.85,
+        "tier_weight": 1.0,
+        "adjusted": 0.85
+      },
+      "authenticity": {
+        "tier": "primary_truth",
+        "weight": 1.0
+      },
+      "steward": {
+        "id": "codex-5",
+        "label": "codex-5 (automation steward)",
+        "display_name": "Automation Steward",
+        "capabilities": [
+          "external_adapter",
+          "summary_refresh",
+          "registry_maintenance"
+        ],
+        "obligations": [
+          "refresh_summary_post_run",
+          "update_registry_post_run",
+          "respond_to_registry_alerts"
+        ],
+        "trust_baseline": 0.85,
+        "contact": "codex-5@teof",
+        "notes": null,
+        "authenticity": "primary_truth",
+        "authenticity_weight": 1.0
+      }
+    },
+    "sample": {
+      "receipt_count": 1,
+      "latest_issued_at": "2025-09-22T22:10:00Z",
+      "latest_receipt": "_report/external/sample/20250922T221000Z.json",
+      "stale_count": 0,
+      "invalid_signatures": 0,
+      "latest_age_seconds": -254.46976,
+      "latest_age_hours": -0.07068604444444444,
+      "trust": {
+        "score": 1.0,
+        "status": "ok",
+        "signals": [],
+        "baseline": 0.85,
+        "tier_weight": 0.8,
+        "adjusted": 0.68
+      },
+      "authenticity": {
+        "tier": "unassigned",
+        "weight": 0.8
+      },
+      "steward": {
+        "id": "codex-5",
+        "label": "codex-5 (automation steward)",
+        "display_name": "Automation Steward",
+        "capabilities": [
+          "external_adapter",
+          "summary_refresh",
+          "registry_maintenance"
+        ],
+        "obligations": [
+          "refresh_summary_post_run",
+          "update_registry_post_run",
+          "respond_to_registry_alerts"
+        ],
+        "trust_baseline": 0.85,
+        "contact": "codex-5@teof",
+        "notes": null,
+        "authenticity": "unassigned",
+        "authenticity_weight": 0.8
+      }
     }
   },
-  "invalid_receipts": [
-    {
-      "path": "_report/external/demo/20250922T014500Z.json",
-      "error": "hash_mismatch"
+  "invalid_receipts": [],
+  "stewards": {
+    "codex-5": {
+      "id": "codex-5",
+      "label": "codex-5 (automation steward)",
+      "display_name": "Automation Steward",
+      "capabilities": [
+        "external_adapter",
+        "summary_refresh",
+        "registry_maintenance"
+      ],
+      "obligations": [
+        "refresh_summary_post_run",
+        "update_registry_post_run",
+        "respond_to_registry_alerts"
+      ],
+      "trust_baseline": 0.85,
+      "contact": "codex-5@teof",
+      "notes": null,
+      "feeds": [
+        {
+          "feed_id": "demo",
+          "trust_adjusted": 0.85,
+          "latest_receipt": "_report/external/demo/20250922T014500Z.json",
+          "status": "ok"
+        },
+        {
+          "feed_id": "sample",
+          "trust_adjusted": 0.68,
+          "latest_receipt": "_report/external/sample/20250922T221000Z.json",
+          "status": "ok"
+        }
+      ]
     }
-  ],
-  "plan_id": "2025-09-22-external-feed-demo",
-  "plan_step_id": "S3"
+  },
+  "authenticity": {
+    "primary_truth": {
+      "weight": 1.0,
+      "feeds": [
+        {
+          "feed_id": "demo",
+          "trust_adjusted": 0.85,
+          "steward_id": "codex-5",
+          "status": "ok"
+        }
+      ],
+      "count": 1
+    },
+    "unassigned": {
+      "weight": 0.8,
+      "feeds": [
+        {
+          "feed_id": "sample",
+          "trust_adjusted": 0.68,
+          "steward_id": "codex-5",
+          "status": "ok"
+        }
+      ],
+      "count": 1
+    }
+  }
 }

@@ -5,8 +5,9 @@ Purpose: record who stewards each external adapter feed, where its receipts land
 | feed_id | steward | plan_id | key_id | latest_receipt | summary |
 | --- | --- | --- | --- | --- | --- |
 | demo | codex-5 (automation steward) | [`2025-09-22-external-feed-demo`](../../_plans/2025-09-22-external-feed-demo.plan.json) | [`feed.demo-2025`](../../governance/keys/feed.demo-2025.pub) | [`_report/external/demo/20250922T014500Z.json`](../../_report/external/demo/20250922T014500Z.json) | [`_report/usage/external-summary.json`](../../_report/usage/external-summary.json) |
+| sample | codex-5 (automation steward) | [`2025-09-21-automation-governance-upgrade`](../../_plans/2025-09-21-automation-governance-upgrade.plan.json) | [`feed.sample-2025`](../../governance/keys/feed.sample-2025.pub) | [`_report/external/sample/20250922T221000Z.json`](../../_report/external/sample/20250922T221000Z.json) | [`_report/usage/external-summary.json`](../../_report/usage/external-summary.json) |
 
 - Anchor event: see `governance/anchors.json` entry for `feed.demo-2025` to confirm signing lineage and rotation history.
+- Sample feed anchored under `feed.sample-2025` for automation demos; rotate after stewardship transfer.
 - Health signals: `teof-external-summary` refreshes `_report/usage/external-summary.json`; record the latest output above after every signed run.
 - Receipt cadence: when new receipts arrive, append them under `_report/external/<feed>/` and update the `latest_receipt` pointer here.
-

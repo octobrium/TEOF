@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-09-22T22:06:57Z",
+  "branch": null,
+  "engineer": "codex-5",
+  "manager": "codex-4",
+  "note": "Authenticity tier primary_truth below threshold for consecutive runs; feeds sample:0.51 (avg=0.510).",
+  "plan_id": null,
+  "task_id": "AUTH-PRIMARY_TRUTH-codex-5-20250922"
+}

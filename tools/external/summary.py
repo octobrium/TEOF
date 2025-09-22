@@ -724,6 +724,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if not feedback_path.is_absolute():
         feedback_path = ROOT / feedback_path
     feedback_payload = _write_feedback(summary, feedback_path)
+    auth_threshold = None if args.disable_auth_alert or args.auth_alert_threshold <= 0 else args.auth_alert_threshold
     try:
         from . import authenticity_report
     except ImportError:
@@ -744,7 +745,44 @@ def main(argv: Sequence[str] | None = None) -> int:
         docs_auth_md = ROOT / "docs" / "usage" / "external-authenticity.md"
         docs_auth_md.parent.mkdir(parents=True, exist_ok=True)
         docs_auth_md.write_text(auth_md.read_text(encoding="utf-8"), encoding="utf-8")
-    auth_threshold = None if args.disable_auth_alert or args.auth_alert_threshold <= 0 else args.auth_alert_threshold
+        try:
+            from tools.agent import authenticity_escalation
+        except ImportError:
+            authenticity_escalation = None
+        if authenticity_escalation is not None:
+            escalation_plan_id = summary.get("plan_id") if isinstance(summary.get("plan_id"), str) else None
+            escalation_threshold = auth_threshold if auth_threshold is not None else args.auth_alert_threshold
+            if escalation_threshold and escalation_threshold > 0:
+                try:
+                    authenticity_escalation.process_authenticity(
+                        auth_json=auth_json,
+                        summary_json=output_path,
+                        state_path=authenticity_escalation.DEFAULT_STATE_PATH,
+                        receipt_path=authenticity_escalation.DEFAULT_RECEIPT_PATH,
+                        threshold=escalation_threshold,
+                        streak_required=2,
+                        manager="codex-4",
+                        plan_id=escalation_plan_id,
+                        task_prefix="AUTH",
+                        auto_claim=False,
+                        dry_run=False,
+                    )
+                except Exception:
+                    pass
+        try:
+            from tools.autonomy import chronicle as chronicle_module
+        except ImportError:
+            chronicle_module = None
+        if chronicle_module is not None:
+            try:
+                chronicle_module.record_entry(
+                    summary,
+                    markdown_path=chronicle_module.DEFAULT_MARKDOWN,
+                    ledger_dir=chronicle_module.DEFAULT_LEDGER_DIR,
+                    max_entries=getattr(chronicle_module, "DEFAULT_ENTRY_LIMIT", 14),
+                )
+            except Exception:
+                pass
     _alert_authenticity(summary, auth_threshold)
     _suggest_next_step()
     if args.strict and (summary["invalid_receipts"] or any(f["invalid_signatures"] for f in summary["feeds"].values())):

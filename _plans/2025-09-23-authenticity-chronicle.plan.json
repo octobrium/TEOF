@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-23-authenticity-chronicle",
+  "created": "2025-09-22T22:05:00Z",
+  "actor": "codex-5",
+  "summary": "Append authenticity stats to the daily Chronicle and expose automation hooks",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design Chronicle structure",
+      "status": "done",
+      "notes": "Defined ledger structure + Chronicle markdown format aligned with authenticity tiers",
+      "receipts": [
+        "docs/adoption/external-feed-registry.config.json",
+        "docs/adoption/external-feed-registry.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement Chronicle writer",
+      "status": "done",
+      "notes": "Added tools/autonomy/chronicle.py with ledger + markdown outputs and tests",
+      "receipts": [
+        "tools/autonomy/chronicle.py",
+        "tests/test_autonomy_chronicle.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Integrate with autonomy loop",
+      "status": "done",
+      "notes": "Summary CLI now generates Chronicle entries; docs + summary tests updated",
+      "receipts": [
+        "tools/external/summary.py",
+        "docs/automation.md",
+        "docs/usage/chronicle.md",
+        "_report/usage/chronicle/20250922T220545Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Chronicle entries auto-refresh alongside authenticity summary",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "tools/autonomy/chronicle.py",
+    "docs/usage/chronicle.md",
+    "_report/usage/chronicle/20250922T220545Z.json"
+  ]
+}

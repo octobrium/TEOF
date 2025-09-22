@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-23-authenticity-steward-alerts",
+  "created": "2025-09-22T21:33:30Z",
+  "actor": "codex-5",
+  "summary": "Automate authenticity tier alerts into steward assignments",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design escalation criteria and state tracking",
+      "status": "done",
+      "notes": "Defined threshold=0.6, streak=2, steward mapping via external summary feeds",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement authenticity escalation sentinel",
+      "status": "done",
+      "notes": "Added tools/agent/authenticity_escalation with summary integration to assign steward tasks",
+      "receipts": [
+        "tools/agent/authenticity_escalation.py",
+        "tools/external/summary.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document and validate automation",
+      "status": "done",
+      "notes": "Documented escalation in docs/automation.md and added pytest coverage",
+      "receipts": [
+        "tests/test_authenticity_escalation.py",
+        "docs/automation.md",
+        "_report/agent/teof-auth-monitor/escalations.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Authenticity alerts produce steward-specific tasks after repeat degradation",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "tools/agent/authenticity_escalation.py",
+    "_report/agent/teof-auth-monitor/escalations.json"
+  ]
+}

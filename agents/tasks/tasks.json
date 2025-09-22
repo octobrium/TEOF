@@ -252,13 +252,13 @@
       "id": "QUEUE-037",
       "plan_id": "2025-09-19-manifest-swap",
       "priority": "medium",
-      "role": "engineer",
-      "status": "done",
-      "title": "QUEUE-037",
       "receipts": [
         "_plans/2025-09-19-manifest-swap.plan.json",
         "_report/agent/codex-2/queue-040/summary.json"
-      ]
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-037"
     },
     {
       "assigned_by": "codex-4",
@@ -418,26 +418,36 @@
       "title": "Coordination Dashboard"
     },
     {
-      "id": "QUEUE-040",
-      "title": "Docs quick-links surface",
-      "status": "done",
       "branch": "agent/codex-2/queue-040",
+      "id": "QUEUE-040",
       "plan_id": "2025-09-19-docs-quicklinks-codex2",
       "receipts": [
         "_report/agent/codex-2/queue-040/summary.json"
       ],
-      "role": "docs"
+      "role": "docs",
+      "status": "done",
+      "title": "Docs quick-links surface"
     },
     {
-      "id": "QUEUE-042",
-      "title": "Coordination Dashboard",
-      "status": "done",
       "branch": "agent/codex-2/queue-042",
+      "id": "QUEUE-042",
       "plan_id": "2025-09-19-coordination-dashboard-codex2",
       "receipts": [
         "_report/agent/codex-2/queue-042/summary.json"
       ],
-      "role": "automation"
+      "role": "automation",
+      "status": "done",
+      "title": "Coordination Dashboard"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": null,
+      "id": "AUTH-PRIMARY_TRUTH-codex-5-20250922",
+      "plan_id": null,
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "AUTH-PRIMARY_TRUTH-codex-5-20250922"
     }
   ],
   "version": 1

@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 import scripts.ci.check_vdp as check_vdp
-from tools.autonomy import next_step
+from tools.autonomy import chronicle, next_step
 from tools.external import adapter, authenticity_report, registry_check, summary
 
 pytest.importorskip("nacl")
@@ -49,6 +49,10 @@ def _prepare_environment(tmp_path: Path):
     authenticity_report.DEFAULT_FEEDBACK = summary.DEFAULT_FEEDBACK_OUTPUT  # type: ignore[attr-defined]
     authenticity_report.DEFAULT_MARKDOWN = summary.DEFAULT_AUTH_MD  # type: ignore[attr-defined]
     authenticity_report.DEFAULT_JSON = summary.DEFAULT_AUTH_JSON  # type: ignore[attr-defined]
+
+    chronicle.ROOT = tmp_path  # type: ignore[attr-defined]
+    chronicle.DEFAULT_MARKDOWN = tmp_path / "docs" / "usage" / "chronicle.md"  # type: ignore[attr-defined]
+    chronicle.DEFAULT_LEDGER_DIR = tmp_path / "_report" / "usage" / "chronicle"  # type: ignore[attr-defined]
 
     todo_path = tmp_path / "_plans" / "next-development.todo.json"
     todo_path.parent.mkdir(parents=True, exist_ok=True)
@@ -311,6 +315,19 @@ def test_summary_updates_registry(tmp_path: Path, signing_pair):
     suggestion = next_step.select_next_step(allow_failure=False)  # type: ignore[attr-defined]
     assert suggestion["id"] == "ND-001"
     assert any("next-step" in " ".join(argv) for argv in bus_calls)
+
+    chronicle_doc = chronicle.DEFAULT_MARKDOWN  # type: ignore[attr-defined]
+    assert chronicle_doc.exists()
+    chronicle_text = chronicle_doc.read_text(encoding="utf-8")
+    assert "Authenticity Chronicle" in chronicle_text
+    assert "Authenticity Snapshot" in chronicle_text
+    ledger_dir = chronicle.DEFAULT_LEDGER_DIR  # type: ignore[attr-defined]
+    assert ledger_dir.exists()
+    ledger_files = list(ledger_dir.glob("*.json"))
+    assert ledger_files
+    ledger_payload = json.loads(ledger_files[0].read_text(encoding="utf-8"))
+    assert ledger_payload["feeds"]
+    assert ledger_payload["tiers"]
 
 
     row = [line for line in registry_path.read_text(encoding="utf-8").splitlines() if line.startswith("| sample")]

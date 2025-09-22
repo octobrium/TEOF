@@ -53,7 +53,13 @@ def _ci_ok(status_path: Path) -> bool:
     status = _load_json(status_path)
     if not status:
         return True
-    return status.get("status") == "ok"
+    state = status.get("status")
+    if isinstance(state, str):
+        return state.lower() == "ok"
+    exit_code = status.get("exit_code")
+    if isinstance(exit_code, int):
+        return exit_code == 0
+    return True
 
 
 def _iso_now() -> str:

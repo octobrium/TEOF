@@ -132,7 +132,7 @@ For tier-level visibility, run `python -m tools.external.authenticity_report` (o
 
 The summary CLI already regenerates both files after each run; use the command above only when you need to recompute dashboards from archived data.
 The Markdown dashboard is also mirrored to `docs/usage/external-authenticity.md` so STATUS reports and docs always reflect the latest run.
-When a tier’s adjusted trust drops below `--auth-alert-threshold` (default `0.6`) or any feed enters an attention state, the summary CLI logs a bus status event (`teof-auth-monitor`) so managers can react immediately.
+When a tier’s adjusted trust drops below `--auth-alert-threshold` (default `0.6`) or any feed enters an attention state, the summary CLI logs a bus status event (`teof-auth-monitor`) so managers can react immediately. The same run now also feeds `tools.agent.authenticity_escalation`, which keeps streak state under `_report/agent/teof-auth-monitor/` and, after two consecutive degraded runs, auto-assigns steward tasks (`AUTH-<tier>-<steward>-<date>`) via the bus to force remediation.
 Agents can consult `_plans/next-development.todo.json` and run `python -m tools.autonomy.next_step --claim` to adopt the next sanctioned refinement once authenticity and CI guardrails pass.
 
 ### External feed adoption playbook

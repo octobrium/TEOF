@@ -1,0 +1,41 @@
+{
+  "generated_at": "2025-09-22T22:05:45Z",
+  "overall_adjusted_trust": 0.765,
+  "feed_count": 2,
+  "tiers": [
+    {
+      "tier": "primary_truth",
+      "weight": 1.0,
+      "feed_count": 1,
+      "avg_adjusted_trust": null,
+      "attention_feeds": []
+    },
+    {
+      "tier": "unassigned",
+      "weight": 0.8,
+      "feed_count": 1,
+      "avg_adjusted_trust": null,
+      "attention_feeds": []
+    }
+  ],
+  "feeds": [
+    {
+      "feed_id": "demo",
+      "tier": "primary_truth",
+      "status": "ok",
+      "adjusted_trust": 0.85,
+      "baseline_trust": 0.85,
+      "steward_id": "codex-5"
+    },
+    {
+      "feed_id": "sample",
+      "tier": "unassigned",
+      "status": "ok",
+      "adjusted_trust": 0.68,
+      "baseline_trust": 0.85,
+      "steward_id": "codex-5"
+    }
+  ],
+  "attention_feeds": [],
+  "source": "external-summary"
+}
