@@ -1,0 +1,13 @@
+{
+  "generated_at": "2025-09-21T21:15:30Z",
+  "strict": true,
+  "exit_code": 0,
+  "plans": [
+    {
+      "path": "_plans/2025-09-21-ci-vdp-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-ci-vdp-automation"
+    }
+  ]
+}

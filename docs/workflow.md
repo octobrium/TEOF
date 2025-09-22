@@ -29,12 +29,13 @@ Review cadence: Monthly sweep
 **Operating order**
 1) Confirm structure matches `docs/architecture.md`.  
 2) Produce an E2E plan using `docs/quickstart.md` (exact commands, no guessing) and drop it in `_plans/` (`*.plan.json`). Validate with `python3 tools/planner/validate.py`.  
-3) Verify enforcement: confirm `scripts/policy_checks.sh` exists and is called in CI; if missing, output a minimal step to add it.  
-4) Triangulate gaps: if Quickstart or imports/paths are stale, propose the smallest patches to make them true.  
-5) Output a prioritized plan (next 3–6 steps) to make the repo self-propagating (CLI → CI → freeze → docs).  
-6) Seed `_bus/claims/<task>.json` before posting assignment/status bus messages: `python -m tools.agent.claim_seed --task <id> --agent <future-owner> --plan <plan-id> --branch agent/<future-owner>/<slug>` (check `--help` for `--status`/`--notes`). This keeps the `bus_message` claim guard satisfied; include a `python -m tools.agent.session_brief --task <id>` snippet in the assignment hand-off so the assignee can replay the staged context.  
-7) After releasing a claim, run `python -m tools.agent.task_sync` so `agents/tasks/tasks.json` mirrors claim status.  
-8) Only if rules block progress: propose a minimal DNA edit via a one-page Meta‑TEP (Problem, Proposal, Alternatives, Impact, Rollback).
+ 3) Verify enforcement: confirm `scripts/policy_checks.sh` and `scripts/ci/check_vdp.py` run in CI; the latter blocks volatile data without timestamps/sources using the fixtures in `datasets/goldens/`.  
+ 4) Triangulate gaps: if Quickstart or imports/paths are stale, propose the smallest patches to make them true.  
+ 5) Output a prioritized plan (next 3–6 steps) to make the repo self-propagating (CLI → CI → freeze → docs).  
+ 6) Seed `_bus/claims/<task>.json` before posting assignment/status bus messages: `python -m tools.agent.claim_seed --task <id> --agent <future-owner> --plan <plan-id> --branch agent/<future-owner>/<slug>` (check `--help` for `--status`/`--notes`). This keeps the `bus_message` claim guard satisfied; include a `python -m tools.agent.session_brief --task <id>` snippet in the assignment hand-off so the assignee can replay the staged context.  
+ 7) After releasing a claim, run `python -m tools.agent.task_sync` so `agents/tasks/tasks.json` mirrors claim status.  
+ 8) Only if rules block progress: propose a minimal DNA edit via a one-page Meta‑TEP (Problem, Proposal, Alternatives, Impact, Rollback).
+  9) For external feeds, open a plan, register the signing key (anchors entry), build `python -m tools.external.adapter` receipts, and extend `scripts/ci/check_vdp.py` + dashboards before promoting.
    - Draft the idea in `docs/proposals/` first (see `docs/proposals/README.md`) so other seats can review before it graduates to a Meta‑TEP.
 
 **Response format**
@@ -46,6 +47,21 @@ Review cadence: Monthly sweep
 **Non-goals**
 - No new CI rules unless they protect the kernel import boundary.
 - No new top-level folders unless justified via a 1‑page TEP.
+
+---
+
+## Top-layer adoption blueprint
+
+TEOF can sit at a platform’s highest policy layer when three strands stay intact:
+
+- **Observable value:** OCERS + VDP receipts make volatile claims auditable (timestamp + source) and batch refinement proves automation runs the same playbook as humans. Market it as “fewer incidents, faster attestations.”
+- **Shared governance:** keep the constitution append-only (`governance/anchors.json`) and invite the host’s stewards into Meta‑TEP + anchors flow so rule changes are transparent, receipt-backed, and reversible.
+- **Clear rollout:**
+  1. **Pilot** a high-risk surface (e.g., volatile data output) with `scripts/ci/check_vdp.py`, attach plan receipts, and publish the audit bundle.
+  2. **Harden** proof: sign receipts, mirror `_report/**` into tamper-evident storage, and script escalations when automation must pause for humans.
+  3. **Integrate** platform safety: map existing redlines (content policy, privacy) to OCERS objectives, encode matching guards, and prove coverage via `_plans/*` + anchors events before elevating TEOF to the top layer.
+
+This keeps Observation → Ethics → Self-repair coherent while giving companies the confidence levers—deterministic audits, shared stewardship, incremental adoption—to promote TEOF without diluting the constitution.
 
 ---
 
@@ -62,7 +78,7 @@ Review cadence: Monthly sweep
 - **Single Source of Truth:** immutable baselines live under `capsule/<version>/` and are covered by `capsule/<version>/hashes.json`. `capsule/current` is a symlink to the active version (release tooling also accepts a plain-text pointer as a portability fallback).
 - **Determinism:** commands run reproducibly on a clean machine (no hidden state, same output paths).
 - **Append-Only Governance:** `governance/anchors.json` is append-only; releases map to a baseline with a `prev_content_hash`.
-- **Observation Discipline:** claims follow [VDP](foundation/alignment-protocol/TAP.md#volatile-data-protocol-vdp-and-ogs-requirements); reasoning can be scored with [OGS](OGS-spec.md). Use **N/A** when not applicable.
+- **Observation Discipline:** claims follow [VDP](foundation/alignment-protocol/TAP.md#volatile-data-protocol-vdp-and-ogs-requirements); reasoning can be scored with [OGS](OGS-spec.md). The `check_vdp` guard and golden fixtures keep receipts citational; use **N/A** when not applicable.
 - **Stable Interfaces:** prefer console scripts (`teof-validate`, `teof-ensemble`) or `python -m …` over deep file paths.
 - **Quickstart Guard:** CI runs the canonical smoke test (`scripts/ci/quickstart_smoke.sh`) so the snippet in docs stays runnable; any divergence fails guardrails.
 

@@ -51,6 +51,82 @@ def _default_log_dir() -> Path:
     return usage_dir / BATCH_LOG_DIR_NAME
 
 
+def _load_batch_logs(log_dir: Path) -> list[dict[str, Any]]:
+    entries: list[dict[str, Any]] = []
+    if not log_dir.exists():
+        return entries
+    for path in sorted(log_dir.glob("batch-refinement-*.json")):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        payload["_path"] = path
+        entries.append(payload)
+    return entries
+
+
+def _write_batch_summary(log_dir: Path) -> tuple[dict[str, Any], Path] | tuple[None, None]:
+    logs = _load_batch_logs(log_dir)
+    if not logs:
+        return None, None
+
+    total_runs = len(logs)
+    pytest_total = 0.0
+    hygiene_total = 0.0
+    duration_count = 0
+    missing_receipt_runs = 0
+    latency_alert_runs = 0
+    last_failure = None
+
+    for entry in logs:
+        metrics = entry.get("metrics") or {}
+        pytest_seconds = metrics.get("pytest_seconds")
+        hygiene_seconds = metrics.get("hygiene_seconds")
+        if isinstance(pytest_seconds, (int, float)) and isinstance(hygiene_seconds, (int, float)):
+            duration_count += 1
+            pytest_total += pytest_seconds
+            hygiene_total += hygiene_seconds
+        missing = metrics.get("missing_receipts")
+        if isinstance(missing, int) and missing > 0:
+            missing_receipt_runs += 1
+        if entry.get("latency_alerts"):
+            latency_alert_runs += 1
+        summary_field = entry.get("operator_preset", {}).get("summary")
+        if summary_field in {"fail", "error"}:
+            last_failure = entry.get("generated_at")
+
+    avg_pytest = pytest_total / duration_count if duration_count else None
+    avg_hygiene = hygiene_total / duration_count if duration_count else None
+
+    last_path = logs[-1]["_path"]
+    try:
+        last_rel = str(last_path.relative_to(ROOT))
+    except (ValueError, AttributeError):
+        last_rel = str(last_path)
+
+    summary_payload = {
+        "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "total_runs": total_runs,
+        "average": {
+            "pytest_seconds": avg_pytest,
+            "hygiene_seconds": avg_hygiene,
+        },
+        "missing_receipt_runs": missing_receipt_runs,
+        "latency_alert_runs": latency_alert_runs,
+        "last_failure_at": last_failure,
+        "latest_log": {
+            "generated_at": logs[-1].get("generated_at"),
+            "agent": logs[-1].get("agent"),
+            "summary": logs[-1].get("operator_preset", {}).get("summary"),
+            "log_path": last_rel,
+        },
+    }
+
+    summary_path = log_dir / "summary.json"
+    summary_path.write_text(json.dumps(summary_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return summary_payload, summary_path
+
+
 def _refresh_autonomy_status(logs: List[Dict[str, Any]]) -> tuple[Dict[str, Any], Path]:
     """Write the autonomy status summary and return payload/path."""
 
@@ -213,13 +289,26 @@ def run_batch(
             write=not latency_dry_run,
         )
         report["latency_alerts"] = latency_result["alerts"]
-        if latency_result["receipt_path"] is not None:
-            receipt_path = latency_result["receipt_path"]
-            report["latency_receipt"] = str(receipt_path.relative_to(ROOT)) if receipt_path.is_relative_to(ROOT) else str(receipt_path)
+        receipt_path = latency_result.get("receipt_path")
+        if receipt_path is not None:
+            report["latency_receipt"] = (
+                str(receipt_path.relative_to(ROOT))
+                if receipt_path.is_relative_to(ROOT)
+                else str(receipt_path)
+            )
             log_payload["latency_receipt"] = report["latency_receipt"]
         log_payload["latency_alerts"] = latency_result["alerts"]
 
     log_path.write_text(json.dumps(log_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    summary_payload, summary_path = _write_batch_summary(log_directory)
+    if summary_payload is not None and summary_path is not None:
+        report["batch_summary"] = {
+            "path": str(summary_path.relative_to(ROOT)) if summary_path.is_relative_to(ROOT) else str(summary_path),
+            "metrics": summary_payload,
+        }
+        log_payload["batch_summary"] = report["batch_summary"]
+        log_path.write_text(json.dumps(log_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     return report
 

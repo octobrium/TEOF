@@ -38,6 +38,9 @@ fi
 if [ -x "scripts/ci/check_plans.py" ]; then
   scripts/ci/check_plans.py
 fi
+if [ -x "scripts/ci/check_vdp.py" ]; then
+  python3 scripts/ci/check_vdp.py
+fi
 
 # 4) Determinism hygiene (CRLF, .DS_Store, exec bits)
 if git ls-files -z | xargs -0 file | grep -q 'CRLF'; then

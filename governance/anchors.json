@@ -34,6 +34,23 @@
       "by": "codex-4",
       "scope": "L1",
       "note": "Consolidate L1: single canonical P1–P7; mark other L1 docs advisory; add core index; align architecture coverage to bindings.yml; clarify DNA symlink wording"
+    },
+    {
+      "type": "canon-change",
+      "ts": "2025-09-21T21:46:00Z",
+      "by": "codex-5",
+      "scope": "L6",
+      "note": "Introduce Automation canon v1.0; require signed external receipt envelopes and authenticated intake property",
+      "prev_content_hash": "898a9c412035e6239bbd859f32f8807ddb1b144d6514f2b3e13569cff4d302c9"
+    },
+    {
+      "type": "key",
+      "ts": "2025-09-22T01:45:00Z",
+      "by": "codex-5",
+      "note": "Register feed.demo-2025 Ed25519 key for external adapter pilot",
+      "key_id": "feed.demo-2025",
+      "public_key_path": "governance/keys/feed.demo-2025.pub",
+      "prev_content_hash": "aa001c6c5868364275f16c9da5670d86e2c147c0c9deea7b3e8acb114cfd1e98"
     }
   ],
   "releases": []

@@ -7,11 +7,14 @@ Versioning: SemVer (0.y until first stable)
 ---
 
 ## [Unreleased]
+### Added
+- Volatile Data Protocol guard (`scripts/ci/check_vdp.py`) enforces timestamps and sources with fixtures in `datasets/goldens/`.
+- Additional VDP fixtures cover future-dated quotes, non-volatile context, and invalid timestamps to exercise guard edges.
+- External receipt adapter, keygen, and summary CLIs (`tools/external/adapter.py`, `tools/external/keys.py`, `tools/external/summary.py`) plus signed envelope canon and guard hooks in `scripts/ci/check_vdp.py`.
+
 > Tracking work intended for the *next* tag. Use this list instead of a standalone TODO.
 
 ### Planned
-- **Evaluator in CI**: enforce OGS/VDP; PRs with uncited volatile data fail.
-- **Golden test cases** (`datasets/goldens/`): pass/fail examples for stale/uncited items.
 - **Event staleness filter** (configurable 24h window).
 - **Event severity tagging** (`low/medium/high`) + brief synthesis notes.
 

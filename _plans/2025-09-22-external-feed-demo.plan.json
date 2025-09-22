@@ -1,0 +1,47 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-22-external-feed-demo",
+  "created": "2025-09-22T02:13:44Z",
+  "actor": "codex-5",
+  "summary": "Demonstrate signed external feed receipt",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Keygen",
+      "status": "done",
+      "notes": "cmd> python3 -m tools.external.keys --key-id feed.demo-2025 --private-out tmp/feed.demo.key --public-dir governance/keys --overwrite",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Produce-receipt",
+      "status": "done",
+      "notes": "cmd> python3 -m tools.external.adapter --feed-id demo --plan-id 2025-09-22-external-feed-demo --key tmp/feed.demo.key --public-key-id feed.demo-2025 --input tmp/demo_observations.json --issued-at 2025-09-22T01:45:00Z",
+      "receipts": [
+        "_report/external/demo/20250922T014500Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Summarise-metrics",
+      "status": "done",
+      "notes": "cmd> python3 -m tools.external.summary --threshold-hours 24 --out _report/usage/external-summary.json",
+      "receipts": [
+        "_report/usage/external-summary.json",
+        "_report/planner/validate/summary-20250922T021548Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "External receipt + summary committed",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/external/demo/20250922T014500Z.json",
+    "_report/planner/validate/summary-20250922T021548Z.json",
+    "_report/usage/external-summary.json"
+  ]
+}

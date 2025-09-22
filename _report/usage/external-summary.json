@@ -1,0 +1,22 @@
+{
+  "generated_at": "2025-09-22T02:14:32Z",
+  "threshold_hours": 24.0,
+  "feeds": {
+    "demo": {
+      "receipt_count": 1,
+      "latest_issued_at": "2025-09-22T01:45:00Z",
+      "latest_receipt": "_report/external/demo/20250922T014500Z.json",
+      "stale_count": 0,
+      "invalid_signatures": 0,
+      "latest_age_seconds": 1772.723356
+    }
+  },
+  "invalid_receipts": [
+    {
+      "path": "_report/external/demo/20250922T014500Z.json",
+      "error": "hash_mismatch"
+    }
+  ],
+  "plan_id": "2025-09-22-external-feed-demo",
+  "plan_step_id": "S3"
+}

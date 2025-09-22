@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-ci-vdp-automation",
+  "created": "2025-09-21T21:06:15Z",
+  "actor": "codex-5",
+  "summary": "Ship VDP guard + refine batch automation",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Assess-surfaces",
+      "status": "done",
+      "notes": "cmd> ls docs/examples/brief/goldens\\ncmd> sed -n '1,200p' capsule/v1.6/volatile-data-protocol.md\\ncmd> sed -n '1,200p' scripts/ci/check_plans.py\\ncmd> sed -n '1,200p' tools/agent/batch_refinement.py",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Guard-implementation",
+      "status": "done",
+      "notes": "cmd> cat > datasets/goldens/pass_04_future_timestamp.json\\ncmd> cat > datasets/goldens/pass_05_nonvolatile.json\\ncmd> cat > datasets/goldens/fail_04_invalid_timestamp.json\\ncmd> apply_patch datasets/goldens/README.md",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Refinement-upgrade",
+      "status": "done",
+      "notes": "cmd> apply_patch tools/agent/batch_refinement.py (summary support)\\ncmd> apply_patch tests/test_batch_refinement.py (assertions)\\ncmd> apply_patch tools/agent/batch_refinement.py (latency receipt guard)\\ncmd> apply_patch tests/test_vdp_guard.py (stale label check)",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Tests-and-docs",
+      "status": "done",
+      "notes": "cmd> pytest (full suite)\\ncmd> pytest tests/test_vdp_guard.py tests/test_ci_check_vdp.py\\ncmd> python3 scripts/ci/check_vdp.py",
+      "receipts": [
+        "_report/planner/validate/summary-20250921T211530Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "VDP guard enforced + automation receipts verified",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/planner/validate/summary-20250921T211530Z.json"
+  ]
+}

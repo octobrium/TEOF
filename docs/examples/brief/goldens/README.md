@@ -1,3 +1,5 @@
-These fixtures use recognizable tickers (BTC, NVDA, IBIT, PLTR, MSTR) purely as test data
-to exercise the Volatile Data Protocol (VDP). They are not endorsements, signals, or hard
-dependencies. Any label could be substituted; the evaluator logic is domain-agnostic.
+# Golden fixtures moved
+
+The Volatile Data Protocol pass/fail fixtures now live under `datasets/goldens/`
+so CI can enforce them directly. See that directory for the canonical JSON
+examples and guard coverage.

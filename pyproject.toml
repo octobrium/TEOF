@@ -8,15 +8,21 @@ version = "0.1.0a2"
 description = "TEOF OCERS tooling (heuristic + ensemble)"
 readme = "README.md"
 requires-python = ">=3.9"
+dependencies = [
+    "PyNaCl>=1.5",
+]
 
 [project.scripts]
 teof = "teof.bootloader:main"
 teof-validate = "extensions.validator.teof_ocers_min:main"
 teof-ensemble = "extensions.validator.scorers.ensemble_cli:main"
 teof-plan = "tools.planner.cli:main"
+teof-external-adapter = "tools.external.adapter:main"
+teof-external-summary = "tools.external.summary:main"
+teof-external-keygen = "tools.external.keys:main"
 
 [tool.setuptools]
 include-package-data = true
 
 [tool.setuptools.packages.find]
-include = ["extensions*", "teof*"]
+include = ["extensions*", "teof*", "tools*"]

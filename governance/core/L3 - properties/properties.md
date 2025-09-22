@@ -40,16 +40,17 @@ Properties are organized in the natural order of systemic emergence: **Unity →
 10. **Legible Continuity** – keeps lineage readable and prevents silent capture.  
 11. **Self-Audit & Drift Detection** – continuously inspects itself for bias, stagnation, or corruption.  
 12. **Outcome Auditing of Distortion** – measures whether interventions improve or degrade clarity.
+13. **Authenticated Intake Envelope** – accepts external signals only through signed, tamper-evident receipts that preserve provenance, enforce freshness windows, and block unsigned data from propagating.
 
 ---
 
 ### 5. Intelligence & Truth
-13. **Clarity-Weighted Action** – scales action to the clarity of evidence.  
-14. **Dynamic Equilibrium** – preserves contrast and diversity without losing stability, 
+14. **Clarity-Weighted Action** – scales action to the clarity of evidence.  
+15. **Dynamic Equilibrium** – preserves contrast and diversity without losing stability, 
 actively tuning the balance between unifying forces and decentralizing pressures over time.
-15. **Adaptive Mutation with Core Integrity** – allows safe experimentation without losing canon.  
-16. **Iterative Integration** – learns from change and converges toward coherence.  
-17. **Mirror Fitness Function** – quantifies clarity and coherence as a north-star metric.
+16. **Adaptive Mutation with Core Integrity** – allows safe experimentation without losing canon.  
+17. **Iterative Integration** – learns from change and converges toward coherence.  
+18. **Mirror Fitness Function** – quantifies clarity and coherence as a north-star metric.
 
 ---
 

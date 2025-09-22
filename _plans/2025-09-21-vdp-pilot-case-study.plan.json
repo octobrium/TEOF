@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-vdp-pilot-case-study",
+  "created": "2025-09-21T21:43:53Z",
+  "actor": "codex-5",
+  "summary": "Pilot VDP guard on volatile report and capture receipts",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Select-scenario",
+      "status": "done",
+      "notes": "cmd> head -n 20 docs/automation.md\\ncmd> ls artifacts/ocers_out",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Run-guard-stack",
+      "status": "done",
+      "notes": "cmd> teof brief\\ncmd> python3 scripts/ci/check_vdp.py\\ncmd> pytest tests/test_vdp_guard.py tests/test_ci_check_vdp.py",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Case-study-doc",
+      "status": "done",
+      "notes": "cmd> apply_patch docs/automation.md (case study section)",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Receipts-and-validation",
+      "status": "done",
+      "notes": "cmd> pytest tests/test_vdp_guard.py tests/test_ci_check_vdp.py\\ncmd> python3 scripts/ci/check_vdp.py\\ncmd> python3 tools/planner/validate.py _plans/2025-09-21-vdp-pilot-case-study.plan.json --strict",
+      "receipts": [
+        "_report/case-studies/vdp_guard_check.json",
+        "_report/case-studies/vdp_guard_pytest.json",
+        "_report/planner/validate/summary-20250921T214456Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Pilot receipts published and referenced",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/case-studies/vdp_guard_check.json",
+    "_report/case-studies/vdp_guard_pytest.json",
+    "_report/planner/validate/summary-20250921T214456Z.json"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "ocers": {
+    "observation": "Non-volatile observation bypasses VDP hard checks",
+    "coherence": "ok",
+    "evidence": "contextual data only",
+    "result": "pass",
+    "scope": "VDP"
+  },
+  "observations": [
+    {
+      "label": "Context note",
+      "value": "market closed",
+      "volatile": false
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "ocers": {
+    "observation": "Future-dated quote stays compliant",
+    "coherence": "ok",
+    "evidence": "timestamp in future allowed",
+    "result": "pass",
+    "scope": "VDP"
+  },
+  "observations": [
+    {
+      "label": "MSTR",
+      "value": 777.0,
+      "timestamp_utc": "2100-01-01T00:00:00Z",
+      "source": "https://ex/quote/mstr",
+      "volatile": true,
+      "stale_labeled": false
+    }
+  ]
+}

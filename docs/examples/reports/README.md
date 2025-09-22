@@ -7,4 +7,4 @@ Guidelines:
 - Keep examples tiny and illustrative; redact/trim large arrays.
 - Use `.json` with stable ordering and minimal whitespace.
 - If a snapshot becomes a contract, move a **minimal** version to
-  `docs/examples/brief/goldens/reports/` and enforce it in CI.
+  `datasets/goldens/` (or a subfolder) and enforce it in CI via `scripts/ci/check_vdp.py`.

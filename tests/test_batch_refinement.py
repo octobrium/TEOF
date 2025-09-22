@@ -151,11 +151,21 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
     assert data["operator_preset"]["receipt_path"] == preset_calls["receipt"]
     assert data["task_sync_changes"]
     assert data["autonomy_status_receipt"].endswith("autonomy-status.json")
+    assert "batch_summary" in data
     assert heartbeat_called["agent"] == "codex-1"
     assert "QUEUE-999" in heartbeat_called["summary"]
     assert heartbeat_called["extras"]["batch_log"].endswith(".json")
     assert result["heartbeat"]["agent_id"] == "codex-1"
     assert result["latency_alerts"] == []
+    summary_info = result.get("batch_summary")
+    assert summary_info is not None
+    summary_path = Path(summary_info["path"])
+    if not summary_path.is_absolute():
+        summary_path = (batch_refinement.ROOT / summary_path).resolve()
+    assert summary_path.exists()
+    summary_payload = json.loads(summary_path.read_text(encoding="utf-8"))
+    assert summary_payload["total_runs"] >= 1
+    assert "latest_log" in summary_payload
 
 
 def test_batch_refinement_requires_agent(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:

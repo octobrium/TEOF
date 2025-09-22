@@ -1,0 +1,19 @@
+{
+  "ocers": {
+    "observation": "Invalid timestamp should fail",
+    "coherence": "",
+    "evidence": "",
+    "result": "fail",
+    "scope": "VDP"
+  },
+  "observations": [
+    {
+      "label": "NVDA",
+      "value": 123.45,
+      "timestamp_utc": "2025-13-01T00:00:00Z",
+      "source": "https://ex/quote/nvda",
+      "volatile": true,
+      "stale_labeled": false
+    }
+  ]
+}

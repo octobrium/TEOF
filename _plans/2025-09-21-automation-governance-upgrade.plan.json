@@ -1,0 +1,54 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-21-automation-governance-upgrade",
+  "created": "2025-09-21T22:16:06Z",
+  "actor": "codex-5",
+  "summary": "Harden automation governance for external receipts",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Canon-update",
+      "status": "done",
+      "notes": "cmd> cat > governance/core/L6 - automation/automation.md\\ncmd> apply_patch governance/core/L3 - properties/properties.md\\ncmd> apply_patch governance/core/L4 - architecture/bindings.yml\\ncmd> apply_patch governance/anchors.json",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Adapter-spec",
+      "status": "done",
+      "notes": "cmd> apply_patch docs/automation.md (external adapter spec)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Metrics-dash",
+      "status": "done",
+      "notes": "cmd> apply_patch docs/workflow.md (external feed task)\\ncmd> python -m tools.external.summary --threshold-hours 24 --out _report/usage/external-summary.json",
+      "receipts": [
+        "_report/planner/validate/summary-20250921T221632Z.json",
+        "_report/usage/external-summary.json"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Packaging",
+      "status": "done",
+      "notes": "cmd> apply_patch pyproject.toml (expose CLI entrypoints)\ncmd> apply_patch docs/automation.md (mention new CLIs)\ncmd> python3 -m tools.external.summary --threshold-hours 24 --out _report/usage/external-summary.json",
+      "receipts": [
+        "_report/planner/validate/summary-20250922T013722Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "External receipt canon drafted",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/planner/validate/summary-20250921T221632Z.json",
+    "_report/planner/validate/summary-20250922T013722Z.json",
+    "_report/usage/external-summary.json"
+  ]
+}

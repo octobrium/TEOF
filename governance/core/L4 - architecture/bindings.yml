@@ -151,6 +151,18 @@ properties:
         - _report/reconciliation/pipeline/metrics.jsonl
     coverage: partial
     notes: "Pipeline metrics catch divergence; integrate consensus metrics next."
+  P13-authenticated-intake:
+    title: Authenticated Intake Envelope
+    enforced_by:
+      scripts:
+        - scripts/ci/check_vdp.py
+        - tools/doctor.sh
+    tests:
+      - tests/test_external_receipts.py
+    receipts:
+      - _report/external/example-feed/20250101T000000Z.json
+    coverage: planned
+    notes: "Adapter + guard spec in docs/automation.md; implement Ed25519 verification and pilot receipts next."
 
 meta:
   updated: 2025-09-21T12:20:00Z
@@ -159,3 +171,4 @@ meta:
     - L2.5 requires readability guard.
     - L2.6/L2.7/L2.8 coverage still implicit; schedule follow-up once consensus + capsule automation matures.
     - Property list not exhaustive; add cards as new automation boots.
+    - External receipt verification pending adapter + signature integration (P13).
