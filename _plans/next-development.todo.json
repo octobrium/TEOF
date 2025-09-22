@@ -1,0 +1,26 @@
+{
+  "version": 0,
+  "owner": "codex-5",
+  "updated": "2025-09-22T18:00:00Z",
+  "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
+  "prerequisites": {
+    "min_overall_trust": 0.7,
+    "require_no_attention_feeds": true
+  },
+  "items": [
+    {
+      "id": "ND-001",
+      "title": "Auto-escalate authenticity alerts into steward-specific tasks",
+      "status": "pending",
+      "plan_suggestion": "2025-09-23-authenticity-ste ward-alerts",
+      "notes": "Open task automatically when any tier stays below threshold for 2 consecutive runs."
+    },
+    {
+      "id": "ND-002",
+      "title": "Chronicle authenticity snapshot",
+      "status": "pending",
+      "plan_suggestion": "2025-09-23-authenticity-chronicle",
+      "notes": "Append tier summary to daily Chronicle so leadership sees drift." 
+    }
+  ]
+}
