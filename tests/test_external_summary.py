@@ -17,6 +17,11 @@ def _prepare_environment(tmp_path: Path):
     summary.EXTERNAL_DIR = tmp_path / "_report" / "external"
     summary.KEYS_DIR = tmp_path / "governance" / "keys"
     summary.DEFAULT_OUTPUT = tmp_path / "_report" / "usage" / "external-summary.json"
+    summary.REGISTRY_CONFIG_DEFAULT = tmp_path / "docs" / "adoption" / "external-feed-registry.config.json"
+    summary.DEFAULT_REGISTRY_PATH = tmp_path / "docs" / "adoption" / "external-feed-registry.md"
+    if summary.registry_update is not None:
+        summary.registry_update.ROOT = tmp_path
+        summary.registry_update.DEFAULT_REGISTRY = summary.DEFAULT_REGISTRY_PATH
 
     check_vdp.ROOT = tmp_path
     check_vdp.EXTERNAL_DIR = tmp_path / "_report" / "external"
@@ -81,6 +86,13 @@ def _write_receipt(tmp_path: Path, signing_pair, issued_at: str):
         )
     )
 
+    plan_path = tmp_path / "_plans" / "2025-09-21-automation-governance-upgrade.plan.json"
+    plan_path.parent.mkdir(parents=True, exist_ok=True)
+    plan_path.write_text(
+        json.dumps({"plan_id": "2025-09-21-automation-governance-upgrade"}),
+        encoding="utf-8",
+    )
+
 
 def test_summary_outputs_metrics(tmp_path: Path, signing_pair):
     _prepare_environment(tmp_path)
@@ -116,3 +128,51 @@ def test_summary_flags_stale_and_hash(tmp_path: Path, signing_pair):
     result = summary.summarise_receipts(threshold_hours=1)
     assert result["feeds"]["stale"]["stale_count"] == 1
     assert any(item["error"] == "hash_mismatch" for item in result["invalid_receipts"])
+
+
+def test_summary_updates_registry(tmp_path: Path, signing_pair):
+    _prepare_environment(tmp_path)
+    _write_receipt(tmp_path, signing_pair, issued_at="2025-09-21T22:00:00Z")
+
+    registry_path = summary.DEFAULT_REGISTRY_PATH
+    registry_path.parent.mkdir(parents=True, exist_ok=True)
+    registry_path.write_text(
+        "# External Feed Registry\n\n"
+        "| feed_id | steward | plan_id | key_id | latest_receipt | summary |\n\n",
+        encoding="utf-8",
+    )
+
+    config_path = summary.REGISTRY_CONFIG_DEFAULT
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+    config_path.write_text(
+        json.dumps(
+            {
+                "feeds": {
+                    "sample": {
+                        "steward": "codex-5",
+                        "plan_path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
+                        "key_path": "governance/keys/feed.sample-2025.pub",
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    output_path = tmp_path / "_report" / "usage" / "external-summary.json"
+    args = [
+        "--threshold-hours",
+        "48",
+        "--out",
+        str(output_path),
+        "--registry-config",
+        str(config_path),
+        "--registry-path",
+        str(registry_path),
+    ]
+    summary.main(args)
+
+    row = [line for line in registry_path.read_text(encoding="utf-8").splitlines() if line.startswith("| sample")]
+    assert row
+    assert "_report/external/sample" in row[0]
+    assert "external-summary.json" in row[0]

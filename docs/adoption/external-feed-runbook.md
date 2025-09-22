@@ -73,6 +73,17 @@ Optional but recommended: prepare a README or spec describing feed scope, retent
 
 ---
 
+## Maintaining the registry
+
+- Track active feeds in [`docs/adoption/external-feed-registry.md`](external-feed-registry.md). Each row lists the feed steward, governing plan, signing key, latest receipt, and the summary snapshot used for health checks.
+- After every signed adapter run, refresh `_report/usage/external-summary.json` via `teof-external-summary` and update the registry so the `latest_receipt` and `summary` columns point at the newly committed artifacts.
+- Prefer the helper CLI (`python -m tools.external.registry_update --feed-id <id> --steward "<owner>" --plan-path <plan> --key-path <pubkey> --latest-receipt <receipt> --summary-path <summary>`) to patch the registry immediately after summaries finish; it resolves relative links and replaces existing rows in-place.
+- Keep steward/plan/key defaults in `docs/adoption/external-feed-registry.config.json` so `teof-external-summary` can invoke the helper automatically after each run (`python -m tools.external.summary --registry-config docs/adoption/external-feed-registry.config.json`).
+- When keys rotate or stewardship changes, update both the registry row and the corresponding entry in `governance/anchors.json` so observers can confirm the signing lineage.
+- If a feed pauses or retires, leave the historical row in place and add a note (e.g., `status: retired`) in the steward column; attach the plan or reflection explaining the shutdown for reviewers.
+
+---
+
 ## KPI & Evidence Checklist
 
 | KPI | Command / Artifact | Threshold |
@@ -109,4 +120,3 @@ Attach these to your plan before requesting review.
 - Publish a PyPI extra (`pip install teof[external]`) so partners get PyNaCl + CLIs automatically.
 - Provide a REST-ready example (e.g., Python requests + adapter invocation) in future revisions.
 - Automate dashboard generation (Markdown/HTML) from `_report/usage/external-summary.json` for executive reporting.
-

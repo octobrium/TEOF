@@ -132,6 +132,7 @@ Run this after ingestion or during audits to surface drift; pass `--strict` to e
 3. Run the adapter (`teof-external-adapter --feed-id <feed> --plan-id <plan> --input <data>.json`).
 4. Verify receipts with `scripts/ci/check_vdp.py` and capture the KPI summary (`teof-external-summary`).
 5. Attach receipts to the plan; publish a case study (similar to `_plans/2025-09-22-external-feed-demo.plan.json`).
+6. Update the registry entry in [`docs/adoption/external-feed-registry.md`](../adoption/external-feed-registry.md) so the steward, key, latest receipt, and summary snapshot all point at the freshly signed run (either run `python -m tools.external.registry_update ...` directly or let `python -m tools.external.summary --registry-config docs/adoption/external-feed-registry.config.json` do it automatically).
 
 **Candidate feed classes.**
 - Market indicators (FX, commodities) sourced from read-only APIs.
@@ -149,7 +150,7 @@ Run this after ingestion or during audits to surface drift; pass `--strict` to e
 - Provide SDK stubs or REST examples so external partners can call the adapter programmatically.
 - Automate dashboard generation from `_report/usage/external-summary.json` (Markdown/HTML) for exec reporting.
 
-Use the playbook to scope real pilots: everything above runs with today’s toolkit; only the data source and plan context change. For a full checklist, see [`docs/adoption/external-feed-runbook.md`](../adoption/external-feed-runbook.md).
+Use the playbook to scope real pilots: everything above runs with today’s toolkit; only the data source and plan context change. For a full checklist (including registry maintenance duties), see [`docs/adoption/external-feed-runbook.md`](../adoption/external-feed-runbook.md).
 
 ## Open Questions
 

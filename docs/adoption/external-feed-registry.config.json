@@ -1,0 +1,9 @@
+{
+  "feeds": {
+    "demo": {
+      "steward": "codex-5 (automation steward)",
+      "plan_path": "_plans/2025-09-22-external-feed-demo.plan.json",
+      "key_path": "governance/keys/feed.demo-2025.pub"
+    }
+  }
+}

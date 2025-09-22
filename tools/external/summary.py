@@ -21,7 +21,22 @@ ROOT = Path(__file__).resolve().parents[2]
 EXTERNAL_DIR = ROOT / "_report" / "external"
 KEYS_DIR = ROOT / "governance" / "keys"
 DEFAULT_OUTPUT = ROOT / "_report" / "usage" / "external-summary.json"
+REGISTRY_CONFIG_DEFAULT = ROOT / "docs" / "adoption" / "external-feed-registry.config.json"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
+
+try:  # local import guarded for CLI usage
+    from . import registry_update
+except ImportError:  # pragma: no cover - during isolated unit tests
+    registry_update = None
+
+if registry_update is not None:
+    DEFAULT_REGISTRY_PATH = registry_update.DEFAULT_REGISTRY
+    RegistryUpdateError = registry_update.RegistryUpdateError
+else:  # pragma: no cover - registry helper not available during minimal tests
+    DEFAULT_REGISTRY_PATH = ROOT / "docs" / "adoption" / "external-feed-registry.md"
+
+    class RegistryUpdateError(RuntimeError):
+        """Raised when registry integration is unavailable."""
 
 
 class SummaryError(RuntimeError):
@@ -60,6 +75,21 @@ def _parse_args(argv: Sequence[str] | None) -> argparse.Namespace:
         "--strict",
         action="store_true",
         help="Fail when signatures or hashes mismatch (default: warn and continue)",
+    )
+    parser.add_argument(
+        "--registry-config",
+        type=Path,
+        help="JSON config mapping feed metadata for registry auto-update",
+    )
+    parser.add_argument(
+        "--registry-path",
+        type=Path,
+        help="Path to the registry markdown (default: docs/adoption/external-feed-registry.md)",
+    )
+    parser.add_argument(
+        "--registry-dry-run",
+        action="store_true",
+        help="Compute registry updates without writing to disk",
     )
     return parser.parse_args(argv)
 
@@ -200,6 +230,108 @@ def write_summary(summary: dict[str, Any], output: Path) -> None:
     output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def _normalise_registry_paths(
+    config_path: Path | None,
+    registry_path: Path | None,
+) -> tuple[Path | None, Path]:
+    cfg = config_path
+    if cfg is None and REGISTRY_CONFIG_DEFAULT.exists():
+        cfg = REGISTRY_CONFIG_DEFAULT
+    if cfg is not None and not cfg.is_absolute():
+        cfg = (ROOT / cfg).resolve()
+    reg = registry_path or DEFAULT_REGISTRY_PATH
+    if not reg.is_absolute():
+        reg = (ROOT / reg).resolve()
+    return cfg, reg
+
+
+def _load_registry_config(path: Path) -> dict[str, Dict[str, Any]]:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError as exc:
+        raise SummaryError(f"registry config not found: {path}") from exc
+    except json.JSONDecodeError as exc:
+        raise SummaryError(f"registry config is not valid JSON: {path}") from exc
+    feeds = data.get("feeds")
+    if not isinstance(feeds, dict):
+        raise SummaryError("registry config must contain a 'feeds' object")
+    return feeds
+
+
+def _derive_plan_path(meta: Dict[str, Any]) -> tuple[str, str]:
+    plan_id = str(meta.get("plan_id", "")).strip() or None
+    plan_path = meta.get("plan_path")
+    if plan_path is None:
+        if plan_id is None:
+            raise SummaryError("registry config missing plan_path or plan_id")
+        plan_path = f"_plans/{plan_id}.plan.json"
+    return plan_path, plan_id
+
+
+def _derive_key_path(meta: Dict[str, Any]) -> tuple[str, str | None]:
+    key_id = str(meta.get("key_id", "")).strip() or None
+    key_path = meta.get("key_path")
+    if key_path is None:
+        if key_id is None:
+            raise SummaryError("registry config missing key_path or key_id")
+        key_path = f"governance/keys/{key_id}.pub"
+    else:
+        if key_id is None:
+            key_id = Path(key_path).stem
+    return key_path, key_id
+
+
+def _update_registry_from_summary(
+    summary: dict[str, Any],
+    registry_config: Path | None,
+    registry_path: Path,
+    summary_path: Path,
+    dry_run: bool,
+) -> None:
+    if registry_config is None or registry_update is None:
+        return
+    feeds_meta = _load_registry_config(registry_config)
+    summary_feeds: Dict[str, Dict[str, Any]] = summary.get("feeds", {})  # type: ignore[assignment]
+    for feed_id, meta in feeds_meta.items():
+        if not isinstance(meta, dict):
+            raise SummaryError(f"registry config for feed '{feed_id}' must be an object")
+        feed_info = summary_feeds.get(feed_id)
+        if not feed_info:
+            continue
+        latest_receipt = feed_info.get("latest_receipt")
+        if not latest_receipt:
+            continue
+        steward = meta.get("steward")
+        if not steward:
+            raise SummaryError(f"registry config missing steward for feed '{feed_id}'")
+        plan_path, plan_id = _derive_plan_path(meta)
+        key_path, key_id = _derive_key_path(meta)
+        try:
+            summary_rel = str(summary_path.relative_to(ROOT))
+        except ValueError:
+            summary_rel = str(summary_path)
+
+        args = argparse.Namespace(
+            registry=registry_path,
+            feed_id=feed_id,
+            steward=steward,
+            plan_path=plan_path,
+            plan_id=plan_id,
+            key_path=key_path,
+            key_id=key_id,
+            latest_receipt=latest_receipt,
+            summary_path=summary_rel,
+            dry_run=dry_run,
+        )
+        assert registry_update is not None  # narrow type for linters
+        try:
+            row = registry_update.update_registry(args)
+        except RegistryUpdateError as exc:
+            raise SummaryError(f"failed to update registry for feed '{feed_id}': {exc}") from exc
+        action = "registry dry-run" if dry_run else "registry updated"
+        print(f"{action}: {row.strip()}")
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
     summary = summarise_receipts(args.threshold_hours, strict=args.strict)
@@ -212,6 +344,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     except ValueError:
         rel = output_path
     print(f"external summary: wrote {rel}")
+    registry_config, registry_path = _normalise_registry_paths(args.registry_config, args.registry_path)
+    _update_registry_from_summary(summary, registry_config, registry_path, output_path, args.registry_dry_run)
     if args.strict and (summary["invalid_receipts"] or any(f["invalid_signatures"] for f in summary["feeds"].values())):
         return 1
     return 0
