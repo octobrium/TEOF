@@ -124,6 +124,12 @@ Use `python -m tools.external.summary --threshold-hours 24 --out _report/usage/e
 Run this after ingestion or during audits to surface drift; pass `--strict` to exit non-zero on any invalid receipts. The command underpins `_plans/2025-09-21-automation-governance-upgrade` (S3) and feeds dashboards documenting the guard’s efficacy.
 For hygiene sweeps, `python -m tools.external.registry_check` verifies that every registry row, config entry, and summary record stays in sync.
 
+### Authenticity dashboard
+
+For tier-level visibility, run `python -m tools.external.authenticity_report` (optionally passing `--summary`, `--feedback`, `--out-md`, `--out-json`). The tool consumes `_report/usage/external-summary.json` + `_report/usage/external-feedback.json` and emits:
+- `_report/usage/external-authenticity.md` – markdown snapshot with tier weights, counts, and attention feeds
+- `_report/usage/external-authenticity.json` – structured data for downstream automation
+
 ### External feed adoption playbook
 
 **Value proposition.**

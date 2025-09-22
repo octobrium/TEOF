@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 import scripts.ci.check_vdp as check_vdp
-from tools.external import adapter, registry_check, summary
+from tools.external import adapter, authenticity_report, registry_check, summary
 
 pytest.importorskip("nacl")
 
@@ -413,3 +413,87 @@ def test_adapter_refresh_summary_updates_registry(tmp_path: Path, signing_pair):
     assert any(feed["feed_id"] == "sample" for feed in steward_block["feeds"])
     authenticity_block = summary_payload["authenticity"]["primary_truth"]
     assert any(feed["feed_id"] == "sample" for feed in authenticity_block["feeds"])
+
+
+def test_authenticity_report_generates_dashboard(tmp_path: Path, signing_pair):
+    _prepare_environment(tmp_path)
+    _write_receipt(tmp_path, signing_pair, issued_at="2025-09-21T22:00:00Z")
+
+    notes_path = tmp_path / "external-notes.json"
+    notes_path.write_text(json.dumps({"sample": "fresh evidence"}), encoding="utf-8")
+
+    summary.DEFAULT_REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
+    summary.DEFAULT_REGISTRY_PATH.write_text(
+        "# External Feed Registry\n\n"
+        "| feed_id | steward | plan_id | key_id | latest_receipt | summary |\n\n",
+        encoding="utf-8",
+    )
+
+    summary.REGISTRY_CONFIG_DEFAULT.parent.mkdir(parents=True, exist_ok=True)
+    summary.REGISTRY_CONFIG_DEFAULT.write_text(
+        json.dumps(
+            {
+                "feeds": {
+                    "sample": {
+                        "steward": "codex-5",
+                        "plan_path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
+                        "key_path": "governance/keys/feed.sample-2025.pub",
+                        "authenticity": "primary_truth",
+                        "steward_profile": {
+                            "id": "codex-5",
+                            "display_name": "Automation Steward",
+                            "capabilities": [
+                                "external_adapter",
+                                "summary_refresh",
+                                "registry_maintenance"
+                            ],
+                            "obligations": [
+                                "refresh_summary_post_run",
+                                "update_registry_post_run",
+                                "respond_to_registry_alerts"
+                            ],
+                            "trust_baseline": 0.85
+                        }
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    summary.main(
+        [
+            "--threshold-hours",
+            "48",
+            "--out",
+            str(summary.DEFAULT_OUTPUT),
+            "--registry-config",
+            str(summary.REGISTRY_CONFIG_DEFAULT),
+            "--registry-path",
+            str(summary.DEFAULT_REGISTRY_PATH),
+            "--notes-json",
+            str(notes_path),
+        ]
+    )
+
+    report_md = tmp_path / "dashboard.md"
+    report_json = tmp_path / "dashboard.json"
+    authenticity_report.main(
+        [
+            "--summary",
+            str(summary.DEFAULT_OUTPUT),
+            "--feedback",
+            str(summary.DEFAULT_FEEDBACK_OUTPUT),
+            "--out-md",
+            str(report_md),
+            "--out-json",
+            str(report_json),
+        ]
+    )
+
+    md_text = report_md.read_text(encoding="utf-8")
+    assert "External Authenticity Dashboard" in md_text
+    assert "primary_truth" in md_text
+    json_payload = json.loads(report_json.read_text(encoding="utf-8"))
+    assert json_payload["tiers"]
+    assert json_payload["tiers"][0]["tier"] == "primary_truth"

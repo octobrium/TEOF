@@ -84,6 +84,7 @@ Optional but recommended: prepare a README or spec describing feed scope, retent
 - When keys rotate or stewardship changes, update both the registry row and the corresponding entry in `governance/anchors.json` so observers can confirm the signing lineage.
 - If a feed pauses or retires, leave the historical row in place and add a note (e.g., `status: retired`) in the steward column; attach the plan or reflection explaining the shutdown for reviewers.
 - Run `python -m tools.external.registry_check` during reviews or CI to confirm every registry entry has a matching config, fresh summary, and on-disk receipts.
+- Publish authenticity dashboards via `python -m tools.external.authenticity_report` so reviewers (and downstream automation) can see tier health, attention feeds, and the latest feedback ledger at a glance.
 
 ---
 
