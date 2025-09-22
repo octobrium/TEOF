@@ -1,0 +1,96 @@
+{
+  "generated_at": "20250922T203249Z",
+  "node_count": 2,
+  "nodes": [
+    {
+      "node_id": "node-a",
+      "root": "/Users/evan/Documents/GitHub/TEOF/datasets/samples/decentralized/node-a"
+    },
+    {
+      "node_id": "node-b",
+      "root": "/Users/evan/Documents/GitHub/TEOF/datasets/samples/decentralized/node-b"
+    }
+  ],
+  "artifact_count": 2,
+  "artifacts": [
+    {
+      "path": "_report/usage/external-summary.json",
+      "variants": [
+        {
+          "hash": "584e22351696fa4c68b54cbe0fe3b8a5937b85acb3d97dae5450cb6920f0b87d",
+          "size": 158,
+          "modified": "2025-09-22T19:05:36Z",
+          "nodes": [
+            "node-a"
+          ]
+        },
+        {
+          "hash": "ffdc1b0cb1692fcb1f3e79fb73ef6cdb7c77c6cf40ef2437fb1f9ca9ed32c80d",
+          "size": 158,
+          "modified": "2025-09-22T19:05:36Z",
+          "nodes": [
+            "node-b"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "_report/usage/receipts-hygiene-summary.json",
+      "variants": [
+        {
+          "hash": "1f60c83b6f5db9d5be7b26cdda3c4240c55ae1876aa4fdae496cd88272e14c48",
+          "size": 64,
+          "modified": "2025-09-22T19:05:36Z",
+          "nodes": [
+            "node-a"
+          ]
+        },
+        {
+          "hash": "d643db5ff2a66f16e64c0c7af8227d7870ab1b7893fad3c7cf7e08816bf52b75",
+          "size": 65,
+          "modified": "2025-09-22T19:05:36Z",
+          "nodes": [
+            "node-b"
+          ]
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "node_id": "node-a",
+      "expected": 2,
+      "missing": []
+    },
+    {
+      "node_id": "node-b",
+      "expected": 2,
+      "missing": []
+    }
+  ],
+  "checks": {
+    "anchor": {
+      "status": "ok",
+      "hashes": {
+        "node-a": "209ceda513f7d4da744d4c657d23b9f3b794d9b9dff2f9a0ed089133d69f9ee3",
+        "node-b": "209ceda513f7d4da744d4c657d23b9f3b794d9b9dff2f9a0ed089133d69f9ee3"
+      }
+    },
+    "capsule": {
+      "status": "ok",
+      "values": {
+        "node-a": {
+          "pointer": "v1.0",
+          "hash": "9d69e2473eed56ab68361832f2e7c700f2a3da50cda186483e9539585ec2decf"
+        },
+        "node-b": {
+          "pointer": "v1.0",
+          "hash": "9d69e2473eed56ab68361832f2e7c700f2a3da50cda186483e9539585ec2decf"
+        }
+      }
+    },
+    "signature": {
+      "status": "skipped"
+    }
+  }
+}

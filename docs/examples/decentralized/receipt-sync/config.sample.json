@@ -1,0 +1,12 @@
+{
+  "nodes": {
+    "node-a": "datasets/samples/decentralized/node-a",
+    "node-b": "datasets/samples/decentralized/node-b"
+  },
+  "expect": [
+    "_report/usage/external-summary.json",
+    "_report/usage/receipts-hygiene-summary.json"
+  ],
+  "verify_anchor": true,
+  "verify_capsule": true
+}

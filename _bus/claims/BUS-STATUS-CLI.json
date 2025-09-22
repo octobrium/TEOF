@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-5",
+  "branch": "agent/codex-5/teof-status-cli",
+  "claimed_at": "2025-09-22T18:20:19Z",
+  "notes": "CLI merged locally",
+  "plan_id": "2025-09-22-teof-status-cli",
+  "released_at": "2025-09-22T18:29:34Z",
+  "status": "done",
+  "task_id": "BUS-STATUS-CLI"
+}

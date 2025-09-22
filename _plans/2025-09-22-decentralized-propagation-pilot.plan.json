@@ -1,0 +1,45 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-22-decentralized-propagation-pilot",
+  "created": "2025-09-22T18:56:04Z",
+  "actor": "codex-5",
+  "summary": "Design pilot for decentralized TEOF receipt exchange",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define pilot scope and success criteria",
+      "status": "done",
+      "notes": "Defined pilot scope + success criteria in docs/proposals/20250922T190055Z__decentralized-propagation-pilot__draft.md (CMD-1, CMD-3)",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Prototype cross-node receipt exchange",
+      "status": "done",
+      "notes": "Added tools/network/receipt_sync.py with tests (tests/test_receipt_sync.py); aggregates multi-node receipts + conflict report (CMD-4, CMD-5)",
+      "receipts": [
+        "docs/examples/decentralized/receipt-sync/ledger.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Evaluate reconciliation + risks",
+      "status": "done",
+      "notes": "Documented synthetic evaluation + risk considerations in proposal draft; aggregator logs conflicts for review (CMD-1, CMD-7)",
+      "receipts": [
+        "docs/examples/decentralized/receipt-sync/conflicts.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Pilot produces cross-node receipts with reconciliation",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "docs/examples/decentralized/receipt-sync/conflicts.json",
+    "docs/examples/decentralized/receipt-sync/ledger.json"
+  ]
+}

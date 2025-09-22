@@ -12,9 +12,11 @@ import json
 import pathlib
 import shutil
 import sys
+from pathlib import Path
 from typing import Iterable
 
 from extensions.validator.scorers.ensemble import score_file
+from . import status_report
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 EXAMPLES_DIR = ROOT / "docs" / "examples" / "brief" / "inputs"
@@ -73,8 +75,26 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="teof", description="TEOF CLI (repo-local subset)")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    brief = sub.add_parser("brief", help="Run bundled brief example through the ensemble scorer")
+    brief = sub.add_parser(
+        "brief", help="Run bundled brief example through the ensemble scorer"
+    )
     brief.set_defaults(func=cmd_brief)
+
+    status = sub.add_parser(
+        "status",
+        help="Generate repository status snapshot (default: print to stdout)",
+    )
+    status.add_argument(
+        "--out",
+        type=Path,
+        help="Write the status snapshot to this path instead of stdout",
+    )
+    status.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Suppress info logs (useful with --out)",
+    )
+    status.set_defaults(func=cmd_status)
 
     return parser
 
@@ -87,6 +107,24 @@ def main(argv: Iterable[str] | None = None) -> int:
         parser.print_help()
         return 2
     return func(args)
+
+
+def cmd_status(args: argparse.Namespace) -> int:
+    out_path: Path | None = args.out
+    quiet: bool = bool(getattr(args, "quiet", False))
+    if out_path is not None:
+        if not out_path.is_absolute():
+            out_path = ROOT / out_path
+        status_report.write_status(out_path, root=ROOT, quiet=quiet)
+        return 0
+    # stdout path
+    content = status_report.generate_status(ROOT)
+    if not quiet:
+        print(content)
+    else:
+        # Quiet without --out still returns content for scripting expectations
+        sys.stdout.write(content)
+    return 0
 
 
 if __name__ == "__main__":

@@ -15,8 +15,8 @@ from extensions.validator import vdp_guard
 ROOT = Path(__file__).resolve().parents[2]
 DATASET_DIR = ROOT / "datasets" / "goldens"
 TARGET_DIRS = [ROOT / "docs", ROOT / "datasets"]
-EXTERNAL_DIR = ROOT / "_report" / "external"
-KEYS_DIR = ROOT / "governance" / "keys"
+EXTERNAL_DIR: Path | None = None
+KEYS_DIR: Path | None = None
 
 try:
     from nacl import exceptions as nacl_exceptions
@@ -26,11 +26,26 @@ except ImportError:  # pragma: no cover - import guard tested separately
     nacl_exceptions = None
 
 
+def _resolve_external_dir() -> Path:
+    return EXTERNAL_DIR if EXTERNAL_DIR is not None else ROOT / "_report" / "external"
+
+
+def _resolve_keys_dir() -> Path:
+    return KEYS_DIR if KEYS_DIR is not None else ROOT / "governance" / "keys"
+
+
+def _rel(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
 def _load_json(path: Path) -> dict | None:
     try:
         return json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
-        print(f"::error::{path.relative_to(ROOT)} invalid JSON: {exc}", file=sys.stderr)
+        print(f"::error::{_rel(path)} invalid JSON: {exc}", file=sys.stderr)
         return None
 
 
@@ -50,16 +65,16 @@ def _canonical_bytes(payload: dict) -> bytes:
 def _load_verify_key(key_id: str) -> signing.VerifyKey:
     if signing is None or nacl_exceptions is None:
         raise SystemExit("PyNaCl required for external receipt verification. Install PyNaCl.")
-    key_path = KEYS_DIR / f"{key_id}.pub"
+    key_path = _resolve_keys_dir() / f"{key_id}.pub"
     if not key_path.exists():
         raise SystemExit(f"::error::missing public key governance/keys/{key_id}.pub")
     raw = key_path.read_text(encoding="utf-8").strip()
     try:
         key_bytes = base64.b64decode(raw)
     except (ValueError, binascii.Error):  # pragma: no cover - defensive
-        raise SystemExit(f"::error::{key_path.relative_to(ROOT)} not base64 encoded")
+        raise SystemExit(f"::error::{_rel(key_path)} not base64 encoded")
     if len(key_bytes) != 32:
-        raise SystemExit(f"::error::{key_path.relative_to(ROOT)} must be 32 bytes")
+        raise SystemExit(f"::error::{_rel(key_path)} must be 32 bytes")
     return signing.VerifyKey(key_bytes)
 
 
@@ -76,14 +91,14 @@ def check_dataset() -> int:
             continue
         expected = payload.get("ocers", {}).get("result")
         if expected not in {"pass", "fail"}:
-            rel = path.relative_to(ROOT)
+            rel = _rel(path)
             print(f"::error::{rel} missing ocers.result", file=sys.stderr)
             failures += 1
             continue
         result = vdp_guard.evaluate_payload(payload)
         verdict = result["verdict"]
         if verdict != expected:
-            rel = path.relative_to(ROOT)
+            rel = _rel(path)
             print(
                 f"::error::{rel} expected {expected} but got {verdict}",
                 file=sys.stderr,
@@ -115,7 +130,7 @@ def check_repo_payloads() -> int:
             continue
         verdict, issues = vdp_guard.evaluate_observations(payload.get("observations"))
         if verdict == "fail":
-            rel = path.relative_to(ROOT)
+            rel = _rel(path)
             for issue in issues:
                 print(
                     f"::error::{rel} {issue.location}: {issue.message}",
@@ -126,13 +141,14 @@ def check_repo_payloads() -> int:
 
 
 def check_external_receipts() -> int:
-    if EXTERNAL_DIR.exists() and signing is None:
+    external_dir = _resolve_external_dir()
+    if external_dir.exists() and signing is None:
         print("::error::PyNaCl not installed, cannot verify external receipts", file=sys.stderr)
         return 1
     failures = 0
-    if not EXTERNAL_DIR.exists():
+    if not external_dir.exists():
         return failures
-    for path in sorted(EXTERNAL_DIR.rglob("*.json")):
+    for path in sorted(external_dir.rglob("*.json")):
         payload = _load_json(path)
         if payload is None:
             failures += 1
@@ -141,7 +157,7 @@ def check_external_receipts() -> int:
         missing = required - payload.keys()
         if missing:
             for field in sorted(missing):
-                print(f"::error::{path.relative_to(ROOT)} missing {field}", file=sys.stderr)
+                print(f"::error::{_rel(path)} missing {field}", file=sys.stderr)
             failures += 1
             continue
         body = {
@@ -153,7 +169,7 @@ def check_external_receipts() -> int:
         expected_hash = hashlib.sha256(body_bytes).hexdigest()
         if expected_hash != payload["hash_sha256"]:
             print(
-                f"::error::{path.relative_to(ROOT)} hash mismatch expected {expected_hash} got {payload['hash_sha256']}",
+                f"::error::{_rel(path)} hash mismatch expected {expected_hash} got {payload['hash_sha256']}",
                 file=sys.stderr,
             )
             failures += 1
@@ -167,13 +183,13 @@ def check_external_receipts() -> int:
         try:
             signature_bytes = base64.urlsafe_b64decode(payload["signature"])
         except (ValueError, binascii.Error):
-            print(f"::error::{path.relative_to(ROOT)} signature is not base64url", file=sys.stderr)
+            print(f"::error::{_rel(path)} signature is not base64url", file=sys.stderr)
             failures += 1
             continue
         try:
             verify_key.verify(body_bytes, signature_bytes)
         except nacl_exceptions.BadSignatureError:
-            print(f"::error::{path.relative_to(ROOT)} signature verification failed", file=sys.stderr)
+            print(f"::error::{_rel(path)} signature verification failed", file=sys.stderr)
             failures += 1
             continue
     return failures

@@ -1,0 +1,40 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-22-teof-status-cli",
+  "created": "2025-09-22T18:20:23Z",
+  "actor": "codex-5",
+  "summary": "Implement teof status CLI and refresh status doc",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Assess status surfaces",
+      "status": "done",
+      "notes": "Captured existing STATUS format + auto objective heuristics (CMD-1, CMD-4)",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement CLI + tests",
+      "status": "done",
+      "notes": "CLI + tests implemented (CMD-4, CMD-5)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Regenerate docs and receipts",
+      "status": "done",
+      "notes": "Refreshed docs/STATUS.md via CLI + recorded pytest run (CMD-4)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "teof status CLI outputs canonical STATUS doc",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "docs/STATUS.md"
+  ]
+}

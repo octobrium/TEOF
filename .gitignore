@@ -86,6 +86,9 @@ _report/
 !_report/reconciliation/*.json
 !_report/usage/
 !_report/usage/*.jsonl
+!_report/network/
+!_report/network/**/*.json
+!_report/network/**/*.md
 !_bus/
 !_bus/README.md
 !_bus/claims/
@@ -120,4 +123,6 @@ capsule/**/*
 !capsule/**/count
 memory/hot_index.json
 _apoptosis/
+# sample decentralized data for network pilot
+!datasets/samples/decentralized/**
 # Legacy ignore retained above; keep exceptions active.
