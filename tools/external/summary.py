@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[2]
 EXTERNAL_DIR = ROOT / "_report" / "external"
 KEYS_DIR = ROOT / "governance" / "keys"
 DEFAULT_OUTPUT = ROOT / "_report" / "usage" / "external-summary.json"
+DEFAULT_FEEDBACK_OUTPUT = ROOT / "_report" / "usage" / "external-feedback.json"
 REGISTRY_CONFIG_DEFAULT = ROOT / "docs" / "adoption" / "external-feed-registry.config.json"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 
@@ -95,6 +96,11 @@ def _parse_args(argv: Sequence[str] | None) -> argparse.Namespace:
         "--notes-json",
         type=Path,
         help="Optional JSON file mapping feed_id to operator notes",
+    )
+    parser.add_argument(
+        "--feedback-out",
+        type=Path,
+        help="Optional feedback ledger path (default: _report/usage/external-feedback.json)",
     )
     return parser.parse_args(argv)
 
@@ -305,14 +311,41 @@ def _load_notes(notes_path: Path | None) -> dict[str, str]:
     return notes
 
 
+def _build_feed_profiles(feeds_meta: Dict[str, Any] | None) -> dict[str, dict[str, Any]]:
+    if not feeds_meta:
+        return {}
+    profiles: dict[str, dict[str, Any]] = {}
+    for feed_id, meta in feeds_meta.items():
+        if not isinstance(meta, dict):
+            continue
+        steward_label = meta.get("steward")
+        profile_raw = meta.get("steward_profile") or {}
+        if not isinstance(profile_raw, dict):
+            profile_raw = {}
+        profile = {
+            "id": profile_raw.get("id"),
+            "label": steward_label,
+            "display_name": profile_raw.get("display_name", steward_label),
+            "capabilities": profile_raw.get("capabilities", []),
+            "obligations": profile_raw.get("obligations", []),
+            "trust_baseline": profile_raw.get("trust_baseline", 1.0),
+            "contact": profile_raw.get("contact"),
+            "notes": profile_raw.get("notes"),
+        }
+        profiles[feed_id] = profile
+    return profiles
+
+
 def _augment_summary(
     summary: dict[str, Any],
     *,
     threshold_hours: float,
     notes: dict[str, str],
     notes_path: Path | None,
+    feed_profiles: dict[str, dict[str, Any]],
 ) -> None:
     feeds: Dict[str, Dict[str, Any]] = summary.get("feeds", {})  # type: ignore[assignment]
+    steward_index: dict[str | None, dict[str, Any]] = {}
     for feed_id, info in feeds.items():
         age_seconds = info.get("latest_age_seconds")
         info["latest_age_hours"] = (age_seconds / 3600) if age_seconds is not None else None
@@ -345,6 +378,36 @@ def _augment_summary(
             "status": status,
             "signals": signals,
         }
+        profile = feed_profiles.get(feed_id)
+        if profile:
+            baseline = float(profile.get("trust_baseline", 1.0) or 1.0)
+            info["trust"]["baseline"] = round(baseline, 3)
+            adjusted = max(0.0, min(1.0, round(score * baseline, 3)))
+            info["trust"]["adjusted"] = adjusted
+            info["steward"] = profile
+            steward_id = profile.get("id") or feed_id
+            record = steward_index.setdefault(
+                steward_id,
+                {
+                    "id": profile.get("id") or steward_id,
+                    "label": profile.get("label"),
+                    "display_name": profile.get("display_name") or profile.get("label"),
+                    "capabilities": profile.get("capabilities", []),
+                    "obligations": profile.get("obligations", []),
+                    "trust_baseline": round(baseline, 3),
+                    "contact": profile.get("contact"),
+                    "notes": profile.get("notes"),
+                    "feeds": [],
+                },
+            )
+            record["feeds"].append(
+                {
+                    "feed_id": feed_id,
+                    "trust_adjusted": info["trust"].get("adjusted", score),
+                    "latest_receipt": info.get("latest_receipt"),
+                    "status": info["trust"]["status"],
+                }
+            )
         if notes and feed_id in notes:
             info["note"] = notes[feed_id]
         elif "note" in info:
@@ -352,6 +415,8 @@ def _augment_summary(
 
     if notes_path is not None:
         summary["notes_source"] = str(notes_path)
+    if steward_index:
+        summary["stewards"] = steward_index
 
 
 def _update_registry_from_summary(
@@ -360,10 +425,11 @@ def _update_registry_from_summary(
     registry_path: Path,
     summary_path: Path,
     dry_run: bool,
+    feeds_meta: Dict[str, Any] | None = None,
 ) -> None:
     if registry_config is None or registry_update is None:
         return
-    feeds_meta = _load_registry_config(registry_config)
+    feeds_meta = feeds_meta or _load_registry_config(registry_config)
     summary_feeds: Dict[str, Dict[str, Any]] = summary.get("feeds", {})  # type: ignore[assignment]
     for feed_id, meta in feeds_meta.items():
         if not isinstance(meta, dict):
@@ -405,6 +471,37 @@ def _update_registry_from_summary(
         print(f"{action}: {row.strip()}")
 
 
+def _write_feedback(summary: dict[str, Any], output_path: Path) -> None:
+    entries = []
+    feeds: Dict[str, Dict[str, Any]] = summary.get("feeds", {})  # type: ignore[assignment]
+    for feed_id, info in feeds.items():
+        note = info.get("note")
+        if not note:
+            continue
+        steward = info.get("steward") or {}
+        trust = info.get("trust") or {}
+        entries.append(
+            {
+                "feed_id": feed_id,
+                "note": note,
+                "steward_id": steward.get("id"),
+                "steward_label": steward.get("label"),
+                "trust_adjusted": trust.get("adjusted", trust.get("score")),
+                "trust_status": trust.get("status"),
+                "signals": trust.get("signals", []),
+            }
+        )
+    if not entries:
+        return
+    payload = {
+        "generated_at": summary.get("generated_at"),
+        "notes_source": summary.get("notes_source"),
+        "entries": entries,
+    }
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
     summary = summarise_receipts(args.threshold_hours, strict=args.strict)
@@ -415,15 +512,44 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.notes_json:
         notes_path = args.notes_json if args.notes_json.is_absolute() else (ROOT / args.notes_json).resolve()
     notes = _load_notes(notes_path)
-    _augment_summary(summary, threshold_hours=args.threshold_hours, notes=notes, notes_path=notes_path)
+    registry_config, registry_path = _normalise_registry_paths(args.registry_config, args.registry_path)
+    feeds_meta: Dict[str, Any] | None = None
+    feed_profiles: dict[str, dict[str, Any]] = {}
+    if registry_config is not None and registry_config.exists():
+        try:
+            feeds_meta = _load_registry_config(registry_config)
+            feed_profiles = _build_feed_profiles(feeds_meta)
+        except SummaryError as exc:
+            if args.registry_config:
+                raise
+            print(f"warning: {exc}")
+            feeds_meta = None
+            feed_profiles = {}
+    _augment_summary(
+        summary,
+        threshold_hours=args.threshold_hours,
+        notes=notes,
+        notes_path=notes_path,
+        feed_profiles=feed_profiles,
+    )
     write_summary(summary, output_path)
     try:
         rel = output_path.relative_to(ROOT)
     except ValueError:
         rel = output_path
     print(f"external summary: wrote {rel}")
-    registry_config, registry_path = _normalise_registry_paths(args.registry_config, args.registry_path)
-    _update_registry_from_summary(summary, registry_config, registry_path, output_path, args.registry_dry_run)
+    _update_registry_from_summary(
+        summary,
+        registry_config,
+        registry_path,
+        output_path,
+        args.registry_dry_run,
+        feeds_meta=feeds_meta,
+    )
+    feedback_path = args.feedback_out if args.feedback_out else DEFAULT_FEEDBACK_OUTPUT
+    if not feedback_path.is_absolute():
+        feedback_path = ROOT / feedback_path
+    _write_feedback(summary, feedback_path)
     if args.strict and (summary["invalid_receipts"] or any(f["invalid_signatures"] for f in summary["feeds"].values())):
         return 1
     return 0

@@ -17,6 +17,7 @@ def _prepare_environment(tmp_path: Path):
     summary.EXTERNAL_DIR = tmp_path / "_report" / "external"
     summary.KEYS_DIR = tmp_path / "governance" / "keys"
     summary.DEFAULT_OUTPUT = tmp_path / "_report" / "usage" / "external-summary.json"
+    summary.DEFAULT_FEEDBACK_OUTPUT = tmp_path / "_report" / "usage" / "external-feedback.json"  # type: ignore[attr-defined]
     summary.REGISTRY_CONFIG_DEFAULT = tmp_path / "docs" / "adoption" / "external-feed-registry.config.json"
     summary.DEFAULT_REGISTRY_PATH = tmp_path / "docs" / "adoption" / "external-feed-registry.md"
     assert summary.DEFAULT_REGISTRY_PATH == tmp_path / "docs" / "adoption" / "external-feed-registry.md"
@@ -110,7 +111,7 @@ def test_summary_outputs_metrics(tmp_path: Path, signing_pair):
 
     summary_path = tmp_path / "summary.json"
     result = summary.summarise_receipts(threshold_hours=48)
-    summary._augment_summary(result, threshold_hours=48, notes={}, notes_path=None)  # type: ignore[attr-defined]
+    summary._augment_summary(result, threshold_hours=48, notes={}, notes_path=None, feed_profiles={})  # type: ignore[attr-defined]
     summary.write_summary(result, summary_path)
 
     payload = json.loads(summary_path.read_text(encoding="utf-8"))
@@ -165,6 +166,10 @@ def test_summary_notes_merge(tmp_path: Path, signing_pair):
     feed_info = payload["feeds"]["sample"]
     assert feed_info["note"] == "Needs steward review"
     assert payload["notes_source"].endswith("external-notes.json")
+    feedback_path = summary.DEFAULT_FEEDBACK_OUTPUT  # type: ignore[attr-defined]
+    feedback_payload = json.loads(feedback_path.read_text(encoding="utf-8"))
+    assert feedback_payload["entries"]
+    assert feedback_payload["entries"][0]["note"] == "Needs steward review"
 
 
 def test_summary_updates_registry(tmp_path: Path, signing_pair):
@@ -189,6 +194,21 @@ def test_summary_updates_registry(tmp_path: Path, signing_pair):
                         "steward": "codex-5",
                         "plan_path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
                         "key_path": "governance/keys/feed.sample-2025.pub",
+                        "steward_profile": {
+                            "id": "codex-5",
+                            "display_name": "Automation Steward",
+                            "capabilities": [
+                                "external_adapter",
+                                "summary_refresh",
+                                "registry_maintenance"
+                            ],
+                            "obligations": [
+                                "refresh_summary_post_run",
+                                "update_registry_post_run",
+                                "respond_to_registry_alerts"
+                            ],
+                            "trust_baseline": 0.85
+                        }
                     }
                 }
             }
@@ -208,6 +228,14 @@ def test_summary_updates_registry(tmp_path: Path, signing_pair):
         str(registry_path),
     ]
     summary.main(args)
+
+    summary_payload = json.loads(output_path.read_text(encoding="utf-8"))
+    feed_info = summary_payload["feeds"]["sample"]
+    assert feed_info["trust"]["baseline"] == 0.85
+    assert feed_info["trust"]["adjusted"] <= 0.85
+    assert feed_info["steward"]["id"] == "codex-5"
+    assert "stewards" in summary_payload
+    assert "codex-5" in summary_payload["stewards"]
 
     row = [line for line in registry_path.read_text(encoding="utf-8").splitlines() if line.startswith("| sample")]
     assert row
@@ -236,6 +264,21 @@ def test_registry_check_reports_ok(tmp_path: Path, signing_pair):
                         "steward": "codex-5",
                         "plan_path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
                         "key_path": "governance/keys/feed.sample-2025.pub",
+                        "steward_profile": {
+                            "id": "codex-5",
+                            "display_name": "Automation Steward",
+                            "capabilities": [
+                                "external_adapter",
+                                "summary_refresh",
+                                "registry_maintenance"
+                            ],
+                            "obligations": [
+                                "refresh_summary_post_run",
+                                "update_registry_post_run",
+                                "respond_to_registry_alerts"
+                            ],
+                            "trust_baseline": 0.85
+                        }
                     }
                 }
             }
@@ -311,6 +354,21 @@ def test_adapter_refresh_summary_updates_registry(tmp_path: Path, signing_pair):
                         "steward": "codex-5",
                         "plan_path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
                         "key_path": "governance/keys/feed.sample-2025.pub",
+                        "steward_profile": {
+                            "id": "codex-5",
+                            "display_name": "Automation Steward",
+                            "capabilities": [
+                                "external_adapter",
+                                "summary_refresh",
+                                "registry_maintenance"
+                            ],
+                            "obligations": [
+                                "refresh_summary_post_run",
+                                "update_registry_post_run",
+                                "respond_to_registry_alerts"
+                            ],
+                            "trust_baseline": 0.85
+                        }
                     }
                 }
             }
@@ -340,3 +398,7 @@ def test_adapter_refresh_summary_updates_registry(tmp_path: Path, signing_pair):
     assert "sample" in registry_text
     assert "_report/external/sample" in registry_text
     assert "_report/usage/external-summary.json" in registry_text
+
+    summary_payload = json.loads(summary.DEFAULT_OUTPUT.read_text(encoding="utf-8"))
+    steward_block = summary_payload["stewards"]["codex-5"]
+    assert any(feed["feed_id"] == "sample" for feed in steward_block["feeds"])

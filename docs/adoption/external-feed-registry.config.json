@@ -3,7 +3,23 @@
     "demo": {
       "steward": "codex-5 (automation steward)",
       "plan_path": "_plans/2025-09-22-external-feed-demo.plan.json",
-      "key_path": "governance/keys/feed.demo-2025.pub"
+      "key_path": "governance/keys/feed.demo-2025.pub",
+      "steward_profile": {
+        "id": "codex-5",
+        "display_name": "Automation Steward",
+        "capabilities": [
+          "external_adapter",
+          "summary_refresh",
+          "registry_maintenance"
+        ],
+        "obligations": [
+          "refresh_summary_post_run",
+          "update_registry_post_run",
+          "respond_to_registry_alerts"
+        ],
+        "trust_baseline": 0.85,
+        "contact": "codex-5@teof"
+      }
     }
   }
 }

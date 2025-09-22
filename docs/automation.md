@@ -118,6 +118,8 @@ Use `python -m tools.external.summary --threshold-hours 24 --out _report/usage/e
 - a trust bundle (`score`, `status`, `signals`) that condenses freshness/signature health into an alignment score
 - a list of receipts that failed hash/signature validation
 - optional operator notes when you pass `--notes-json <path>` (map `feed_id` → commentary for reviewers)
+- a `stewards` index summarising each steward’s obligations, capabilities, trust baseline, and the feeds they cover
+- when notes are provided, `_report/usage/external-feedback.json` is generated as a compact ledger of commentary + trust context for follow-up reviews
 
 Run this after ingestion or during audits to surface drift; pass `--strict` to exit non-zero on any invalid receipts. The command underpins `_plans/2025-09-21-automation-governance-upgrade` (S3) and feeds dashboards documenting the guard’s efficacy.
 For hygiene sweeps, `python -m tools.external.registry_check` verifies that every registry row, config entry, and summary record stays in sync.
