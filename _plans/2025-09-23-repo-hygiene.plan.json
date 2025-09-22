@@ -24,7 +24,9 @@
     {
       "id": "S2",
       "notes": "Merge or remove redundant automation helpers; ensure remaining tools are covered by tests",
-      "receipts": [],
+      "receipts": [
+        "_report/usage/autonomy-actions/hygiene-20250922T232851Z.json"
+      ],
       "stage": "queued",
       "status": "queued",
       "title": "Consolidate tooling"
