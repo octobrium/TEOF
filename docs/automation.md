@@ -116,6 +116,38 @@ Use `python -m tools.external.summary --threshold-hours 24 --out _report/usage/e
 
 Run this after ingestion or during audits to surface drift; pass `--strict` to exit non-zero on any invalid receipts. The command underpins `_plans/2025-09-21-automation-governance-upgrade` (S3) and feeds dashboards documenting the guard’s efficacy.
 
+### External feed adoption playbook
+
+**Value proposition.**
+- **Proofable ingestion:** every volatile claim arrives with timestamp, source, hash, and signature, so reviewers can trust third-party feeds without re-ingesting raw APIs.
+- **Incremental rollout:** adapters run from the command line, push receipts into `_report/external/`, and surface their health via `_report/usage/external-summary.json`—no new infrastructure required.
+- **Business KPIs:** feeds report receipt counts, freshness, and invalid signature rates; automation dashboards and changelog tie those metrics to release readiness.
+
+**Integration steps (minimum viable pilot).**
+1. Generate a key pair (`teof-external-keygen --key-id <feed>`) and anchor the public key.
+2. Open a plan describing scope, steward, and rollback (`_plans/<date>-<feed>-pilot.plan.json`).
+3. Run the adapter (`teof-external-adapter --feed-id <feed> --plan-id <plan> --input <data>.json`).
+4. Verify receipts with `scripts/ci/check_vdp.py` and capture the KPI summary (`teof-external-summary`).
+5. Attach receipts to the plan; publish a case study (similar to `_plans/2025-09-22-external-feed-demo.plan.json`).
+
+**Candidate feed classes.**
+- Market indicators (FX, commodities) sourced from read-only APIs.
+- Geopolitical risk digests (curated RSS, analyst reports) normalized to VDP schema.
+- Operational telemetry (service uptime, alert rates) when paired with signed emission keys.
+
+**Adoption KPIs to track.**
+- Mean/max receipt age per feed.
+- Invalid signature count (should be zero); escalate the moment it isn’t.
+- Time from raw observation → signed receipt → KPI summary (goal: < 5 minutes in steady state).
+- Number of plans actively consuming each feed (shows business uptake).
+
+**Packaging backlog.**
+- Publish a pip extra (e.g., `pip install teof[external]`) that bundles PyNaCl and ships adapter/summary CLIs.
+- Provide SDK stubs or REST examples so external partners can call the adapter programmatically.
+- Automate dashboard generation from `_report/usage/external-summary.json` (Markdown/HTML) for exec reporting.
+
+Use the playbook to scope real pilots: everything above runs with today’s toolkit; only the data source and plan context change.
+
 ## Open Questions
 
 - Should automation maintain its own ledger of actions separate from `_report/`? (Potential future work.)
