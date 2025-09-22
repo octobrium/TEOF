@@ -133,6 +133,16 @@ For tier-level visibility, run `python -m tools.external.authenticity_report` (o
 The summary CLI already regenerates both files after each run; use the command above only when you need to recompute dashboards from archived data.
 The Markdown dashboard is also mirrored to `docs/usage/external-authenticity.md` so STATUS reports and docs always reflect the latest run.
 When a tier’s adjusted trust drops below `--auth-alert-threshold` (default `0.6`) or any feed enters an attention state, the summary CLI logs a bus status event (`teof-auth-monitor`) so managers can react immediately. The same run now also feeds `tools.agent.authenticity_escalation`, which keeps streak state under `_report/agent/teof-auth-monitor/` and, after two consecutive degraded runs, auto-assigns steward tasks (`AUTH-<tier>-<steward>-<date>`) via the bus to force remediation.
+
+### Autonomy self-prompt loop
+
+With authenticity + CI guardrails satisfied, automation can safely claim the next development task by running:
+
+```bash
+python3 -m tools.autonomy.next_step --claim
+```
+
+The command consults `_plans/next-development.todo.json`, verifies authenticity trust (≥ configured threshold, no attention feeds), confirms planner summary exit code is `0`, and then marks the first `status: "pending"` item as `in_progress` while logging the selection under `_report/usage/selfprompt/`. Plan `2025-09-23-selfprompt-pilot` captures receipts for dry runs and documents rollback expectations before unattended execution becomes canon.
 Agents can consult `_plans/next-development.todo.json` and run `python -m tools.autonomy.next_step --claim` to adopt the next sanctioned refinement once authenticity and CI guardrails pass.
 
 ### External feed adoption playbook

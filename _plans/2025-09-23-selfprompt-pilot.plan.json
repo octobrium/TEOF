@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-23-selfprompt-pilot",
+  "created": "2025-09-22T22:15:00Z",
+  "actor": "codex-5",
+  "summary": "Exercise unattended next-step claim through Chronicle pipeline",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Dry run autonomy claim",
+      "status": "done",
+      "notes": "Trigger tools.autonomy.next_step under guardrails and record outputs",
+      "receipts": [
+        "_report/usage/selfprompt/run-20250922T222605Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Capture receipts + rollback",
+      "status": "done",
+      "notes": "Store bus events, assignments, and summarize path back to safe state",
+      "receipts": [
+        "_plans/next-development.todo.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document self-prompt policy",
+      "status": "done",
+      "notes": "Update docs/automation.md to describe unattended loop and prerequisites",
+      "receipts": [
+        "docs/automation.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Autonomy loop produces receipts for unattended claim",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/usage/selfprompt/run-20250922T222605Z.json",
+    "_plans/next-development.todo.json",
+    "docs/automation.md"
+  ]
+}

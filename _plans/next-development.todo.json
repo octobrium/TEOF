@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-09-22T22:07:00Z",
+  "updated": "2025-09-22T22:15:00Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -21,6 +21,13 @@
       "status": "done",
       "plan_suggestion": "2025-09-23-authenticity-chronicle",
       "notes": "Append tier summary to daily Chronicle so leadership sees drift."
+    },
+    {
+      "id": "ND-003",
+      "title": "Pilot self-prompt loop",
+      "status": "in_progress",
+      "plan_suggestion": "2025-09-23-selfprompt-pilot",
+      "notes": "Run end-to-end automation claim using Chronicle + escalation guardrails; capture receipts for unattended run."
     }
   ],
   "history": [
@@ -33,6 +40,10 @@
       "id": "ND-002",
       "claimed_at": "2025-09-22T22:05:00Z",
       "completed_at": "2025-09-22T22:07:00Z"
+    },
+    {
+      "id": "ND-003",
+      "claimed_at": "2025-09-22T22:21:38Z"
     }
   ]
 }
