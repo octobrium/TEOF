@@ -49,8 +49,8 @@ def _auth_ok(auth: Dict[str, Any] | None, min_trust: float, require_no_attention
     return True
 
 
-def _ci_ok() -> bool:
-    status = _load_json(STATUS_PATH)
+def _ci_ok(status_path: Path) -> bool:
+    status = _load_json(status_path)
     if not status:
         return True
     return status.get("status") == "ok"
@@ -60,40 +60,72 @@ def _iso_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--claim", action="store_true", help="Mark the first pending item as in-progress")
-    parser.add_argument("--out", type=Path, help="Optional path to write the selected item JSON")
-    args = parser.parse_args(argv)
+def select_next_step(
+    *,
+    claim: bool = False,
+    todo_path: Path | None = None,
+    auth_json: Path | None = None,
+    status_path: Path | None = None,
+    allow_failure: bool = True,
+) -> Dict[str, Any] | None:
+    todo_path = todo_path or TODO_PATH
+    auth_json = auth_json or AUTH_JSON
+    status_path = status_path or STATUS_PATH
 
-    todo = _load_json(TODO_PATH)
+    todo = _load_json(todo_path)
     if not todo:
-        raise NextStepError(f"todo file missing or invalid: {TODO_PATH}")
+        if allow_failure:
+            return None
+        raise NextStepError(f"todo file missing or invalid: {todo_path}")
 
     prerequisites = todo.get("prerequisites", {})
     min_trust = float(prerequisites.get("min_overall_trust", 0.7))
     require_no_attention = bool(prerequisites.get("require_no_attention_feeds", True))
 
-    authenticity = _load_json(AUTH_JSON)
+    authenticity = _load_json(auth_json)
     if not _auth_ok(authenticity, min_trust, require_no_attention):
+        if allow_failure:
+            return None
         raise NextStepError("Authenticity prerequisites not met")
 
-    if not _ci_ok():
+    if not _ci_ok(status_path):
+        if allow_failure:
+            return None
         raise NextStepError("CI summary not OK")
 
     item = _pick_item(todo)
     if not item:
+        if allow_failure:
+            return None
         raise NextStepError("No pending items found")
 
-    if args.claim:
+    selected = dict(item)
+
+    if claim:
         item["status"] = "in_progress"
         history_entry = {
             "id": item.get("id"),
             "claimed_at": _iso_now(),
         }
         todo.setdefault("history", []).append(history_entry)
-        TODO_PATH.write_text(json.dumps(todo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        todo_path.write_text(json.dumps(todo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
+    return selected
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--claim", action="store_true", help="Mark the first pending item as in-progress")
+    parser.add_argument("--out", type=Path, help="Optional path to write the selected item JSON")
+    args = parser.parse_args(argv)
+
+    item = select_next_step(
+        claim=args.claim,
+        todo_path=TODO_PATH,
+        auth_json=AUTH_JSON,
+        status_path=STATUS_PATH,
+        allow_failure=False,
+    )
     if args.out:
         args.out.write_text(json.dumps(item, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 

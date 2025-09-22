@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 import scripts.ci.check_vdp as check_vdp
+from tools.autonomy import next_step
 from tools.external import adapter, authenticity_report, registry_check, summary
 
 pytest.importorskip("nacl")
@@ -48,6 +49,36 @@ def _prepare_environment(tmp_path: Path):
     authenticity_report.DEFAULT_FEEDBACK = summary.DEFAULT_FEEDBACK_OUTPUT  # type: ignore[attr-defined]
     authenticity_report.DEFAULT_MARKDOWN = summary.DEFAULT_AUTH_MD  # type: ignore[attr-defined]
     authenticity_report.DEFAULT_JSON = summary.DEFAULT_AUTH_JSON  # type: ignore[attr-defined]
+
+    todo_path = tmp_path / "_plans" / "next-development.todo.json"
+    todo_path.parent.mkdir(parents=True, exist_ok=True)
+    todo_path.write_text(
+        json.dumps(
+            {
+                "prerequisites": {
+                    "min_overall_trust": 0.7,
+                    "require_no_attention_feeds": True
+                },
+                "items": [
+                    {
+                        "id": "ND-001",
+                        "title": "Test next step",
+                        "status": "pending",
+                        "plan_suggestion": "2025-09-23-test",
+                        "notes": "dummy"
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    next_step.ROOT = tmp_path  # type: ignore[attr-defined]
+    next_step.TODO_PATH = todo_path  # type: ignore[attr-defined]
+    next_step.AUTH_JSON = summary.DEFAULT_AUTH_JSON  # type: ignore[attr-defined]
+    status_path = tmp_path / "_report" / "planner" / "validate" / "summary-latest.json"
+    status_path.parent.mkdir(parents=True, exist_ok=True)
+    status_path.write_text(json.dumps({"status": "ok"}), encoding="utf-8")
+    next_step.STATUS_PATH = status_path  # type: ignore[attr-defined]
 
     registry_check.ROOT = tmp_path
     registry_check.REGISTRY_MD = summary.DEFAULT_REGISTRY_PATH
@@ -127,6 +158,8 @@ def _write_receipt(tmp_path: Path, signing_pair, issued_at: str):
 
 def test_summary_outputs_metrics(tmp_path: Path, signing_pair):
     _prepare_environment(tmp_path)
+    bus_calls: list[list[str]] = summary._bus_event_calls  # type: ignore[attr-defined]
+    bus_calls.clear()
     _write_receipt(tmp_path, signing_pair, issued_at="2025-09-21T22:00:00Z")
 
     summary_path = tmp_path / "summary.json"
@@ -196,6 +229,8 @@ def test_summary_notes_merge(tmp_path: Path, signing_pair):
 
 def test_summary_updates_registry(tmp_path: Path, signing_pair):
     _prepare_environment(tmp_path)
+    bus_calls: list[list[str]] = summary._bus_event_calls  # type: ignore[attr-defined]
+    bus_calls.clear()
     _write_receipt(tmp_path, signing_pair, issued_at="2025-09-21T22:00:00Z")
 
     registry_path = summary.DEFAULT_REGISTRY_PATH
@@ -270,6 +305,12 @@ def test_summary_updates_registry(tmp_path: Path, signing_pair):
     docs_dash = summary.ROOT / "docs" / "usage" / "external-authenticity.md"  # type: ignore[attr-defined]
     assert docs_dash.exists()
     assert "External Authenticity Dashboard" in docs_dash.read_text(encoding="utf-8")
+    auth_data = json.loads(summary.DEFAULT_AUTH_JSON.read_text(encoding="utf-8"))  # type: ignore[attr-defined]
+    assert auth_data["overall_avg_trust"] >= 0.7
+    assert not auth_data.get("attention_feeds")
+    suggestion = next_step.select_next_step(allow_failure=False)  # type: ignore[attr-defined]
+    assert suggestion["id"] == "ND-001"
+    assert any("next-step" in " ".join(argv) for argv in bus_calls)
 
 
     row = [line for line in registry_path.read_text(encoding="utf-8").splitlines() if line.startswith("| sample")]
@@ -280,6 +321,7 @@ def test_summary_updates_registry(tmp_path: Path, signing_pair):
 
 def test_registry_check_reports_ok(tmp_path: Path, signing_pair):
     _prepare_environment(tmp_path)
+    summary._bus_event_calls.clear()  # type: ignore[attr-defined]
     _write_receipt(tmp_path, signing_pair, issued_at="2025-09-21T22:00:00Z")
 
     summary.DEFAULT_REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -345,6 +387,7 @@ def test_registry_check_reports_ok(tmp_path: Path, signing_pair):
 def test_summary_auth_alert_emits_bus_event(tmp_path: Path, signing_pair):
     _prepare_environment(tmp_path)
     bus_calls: list[list[str]] = summary._bus_event_calls  # type: ignore[attr-defined]
+    bus_calls.clear()
     _write_receipt(tmp_path, signing_pair, issued_at="2025-09-21T22:00:00Z")
 
     summary.DEFAULT_REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)

@@ -643,6 +643,39 @@ def _alert_authenticity(summary: dict[str, Any], threshold: float | None) -> Non
         return
 
 
+def _suggest_next_step() -> None:
+    if bus_event_module is None:
+        return
+    try:
+        from tools.autonomy import next_step as next_step_module
+    except ImportError:
+        return
+    try:
+        suggestion = next_step_module.select_next_step(claim=False, allow_failure=True)
+    except Exception:
+        return
+    if not suggestion:
+        return
+    summary_text = f"next-step suggestion: {suggestion.get('id')} {suggestion.get('title')}"
+    argv = [
+        "log",
+        "--event",
+        "status",
+        "--summary",
+        summary_text,
+        "--agent",
+        "teof-next-step",
+    ]
+    if suggestion.get("plan_suggestion"):
+        argv.extend(["--extra", f"plan={suggestion['plan_suggestion']}"])
+    if suggestion.get("notes"):
+        argv.extend(["--extra", f"notes={suggestion['notes']}"])
+    try:
+        bus_event_module.main(argv)
+    except Exception:  # pragma: no cover - bus event failures shouldn't break summary
+        return
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
     summary = summarise_receipts(args.threshold_hours, strict=args.strict)
@@ -713,6 +746,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         docs_auth_md.write_text(auth_md.read_text(encoding="utf-8"), encoding="utf-8")
     auth_threshold = None if args.disable_auth_alert or args.auth_alert_threshold <= 0 else args.auth_alert_threshold
     _alert_authenticity(summary, auth_threshold)
+    _suggest_next_step()
     if args.strict and (summary["invalid_receipts"] or any(f["invalid_signatures"] for f in summary["feeds"].values())):
         return 1
     return 0
