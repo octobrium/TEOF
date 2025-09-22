@@ -512,7 +512,7 @@ def _update_registry_from_summary(
         print(f"{action}: {row.strip()}")
 
 
-def _write_feedback(summary: dict[str, Any], output_path: Path) -> None:
+def _write_feedback(summary: dict[str, Any], output_path: Path) -> dict[str, Any] | None:
     entries = []
     feeds: Dict[str, Dict[str, Any]] = summary.get("feeds", {})  # type: ignore[assignment]
     for feed_id, info in feeds.items():
@@ -533,7 +533,7 @@ def _write_feedback(summary: dict[str, Any], output_path: Path) -> None:
             }
         )
     if not entries:
-        return
+        return None
     payload = {
         "generated_at": summary.get("generated_at"),
         "notes_source": summary.get("notes_source"),
@@ -541,6 +541,7 @@ def _write_feedback(summary: dict[str, Any], output_path: Path) -> None:
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return payload
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -590,7 +591,24 @@ def main(argv: Sequence[str] | None = None) -> int:
     feedback_path = args.feedback_out if args.feedback_out else DEFAULT_FEEDBACK_OUTPUT
     if not feedback_path.is_absolute():
         feedback_path = ROOT / feedback_path
-    _write_feedback(summary, feedback_path)
+    feedback_payload = _write_feedback(summary, feedback_path)
+    try:
+        from . import authenticity_report
+    except ImportError:
+        authenticity_report = None
+    if authenticity_report is not None:
+        auth_md = authenticity_report.DEFAULT_MARKDOWN
+        auth_json = authenticity_report.DEFAULT_JSON
+        if not auth_md.is_absolute():
+            auth_md = ROOT / auth_md
+        if not auth_json.is_absolute():
+            auth_json = ROOT / auth_json
+        authenticity_report.generate_dashboard(
+            summary,
+            feedback_payload,
+            auth_md,
+            auth_json,
+        )
     if args.strict and (summary["invalid_receipts"] or any(f["invalid_signatures"] for f in summary["feeds"].values())):
         return 1
     return 0

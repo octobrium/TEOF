@@ -71,7 +71,7 @@ def _avg(values: List[float]) -> float | None:
     return round(sum(values) / len(values), 3)
 
 
-def _extract_dashboard(summary: Dict[str, Any], feedback: Dict[str, Any] | None) -> Dict[str, Any]:
+def build_dashboard(summary: Dict[str, Any], feedback: Dict[str, Any] | None = None) -> Dict[str, Any]:
     feeds = summary.get("feeds", {})
     authenticity = summary.get("authenticity", {})
     generated_at = datetime.now(timezone.utc).isoformat()
@@ -163,17 +163,29 @@ def _write_markdown(report: Dict[str, Any], path: Path) -> None:
     path.write_text("".join(lines), encoding="utf-8")
 
 
+def generate_dashboard(
+    summary: Dict[str, Any],
+    feedback: Dict[str, Any] | None,
+    markdown_path: Path,
+    json_path: Path,
+) -> Dict[str, Any]:
+    report = build_dashboard(summary, feedback)
+    json_path.parent.mkdir(parents=True, exist_ok=True)
+    markdown_path.parent.mkdir(parents=True, exist_ok=True)
+    _write_json(report, json_path)
+    _write_markdown(report, markdown_path)
+    return report
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
     summary_path = args.summary if args.summary.is_absolute() else (ROOT / args.summary).resolve()
     feedback_path = args.feedback if args.feedback.is_absolute() else (ROOT / args.feedback).resolve()
-    summary = _load_json(summary_path)
-    feedback = _load_optional_json(feedback_path)
-    report = _extract_dashboard(summary, feedback)
+    summary_data = _load_json(summary_path)
+    feedback_data = _load_optional_json(feedback_path)
     json_out = args.out_json if args.out_json.is_absolute() else (ROOT / args.out_json).resolve()
     md_out = args.out_md if args.out_md.is_absolute() else (ROOT / args.out_md).resolve()
-    _write_json(report, json_out)
-    _write_markdown(report, md_out)
+    generate_dashboard(summary_data, feedback_data, md_out, json_out)
     try:
         md_disp = md_out.relative_to(ROOT)
     except ValueError:

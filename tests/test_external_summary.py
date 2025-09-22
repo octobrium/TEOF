@@ -18,6 +18,8 @@ def _prepare_environment(tmp_path: Path):
     summary.KEYS_DIR = tmp_path / "governance" / "keys"
     summary.DEFAULT_OUTPUT = tmp_path / "_report" / "usage" / "external-summary.json"
     summary.DEFAULT_FEEDBACK_OUTPUT = tmp_path / "_report" / "usage" / "external-feedback.json"  # type: ignore[attr-defined]
+    summary.DEFAULT_AUTH_MD = tmp_path / "_report" / "usage" / "external-authenticity.md"  # type: ignore[attr-defined]
+    summary.DEFAULT_AUTH_JSON = tmp_path / "_report" / "usage" / "external-authenticity.json"  # type: ignore[attr-defined]
     summary.REGISTRY_CONFIG_DEFAULT = tmp_path / "docs" / "adoption" / "external-feed-registry.config.json"
     summary.DEFAULT_REGISTRY_PATH = tmp_path / "docs" / "adoption" / "external-feed-registry.md"
     assert summary.DEFAULT_REGISTRY_PATH == tmp_path / "docs" / "adoption" / "external-feed-registry.md"
@@ -28,6 +30,12 @@ def _prepare_environment(tmp_path: Path):
     adapter.ROOT = tmp_path
     adapter.DEFAULT_REPORT_DIR = tmp_path / "_report" / "external"
     adapter.KEYS_DIR = tmp_path / "governance" / "keys"
+
+    authenticity_report.ROOT = tmp_path
+    authenticity_report.DEFAULT_SUMMARY = summary.DEFAULT_OUTPUT  # type: ignore[attr-defined]
+    authenticity_report.DEFAULT_FEEDBACK = summary.DEFAULT_FEEDBACK_OUTPUT  # type: ignore[attr-defined]
+    authenticity_report.DEFAULT_MARKDOWN = summary.DEFAULT_AUTH_MD  # type: ignore[attr-defined]
+    authenticity_report.DEFAULT_JSON = summary.DEFAULT_AUTH_JSON  # type: ignore[attr-defined]
 
     registry_check.ROOT = tmp_path
     registry_check.REGISTRY_MD = summary.DEFAULT_REGISTRY_PATH
@@ -243,6 +251,8 @@ def test_summary_updates_registry(tmp_path: Path, signing_pair):
     assert "codex-5" in summary_payload["stewards"]
     assert "authenticity" in summary_payload
     assert summary_payload["authenticity"]["primary_truth"]["count"] >= 1
+    assert summary.DEFAULT_AUTH_MD.exists()  # type: ignore[attr-defined]
+    assert summary.DEFAULT_AUTH_JSON.exists()  # type: ignore[attr-defined]
 
     row = [line for line in registry_path.read_text(encoding="utf-8").splitlines() if line.startswith("| sample")]
     assert row
@@ -413,6 +423,8 @@ def test_adapter_refresh_summary_updates_registry(tmp_path: Path, signing_pair):
     assert any(feed["feed_id"] == "sample" for feed in steward_block["feeds"])
     authenticity_block = summary_payload["authenticity"]["primary_truth"]
     assert any(feed["feed_id"] == "sample" for feed in authenticity_block["feeds"])
+    assert summary.DEFAULT_AUTH_MD.exists()  # type: ignore[attr-defined]
+    assert summary.DEFAULT_AUTH_JSON.exists()  # type: ignore[attr-defined]
 
 
 def test_authenticity_report_generates_dashboard(tmp_path: Path, signing_pair):
