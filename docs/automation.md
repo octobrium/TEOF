@@ -114,10 +114,13 @@ This spec guides S2 of `_plans/2025-09-21-automation-governance-upgrade`: implem
 ### External feed summary CLI
 
 Use `python -m tools.external.summary --threshold-hours 24 --out _report/usage/external-summary.json` (or the packaged `teof-external-summary`) to emit KPI metrics for receipts stored under `_report/external/`. The JSON includes:
-- per-feed receipt counts, latest issuance timestamps, stale counts, invalid signature counters, and latest age in seconds
+- per-feed receipt counts, latest issuance timestamps, stale counts, invalid signature counters, and latest ages (seconds + hours)
+- a trust bundle (`score`, `status`, `signals`) that condenses freshness/signature health into an alignment score
 - a list of receipts that failed hash/signature validation
+- optional operator notes when you pass `--notes-json <path>` (map `feed_id` → commentary for reviewers)
 
 Run this after ingestion or during audits to surface drift; pass `--strict` to exit non-zero on any invalid receipts. The command underpins `_plans/2025-09-21-automation-governance-upgrade` (S3) and feeds dashboards documenting the guard’s efficacy.
+For hygiene sweeps, `python -m tools.external.registry_check` verifies that every registry row, config entry, and summary record stays in sync.
 
 ### External feed adoption playbook
 
@@ -129,7 +132,7 @@ Run this after ingestion or during audits to surface drift; pass `--strict` to e
 **Integration steps (minimum viable pilot).**
 1. Generate a key pair (`teof-external-keygen --key-id <feed>`) and anchor the public key.
 2. Open a plan describing scope, steward, and rollback (`_plans/<date>-<feed>-pilot.plan.json`).
-3. Run the adapter (`teof-external-adapter --feed-id <feed> --plan-id <plan> --input <data>.json`).
+3. Run the adapter (`teof-external-adapter --feed-id <feed> --plan-id <plan> --input <data>.json --refresh-summary`) so the summary + registry update immediately after the receipt lands.
 4. Verify receipts with `scripts/ci/check_vdp.py` and capture the KPI summary (`teof-external-summary`).
 5. Attach receipts to the plan; publish a case study (similar to `_plans/2025-09-22-external-feed-demo.plan.json`).
 6. Update the registry entry in [`docs/adoption/external-feed-registry.md`](../adoption/external-feed-registry.md) so the steward, key, latest receipt, and summary snapshot all point at the freshly signed run (either run `python -m tools.external.registry_update ...` directly or let `python -m tools.external.summary --registry-config docs/adoption/external-feed-registry.config.json` do it automatically).

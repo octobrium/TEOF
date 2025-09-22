@@ -47,6 +47,26 @@ def _parse_args(argv: Sequence[str] | None) -> argparse.Namespace:
         nargs="*",
         help="Additional key=value metadata to add alongside observations",
     )
+    parser.add_argument(
+        "--refresh-summary",
+        action="store_true",
+        help="Run external summary (and registry update) after emitting the receipt",
+    )
+    parser.add_argument(
+        "--summary-config",
+        type=Path,
+        help="Override registry config path when refreshing summary",
+    )
+    parser.add_argument(
+        "--summary-out",
+        type=Path,
+        help="Override summary output path when refreshing summary",
+    )
+    parser.add_argument(
+        "--summary-threshold-hours",
+        type=float,
+        help="Override threshold hours when refreshing summary",
+    )
     return parser.parse_args(argv)
 
 
@@ -176,6 +196,23 @@ def main(argv: Sequence[str] | None = None) -> int:
     except AdapterError as exc:
         raise SystemExit(str(exc))
     print(f"wrote {output.relative_to(ROOT)}")
+    if args.refresh_summary:
+        try:
+            from . import summary as summary_module
+        except ImportError as exc:  # pragma: no cover - optional dependency guard
+            raise SystemExit(f"failed to import summary module: {exc}")
+        summary_args: list[str] = ["--registry-path", str(summary_module.DEFAULT_REGISTRY_PATH)]
+        if args.summary_out:
+            summary_args.extend(["--out", str(args.summary_out)])
+        if args.summary_config:
+            summary_args.extend(["--registry-config", str(args.summary_config)])
+        elif summary_module.REGISTRY_CONFIG_DEFAULT.exists():
+            summary_args.extend(["--registry-config", str(summary_module.REGISTRY_CONFIG_DEFAULT)])
+        if args.summary_threshold_hours is not None:
+            summary_args.extend(["--threshold-hours", str(args.summary_threshold_hours)])
+        exit_code = summary_module.main(summary_args or None)
+        if exit_code != 0:
+            raise SystemExit("summary refresh failed")
     return 0
 
 

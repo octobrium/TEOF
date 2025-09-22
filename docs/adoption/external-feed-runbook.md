@@ -76,11 +76,12 @@ Optional but recommended: prepare a README or spec describing feed scope, retent
 ## Maintaining the registry
 
 - Track active feeds in [`docs/adoption/external-feed-registry.md`](external-feed-registry.md). Each row lists the feed steward, governing plan, signing key, latest receipt, and the summary snapshot used for health checks.
-- After every signed adapter run, refresh `_report/usage/external-summary.json` via `teof-external-summary` and update the registry so the `latest_receipt` and `summary` columns point at the newly committed artifacts.
+- After every signed adapter run, refresh `_report/usage/external-summary.json` (e.g., `python -m tools.external.adapter ... --refresh-summary`) so the registry updates automatically and the `latest_receipt` / `summary` columns always point at fresh evidence.
 - Prefer the helper CLI (`python -m tools.external.registry_update --feed-id <id> --steward "<owner>" --plan-path <plan> --key-path <pubkey> --latest-receipt <receipt> --summary-path <summary>`) to patch the registry immediately after summaries finish; it resolves relative links and replaces existing rows in-place.
 - Keep steward/plan/key defaults in `docs/adoption/external-feed-registry.config.json` so `teof-external-summary` can invoke the helper automatically after each run (`python -m tools.external.summary --registry-config docs/adoption/external-feed-registry.config.json`).
 - When keys rotate or stewardship changes, update both the registry row and the corresponding entry in `governance/anchors.json` so observers can confirm the signing lineage.
 - If a feed pauses or retires, leave the historical row in place and add a note (e.g., `status: retired`) in the steward column; attach the plan or reflection explaining the shutdown for reviewers.
+- Run `python -m tools.external.registry_check` during reviews or CI to confirm every registry entry has a matching config, fresh summary, and on-disk receipts.
 
 ---
 

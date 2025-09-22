@@ -91,6 +91,11 @@ def _parse_args(argv: Sequence[str] | None) -> argparse.Namespace:
         action="store_true",
         help="Compute registry updates without writing to disk",
     )
+    parser.add_argument(
+        "--notes-json",
+        type=Path,
+        help="Optional JSON file mapping feed_id to operator notes",
+    )
     return parser.parse_args(argv)
 
 
@@ -281,6 +286,74 @@ def _derive_key_path(meta: Dict[str, Any]) -> tuple[str, str | None]:
     return key_path, key_id
 
 
+def _load_notes(notes_path: Path | None) -> dict[str, str]:
+    if notes_path is None:
+        return {}
+    try:
+        data = json.loads(notes_path.read_text(encoding="utf-8"))
+    except FileNotFoundError as exc:
+        raise SummaryError(f"notes file not found: {notes_path}") from exc
+    except json.JSONDecodeError as exc:
+        raise SummaryError(f"notes file is not valid JSON: {notes_path}") from exc
+    if not isinstance(data, dict):
+        raise SummaryError("notes JSON must be an object mapping feed_id -> note")
+    notes: dict[str, str] = {}
+    for feed_id, note in data.items():
+        if note is None:
+            continue
+        notes[str(feed_id)] = str(note)
+    return notes
+
+
+def _augment_summary(
+    summary: dict[str, Any],
+    *,
+    threshold_hours: float,
+    notes: dict[str, str],
+    notes_path: Path | None,
+) -> None:
+    feeds: Dict[str, Dict[str, Any]] = summary.get("feeds", {})  # type: ignore[assignment]
+    for feed_id, info in feeds.items():
+        age_seconds = info.get("latest_age_seconds")
+        info["latest_age_hours"] = (age_seconds / 3600) if age_seconds is not None else None
+        signals: list[str] = []
+        if not info.get("latest_receipt"):
+            signals.append("no_receipts")
+        if info.get("invalid_signatures", 0):
+            signals.append("invalid_signature")
+        if info.get("stale_count", 0):
+            signals.append("stale_count")
+        if age_seconds is None:
+            signals.append("missing_timestamp")
+        elif age_seconds > threshold_hours * 3600:
+            signals.append("stale_threshold")
+
+        score = 1.0
+        if "no_receipts" in signals:
+            score = 0.0
+        else:
+            if "invalid_signature" in signals:
+                score -= 0.5
+            if "stale_count" in signals:
+                score -= 0.2
+            if "stale_threshold" in signals:
+                score -= 0.2
+        score = max(0.0, min(1.0, round(score, 3)))
+        status = "ok" if not signals else ("attention" if score >= 0.5 else "critical")
+        info["trust"] = {
+            "score": score,
+            "status": status,
+            "signals": signals,
+        }
+        if notes and feed_id in notes:
+            info["note"] = notes[feed_id]
+        elif "note" in info:
+            del info["note"]
+
+    if notes_path is not None:
+        summary["notes_source"] = str(notes_path)
+
+
 def _update_registry_from_summary(
     summary: dict[str, Any],
     registry_config: Path | None,
@@ -338,6 +411,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     output_path = Path(args.out) if args.out else DEFAULT_OUTPUT
     if not output_path.is_absolute():
         output_path = ROOT / output_path
+    notes_path: Path | None = None
+    if args.notes_json:
+        notes_path = args.notes_json if args.notes_json.is_absolute() else (ROOT / args.notes_json).resolve()
+    notes = _load_notes(notes_path)
+    _augment_summary(summary, threshold_hours=args.threshold_hours, notes=notes, notes_path=notes_path)
     write_summary(summary, output_path)
     try:
         rel = output_path.relative_to(ROOT)
