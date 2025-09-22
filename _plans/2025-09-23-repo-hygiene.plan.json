@@ -1,40 +1,43 @@
 {
-  "version": 0,
-  "plan_id": "2025-09-23-repo-hygiene",
-  "created": "2025-09-22T22:31:00Z",
   "actor": "codex-5",
-  "summary": "Consolidate automation surface and trim unused artifacts",
-  "status": "pending",
-  "steps": [
-    {
-      "id": "S1",
-      "title": "Inventory unused assets",
-      "status": "done",
-      "notes": "Catalogue orphaned scripts, docs, and stale _report data; propose removals",
-      "receipts": [
-        "docs/maintenance/repo-hygiene-20250922.md"
-      ]
-    },
-    {
-      "id": "S2",
-      "title": "Consolidate tooling",
-      "status": "pending",
-      "notes": "Merge or remove redundant automation helpers; ensure remaining tools are covered by tests",
-      "receipts": []
-    },
-    {
-      "id": "S3",
-      "title": "Document lean baseline",
-      "status": "pending",
-      "notes": "Update automation docs and CHANGELOG with new operating surface and cleanup decisions",
-      "receipts": []
-    }
-  ],
   "checkpoint": {
     "description": "Repository lean set defined and enforced",
     "owner": "codex-5",
     "status": "pending"
   },
+  "created": "2025-09-22T22:31:00Z",
   "links": [],
-  "receipts": []
+  "plan_id": "2025-09-23-repo-hygiene",
+  "receipts": [],
+  "stage": "queued",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "notes": "Catalogue orphaned scripts, docs, and stale _report data; propose removals",
+      "receipts": [
+        "docs/maintenance/repo-hygiene-20250922.md"
+      ],
+      "status": "done",
+      "title": "Inventory unused assets"
+    },
+    {
+      "id": "S2",
+      "notes": "Merge or remove redundant automation helpers; ensure remaining tools are covered by tests",
+      "receipts": [],
+      "stage": "queued",
+      "status": "queued",
+      "title": "Consolidate tooling"
+    },
+    {
+      "id": "S3",
+      "notes": "Update automation docs and CHANGELOG with new operating surface and cleanup decisions",
+      "receipts": [],
+      "stage": "queued",
+      "status": "queued",
+      "title": "Document lean baseline"
+    }
+  ],
+  "summary": "Consolidate automation surface and trim unused artifacts",
+  "version": 0
 }
