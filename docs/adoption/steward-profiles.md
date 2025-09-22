@@ -13,3 +13,15 @@ Each profile should include:
 
 Profiles feed into `docs/adoption/external-feed-registry.config.json` and the automated trust metrics under `_report/usage/external-summary.json`.
 
+### Authenticity tiers
+
+Use the `authenticity` field to characterize the evidence pipeline:
+
+- `primary_truth` – direct signed observation from the source of record.
+- `source` – first-party curation or direct API without transformation.
+- `curated` – lightly processed/validated rollups that still retain receipts for drill-down.
+- `synthesis` – merged or model-generated insights that depend on upstream feeds.
+- `experimental` – pilots or feeds under evaluation; expect higher scrutiny.
+- `unassigned` – default when a steward has not declared authenticity; summary weights drop slightly until clarified.
+
+Summaries weight trust using these tiers so higher-fidelity feeds surface first while experimental ones prompt reviews.

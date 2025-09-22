@@ -122,6 +122,8 @@ def test_summary_outputs_metrics(tmp_path: Path, signing_pair):
     assert feed_info["invalid_signatures"] == 0
     assert feed_info["latest_age_hours"] is not None
     assert feed_info["trust"]["status"] == "ok"
+    assert feed_info["authenticity"]["tier"] == "unassigned"
+    assert feed_info["authenticity"]["weight"] == pytest.approx(0.8)
 
 
 def test_summary_flags_stale_and_hash(tmp_path: Path, signing_pair):
@@ -194,6 +196,7 @@ def test_summary_updates_registry(tmp_path: Path, signing_pair):
                         "steward": "codex-5",
                         "plan_path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
                         "key_path": "governance/keys/feed.sample-2025.pub",
+                        "authenticity": "primary_truth",
                         "steward_profile": {
                             "id": "codex-5",
                             "display_name": "Automation Steward",
@@ -234,8 +237,12 @@ def test_summary_updates_registry(tmp_path: Path, signing_pair):
     assert feed_info["trust"]["baseline"] == 0.85
     assert feed_info["trust"]["adjusted"] <= 0.85
     assert feed_info["steward"]["id"] == "codex-5"
+    assert feed_info["authenticity"]["tier"] == "primary_truth"
+    assert feed_info["authenticity"]["weight"] == 1.0
     assert "stewards" in summary_payload
     assert "codex-5" in summary_payload["stewards"]
+    assert "authenticity" in summary_payload
+    assert summary_payload["authenticity"]["primary_truth"]["count"] >= 1
 
     row = [line for line in registry_path.read_text(encoding="utf-8").splitlines() if line.startswith("| sample")]
     assert row
@@ -264,6 +271,7 @@ def test_registry_check_reports_ok(tmp_path: Path, signing_pair):
                         "steward": "codex-5",
                         "plan_path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
                         "key_path": "governance/keys/feed.sample-2025.pub",
+                        "authenticity": "primary_truth",
                         "steward_profile": {
                             "id": "codex-5",
                             "display_name": "Automation Steward",
@@ -354,6 +362,7 @@ def test_adapter_refresh_summary_updates_registry(tmp_path: Path, signing_pair):
                         "steward": "codex-5",
                         "plan_path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
                         "key_path": "governance/keys/feed.sample-2025.pub",
+                        "authenticity": "primary_truth",
                         "steward_profile": {
                             "id": "codex-5",
                             "display_name": "Automation Steward",
@@ -402,3 +411,5 @@ def test_adapter_refresh_summary_updates_registry(tmp_path: Path, signing_pair):
     summary_payload = json.loads(summary.DEFAULT_OUTPUT.read_text(encoding="utf-8"))
     steward_block = summary_payload["stewards"]["codex-5"]
     assert any(feed["feed_id"] == "sample" for feed in steward_block["feeds"])
+    authenticity_block = summary_payload["authenticity"]["primary_truth"]
+    assert any(feed["feed_id"] == "sample" for feed in authenticity_block["feeds"])

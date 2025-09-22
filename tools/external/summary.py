@@ -22,6 +22,14 @@ EXTERNAL_DIR = ROOT / "_report" / "external"
 KEYS_DIR = ROOT / "governance" / "keys"
 DEFAULT_OUTPUT = ROOT / "_report" / "usage" / "external-summary.json"
 DEFAULT_FEEDBACK_OUTPUT = ROOT / "_report" / "usage" / "external-feedback.json"
+AUTHENTICITY_WEIGHTS = {
+    "primary_truth": 1.0,
+    "source": 0.95,
+    "curated": 0.9,
+    "synthesis": 0.75,
+    "experimental": 0.5,
+    "unassigned": 0.8,
+}
 REGISTRY_CONFIG_DEFAULT = ROOT / "docs" / "adoption" / "external-feed-registry.config.json"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 
@@ -322,6 +330,8 @@ def _build_feed_profiles(feeds_meta: Dict[str, Any] | None) -> dict[str, dict[st
         profile_raw = meta.get("steward_profile") or {}
         if not isinstance(profile_raw, dict):
             profile_raw = {}
+        authenticity = (profile_raw.get("authenticity") or meta.get("authenticity") or "unassigned").strip().lower().replace(" ", "_")
+        authenticity_weight = AUTHENTICITY_WEIGHTS.get(authenticity, AUTHENTICITY_WEIGHTS["unassigned"])
         profile = {
             "id": profile_raw.get("id"),
             "label": steward_label,
@@ -331,6 +341,8 @@ def _build_feed_profiles(feeds_meta: Dict[str, Any] | None) -> dict[str, dict[st
             "trust_baseline": profile_raw.get("trust_baseline", 1.0),
             "contact": profile_raw.get("contact"),
             "notes": profile_raw.get("notes"),
+            "authenticity": authenticity,
+            "authenticity_weight": authenticity_weight,
         }
         profiles[feed_id] = profile
     return profiles
@@ -346,6 +358,7 @@ def _augment_summary(
 ) -> None:
     feeds: Dict[str, Dict[str, Any]] = summary.get("feeds", {})  # type: ignore[assignment]
     steward_index: dict[str | None, dict[str, Any]] = {}
+    authenticity_index: dict[str, dict[str, Any]] = {}
     for feed_id, info in feeds.items():
         age_seconds = info.get("latest_age_seconds")
         info["latest_age_hours"] = (age_seconds / 3600) if age_seconds is not None else None
@@ -379,11 +392,37 @@ def _augment_summary(
             "signals": signals,
         }
         profile = feed_profiles.get(feed_id)
+        baseline = float((profile.get("trust_baseline") if profile else 1.0) or 1.0)
+        authenticity = (profile.get("authenticity") if profile else "unassigned") or "unassigned"
+        tier_weight = float((profile.get("authenticity_weight") if profile else AUTHENTICITY_WEIGHTS.get(authenticity)) or AUTHENTICITY_WEIGHTS["unassigned"])
+        info["authenticity"] = {
+            "tier": authenticity,
+            "weight": round(tier_weight, 3),
+        }
+        info["trust"]["baseline"] = round(baseline, 3)
+        info["trust"]["tier_weight"] = round(tier_weight, 3)
+        adjusted = max(0.0, min(1.0, round(score * baseline * tier_weight, 3)))
+        info["trust"]["adjusted"] = adjusted
+
+        auth_record = authenticity_index.setdefault(
+            authenticity,
+            {
+                "weight": round(tier_weight, 3),
+                "feeds": [],
+                "count": 0,
+            },
+        )
+        auth_record["feeds"].append(
+            {
+                "feed_id": feed_id,
+                "trust_adjusted": adjusted,
+                "steward_id": profile.get("id") if profile else None,
+                "status": info["trust"]["status"],
+            }
+        )
+        auth_record["count"] += 1
+
         if profile:
-            baseline = float(profile.get("trust_baseline", 1.0) or 1.0)
-            info["trust"]["baseline"] = round(baseline, 3)
-            adjusted = max(0.0, min(1.0, round(score * baseline, 3)))
-            info["trust"]["adjusted"] = adjusted
             info["steward"] = profile
             steward_id = profile.get("id") or feed_id
             record = steward_index.setdefault(
@@ -403,7 +442,7 @@ def _augment_summary(
             record["feeds"].append(
                 {
                     "feed_id": feed_id,
-                    "trust_adjusted": info["trust"].get("adjusted", score),
+                    "trust_adjusted": adjusted,
                     "latest_receipt": info.get("latest_receipt"),
                     "status": info["trust"]["status"],
                 }
@@ -417,6 +456,8 @@ def _augment_summary(
         summary["notes_source"] = str(notes_path)
     if steward_index:
         summary["stewards"] = steward_index
+    if authenticity_index:
+        summary["authenticity"] = authenticity_index
 
 
 def _update_registry_from_summary(
