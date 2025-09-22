@@ -4,8 +4,8 @@
   "created": "2025-09-22T23:33:45Z",
   "actor": "codex-5",
   "summary": "Codify auto-consent policy and implement unattended autonomy loop",
-  "status": "queued",
-  "stage": "queued",
+  "status": "done",
+  "stage": "done",
   "steps": [
     {
       "id": "S1",
@@ -20,25 +20,36 @@
     {
       "id": "S2",
       "title": "Extend autonomy runner",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Add auto loop (--auto) to tools.autonomy.next_step with policy enforcement + receipts",
-      "receipts": []
+      "receipts": [
+        "tools/autonomy/next_step.py",
+        "tests/test_autonomy_next_step.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Prove unattended run",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Execute auto loop run, capture receipts, and document operator switch-off instructions",
-      "receipts": []
+      "receipts": [
+        "docs/automation.md",
+        "_report/health/health-20250922T234214Z.json",
+        "_report/usage/autonomy-audit/audit-2025-09-22T22:15:00Z.json",
+        "_report/usage/autonomy-actions/hygiene-20250922T232851Z.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Auto-proceed enabled with documented guardrails",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "docs/automation/autonomy-consent.json",
+    "docs/automation.md"
+  ]
 }

@@ -145,6 +145,14 @@ python3 -m tools.autonomy.next_step --claim
 The command consults `_plans/next-development.todo.json`, verifies authenticity trust (≥ configured threshold, no attention feeds), confirms planner summary exit code is `0`, and then marks the first `status: "pending"` item as `in_progress` while logging the selection under `_report/usage/selfprompt/`. Plan `2025-09-23-selfprompt-pilot` captures receipts for dry runs and documents rollback expectations before unattended execution becomes canon.
 Agents can consult `_plans/next-development.todo.json` and run `python -m tools.autonomy.next_step --claim` to adopt the next sanctioned refinement once authenticity and CI guardrails pass.
 
+Auto-proceed runs are controlled by `docs/automation/autonomy-consent.json`. That policy records whether the loop is enabled (`auto_enabled`), how many iterations to attempt (`max_iterations`), and whether write-mode is allowed (`allow_apply`). Update the file (and commit the change) to toggle automation on/off; by default the loop halts whenever authenticity attention feeds appear or CI stops passing. When auto mode is active, use:
+
+```bash
+python3 -m tools.autonomy.next_step --auto --execute
+```
+
+Receipts for each unattended iteration land under `_report/usage/selfprompt/` and `_report/usage/autonomy-actions/`, so future agents can audit what changed and disable the policy if needed.
+
 ### External feed adoption playbook
 
 **Value proposition.**

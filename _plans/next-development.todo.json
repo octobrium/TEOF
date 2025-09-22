@@ -39,7 +39,7 @@
     {
       "id": "ND-005",
       "title": "Autonomy auto-proceed policy",
-      "status": "in_progress",
+      "status": "done",
       "plan_suggestion": "2025-09-23-autonomy-auto-proceed",
       "notes": "Codify consent policy for unattended autonomy loop and implement auto-run toggle."
     }
@@ -74,7 +74,8 @@
     },
     {
       "id": "ND-005",
-      "claimed_at": "2025-09-22T23:42:14Z"
+      "claimed_at": "2025-09-22T23:42:14Z",
+      "completed_at": "2025-09-22T23:43:00Z"
     }
   ]
 }
