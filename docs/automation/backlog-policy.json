@@ -1,0 +1,29 @@
+{
+  "version": 0,
+  "generated_at": "2025-09-22T23:11:11Z",
+  "rules": [
+    {
+      "id": "AUTH-ATTENTION",
+      "layer": "L0",
+      "description": "If authenticity summary reports attention feeds, enqueue remediation plan",
+      "conditions": {
+        "summary": "_report/usage/external-summary.json",
+        "attention_feeds": "> 0"
+      },
+      "plan_suggestion": "2025-09-23-authenticity-steward-alerts",
+      "backlog_id": "ND-AUTH-ACTION"
+    },
+    {
+      "id": "HYGIENE-SIZE",
+      "layer": "L6",
+      "description": "If repo hygiene report exceeds target size, enqueue consolidation",
+      "conditions": {
+        "report": "_report/usage/autonomy-actions/hygiene-*.json",
+        "targets.artifacts.size_mb": ">= 5.0"
+      },
+      "plan_suggestion": "2025-09-23-repo-hygiene",
+      "backlog_id": "ND-HYGIENE-ACTION"
+    }
+  ],
+  "notes": "Initial policy sketch; extend with full L0-L6 mapping."
+}

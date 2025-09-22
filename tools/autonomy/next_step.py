@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Mapping
 
-from tools.autonomy import actions
+from tools.autonomy import actions, audit_guidelines, backlog_synth, health_sensors
 
 ROOT = Path(__file__).resolve().parents[2]
 TODO_PATH = ROOT / "_plans" / "next-development.todo.json"
@@ -121,6 +121,17 @@ def select_next_step(
     return selected
 
 
+def _preflight(todo_path: Path) -> Mapping[str, object] | None:
+    health_report = health_sensors.emit_health_report()
+    synth = backlog_synth.synthesise(todo_path=todo_path)
+    audit = audit_guidelines.audit_layers(todo_path=todo_path)
+    return {
+        "health_report": str(health_report.relative_to(ROOT)),
+        "synth": synth,
+        "audit": str(audit.relative_to(ROOT)),
+    }
+
+
 def _execute_action(item: Mapping[str, object], *, apply_changes: bool) -> Mapping[str, object] | None:
     plan_id = item.get("plan_suggestion")
     if not isinstance(plan_id, str):
@@ -155,8 +166,16 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Allow actions to modify the repository (default runs in dry-run mode)",
     )
+    parser.add_argument(
+        "--skip-synth",
+        action="store_true",
+        help="Skip backlog synthesis/audit before selection",
+    )
     args = parser.parse_args(argv)
 
+    preflight = None
+    if not args.skip_synth:
+        preflight = _preflight(TODO_PATH)
     item = select_next_step(
         claim=args.claim,
         todo_path=TODO_PATH,
@@ -172,10 +191,14 @@ def main(argv: list[str] | None = None) -> int:
         if action_result is not None:
             item = dict(item)
             item["action"] = action_result
+    payload: Mapping[str, object] = item
+    if preflight is not None:
+        payload = dict(item)
+        payload["preflight"] = preflight
     if args.out:
-        args.out.write_text(json.dumps(item, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        args.out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    print(json.dumps(item, ensure_ascii=False, indent=2))
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0
 
 

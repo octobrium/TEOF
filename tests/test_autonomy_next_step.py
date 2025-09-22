@@ -69,7 +69,7 @@ def test_execute_action_dry_run(tmp_repo: Path, monkeypatch: pytest.MonkeyPatch,
 
     monkeypatch.setattr(next_step.actions, "resolve", lambda plan_id: fake_action)
 
-    rc = next_step.main(["--claim", "--execute"])
+    rc = next_step.main(["--claim", "--execute", "--skip-synth"])
     assert rc == 0
 
     captured = json.loads(capsys.readouterr().out)
@@ -86,7 +86,7 @@ def test_execute_action_apply(tmp_repo: Path, monkeypatch: pytest.MonkeyPatch, c
 
     monkeypatch.setattr(next_step.actions, "resolve", lambda plan_id: fake_action)
 
-    rc = next_step.main(["--claim", "--execute", "--apply"])
+    rc = next_step.main(["--claim", "--execute", "--apply", "--skip-synth"])
     assert rc == 0
     assert calls == [False]
     captured = json.loads(capsys.readouterr().out)
