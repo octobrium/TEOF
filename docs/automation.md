@@ -171,6 +171,10 @@ Use `teof-conductor --watch --dry-run --max-iterations 0` (or `python3 -m tools.
 
 Run `teof-objectives-status --window-days 7 --out _report/usage/objectives-status.json` to summarise the health of key L2 objectives (reflections cadence, autonomy cycles, authenticity trust, external sensing freshness). The CLI scans existing receipts and reports whether current activity meets the minimum cadence targets defined in `docs/vision/objectives-ledger.md`.
 
+### Log real-world impact
+
+Use `teof-impact-log --title "Outcome" --value 100 --description "..." --receipt <path>` to append structured impact entries under `memory/impact/log.jsonl`. Promote notable items into the impact ledger so Objective O4 stays tied to receipts and measurable value.
+
 ### External feed adoption playbook
 
 **Value proposition.**

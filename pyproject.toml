@@ -25,6 +25,7 @@ teof-autonomy-loop = "tools.autonomy.auto_loop:main"
 teof-conductor = "tools.autonomy.conductor:main"
 teof-reflection-intake = "tools.autonomy.reflection_intake:main"
 teof-objectives-status = "tools.autonomy.objectives_status:main"
+teof-impact-log = "tools.autonomy.impact_log:main"
 
 [tool.setuptools]
 include-package-data = true
