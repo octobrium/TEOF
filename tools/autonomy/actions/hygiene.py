@@ -5,11 +5,11 @@ import json
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, Iterable, List, Mapping
+from typing import Dict, List, Mapping
 
 
 ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_REPORT_DIR = ROOT / "_report" / "usage" / "autonomy-actions"
+REPORT_SUBDIR = Path("_report") / "usage" / "autonomy-actions"
 
 
 @dataclass
@@ -41,7 +41,9 @@ def _dir_size(path: Path) -> DirectoryInfo:
     return DirectoryInfo(path=path, size_bytes=total, file_count=count)
 
 
-def _rotate_keep_latest(directory: Path, keep: int, *, dry_run: bool) -> Dict[str, List[str]]:
+def _rotate_keep_latest(
+    directory: Path, keep: int, *, dry_run: bool, root: Path
+) -> Dict[str, List[str]]:
     removed: List[str] = []
     if not directory.exists():
         return {"removed": removed}
@@ -51,7 +53,11 @@ def _rotate_keep_latest(directory: Path, keep: int, *, dry_run: bool) -> Dict[st
         reverse=True,
     )
     for entry in entries[keep:]:
-        removed.append(str(entry.relative_to(ROOT)))
+        try:
+            rel_entry = entry.relative_to(root)
+        except ValueError:
+            rel_entry = entry
+        removed.append(str(rel_entry))
         if not dry_run:
             try:
                 entry.unlink()
@@ -70,7 +76,7 @@ def run(
     """Generate hygiene report and optionally prune historical artifacts."""
 
     root = root or ROOT
-    report_dir = DEFAULT_REPORT_DIR
+    report_dir = root / REPORT_SUBDIR
     report_dir.mkdir(parents=True, exist_ok=True)
 
     targets = {
@@ -84,10 +90,10 @@ def run(
     selfprompt_dir = root / "_report" / "usage" / "selfprompt"
 
     chronicle_rotation = _rotate_keep_latest(
-        chronicle_dir, keep=keep_chronicle, dry_run=dry_run
+        chronicle_dir, keep=keep_chronicle, dry_run=dry_run, root=root
     )
     selfprompt_rotation = _rotate_keep_latest(
-        selfprompt_dir, keep=keep_selfprompt, dry_run=dry_run
+        selfprompt_dir, keep=keep_selfprompt, dry_run=dry_run, root=root
     )
 
     result: Mapping[str, object] = {

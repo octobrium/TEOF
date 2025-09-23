@@ -122,6 +122,45 @@ def select_next_step(
     return selected
 
 
+def _update_completion(
+    *,
+    item_id: str,
+    todo_path: Path | None = None,
+    status: str = "done",
+    report_path: Path | None = None,
+) -> None:
+    todo_path = todo_path or TODO_PATH
+    todo = _load_json(todo_path)
+    if not todo:
+        return
+
+    items = todo.get("items")
+    if isinstance(items, list):
+        for item in items:
+            if isinstance(item, dict) and item.get("id") == item_id:
+                item["status"] = status
+                if report_path is not None and status != "pending":
+                    receipts = item.setdefault("receipts", [])
+                    if isinstance(receipts, list):
+                        receipts.append(str(report_path))
+                break
+
+    history = todo.get("history")
+    if isinstance(history, list):
+        for idx in range(len(history) - 1, -1, -1):
+            entry = history[idx]
+            if not isinstance(entry, dict) or entry.get("id") != item_id:
+                continue
+            if status == "pending" and "completed_at" not in entry:
+                history.pop(idx)
+            else:
+                entry.setdefault("completed_at", _iso_now())
+            break
+
+    todo["updated"] = _iso_now()
+    todo_path.write_text(json.dumps(todo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def _load_policy(path: Path = CONSENT_POLICY_PATH) -> Mapping[str, object]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -200,6 +239,11 @@ def _run_once(
         if action_result is not None:
             payload = dict(payload)
             payload["action"] = action_result
+            report_path = action_result.get("report_path") if isinstance(action_result, Mapping) else None
+            if isinstance(report_path, (str, Path)):
+                _update_completion(item_id=str(item.get("id")), report_path=Path(report_path))
+            else:
+                _update_completion(item_id=str(item.get("id")))
     return payload
 
 
@@ -235,9 +279,11 @@ def main(argv: list[str] | None = None) -> int:
             raise NextStepError("Auto mode disabled in policy")
         execute = args.execute or bool(policy.get("require_execute", False))
         apply_changes = args.apply and bool(policy.get("allow_apply", False))
-        max_iterations = int(policy.get("max_iterations", 1))
+        max_iterations_setting = int(policy.get("max_iterations", 1))
+        infinite = max_iterations_setting <= 0
+        iterations = 0
         results: List[Mapping[str, object]] = []
-        for _ in range(max_iterations):
+        while True:
             payload = _run_once(
                 claim=True,
                 execute=execute,
@@ -247,7 +293,10 @@ def main(argv: list[str] | None = None) -> int:
             if payload is None:
                 break
             results.append(payload)
+            iterations += 1
             if not policy.get("continuous", False):
+                break
+            if not infinite and iterations >= max_iterations_setting:
                 break
         if not results:
             raise NextStepError("No pending items found")

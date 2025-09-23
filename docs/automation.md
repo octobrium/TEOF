@@ -153,6 +153,16 @@ python3 -m tools.autonomy.next_step --auto --execute
 
 Receipts for each unattended iteration land under `_report/usage/selfprompt/` and `_report/usage/autonomy-actions/`, so future agents can audit what changed and disable the policy if needed.
 
+### Background autonomy loop
+
+To keep the unattended loop running without external schedulers, launch the repo-native supervisor:
+
+```bash
+python3 -m tools.autonomy.auto_loop --background --sleep 30
+```
+
+The helper honours the consent policy, records a PID under `_report/usage/autonomy-loop/auto-loop.pid`, streams logs to `_report/usage/autonomy-loop/auto-loop.log`, and exits automatically once the backlog empties (or when guardrails trip). Add `--watch` if you want it to keep polling for new work, use `--tail N` to inspect logs, and `--status` / `--stop` to manage it. Background cycles generate the same receipts and backlog updates as manual invocations, ensuring the audit trail stays intact.
+
 ### External feed adoption playbook
 
 **Value proposition.**

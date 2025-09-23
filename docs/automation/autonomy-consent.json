@@ -1,8 +1,8 @@
 {
   "auto_enabled": true,
-  "max_iterations": 3,
+  "max_iterations": 0,
   "require_execute": true,
-  "allow_apply": false,
+  "allow_apply": true,
   "continuous": true,
   "halt_on_attention_feeds": true,
   "halt_on_ci_failure": true,
