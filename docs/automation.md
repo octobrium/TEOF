@@ -163,6 +163,14 @@ python3 -m tools.autonomy.auto_loop --background --sleep 30
 
 The helper honours the consent policy, records a PID under `_report/usage/autonomy-loop/auto-loop.pid`, streams logs to `_report/usage/autonomy-loop/auto-loop.log`, and exits automatically once the backlog empties (or when guardrails trip). Add `--watch` if you want it to keep polling for new work, use `--tail N` to inspect logs, and `--status` / `--stop` to manage it. Background cycles generate the same receipts and backlog updates as manual invocations, ensuring the audit trail stays intact.
 
+### Autonomy conductor prompts
+
+Use `teof-conductor --watch --dry-run --max-iterations 0` (or `python3 -m tools.autonomy.conductor ...`) to stream guarded Codex prompts without human typing. Each cycle records `_report/usage/autonomy-conductor/conductor-*.json` capturing the backlog item, diff/test guardrails, authenticity + planner snapshots, and the generated prompt. Provide `--plan-id <ND-###>` to focus on a single task; the conductor automatically relinquishes the claim if the selection does not match. Add `--emit-prompt` to print the rendered prompt to stdout, or `--emit-json` to pipe the full payload to other automation. Combine with a background loop (or scheduler) when you want continuous prompting while keeping policy guardrails visible in receipts.
+
+### Objectives status snapshot
+
+Run `teof-objectives-status --window-days 7 --out _report/usage/objectives-status.json` to summarise the health of key L2 objectives (reflections cadence, autonomy cycles, authenticity trust, external sensing freshness). The CLI scans existing receipts and reports whether current activity meets the minimum cadence targets defined in `docs/vision/objectives-ledger.md`.
+
 ### External feed adoption playbook
 
 **Value proposition.**

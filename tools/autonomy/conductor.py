@@ -13,6 +13,8 @@ from tools.autonomy import next_step
 
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = ROOT / "_report" / "usage" / "autonomy-conductor"
+AUTH_JSON = ROOT / "_report" / "usage" / "external-authenticity.json"
+STATUS_PATH = ROOT / "_report" / "planner" / "validate" / "summary-latest.json"
 
 
 def _iso_now() -> str:
@@ -43,16 +45,39 @@ def _write_receipt(payload: Mapping[str, Any]) -> Path:
     return path
 
 
+def _load_json(path: Path) -> Mapping[str, Any] | None:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return None
+    except json.JSONDecodeError:
+        return None
+    if isinstance(data, Mapping):
+        return data
+    return None
+
+
+def _preflight_snapshot() -> Mapping[str, Any]:
+    authenticity = _load_json(AUTH_JSON)
+    planner_status = _load_json(STATUS_PATH)
+    return {
+        "authenticity": authenticity,
+        "planner_status": planner_status,
+    }
+
+
 def build_cycle_payload(
     *,
     task: Mapping[str, Any],
     guardrails: Mapping[str, Any],
-) -> Mapping[str, Any]:
+    preflight: Mapping[str, Any],
+) -> Dict[str, Any]:
     return {
         "generated_at": _iso_now(),
         "task": task,
         "guardrails": guardrails,
         "prompt": _format_prompt(task, guardrails),
+        "preflight": preflight,
     }
 
 
@@ -63,16 +88,16 @@ def run_once(
     receipts_subdir: str,
     plan_id: str | None,
     dry_run: bool,
-) -> bool:
+) -> tuple[bool, Dict[str, Any] | None, Path | None]:
     selection = next_step.select_next_step(claim=True)
     if selection is None:
-        return False
+        return False, None, None
     if plan_id and selection.get("id") != plan_id:
         # revert claim when the selected task does not match
         next_step._update_completion(  # type: ignore[attr-defined]
             item_id=str(selection.get("id")), status="pending"
         )
-        return False
+        return False, None, None
 
     guardrails = {
         "diff_limit": diff_limit,
@@ -80,7 +105,8 @@ def run_once(
         "receipts_dir": receipts_subdir,
     }
 
-    payload = build_cycle_payload(task=selection, guardrails=guardrails)
+    preflight = _preflight_snapshot()
+    payload = build_cycle_payload(task=selection, guardrails=guardrails, preflight=preflight)
     receipt_path = _write_receipt(payload)
     print(f"conductor: wrote {receipt_path.relative_to(ROOT)}")
 
@@ -89,10 +115,10 @@ def run_once(
         next_step._update_completion(  # type: ignore[attr-defined]
             item_id=str(selection.get("id")), status="pending"
         )
-        return True
+        return True, payload, receipt_path
 
     print("conductor: execute the commands suggested in the prompt using your preferred tool.")
-    return True
+    return True, payload, receipt_path
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -111,6 +137,16 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--watch", action="store_true", help="Keep polling when no tasks are pending")
     parser.add_argument("--sleep", type=float, default=60.0, help="Seconds between watch cycles")
     parser.add_argument("--max-iterations", type=int, default=1, help="Maximum cycles per run (0 = infinite)")
+    parser.add_argument(
+        "--emit-prompt",
+        action="store_true",
+        help="Print the generated prompt to stdout after writing the receipt",
+    )
+    parser.add_argument(
+        "--emit-json",
+        action="store_true",
+        help="Print the generated receipt payload JSON to stdout",
+    )
     return parser.parse_args(argv)
 
 
@@ -120,7 +156,7 @@ def main(argv: list[str] | None = None) -> int:
     limit = args.max_iterations if args.max_iterations > 0 else None
 
     while True:
-        processed = run_once(
+        processed, payload, receipt_path = run_once(
             diff_limit=args.diff_limit,
             tests=args.tests,
             receipts_subdir=args.receipts_dir,
@@ -130,6 +166,10 @@ def main(argv: list[str] | None = None) -> int:
         should_continue = False
 
         if processed:
+            if args.emit_json and payload is not None:
+                print(json.dumps(payload, ensure_ascii=False, indent=2))
+            if args.emit_prompt and payload is not None:
+                print(payload.get("prompt", ""))
             iterations += 1
             if limit is None or iterations < limit:
                 should_continue = args.watch
@@ -148,3 +188,9 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+def _write_response(response: Mapping[str, Any]) -> Path:
+    RESPONSE_DIR.mkdir(parents=True, exist_ok=True)
+    ts = _iso_now().replace(":", "").replace("-", "")
+    path = RESPONSE_DIR / f"response-{ts}.json"
+    path.write_text(json.dumps(response, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return path

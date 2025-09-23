@@ -1,0 +1,58 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-23-autonomy-conductor",
+  "created": "2025-09-23T05:40:30Z",
+  "actor": "codex-5",
+  "summary": "Guard autonomy conductor prompts with diff/test guardrails and persistent receipts",
+  "status": "done",
+  "stage": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Frame conductor guardrails",
+      "status": "done",
+      "stage": "done",
+      "notes": "Extract policy requirements (diff caps, test list, receipts) from docs and backlog; document desired prompt contract and failure handling paths",
+      "receipts": [
+        "docs/automation/autonomy-conductor.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement guarded prompt cycle",
+      "status": "done",
+      "stage": "done",
+      "notes": "Extend tools.autonomy.conductor to enforce guardrails, surface next-development metadata, and emit structured receipts per cycle",
+      "receipts": [
+        "tools/autonomy/conductor.py",
+        "tests/test_autonomy_conductor.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add tests and operator docs",
+      "status": "done",
+      "stage": "done",
+      "notes": "Back the conductor with pytest coverage and update automation docs so operators can review receipts and intervene",
+      "receipts": [
+        "docs/automation.md",
+        "docs/automation/autonomy-conductor.md",
+        "docs/automation/autonomy-conductor-expansion.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Conductor cycles prompts with guardrails and receipts",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "_plans/next-development.todo.json#ND-006"
+    }
+  ],
+  "receipts": [],
+  "updated": "2025-09-23T06:24:59Z",
+  "completed": "2025-09-23T06:08:31Z"
+}

@@ -49,3 +49,16 @@ Next steps:
 1. Validate which artifacts are required for audits vs safe to archive.
 2. Draft retention policy + automation scripts for `_report/` and `artifacts/`.
 3. Prepare PR removing/moving duplicates once stakeholders confirm.
+
+## Update — 2025-09-23
+
+- `tools.autonomy.actions.hygiene` now orchestrates receipt rotation and delegates
+  stale-plan pruning to `tools.maintenance.prune_artifacts`, producing a single
+  receipt under `_report/usage/autonomy-actions/` that records both actions.
+- When the autonomy loop runs with apply privileges, stale plans and reports
+  older than the cutoff automatically migrate into `_apoptosis/<stamp>/`,
+  keeping the evergreen backlog lean without duplicative tooling.
+- The hygiene action now defaults to pruning only `_report/*` targets; pass an
+  explicit `prune_targets` list if you intend to sweep other paths (e.g., legacy
+  plans) so CI fixtures stay intact. Dry-run receipts always preserve the full
+  candidate list for optional follow-up.

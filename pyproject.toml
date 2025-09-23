@@ -22,6 +22,9 @@ teof-external-adapter = "tools.external.adapter:main"
 teof-external-summary = "tools.external.summary:main"
 teof-external-keygen = "tools.external.keys:main"
 teof-autonomy-loop = "tools.autonomy.auto_loop:main"
+teof-conductor = "tools.autonomy.conductor:main"
+teof-reflection-intake = "tools.autonomy.reflection_intake:main"
+teof-objectives-status = "tools.autonomy.objectives_status:main"
 
 [tool.setuptools]
 include-package-data = true

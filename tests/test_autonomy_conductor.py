@@ -56,10 +56,12 @@ def conductor_repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
 
     monkeypatch.setattr(conductor, "ROOT", tmp_path)
     monkeypatch.setattr(conductor, "OUTPUT_DIR", tmp_path / "_report" / "usage" / "autonomy-conductor")
+    monkeypatch.setattr(conductor, "AUTH_JSON", tmp_path / "auth.json")
+    monkeypatch.setattr(conductor, "STATUS_PATH", tmp_path / "status.json")
     monkeypatch.setattr(conductor, "consent_policy", None, raising=False)
 
 
-def test_conductor_dry_run_generates_prompt(conductor_repo: None) -> None:
+def test_conductor_dry_run_generates_prompt(conductor_repo: None, capsys: pytest.CaptureFixture[str]) -> None:
     rc = conductor.main(["--diff-limit", "123", "--receipts-dir", "_report/custom", "--dry-run"])
     assert rc == 0
     output_dir = conductor.OUTPUT_DIR
@@ -68,5 +70,25 @@ def test_conductor_dry_run_generates_prompt(conductor_repo: None) -> None:
     payload = json.loads(receipts[-1].read_text(encoding="utf-8"))
     assert payload["task"]["id"] == "ND-101"
     assert "Diff limit: 123" in payload["prompt"]
+    assert payload["preflight"]["authenticity"]["overall_avg_trust"] == 0.9
+    assert payload["preflight"]["planner_status"]["status"] == "ok"
     todo = json.loads((next_step.TODO_PATH).read_text(encoding="utf-8"))
     assert any(item.get("status") == "pending" for item in todo["items"])
+
+
+def test_conductor_plan_mismatch_returns_task(conductor_repo: None) -> None:
+    rc = conductor.main(["--plan-id", "OTHER", "--dry-run"])
+    assert rc == 0
+    receipts = list(conductor.OUTPUT_DIR.glob("conductor-*.json"))
+    assert not receipts
+    todo = json.loads((next_step.TODO_PATH).read_text(encoding="utf-8"))
+    assert todo["items"][0]["status"] == "pending"
+
+
+def test_conductor_emit_options(conductor_repo: None, capsys: pytest.CaptureFixture[str]) -> None:
+    rc = conductor.main(["--dry-run", "--emit-prompt", "--emit-json"])
+    assert rc == 0
+    captured = capsys.readouterr()
+    out = captured.out
+    assert "You are Codex acting as an autonomy engineer for TEOF." in out
+    assert '"task":' in out

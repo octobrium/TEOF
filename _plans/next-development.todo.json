@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-09-23T05:01:45Z",
+  "updated": "2025-09-23T20:54:15Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -32,9 +32,13 @@
     {
       "id": "ND-004",
       "title": "Repo hygiene consolidation",
-      "status": "in_progress",
+      "status": "done",
       "plan_suggestion": "2025-09-23-repo-hygiene",
-      "notes": "Trim unused tooling/data, consolidate automation scripts, and refresh docs to reflect the lean surface."
+      "notes": "Trim unused tooling/data, consolidate automation scripts, and refresh docs to reflect the lean surface.",
+      "receipts": [
+        "_report/usage/autonomy-actions/hygiene-20250923T054014Z.json",
+        "docs/maintenance/repo-hygiene-20250922.md"
+      ]
     },
     {
       "id": "ND-005",
@@ -46,9 +50,78 @@
     {
       "id": "ND-006",
       "title": "Autonomy conductor prototype",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-09-23-autonomy-conductor",
-      "notes": "Design a guarded conductor that issues Codex prompts in cycles, enforces repo guardrails, and logs receipts for self-directed refinement experiments."
+      "notes": "Design a guarded conductor that issues Codex prompts in cycles, enforces repo guardrails, and logs receipts for self-directed refinement experiments.",
+      "receipts": [
+        "_plans/2025-09-23-autonomy-conductor.plan.json",
+        "docs/automation/autonomy-conductor.md",
+        "tools/autonomy/conductor.py",
+        "tests/test_autonomy_conductor.py",
+        "docs/automation/autonomy-conductor-expansion.md"
+      ]
+    },
+    {
+      "id": "ND-007",
+      "title": "Autonomy hygiene sweep",
+      "status": "done",
+      "plan_suggestion": "2025-09-23-repo-hygiene",
+      "layer": "L6",
+      "notes": "Synthesized by autonomy loop to maintain evergreen hygiene coverage.",
+      "source": "autonomy-loop",
+      "receipts": [
+        "_report/usage/autonomy-actions/hygiene-20250923T060252Z.json"
+      ]
+    },
+    {
+      "id": "ND-008",
+      "title": "Reflection intake pipeline",
+      "status": "done",
+      "plan_suggestion": "2025-09-23-autonomy-roadmap",
+      "notes": "Build observation-to-backlog flow per autonomy evolution roadmap Pillar 1",
+      "receipts": [
+        "tools/autonomy/reflection_intake.py",
+        "tests/test_reflection_intake.py",
+        "docs/templates/reflection-intake.md"
+      ]
+    },
+    {
+      "id": "ND-009",
+      "title": "External agent pilot",
+      "status": "done",
+      "plan_suggestion": "2025-09-23-autonomy-roadmap",
+      "notes": "Sandbox conductor-driven agent loop with full guardrail receipts (Pillar 2)",
+      "receipts": [
+        "docs/automation/conductor-agent-pilot.md",
+        "tools/autonomy/agent_relay.py",
+        "_report/usage/autonomy-conductor/conductor-20250923T204918Z.json",
+        "_report/usage/autonomy-conductor/api-relay/relay-conductor-20250923T204918Z.json",
+        "_report/usage/autonomy-conductor/api-relay/metabolites/metabolite-relay-conductor-20250923T204918Z.json",
+        "memory/reflections/reflection-20250923T205003Z.json"
+      ]
+    },
+    {
+      "id": "ND-010",
+      "title": "Multi-neuron playbook",
+      "status": "done",
+      "plan_suggestion": "2025-09-23-autonomy-roadmap",
+      "notes": "Draft onboarding + governance rhythm for new collaborators (Pillar 3)",
+      "receipts": [
+        "docs/vision/objectives-ledger.md",
+        "docs/vision/properties-ledger.md",
+        "docs/vision/multi-neuron-playbook.md"
+      ]
+    },
+    {
+      "id": "ND-011",
+      "title": "Objectives ledger rollout",
+      "status": "pending",
+      "plan_suggestion": "2025-09-23-autonomy-roadmap",
+      "notes": "Align automation metrics and onboarding materials to the new L2 objectives ledger.",
+      "receipts": [
+        "docs/vision/objectives-ledger.md",
+        "docs/vision/properties-ledger.md"
+      ]
     }
   ],
   "history": [
@@ -73,7 +146,8 @@
     },
     {
       "id": "ND-004",
-      "claimed_at": "2025-09-22T23:28:51Z"
+      "claimed_at": "2025-09-22T23:28:51Z",
+      "completed_at": "2025-09-23T05:48:02Z"
     },
     {
       "id": "ND-005",
@@ -83,6 +157,31 @@
       "id": "ND-005",
       "claimed_at": "2025-09-22T23:42:14Z",
       "completed_at": "2025-09-22T23:43:00Z"
+    },
+    {
+      "id": "ND-006",
+      "claimed_at": "2025-09-23T05:48:02Z",
+      "completed_at": "2025-09-23T06:08:39Z"
+    },
+    {
+      "id": "ND-007",
+      "claimed_at": "2025-09-23T06:02:52Z",
+      "completed_at": "2025-09-23T06:02:52Z"
+    },
+    {
+      "id": "ND-008",
+      "claimed_at": "2025-09-23T17:47:39Z",
+      "completed_at": "2025-09-23T17:47:39Z"
+    },
+    {
+      "id": "ND-009",
+      "claimed_at": "2025-09-23T20:50:24Z",
+      "completed_at": "2025-09-23T20:50:24Z"
+    },
+    {
+      "id": "ND-010",
+      "claimed_at": "2025-09-23T20:54:15Z",
+      "completed_at": "2025-09-23T20:54:15Z"
     }
   ]
 }

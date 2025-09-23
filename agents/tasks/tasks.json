@@ -448,6 +448,16 @@
       "role": "engineer",
       "status": "open",
       "title": "AUTH-PRIMARY_TRUTH-codex-5-20250922"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": null,
+      "id": "AUTH-PRIMARY_TRUTH-codex-5-20250923",
+      "plan_id": null,
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "AUTH-PRIMARY_TRUTH-codex-5-20250923"
     }
   ],
   "version": 1

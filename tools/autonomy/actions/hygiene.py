@@ -3,13 +3,36 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Dict, List, Mapping
+from typing import Dict, List, Mapping, Sequence
+
+from tools.maintenance import prune_artifacts
 
 
 ROOT = Path(__file__).resolve().parents[3]
 REPORT_SUBDIR = Path("_report") / "usage" / "autonomy-actions"
+DEFAULT_PRUNE_TARGETS: Sequence[str] = (
+    "_report/agent",
+    "_report/manager",
+    "_report/planner",
+    "_report/runner",
+    "_report/usage",
+)
+
+
+def _serialize_moves(root: Path, moves: Sequence[prune_artifacts.MovePlan]) -> List[Dict[str, str]]:
+    serialised: List[Dict[str, str]] = []
+    for move in moves:
+        src_rel, dst_rel = move.relative_paths(root)
+        serialised.append(
+            {
+                "source": src_rel,
+                "destination": dst_rel,
+                "newest_mtime": move.newest_mtime.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            }
+        )
+    return serialised
 
 
 @dataclass
@@ -72,6 +95,8 @@ def run(
     dry_run: bool = True,
     keep_chronicle: int = 5,
     keep_selfprompt: int = 10,
+    prune_cutoff_hours: float = 72.0,
+    prune_targets: Sequence[str] | None = None,
 ) -> dict:
     """Generate hygiene report and optionally prune historical artifacts."""
 
@@ -96,6 +121,33 @@ def run(
         selfprompt_dir, keep=keep_selfprompt, dry_run=dry_run, root=root
     )
 
+    prune_summary: Dict[str, object] | None = None
+    if prune_cutoff_hours is not None and prune_cutoff_hours > 0:
+        stamp = datetime.now(timezone.utc).strftime(prune_artifacts.STAMP_FORMAT)
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=prune_cutoff_hours)
+        targets_to_scan = (
+            tuple(prune_targets)
+            if prune_targets is not None
+            else tuple(DEFAULT_PRUNE_TARGETS)
+        )
+        moves = prune_artifacts.discover_moves(root, targets_to_scan, cutoff, stamp)
+        if not dry_run and moves:
+            prune_artifacts.execute_moves(moves, dry_run=False)
+        prune_summary = {
+            "stamp": stamp,
+            "cutoff_hours": prune_cutoff_hours,
+            "targets": list(targets_to_scan),
+            "moves": _serialize_moves(root, moves),
+            "executed": not dry_run and bool(moves),
+        }
+
+    actions: Dict[str, object] = {
+        "chronicle_rotation": chronicle_rotation,
+        "selfprompt_rotation": selfprompt_rotation,
+    }
+    if prune_summary is not None:
+        actions["prune"] = prune_summary
+
     result: Mapping[str, object] = {
         "generated_at": _iso_now(),
         "dry_run": dry_run,
@@ -108,10 +160,7 @@ def run(
             }
             for name, info in targets.items()
         },
-        "actions": {
-            "chronicle_rotation": chronicle_rotation,
-            "selfprompt_rotation": selfprompt_rotation,
-        },
+        "actions": actions,
     }
 
     report_path = report_dir / f"hygiene-{_utc_now().strftime('%Y%m%dT%H%M%SZ')}.json"

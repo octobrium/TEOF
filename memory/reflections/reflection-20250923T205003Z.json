@@ -1,0 +1,17 @@
+{
+  "captured_at": "2025-09-23T20:50:03Z",
+  "title": "API relay pilot",
+  "layers": [
+    "L2"
+  ],
+  "summary": "Dry-run relay captured agent response for ND-009 via conductor guardrails.",
+  "signals": "Conductor receipt + API relay metabolite.",
+  "actions": "Promote agent relay to handle consent-aware dry runs before enabling live calls.",
+  "tags": [
+    "autonomy",
+    "pilot"
+  ],
+  "plan_suggestion": "2025-09-23-autonomy-roadmap",
+  "notes": null,
+  "receipt": "memory/reflections/reflection-20250923T205003Z.json"
+}

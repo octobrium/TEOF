@@ -1,0 +1,17 @@
+{
+  "captured_at": "2025-09-23T19:42:08Z",
+  "title": "External Agent Pilot Reflection",
+  "layers": [
+    "L2"
+  ],
+  "summary": "Simulated agent bridge linking conductor prompts to response receipts.",
+  "signals": null,
+  "actions": "Integrate agent responses into backlog and guardrail checks.",
+  "tags": [
+    "autonomy",
+    "conductor"
+  ],
+  "plan_suggestion": "2025-09-23-autonomy-roadmap",
+  "notes": null,
+  "receipt": "memory/reflections/reflection-20250923T194208Z.json"
+}
