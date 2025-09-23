@@ -27,11 +27,8 @@
       "notes": "Use conductor receipts with a sandboxed agent, capture guardrail compliance, and log end-to-end receipts",
       "receipts": [
         "tools/autonomy/conductor.py",
-        "docs/automation/conductor-agent-pilot.md",
         "tools/autonomy/agent_relay.py",
-        "_report/usage/autonomy-conductor/conductor-20250923T204918Z.json",
-        "_report/usage/autonomy-conductor/api-relay/relay-conductor-20250923T204918Z.json",
-        "_report/usage/autonomy-conductor/api-relay/metabolites/metabolite-relay-conductor-20250923T204918Z.json",
+        "docs/automation/conductor-agent-pilot.md",
         "memory/reflections/reflection-20250923T205003Z.json"
       ]
     },
@@ -59,7 +56,9 @@
       "ref": "docs/vision/autonomy-evolution.md"
     }
   ],
-  "receipts": [],
+  "receipts": [
+    "docs/vision/multi-neuron-playbook.md"
+  ],
   "updated": "2025-09-23T20:54:00Z",
   "completed": "2025-09-23T20:54:00Z"
 }

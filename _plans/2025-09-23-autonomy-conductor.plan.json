@@ -36,7 +36,6 @@
       "notes": "Back the conductor with pytest coverage and update automation docs so operators can review receipts and intervene",
       "receipts": [
         "docs/automation.md",
-        "docs/automation/autonomy-conductor.md",
         "docs/automation/autonomy-conductor-expansion.md"
       ]
     }
@@ -52,7 +51,9 @@
       "ref": "_plans/next-development.todo.json#ND-006"
     }
   ],
-  "receipts": [],
+  "receipts": [
+    "tools/autonomy/conductor.py"
+  ],
   "updated": "2025-09-23T06:24:59Z",
   "completed": "2025-09-23T06:08:31Z"
 }
