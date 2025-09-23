@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-23-decision-loop",
+  "created": "2025-09-23T22:40:00Z",
+  "actor": "codex-5",
+  "summary": "Stand up an optimal decision-making loop (intake → critique → impact)",
+  "status": "queued",
+  "stage": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Decision intake schema",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Create a CLI/template for capturing decision requests with objectives, constraints, and success metrics",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Critique + execution loop",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Wire conductor prompts through agent relay + critique neuron; enforce L1/L2 guardrails",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Decision review & impact logging",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Ensure every decision logs outcomes via teof-impact-log and reflection intake for iterative learning",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Decision loop produces optimal answers with receipts and impact tracking",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/vision/decision-loop.md"
+    }
+  ],
+  "receipts": [
+    "docs/vision/decision-loop.md"
+  ]
+}

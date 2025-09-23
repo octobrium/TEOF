@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-09-23T21:26:32Z",
+  "updated": "2025-09-23T22:53:32Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -132,6 +132,16 @@
       "receipts": [
         "docs/vision/impact-ledger.md",
         "memory/reflections/reflection-20250923T212621Z.json"
+      ]
+    },
+    {
+      "id": "ND-013",
+      "title": "Decision loop architecture",
+      "status": "pending",
+      "plan_suggestion": "2025-09-23-decision-loop",
+      "notes": "Design optimal decision intake, critique, and impact logging pipeline.",
+      "receipts": [
+        "docs/vision/decision-loop.md"
       ]
     }
   ],
