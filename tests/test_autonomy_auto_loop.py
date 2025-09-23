@@ -148,3 +148,25 @@ def test_watch_mode_retries(consent_policy: Path, monkeypatch: pytest.MonkeyPatc
     assert not responses
     todo = json.loads(auto_loop.TODO_PATH.read_text(encoding="utf-8"))
     assert any(item.get("status") == "pending" for item in todo.get("items", []))
+
+
+def test_main_writes_objectives_status(consent_policy: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    def fake_run_loop(**kwargs: object) -> None:
+        return None
+
+    called: dict[str, float] = {}
+
+    def fake_compute_status(window_days: float) -> dict[str, object]:
+        called["window"] = window_days
+        return {"ok": True}
+
+    status_path = consent_policy / "_report" / "usage" / "objectives-status.json"
+
+    monkeypatch.setattr(auto_loop, "run_loop", fake_run_loop)
+    monkeypatch.setattr(auto_loop.objectives_status, "compute_status", fake_compute_status)
+    monkeypatch.setattr(auto_loop, "OBJECTIVES_STATUS_PATH", status_path)
+
+    rc = auto_loop.main([])
+    assert rc == 0
+    assert called["window"] == 7.0
+    assert json.loads(status_path.read_text(encoding="utf-8")) == {"ok": True}

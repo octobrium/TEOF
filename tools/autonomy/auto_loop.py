@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
-from tools.autonomy import backlog_synth
+from tools.autonomy import backlog_synth, objectives_status
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -30,6 +30,7 @@ LOG_DIR = ROOT / "_report" / "usage" / "autonomy-loop"
 LOG_FILE = LOG_DIR / "auto-loop.log"
 PID_FILE = LOG_DIR / "auto-loop.pid"
 TODO_PATH = ROOT / "_plans" / "next-development.todo.json"
+OBJECTIVES_STATUS_PATH = ROOT / "_report" / "usage" / "objectives-status.json"
 
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 
@@ -410,8 +411,15 @@ def main(argv: list[str] | None = None) -> int:
     except RuntimeError as exc:
         print(f"auto-loop fatal: {exc}", file=sys.stderr)
         return 1
+    _write_objectives_status()
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+def _write_objectives_status(window_days: float = 7.0) -> None:
+    status = objectives_status.compute_status(window_days=window_days)
+    OBJECTIVES_STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OBJECTIVES_STATUS_PATH.write_text(json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
