@@ -10,18 +10,24 @@
     {
       "id": "S1",
       "title": "Decision intake schema",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Create a CLI/template for capturing decision requests with objectives, constraints, and success metrics",
-      "receipts": []
+      "receipts": [
+        "tools/autonomy/decision_intake.py",
+        "tests/test_decision_intake.py"
+      ]
     },
     {
       "id": "S2",
       "title": "Critique + execution loop",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Wire conductor prompts through agent relay + critique neuron; enforce L1/L2 guardrails",
-      "receipts": []
+      "receipts": [
+        "tools/autonomy/decision_cycle.py",
+        "tests/test_decision_cycle.py"
+      ]
     },
     {
       "id": "S3",

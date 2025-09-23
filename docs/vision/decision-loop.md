@@ -8,14 +8,15 @@ while honouring L0–L3 guardrails and logging impact.
   - Goal / desired outcome
   - Constraints (time, risk, ethics)
   - Success metric (quantitative when possible)
-- Store the intake record under `memory/decisions/` and reference the relevant
-  objectives (O1–O7).
+- Store the intake record under `memory/decisions/` using
+  `teof-decision-intake` and reference the relevant objectives (O1–O7).
 
 ## 2. Deliberate & Critique
 - Generate a first proposal via conductor prompt → agent relay (multi-LLM or
   Codex) ensuring diff/test guardrails are stated.
 - Run a critique pass (second neuron or Codex review) that checks alignment with
-  L1 principles and highlights trade-offs.
+  L1 principles and highlights trade-offs. `teof-decision-cycle` emits proposal
+  and critique prompts for a given decision record.
 - Optionally iterate until both proposal and critique receipts exist.
 
 ## 3. Execute & Measure

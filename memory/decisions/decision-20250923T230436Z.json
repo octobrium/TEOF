@@ -1,0 +1,16 @@
+{
+  "captured_at": "2025-09-23T23:04:36Z",
+  "title": "Monetize relay",
+  "objective": "Generate revenue from agent relay",
+  "constraints": [
+    "budget<=5000",
+    "ethics"
+  ],
+  "success_metric": "Positive cashflow",
+  "references": [],
+  "tags": [
+    "revenue",
+    "decision"
+  ],
+  "plan_id": "2025-09-23-decision-loop"
+}
