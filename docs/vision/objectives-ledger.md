@@ -32,6 +32,7 @@ L0 observations and L1 principles.
 - **Metric:** log >0 external outcomes per quarter with receipts pointing to the
   supporting autonomy runs or reflections.
 - **Signals:** `memory/log.jsonl`, `_report/usage/chronicle/` entries.
+ - **Ledger:** `docs/vision/impact-ledger.md` (records outcomes + value).
 
 ## O5 — Guardrail Integrity
 - **Outcome:** authenticity, CI, and diff/test policies stay green; deviations
