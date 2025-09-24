@@ -4,8 +4,8 @@
   "created": "2025-09-23T22:40:00Z",
   "actor": "codex-5",
   "summary": "Stand up an optimal decision-making loop (intake → critique → impact)",
-  "status": "queued",
-  "stage": "queued",
+  "status": "done",
+  "stage": "done",
   "steps": [
     {
       "id": "S1",
@@ -32,16 +32,20 @@
     {
       "id": "S3",
       "title": "Decision review & impact logging",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Ensure every decision logs outcomes via teof-impact-log and reflection intake for iterative learning",
-      "receipts": []
+      "receipts": [
+        "docs/templates/decision-review.md",
+        "memory/reflections/reflection-20250923T205003Z.json",
+        "memory/impact/log.jsonl"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Decision loop produces optimal answers with receipts and impact tracking",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -51,5 +55,7 @@
   ],
   "receipts": [
     "docs/vision/decision-loop.md"
-  ]
+  ],
+  "completed": "2025-09-24T23:54:33Z",
+  "updated": "2025-09-24T23:54:33Z"
 }

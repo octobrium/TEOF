@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-09-23T23:02:05Z",
+  "updated": "2025-09-24T01:54:47Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -137,12 +137,14 @@
     {
       "id": "ND-013",
       "title": "Decision loop architecture",
-      "status": "in_progress",
+      "status": "done",
       "plan_suggestion": "2025-09-23-decision-loop",
       "notes": "Design optimal decision intake, critique, and impact logging pipeline.",
       "receipts": [
         "docs/vision/decision-loop.md",
-        "tools/autonomy/decision_intake.py"
+        "tools/autonomy/decision_intake.py",
+        "tools/autonomy/decision_cycle.py",
+        "docs/templates/decision-review.md"
       ]
     }
   ],
