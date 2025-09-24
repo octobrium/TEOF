@@ -10,10 +10,12 @@
     {
       "id": "S1",
       "title": "Define offering and pricing",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Describe deliverables, turnaround, pricing tiers, and evaluation criteria",
-      "receipts": []
+      "receipts": [
+        "docs/vision/relay-offering.md"
+      ]
     },
     {
       "id": "S2",
