@@ -1,0 +1,47 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-24-relay-offering",
+  "created": "2025-09-24T03:05:00Z",
+  "actor": "codex-5",
+  "summary": "Pilot a monetizable research offering using the API relay loop",
+  "status": "queued",
+  "stage": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define offering and pricing",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Describe deliverables, turnaround, pricing tiers, and evaluation criteria",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Create outreach collateral",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Prepare sample reports, landing page copy, and outreach scripts",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Run first client sprint",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Use decision+relay loop to deliver a paid engagement; log impact via teof-impact-log",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "First paid relay engagement delivered with receipts and reflection",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "decision",
+      "ref": "memory/decisions/decision-20250924T030000Z.json"
+    }
+  ],
+  "receipts": []
+}

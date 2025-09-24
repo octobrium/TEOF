@@ -1,0 +1,13 @@
+{
+  "captured_at": "2025-09-24T03:00:00Z",
+  "title": "Create impact pilot offering",
+  "objective": "Package API relay as a paid research service",
+  "constraints": ["budget<=500", "turnaround<=48h", "ethics"],
+  "success_metric": "Signed client or prepayment",
+  "references": [
+    "memory/decisions/decision-20250923T230436Z.json",
+    "memory/impact/log.jsonl"
+  ],
+  "tags": ["impact", "revenue"],
+  "plan_id": "2025-09-23-decision-loop"
+}

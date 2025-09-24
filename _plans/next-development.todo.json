@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-09-24T01:54:47Z",
+  "updated": "2025-09-24T03:01:25Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -145,6 +145,16 @@
         "tools/autonomy/decision_intake.py",
         "tools/autonomy/decision_cycle.py",
         "docs/templates/decision-review.md"
+      ]
+    },
+    {
+      "id": "ND-014",
+      "title": "Relay offering pilot",
+      "status": "pending",
+      "plan_suggestion": "2025-09-24-relay-offering",
+      "notes": "Design and market a revenue-positive service built on the API relay loop.",
+      "receipts": [
+        "memory/decisions/decision-20250924T030000Z.json"
       ]
     }
   ],
