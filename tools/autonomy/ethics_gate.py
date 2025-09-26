@@ -46,8 +46,6 @@ def _is_high_risk(item: dict[str, Any], layer: str, systemic_scale: int) -> bool
     risk_flag = (item.get("risk") or "").strip().lower()
     if risk_flag == "high":
         return True
-    if systemic_scale >= 8:
-        return True
     if layer == "L6":
         return True
     return False

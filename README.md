@@ -69,6 +69,8 @@ python3 -m pip install -e .
 teof brief
 ls artifacts/ocers_out/latest
 cat artifacts/ocers_out/latest/brief.json
+# Optional: regenerate scaffold attestation receipts
+make attest
 ```
 
 - Install exposes the teof console script.

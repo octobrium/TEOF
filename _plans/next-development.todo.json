@@ -70,7 +70,8 @@
       "notes": "Synthesized by autonomy loop to maintain evergreen hygiene coverage.",
       "source": "autonomy-loop",
       "receipts": [
-        "_report/usage/autonomy-actions/hygiene-20250923T060252Z.json"
+        "_report/usage/autonomy-actions/hygiene-20250923T060252Z.json",
+        "docs/automation/autonomy-hygiene-consent.md"
       ]
     },
     {
@@ -153,9 +154,11 @@
       "status": "in_progress",
       "plan_suggestion": "2025-09-24-relay-offering",
       "notes": "Design and market a revenue-positive service built on the API relay loop.",
+      "risk": "high",
       "receipts": [
         "memory/decisions/decision-20250924T030000Z.json",
-        "docs/vision/relay-offering.md"
+        "docs/vision/relay-offering.md",
+        "docs/vision/relay-offering-consent.md"
       ]
     }
   ],

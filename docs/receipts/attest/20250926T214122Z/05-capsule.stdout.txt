@@ -1,0 +1,30 @@
+total 144
+drwxr-xr-x@ 21 evan  staff   672 Sep 20 19:35 .
+drwxr-xr-x@  6 evan  staff   192 Sep 18 13:15 ..
+-rw-r--r--@  1 evan  staff  3169 Sep 17 21:15 calibration.md
+-rw-r--r--@  1 evan  staff  4013 Sep 20 19:22 canonical-teof.md
+-rw-r--r--@  1 evan  staff  4279 Sep 17 21:15 capsule-handshake.txt
+-rw-r--r--@  1 evan  staff  6387 Sep 20 12:59 capsule.txt
+-rw-r--r--@  1 evan  staff  1686 Sep 17 21:15 core-teof.md
+-rw-r--r--@  1 evan  staff     0 Sep 17 21:15 count
+-rw-r--r--@  1 evan  staff     0 Sep 17 21:15 files
+-rw-r--r--   1 evan  staff  2201 Sep 20 19:35 hashes.json
+-rw-r--r--@  1 evan  staff  1485 Sep 17 21:15 OGS-spec.md
+-rw-r--r--   1 evan  staff   773 Sep 20 13:00 PROVENANCE.md
+-rw-r--r--@  1 evan  staff  1237 Sep 17 21:15 README.md
+-rw-r--r--@  1 evan  staff  2947 Sep 20 13:02 reconstruction.json
+-rw-r--r--   1 evan  staff   952 Sep 20 13:01 RELEASE.md
+-rw-r--r--@  1 evan  staff     0 Sep 17 21:15 root
+-rw-r--r--   1 evan  staff   252 Sep 18 13:15 STATUS.md
+-rw-r--r--@  1 evan  staff  1886 Sep 17 21:15 TEOF-FUTURE.md
+-rw-r--r--@  1 evan  staff  1269 Sep 17 21:15 teof-shim.md
+-rw-r--r--@  1 evan  staff  2903 Sep 17 21:15 tests.md
+-rw-r--r--@  1 evan  staff  2545 Sep 17 21:15 volatile-data-protocol.md
+
+capsule/v1.6/reconstruction.json:4:    "maturation": "Consult external provenance only after \u22653 clean self-reconstructions (variance < \u03b5).",
+capsule/v1.6/reconstruction.json:19:      "local_sha256_hint": "<fill-after-hash>"
+capsule/v1.6/reconstruction.json:23:      "local_sha256_hint": "<fill-after-hash>"
+capsule/v1.6/reconstruction.json:27:      "local_sha256_hint": "<fill-after-hash>"
+capsule/v1.6/reconstruction.json:31:      "local_sha256_hint": "<fill-after-hash>"
+capsule/v1.6/reconstruction.json:59:    "signature_hint": "Optionally include blockchain anchor txid or signed message here after you finalize hashes."
+capsule/v1.6/reconstruction.json:78:      "capsule/v1.6/hashes.json",

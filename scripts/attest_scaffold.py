@@ -160,7 +160,7 @@ def attest(out_root: Path, *, emit_log: bool, summary: str | None) -> Path:
         "state_snapshot": _log_summary(),
         "steps": step_records,
         "ethics_violation_detected": ethics_violation_detected,
-        "verdict": "PASS" if all_success and ethics_violation_detected else "FAIL",
+        "verdict": "PASS" if all_success and not ethics_violation_detected else "FAIL",
     }
 
     receipt_json = json.dumps(receipt, ensure_ascii=False, indent=2).encode("utf-8")
