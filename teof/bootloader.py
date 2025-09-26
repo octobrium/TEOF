@@ -18,6 +18,7 @@ from typing import Iterable
 from extensions.validator.scorers.ensemble import score_file
 from . import status_report, tasks_report
 from tools.autonomy import critic as critic_mod
+from tools.autonomy import ethics_gate as ethics_mod
 from tools.autonomy import frontier as frontier_mod
 from tools.autonomy import tms as tms_mod
 
@@ -183,6 +184,28 @@ def build_parser() -> argparse.ArgumentParser:
     )
     tms.set_defaults(func=cmd_tms)
 
+    ethics = sub.add_parser(
+        "ethics",
+        help="Enforce high-risk automation guardrails",
+    )
+    ethics.add_argument(
+        "--format",
+        choices=("table", "json"),
+        default="table",
+        help="Output format",
+    )
+    ethics.add_argument(
+        "--out",
+        type=Path,
+        help="Optional path to write ethics receipt JSON",
+    )
+    ethics.add_argument(
+        "--emit-bus",
+        action="store_true",
+        help="Emit review claims for high-risk items missing consent receipts",
+    )
+    ethics.set_defaults(func=cmd_ethics)
+
     return parser
 
 
@@ -308,6 +331,34 @@ def cmd_tms(args: argparse.Namespace) -> int:
             print("emitted plans:")
             for item in emitted:
                 print(f"  - {item}")
+    return 0
+
+
+def cmd_ethics(args: argparse.Namespace) -> int:
+    violations = ethics_mod.detect_violations()
+    if args.format == "json":
+        print(json.dumps(violations, ensure_ascii=False, indent=2))
+    else:
+        print(ethics_mod.render_table(violations))
+
+    receipt_path = None
+    if args.out:
+        out_path = args.out if args.out.is_absolute() else (ROOT / args.out)
+        receipt_path = ethics_mod.write_receipt(violations, out_path)
+        print(f"wrote receipt → {receipt_path.relative_to(ROOT)}")
+
+    if args.emit_bus:
+        if receipt_path is None:
+            print("::error:: --emit-bus requires --out for provenance")
+            return 2
+        emitted = []
+        for violation in violations:
+            claim_path = ethics_mod._emit_bus_claim(violation, receipt_path)
+            emitted.append(claim_path.relative_to(ROOT).as_posix())
+        if emitted:
+            print("emitted bus claims:")
+            for path in emitted:
+                print(f"  - {path}")
     return 0
 
 
