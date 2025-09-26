@@ -17,6 +17,7 @@ from typing import Iterable
 
 from extensions.validator.scorers.ensemble import score_file
 from . import status_report, tasks_report
+from tools.autonomy import critic as critic_mod
 from tools.autonomy import frontier as frontier_mod
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -137,6 +138,28 @@ def build_parser() -> argparse.ArgumentParser:
     )
     frontier.set_defaults(func=cmd_frontier)
 
+    critic = sub.add_parser(
+        "critic",
+        help="Detect anomalies and emit repair suggestions",
+    )
+    critic.add_argument(
+        "--format",
+        choices=("table", "json"),
+        default="table",
+        help="Output format",
+    )
+    critic.add_argument(
+        "--out",
+        type=Path,
+        help="Optional path to write critic receipt JSON",
+    )
+    critic.add_argument(
+        "--emit-bus",
+        action="store_true",
+        help="Emit repair tasks into _bus/claims (requires --out)",
+    )
+    critic.set_defaults(func=cmd_critic)
+
     return parser
 
 
@@ -206,6 +229,34 @@ def cmd_frontier(args: argparse.Namespace) -> int:
     if out_path is not None:
         receipt_path = frontier_mod.write_receipt(result, out_path, limit=max(0, args.limit))
         print(f"wrote receipt → {receipt_path.relative_to(ROOT)}")
+    return 0
+
+
+def cmd_critic(args: argparse.Namespace) -> int:
+    anomalies = critic_mod.detect_anomalies()
+    if args.format == "json":
+        print(json.dumps(anomalies, ensure_ascii=False, indent=2))
+    else:
+        print(critic_mod.render_table(anomalies))
+
+    receipt_path = None
+    if args.out:
+        out_path = args.out if args.out.is_absolute() else (ROOT / args.out)
+        receipt_path = critic_mod.write_receipt(anomalies, out_path)
+        print(f"wrote receipt → {receipt_path.relative_to(ROOT)}")
+
+    if args.emit_bus:
+        if receipt_path is None:
+            print("::error:: --emit-bus requires --out for provenance")
+            return 2
+        emitted = []
+        for anomaly in anomalies:
+            claim_path = critic_mod._emit_bus_claim(anomaly, receipt_path)
+            emitted.append(claim_path.relative_to(ROOT).as_posix())
+        if emitted:
+            print("emitted bus claims:")
+            for item in emitted:
+                print(f"  - {item}")
     return 0
 
 
