@@ -1,0 +1,100 @@
+{
+  "timestamp": "2025-09-26T21:32:19Z",
+  "git_commit": "f46094a",
+  "workspace_status": "?? docs/receipts/INDEX.md\n?? docs/receipts/attest/\n?? scripts/attest_scaffold.py",
+  "environment": {
+    "python": "Python 3.9.6",
+    "git": "git version 2.39.5 (Apple Git-154)",
+    "rg": "ripgrep 14.1.1 (rev 4649aa9700)\n\nfeatures:+pcre2\nsimd(compile):+NEON\nsimd(runtime):+NEON\n\nPCRE2 10.43 is available (JIT is available)",
+    "os": "macOS-15.6.1-arm64-arm-64bit"
+  },
+  "state_snapshot": {
+    "log_entries": 55,
+    "facts": 1
+  },
+  "steps": [
+    {
+      "name": "01-fractal-coords",
+      "command": "rg -n '\"layer\"|systemic(_scale)?|\"(S|L)[0-9]\"' _plans memory tools agents _bus | head -n 40",
+      "exit_code": 0,
+      "stdout_path": "docs/receipts/attest/20250926T213219Z/01-fractal-coords.stdout.txt",
+      "stderr_path": "docs/receipts/attest/20250926T213219Z/01-fractal-coords.stderr.txt",
+      "stdout_sha256": "881f3951a5158daafd00b00a9d09b5f39efed98599a8ffbfbbdc1e9d7e7c671e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "success": true
+    },
+    {
+      "name": "02-memory-list",
+      "command": "{ ls -la memory/; echo ''; wc -l memory/log.jsonl memory/state.json; }",
+      "exit_code": 0,
+      "stdout_path": "docs/receipts/attest/20250926T213219Z/02-memory-list.stdout.txt",
+      "stderr_path": "docs/receipts/attest/20250926T213219Z/02-memory-list.stderr.txt",
+      "stdout_sha256": "5732a12888cf746016ffd59ec3e05337febfdce0d2a02e7aa86ab6980de61c35",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "success": true
+    },
+    {
+      "name": "03-hash-chain",
+      "command": "rg -n 'hash_prev|hash_self' tools/memory/memory.py memory/log.jsonl",
+      "exit_code": 0,
+      "stdout_path": "docs/receipts/attest/20250926T213219Z/03-hash-chain.stdout.txt",
+      "stderr_path": "docs/receipts/attest/20250926T213219Z/03-hash-chain.stderr.txt",
+      "stdout_sha256": "b7ab2bebd0ba764bc9ce34e2c583e84900d5fee237ad265479ffb5135656c2f3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "success": true
+    },
+    {
+      "name": "04-ci-guards",
+      "command": "rg -n 'append-only|receipt|required|promotion' scripts/ci/",
+      "exit_code": 0,
+      "stdout_path": "docs/receipts/attest/20250926T213219Z/04-ci-guards.stdout.txt",
+      "stderr_path": "docs/receipts/attest/20250926T213219Z/04-ci-guards.stderr.txt",
+      "stdout_sha256": "d12941f4ab111d5dc7a141b8073cc9f21407a1dca54f8d2a5e960205674d2df5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "success": true
+    },
+    {
+      "name": "05-capsule",
+      "command": "{ ls -la capsule/v1.6/; echo ''; rg -n 'STATUS|hash|provenance' capsule/v1.6; }",
+      "exit_code": 0,
+      "stdout_path": "docs/receipts/attest/20250926T213219Z/05-capsule.stdout.txt",
+      "stderr_path": "docs/receipts/attest/20250926T213219Z/05-capsule.stderr.txt",
+      "stdout_sha256": "33f894b8ab7740c3ec20be64063ecbedee8781ef6a3f1f6c7be37a039c414eee",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "success": true
+    },
+    {
+      "name": "06-bus-cli",
+      "command": "{ ls -la _bus/claims _bus/events; echo ''; rg -n 'tasks_report|bootloader' teof/; }",
+      "exit_code": 0,
+      "stdout_path": "docs/receipts/attest/20250926T213219Z/06-bus-cli.stdout.txt",
+      "stderr_path": "docs/receipts/attest/20250926T213219Z/06-bus-cli.stderr.txt",
+      "stdout_sha256": "aea227dba9fa303c1a6193fc7d87b2c82fa8509102a6802e1699b27581ba85e4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "success": true
+    },
+    {
+      "name": "07-ethics-wiring",
+      "command": "{ rg -n 'Legible Continuity' 'governance/core/L3 - properties/properties.md'; echo ''; rg -n 'State promotions must cite their receipts' docs/automation/memory-layer.md; }",
+      "exit_code": 0,
+      "stdout_path": "docs/receipts/attest/20250926T213219Z/07-ethics-wiring.stdout.txt",
+      "stderr_path": "docs/receipts/attest/20250926T213219Z/07-ethics-wiring.stderr.txt",
+      "stdout_sha256": "0de39f5b4c4519b1bb06f9a17fdb831f282bbbba9059ecee29a36f8e233b69c2",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "success": true
+    },
+    {
+      "name": "08-ethics-gate",
+      "command": "python3 tools/autonomy/ethics_gate.py --format json",
+      "exit_code": 0,
+      "stdout_path": "docs/receipts/attest/20250926T213219Z/08-ethics-gate.stdout.txt",
+      "stderr_path": "docs/receipts/attest/20250926T213219Z/08-ethics-gate.stderr.txt",
+      "stdout_sha256": "53ebb64b8346b708564052074c2e3f95245c5dc2710f7daec41357a56ba1669b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "success": true
+    }
+  ],
+  "ethics_violation_detected": true,
+  "verdict": "PASS",
+  "receipt_sha256": "b4a38db0df3d2f8d1a19bc4fb7c79bb5c35ef63170c5bb91d329b2f74a24a17e"
+}
