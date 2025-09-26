@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Mapping
 
-from tools.autonomy import critic, ethics_gate, frontier, next_step, tms
+from tools.autonomy import critic, ethics_gate, frontier, next_step, objectives_status, tms
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -74,6 +74,7 @@ def build_cycle_payload(
     frontier_preview: list[Dict[str, Any]] | None = None,
     critic_alerts: list[Dict[str, Any]] | None = None,
     tms_conflicts: list[Dict[str, Any]] | None = None,
+    objectives_snapshot: Mapping[str, Any] | None = None,
 ) -> Dict[str, Any]:
     return {
         "generated_at": _iso_now(),
@@ -84,6 +85,7 @@ def build_cycle_payload(
         "frontier_preview": frontier_preview or [],
         "critic_alerts": critic_alerts or [],
         "tms_conflicts": tms_conflicts or [],
+        "objectives_snapshot": objectives_snapshot or {},
     }
 
 
@@ -139,6 +141,7 @@ def run_once(
         frontier_preview=frontier_preview[:3],
         critic_alerts=critic_alerts,
         tms_conflicts=tms_conflicts,
+        objectives_snapshot=objectives_status.compute_status(window_days=7.0),
     )
     receipt_path = _write_receipt(payload)
     print(f"conductor: wrote {receipt_path.relative_to(ROOT)}")

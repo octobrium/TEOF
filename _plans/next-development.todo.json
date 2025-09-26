@@ -116,22 +116,28 @@
     {
       "id": "ND-011",
       "title": "Objectives ledger rollout",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-09-23-autonomy-roadmap",
       "notes": "Align automation metrics and onboarding materials to the new L2 objectives ledger.",
       "receipts": [
         "docs/vision/objectives-ledger.md",
-        "docs/vision/properties-ledger.md"
+        "docs/vision/properties-ledger.md",
+        "tools/autonomy/objectives_status.py",
+        "tests/test_objectives_status.py",
+        "tools/autonomy/conductor.py",
+        "tests/test_autonomy_conductor.py",
+        "docs/automation/autonomy-conductor.md"
       ]
     },
     {
       "id": "ND-012",
       "title": "Impact ledger seeding",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-09-23-autonomy-roadmap",
       "notes": "Track first monetizable outcome leveraging TEOF automation.",
       "receipts": [
         "docs/vision/impact-ledger.md",
+        "memory/impact/log.jsonl",
         "memory/reflections/reflection-20250923T212621Z.json"
       ]
     },
@@ -158,7 +164,10 @@
       "receipts": [
         "memory/decisions/decision-20250924T030000Z.json",
         "docs/vision/relay-offering.md",
-        "docs/vision/relay-offering-consent.md"
+        "docs/vision/relay-offering-consent.md",
+        "docs/vision/relay-offering-collateral.md",
+        "docs/vision/relay-offering-dry-run.md",
+        "memory/decisions/decision-20250926T220511Z.json"
       ]
     }
   ],
@@ -220,6 +229,16 @@
       "id": "ND-010",
       "claimed_at": "2025-09-23T20:54:15Z",
       "completed_at": "2025-09-23T20:54:15Z"
+    },
+    {
+      "id": "ND-011",
+      "claimed_at": "2025-09-26T22:15:00Z",
+      "completed_at": "2025-09-26T22:45:00Z"
+    },
+    {
+      "id": "ND-012",
+      "claimed_at": "2025-09-26T22:45:00Z",
+      "completed_at": "2025-09-26T22:55:00Z"
     }
   ]
 }

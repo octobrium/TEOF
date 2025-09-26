@@ -85,7 +85,11 @@ _report/
 !_report/reconciliation/
 !_report/reconciliation/*.json
 !_report/usage/
+!_report/usage/*.json
 !_report/usage/*.jsonl
+!_report/external/
+!_report/external/**/*.json
+!_report/external/**/*.jsonl
 !_report/network/
 !_report/network/**/*.json
 !_report/network/**/*.md

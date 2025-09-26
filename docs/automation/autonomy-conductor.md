@@ -47,8 +47,9 @@ must not dilute or contradict those guardrails.
   claim it.
 - **Receipt persistence:** Every cycle writes a JSON receipt under
   `_report/usage/autonomy-conductor/`. The receipt stores the guardrails, a
-  snapshot of authenticity/CI status, and the exact prompt so auditors can
-  reconstruct what was asked and prove prerequisites were satisfied.
+  snapshot of authenticity/CI status, the current Objectives ledger summary
+  (`teof-objectives-status`), and the exact prompt so auditors can reconstruct
+  what was asked and prove prerequisites were satisfied.
 - **Execution instructions:** For non-dry runs the conductor must emit a final
   message reminding operators to execute the suggested commands and honour the
   guardrails. No commands are auto-applied at this stage.

@@ -35,3 +35,6 @@
 - Craft landing page + collateral (plan S2).
 - Recruit pilot client (plan S3).
 - Tie outcomes into decision/impact ledgers for iterative improvement.
+- Collateral kit: `docs/vision/relay-offering-collateral.md` (landing page,
+  intake, outreach).
+- Dry-run checklist + receipts: `docs/vision/relay-offering-dry-run.md`.

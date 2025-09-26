@@ -4,8 +4,8 @@
   "created": "2025-09-24T03:05:00Z",
   "actor": "codex-5",
   "summary": "Pilot a monetizable research offering using the API relay loop",
-  "status": "queued",
-  "stage": "queued",
+  "status": "in_progress",
+  "stage": "in_progress",
   "steps": [
     {
       "id": "S1",
@@ -20,18 +20,24 @@
     {
       "id": "S2",
       "title": "Create outreach collateral",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Prepare sample reports, landing page copy, and outreach scripts",
-      "receipts": []
+      "receipts": [
+        "docs/vision/relay-offering-collateral.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Run first client sprint",
-      "status": "queued",
-      "stage": "queued",
+      "status": "in_progress",
+      "stage": "in_progress",
       "notes": "Use decision+relay loop to deliver a paid engagement; log impact via teof-impact-log",
-      "receipts": []
+      "receipts": [
+        "docs/vision/relay-offering-dry-run.md",
+        "memory/decisions/decision-20250926T220511Z.json",
+        "docs/vision/relay-offering-sample-brief.md"
+      ]
     }
   ],
   "checkpoint": {
@@ -45,5 +51,8 @@
       "ref": "memory/decisions/decision-20250924T030000Z.json"
     }
   ],
-  "receipts": []
+  "receipts": [
+    "docs/vision/relay-offering-collateral.md",
+    "docs/vision/relay-offering-dry-run.md"
+  ]
 }

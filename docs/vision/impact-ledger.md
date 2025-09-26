@@ -25,3 +25,8 @@ Record raw entries with `teof-impact-log --title ...` (writes to
   - Value: Enables future monetization via automated research/drafting.
   - Receipts: `_report/usage/autonomy-conductor/api-relay/relay-conductor-20250923T204918Z.json`, `memory/reflections/reflection-20250923T205003Z.json`.
   - Notes: Dry-run only; follow-up to enable live calls and monetizable outputs.
+- *2025-09-26 — Objectives Instrumentation for Relay Insight Sprint*
+  - Outcome: Ledger + conductor receipts now capture coordination docs, impact cadence, and multi-agent participation so sales collateral can cite deterministic guardrails.
+  - Value: Pre-revenue (unlocking Tier A/B pricing conversations).
+  - Receipts: `tools/autonomy/objectives_status.py`, `tools/autonomy/conductor.py`, `docs/vision/objectives-ledger.md`, `docs/automation/autonomy-conductor.md`.
+  - Notes: Enables quoting prospects with concrete guardrail evidence ahead of the Relay Insight Sprint pilot.

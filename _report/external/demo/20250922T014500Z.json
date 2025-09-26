@@ -9,10 +9,10 @@
       "timestamp_utc": "2025-09-22T01:40:00Z",
       "source": "https://api.demo.example/oil",
       "volatile": true,
-      "stale_labeled": false
+      "stale_labeled": true
     }
   ],
-  "hash_sha256": "05f64845a72b4c70ca5075cadfab7e039c750e37dbbb9df443de480fa33f5e62",
-  "signature": "o1Emi23exMNG_gF_-veOPtBcD0-G_rmskahwSIbVGkxC0YeLtMedWWOHA3c10b3pUR8etXPuQv8FQQoaku6RDA==",
+  "hash_sha256": "08d851bf30d263771c6ed63a45b0267930ffccdd2241e527da28c188825e5edf",
+  "signature": "8CFffEK9SbllVDfNeadAFD7kSnvHTDmnrhLv-zYQfHGNa9tLe-mneOM-CdjLmOR36qdSbR7EAXkiPMfiT3VrCQ==",
   "public_key_id": "feed.demo-2025"
 }

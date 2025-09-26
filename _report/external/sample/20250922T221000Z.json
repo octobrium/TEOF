@@ -9,10 +9,10 @@
       "timestamp_utc": "2025-09-22T22:05:00Z",
       "source": "https://example.com/sample",
       "volatile": true,
-      "stale_labeled": false
+      "stale_labeled": true
     }
   ],
-  "hash_sha256": "88f91d204074ad1045ed1b53b072492892b802625f52892fec0b4970d348b58e",
-  "signature": "cTitu_9XcYhe1Q0qpthfyMX5RAejSH66TN6E3taL3-ugkrBmnZM9-THgB8vI7CfustlWee5vNVZorV58Bh4_Bw==",
+  "hash_sha256": "ecd963da5c45b31fdc0bf210592c71b87622f3652a6037d7878cb90a1cbe00ce",
+  "signature": "EvvtXbrw7yYW8Duo4T5rjecKgRL2zTOnF8xD3XINidEvF2IZWKmrlxhw2rzYyo1mExqdsVWca71LYrtpZFf9Cg==",
   "public_key_id": "feed.sample-2025"
 }

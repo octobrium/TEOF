@@ -25,6 +25,8 @@ L0 observations and L1 principles.
 - **Metric:** roadmap + onboarding playbook available and referenced in
   automation receipts; partner reviews acknowledge clarity.
 - **Signals:** `docs/vision/`, `docs/automation/`, `_report/usage/` dashboards.
+ - **Status Tool:** `teof-objectives-status` (checks doc coverage + recent
+   coordination dashboard receipts).
 
 ## O4 — Real-World Impact Feedback Loop
 - **Outcome:** link repository progress to concrete external wins (decisions,
@@ -34,6 +36,8 @@ L0 observations and L1 principles.
 - **Signals:** `memory/log.jsonl`, `_report/usage/chronicle/` entries.
  - **Ledger:** `docs/vision/impact-ledger.md` + `memory/impact/log.jsonl`
    (`teof-impact-log`).
+ - **Status Tool:** `teof-objectives-status` (counts impact log entries and
+   verifies ledger summaries).
 
 ## O5 — Guardrail Integrity
 - **Outcome:** authenticity, CI, and diff/test policies stay green; deviations
@@ -50,6 +54,7 @@ L0 observations and L1 principles.
   fortnight with linked backlog entries and conductor receipts.
 - **Signals:** `_bus/`, `_report/usage/autonomy-conductor/`,
   `docs/automation/conductor-agent-pilot.md` outcomes.
+ - **Status Tool:** `teof-objectives-status` (unique claimants per window).
 
 ## O7 — External Sensing & Feedback
 - **Outcome:** TEOF continuously ingests and reacts to outside signals (public

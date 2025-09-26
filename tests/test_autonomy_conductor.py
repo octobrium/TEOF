@@ -60,6 +60,17 @@ def conductor_repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(conductor, "STATUS_PATH", tmp_path / "status.json")
     monkeypatch.setattr(conductor, "consent_policy", None, raising=False)
 
+    class _ObjectivesStub:
+        @staticmethod
+        def compute_status(window_days: float) -> dict[str, object]:
+            return {
+                "generated_at": "2025-09-23T00:00:00Z",
+                "window_days": window_days,
+                "objectives": {},
+            }
+
+    monkeypatch.setattr(conductor, "objectives_status", _ObjectivesStub())
+
 
 def test_conductor_dry_run_generates_prompt(conductor_repo: None, capsys: pytest.CaptureFixture[str]) -> None:
     rc = conductor.main(["--diff-limit", "123", "--receipts-dir", "_report/custom", "--dry-run"])
@@ -75,6 +86,7 @@ def test_conductor_dry_run_generates_prompt(conductor_repo: None, capsys: pytest
     assert "frontier_preview" in payload
     assert "critic_alerts" in payload
     assert "tms_conflicts" in payload
+    assert payload["objectives_snapshot"]["window_days"] == 7.0
     todo = json.loads((next_step.TODO_PATH).read_text(encoding="utf-8"))
     assert any(item.get("status") == "pending" for item in todo["items"])
 

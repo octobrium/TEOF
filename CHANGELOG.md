@@ -11,6 +11,18 @@ Versioning: SemVer (0.y until first stable)
 - Volatile Data Protocol guard (`scripts/ci/check_vdp.py`) enforces timestamps and sources with fixtures in `datasets/goldens/`.
 - Additional VDP fixtures cover future-dated quotes, non-volatile context, and invalid timestamps to exercise guard edges.
 - External receipt adapter, keygen, and summary CLIs (`tools/external/adapter.py`, `tools/external/keys.py`, `tools/external/summary.py`) plus signed envelope canon and guard hooks in `scripts/ci/check_vdp.py`.
+- Objectives status tooling now tracks L2 O3/O4/O6 signals and conductor receipts
+  embed the snapshot for audit trails (`tools/autonomy/objectives_status.py`,
+  `tools/autonomy/conductor.py`).
+- Relay Insight Sprint collateral kit + dry-run checklist document the pilot
+  offer and outreach workflow (`docs/vision/relay-offering-*.md`).
+- Authenticity review receipts for the primary truth tier close outstanding
+  guardrail tasks (`_report/agent/codex-5/authenticity-review-20250926.md`).
+- Impact ledger seeded with instrumentation entry linking automation receipts
+  to monetization prep (`docs/vision/impact-ledger.md`, `memory/impact/log.jsonl`).
+- Feed keys rotated (`feed.demo-2025`, `feed.sample-2025`) and fresh receipts
+  emitted so authenticity trust returns to green (`governance/keys/feed.*.pub`,
+  `_report/external/{demo,sample}/20250926*.json`).
 
 > Tracking work intended for the *next* tag. Use this list instead of a standalone TODO.
 

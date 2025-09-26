@@ -59,6 +59,16 @@
       "note": "Register feed.sample-2025 Ed25519 key for governance upgrade pilot",
       "key_id": "feed.sample-2025",
       "public_key_path": "governance/keys/feed.sample-2025.pub"
+    },
+    {
+      "ts": "2025-09-26T22:55:00Z",
+      "by": "codex-5",
+      "note": "Aligned L2 objective instrumentation with monetization collateral (relay pilot)."
+    },
+    {
+      "ts": "2025-09-26T22:20:30Z",
+      "by": "codex-5",
+      "note": "Rotated feed.demo-2025/feed.sample-2025 keys and refreshed receipts; authenticity restored to ≥0.7."
     }
   ],
   "releases": []
