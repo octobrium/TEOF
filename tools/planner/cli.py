@@ -10,7 +10,7 @@ import sys
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
-from typing import Iterable, List
+from typing import Any, Iterable, List
 
 from tools.planner.validate import PLAN_STATUS, STEP_STATUS, strict_checks, validate_plan
 from tools.receipts.scaffold import scaffold_plan, format_created, ScaffoldError
@@ -24,6 +24,8 @@ PLAN_STATUS_VALUES = tuple(sorted(PLAN_STATUS))
 STEP_STATUS_VALUES = tuple(sorted(STEP_STATUS))
 LEGACY_STATUS = {"pending": "queued"}
 CMD_PLACEHOLDER = "(CMD-__)"
+LAYER_CHOICES = tuple(f"L{i}" for i in range(7))
+SYSTEMIC_SCALE_CHOICES = tuple(range(1, 11))
 
 
 class PlannerCliError(RuntimeError):
@@ -69,6 +71,37 @@ def _normalize_status(value: str, *, allowed: Iterable[str]) -> str:
     if lowered not in allowed:
         raise PlannerCliError(f"status must be one of {sorted(set(allowed))}")
     return lowered
+
+
+def _safe_int(value: Any) -> int | None:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _ensure_priority(value: int | None) -> int:
+    if value is None:
+        raise PlannerCliError("--priority is required")
+    if value < 0:
+        raise PlannerCliError("--priority must be >= 0")
+    return value
+
+
+def _ensure_systemic_scale(value: int | None) -> int:
+    if value is None:
+        raise PlannerCliError("--systemic-scale is required")
+    if value not in SYSTEMIC_SCALE_CHOICES:
+        raise PlannerCliError("--systemic-scale must be between 1 and 10")
+    return value
+
+
+def _ensure_impact_score(value: int | None) -> int:
+    if value is None:
+        raise PlannerCliError("--impact-score is required")
+    if value < 0:
+        raise PlannerCliError("--impact-score must be >= 0")
+    return value
 
 
 def _parse_steps(raw_steps: List[str], *, summary: str) -> List[dict]:
@@ -180,12 +213,23 @@ def cmd_new(args: argparse.Namespace) -> int:
     checkpoint_desc = args.checkpoint or "Define verification + receipts"
     steps = _parse_steps(args.step, summary=summary)
 
+    priority = _ensure_priority(getattr(args, "priority", None))
+    layer = (getattr(args, "layer", None) or "").upper()
+    if layer not in LAYER_CHOICES:
+        raise PlannerCliError(f"--layer must be one of {', '.join(LAYER_CHOICES)}")
+    systemic_scale = _ensure_systemic_scale(getattr(args, "systemic_scale", None))
+    impact_score = _ensure_impact_score(getattr(args, "impact_score", None))
+
     payload = {
         "version": 0,
         "plan_id": plan_id,
         "created": f"{timestamp:%Y-%m-%dT%H:%M:%SZ}",
         "actor": actor,
         "summary": summary,
+        "priority": priority,
+        "layer": layer,
+        "systemic_scale": systemic_scale,
+        "impact_score": impact_score,
         "status": "queued",
         "steps": steps,
         "checkpoint": {
@@ -312,9 +356,14 @@ def _collect_plan_rows(strict: bool) -> tuple[List[dict], List[tuple[Path, List[
             failures.append((path, result.errors))
             continue
         plan = result.plan
+        raw_plan = _load_plan(path)
         steps = plan.get("steps") or []
         total_steps = len(steps)
         done_steps = sum(1 for step in steps if step.get("status") == "done")
+        priority_val = _safe_int((raw_plan or {}).get("priority"))
+        impact_val = _safe_int((raw_plan or {}).get("impact_score"))
+        layer_val = (raw_plan or {}).get("layer")
+        scale_val = (raw_plan or {}).get("systemic_scale")
         rows.append(
             {
                 "plan_id": plan.get("plan_id"),
@@ -323,9 +372,20 @@ def _collect_plan_rows(strict: bool) -> tuple[List[dict], List[tuple[Path, List[
                 "steps_total": total_steps,
                 "steps_done": done_steps,
                 "receipts": len(plan.get("receipts") or []),
+                "priority": priority_val,
+                "layer": layer_val,
+                "systemic_scale": scale_val,
+                "impact": impact_val,
                 "path": str(path.relative_to(ROOT)),
             }
         )
+    rows.sort(
+        key=lambda row: (
+            row["priority"] if row["priority"] is not None else 9999,
+            -row["impact"] if row.get("impact") is not None else 0,
+            row["plan_id"],
+        )
+    )
     return rows, failures
 
 
@@ -334,12 +394,16 @@ def _print_plan_table(rows: List[dict]) -> None:
         print("(no plans found)")
         return
 
-    headers = ["plan_id", "status", "checkpoint", "steps", "receipts"]
+    headers = ["plan_id", "priority", "layer", "scale", "impact", "status", "checkpoint", "steps", "receipts"]
     widths = {key: len(key) for key in headers}
     formatted: List[dict] = []
     for row in rows:
         cell_map = {
             "plan_id": row["plan_id"],
+            "priority": row.get("priority", "-"),
+            "layer": row.get("layer", "-"),
+            "scale": row.get("systemic_scale", "-"),
+            "impact": row.get("impact", "-"),
             "status": row["status"],
             "checkpoint": row["checkpoint"] or "-",
             "steps": f"{row['steps_done']}/{row['steps_total']}",
@@ -375,6 +439,10 @@ def cmd_list(args: argparse.Namespace) -> int:
         payload = [
             {
                 "plan_id": row["plan_id"],
+                "priority": row.get("priority"),
+                "layer": row.get("layer"),
+                "systemic_scale": row.get("systemic_scale"),
+                "impact_score": row.get("impact"),
                 "status": row["status"],
                 "checkpoint": row["checkpoint"],
                 "steps": {"done": row["steps_done"], "total": row["steps_total"]},
@@ -530,6 +598,16 @@ def build_parser() -> argparse.ArgumentParser:
         default=[],
         help="Add a step in format ID:Title (may be repeated)",
     )
+    new.add_argument("--priority", type=int, required=True, help="Numeric priority (0 = highest)")
+    new.add_argument("--layer", choices=LAYER_CHOICES, required=True, help="Layer label (L0–L6)")
+    new.add_argument(
+        "--systemic-scale",
+        type=int,
+        choices=SYSTEMIC_SCALE_CHOICES,
+        required=True,
+        help="Systemic axis (S1–S10)",
+    )
+    new.add_argument("--impact-score", type=int, required=True, help="Relative impact score (>=0)")
     new.add_argument("--plan-dir", default=str(DEFAULT_PLAN_DIR), help="Directory for plan artifacts")
     new.add_argument("--timestamp", help="Override creation timestamp (UTC, e.g. 2025-09-17T00:00:00Z)")
     new.add_argument("--force", action="store_true", help="Overwrite existing plan if present")
