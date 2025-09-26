@@ -1,0 +1,8 @@
+{
+  "command": "memory-layer:S3",
+  "artifacts": [
+    "tools/memory/cli.py",
+    "teof/bootloader.py",
+    "tests/test_memory_cli.py"
+  ]
+}

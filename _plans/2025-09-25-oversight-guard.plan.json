@@ -1,0 +1,52 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-25-oversight-guard",
+  "created": "2025-09-26T17:19:47Z",
+  "actor": "codex-5",
+  "summary": "Prevent unlogged decisions by instrumenting oversight guard",
+  "priority": 0,
+  "layer": "L5",
+  "systemic_scale": 4,
+  "impact_score": 90,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Identify oversight scenarios",
+      "status": "queued",
+      "notes": "Document cases where instructions or ideas slip without receipts (e.g., new ideas not backlogged, commands run without plan).",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Design guardrail mechanism",
+      "status": "queued",
+      "notes": "Implement automation or workflow hooks that alert when actions lack plans/receipts (planner CLI lint, CI check, or teof doctor).",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement guard and tests",
+      "status": "queued",
+      "notes": "Build the guard, add unit tests, and integrate into CI or tooling.",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Document process update",
+      "status": "queued",
+      "notes": "Update docs/workflow with the new safeguard so humans/agents know the expectation.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Guardrail detects and blocks unlogged actions; evidence shows compliance",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "receipts": [],
+  "dictionary_alignments": {
+    "layer": "docs/workflow.md#layer-hierarchy",
+    "systemic_scale": "docs/foundation/systemic-scale.md (S1\u2013S10)"
+  }
+}

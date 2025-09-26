@@ -1,0 +1,19 @@
+{
+  "summary": "Added memory diagnostics CLI",
+  "task": "2025-09-25-memory-layer:S3",
+  "artifacts": [
+    "tools/memory/cli.py",
+    "teof/bootloader.py",
+    "tests/test_memory_cli.py"
+  ],
+  "layer": "L5",
+  "systemic_scale": 5,
+  "receipts": [
+    "tools/memory/cli.py",
+    "tests/test_memory_cli.py"
+  ],
+  "ts": "2025-09-26T18:24:05Z",
+  "run_id": "20250926T182405Z-cab440",
+  "hash_prev": "a8e34013282baa9d4503eb36be7d71c65e586ba2bbcb86a9bb2cd1df500e9379",
+  "hash_self": "178800ff187e6037ba5805901182fdf5b7c854097da0ff179c9ea225119b85b1"
+}

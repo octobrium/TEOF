@@ -1,0 +1,52 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-25-teof-anatomy-dashboard",
+  "created": "2025-09-26T17:14:28Z",
+  "actor": "codex-5",
+  "summary": "Map subsystem anatomy and build health diagnostics",
+  "priority": 1,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 70,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Catalog TEOF subsystems and receipts",
+      "status": "queued",
+      "notes": "Document core components (validator, autonomy loop, planner, memory, bus, docs) with links to receipts/tests",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Design health metrics",
+      "status": "queued",
+      "notes": "Define per-subsystem checks (last receipt, failing tests, unused components, warnings)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement anatomy CLI/doctor extensions",
+      "status": "queued",
+      "notes": "Ship teof anatomy/doctor subcommands that report subsystem status",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Document usage and integrate into workflow",
+      "status": "queued",
+      "notes": "Update docs/quickstart + workflow with anatomy checks and add tests",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Anatomy dashboard reports health of all subsystems with observable metrics",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "receipts": [],
+  "dictionary_alignments": {
+    "layer": "docs/workflow.md#layer-hierarchy",
+    "systemic_scale": "docs/foundation/systemic-scale.md (S1\u2013S10)"
+  }
+}

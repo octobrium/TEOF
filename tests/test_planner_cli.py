@@ -49,6 +49,14 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
             "S1:Implement",
             "--step",
             "S2:Verify",
+            "--priority",
+            "0",
+            "--layer",
+            "L5",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "90",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -65,6 +73,10 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
     assert [step["id"] for step in data["steps"]] == ["S1", "S2"]
     assert all(step["notes"] == "(CMD-__)" for step in data["steps"])
     assert data["checkpoint"]["description"] == "Ensure test coverage"
+    assert data["priority"] == 0
+    assert data["layer"] == "L5"
+    assert data["systemic_scale"] == 5
+    assert data["impact_score"] == 90
 
     result = validate_plan(plan_path, strict=True)
     assert result.ok, result.errors
@@ -80,6 +92,14 @@ def test_cli_new_normalizes_slug(planner_root: Path) -> None:
             "Normalized slug",
             "--actor",
             "tester",
+            "--priority",
+            "1",
+            "--layer",
+            "L4",
+            "--systemic-scale",
+            "6",
+            "--impact-score",
+            "80",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -102,6 +122,14 @@ def test_cli_new_rejects_duplicate_steps(planner_root: Path) -> None:
                 "Duplicate steps",
                 "--actor",
                 "tester",
+                "--priority",
+                "0",
+                "--layer",
+                "L5",
+                "--systemic-scale",
+                "5",
+                "--impact-score",
+                "90",
                 "--plan-dir",
                 str(plan_dir),
                 "--timestamp",
@@ -126,6 +154,14 @@ def test_cli_status_updates_plan(planner_root: Path) -> None:
             "Status plan",
             "--actor",
             "tester",
+            "--priority",
+            "0",
+            "--layer",
+            "L5",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "90",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -157,6 +193,14 @@ def test_cli_step_add_and_set(planner_root: Path) -> None:
             "Steps plan",
             "--actor",
             "tester",
+            "--priority",
+            "0",
+            "--layer",
+            "L5",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "90",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -225,6 +269,14 @@ def test_cli_new_requires_claim_guard(planner_root: Path) -> None:
                 "Guard should block",
                 "--actor",
                 "tester",
+                "--priority",
+                "0",
+                "--layer",
+                "L5",
+                "--systemic-scale",
+                "5",
+                "--impact-score",
+                "90",
                 "--plan-dir",
                 str(plan_dir),
                 "--timestamp",
@@ -263,6 +315,14 @@ def test_cli_new_allows_when_claim_exists(planner_root: Path) -> None:
             "Guard ok",
             "--actor",
             "tester",
+            "--priority",
+            "0",
+            "--layer",
+            "L5",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "90",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -287,6 +347,14 @@ def test_cli_attach_receipt_updates_plan_and_receipt(planner_root: Path) -> None
             "Receipt plan",
             "--actor",
             "tester",
+            "--priority",
+            "0",
+            "--layer",
+            "L5",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "90",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -333,6 +401,14 @@ def test_cli_show_outputs_summary(planner_root: Path, capsys: pytest.CaptureFixt
             "Show test plan",
             "--actor",
             "tester",
+            "--priority",
+            "0",
+            "--layer",
+            "L5",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "90",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -367,6 +443,14 @@ def test_cli_list_outputs_table(planner_root: Path, capsys: pytest.CaptureFixtur
             "Table plan",
             "--actor",
             "tester",
+            "--priority",
+            "0",
+            "--layer",
+            "L5",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "90",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -383,6 +467,14 @@ def test_cli_list_outputs_table(planner_root: Path, capsys: pytest.CaptureFixtur
             "Done plan",
             "--actor",
             "tester",
+            "--priority",
+            "1",
+            "--layer",
+            "L5",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "80",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -402,6 +494,8 @@ def test_cli_list_outputs_table(planner_root: Path, capsys: pytest.CaptureFixtur
     out = capsys.readouterr().out
     assert "plan_id" in out
     assert "2025-09-17-list-table" in out
+    assert "priority" in out
+    assert "layer" in out
     assert "plans:" in out
 
 
@@ -415,6 +509,14 @@ def test_cli_list_outputs_json(planner_root: Path, capsys: pytest.CaptureFixture
             "JSON plan",
             "--actor",
             "tester",
+            "--priority",
+            "2",
+            "--layer",
+            "L5",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "70",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -426,4 +528,8 @@ def test_cli_list_outputs_json(planner_root: Path, capsys: pytest.CaptureFixture
     exit_code = run_cli(["list", "--format", "json"])
     assert exit_code == 0
     data = json.loads(capsys.readouterr().out)
-    assert any(item["plan_id"] == "2025-09-19-list-json" for item in data)
+    target = next(item for item in data if item["plan_id"] == "2025-09-19-list-json")
+    assert target["priority"] == 2
+    assert target["layer"] == "L5"
+    assert target["systemic_scale"] == 5
+    assert target["impact_score"] == 70

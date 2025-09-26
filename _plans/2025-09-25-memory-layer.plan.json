@@ -1,0 +1,75 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-25-memory-layer",
+  "created": "2025-09-25T09:35:00Z",
+  "actor": "codex-5",
+  "summary": "Design thin memory layer (log/state/artifact/runs) + APIs and diagnostics",
+  "priority": 0,
+  "layer": "L4",
+  "systemic_scale": 6,
+  "impact_score": 88,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define memory schema and promotion rules",
+      "status": "done",
+      "notes": "Schema documented in docs/automation/memory-layer.md covering log/state/artifacts/runs and promotion rules.",
+      "receipts": [
+        "docs/automation/memory-layer.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement memory helper API",
+      "status": "done",
+      "notes": "Implemented tools/memory/memory.py with write_log, promote_fact, register_artifacts, recall and accompanying tests.",
+      "receipts": [
+        "tools/memory/memory.py",
+        "tools/memory/__init__.py",
+        "tests/test_memory_api.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add CLI utilities and diagnostics",
+      "status": "done",
+      "notes": "Added teof memory subcommand (doctor/timeline/diff) with tests and run logging integration.",
+      "receipts": [
+        "tools/memory/cli.py",
+        "teof/bootloader.py",
+        "tests/test_memory_cli.py"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Update docs and tests",
+      "status": "done",
+      "notes": "Documented memory layer usage in quickstart/workflow and added CLI tests.",
+      "receipts": [
+        "docs/quickstart.md",
+        "docs/workflow.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Memory layer captures and replays agent runs with receipts and diagnostics",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "docs/automation/memory-layer.md",
+    "tools/memory/memory.py",
+    "tools/memory/__init__.py",
+    "tests/test_memory_api.py",
+    "tools/memory/cli.py",
+    "teof/bootloader.py",
+    "tests/test_memory_cli.py",
+    "docs/quickstart.md",
+    "docs/workflow.md"
+  ],
+  "dictionary_alignments": {
+    "layer": "docs/workflow.md#layer-hierarchy",
+    "systemic_scale": "docs/foundation/systemic-scale.md (S1\u2013S10)"
+  }
+}

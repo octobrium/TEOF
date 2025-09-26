@@ -1,0 +1,19 @@
+{
+  "captured_at": "2025-09-26T17:21:50Z",
+  "title": "Need for ranked memory",
+  "layers": [
+    "L0",
+    "L3"
+  ],
+  "summary": "Observation shows memories (insights, backlog items) must be ranked by fundamentality and enabling power to prioritize future work coherently.",
+  "signals": "Scaling repo complexity makes ad hoc recall unreliable; ranking ensures high-leverage work rises first.",
+  "actions": "Implement backlog ranking (plan 2025-09-25-backlog-hygiene) and extend reflections/insights with priority metadata.",
+  "tags": [
+    "ranking",
+    "memory",
+    "prioritization"
+  ],
+  "plan_suggestion": "2025-09-25-backlog-hygiene",
+  "notes": "Memories without ranking become noise. Capture layer (L0-L6), Unity\u2192Meaning score, and impact_score so development order compounds.",
+  "receipt": "memory/reflections/reflection-20250926T172150Z.json"
+}

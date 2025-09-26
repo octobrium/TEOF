@@ -49,6 +49,17 @@ Review cadence: Monthly sweep
 - No new CI rules unless they protect the kernel import boundary.
 - No new top-level folders unless justified via a 1‑page TEP.
 
+## Backlog discipline
+- **Capture ideas immediately.** The moment an actionable idea lands, record it as a plan via `python -m tools.planner.cli new ...` (or equivalent) within the same session. No idea should live only in a transcript.
+- **Store ranking metadata.** Every plan must include:
+  - `priority` (0 = highest, increasing numbers for later work)
+  - `layer` (L0–L6 from the constitutional stack)
+  - `systemic_scale` (1–10, see [`docs/foundation/systemic-scale.md`](docs/foundation/systemic-scale.md))
+  - `impact_score` (relative leverage)
+- **Optional shorthand.** When talking out loud, you can abbreviate the coordinate (e.g. `S6:L4` for Truth/Architecture), but always keep the explicit numeric fields in plans and memory so automation can parse them.
+- **Use the planner CLI** to enforce the schema; `planner list` sorts by these fields so the highest leverage work stays obvious.
+- **Log the run** (`teof memory doctor`, `teof memory timeline`) so future sessions understand why the plan exists and where it ranks.
+
 ---
 
 ## Top-layer adoption blueprint
@@ -71,6 +82,20 @@ This keeps Observation → Ethics → Self-repair coherent while giving companie
 - Prototypes start in `experimental/` with a short promotion plan in the PR.
 - Kernel code **MUST NOT** import from `experimental/` or `archive/` (the import policy guard enforces this).
 - If a new top-level seems required, open a 1‑page TEP in `rfcs/` (purpose, contract, alternatives, rollback).
+
+### Layer hierarchy (L0–L6)
+
+| Layer | Name         | Purpose                                        |
+|-------|--------------|------------------------------------------------|
+| L0    | Observation  | Raw perception, receipts, measurements         |
+| L1    | Principles   | Stable rules distilled from observation        |
+| L2    | Objectives   | Goals that serve the principles                |
+| L3    | Properties   | System traits required to meet objectives      |
+| L4    | Architecture | Concrete structures that express the properties|
+| L5    | Workflow     | Human/agent procedures that maintain the architecture |
+| L6    | Automation   | Executable systems that uphold the workflow    |
+
+Use these layer labels together with the systemic axis (`docs/foundation/systemic-scale.md`) when tagging plans, memory entries, and artifacts.
 
 ---
 
@@ -161,7 +186,8 @@ This keeps Observation → Ethics → Self-repair coherent while giving companie
 2) Make CI **verify** green (import policy + brief shape checks).  
 3) If reasoning changed, wire evaluator + update goldens.  
 4) Expose a minimal surface (one command → artifacts).  
-5) Tag & ship when ready.
+5) Log the run in the memory layer (`teof memory doctor` before closing the session; store capsule under `memory/runs/<id>/` and promote durable facts via the helper API).  
+6) Tag & ship when ready.
 
 > **Placement note:** this file lives **outside** the capsule to avoid baseline churn. After it stabilizes (several cycles without edits), move it into `capsule/current/` and re‑freeze hashes.
 

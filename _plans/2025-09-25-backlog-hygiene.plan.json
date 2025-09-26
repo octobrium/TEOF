@@ -1,0 +1,79 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-25-backlog-hygiene",
+  "created": "2025-09-26T17:16:39Z",
+  "actor": "codex-5",
+  "summary": "Institutionalize idea backlogging and ranking discipline",
+  "priority": 0,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 95,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Document backlog capture protocol",
+      "status": "done",
+      "notes": "Documented immediate backlogging in docs/workflow.md and docs/quickstart.md.",
+      "receipts": [
+        "docs/workflow.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add ranking rubric",
+      "status": "done",
+      "notes": "Defined three-part ranking rubric and linked systemic hierarchy reference.",
+      "receipts": [
+        "docs/foundation/systemic-scale.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Wire ranking into tooling",
+      "status": "done",
+      "notes": "Planner CLI now captures priority/layer/systemic_scale/impact and sorts list output.",
+      "receipts": [
+        "tools/planner/cli.py",
+        "tests/test_planner_cli.py"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Update workflow guidance",
+      "status": "done",
+      "notes": "Workflow/quickstart guidance updated to reflect capture + ranking discipline.",
+      "receipts": [
+        "docs/quickstart.md"
+      ]
+    },
+    {
+      "id": "S5",
+      "title": "Align systemic scale with whitepaper hierarchy",
+      "status": "done",
+      "notes": "Systemic scale now references whitepaper hierarchy via docs/foundation/systemic-scale.md.",
+      "receipts": [
+        "governance/core/L1 - principles/canonical-teof.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Backlog discipline ensures ideas are captured and prioritized immediately",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "docs/workflow.md",
+    "docs/foundation/systemic-scale.md",
+    "tools/planner/cli.py",
+    "tests/test_planner_cli.py",
+    "docs/quickstart.md",
+    "governance/core/L1 - principles/canonical-teof.md"
+  ],
+  "dictionary_alignments": {
+    "systemic_scale": "docs/foundation/systemic-scale.md (S1\u2013S10)",
+    "layer": "docs/workflow.md#layer-hierarchy",
+    "priority": "docs/workflow.md#backlog-discipline",
+    "impact_score": "docs/workflow.md#backlog-discipline"
+  }
+}
