@@ -14,6 +14,7 @@ from typing import Any, Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUT_ROOT = ROOT / "docs" / "receipts" / "attest"
+INDEX_PATH = ROOT / "docs" / "receipts" / "INDEX.md"
 
 
 class StepResult(dict):
@@ -152,8 +153,9 @@ def attest(out_root: Path, *, emit_log: bool, summary: str | None) -> Path:
             except json.JSONDecodeError:
                 pass
 
+    timestamp_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     receipt = {
-        "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "timestamp": timestamp_iso,
         "git_commit": _git_commit(),
         "workspace_status": _workspace_status(),
         "environment": gather_env(),
@@ -167,6 +169,9 @@ def attest(out_root: Path, *, emit_log: bool, summary: str | None) -> Path:
     checksum = _sha256(receipt_json)
     receipt["receipt_sha256"] = checksum
     (dest / "receipt.json").write_bytes(json.dumps(receipt, ensure_ascii=False, indent=2).encode("utf-8") + b"\n")
+
+    notes = summary or ("Automated attestation" if emit_log else "Automated attestation (no log)")
+    _update_index(timestamp_iso, "Automated attestation", receipt["verdict"], dest.relative_to(ROOT), notes)
 
     if emit_log and receipt["verdict"] == "PASS":
         log_summary = summary or "Attestation of repo scaffold guardrails"
@@ -206,6 +211,36 @@ def main() -> int:
     dest = attest(args.out_root if args.out_root.is_absolute() else ROOT / args.out_root, emit_log=not args.no_log, summary=args.summary)
     print(f"wrote attestation to {dest.relative_to(ROOT)}")
     return 0
+
+
+def _update_index(timestamp: str, entry_type: str, verdict: str, rel_path: Path, notes: str) -> None:
+    INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
+    header = (
+        "| Timestamp (UTC)       | Type                  | Verdict | Path                                              | Notes |\n"
+    )
+    separator = (
+        "|-----------------------|-----------------------|---------|---------------------------------------------------|-------|\n"
+    )
+
+    if not INDEX_PATH.exists():
+        INDEX_PATH.write_text(f"# Receipt Index\n\n" + header + separator, encoding="utf-8")
+
+    lines = INDEX_PATH.read_text(encoding="utf-8").splitlines()
+    if header.strip() not in lines:
+        lines.insert(0, "# Receipt Index")
+        lines.insert(1, "")
+        lines.insert(2, header.strip())
+        lines.insert(3, separator.strip())
+
+    row = f"| {timestamp:<21}| {entry_type:<23}| {verdict:<7}| {str(rel_path):<51}| {notes} |"
+
+    existing = [line for line in lines if str(rel_path) in line]
+    if existing:
+        lines = [row if str(rel_path) in line else line for line in lines]
+    else:
+        lines.append(row)
+
+    INDEX_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
