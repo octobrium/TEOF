@@ -72,6 +72,9 @@ def test_conductor_dry_run_generates_prompt(conductor_repo: None, capsys: pytest
     assert "Diff limit: 123" in payload["prompt"]
     assert payload["preflight"]["authenticity"]["overall_avg_trust"] == 0.9
     assert payload["preflight"]["planner_status"]["status"] == "ok"
+    assert "frontier_preview" in payload
+    assert "critic_alerts" in payload
+    assert "tms_conflicts" in payload
     todo = json.loads((next_step.TODO_PATH).read_text(encoding="utf-8"))
     assert any(item.get("status") == "pending" for item in todo["items"])
 

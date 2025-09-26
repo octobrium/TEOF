@@ -62,4 +62,6 @@ must not dilute or contradict those guardrails.
   fail upstream?
 
 Answering these questions will inform steps S2–S3 of plan
-`2025-09-23-autonomy-conductor`.
+`2025-09-23-autonomy-conductor`. The conductor now records frontier preview,
+open critic/TMS alerts, and fails fast when the L6 ethics gate reports missing
+consent/review receipts so high-risk coordinates cannot proceed unattended.

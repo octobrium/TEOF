@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Mapping
 
-from tools.autonomy import next_step
+from tools.autonomy import critic, ethics_gate, frontier, next_step, tms
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -71,6 +71,9 @@ def build_cycle_payload(
     task: Mapping[str, Any],
     guardrails: Mapping[str, Any],
     preflight: Mapping[str, Any],
+    frontier_preview: list[Dict[str, Any]] | None = None,
+    critic_alerts: list[Dict[str, Any]] | None = None,
+    tms_conflicts: list[Dict[str, Any]] | None = None,
 ) -> Dict[str, Any]:
     return {
         "generated_at": _iso_now(),
@@ -78,6 +81,9 @@ def build_cycle_payload(
         "guardrails": guardrails,
         "prompt": _format_prompt(task, guardrails),
         "preflight": preflight,
+        "frontier_preview": frontier_preview or [],
+        "critic_alerts": critic_alerts or [],
+        "tms_conflicts": tms_conflicts or [],
     }
 
 
@@ -105,8 +111,35 @@ def run_once(
         "receipts_dir": receipts_subdir,
     }
 
+    # Compute supporting insights
+    try:
+        frontier_preview = [entry.as_dict() for entry in frontier.compute_frontier(limit=5)]
+    except Exception:
+        frontier_preview = []
+
+    critic_alerts = [alert for alert in critic.detect_anomalies() if alert.get("id") == selection.get("id")]
+    tms_conflicts = [conflict for conflict in tms.detect_conflicts() if conflict.get("id") == selection.get("id")]
+    ethics_violations = [violation for violation in ethics_gate.detect_violations() if violation.get("id") == selection.get("id")]
+
+    if ethics_violations:
+        next_step._update_completion(  # type: ignore[attr-defined]
+            item_id=str(selection.get("id")), status="pending"
+        )
+        print(
+            "conductor: ethics gate blocked task"
+            f" {selection.get('id')} — add consent/review receipts before rerunning."
+        )
+        return False, None, None
+
     preflight = _preflight_snapshot()
-    payload = build_cycle_payload(task=selection, guardrails=guardrails, preflight=preflight)
+    payload = build_cycle_payload(
+        task=selection,
+        guardrails=guardrails,
+        preflight=preflight,
+        frontier_preview=frontier_preview[:3],
+        critic_alerts=critic_alerts,
+        tms_conflicts=tms_conflicts,
+    )
     receipt_path = _write_receipt(payload)
     print(f"conductor: wrote {receipt_path.relative_to(ROOT)}")
 
