@@ -19,6 +19,7 @@ from extensions.validator.scorers.ensemble import score_file
 from . import status_report, tasks_report
 from tools.autonomy import critic as critic_mod
 from tools.autonomy import frontier as frontier_mod
+from tools.autonomy import tms as tms_mod
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 EXAMPLES_DIR = ROOT / "docs" / "examples" / "brief" / "inputs"
@@ -160,6 +161,28 @@ def build_parser() -> argparse.ArgumentParser:
     )
     critic.set_defaults(func=cmd_critic)
 
+    tms = sub.add_parser(
+        "tms",
+        help="Detect fact conflicts (truth maintenance system)",
+    )
+    tms.add_argument(
+        "--format",
+        choices=("table", "json"),
+        default="table",
+        help="Output format",
+    )
+    tms.add_argument(
+        "--out",
+        type=Path,
+        help="Optional path to write TMS receipt JSON",
+    )
+    tms.add_argument(
+        "--emit-plan",
+        action="store_true",
+        help="Emit plan skeletons for detected conflicts",
+    )
+    tms.set_defaults(func=cmd_tms)
+
     return parser
 
 
@@ -255,6 +278,34 @@ def cmd_critic(args: argparse.Namespace) -> int:
             emitted.append(claim_path.relative_to(ROOT).as_posix())
         if emitted:
             print("emitted bus claims:")
+            for item in emitted:
+                print(f"  - {item}")
+    return 0
+
+
+def cmd_tms(args: argparse.Namespace) -> int:
+    conflicts = tms_mod.detect_conflicts()
+    if args.format == "json":
+        print(json.dumps(conflicts, ensure_ascii=False, indent=2))
+    else:
+        print(tms_mod.render_table(conflicts))
+
+    receipt_path = None
+    if args.out:
+        out_path = args.out if args.out.is_absolute() else (ROOT / args.out)
+        receipt_path = tms_mod.write_receipt(conflicts, out_path)
+        print(f"wrote receipt → {receipt_path.relative_to(ROOT)}")
+
+    if args.emit_plan:
+        if receipt_path is None:
+            print("::error:: --emit-plan requires --out for provenance")
+            return 2
+        emitted = []
+        for conflict in conflicts:
+            plan_path = tms_mod._emit_plan(conflict, receipt_path)
+            emitted.append(plan_path.relative_to(ROOT).as_posix())
+        if emitted:
+            print("emitted plans:")
             for item in emitted:
                 print(f"  - {item}")
     return 0
