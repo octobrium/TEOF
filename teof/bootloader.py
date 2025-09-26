@@ -17,6 +17,7 @@ from typing import Iterable
 
 from extensions.validator.scorers.ensemble import score_file
 from . import status_report, tasks_report
+from tools.autonomy import frontier as frontier_mod
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 EXAMPLES_DIR = ROOT / "docs" / "examples" / "brief" / "inputs"
@@ -113,6 +114,29 @@ def build_parser() -> argparse.ArgumentParser:
     )
     tasks.set_defaults(func=cmd_tasks)
 
+    frontier = sub.add_parser(
+        "frontier",
+        help="Score backlog/tasks/facts to surface next coordinates",
+    )
+    frontier.add_argument(
+        "--limit",
+        type=int,
+        default=10,
+        help="Number of entries to show (default: 10)",
+    )
+    frontier.add_argument(
+        "--format",
+        choices=("table", "json"),
+        default="table",
+        help="Output format",
+    )
+    frontier.add_argument(
+        "--out",
+        type=Path,
+        help="Optional path (relative to repo) to write receipt JSON",
+    )
+    frontier.set_defaults(func=cmd_frontier)
+
     return parser
 
 
@@ -167,6 +191,21 @@ def cmd_tasks(args: argparse.Namespace) -> int:
             print(f"- {warning}")
     else:
         print("- none")
+    return 0
+
+
+def cmd_frontier(args: argparse.Namespace) -> int:
+    out_path = None
+    if args.out is not None:
+        out_path = args.out if args.out.is_absolute() else ROOT / args.out
+    result = frontier_mod.compute_frontier(limit=max(0, args.limit))
+    if args.format == "json":
+        print(json.dumps([entry.as_dict() for entry in result], ensure_ascii=False, indent=2))
+    else:
+        print(frontier_mod.render_table(result))
+    if out_path is not None:
+        receipt_path = frontier_mod.write_receipt(result, out_path, limit=max(0, args.limit))
+        print(f"wrote receipt → {receipt_path.relative_to(ROOT)}")
     return 0
 
 
