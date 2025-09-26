@@ -1,5 +1,6 @@
 import argparse
 import base64
+import datetime as dt
 import json
 from importlib import reload
 from pathlib import Path
@@ -27,6 +28,7 @@ def _prepare_environment(tmp_path: Path):
     assert summary.registry_update is not None
     summary.registry_update.ROOT = tmp_path
     summary.registry_update.DEFAULT_REGISTRY = summary.DEFAULT_REGISTRY_PATH
+    summary._utcnow = lambda: dt.datetime(2025, 9, 22, tzinfo=dt.timezone.utc)  # type: ignore[attr-defined]
 
     class DummyBusEvent:
         def __init__(self) -> None:
@@ -88,6 +90,7 @@ def _prepare_environment(tmp_path: Path):
     registry_check.REGISTRY_MD = summary.DEFAULT_REGISTRY_PATH
     registry_check.REGISTRY_CONFIG = summary.REGISTRY_CONFIG_DEFAULT
     registry_check.SUMMARY_JSON = summary.DEFAULT_OUTPUT
+    registry_check._utcnow = summary._utcnow  # type: ignore[attr-defined]
 
     check_vdp.ROOT = tmp_path
     check_vdp.EXTERNAL_DIR = tmp_path / "_report" / "external"

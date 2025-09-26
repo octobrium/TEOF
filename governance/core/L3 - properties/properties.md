@@ -37,7 +37,7 @@ Properties are organized in the natural order of systemic emergence: **Unity →
 ---
 
 ### 4. Defense
-10. **Legible Continuity** – keeps lineage readable and prevents silent capture.  
+10. **Legible Continuity** – keeps lineage readable and prevents silent capture. Guardrail: `scripts/ci/check_memory_state.py` rejects changes to `memory/state.json` unless the promotion is linked to a run receipt in `memory/log.jsonl`.  
 11. **Self-Audit & Drift Detection** – continuously inspects itself for bias, stagnation, or corruption.  
 12. **Outcome Auditing of Distortion** – measures whether interventions improve or degrade clarity.
 13. **Authenticated Intake Envelope** – accepts external signals only through signed, tamper-evident receipts that preserve provenance, enforce freshness windows, and block unsigned data from propagating.

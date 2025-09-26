@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Iterable
 
 from extensions.validator.scorers.ensemble import score_file
-from . import status_report
+from . import status_report, tasks_report
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 EXAMPLES_DIR = ROOT / "docs" / "examples" / "brief" / "inputs"
@@ -96,6 +96,23 @@ def build_parser() -> argparse.ArgumentParser:
     )
     status.set_defaults(func=cmd_status)
 
+    tasks = sub.add_parser(
+        "tasks",
+        help="Summarise repository tasks (table or JSON)",
+    )
+    tasks.add_argument(
+        "--format",
+        choices=("table", "json"),
+        default="table",
+        help="Output format (default: table)",
+    )
+    tasks.add_argument(
+        "--all",
+        action="store_true",
+        help="Include completed tasks in the report",
+    )
+    tasks.set_defaults(func=cmd_tasks)
+
     return parser
 
 
@@ -124,6 +141,32 @@ def cmd_status(args: argparse.Namespace) -> int:
     else:
         # Quiet without --out still returns content for scripting expectations
         sys.stdout.write(content)
+    return 0
+
+
+def cmd_tasks(args: argparse.Namespace) -> int:
+    include_done = bool(getattr(args, "all", False))
+    output_format = getattr(args, "format", "table")
+
+    records = tasks_report.collect_tasks(root=ROOT)
+    filtered = tasks_report.filter_open_tasks(records, include_done=include_done)
+    ordered = tasks_report.sort_tasks(filtered)
+    warnings = tasks_report.compute_warnings(ordered)
+
+    if output_format == "json":
+        payload = tasks_report.to_payload(ordered, warnings=warnings)
+        json.dump(payload, sys.stdout, ensure_ascii=False, indent=2)
+        sys.stdout.write("\n")
+        return 0
+
+    table = tasks_report.render_table(ordered)
+    print(table)
+    print("\nWarnings:")
+    if warnings:
+        for warning in warnings:
+            print(f"- {warning}")
+    else:
+        print("- none")
     return 0
 
 

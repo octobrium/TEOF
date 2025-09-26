@@ -3,6 +3,8 @@ import importlib.util
 import sys
 from pathlib import Path
 
+from tools.memory import memory as memory_mod
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -17,7 +19,17 @@ def load_module(name: str, relative: str):
     return module
 
 
+def _patch_memory_paths(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(memory_mod, "ROOT", tmp_path)
+    monkeypatch.setattr(memory_mod, "MEMORY_DIR", tmp_path / "memory")
+    monkeypatch.setattr(memory_mod, "LOG_PATH", tmp_path / "memory" / "log.jsonl")
+    monkeypatch.setattr(memory_mod, "STATE_PATH", tmp_path / "memory" / "state.json")
+    monkeypatch.setattr(memory_mod, "ARTIFACTS_PATH", tmp_path / "memory" / "artifacts.json")
+    monkeypatch.setattr(memory_mod, "RUNS_DIR", tmp_path / "memory" / "runs")
+
+
 def write_log(path: Path, entries: list[dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
         for entry in entries:
             json.dump(entry, handle)
@@ -26,10 +38,11 @@ def write_log(path: Path, entries: list[dict]) -> None:
 
 def test_log_entry_appends(monkeypatch, tmp_path, capsys):
     module = load_module("memory_log_entry", "tools/memory/log-entry.py")
-    log_path = tmp_path / "log.jsonl"
+    _patch_memory_paths(tmp_path, monkeypatch)
+    log_path = memory_mod.LOG_PATH
+    log_path.parent.mkdir(parents=True, exist_ok=True)
     log_path.write_text("", encoding="utf-8")
 
-    monkeypatch.setattr(module, "LOG_PATH", log_path)
     monkeypatch.setattr(module, "default_actor", lambda: "tester")
     monkeypatch.setattr(sys, "argv", [
         "memory-log-entry",
@@ -41,11 +54,20 @@ def test_log_entry_appends(monkeypatch, tmp_path, capsys):
         "_report/demo.txt",
         "--signature",
         "sig-1",
+        "--receipt",
+        "_report/demo.txt",
+        "--task",
+        "task-1",
+        "--layer",
+        "L5",
+        "--systemic-scale",
+        "4",
     ])
 
     module.main()
     output = capsys.readouterr().out
     assert "Appended memory entry" in output
+    assert "run_id=" in output
 
     lines = log_path.read_text(encoding="utf-8").strip().splitlines()
     assert len(lines) == 1
@@ -54,7 +76,13 @@ def test_log_entry_appends(monkeypatch, tmp_path, capsys):
     assert record["ref"] == "feature/123"
     assert record["artifacts"] == ["_report/demo.txt"]
     assert record["signatures"] == ["sig-1"]
+    assert record["receipts"] == ["_report/demo.txt"]
     assert record["actor"] == "tester"
+    assert record["task"] == "task-1"
+    assert record["layer"] == "L5"
+    assert record["systemic_scale"] == 4
+    assert isinstance(record["run_id"], str) and record["run_id"]
+    assert isinstance(record["hash_self"], str) and len(record["hash_self"]) == 64
 
 
 def test_query_filters_by_actor(monkeypatch, tmp_path, capsys):

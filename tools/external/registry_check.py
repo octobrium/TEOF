@@ -15,6 +15,12 @@ SUMMARY_JSON = ROOT / "_report" / "usage" / "external-summary.json"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 
 
+def _utcnow() -> datetime:
+    """Return the current UTC timestamp (patched in tests for determinism)."""
+
+    return datetime.now(timezone.utc)
+
+
 class RegistryCheckError(RuntimeError):
     """Raised when registry validation fails."""
 
@@ -125,7 +131,7 @@ def _age_seconds(iso_ts: str | None) -> float | None:
     if not iso_ts:
         return None
     dt_obj = datetime.strptime(iso_ts, ISO_FMT).replace(tzinfo=timezone.utc)
-    return (datetime.now(timezone.utc) - dt_obj).total_seconds()
+    return (_utcnow() - dt_obj).total_seconds()
 
 
 def check_registry(

@@ -3,12 +3,17 @@
 from __future__ import annotations
 
 import argparse
-import datetime as dt
-import json
 import subprocess
 from pathlib import Path
 
-LOG_PATH = Path(__file__).resolve().parents[2] / "memory" / "log.jsonl"
+try:  # Import lazily so tests can monkeypatch module-level paths.
+    from tools.memory import memory
+except Exception as exc:  # pragma: no cover - defensive import guard.
+    raise RuntimeError("Failed to import tools.memory.memory") from exc
+
+
+def _log_path() -> Path:
+    return memory.LOG_PATH
 
 
 def default_actor() -> str:
@@ -25,35 +30,53 @@ def default_actor() -> str:
         return "unknown"
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Append a line to memory/log.jsonl")
     parser.add_argument("--summary", required=True)
     parser.add_argument("--ref", required=True, help="Branch/PR/commit reference")
     parser.add_argument("--actor", default=default_actor())
     parser.add_argument("--artifact", action="append", default=[], help="Artifact path or URL")
     parser.add_argument("--signature", action="append", default=[], help="Signature identifier")
-    return parser.parse_args()
+    parser.add_argument("--task", help="Optional task identifier associated with the run")
+    parser.add_argument("--layer", help="Optional L-layer tag (e.g. L4)")
+    parser.add_argument("--systemic-scale", type=int, help="Optional systemic scale (1-10)")
+    parser.add_argument("--receipt", action="append", default=[], help="Receipt path supporting the entry")
+    return parser.parse_args(argv)
 
 
-def main() -> None:
-    args = parse_args()
-    if not LOG_PATH.exists():
+def main(argv: list[str] | None = None) -> None:
+    args = parse_args(argv)
+    log_path = _log_path()
+    if not log_path.exists():
         raise SystemExit("memory/log.jsonl missing")
 
-    record = {
-        "ts": dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
-        "actor": args.actor,
+    event: dict[str, object] = {
         "summary": args.summary,
+        "actor": args.actor,
         "ref": args.ref,
-        "artifacts": args.artifact,
-        "signatures": args.signature,
+        "artifacts": list(args.artifact),
+        "signatures": list(args.signature),
     }
+    if args.task:
+        event["task"] = args.task
+    if args.layer:
+        event["layer"] = args.layer
+    if args.systemic_scale is not None:
+        event["systemic_scale"] = args.systemic_scale
+    if args.receipt:
+        event["receipts"] = list(args.receipt)
 
-    with LOG_PATH.open("a", encoding="utf-8") as handle:
-        json.dump(record, handle, ensure_ascii=False, separators=(",", ":"))
-        handle.write("\n")
-
-    print("Appended memory entry", record["ts"], "->", LOG_PATH)
+    payload = memory.write_log(event)
+    print(
+        "Appended memory entry",
+        payload["ts"],
+        "run_id=",
+        payload.get("run_id"),
+        "hash=",
+        payload.get("hash_self"),
+        "->",
+        log_path,
+    )
 
 
 if __name__ == "__main__":

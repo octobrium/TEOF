@@ -76,12 +76,37 @@ def main() -> int:
         except json.JSONDecodeError as exc:
             print(f"::error ::invalid JSON line in memory/log.jsonl: {exc}")
             return 1
-        for field in ("ts", "actor", "summary", "ref", "artifacts", "signatures"):
-            if field not in record:
-                print(f"::error ::missing '{field}' in memory/log.jsonl entry")
+        if "ts" not in record or "summary" not in record:
+            print("::error ::memory/log.jsonl entries must include 'ts' and 'summary'")
+            return 1
+
+        # Canonical entries authored via tools.memory.write_log must include
+        # the hash-linked fields and a run capsule identifier.
+        if "run_id" in record or "hash_self" in record or "hash_prev" in record:
+            for field in ("run_id", "hash_prev", "hash_self"):
+                if field not in record:
+                    print(f"::error ::canonical memory entry missing '{field}'")
+                    return 1
+            if record["hash_prev"] is not None and not isinstance(record["hash_prev"], str):
+                print("::error ::'hash_prev' must be a string or null")
                 return 1
-        if not isinstance(record.get("artifacts"), list) or not isinstance(record.get("signatures"), list):
-            print("::error ::'artifacts' and 'signatures' must be lists")
+            if not isinstance(record["hash_self"], str) or len(record["hash_self"]) != 64:
+                print("::error ::'hash_self' must be a 64-character hex digest")
+                return 1
+            if not isinstance(record.get("run_id"), str) or not record["run_id"]:
+                print("::error ::'run_id' must be a non-empty string")
+                return 1
+
+        # Legacy manual entries may include actor/ref/signatures; when present
+        # ensure their types stay consistent for downstream tooling.
+        if "artifacts" in record and not isinstance(record["artifacts"], list):
+            print("::error ::'artifacts' must be a list when present")
+            return 1
+        if "receipts" in record and not isinstance(record["receipts"], list):
+            print("::error ::'receipts' must be a list when present")
+            return 1
+        if "signatures" in record and not isinstance(record["signatures"], list):
+            print("::error ::'signatures' must be a list when present")
             return 1
 
     return 0

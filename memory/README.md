@@ -1,6 +1,6 @@
 # TEOF Memory Scaffold
 
-TEOF tracks decision and experiment history in an append-only log stored at `memory/log.jsonl`. Each entry captures who made a change, what was attempted, and where the supporting diff or artifact lives. The memory scaffold is:
+TEOF tracks decision and experiment history in an append-only log stored at `memory/log.jsonl`. Each entry captures what happened, why it mattered, and which receipts prove the work. The memory scaffold is:
 
 - **Append-only:** Prior entries must never be rewritten. New entries are appended at the end of `memory/log.jsonl`.
 - **Signed:** Authors should append their signature digest in the `signatures` array. Threshold signing (≥2 signers) is required before promoting capsule changes.
@@ -8,22 +8,50 @@ TEOF tracks decision and experiment history in an append-only log stored at `mem
 
 ## Entry schema
 
-Each line in `memory/log.jsonl` is a JSON object with the following fields:
+### Canonical event schema (automation surface)
 
-| Field       | Description |
-|-------------|-------------|
-| `ts`        | UTC timestamp (`YYYY-MM-DDTHH:MM:SSZ`). |
-| `actor`     | Human or agent responsible for the change. |
-| `summary`   | Short description of the decision or experiment. |
-| `ref`       | Branch, PR, or commit hash linking to the work. |
-| `artifacts` | List of artifact paths or URLs (may be empty). |
-| `signatures`| Array of detached signature identifiers (may be empty if pending). |
+Automation and newer tools write log events through `tools.memory.write_log`. The
+helper guarantees the following keys:
 
-Example line:
+| Field         | Description |
+|---------------|-------------|
+| `ts`          | UTC timestamp (`YYYY-MM-DDTHH:MM:SSZ`). |
+| `run_id`      | Globally unique identifier for the execution capsule. |
+| `summary`     | Short description of the decision or experiment. |
+| `hash_prev`   | SHA-256 digest of the previous entry (or `null` for genesis). |
+| `hash_self`   | SHA-256 digest of the current entry (with `hash_self` removed during hashing). |
+
+Entries written via `write_log` typically include additional context that mirrors
+the autonomy blueprints: `layer`, `systemic_scale`, `task`, `receipts`,
+`derived_facts`, `next_actions`, `outputs`, `exit_status`, etc. These keys are
+optional but recommended because downstream tooling (status dashboards, replay
+helpers) expect them when present.
+
+Example (abbreviated) entry emitted by `write_log`:
 
 ```json
-{"ts":"2025-09-17T04:20:00Z","actor":"codex","summary":"Document replica smoke flow","ref":"PR-26","artifacts":["tools/replica-smoke.sh"],"signatures":[]}
+{
+  "ts": "2025-09-26T19:06:28Z",
+  "run_id": "20250926T190628Z-717d8d",
+  "summary": "Completed backlog hygiene plan",
+  "task": "2025-09-25-backlog-hygiene",
+  "layer": "L5",
+  "systemic_scale": 5,
+  "receipts": ["docs/workflow.md", "docs/quickstart.md"],
+  "artifacts": ["docs/workflow.md", "docs/quickstart.md"],
+  "hash_prev": "d864891fc56f5daf615fadf199ffdda2dcc9c286fa489f3c81a295535c0d46e9",
+  "hash_self": "79a1986f5556432be21cc63d0c1f4be6364fd642e3b742070f791ecd0109c86b"
+}
 ```
+
+### Legacy compatibility (manual surface)
+
+Early memory usage relied on the lightweight `tools/memory/log-entry.py` script.
+Those entries contain a simpler shape (`actor`, `ref`, `signatures`, and
+`artifacts`). They remain valid and continue to pass append-only enforcement, but
+new automation should prefer the canonical surface above. When ingesting the log,
+always treat optional fields defensively so the history can be replayed across
+both eras.
 
 ## Appending entries
 

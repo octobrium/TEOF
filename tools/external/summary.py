@@ -43,6 +43,15 @@ try:  # optional bus alerting
 except ImportError:  # pragma: no cover - optional dependency
     bus_event_module = None
 
+def _utcnow() -> dt.datetime:
+    """Return the current UTC timestamp.
+
+    Abstracted for tests so staleness logic can be exercised deterministically.
+    """
+
+    return dt.datetime.now(dt.timezone.utc)
+
+
 if registry_update is not None:
     DEFAULT_REGISTRY_PATH = registry_update.DEFAULT_REGISTRY
     RegistryUpdateError = registry_update.RegistryUpdateError
@@ -70,7 +79,7 @@ class FeedStats:
     def latest_age_seconds(self) -> float | None:
         if self.latest_issued_at is None:
             return None
-        return (dt.datetime.now(dt.timezone.utc) - self.latest_issued_at).total_seconds()
+        return (_utcnow() - self.latest_issued_at).total_seconds()
 
 
 def _parse_args(argv: Sequence[str] | None) -> argparse.Namespace:
@@ -189,7 +198,7 @@ def summarise_receipts(threshold_hours: float, strict: bool = False) -> dict[str
             stats.latest_issued_at = issued_at
             stats.latest_path = path
 
-        if dt.datetime.now(dt.timezone.utc) - issued_at > threshold:
+        if _utcnow() - issued_at > threshold:
             stats.stale_count += 1
 
         # Validate hash

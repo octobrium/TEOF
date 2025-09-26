@@ -82,6 +82,7 @@ every run, promotes trustworthy facts, and indexes artifacts for replay.
 3. Artifacts only index tracked files (no gitignored paths).
 4. `runs/<id>/` is immutable once written (only new runs appear).
 5. Planner CLI enforces capture: creating a plan auto-prompts layer/systemic/impact; execution wrappers populate run metadata.
+6. State promotions must cite their receipts. `scripts/ci/check_memory_state.py` blocks edits to `memory/state.json` unless the referenced run capsule (via `source_run` or `derived_facts`) appears in the appended `memory/log.jsonl` entries.
 
 ## API surface (planned for S2)
 
