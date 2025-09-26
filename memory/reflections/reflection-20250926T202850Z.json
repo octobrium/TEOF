@@ -1,0 +1,20 @@
+{
+  "captured_at": "2025-09-26T20:28:50Z",
+  "title": "Coherence vs ethics guard clarity",
+  "layers": [
+    "L1",
+    "L4",
+    "L5"
+  ],
+  "summary": "Reaffirmed that coherence checks verify structural consistency while ethics gates prevent power being applied without provenance; our memory-state receipts guard is an ethics safeguard, not a coherence fix.",
+  "signals": "Reviewer feedback questioned whether missing receipts break coherence or ethics, prompting a review of OCERS invariants and the memory guard's role.",
+  "actions": "Document the distinction in upcoming governance notes and ensure future TMS/critic features escalate under ethics before automation.",
+  "tags": [
+    "ocers",
+    "ethics",
+    "memory"
+  ],
+  "plan_suggestion": "2025-09-25-oversight-guard",
+  "notes": "Receipt-free promotions remain logically coherent but ethically unsafe; maintain separate coherence and ethics checks when adding new automation loops.",
+  "receipt": "memory/reflections/reflection-20250926T202850Z.json"
+}
