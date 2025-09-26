@@ -1,0 +1,14 @@
+total 64
+drwxr-xr-x@  9 evan  staff    288 Sep 26 11:28 .
+drwxr-xr-x@ 39 evan  staff   1248 Sep 26 12:27 ..
+drwxr-xr-x   4 evan  staff    128 Sep 23 19:55 decisions
+drwxr-xr-x   3 evan  staff     96 Sep 23 15:32 impact
+-rw-r--r--   1 evan  staff  20328 Sep 26 13:34 log.jsonl
+-rw-r--r--@  1 evan  staff   4592 Sep 26 12:43 README.md
+drwxr-xr-x   8 evan  staff    256 Sep 26 13:28 reflections
+drwxr-xr-x   3 evan  staff     96 Sep 26 11:24 runs
+-rw-r--r--   1 evan  staff    277 Sep 26 11:28 state.json
+
+      54 memory/log.jsonl
+      12 memory/state.json
+      66 total

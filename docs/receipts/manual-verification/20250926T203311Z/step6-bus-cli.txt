@@ -1,0 +1,85 @@
+_bus/claims:
+total 520
+drwxr-xr-x@ 68 evan  staff  2176 Sep 22 12:00 .
+drwxr-xr-x@  7 evan  staff   224 Sep 17 22:44 ..
+-rw-r--r--@  1 evan  staff     0 Sep 17 21:15 .gitkeep
+-rw-r--r--   1 evan  staff   314 Sep 18 16:05 APOP-001.json
+-rw-r--r--   1 evan  staff   281 Sep 18 22:51 APOP-002.json
+-rw-r--r--   1 evan  staff   240 Sep 18 16:05 APOP-003.json
+-rw-r--r--   1 evan  staff   305 Sep 18 23:03 APOP-004.json
+-rw-r--r--   1 evan  staff   244 Sep 18 22:51 APOP-005.json
+-rw-r--r--   1 evan  staff   296 Sep 18 22:56 APOP-007.json
+-rw-r--r--   1 evan  staff   237 Sep 18 22:13 APOP-008.json
+-rw-r--r--   1 evan  staff   247 Sep 18 22:25 APOP-009.json
+-rw-r--r--@  1 evan  staff   287 Sep 17 21:15 BUS-001.json
+-rw-r--r--   1 evan  staff   302 Sep 19 20:23 BUS-COORD-0002.json
+-rw-r--r--   1 evan  staff   318 Sep 19 15:24 BUS-COORD-0003.json
+-rw-r--r--   1 evan  staff   317 Sep 19 20:13 BUS-COORD-0004.json
+-rw-r--r--   1 evan  staff   351 Sep 22 12:09 BUS-DECENTRALIZED-PILOT.json
+-rw-r--r--   1 evan  staff   281 Sep 22 11:29 BUS-STATUS-CLI.json
+-rw-r--r--@  1 evan  staff   278 Sep 17 21:15 COORD-0001.json
+-rw-r--r--   1 evan  staff   277 Sep 18 22:59 manager-report.json
+-rw-r--r--   1 evan  staff   308 Sep 19 14:29 PLAN-2025-09-17-metrics-logging.json
+-rw-r--r--   1 evan  staff   322 Sep 19 15:12 PLAN-2025-09-19-heartbeat-auto-codex2.json
+-rw-r--r--   1 evan  staff   332 Sep 19 15:20 PLAN-2025-09-19-heartbeat-docs-codex3.json
+-rw-r--r--   1 evan  staff   365 Sep 19 19:41 PLAN-2025-09-19-heartbeat-integration-codex4.json
+-rw-r--r--   1 evan  staff   335 Sep 19 15:09 PLAN-2025-09-19-retire-codex-observer.json
+-rw-r--r--   1 evan  staff   327 Sep 21 03:54 PLAN-2025-09-21-AUTONOMY-BATCH-RUNNER.json
+-rw-r--r--   1 evan  staff   326 Sep 21 11:37 PLAN-2025-09-21-AUTONOMY-METRICS.json
+-rw-r--r--   1 evan  staff   315 Sep 21 11:22 PLAN-2025-09-21-AUTONOMY-STATUS-CLI.json
+-rw-r--r--   1 evan  staff   297 Sep 21 11:29 PLAN-2025-09-21-AUTONOMY-STATUS-RECEIPT.json
+-rw-r--r--   1 evan  staff   356 Sep 21 10:42 PLAN-2025-09-21-BATCH-HYGIENE-THRESHOLDS.json
+-rw-r--r--   1 evan  staff   332 Sep 21 04:43 PLAN-2025-09-21-BATCH-REFINEMENT-LOG.json
+-rw-r--r--   1 evan  staff   335 Sep 21 11:16 PLAN-2025-09-21-BATCH-REFINEMENT-REPORT.json
+-rw-r--r--   1 evan  staff   289 Sep 21 00:43 PLAN-2025-09-21-PLAN-RECEIPT-GUARD-DOCS.json
+-rw-r--r--   1 evan  staff   346 Sep 21 09:13 PLAN-2025-09-21-RECEIPTS-HYGIENE-ALERTS.json
+-rw-r--r--   1 evan  staff   362 Sep 21 09:18 PLAN-2025-09-21-RECEIPTS-HYGIENE-THRESHOLDS.json
+-rw-r--r--   1 evan  staff   320 Sep 21 02:50 PLAN-2025-09-21-RECEIPTS-HYGIENE.json
+-rw-r--r--   1 evan  staff   338 Sep 21 01:26 PLAN-2025-09-21-RECEIPTS-INDEXER.json
+-rw-r--r--   1 evan  staff   329 Sep 21 02:29 PLAN-2025-09-21-RECEIPTS-LATENCY.json
+-rw-r--r--   1 evan  staff   321 Sep 21 03:46 PLAN-2025-09-21-REDUCE-HANDSHAKE.json
+-rw-r--r--   1 evan  staff   359 Sep 21 02:05 PLAN-2025-09-21-SESSION-BRIEF-OPERATOR.json
+-rw-r--r--@  1 evan  staff   242 Sep 17 21:15 QUEUE-000.json
+-rw-r--r--@  1 evan  staff   300 Sep 18 22:55 QUEUE-001.json
+-rw-r--r--@  1 evan  staff   238 Sep 17 21:15 QUEUE-002.json
+-rw-r--r--   1 evan  staff   314 Sep 17 22:44 QUEUE-009.json
+-rw-r--r--   1 evan  staff   236 Sep 17 22:44 QUEUE-010.json
+-rw-r--r--   1 evan  staff   300 Sep 17 23:44 QUEUE-011.json
+-rw-r--r--   1 evan  staff   305 Sep 19 13:13 QUEUE-012.json
+-rw-r--r--   1 evan  staff   291 Sep 18 00:13 QUEUE-013.json
+-rw-r--r--   1 evan  staff   281 Sep 18 22:55 QUEUE-014.json
+-rw-r--r--   1 evan  staff   297 Sep 18 12:15 QUEUE-015.json
+-rw-r--r--   1 evan  staff   290 Sep 21 01:31 QUEUE-030.json
+-rw-r--r--   1 evan  staff   309 Sep 18 12:53 QUEUE-031.json
+-rw-r--r--   1 evan  staff   194 Sep 18 13:13 QUEUE-032.json
+-rw-r--r--   1 evan  staff   292 Sep 18 13:08 QUEUE-033.json
+-rw-r--r--   1 evan  staff   279 Sep 18 13:13 QUEUE-034.json
+-rw-r--r--   1 evan  staff   297 Sep 19 13:13 QUEUE-035.json
+-rw-r--r--   1 evan  staff   300 Sep 18 22:55 QUEUE-036.json
+-rw-r--r--   1 evan  staff   286 Sep 18 23:22 QUEUE-037.json
+-rw-r--r--   1 evan  staff   248 Sep 20 11:32 QUEUE-038.json
+-rw-r--r--   1 evan  staff   250 Sep 20 11:54 QUEUE-039.json
+-rw-r--r--   1 evan  staff   295 Sep 18 23:13 QUEUE-040.json
+-rw-r--r--   1 evan  staff   302 Sep 18 23:35 QUEUE-042.json
+-rw-r--r--   1 evan  staff   326 Sep 20 15:16 QUEUE-043.json
+-rw-r--r--   1 evan  staff   295 Sep 20 19:33 QUEUE-050.json
+-rw-r--r--   1 evan  staff   298 Sep 20 19:33 QUEUE-051.json
+-rw-r--r--   1 evan  staff   272 Sep 20 19:33 QUEUE-052.json
+-rw-r--r--   1 evan  staff   276 Sep 20 19:33 QUEUE-053.json
+-rw-r--r--   1 evan  staff   274 Sep 20 19:33 QUEUE-054.json
+-rw-r--r--   1 evan  staff   200 Sep 19 23:36 QUEUE-999.json
+
+_bus/events:
+total 120
+drwxr-xr-x@ 3 evan  staff     96 Sep 19 20:20 .
+drwxr-xr-x@ 7 evan  staff    224 Sep 17 22:44 ..
+-rw-r--r--  1 evan  staff  59831 Sep 22 15:05 events.jsonl
+
+teof/cli.py:4:from .bootloader import main as _main
+teof/bootloader.py:19:from . import status_report, tasks_report
+teof/bootloader.py:151:    records = tasks_report.collect_tasks(root=ROOT)
+teof/bootloader.py:152:    filtered = tasks_report.filter_open_tasks(records, include_done=include_done)
+teof/bootloader.py:153:    ordered = tasks_report.sort_tasks(filtered)
+teof/bootloader.py:154:    warnings = tasks_report.compute_warnings(ordered)
+teof/bootloader.py:157:        payload = tasks_report.to_payload(ordered, warnings=warnings)
+teof/bootloader.py:162:    table = tasks_report.render_table(ordered)

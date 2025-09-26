@@ -1,0 +1,66 @@
+scripts/ci/consensus_smoke.sh:23:python3 -m tools.consensus.receipts \
+scripts/ci/consensus_smoke.sh:27:  --receipt _report/consensus/ci-ledger-smoke.jsonl \
+scripts/ci/check_vdp.py:67:        raise SystemExit("PyNaCl required for external receipt verification. Install PyNaCl.")
+scripts/ci/check_vdp.py:143:def check_external_receipts() -> int:
+scripts/ci/check_vdp.py:146:        print("::error::PyNaCl not installed, cannot verify external receipts", file=sys.stderr)
+scripts/ci/check_vdp.py:156:        required = {"feed_id", "plan_id", "issued_at", "observations", "hash_sha256", "signature", "public_key_id"}
+scripts/ci/check_vdp.py:157:        missing = required - payload.keys()
+scripts/ci/check_vdp.py:201:    external_failures = check_external_receipts()
+scripts/ci/check_plan_receipts_exist.py:3:Advisory check: verify plan receipts exist and are tracked by git.
+scripts/ci/check_plan_receipts_exist.py:6:  - Missing receipt files referenced by plan or steps
+scripts/ci/check_plan_receipts_exist.py:36:        print("WARN: _plans directory missing; skipping plan receipts existence check")
+scripts/ci/check_plan_receipts_exist.py:41:        print("WARN: no plans found under _plans; skipping plan receipts existence check")
+scripts/ci/check_plan_receipts_exist.py:54:        def check_receipt(rel_str: str, context: str) -> None:
+scripts/ci/check_plan_receipts_exist.py:61:                print(f"WARN: missing receipt {rel} (context={context})")
+scripts/ci/check_plan_receipts_exist.py:64:                print(f"WARN: untracked receipt {rel} (context={context})")
+scripts/ci/check_plan_receipts_exist.py:67:        for r in data.get("receipts", []) or []:
+scripts/ci/check_plan_receipts_exist.py:68:            check_receipt(r, f"plan:{data.get('plan_id')}")
+scripts/ci/check_plan_receipts_exist.py:74:            for r in step.get("receipts", []) or []:
+scripts/ci/check_plan_receipts_exist.py:75:                check_receipt(r, f"step:{sid}")
+scripts/ci/check_plan_receipts_exist.py:78:        print("OK: plan receipts sanity (exist + tracked)")
+scripts/ci/check_anchors_guard.py:26:    """Raised when the append-only constraints are violated."""
+scripts/ci/check_anchors_guard.py:51:            f"appended event missing required fields: {', '.join(sorted(missing))}"
+scripts/ci/check_anchors_guard.py:72:            f"appended anchor missing required fields: {', '.join(sorted(missing))}"
+scripts/ci/check_anchors_guard.py:137:    return "events append-only; tip hash valid; fields present"
+scripts/ci/check_anchors_guard.py:192:    return "anchors append-only; tip hash valid; fields present"
+scripts/ci/check_memory_log.py:2:"""Verify append-only memory log policy for memory/log.jsonl."""
+scripts/ci/check_memory_log.py:66:            print("::error ::memory/log.jsonl must be append-only")
+scripts/ci/check_memory_log.py:105:        if "receipts" in record and not isinstance(record["receipts"], list):
+scripts/ci/check_memory_log.py:106:            print("::error ::'receipts' must be a list when present")
+scripts/ci/check_consensus_receipts.py:2:"""Validate consensus receipt summary and underlying artifacts."""
+scripts/ci/check_consensus_receipts.py:35:        receipts = task.get("required_receipts")
+scripts/ci/check_consensus_receipts.py:38:        if not isinstance(receipts, list) or not receipts:
+scripts/ci/check_consensus_receipts.py:39:            errors.append(f"tasks[{idx}] must list required_receipts")
+scripts/ci/check_consensus_receipts.py:41:        for receipt in receipts:
+scripts/ci/check_consensus_receipts.py:42:            if not isinstance(receipt, str) or not receipt.strip():
+scripts/ci/check_consensus_receipts.py:43:                errors.append(f"tasks[{idx}] has invalid receipt entry {receipt!r}")
+scripts/ci/check_consensus_receipts.py:45:            receipt_path = ROOT / receipt
+scripts/ci/check_consensus_receipts.py:46:            if not receipt_path.exists():
+scripts/ci/check_consensus_receipts.py:48:                    f"required receipt missing for {task_id or f'tasks[{idx}]'}: {receipt}"
+scripts/ci/check_consensus_receipts.py:66:    print("::notice::consensus receipts verified")
+scripts/ci/check_append_only.sh:13:[ -n "${files:-}" ] || { echo "append-only: OK (no changes)"; exit 0; }
+scripts/ci/check_append_only.sh:30:  echo "append-only: OK (allowed top-level changes)"
+scripts/ci/check_queue_template.py:27:        print("Fix queued task(s) to include all required fields.")
+scripts/ci/check_plans.py:116:    # Run hygiene lint in check mode; ensure status enums + receipt duplicates are clean before deeper validation.
+scripts/ci/quickstart_smoke.sh:14:  echo "::error::quickstart smoke missing receipt $ARTIFACT"
+scripts/ci/check_memory_state.py:2:"""Ensure memory/state.json promotions are backed by receipts in memory/log.jsonl."""
+scripts/ci/check_memory_state.py:110:def _fact_has_receipt(change: FactChange, appended_entries: list[dict[str, Any]]) -> bool:
+scripts/ci/check_memory_state.py:144:        print("::error ::memory/log.jsonl must be append-only", file=sys.stderr)
+scripts/ci/check_memory_state.py:151:        if not _fact_has_receipt(change, appended_entries):
+scripts/ci/check_memory_state.py:153:                f"Fact '{change.fact_id}' ({change.reason}) lacks log receipt referencing source_run"
+scripts/ci/check_capsule_cadence.py:2:"""Guard capsule cadence by validating required receipts."""
+scripts/ci/check_capsule_cadence.py:25:def _extract_receipts(data: dict) -> list[str]:
+scripts/ci/check_capsule_cadence.py:26:    receipts: list[str] = []
+scripts/ci/check_capsule_cadence.py:27:    required = data.get("required_receipts")
+scripts/ci/check_capsule_cadence.py:28:    if isinstance(required, list):
+scripts/ci/check_capsule_cadence.py:29:        receipts.extend(str(item) for item in required if isinstance(item, str) and item.strip())
+scripts/ci/check_capsule_cadence.py:32:        receipts.append(consensus.strip())
+scripts/ci/check_capsule_cadence.py:33:    return receipts
+scripts/ci/check_capsule_cadence.py:38:    receipts = _extract_receipts(data)
+scripts/ci/check_capsule_cadence.py:39:    if not receipts:
+scripts/ci/check_capsule_cadence.py:41:            f"{path.relative_to(ROOT)} must list at least one receipt under 'required_receipts' or 'consensus_summary'"
+scripts/ci/check_capsule_cadence.py:44:    for receipt in receipts:
+scripts/ci/check_capsule_cadence.py:45:        receipt_path = ROOT / receipt
+scripts/ci/check_capsule_cadence.py:46:        if not receipt_path.exists():
+scripts/ci/check_capsule_cadence.py:47:            errors.append(f"capsule cadence missing receipt: {receipt}")
+scripts/ci/check_capsule_cadence.py:64:    print("::notice::capsule cadence receipts verified")
