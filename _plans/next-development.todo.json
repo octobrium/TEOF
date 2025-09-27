@@ -206,7 +206,8 @@
       "layer": "L6",
       "notes": "Modularise preflight checks and schedule unattended guard runs with bus alerts.",
       "receipts": [
-        "_plans/2025-09-26-autonomy-preflight.plan.json"
+        "_plans/2025-09-26-autonomy-preflight.plan.json",
+        "docs/automation/autonomy-preflight.md"
       ]
     },
     {

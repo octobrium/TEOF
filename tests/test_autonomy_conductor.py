@@ -56,8 +56,6 @@ def conductor_repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
 
     monkeypatch.setattr(conductor, "ROOT", tmp_path)
     monkeypatch.setattr(conductor, "OUTPUT_DIR", tmp_path / "_report" / "usage" / "autonomy-conductor")
-    monkeypatch.setattr(conductor, "AUTH_JSON", tmp_path / "auth.json")
-    monkeypatch.setattr(conductor, "STATUS_PATH", tmp_path / "status.json")
     monkeypatch.setattr(conductor, "consent_policy", None, raising=False)
 
     class _ObjectivesStub:
@@ -70,6 +68,24 @@ def conductor_repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
             }
 
     monkeypatch.setattr(conductor, "objectives_status", _ObjectivesStub())
+
+    def _gather_snapshot(*args: object, **kwargs: object) -> dict[str, object]:
+        return {
+            "generated_at": "2025-09-23T00:00:00Z",
+            "authenticity": {"overall_avg_trust": 0.9, "attention_feeds": []},
+            "planner_status": {"status": "ok"},
+            "objectives": {
+                "generated_at": "2025-09-23T00:00:00Z",
+                "window_days": kwargs.get("objectives_window_days", 7.0),
+                "objectives": {},
+            },
+            "frontier_preview": [{"id": "stub"}],
+            "critic_alerts": [{"id": "ND-101", "issue": "demo"}],
+            "tms_conflicts": [{"id": "OTHER", "conflict": "demo"}],
+            "ethics_violations": [],
+        }
+
+    monkeypatch.setattr(conductor.preflight_mod, "gather_snapshot", _gather_snapshot)
 
 
 def test_conductor_dry_run_generates_prompt(conductor_repo: None, capsys: pytest.CaptureFixture[str]) -> None:

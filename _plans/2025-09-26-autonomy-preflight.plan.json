@@ -4,16 +4,19 @@
   "created": "2025-09-26T22:32:00Z",
   "actor": "codex-5",
   "summary": "Modularise preflight checks and schedule automated guard runs",
-  "status": "queued",
-  "stage": "queued",
+  "status": "in_progress",
+  "stage": "in_progress",
   "steps": [
     {
       "id": "S1",
       "title": "Design preflight module API",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Extract objectives/authenticity/ethics/critic checks into a reusable package consumed by conductor and CI.",
-      "receipts": []
+      "receipts": [
+        "docs/automation/autonomy-preflight.md",
+        "tools/autonomy/preflight.py"
+      ]
     },
     {
       "id": "S2",

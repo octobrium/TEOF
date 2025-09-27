@@ -8,13 +8,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Mapping
 
-from tools.autonomy import critic, ethics_gate, frontier, next_step, objectives_status, tms
+from tools.autonomy import next_step, objectives_status, preflight as preflight_mod
 
 
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = ROOT / "_report" / "usage" / "autonomy-conductor"
-AUTH_JSON = ROOT / "_report" / "usage" / "external-authenticity.json"
-STATUS_PATH = ROOT / "_report" / "planner" / "validate" / "summary-latest.json"
 
 
 def _iso_now() -> str:
@@ -55,15 +53,6 @@ def _load_json(path: Path) -> Mapping[str, Any] | None:
     if isinstance(data, Mapping):
         return data
     return None
-
-
-def _preflight_snapshot() -> Mapping[str, Any]:
-    authenticity = _load_json(AUTH_JSON)
-    planner_status = _load_json(STATUS_PATH)
-    return {
-        "authenticity": authenticity,
-        "planner_status": planner_status,
-    }
 
 
 def build_cycle_payload(
@@ -113,15 +102,23 @@ def run_once(
         "receipts_dir": receipts_subdir,
     }
 
-    # Compute supporting insights
-    try:
-        frontier_preview = [entry.as_dict() for entry in frontier.compute_frontier(limit=5)]
-    except Exception:
-        frontier_preview = []
-
-    critic_alerts = [alert for alert in critic.detect_anomalies() if alert.get("id") == selection.get("id")]
-    tms_conflicts = [conflict for conflict in tms.detect_conflicts() if conflict.get("id") == selection.get("id")]
-    ethics_violations = [violation for violation in ethics_gate.detect_violations() if violation.get("id") == selection.get("id")]
+    snapshot = preflight_mod.gather_snapshot(frontier_limit=5)
+    frontier_preview = snapshot.get("frontier_preview", [])
+    critic_alerts = [
+        alert
+        for alert in snapshot.get("critic_alerts", [])
+        if isinstance(alert, Mapping) and alert.get("id") == selection.get("id")
+    ]
+    tms_conflicts = [
+        conflict
+        for conflict in snapshot.get("tms_conflicts", [])
+        if isinstance(conflict, Mapping) and conflict.get("id") == selection.get("id")
+    ]
+    ethics_violations = [
+        violation
+        for violation in snapshot.get("ethics_violations", [])
+        if isinstance(violation, Mapping) and violation.get("id") == selection.get("id")
+    ]
 
     if ethics_violations:
         next_step._update_completion(  # type: ignore[attr-defined]
@@ -133,15 +130,18 @@ def run_once(
         )
         return False, None, None
 
-    preflight = _preflight_snapshot()
+    preflight = {
+        "authenticity": snapshot.get("authenticity"),
+        "planner_status": snapshot.get("planner_status"),
+    }
     payload = build_cycle_payload(
         task=selection,
         guardrails=guardrails,
         preflight=preflight,
-        frontier_preview=frontier_preview[:3],
+        frontier_preview=frontier_preview[:3] if isinstance(frontier_preview, list) else [],
         critic_alerts=critic_alerts,
         tms_conflicts=tms_conflicts,
-        objectives_snapshot=objectives_status.compute_status(window_days=7.0),
+        objectives_snapshot=snapshot.get("objectives") or objectives_status.compute_status(window_days=7.0),
     )
     receipt_path = _write_receipt(payload)
     print(f"conductor: wrote {receipt_path.relative_to(ROOT)}")

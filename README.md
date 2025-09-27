@@ -77,7 +77,7 @@ make attest
 - Install exposes the teof console script.
 - teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
 
-For additional CLIs (`teof-validate`, `teof-ensemble`) and examples, see [`docs/quickstart.md`](docs/quickstart.md).
+For additional CLIs (`teof-validate`, `teof-ensemble`) and examples, see [`docs/quickstart.md`](docs/quickstart.md). Preflight automation is documented in [`docs/automation/autonomy-preflight.md`](docs/automation/autonomy-preflight.md).
 
 ## Communication Quickstart
 Coordinate with other TEOF agents through the repository bus:
