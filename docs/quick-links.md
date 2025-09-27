@@ -45,4 +45,5 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `ci-guardrails` | CI Guardrail Guarantees | One-screen summary mapping invariants to the scripts that enforce them. | [docs/ci-guarantees.md#ci-guardrail-guarantees](docs/ci-guarantees.md#ci-guardrail-guarantees) |
 | `evangelism-kit` | Narrative & Evangelism Kit | Story arcs, assets, and cadence backed by receipts. | [docs/evangelism/README.md#narrative--evangelism-kit](docs/evangelism/README.md#narrative--evangelism-kit) |
 | `receipts-dashboard` | Receipt Dashboard | Aggregate pass/fail view for attest receipts. | [docs/receipts/INDEX.md#receipt-dashboard](docs/receipts/INDEX.md#receipt-dashboard) |
+| `evangelism-log-event` | Evangelism Event Logger | CLI helper to log outreach receipts. | [docs/evangelism/README.md#logging-outreach](docs/evangelism/README.md#logging-outreach) |
 _Last updated: 2025-09-27

@@ -281,6 +281,14 @@
       "path": "docs/receipts/INDEX.md",
       "anchor": "#receipt-dashboard",
       "category": "maintenance"
+    },
+    {
+      "id": "evangelism-log-event",
+      "title": "Evangelism Event Logger",
+      "summary": "CLI helper for logging outreach touches to receipts.",
+      "path": "docs/evangelism/README.md",
+      "anchor": "#logging-outreach",
+      "category": "adoption"
     }
   ]
 }

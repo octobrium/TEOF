@@ -25,3 +25,12 @@ The kit leans on live receipts to prove trust and automation health:
 - Relay case study scaffold: `docs/impact/relay-insight-case-study.md`
 
 Keep these receipts updated before sharing assets so external readers can verify claims without private context.
+### Logging outreach
+Use the CLI helper to capture each touch as a receipt:
+
+```bash
+python3 -m tools.evangelism.log_event "Published newsletter" --channel newsletter --arc "Arc B" --asset docs/evangelism/one-pager.md --status published --link https://example.com/post
+```
+
+Receipts land under `_report/usage/evangelism/` (see the cadence guide for planned touches).
+
