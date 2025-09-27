@@ -43,6 +43,6 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `workflow-architecture` | Architecture Gate | Explains the governance gate that blocks edits without a plan and receipts. | [docs/workflow.md#architecture-gate-before-writing-code](docs/workflow.md#architecture-gate-before-writing-code) |
 | `workflow-receipts` | DNA Recursion (Receipts) | Details the receipts-first mandate used by manager directives and CI guards. | [docs/workflow.md#dna-recursion-self-improvement-of-the-rules](docs/workflow.md#dna-recursion-self-improvement-of-the-rules) |
 | `ci-guardrails` | CI Guardrail Guarantees | One-screen summary mapping invariants to the scripts that enforce them. | [docs/ci-guarantees.md#ci-guardrail-guarantees](docs/ci-guarantees.md#ci-guardrail-guarantees) |
-
-
-_Last updated: 2025-09-21
+| `evangelism-kit` | Narrative & Evangelism Kit | Story arcs, assets, and cadence backed by receipts. | [docs/evangelism/README.md#narrative--evangelism-kit](docs/evangelism/README.md#narrative--evangelism-kit) |
+| `receipts-dashboard` | Receipt Dashboard | Aggregate pass/fail view for attest receipts. | [docs/receipts/INDEX.md#receipt-dashboard](docs/receipts/INDEX.md#receipt-dashboard) |
+_Last updated: 2025-09-27

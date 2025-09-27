@@ -89,6 +89,8 @@ _report/
 !_report/usage/*.jsonl
 !_report/usage/**/*.json
 !_report/usage/**/*.jsonl
+!_report/usage/onboarding/
+!_report/usage/onboarding/*.json
 !_report/external/
 !_report/external/**/*.json
 !_report/external/**/*.jsonl

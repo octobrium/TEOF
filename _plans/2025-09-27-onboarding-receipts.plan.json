@@ -1,0 +1,64 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-27-onboarding-receipts",
+  "created": "2025-09-27T21:26:07Z",
+  "actor": "codex-5",
+  "summary": "Streamline onboarding entrypoint and receipts dashboard",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 2,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Create single-command onboarding entrypoint",
+      "status": "done",
+      "notes": "Added bin/teof-up wrapper and refreshed onboarding docs",
+      "receipts": [
+        "bin/teof-up",
+        "docs/onboarding/quickstart.md",
+        "README.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add receipts status CLI + docs",
+      "status": "done",
+      "notes": "Added receipts status CLI and documented dashboard usage",
+      "receipts": [
+        "tools/receipts/status.py",
+        "tools/receipts/main.py",
+        "docs/receipts/INDEX.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Validate helpers and update references",
+      "status": "done",
+      "notes": "Ran teof-up, captured onboarding receipts, and validated plan structure",
+      "receipts": [
+        "_report/usage/onboarding/build-20250927T213100Z.json",
+        "_report/usage/onboarding/quickstart-20250927T213103Z.json",
+        "_report/planner/validate/summary-20250927T213116Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Single command and receipts CLI documented with passing validations",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": [
+    "README.md",
+    "_report/planner/validate/summary-20250927T213116Z.json",
+    "_report/usage/onboarding/build-20250927T213100Z.json",
+    "_report/usage/onboarding/quickstart-20250927T213103Z.json",
+    "bin/teof-up",
+    "docs/onboarding/quickstart.md",
+    "docs/receipts/INDEX.md",
+    "tools/receipts/main.py",
+    "tools/receipts/status.py"
+  ]
+}

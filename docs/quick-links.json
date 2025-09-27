@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2025-09-20",
+  "updated": "2025-09-27",
   "links": [
     {
       "id": "agents-claim-seeding",
@@ -265,6 +265,22 @@
       "path": "docs/ci-guarantees.md",
       "anchor": "#ci-guardrail-guarantees",
       "category": "tooling"
+    },
+    {
+      "id": "evangelism-kit",
+      "title": "Narrative & Evangelism Kit",
+      "summary": "Story arcs, assets, and cadence with receipts for public outreach.",
+      "path": "docs/evangelism/README.md",
+      "anchor": "#narrative--evangelism-kit",
+      "category": "adoption"
+    },
+    {
+      "id": "receipts-dashboard",
+      "title": "Receipt Dashboard",
+      "summary": "Aggregate pass/fail view of attestation receipts.",
+      "path": "docs/receipts/INDEX.md",
+      "anchor": "#receipt-dashboard",
+      "category": "maintenance"
     }
   ]
 }

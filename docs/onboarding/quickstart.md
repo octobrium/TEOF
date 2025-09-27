@@ -1,5 +1,17 @@
 # TEOF Quickstart (10-minute path)
 
+## One-command bootstrap
+
+Run `bin/teof-up` from the repository root to:
+
+- build the distributable artifacts (`python3 -m tools.onboarding.build`),
+- execute the guarded quickstart flow (`python3 -m tools.onboarding.quickstart`), and
+- rerun the quickstart smoke check (`scripts/ci/quickstart_smoke.sh`).
+
+The script captures receipts under `_report/usage/onboarding/` and prints links to the next docs to read.
+
+## Manual workflow (two commands)
+
 Run these commands from the repository root to install TEOF in a fresh virtual
 environment, execute `teof brief`, and capture receipts.
 
@@ -29,3 +41,4 @@ After the run you'll find:
 Once the onboarding workflow is wired into CI, failures in the quickstart step
 will surface as build failures and the objectives status (O3/O5) will flag the
 issue automatically.
+

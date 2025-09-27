@@ -13,6 +13,7 @@ if str(ROOT) not in sys.path:
 
 from tools.receipts.check import checker as run_check
 from tools.receipts.scaffold import format_created, scaffold_claim, scaffold_plan, ScaffoldError
+from tools.receipts.status import cli_status
 from tools.receipts.utils import resolve_plan_paths
 
 
@@ -40,11 +41,17 @@ def main(argv: list[str] | None = None) -> int:
     scaffold_claim_cmd.add_argument("--slug", help="Optional subdirectory override")
     scaffold_claim_cmd.add_argument("--include-design", action="store_true", help="Also create design.md if missing")
 
+
+    status_cmd = sub.add_parser("status", help="Summarise stored receipts")
+    status_cmd.add_argument("--format", choices=['table', 'json'], default='table', help="Output format (default: table)")
+    status_cmd.add_argument("kinds", nargs='*', help="Optional receipt kinds to include (e.g. attest)")
     args = parser.parse_args(argv)
     if args.command == "check":
         plans = resolve_plan_paths(args.paths)
         plan_strings = [p.as_posix() for p in plans]
         return run_check(plan_strings)
+    if args.command == "status":
+        return cli_status(args.kinds, output_format=args.format)
     if args.command == "scaffold":
         try:
             if args.scaffold_command == "plan":

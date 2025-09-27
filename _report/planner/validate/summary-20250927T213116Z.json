@@ -1,0 +1,13 @@
+{
+  "generated_at": "2025-09-27T21:31:16Z",
+  "strict": false,
+  "exit_code": 0,
+  "plans": [
+    {
+      "path": "_plans/2025-09-27-onboarding-receipts.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-onboarding-receipts"
+    }
+  ]
+}

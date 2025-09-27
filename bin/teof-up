@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+section() {
+  printf '\n\033[1m[teof-up]\033[0m %s\n' "$1"
+}
+
+section "Building distribution artifacts (tools.onboarding.build)"
+python3 -m tools.onboarding.build
+
+section "Running guarded quickstart (tools.onboarding.quickstart)"
+python3 -m tools.onboarding.quickstart
+
+section "Running quickstart smoke check (scripts/ci/quickstart_smoke.sh)"
+./scripts/ci/quickstart_smoke.sh
+
+LATEST_RECEIPT=$(ls -t _report/usage/onboarding/quickstart-*.json 2>/dev/null | head -n 1)
+if [[ -n "$LATEST_RECEIPT" ]]; then
+  REL_RECEIPT=${LATEST_RECEIPT#"$ROOT"/}
+  printf '\nReceipts: %s\n' "$REL_RECEIPT"
+fi
+
+printf '\nNext steps:\n'
+printf '  • Review docs/STATUS.md for the current snapshot.\n'
+printf '  • Check docs/usage/chronicle.md for the latest authenticity pulse.\n'

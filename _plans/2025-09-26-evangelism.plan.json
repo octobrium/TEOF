@@ -4,32 +4,41 @@
   "created": "2025-09-26T22:33:00Z",
   "actor": "codex-5",
   "summary": "Tell the TEOF story with reusable assets and distribution rhythm",
-  "status": "queued",
-  "stage": "queued",
+  "status": "in_progress",
+  "stage": "in_progress",
   "steps": [
     {
       "id": "S1",
       "title": "Craft narrative arcs",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Define 2–3 stories (alignment kernel, receipts-first automation, relay sprint case) mapped to target audiences.",
-      "receipts": []
+      "status": "done",
+      "stage": "done",
+      "notes": "Define 2\u20133 stories (alignment kernel, receipts-first automation, relay sprint case) mapped to target audiences.",
+      "receipts": [
+        "docs/evangelism/narrative-arcs.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Produce core assets",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Create a slide deck, one-pager, and short-form demo video referencing live receipts.",
-      "receipts": []
+      "receipts": [
+        "docs/evangelism/demo-video-script.md",
+        "docs/evangelism/one-pager.md",
+        "docs/evangelism/slide-deck-outline.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Launch distribution cadence",
-      "status": "queued",
-      "stage": "queued",
+      "status": "in_progress",
+      "stage": "in_progress",
       "notes": "Schedule newsletters/social posts and log outreach in `_report/usage/evangelism/`.",
-      "receipts": []
+      "receipts": [
+        "docs/evangelism/distribution-cadence.md",
+        "_report/usage/evangelism/cadence-20250927T200900Z.json"
+      ]
     }
   ],
   "checkpoint": {
@@ -38,5 +47,13 @@
     "status": "pending"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "docs/evangelism/README.md",
+    "docs/evangelism/narrative-arcs.md",
+    "docs/evangelism/one-pager.md",
+    "docs/evangelism/slide-deck-outline.md",
+    "docs/evangelism/demo-video-script.md",
+    "docs/evangelism/distribution-cadence.md",
+    "_report/usage/evangelism/cadence-20250927T200900Z.json"
+  ]
 }

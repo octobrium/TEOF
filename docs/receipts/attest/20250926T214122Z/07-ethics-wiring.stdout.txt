@@ -1,3 +1,0 @@
-40:10. **Legible Continuity** – keeps lineage readable and prevents silent capture. Guardrail: `scripts/ci/check_memory_state.py` rejects changes to `memory/state.json` unless the promotion is linked to a run receipt in `memory/log.jsonl`.  
-
-85:6. State promotions must cite their receipts. `scripts/ci/check_memory_state.py` blocks edits to `memory/state.json` unless the referenced run capsule (via `source_run` or `derived_facts`) appears in the appended `memory/log.jsonl` entries.

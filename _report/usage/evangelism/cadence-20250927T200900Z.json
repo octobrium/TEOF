@@ -1,0 +1,32 @@
+{
+  "generated_at": "2025-09-27T20:09:00Z",
+  "owner": "codex-5",
+  "cycles": [
+    {
+      "date": "2025-09-29",
+      "channel": "blog",
+      "arc": "Arc A",
+      "asset": "docs/evangelism/one-pager.md",
+      "status": "scheduled",
+      "follow_up": "Collect reader questions for authenticity deep dive."
+    },
+    {
+      "date": "2025-10-01",
+      "channel": "social",
+      "arc": "Arc C",
+      "asset": "docs/evangelism/slide-deck-outline.md",
+      "status": "scheduled",
+      "follow_up": "Link to coordination dashboard JSON excerpt."
+    },
+    {
+      "date": "2025-10-03",
+      "channel": "webinar",
+      "arc": "Arc B",
+      "asset": "docs/evangelism/demo-video-script.md",
+      "status": "scheduled",
+      "follow_up": "Offer compliance Q&A slot with authenticity receipts."
+    }
+  ],
+  "next_update": "2025-09-30T00:00:00Z",
+  "notes": "Cadence covers two cycles per week; update after each touch and attach signed artifact links."
+}
