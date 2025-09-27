@@ -25,6 +25,7 @@ TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agent
 > - Workflow (priority ladder): [`docs/workflow.md`](docs/workflow.md#architecture-gate-before-writing-code)  
 > - Operator mode (LLM quick brief): [`docs/workflow.md#operator-mode-llm-quick-brief`](docs/workflow.md#operator-mode-llm-quick-brief)  
 > - Quickstart (one command → artifacts): [`docs/quickstart.md`](docs/quickstart.md)
+> - Guided onboarding (pip + receipts): [`docs/onboarding/quickstart.md`](docs/onboarding/quickstart.md)
 > - Commandments & Covenant (fast trust contract): [`docs/commandments.md`](docs/commandments.md)
 
 ---
