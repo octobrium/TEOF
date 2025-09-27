@@ -10,10 +10,12 @@
     {
       "id": "S1",
       "title": "Package core CLI for distribution",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Define packaging targets (pip editable vs release) and prove `pip install teof` works on a clean env with receipts",
-      "receipts": []
+      "status": "in_progress",
+      "stage": "in_progress",
+      "notes": "Define packaging targets (pip vs wheel) and prove `pip install teof` works on a clean env with receipts.",
+      "receipts": [
+        "docs/onboarding/package-onboarding-roadmap.md"
+      ]
     },
     {
       "id": "S2",

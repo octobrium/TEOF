@@ -173,7 +173,7 @@
     {
       "id": "ND-015",
       "title": "Streamlined onboarding path",
-      "status": "pending",
+      "status": "in_progress",
       "plan_suggestion": "2025-09-26-package-onboarding",
       "layer": "L4",
       "notes": "Deliver a pip-installable package and 10-minute quickstart with automated verification.",
