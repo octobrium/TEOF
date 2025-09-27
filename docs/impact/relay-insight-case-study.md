@@ -19,7 +19,7 @@
 | --- | --- |
 | Consent notes | `_report/usage/case-study/relay-insight/consent.json` |
 | Conductor dry run | `_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json` |
-| Command log | _TODO (to capture during live run)_ |
+| Command log | `_report/usage/case-study/relay-insight/commands-YYYYMMDDTZZZZ.json` (to capture during live run) |
 | Diff/test receipts | _TODO (captured during live run)_ |
 
 ## Results (After)
@@ -33,6 +33,6 @@
 - [ ] Case study published with links to receipts
 
 ## Next Steps
-1. Run the live sprint (`_plans/2025-09-27-relay-case-run.plan.json` S2).
-2. Update the table above with command log and outcomes.
-3. Convert this draft into the public-facing narrative once receipts are final.
+1. Draft the live sprint inputs (focus questions + sources now captured in `docs/impact/relay-insight-briefing.md`).
+2. Run the live sprint (`_plans/2025-09-27-relay-case-run.plan.json` S2) and save command logs under `_report/usage/case-study/relay-insight/`.
+3. Update the table above with outputs and publish the final narrative once receipts are in place.

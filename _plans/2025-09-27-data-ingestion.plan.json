@@ -1,0 +1,51 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-27-data-ingestion",
+  "created": "2025-09-27T20:20:00Z",
+  "actor": "codex-5",
+  "summary": "Automate market/macro data ingestion for relay case studies",
+  "status": "queued",
+  "stage": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design data catalogue",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "List required indicators (FRED, IMF/BIS, on-chain, company filings) and map each to a fetch command.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement ingestion scripts",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Create CLI/notebook helpers that download the indicators and store receipts under `_report/usage/data/`.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Automate refresh + summaries",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Add workflow/cron to refresh data on schedule and emit digestible summaries consumed by case studies.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Live data ingestion runs on schedule with receipts and human-readable summaries",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "plan",
+      "ref": "2025-09-26-external-proof"
+    },
+    {
+      "type": "plan",
+      "ref": "2025-09-27-relay-case-run"
+    }
+  ],
+  "receipts": []
+}

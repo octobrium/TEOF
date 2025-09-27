@@ -1,41 +1,70 @@
 # Relay Insight Sprint Case Study Briefing
 
 ## Partner Profile
-- **Type:** founder / operator seeking rapid market or diligence insight.
-- **Engagement:** 48-hour Relay Insight Sprint (Tier B) to deliver a cite-backed
+- **Alias:** relay-pilot (anonymised).
+- **Product:** AI research concierge for traders/investors—delivers market
+  analytics briefs in 48 hours to inform trading and investment decisions.
+- **Engagement:** 48-hour Relay Insight Sprint (Tier B) to produce a cite-backed
   strategy brief.
 
 ## Goals
-- Demonstrate how TEOF’s guardrails (diff/test receipts, authenticity, objectives
-  snapshot) de-risk unattended research loops.
-- Produce a public case study showing faster decision turnaround with audited
-  artifacts.
+- Prove TEOF guardrails (diff/test receipts, authenticity snapshot, objectives
+  ledger) de-risk unattended research loops for market-facing clients.
+- Publish a public case study showing faster, auditable decision support.
 
-## Scope & Guardrails
-- **Plan:** `2025-09-24-relay-offering` (S3) — run first client sprint.
-- **Constraints:** diff budget 200 lines, required tests `pytest`, receipts under
+## Focus Questions (Sprint S3)
+1. Which customer segment or scenario should relay-pilot prioritise for the first paid sprint?
+2. What differentiators set us apart from generic GPT-style research tools, especially in geopolitics and surveillance contexts?
+3. What guardrails (diff/test limits, margin usage, consent) are required before scaling unattended runs?
+
+## Context Inputs
+- **Current situation:** Preparing a public case study before pitching new
+  partners next month; needs a repeatable sprint template.
+- **Competitor X:** ChatGPT-style research assistants (course-seller/guru tools)
+  that monetise fear but lack receipts or auditability.
+- **Constraints & guardrails:** Deliverables due in ≤48 hours; diff limit 200
+  lines; required tests `pytest`; receipts must land under
   `_report/usage/case-study/relay-insight/`.
-- **Consent:** partner approves publishing anonymised brief excerpt, command log,
-  and guardrail receipts (signed consent stored under `_report/usage/case-study/relay-insight/consent.json`).
+- **Existing guardrails:** Consent workflow documented; onboarding quickstart
+  and package guard already enforced in CI; authenticity feeds recently rotated
+  with attention feeds cleared.
+- **Risk tolerance:** Aggressive long-term growth investor comfortable with
+  volatility but wants clear drawdown expectations.
+- **Margin usage:** Allow moderate margin (≤10%) only when catalysts align; aim
+  to keep interest costs near zero.
+- **Macro assumption:** Base case assumes ongoing monetary expansion (first
+  principles).
+- **Time horizon:** Duration of the upcoming US administration (e.g., Trump
+  presidency term) as the analysis window.
+- **Automation preference:** Minimize manual research logging; ingest trusted
+  market/macro data automatically and deliver digestible summaries so the
+  investor can focus on outcomes rather than raw receipts.
 
 ## Deliverables
-1. Brief draft (Notion/PDF) referencing receipts.
-2. Command log with `teof` prompts and conductor receipts.
-3. Post-run reflection + impact log entry.
-4. Public-facing case study (`docs/impact/relay-insight-case-study.md`).
+1. Market insight brief (Notion/PDF) referencing receipts.
+2. Command log / conductor receipts detailing actions taken.
+3. Post-run reflection + impact log entry linking to outcomes.
+4. Public-facing narrative (`docs/impact/relay-insight-case-study.md`).
+
+## Sources / Inputs to Gather
+- Partner goals or KPIs (e.g., markets of interest, trading style).
+- Any existing research memos or competitor notes (links/emails).
+- Constraints on tooling or data access (e.g., APIs allowed, budget limits).
+- Recommended data sources: FRED macro series, IMF/BIS liquidity data,
+  company filings for PLTR/NVDA/MSTR, defence/security think tanks, on-chain
+  BTC analytics (messari, Glassnode, etc.).
 
 ## Timeline
-- **Day 0:** Confirm consent, scope questions, gather inputs.
-- **Day 1:** Run conductor w/ guardrails, collect artifacts.
-- **Day 2:** Publish brief, log impact, draft case study.
+- **Day 0:** Confirm consent, gather inputs, align focus questions.
+- **Day 1:** Run conductor (dry-run first, then live), collect artifacts.
+- **Day 2:** Compile brief, log impact, draft public case study.
 
 ## Success Metrics
-- Pilot client feedback ≥4/5.
-- Time to deliver brief ≤48h.
-- Documented receipts: build + quickstart (already in place), conductor run,
-  authenticity summary, impact log entry.
+- Client satisfaction ≥4/5.
+- Sprint completed ≤48h with guardrail compliance.
+- Published case study links to verifiable receipts and impact ledger entry.
 
 ## Next Steps
-1. Capture consent receipt (`tools.autonomy.decision_intake` if needed).
-2. Schedule conductor run and assign bus claim for ND-014.
-3. Prepare public case study template referencing the receipts above.
+1. Gather partner inputs (focus answers, sources) and update this briefing.
+2. Execute the sprint per plan `2025-09-27-relay-case-run` (S2).
+3. Summarise outputs and publish the case study.
