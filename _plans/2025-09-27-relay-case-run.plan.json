@@ -1,0 +1,79 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-27-relay-case-run",
+  "created": "2025-09-27T19:56:00Z",
+  "actor": "codex-5",
+  "summary": "Execute Relay Insight Sprint case study run with receipts",
+  "status": "queued",
+  "stage": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Dry-run conductor and capture prompt",
+      "status": "done",
+      "stage": "done",
+      "notes": "Use tools.autonomy.conductor --dry-run to record prompt in `_report/usage/case-study/relay-insight/`.",
+      "receipts": [
+        "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Run sprint with guardrails",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Execute conductor (non-dry-run), collect command log, diff/test receipts.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Summarise outputs for case study",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Write run summary + metrics under `_report/usage/case-study/relay-insight/summary.json`.",
+      "receipts": []
+    }
+  ],
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Dry-run conductor and capture prompt",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Use tools.autonomy.conductor --dry-run to record prompt in `_report/usage/case-study/relay-insight/`.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Run sprint with guardrails",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Execute conductor (non-dry-run), collect command log, diff/test receipts.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Summarise outputs for case study",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Write run summary + metrics under `_report/usage/case-study/relay-insight/summary.json`.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Relay sprint run completed with receipts ready for case study publication",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "plan",
+      "ref": "2025-09-24-relay-offering"
+    },
+    {
+      "type": "plan",
+      "ref": "2025-09-26-external-proof"
+    }
+  ],
+  "receipts": []
+}

@@ -45,11 +45,21 @@
     {
       "type": "decision",
       "ref": "memory/decisions/decision-20250927T194522Z.json"
+    },
+    {
+      "type": "decision",
+      "ref": "memory/decisions/decision-20250927T195558Z.json"
+    },
+    {
+      "type": "plan",
+      "ref": "2025-09-27-relay-case-run"
     }
   ],
   "receipts": [
     "docs/impact/case-study-roadmap.md",
     "docs/impact/relay-insight-briefing.md",
-    "_report/usage/case-study/relay-insight/consent-notes.md"
+    "_report/usage/case-study/relay-insight/consent-notes.md",
+    "_report/usage/case-study/relay-insight/consent.json",
+    "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json"
   ]
 }

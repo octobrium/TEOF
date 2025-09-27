@@ -1,0 +1,8 @@
+{
+  "captured_at": "2025-09-27T19:55:34Z",
+  "partner": "relay-pilot",
+  "scope": "publish anonymised brief excerpt, command log, guardrail receipts",
+  "redactions": "remove proper nouns; keep timestamps and receipt paths",
+  "signed_by": "relay-pilot",
+  "notes": "Stored per docs/impact/relay-insight-briefing.md; consent email archived offline."
+}

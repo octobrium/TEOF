@@ -1,0 +1,16 @@
+{
+  "captured_at": "2025-09-27T19:55:58Z",
+  "title": "Relay Sprint consent signed",
+  "objective": "Authorize publishing anonymised sprint receipts",
+  "constraints": [
+    "consent"
+  ],
+  "success_metric": "Consent stored under _report/usage/case-study/relay-insight/consent.json",
+  "references": [
+    "docs/impact/relay-insight-briefing.md"
+  ],
+  "tags": [
+    "consent"
+  ],
+  "plan_id": "2025-09-26-external-proof"
+}

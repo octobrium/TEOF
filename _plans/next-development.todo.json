@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-09-24T03:04:22Z",
+  "updated": "2025-09-27T19:57:24Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -167,7 +167,9 @@
         "docs/vision/relay-offering-consent.md",
         "docs/vision/relay-offering-collateral.md",
         "docs/vision/relay-offering-dry-run.md",
-        "memory/decisions/decision-20250926T220511Z.json"
+        "memory/decisions/decision-20250926T220511Z.json",
+        "_plans/2025-09-27-relay-case-run.plan.json",
+        "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json"
       ]
     },
     {
