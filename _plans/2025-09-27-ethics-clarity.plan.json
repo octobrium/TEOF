@@ -23,7 +23,7 @@
       "id": "S2",
       "title": "Update TAP with observation-first escalation clause",
       "status": "done",
-      "notes": "Added observation\u2192escalation\u2192receipts clause to TAP ethical baseline",
+      "notes": "Added observation->escalation->receipts clause to TAP ethical baseline",
       "receipts": [
         "docs/foundation/alignment-protocol/TAP.md"
       ]
