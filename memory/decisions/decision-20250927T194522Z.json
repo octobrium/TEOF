@@ -1,0 +1,19 @@
+{
+  "captured_at": "2025-09-27T19:45:22Z",
+  "title": "Relay Insight Sprint case study",
+  "objective": "Publish public case study w/ receipts",
+  "constraints": [
+    "diff<=200",
+    "pytest"
+  ],
+  "success_metric": "Case study published with verifiable receipts",
+  "references": [
+    "docs/impact/case-study-roadmap.md",
+    "docs/vision/relay-offering.md"
+  ],
+  "tags": [
+    "case-study",
+    "relay"
+  ],
+  "plan_id": "2025-09-26-external-proof"
+}

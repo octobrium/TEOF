@@ -51,7 +51,12 @@ before/after improvement within 1–2 weeks.
 - How much anonymisation is needed to publish receipts without leaking private data?
 - What ongoing support (automation/maintenance) do we promise post-case-study?
 
+## Current Artifacts
+- Decision intake: `memory/decisions/decision-20250927T194522Z.json`
+- Briefing doc: `docs/impact/relay-insight-briefing.md`
+- Consent notes: `_report/usage/case-study/relay-insight/consent-notes.md`
+
 ## Next Actions
-1. Choose target case (recommend Relay Insight Sprint pilot for first pass).
-2. Fill S1 deliverables: consent receipt, briefing doc, plan alignment.
-3. Schedule timeline and bus claims for the run.
+1. Collect partner consent (update `consent.json`) and confirm scope.
+2. Schedule conductor run (update plan S2) and log bus claim for ND-014.
+3. Prepare public case study template referencing the receipts above.

@@ -4,8 +4,8 @@
   "created": "2025-09-26T22:31:00Z",
   "actor": "codex-5",
   "summary": "Publish a public case study that proves TEOF value with receipts",
-  "status": "queued",
-  "stage": "queued",
+  "status": "in_progress",
+  "stage": "in_progress",
   "steps": [
     {
       "id": "S1",
@@ -14,7 +14,9 @@
       "stage": "in_progress",
       "notes": "Align on scope, consent, and guardrails for an external engagement (Relay sprint or authenticity audit).",
       "receipts": [
-        "docs/impact/case-study-roadmap.md"
+        "docs/impact/case-study-roadmap.md",
+        "docs/impact/relay-insight-briefing.md",
+        "_report/usage/case-study/relay-insight/consent-notes.md"
       ]
     },
     {
@@ -39,6 +41,15 @@
     "owner": "codex-5",
     "status": "pending"
   },
-  "links": [],
-  "receipts": []
+  "links": [
+    {
+      "type": "decision",
+      "ref": "memory/decisions/decision-20250927T194522Z.json"
+    }
+  ],
+  "receipts": [
+    "docs/impact/case-study-roadmap.md",
+    "docs/impact/relay-insight-briefing.md",
+    "_report/usage/case-study/relay-insight/consent-notes.md"
+  ]
 }
