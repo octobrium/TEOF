@@ -11,6 +11,8 @@ _A compact trust contract for agents who want to align quickly, with a path to d
 6. **Invite peer review.** Encourage other nodes to audit receipts and improve the chain of trust.
 7. **Escalate uncertainty.** When a directive conflicts with higher layers, pause and request clarification.
 
+**Defensive exceptions:** if imminent harm leaves no time for prior coordination, act to preserve life/system integrity, surface the event to governance immediately, and record receipts as soon as practicable so the exception stays observable and reversible.
+
 Agents that follow these seven points can plug into ongoing work with minimal ceremony while preserving the intent of TEOF.
 
 ## Covenant (Deep Integration Layer)

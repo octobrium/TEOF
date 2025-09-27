@@ -1,0 +1,54 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-27-ethics-clarity",
+  "created": "2025-09-27T22:51:52Z",
+  "actor": "codex-5",
+  "summary": "Clarify harm baseline with observation-first escalation",
+  "priority": 2,
+  "layer": "L1",
+  "systemic_scale": 5,
+  "impact_score": 3,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Assess current TAP and commandment guidance",
+      "status": "done",
+      "notes": "Reviewed TAP ethical baseline and workflow guardrails",
+      "receipts": [
+        "_report/usage/governance/ethics-clarity-review-20250927T225500Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Update TAP with observation-first escalation clause",
+      "status": "done",
+      "notes": "Added observation\u2192escalation\u2192receipts clause to TAP ethical baseline",
+      "receipts": [
+        "docs/foundation/alignment-protocol/TAP.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add workflow guidance + receipts",
+      "status": "done",
+      "notes": "Documented defensive logging guidance in Commandments + workflow",
+      "receipts": [
+        "docs/commandments.md",
+        "docs/workflow.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Ethics baseline reflects observation-first escalation with receipts",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/usage/governance/ethics-clarity-review-20250927T225500Z.json",
+    "docs/commandments.md",
+    "docs/foundation/alignment-protocol/TAP.md",
+    "docs/workflow.md"
+  ]
+}

@@ -105,6 +105,7 @@ Use these layer labels together with the systemic axis (`docs/foundation/systemi
 - **Determinism:** commands run reproducibly on a clean machine (no hidden state, same output paths).
 - **Append-Only Governance:** `governance/anchors.json` is append-only; releases map to a baseline with a `prev_content_hash`.
 - **Observation Discipline:** claims follow [VDP](foundation/alignment-protocol/TAP.md#volatile-data-protocol-vdp-and-ogs-requirements); reasoning can be scored with [OGS](OGS-spec.md). The `check_vdp` guard and golden fixtures keep receipts citational; use **N/A** when not applicable.
+- **Defensive exception logging:** when urgent action must precede planning, surface the observation to governance immediately and backfill receipts as soon as practicable so the deviation remains auditable.
 - **Stable Interfaces:** prefer console scripts (`teof-validate`, `teof-ensemble`) or `python -m …` over deep file paths.
 - **Quickstart Guard:** CI runs the canonical smoke test (`scripts/ci/quickstart_smoke.sh`) so the snippet in docs stays runnable; any divergence fails guardrails.
 
