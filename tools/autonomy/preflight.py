@@ -9,6 +9,11 @@ from typing import Iterable
 
 from tools.autonomy import critic, ethics_gate, frontier, objectives_status, tms
 
+try:  # optional bus integration
+    from tools.agent import bus_event as bus_event_mod
+except ImportError:  # pragma: no cover - bus module optional
+    bus_event_mod = None
+
 ROOT = Path(__file__).resolve().parents[2]
 AUTH_JSON = ROOT / "_report" / "usage" / "external-authenticity.json"
 STATUS_PATH = ROOT / "_report" / "planner" / "validate" / "summary-latest.json"
@@ -46,6 +51,38 @@ def gather_snapshot(*, frontier_limit: int = 5, objectives_window_days: float = 
     }
 
 
+def evaluate_snapshot(snapshot: dict) -> tuple[bool, list[str]]:
+    issues: list[str] = []
+
+    auth = snapshot.get("authenticity") or {}
+    overall = auth.get("overall_avg_trust")
+    attention = auth.get("attention_feeds") or []
+    try:
+        trust_ok = float(overall) >= 0.7 if overall is not None else False
+    except (TypeError, ValueError):  # pragma: no cover - defensive
+        trust_ok = False
+    if not trust_ok or attention:
+        issues.append("authenticity below threshold")
+
+    planner_status = snapshot.get("planner_status") or {}
+    status_ok = (planner_status.get("status") or "").lower() in {"ok", "pass"}
+    exit_code = planner_status.get("exit_code")
+    if not status_ok and exit_code is None:
+        issues.append("planner status not ok")
+    if isinstance(exit_code, int) and exit_code != 0:
+        issues.append(f"planner exit_code={exit_code}")
+
+    if snapshot.get("ethics_violations"):
+        issues.append("ethics violations present")
+    if snapshot.get("tms_conflicts"):
+        issues.append("tms conflicts present")
+    if snapshot.get("critic_alerts"):
+        issues.append("critic alerts present")
+
+    healthy = len(issues) == 0
+    return healthy, issues
+
+
 def write_receipt(snapshot: dict, out_path: Path) -> Path:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -57,12 +94,24 @@ def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--out", type=Path, help="Receipt path (default: _report/usage/autonomy-preflight/preflight-<UTC>.json)")
     parser.add_argument("--frontier-limit", type=int, default=5, help="Number of frontier items to include")
     parser.add_argument("--objectives-window", type=float, default=7.0, help="Window in days for objectives snapshot")
+    parser.add_argument(
+        "--emit-bus",
+        action="store_true",
+        help="Emit a bus status event when issues are detected",
+    )
+    parser.add_argument(
+        "--bus-agent",
+        default="autonomy-preflight",
+        help="Agent id to use when emitting bus events (default: autonomy-preflight)",
+    )
     return parser.parse_args(argv)
 
 
 def main(argv: Iterable[str] | None = None) -> int:
     args = parse_args(argv)
     snapshot = gather_snapshot(frontier_limit=args.frontier_limit, objectives_window_days=args.objectives_window)
+    healthy, issues = evaluate_snapshot(snapshot)
+    snapshot["issues"] = issues
     timestamp = snapshot["generated_at"].replace(":", "").replace("-", "")
     out_path = args.out or (DEFAULT_RECEIPT_DIR / f"preflight-{timestamp}.json")
     write_receipt(snapshot, out_path)
@@ -71,6 +120,20 @@ def main(argv: Iterable[str] | None = None) -> int:
     except ValueError:
         rel = out_path
     print(f"preflight: wrote receipt → {rel}")
+
+    if args.emit_bus and not healthy and bus_event_mod is not None:
+        summary = "autonomy preflight issues: " + ", ".join(issues)
+        try:
+            bus_event_mod.log_event(
+                event="status",
+                summary=summary,
+                agent=args.bus_agent,
+                root=ROOT,
+            )
+        except Exception as exc:  # pragma: no cover - best effort
+            print(f"::error:: failed to emit bus event: {exc}", flush=True)
+
+    return 0 if healthy else 1
     return 0
 
 

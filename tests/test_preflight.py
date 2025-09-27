@@ -48,8 +48,8 @@ def test_preflight_main_writes_receipt(tmp_path: Path, monkeypatch) -> None:
     def _stub_snapshot(*_, **__) -> dict[str, object]:
         return {
             "generated_at": "2025-09-27T00:00:00Z",
-            "authenticity": {},
-            "planner_status": {},
+            "authenticity": {"overall_avg_trust": 0.8, "attention_feeds": []},
+            "planner_status": {"status": "ok", "exit_code": 0},
             "objectives": {},
             "frontier_preview": [],
             "critic_alerts": [],
@@ -58,6 +58,43 @@ def test_preflight_main_writes_receipt(tmp_path: Path, monkeypatch) -> None:
         }
 
     monkeypatch.setattr(preflight, "gather_snapshot", _stub_snapshot)
+    monkeypatch.setattr(preflight, "bus_event_mod", None)
     result = preflight.main(["--out", str(receipt_dir / "preflight.json")])
     assert result == 0
     assert (receipt_dir / "preflight.json").exists()
+
+
+def test_preflight_detects_issues(tmp_path: Path, monkeypatch) -> None:
+    def _stub_snapshot(*_, **__) -> dict[str, object]:
+        return {
+            "generated_at": "2025-09-27T00:00:00Z",
+            "authenticity": {"overall_avg_trust": 0.5, "attention_feeds": ["demo"]},
+            "planner_status": {"status": "fail", "exit_code": 1},
+            "objectives": {},
+            "frontier_preview": [],
+            "critic_alerts": [{"id": "A"}],
+            "tms_conflicts": [],
+            "ethics_violations": [],
+        }
+
+    class _BusStub:
+        def __init__(self) -> None:
+            self.logged = False
+
+        def log_event(self, *, event: str, summary: str, agent: str, root: Path) -> None:
+            self.logged = True
+            assert event == "status"
+            assert agent == "autonomy-preflight"
+            assert "authenticity" in summary
+
+    stub = _BusStub()
+    monkeypatch.setattr(preflight, "gather_snapshot", _stub_snapshot)
+    monkeypatch.setattr(preflight, "bus_event_mod", stub)
+    receipt_path = tmp_path / "preflight.json"
+    result = preflight.main(["--out", str(receipt_path), "--emit-bus"])
+    assert result == 1
+    assert receipt_path.exists()
+    assert stub.logged
+
+    payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert payload["issues"]
