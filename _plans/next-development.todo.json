@@ -201,13 +201,15 @@
     {
       "id": "ND-017",
       "title": "Automated preflight cadence",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-09-26-autonomy-preflight",
       "layer": "L6",
       "notes": "Modularise preflight checks and schedule unattended guard runs with bus alerts.",
       "receipts": [
         "_plans/2025-09-26-autonomy-preflight.plan.json",
-        "docs/automation/autonomy-preflight.md"
+        "docs/automation/autonomy-preflight.md",
+        "_report/usage/autonomy-preflight/preflight-20250927T200419Z.json",
+        ".github/workflows/autonomy-preflight.yml"
       ]
     },
     {

@@ -4,8 +4,8 @@
   "created": "2025-09-26T22:32:00Z",
   "actor": "codex-5",
   "summary": "Modularise preflight checks and schedule automated guard runs",
-  "status": "in_progress",
-  "stage": "in_progress",
+  "status": "done",
+  "stage": "done",
   "steps": [
     {
       "id": "S1",
@@ -21,18 +21,23 @@
     {
       "id": "S2",
       "title": "Automate scheduled runs",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Create a cron/CLI wrapper that executes preflight on a cadence and logs outcomes under `_report/usage/autonomy-preflight/`.",
-      "receipts": []
+      "receipts": [
+        ".github/workflows/autonomy-preflight.yml",
+        "_report/usage/autonomy-preflight/preflight-20250927T200419Z.json"
+      ]
     },
     {
       "id": "S3",
       "title": "Wire alerts into bus + status",
-      "status": "queued",
-      "stage": "queued",
+      "status": "done",
+      "stage": "done",
       "notes": "Post bus events when preflight fails and surface the state in `teof status`.",
-      "receipts": []
+      "receipts": [
+        "tests/test_preflight.py"
+      ]
     }
   ],
   "checkpoint": {
@@ -41,5 +46,9 @@
     "status": "pending"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "docs/automation/autonomy-preflight.md",
+    "_report/usage/autonomy-preflight/preflight-20250927T200419Z.json",
+    ".github/workflows/autonomy-preflight.yml"
+  ]
 }
