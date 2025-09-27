@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-26-autonomy-preflight",
+  "created": "2025-09-26T22:32:00Z",
+  "actor": "codex-5",
+  "summary": "Modularise preflight checks and schedule automated guard runs",
+  "status": "queued",
+  "stage": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design preflight module API",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Extract objectives/authenticity/ethics/critic checks into a reusable package consumed by conductor and CI.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Automate scheduled runs",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Create a cron/CLI wrapper that executes preflight on a cadence and logs outcomes under `_report/usage/autonomy-preflight/`.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Wire alerts into bus + status",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Post bus events when preflight fails and surface the state in `teof status`.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Preflight runs unattended with receipts and bus alerts for failures",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}

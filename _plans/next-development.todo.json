@@ -169,6 +169,50 @@
         "docs/vision/relay-offering-dry-run.md",
         "memory/decisions/decision-20250926T220511Z.json"
       ]
+    },
+    {
+      "id": "ND-015",
+      "title": "Streamlined onboarding path",
+      "status": "pending",
+      "plan_suggestion": "2025-09-26-package-onboarding",
+      "layer": "L4",
+      "notes": "Deliver a pip-installable package and 10-minute quickstart with automated verification.",
+      "receipts": [
+        "_plans/2025-09-26-package-onboarding.plan.json"
+      ]
+    },
+    {
+      "id": "ND-016",
+      "title": "Public case study with receipts",
+      "status": "pending",
+      "plan_suggestion": "2025-09-26-external-proof",
+      "layer": "L5",
+      "notes": "Run and publish a verifiable external engagement that demonstrates TEOF value.",
+      "receipts": [
+        "_plans/2025-09-26-external-proof.plan.json"
+      ]
+    },
+    {
+      "id": "ND-017",
+      "title": "Automated preflight cadence",
+      "status": "pending",
+      "plan_suggestion": "2025-09-26-autonomy-preflight",
+      "layer": "L6",
+      "notes": "Modularise preflight checks and schedule unattended guard runs with bus alerts.",
+      "receipts": [
+        "_plans/2025-09-26-autonomy-preflight.plan.json"
+      ]
+    },
+    {
+      "id": "ND-018",
+      "title": "Narrative & evangelism kit",
+      "status": "pending",
+      "plan_suggestion": "2025-09-26-evangelism",
+      "layer": "L2",
+      "notes": "Create reusable storytelling assets and launch a distribution rhythm tied to live receipts.",
+      "receipts": [
+        "_plans/2025-09-26-evangelism.plan.json"
+      ]
     }
   ],
   "history": [
