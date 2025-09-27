@@ -187,12 +187,13 @@
     {
       "id": "ND-016",
       "title": "Public case study with receipts",
-      "status": "pending",
+      "status": "in_progress",
       "plan_suggestion": "2025-09-26-external-proof",
       "layer": "L5",
       "notes": "Run and publish a verifiable external engagement that demonstrates TEOF value.",
       "receipts": [
-        "_plans/2025-09-26-external-proof.plan.json"
+        "_plans/2025-09-26-external-proof.plan.json",
+        "docs/impact/case-study-roadmap.md"
       ]
     },
     {

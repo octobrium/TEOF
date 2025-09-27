@@ -10,10 +10,12 @@
     {
       "id": "S1",
       "title": "Select and prep pilot partner",
-      "status": "queued",
-      "stage": "queued",
+      "status": "in_progress",
+      "stage": "in_progress",
       "notes": "Align on scope, consent, and guardrails for an external engagement (Relay sprint or authenticity audit).",
-      "receipts": []
+      "receipts": [
+        "docs/impact/case-study-roadmap.md"
+      ]
     },
     {
       "id": "S2",
