@@ -30,8 +30,10 @@
       "title": "Summarise outputs for case study",
       "status": "queued",
       "stage": "queued",
-      "notes": "Write run summary + metrics under `_report/usage/case-study/relay-insight/summary.json`.",
-      "receipts": []
+      "notes": "Write run summary + metrics under `_report/usage/case-study/relay-insight/summary.json` and update `docs/impact/relay-insight-case-study.md`.",
+      "receipts": [
+        "docs/impact/relay-insight-case-study.md"
+      ]
     }
   ],
   "steps": [
