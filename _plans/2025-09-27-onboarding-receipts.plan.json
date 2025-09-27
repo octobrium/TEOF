@@ -8,7 +8,7 @@
   "layer": "L5",
   "systemic_scale": 6,
   "impact_score": 2,
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -47,7 +47,7 @@
   "checkpoint": {
     "description": "Single command and receipts CLI documented with passing validations",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
   "receipts": [
