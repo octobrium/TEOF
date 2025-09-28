@@ -8,28 +8,33 @@ Compatibility: SemVer; deprecations get one minor window
 
 ## Allowed top-level
 
+These roots stay stable so every layer (L0 → L6) can find the right surface. The
+layer column calls out the dominant OCERS tier(s); higher layers may reference
+lower ones but must not bypass their contracts.
 
-- `capsule/`        — immutable capsule + hashes (see `capsule/README.md` for active version and per-release `STATUS.md` markers)
-
-- `extensions/`     — canonical, packaged code (import surface: `extensions.…`)
-
-- `experimental/`   — active candidates (NOT packaged)
-
-- `archive/`        — frozen history (NOT packaged)
-
-- `docs/`           — Quickstart, Architecture, Promotion Policy, examples/goldens
-
-- `governance/`     — `anchors.json` (append-only), release notes
-
-- `rfcs/`           — TEPs/RFCs
-
-- `scripts/`        — repo scripts (policy guard, freeze, release helpers)
-
-- `.github/`        — CI
-
-- Root files: `README.md` `CHANGELOG.md` `LICENSE` `Makefile` `pyproject.toml` `.gitignore`
-
-- *(Optional)* `cli/` — thin entrypoints only; prefer console scripts from `extensions/…:main()`
+| Path | Layer(s) | Contract | Detail |
+| --- | --- | --- | --- |
+| `_bus/` | L0 ↔ L5 | Append-only JSONL lanes for coordination; CI enforces schema and claim guards. | See [`_bus/README.md`](../_bus/README.md) for channel layout and tooling. |
+| `_plans/` | L4 → L5 | Structured plans drive workflow; lifecycle changes must stay monotonic and pass strict validation. | Authoring + validation rules live in [`_plans/README.md`](../_plans/README.md). |
+| `_report/` | L0 | Receipts from evaluations, coordination dashboards, and audits; automation appends new runs under scoped folders. | Treat subdirectories as evidence stores referenced by bus/plans/memory. |
+| `_apoptosis/` | L0 | Cold storage for retired artifacts (timestamped). No mutation once archived. | Populated by pruning/retirement automation. |
+| `agents/` | L5 | Task registry and role manifests mirrored in automation. | Coupled with [`docs/AGENTS.md`](AGENTS.md). |
+| `archive/` | L0 | Frozen historical snapshots that must not be imported or mutated. | Use only for provenance. |
+| `bin/` | L6 | Thin console entrypoints that wrap `extensions/…:main()` or `tools/` helpers. | Keep logic in packages; `bin/*` stays minimal. |
+| `capsule/` | L0 ↔ L1 | Immutable release capsules and hashes; only add new versions plus the moving `current` pointer. | Each release carries a `STATUS.md` receipt inside its folder. |
+| `datasets/` | L3 ↔ L4 | Goldens and evaluation corpora; mutations must maintain reproducible hashes. | Reference from tests and receipts. |
+| `docs/` | L3 ↔ L4 | Living constitution, workflow guidance, examples. | Cross-link automation surfaces via [`docs/automation.md`](automation.md). |
+| `extensions/` | L4 | Canonical, packaged kernel modules (`import extensions.…`). | Covered by policy checks + tests. |
+| `experimental/` | L4 | Active candidates under evaluation; never imported by `extensions/`. | Promote per [`docs/promotion-policy.md`](promotion-policy.md). |
+| `governance/` | L1 ↔ L2 | Append-only anchors, policy, and key material. | See [`governance/README.md`](../governance/README.md). |
+| `memory/` | L0 | Append-only decision log with hash chaining and signatures. | Schema + tooling in [`memory/README.md`](../memory/README.md). |
+| `queue/` | L4 ↔ L5 | Backlog briefs, coordination directives, consensus traces. | Mirrors bus/planner history for onboarding. |
+| `scripts/` | L6 | Policy guards, freeze helpers, CI glue. | Invoke via automation receipts; keep idempotent. |
+| `tests/` | L6 | CI-enforced regression and property suites (unit, integration, smoke). | Reference receipts in `_report/` when adding cases. |
+| `tools/` | L6 | Automation + agent CLIs; changes require receipts and memory entries. | Additional contracts in [`docs/automation.md`](automation.md). |
+| `.github/` | L6 | CI configuration and guard workflows. | Update in lockstep with scripts/tests receipts. |
+| Root files | L2 ↔ L4 | Contracts (`README.md`, `CHANGELOG.md`, `LICENSE`, `pyproject.toml`, etc.). | Must remain present; edits follow governance + architecture rules. |
+| *(Optional)* `cli/` | L6 | Only thin entrypoints; prefer `extensions/…:main()` or `bin/` wrappers. | Add only when packaging demands. |
 
 ## Placement rules
 
