@@ -1,0 +1,61 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-27-ethics-scenarios",
+  "created": "2025-09-27T23:03:32Z",
+  "actor": "codex-5",
+  "summary": "Refine TEOF ethics corpus for scenario coverage",
+  "priority": 3,
+  "layer": "L1",
+  "systemic_scale": 7,
+  "impact_score": 4,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Survey existing ethics sources and gaps",
+      "status": "done",
+      "notes": "Surveyed ethics docs; gaps include system-response guidance",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Draft scenario taxonomy + escalation rules",
+      "status": "done",
+      "notes": "Outlined scenario taxonomy (system response, disclosure, reciprocity)",
+      "receipts": [
+        "_report/usage/governance/ethics-scenarios-outline-20250928T025654Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add receipts-backed reference guide",
+      "status": "done",
+      "notes": "Published scenario playbook doc with governance receipt",
+      "receipts": [
+        "docs/ethics/scenario-playbook.md",
+        "_report/usage/governance/ethics-scenarios-playbook-20250928T025523Z.json"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Record reflections on power incentives and observation custody",
+      "status": "done",
+      "notes": "Recorded reflection on power asymmetry and selective transparency",
+      "receipts": [
+        "memory/reflections/reflection-20250928T015205Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Ethics docs map observed scenarios to guidance receipts",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/usage/governance/ethics-scenarios-outline-20250928T025654Z.json",
+    "_report/usage/governance/ethics-scenarios-playbook-20250928T025523Z.json",
+    "docs/ethics/scenario-playbook.md",
+    "memory/reflections/reflection-20250928T015205Z.json"
+  ]
+}

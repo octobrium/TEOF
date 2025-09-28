@@ -6,5 +6,8 @@
     "docs/foundation/alignment-protocol/TAP.md",
     "docs/commandments.md",
     "docs/workflow.md"
+  ],
+  "notes": [
+    "Trolley scenario raised need to encode system-response considerations explicitly."
   ]
 }
