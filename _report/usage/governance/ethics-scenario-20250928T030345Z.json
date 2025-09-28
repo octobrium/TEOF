@@ -1,0 +1,17 @@
+{
+  "event_id": "02d2c9e0df5140768f5d6addd129930a",
+  "generated_at": "2025-09-28T03:03:45Z",
+  "summary": "Countered propaganda with receipts",
+  "scenario": "disinformation",
+  "impact": "high",
+  "actions": [
+    "Collected forgeries",
+    "Alerted governance"
+  ],
+  "linked_receipts": [
+    "_report/usage/governance/ethics-scenarios-playbook-20250928T025523Z.json"
+  ],
+  "notes": [
+    "Coordinated with evangelism kit"
+  ]
+}

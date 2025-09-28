@@ -1,0 +1,39 @@
+{
+  "generated_at": "2025-09-28T03:01:45Z",
+  "focus": "ethics-playbook-tool",
+  "summary": "Outlined CLI requirements for logging scenario receipts",
+  "details": {
+    "cli": "python3 -m tools.ethics.log_scenario",
+    "arguments": [
+      {
+        "name": "summary",
+        "required": true
+      },
+      {
+        "name": "--scenario",
+        "required": true
+      },
+      {
+        "name": "--impact",
+        "choices": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "default": "medium"
+      },
+      {
+        "name": "--actions",
+        "repeatable": true
+      },
+      {
+        "name": "--receipts",
+        "repeatable": true
+      },
+      {
+        "name": "--notes",
+        "optional": true
+      }
+    ]
+  }
+}

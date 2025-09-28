@@ -1,0 +1,44 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-28-ethics-playbook-tool",
+  "created": "2025-09-28T03:01:16Z",
+  "actor": "codex-5",
+  "summary": "Automate governance receipt scaffolds for ethics playbook",
+  "priority": 4,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 3,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define CLI requirements",
+      "status": "done",
+      "notes": "Outline CLI arguments and receipts format",
+      "receipts": [
+        "_report/usage/governance/ethics-playbook-tool-outline-20250928T030145Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement tools.ethics.log_scenario module",
+      "status": "in_progress",
+      "notes": "Implement CLI module for scenario receipts",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document usage in scenario playbook",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "CLI scaffolds scenario receipts per playbook",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
