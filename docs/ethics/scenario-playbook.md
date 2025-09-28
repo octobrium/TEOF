@@ -39,6 +39,19 @@ Every scenario, however novel, follows the same ladder:
 | **Surveillance coercion** | Regime demands that TEOF assist with harmful surveillance. | Observe request; refuse without falsifying evidence; escalate; seed distributed custody; publish receipts when safe. | Combine with defensive exception clause in TAP. |
 | **Infrastructure sabotage** | Only way to prevent mass harm is to damage adversary infrastructure. | Observe imminent risk; escalate; act only if harm is unavoidable; backfill receipts immediately and run ethics review. | Reference defensive clause in TAP §III. |
 
+### Logging receipts via CLI
+Use the helper to capture scenario responses in `_report/usage/governance/`:
+
+```bash
+python3 -m tools.ethics.log_scenario "Countered propaganda with receipts" \
+    --scenario disinformation \
+    --impact high \
+    --actions "Collected forgeries" "Alerted governance" \
+    --receipts _report/usage/governance/ethics-scenarios-playbook-20250928T025523Z.json
+```
+
+Attach the generated receipt path back to your plan step so auditors can trace the decision chain.
+
 ## Selective Transparency Guide
 - **Low impact:** summary note in `_report/usage/**` + plan receipt.
 - **Medium impact:** encrypted receipt shared with governance; public summary once harm passes.

@@ -8,7 +8,7 @@
   "layer": "L5",
   "systemic_scale": 6,
   "impact_score": 3,
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -22,16 +22,18 @@
     {
       "id": "S2",
       "title": "Implement tools.ethics.log_scenario module",
-      "status": "in_progress",
-      "notes": "Implement CLI module for scenario receipts",
+      "status": "done",
+      "notes": "CLI logging module implemented",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Document usage in scenario playbook",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Documented CLI usage in playbook",
+      "receipts": [
+        "docs/ethics/scenario-playbook.md"
+      ]
     }
   ],
   "checkpoint": {
