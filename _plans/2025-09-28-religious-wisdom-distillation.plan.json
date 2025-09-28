@@ -1,0 +1,46 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-28-religious-wisdom-distillation",
+  "created": "2025-09-28T18:03:44Z",
+  "actor": "codex-5",
+  "summary": "Distill cross-religious alignment patterns",
+  "priority": 5,
+  "layer": "L1",
+  "systemic_scale": 8,
+  "impact_score": 3,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define success metrics + selection criteria",
+      "status": "done",
+      "notes": "Defined metrics: longevity, cohesion, agency, TAP alignment",
+      "receipts": [
+        "_report/usage/governance/religious-wisdom-metrics-20250928T180515Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Gather multidisciplinary review",
+      "status": "done",
+      "notes": "Observation-driven review process outlined",
+      "receipts": [
+        "_report/usage/governance/religious-wisdom-review-20250928T180613Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Synthesize receipts-backed guidance",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Documented method for auditing religious insights with receipts",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}

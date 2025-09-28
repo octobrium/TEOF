@@ -1,0 +1,44 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-28-philosophical-alignment",
+  "created": "2025-09-28T18:15:13Z",
+  "actor": "codex-5",
+  "summary": "Align LLM responses with TEOF philosophy",
+  "priority": 4,
+  "layer": "L2",
+  "systemic_scale": 9,
+  "impact_score": 4,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Map TAP & workflow principles to FAQ",
+      "status": "done",
+      "notes": "Mapped key philosophical FAQs to TAP/workflow sources",
+      "receipts": [
+        "_report/usage/governance/philosophical-faq-map-20250928T181724Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement philosophy prompt module",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Validate answers against core documents",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "LLM guidance backed by TAP/workflow references",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}

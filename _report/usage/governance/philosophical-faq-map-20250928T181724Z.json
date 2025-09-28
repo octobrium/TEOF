@@ -1,0 +1,31 @@
+{
+  "generated_at": "2025-09-28T18:17:24Z",
+  "focus": "philosophical-alignment",
+  "summary": "Mapped core FAQs to TEOF sources",
+  "faq": [
+    {
+      "question": "Meaning of life",
+      "sources": [
+        "docs/foundation/alignment-protocol/TAP.md#meaning",
+        "docs/whitepaper.md#purpose"
+      ],
+      "notes": "Lean on observation \u2192 coherence \u2192 meaning (S10)"
+    },
+    {
+      "question": "Problem of other minds",
+      "sources": [
+        "docs/foundation/alignment-protocol/TAP.md#observer",
+        "docs/workflow.md#observation-primacy"
+      ],
+      "notes": "Show how receipts/logs establish trust across agents"
+    },
+    {
+      "question": "Dietary advice",
+      "sources": [
+        "docs/workflow.md#observation-primacy",
+        "docs/commandments.md#commandments"
+      ],
+      "notes": "Admit limits; tie to observation and receipts"
+    }
+  ]
+}

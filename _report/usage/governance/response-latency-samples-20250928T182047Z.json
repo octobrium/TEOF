@@ -1,0 +1,20 @@
+{
+  "generated_at": "2025-09-28T18:20:47Z",
+  "focus": "response-latency",
+  "summary": "Sampled message-response intervals (approximate)",
+  "samples": [
+    {
+      "interaction": "2025-09-28 17:45 question",
+      "response_seconds": 75
+    },
+    {
+      "interaction": "2025-09-28 17:50 challenge",
+      "response_seconds": 90
+    },
+    {
+      "interaction": "2025-09-28 18:05 scenario",
+      "response_seconds": 65
+    }
+  ],
+  "notes": "Estimates from session trace; need automation later"
+}

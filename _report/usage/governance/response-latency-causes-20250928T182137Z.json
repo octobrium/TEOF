@@ -1,0 +1,22 @@
+{
+  "generated_at": "2025-09-28T18:21:37Z",
+  "focus": "response-latency",
+  "summary": "Root causes of slow responses",
+  "causes": [
+    {
+      "factor": "Manual doc lookups",
+      "impact": "high",
+      "note": "S1 samples show ~60s spent scanning docs"
+    },
+    {
+      "factor": "Inline plan + receipt creation",
+      "impact": "medium",
+      "note": "Opening plans mid-chat adds 20-30s"
+    },
+    {
+      "factor": "Redundant confirmation loops",
+      "impact": "medium",
+      "note": "Double-checking receipts manually"
+    }
+  ]
+}
