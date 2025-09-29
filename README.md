@@ -51,13 +51,14 @@ This ordering is enforced during review and is part of TEOF’s living constitut
 
 ## What’s in this repo
 
-- **Kernel code** in `extensions/` (canonical, packaged).  
-- **Candidates** in `experimental/` (promoted via policy).  
-- **Capsule** baselines and hashes in `capsule/` with `capsule/current` as a pointer.  
-- **Governance** anchors (append-only) in `governance/`.  
-- **Docs** (this README, quickstart, architecture, promotion policy, examples) in `docs/`.  
-- **Scripts** like the import policy guard and freeze helper in `scripts/`.  
-- **Foundation texts** (conceptual bedrock) under `docs/foundation/` – e.g. [Aperture Guideline](docs/foundation/APERTURE-GUIDELINE.md).
+- **Governance anchors** (`governance/`) – append-only principles, objectives, and signing keys that frame the rest of the stack. See [`governance/README.md`](governance/README.md).
+- **Living constitution docs** (`docs/`) – architecture, workflow, promotion policy, and examples that keep layers coherent.
+- **Kernel + releases** (`extensions/`, `capsule/`, `experimental/`) – packaged code, immutable capsules, and candidates under evaluation.
+- **Planner surface** (`_plans/`) – structured plans and checkpoints that translate architecture into work. Read [`_plans/README.md`](_plans/README.md).
+- **Coordination bus** (`_bus/`) – append-only claims, events, and task channels for multi-agent collaboration. See [`_bus/README.md`](_bus/README.md).
+- **Receipts + memory** (`_report/`, `memory/`) – auditable evidence (reports, dashboards) and the append-only decision log documented in [`memory/README.md`](memory/README.md).
+- **Automation tooling** (`tools/`, `bin/`, `scripts/`) – guarded CLIs and entrypoints documented in [`docs/automation.md`](docs/automation.md).
+- **Supporting data + tests** (`datasets/`, `tests/`, `_apoptosis/`, `agents/`, `queue/`) – goldens, regression suites, retired artifacts, and agent manifests that keep the planner and bus in sync.
 
 See the full map in [`docs/architecture.md`](docs/architecture.md).
 
