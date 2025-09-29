@@ -6,6 +6,11 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+import sys
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT))
+
 from tools.fractal import conformance
 from tools.fractal import advisory as advisory_mod
 
@@ -13,7 +18,7 @@ from tools.fractal import advisory as advisory_mod
 def main() -> int:
     report = conformance.build_report(strict=True)
 
-    repo_root = Path(__file__).resolve().parents[2]
+    repo_root = REPO_ROOT
     report_path = repo_root / "_report" / "fractal" / "conformance" / "latest.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
