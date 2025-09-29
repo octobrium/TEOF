@@ -14,6 +14,8 @@ TASKS_PATH = ROOT / "agents" / "tasks" / "tasks.json"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 
 GUARD_KEYWORDS = ("consent", "review", "ethics")
+HIGH_RISK_LAYERS = {"L6"}
+HIGH_RISK_SCALE_THRESHOLD = 8
 
 
 def _load_json(path: Path) -> Any:
@@ -46,7 +48,13 @@ def _is_high_risk(item: dict[str, Any], layer: str, systemic_scale: int) -> bool
     risk_flag = (item.get("risk") or "").strip().lower()
     if risk_flag == "high":
         return True
-    if layer == "L6":
+    if layer in HIGH_RISK_LAYERS:
+        return True
+    if systemic_scale >= HIGH_RISK_SCALE_THRESHOLD:
+        return True
+    title = (item.get("title") or "").lower()
+    notes = (item.get("notes") or "").lower()
+    if any(keyword in title or keyword in notes for keyword in GUARD_KEYWORDS):
         return True
     return False
 

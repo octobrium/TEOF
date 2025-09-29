@@ -66,23 +66,18 @@ See the full map in [`docs/architecture.md`](docs/architecture.md).
 
 ## Quickstart
 <!-- generated: quickstart snippet -->
-Run this to bootstrap a fresh checkout:
+Run this smoke test on a fresh checkout:
 ```bash
-bin/teof-up
-
-# manual fallback
 python3 -m pip install -e .
 teof brief
 ls artifacts/ocers_out/latest
 cat artifacts/ocers_out/latest/brief.json
-# Optional: regenerate scaffold attestation receipts
-make attest
 ```
 
-- `bin/teof-up` builds distribution artifacts, runs the guarded quickstart flow, reruns the smoke script, and prints the next docs to read.
-- Manual fallback installs the editable package, runs `teof brief`, and inspects the generated receipts under `artifacts/ocers_out/<UTC>`.
+- Install exposes the teof console script.
+- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
 
-For additional CLIs (`teof-validate`, `teof-ensemble`) and examples, see [`docs/quickstart.md`](docs/quickstart.md). Preflight automation is documented in [`docs/automation/autonomy-preflight.md`](docs/automation/autonomy-preflight.md).
+If you prefer an end-to-end bootstrap, run `bin/teof-up` to install dependencies, refresh quickstart receipts, and print the next docs to read. Additional CLI entrypoints live in [`docs/quickstart.md`](docs/quickstart.md), and automation guardrails remain catalogued under [`docs/automation/autonomy-preflight.md`](docs/automation/autonomy-preflight.md).
 
 ## Communication Quickstart
 Coordinate with other TEOF agents through the repository bus:
