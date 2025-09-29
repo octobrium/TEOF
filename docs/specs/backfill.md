@@ -1,3 +1,7 @@
+<!-- markdownlint-disable MD013 -->
+status: draft
+summary: Define how retro advisories translate into backfill plans, semantic patches, and supersession receipts without breaking append-only history.
+
 # Backfill & Supersession Protocol (pilot)
 
 Status: draft
