@@ -1,0 +1,29 @@
+{
+  "generated_at": "2025-09-29T07:05:20Z",
+  "focus": "ethics-seed-prioritization",
+  "summary": "Mapped seeds to systemic priorities",
+  "mapping": [
+    {
+      "seed": "Do not harm",
+      "aligns_with": [
+        "S4 Defense",
+        "S6 Truth",
+        "S8 Ethics"
+      ]
+    },
+    {
+      "seed": "Do not deceive",
+      "aligns_with": [
+        "S6 Truth",
+        "S7 Power"
+      ]
+    },
+    {
+      "seed": "Preserve autonomy",
+      "aligns_with": [
+        "S9 Freedom",
+        "S3 Propagation"
+      ]
+    }
+  ]
+}

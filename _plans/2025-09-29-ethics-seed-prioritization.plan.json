@@ -1,0 +1,46 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-29-ethics-seed-prioritization",
+  "created": "2025-09-29T07:04:46Z",
+  "actor": "codex-5",
+  "summary": "Prioritize ethical seeds along systemic axis",
+  "priority": 4,
+  "layer": "L1",
+  "systemic_scale": 8,
+  "impact_score": 3,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review TAP and systemic scale",
+      "status": "done",
+      "notes": "Cross-reference TAP baseline with S-axis",
+      "receipts": [
+        "_report/usage/governance/ethics-seed-mapping-20250929T070520Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Draft prioritized ethics clause",
+      "status": "done",
+      "notes": "Draft prioritized ethics clause",
+      "receipts": [
+        "docs/foundation/alignment-protocol/TAP.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Update docs with receipts",
+      "status": "done",
+      "notes": "Updated TAP with S-axis priorities",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Ethics baseline references S-axis priorities",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
