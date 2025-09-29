@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-09-27T20:08:48Z",
+  "updated": "2025-09-29T23:28:04Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -226,13 +226,22 @@
     {
       "id": "ND-019",
       "title": "Automated data ingestion & summaries",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-09-27-data-ingestion",
       "layer": "L4",
       "notes": "Wire trusted macro/market data feeds into receipts and produce digestible summaries for case studies.",
       "receipts": [
         "_plans/2025-09-27-data-ingestion.plan.json"
       ]
+    },
+    {
+      "id": "ND-020",
+      "title": "Autonomize backlog synthesis",
+      "status": "pending",
+      "plan_suggestion": "2025-09-29-autonomous-backlog",
+      "layer": "L5",
+      "notes": "Integrate retro advisories and conformance receipts into automatic queue generation so unattended agents pick the next task deterministically.",
+      "receipts": []
     }
   ],
   "history": [
@@ -303,6 +312,15 @@
       "id": "ND-012",
       "claimed_at": "2025-09-26T22:45:00Z",
       "completed_at": "2025-09-26T22:55:00Z"
+    },
+    {
+      "id": "ND-019",
+      "claimed_at": "2025-09-29T23:27:45Z",
+      "completed_at": "2025-09-29T23:27:45Z"
+    },
+    {
+      "id": "ND-020",
+      "claimed_at": "2025-09-29T23:28:04Z"
     }
   ]
 }
