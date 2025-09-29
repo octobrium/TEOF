@@ -26,6 +26,8 @@ jobs:
         run: scripts/ci/check_readability.py
       - name: Enforce policy checks
         run: scripts/policy_checks.sh
+      - name: Fractal conformance check
+        run: scripts/ci/check_fractal_conformance.py
       - name: Quickstart smoke test
         run: scripts/ci/quickstart_smoke.sh
       - name: Upload consensus artifacts

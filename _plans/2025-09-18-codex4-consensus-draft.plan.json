@@ -49,5 +49,8 @@
   "receipts": [
     "_plans/2025-09-18-consensus-ledger-cli.plan.json",
     "_plans/2025-09-18-consensus-ledger-cli.justification.md"
-  ]
+  ],
+  "ocers_target": "Observation↑ Coherence↑",
+  "systemic_scale": 6,
+  "layer": "L5"
 }

@@ -58,5 +58,8 @@
     "governance/core/emergent-principles.jsonl",
     "scripts/ci/check_readability.py",
     "tools/maintenance/readability_guard.py"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "systemic_scale": 5,
+  "layer": "L2"
 }

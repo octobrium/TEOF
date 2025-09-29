@@ -61,5 +61,8 @@
     "docs/quick-links.md",
     "scripts/ci/check_consensus_receipts.py",
     "tests/test_ci_check_consensus_receipts.py"
-  ]
+  ],
+  "ocers_target": "Observation↑ Evidence↑",
+  "systemic_scale": 6,
+  "layer": "L4"
 }

@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TEOF Semantic Patch",
+  "type": "object",
+  "required": ["work_id", "edits", "tests", "rollback"],
+  "properties": {
+    "work_id": {"type": "string"},
+    "edits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "selector", "operation"],
+        "properties": {
+          "path": {"type": "string"},
+          "selector": {"type": "string"},
+          "operation": {
+            "type": "string",
+            "enum": ["insert", "replace", "remove"]
+          },
+          "payload": {"type": "string"},
+          "context": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "tests": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "rollback": {
+      "type": "object",
+      "required": ["instructions"],
+      "properties": {
+        "instructions": {"type": "string"},
+        "receipts": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": false
+}

@@ -49,3 +49,11 @@ We prioritise work that compounds across five recurring themes:
 - **Evolution:** log deltas (`memory/log.jsonl`, `_report/.../summary-latest.json`) and revisit the bindings matrix when the hierarchy shifts. Every guard should feed back into governance when it exposes new information.
 
 Document what *worked* and *what still needs refinement* in each decision journal. Amplify the former by cloning the pattern elsewhere; route the latter back to governance before shipping more automation.
+
+## Fractal conformance receipts
+
+- Run `python3 -m tools.fractal.conformance --pretty --out _report/fractal/conformance/latest.json` to capture a receipt of OCERS + coordinate coverage across queue items, plans, and memory.
+- Treat missing OCERS targets or `S#:L#` coordinates as blockers before promoting automation; `--strict` exits non-zero when gaps exist, making it safe to plug into CI or local preflight.
+- Link the emitted `_report/fractal/conformance/latest.json` in decision journals so reviewers can inspect the organism’s health from leaves to trunk.
+- Baseline allowances live in `docs/fractal/baseline.json`; lower the numbers as you backfill metadata so CI ratchets toward full coverage.
+- Use `python3 tools/fractal/backfill_plans.py --apply` when plans link to queue items but lack OCERS or coordinates; the helper mirrors queue metadata into the plan documents.

@@ -51,5 +51,8 @@
     "_report/agent/codex-3/maintenance-pruning/dry-run.log",
     "_report/agent/codex-3/maintenance-pruning/inventory.json",
     "_report/agent/codex-3/maintenance-pruning/summary.json"
-  ]
+  ],
+  "ocers_target": "Observation↑ Self-repair↑",
+  "systemic_scale": 5,
+  "layer": "L5"
 }

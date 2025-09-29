@@ -47,5 +47,8 @@
       "type": "bus",
       "ref": "_bus/claims/QUEUE-009.json"
     }
-  ]
+  ],
+  "ocers_target": "Coherence↑ Evidence↑",
+  "systemic_scale": 3,
+  "layer": "L5"
 }

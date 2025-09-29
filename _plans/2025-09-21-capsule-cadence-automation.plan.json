@@ -58,5 +58,8 @@
     "governance/core/emergent-principles.jsonl",
     "scripts/ci/check_capsule_cadence.py",
     "tests/test_ci_check_capsule_cadence.py"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "systemic_scale": 6,
+  "layer": "L4"
 }

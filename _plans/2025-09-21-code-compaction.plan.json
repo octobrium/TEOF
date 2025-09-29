@@ -78,5 +78,8 @@
     }
   ],
   "summary": "Compact shared code without changing OCERS outcomes",
-  "version": 0
+  "version": 0,
+  "ocers_target": "Reproducibility↑ Self-repair↑",
+  "systemic_scale": 2,
+  "layer": "L4"
 }

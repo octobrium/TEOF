@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Iterable
 
 from tools.autonomy import critic, ethics_gate, frontier, objectives_status, tms
+from tools.fractal import conformance as fractal_conformance
 
 try:  # optional bus integration
     from tools.agent import bus_event as bus_event_mod
@@ -18,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 AUTH_JSON = ROOT / "_report" / "usage" / "external-authenticity.json"
 STATUS_PATH = ROOT / "_report" / "planner" / "validate" / "summary-latest.json"
 DEFAULT_RECEIPT_DIR = ROOT / "_report" / "usage" / "autonomy-preflight"
+FRACTAL_BASELINE_PATH = ROOT / "docs" / "fractal" / "baseline.json"
 
 
 def _load_json(path: Path) -> dict | None:
@@ -39,6 +41,13 @@ def gather_snapshot(*, frontier_limit: int = 5, objectives_window_days: float = 
     critic_alerts = critic.detect_anomalies()
     tms_conflicts = tms.detect_conflicts()
     ethics_violations = ethics_gate.detect_violations()
+    fractal_report = fractal_conformance.build_report(strict=False)
+    fractal_baseline = {}
+    try:
+        fractal_baseline = json.loads(FRACTAL_BASELINE_PATH.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        fractal_baseline = {}
+
     return {
         "generated_at": dt.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         "authenticity": authenticity,
@@ -48,6 +57,15 @@ def gather_snapshot(*, frontier_limit: int = 5, objectives_window_days: float = 
         "critic_alerts": critic_alerts,
         "tms_conflicts": tms_conflicts,
         "ethics_violations": ethics_violations,
+        "fractal_conformance": {
+            "summary": fractal_report.get("summary", {}),
+            "issues": {
+                "queue": [entry for entry in fractal_report.get("queue", []) if entry.get("issues")],
+                "plans": [entry for entry in fractal_report.get("plans", []) if entry.get("issues")],
+                "memory": [entry for entry in fractal_report.get("memory", []) if entry.get("issues")],
+            },
+            "baseline": (fractal_baseline or {}).get("summary", {}),
+        },
     }
 
 
@@ -78,6 +96,16 @@ def evaluate_snapshot(snapshot: dict) -> tuple[bool, list[str]]:
         issues.append("tms conflicts present")
     if snapshot.get("critic_alerts"):
         issues.append("critic alerts present")
+
+    fractal = snapshot.get("fractal_conformance") or {}
+    fractal_summary = fractal.get("summary") or {}
+    baseline = fractal.get("baseline") or {}
+    for key in ("queue_with_issues", "plans_with_issues", "memory_with_issues"):
+        observed = fractal_summary.get(key, 0)
+        allowed = baseline.get(key, 0)
+        if observed > allowed:
+            issues.append("fractal conformance gaps present")
+            break
 
     healthy = len(issues) == 0
     return healthy, issues

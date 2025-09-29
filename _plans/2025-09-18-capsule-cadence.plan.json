@@ -55,5 +55,8 @@
     "_report/agent/codex-3/capsule-cadence/notes.md",
     "docs/maintenance/capsule-cadence.md",
     "docs/workflow.md"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "systemic_scale": 6,
+  "layer": "L4"
 }

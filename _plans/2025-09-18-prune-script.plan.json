@@ -42,5 +42,8 @@
   "receipts": [
     "_report/agent/codex-3/prune-script/notes.md",
     "_report/agent/codex-3/prune-script/pytest.json"
-  ]
+  ],
+  "ocers_target": "Self-repair↑ Reproducibility↑",
+  "systemic_scale": 5,
+  "layer": "L6"
 }

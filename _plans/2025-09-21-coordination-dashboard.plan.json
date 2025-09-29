@@ -65,5 +65,8 @@
     }
   ],
   "summary": "Deliver coordination dashboard/report",
-  "version": 0
+  "version": 0,
+  "ocers_target": "Observation↑ Reproducibility↑",
+  "systemic_scale": 6,
+  "layer": "L5"
 }

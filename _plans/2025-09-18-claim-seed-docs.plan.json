@@ -36,9 +36,15 @@
     "status": "satisfied"
   },
   "links": [
-    {"type": "queue", "ref": "queue/014-claim-seed-docs.md"}
+    {
+      "type": "queue",
+      "ref": "queue/014-claim-seed-docs.md"
+    }
   ],
   "receipts": [
     "_report/agent/codex-2/claim-seed-docs/notes.txt"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "systemic_scale": 3,
+  "layer": "L5"
 }

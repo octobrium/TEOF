@@ -66,5 +66,8 @@
     "_report/agent/codex-4/queue-032/consensus-cadence-notes.md",
     "_report/agent/codex-3/consensus-cadence/notes.md",
     "_report/planner/validate/summary-latest.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Self-repair↑",
+  "systemic_scale": 6,
+  "layer": "L5"
 }

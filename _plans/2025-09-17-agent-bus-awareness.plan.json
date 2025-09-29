@@ -49,5 +49,8 @@
       "type": "queue",
       "ref": "queue/001-agent-bus-watch.md"
     }
-  ]
+  ],
+  "ocers_target": "Coherence↑ Safety↑ Evidence↑",
+  "systemic_scale": 3,
+  "layer": "L5"
 }

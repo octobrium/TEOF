@@ -50,5 +50,8 @@
     "_report/agent/codex-2/bus-message-claim-guard/implementation.json",
     "_report/agent/codex-2/bus-message-claim-guard/docs.json",
     "_report/agent/codex-2/bus-message-claim-guard/pytest.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "systemic_scale": 3,
+  "layer": "L5"
 }

@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TEOF Retro Advisory",
+  "type": "object",
+  "required": [
+    "id",
+    "source_receipt",
+    "targets",
+    "claim",
+    "evidence",
+    "expected_gain",
+    "layer",
+    "ocers_target"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^ADV-[0-9A-Za-z_-]+$"},
+    "created": {"type": "string", "format": "date-time"},
+    "source_receipt": {"type": "string"},
+    "layer": {"type": "string", "pattern": "^L[0-6]$"},
+    "systemic_scale": {"type": "integer", "minimum": 1, "maximum": 10},
+    "ocers_target": {
+      "type": "object",
+      "required": ["trait", "direction"],
+      "properties": {
+        "trait": {"type": "string", "enum": ["Observation", "Coherence", "Ethics", "Reproducibility", "Self-repair"]},
+        "direction": {"type": "string", "enum": ["up", "down"]}
+      }
+    },
+    "targets": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
+    "claim": {"type": "string", "minLength": 1},
+    "evidence": {
+      "type": "object",
+      "required": ["receipts"],
+      "properties": {
+        "receipts": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1
+        },
+        "metrics": {"type": "object"},
+        "notes": {"type": "string"}
+      }
+    },
+    "expected_gain": {
+      "type": "object",
+      "required": ["ocers_delta"],
+      "properties": {
+        "ocers_delta": {
+          "type": "object",
+          "properties": {
+            "Observation": {"type": "number"},
+            "Coherence": {"type": "number"},
+            "Ethics": {"type": "number"},
+            "Reproducibility": {"type": "number"},
+            "Self-repair": {"type": "number"}
+          }
+        },
+        "coverage_delta": {"type": "number"}
+      }
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "default": "medium"
+    },
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": false
+}

@@ -58,5 +58,8 @@
       "type": "queue",
       "ref": "queue/002-bus-status-filters.md"
     }
-  ]
+  ],
+  "ocers_target": "Coherence↑ Evidence↑",
+  "systemic_scale": 3,
+  "layer": "L5"
 }

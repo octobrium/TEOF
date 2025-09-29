@@ -66,5 +66,8 @@
     "docs/maintenance/capsule-cadence.md",
     "docs/architecture.md",
     "docs/workflow.md"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "systemic_scale": 6,
+  "layer": "L4"
 }
