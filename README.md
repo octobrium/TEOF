@@ -9,6 +9,7 @@
 - [Specs](docs/specs/)
 - [Promotion Policy](docs/promotion-policy.md)
 - [Workflow](docs/workflow.md)
+- [Alignment Protocol](docs/alignment-protocol.md)
 - [Plans](./_plans/README.md)
 - [Automation](docs/automation.md)
 - [Agent Onboarding](.github/AGENT_ONBOARDING.md)
