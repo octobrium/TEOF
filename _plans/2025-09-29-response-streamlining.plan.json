@@ -1,0 +1,52 @@
+{
+  "version": 0,
+  "plan_id": "2025-09-29-response-streamlining",
+  "created": "2025-09-29T06:52:47Z",
+  "actor": "codex-5",
+  "summary": "Streamline agent response workflow",
+  "priority": 4,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 3,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Draft quick-reference content",
+      "status": "done",
+      "notes": "Draft quick-reference doc with key cites",
+      "receipts": [
+        "docs/reference/quick-reference.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement tools.reference.lookup CLI",
+      "status": "done",
+      "notes": "Implement reference lookup CLI",
+      "receipts": [
+        "tools/reference/lookup.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Integrate references into workflow docs",
+      "status": "done",
+      "notes": "Integrate reference instructions",
+      "receipts": [
+        "docs/workflow.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Quick-reference assets + lookup CLI available",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "docs/reference/quick-reference.md",
+    "tools/reference/lookup.py",
+    "docs/workflow.md"
+  ]
+}

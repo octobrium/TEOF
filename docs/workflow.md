@@ -45,6 +45,9 @@ Review cadence: Monthly sweep
 - Risks / assumptions (short)  
 - Next checkpoint (what to verify after the actions)
 
+
+**Reference Helpers**
+- Use `python3 -m tools.reference.lookup <keywords>` to pull citations from `docs/reference/quick-reference.md` without scanning the entire corpus.
 **Non-goals**
 - No new CI rules unless they protect the kernel import boundary.
 - No new top-level folders unless justified via a 1‑page TEP.
