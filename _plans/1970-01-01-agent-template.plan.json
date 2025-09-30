@@ -25,5 +25,10 @@
       "type": "doc",
       "ref": ".github/AGENT_ONBOARDING.md"
     }
-  ]
+  ],
+  "ocers_target": "Observation\u2191",
+  "layer": "L5",
+  "systemic_scale": 5,
+  "priority": 5,
+  "impact_score": 10
 }
