@@ -43,18 +43,6 @@ def _write_receipt(payload: Mapping[str, Any]) -> Path:
     return path
 
 
-def _load_json(path: Path) -> Mapping[str, Any] | None:
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except FileNotFoundError:
-        return None
-    except json.JSONDecodeError:
-        return None
-    if isinstance(data, Mapping):
-        return data
-    return None
-
-
 def build_cycle_payload(
     *,
     task: Mapping[str, Any],

@@ -1,23 +1,18 @@
 """Audit backlog alignment with TEOF guidelines (L0-L6)."""
 from __future__ import annotations
 
+import re
 import json
 from datetime import datetime
-import re
 from pathlib import Path
 from typing import List, Mapping
+
+from tools.autonomy.shared import load_json
 
 ROOT = Path(__file__).resolve().parents[2]
 GUIDELINE_DIR = ROOT / "docs" / "specs"
 AUDIT_DIR = ROOT / "_report" / "usage" / "autonomy-audit"
 TODO_PATH = ROOT / "_plans" / "next-development.todo.json"
-
-
-def _load_json(path: Path) -> Mapping[str, object] | None:
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return None
 
 
 def _collect_layers() -> List[str]:
@@ -48,7 +43,8 @@ def _timestamp_slug(value: object) -> str:
 
 
 def audit_layers(todo_path: Path = TODO_PATH) -> Path:
-    todo = _load_json(todo_path) or {}
+    raw = load_json(todo_path)
+    todo = raw if isinstance(raw, Mapping) else {}
     layers = _collect_layers()
     gaps: List[str] = []
     for layer in layers:

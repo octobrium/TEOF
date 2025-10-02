@@ -5,10 +5,12 @@ import argparse
 import datetime as dt
 import json
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Mapping
 
 from tools.autonomy import critic, ethics_gate, frontier, objectives_status, tms
+from teof import status_report
 from tools.fractal import conformance as fractal_conformance
+from tools.autonomy.shared import load_json
 
 try:  # optional bus integration
     from tools.agent import bus_event as bus_event_mod
@@ -22,17 +24,15 @@ DEFAULT_RECEIPT_DIR = ROOT / "_report" / "usage" / "autonomy-preflight"
 FRACTAL_BASELINE_PATH = ROOT / "docs" / "fractal" / "baseline.json"
 
 
-def _load_json(path: Path) -> dict | None:
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return None
-
-
 def gather_snapshot(*, frontier_limit: int = 5, objectives_window_days: float = 7.0) -> dict:
-    authenticity = _load_json(AUTH_JSON)
-    planner_status = _load_json(STATUS_PATH)
+    raw_auth = load_json(AUTH_JSON)
+    authenticity = raw_auth if isinstance(raw_auth, Mapping) else None
+    raw_planner = load_json(STATUS_PATH)
+    planner_status = raw_planner if isinstance(raw_planner, Mapping) else None
     objectives = objectives_status.compute_status(window_days=objectives_window_days)
+    footprint = status_report.log_autonomy_footprint()
+    footprint_baseline = status_report.get_autonomy_baseline()
+    footprint_recent = status_report.get_recent_autonomy_footprint_entries(limit=3)
     frontier_preview = []
     try:
         frontier_preview = [entry.as_dict() for entry in frontier.compute_frontier(limit=max(0, frontier_limit))]
@@ -66,6 +66,11 @@ def gather_snapshot(*, frontier_limit: int = 5, objectives_window_days: float = 
             },
             "baseline": (fractal_baseline or {}).get("summary", {}),
         },
+        "autonomy_footprint": {
+            "current": footprint,
+            "baseline": footprint_baseline,
+            "recent": footprint_recent,
+        },
     }
 
 
@@ -96,6 +101,19 @@ def evaluate_snapshot(snapshot: dict) -> tuple[bool, list[str]]:
         issues.append("tms conflicts present")
     if snapshot.get("critic_alerts"):
         issues.append("critic alerts present")
+
+    footprint = snapshot.get("autonomy_footprint") or {}
+    current_fp = footprint.get("current") or {}
+    baseline_fp = footprint.get("baseline") or {}
+    if current_fp.get("receipt_count", 0) > 200:
+        issues.append("autonomy receipts exceed 200")
+    if baseline_fp:
+        diff_modules = current_fp.get("module_files", 0) - baseline_fp.get("module_files", 0)
+        if diff_modules > 5:
+            issues.append("autonomy modules grew by more than 5 since baseline")
+    recent_fp = footprint.get("recent") or []
+    if status_report.detect_sustained_autonomy_growth(recent_fp, baseline_fp):
+        issues.append("autonomy footprint showing sustained growth")
 
     fractal = snapshot.get("fractal_conformance") or {}
     fractal_summary = fractal.get("summary") or {}

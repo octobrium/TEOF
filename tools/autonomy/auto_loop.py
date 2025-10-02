@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from tools.autonomy import backlog_synth, objectives_status
+from tools.autonomy.shared import load_json
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -77,16 +78,6 @@ def _iso_now() -> str:
     return datetime.now(timezone.utc).strftime(ISO_FMT)
 
 
-def _load_json(path: Path) -> dict[str, Any] | None:
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return None
-    if isinstance(data, dict):
-        return data
-    return None
-
-
 def _save_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -94,7 +85,8 @@ def _save_json(path: Path, payload: Mapping[str, Any]) -> None:
 
 def _ensure_evergreen_task(todo_path: Path | None = None) -> str | None:
     todo_path = todo_path or TODO_PATH
-    todo = _load_json(todo_path)
+    raw = load_json(todo_path)
+    todo = raw if isinstance(raw, dict) else None
     if not todo:
         todo = {
             "version": 0,

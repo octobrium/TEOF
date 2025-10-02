@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Dict, Mapping
 
 from tools.autonomy import actions, audit_guidelines, backlog_synth, health_sensors
+from tools.autonomy.shared import load_json
 
 ROOT = Path(__file__).resolve().parents[2]
 TODO_PATH = ROOT / "_plans" / "next-development.todo.json"
@@ -19,15 +20,6 @@ CONSENT_POLICY_PATH = ROOT / "docs" / "automation" / "autonomy-consent.json"
 
 class NextStepError(RuntimeError):
     """Raised when next automation step cannot be determined."""
-
-
-def _load_json(path: Path) -> Dict[str, Any] | None:
-    if not path.exists():
-        return None
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return None
 
 
 def _pick_item(todo: Dict[str, Any]) -> Dict[str, Any] | None:
@@ -53,7 +45,8 @@ def _auth_ok(auth: Dict[str, Any] | None, min_trust: float, require_no_attention
 
 
 def _ci_ok(status_path: Path) -> bool:
-    status = _load_json(status_path)
+    raw = load_json(status_path)
+    status = raw if isinstance(raw, Mapping) else None
     if not status:
         return True
     state = status.get("status")
@@ -81,7 +74,8 @@ def select_next_step(
     auth_json = auth_json or AUTH_JSON
     status_path = status_path or STATUS_PATH
 
-    todo = _load_json(todo_path)
+    raw_todo = load_json(todo_path)
+    todo = raw_todo if isinstance(raw_todo, dict) else None
     if not todo:
         if allow_failure:
             return None
@@ -91,7 +85,8 @@ def select_next_step(
     min_trust = float(prerequisites.get("min_overall_trust", 0.7))
     require_no_attention = bool(prerequisites.get("require_no_attention_feeds", True))
 
-    authenticity = _load_json(auth_json)
+    raw_auth = load_json(auth_json)
+    authenticity = raw_auth if isinstance(raw_auth, dict) else None
     if not _auth_ok(authenticity, min_trust, require_no_attention):
         if allow_failure:
             return None
@@ -130,7 +125,8 @@ def _update_completion(
     report_path: Path | None = None,
 ) -> None:
     todo_path = todo_path or TODO_PATH
-    todo = _load_json(todo_path)
+    raw = load_json(todo_path)
+    todo = raw if isinstance(raw, dict) else None
     if not todo:
         return
 
@@ -162,14 +158,9 @@ def _update_completion(
 
 
 def _load_policy(path: Path = CONSENT_POLICY_PATH) -> Mapping[str, object]:
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-        if isinstance(data, Mapping):
-            return data
-    except FileNotFoundError:
-        pass
-    except json.JSONDecodeError:
-        pass
+    data = load_json(path)
+    if isinstance(data, Mapping):
+        return data
     return {
         "auto_enabled": False,
         "max_iterations": 1,

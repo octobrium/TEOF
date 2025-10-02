@@ -3,20 +3,14 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Dict, List, Mapping
+from typing import List, Mapping
 
 from tools.autonomy import health_sensors
+from tools.autonomy.shared import load_json
 
 ROOT = Path(__file__).resolve().parents[2]
 TODO_PATH = ROOT / "_plans" / "next-development.todo.json"
 POLICY_PATH = ROOT / "docs" / "automation" / "backlog-policy.json"
-
-
-def _load_json(path: Path) -> Mapping[str, object] | None:
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return None
 
 
 def _ensure_list(value: object) -> List[Mapping[str, object]]:
@@ -43,16 +37,19 @@ def _append_item(todo: Mapping[str, object], item: Mapping[str, object]) -> Mapp
 
 
 def synthesise(todo_path: Path = TODO_PATH, policy_path: Path = POLICY_PATH) -> Mapping[str, object] | None:
-    todo = _load_json(todo_path)
+    raw_todo = load_json(todo_path)
+    todo = raw_todo if isinstance(raw_todo, Mapping) else None
     if not isinstance(todo, Mapping):
         return None
-    policy = _load_json(policy_path)
+    raw_policy = load_json(policy_path)
+    policy = raw_policy if isinstance(raw_policy, Mapping) else None
     if not isinstance(policy, Mapping):
         return None
     rules = _ensure_list(policy.get("rules"))
     updated = dict(todo)
     health_report = health_sensors.emit_health_report()
-    health = _load_json(health_report) or {}
+    raw_health = load_json(health_report)
+    health: Mapping[str, object] = raw_health if isinstance(raw_health, Mapping) else {}
 
     added: List[Mapping[str, object]] = []
     for rule in rules:

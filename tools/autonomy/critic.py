@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
 
+from tools.autonomy.shared import load_json, normalise_layer, normalise_scale
+
 ROOT = Path(__file__).resolve().parents[2]
 BACKLOG_PATH = ROOT / "_plans" / "next-development.todo.json"
 TASKS_PATH = ROOT / "agents" / "tasks" / "tasks.json"
@@ -15,44 +17,20 @@ STATE_PATH = ROOT / "memory" / "state.json"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 
 
-def _load_json(path: Path) -> Any:
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return None
-
-
-def _normalise_layer(raw: str | None, default: str = "L5") -> str:
-    value = (raw or default).strip().upper()
-    if value.startswith("L") and value[1:].isdigit():
-        return value
-    return default
-
-
-def _normalise_scale(value: Any, layer: str) -> int:
-    if isinstance(value, int) and 1 <= value <= 10:
-        return value
-    try:
-        layer_num = int(layer[1:]) if layer.startswith("L") else 5
-    except ValueError:
-        layer_num = 5
-    return max(1, min(10, 4 + layer_num))
-
-
 def _load_backlog() -> list[dict[str, Any]]:
-    data = _load_json(BACKLOG_PATH)
+    data = load_json(BACKLOG_PATH)
     items = data.get("items") if isinstance(data, dict) else None
     return [item for item in items if isinstance(item, dict)] if items else []
 
 
 def _load_tasks() -> list[dict[str, Any]]:
-    data = _load_json(TASKS_PATH)
+    data = load_json(TASKS_PATH)
     items = data.get("tasks") if isinstance(data, dict) else None
     return [item for item in items if isinstance(item, dict)] if items else []
 
 
 def _load_facts() -> list[dict[str, Any]]:
-    data = _load_json(STATE_PATH)
+    data = load_json(STATE_PATH)
     items = data.get("facts") if isinstance(data, dict) else None
     return [item for item in items if isinstance(item, dict)] if items else []
 
@@ -68,8 +46,8 @@ def _detect_missing_receipts(backlog: Sequence[dict[str, Any]]) -> list[dict[str
             continue
         identifier = str(item.get("id") or "")
         title = str(item.get("title") or identifier)
-        layer = _normalise_layer(item.get("layer"), default="L5")
-        scale = _normalise_scale(item.get("systemic_scale"), layer)
+        layer = normalise_layer(item.get("layer"), default="L5")
+        scale = normalise_scale(item.get("systemic_scale"), layer)
         anomalies.append(
             {
                 "type": "missing_receipts",
@@ -99,8 +77,8 @@ def _detect_low_confidence_facts(facts: Sequence[dict[str, Any]]) -> list[dict[s
             continue
         identifier = str(fact.get("id") or "")
         statement = str(fact.get("statement") or identifier)
-        layer = _normalise_layer(fact.get("layer"), default="L2")
-        scale = _normalise_scale(fact.get("systemic_scale"), layer)
+        layer = normalise_layer(fact.get("layer"), default="L2")
+        scale = normalise_scale(fact.get("systemic_scale"), layer)
         anomalies.append(
             {
                 "type": "low_confidence_fact",

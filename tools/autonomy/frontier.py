@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
+from tools.autonomy.shared import load_json, normalise_layer, normalise_scale
 ROOT = Path(__file__).resolve().parents[2]
 BACKLOG_PATH = ROOT / "_plans" / "next-development.todo.json"
 TASKS_PATH = ROOT / "agents" / "tasks" / "tasks.json"
@@ -97,38 +98,8 @@ PRIORITY_WEIGHTS = {
     "low": 1.0,
 }
 
-
-def _normalise_layer(raw: str | None) -> str:
-    value = (raw or "L5").strip().upper()
-    if value.startswith("L") and value[1:].isdigit():
-        return value
-    return "L5"
-
-
-def _normalise_scale(value: Any, layer: str) -> int:
-    if isinstance(value, int) and 1 <= value <= 10:
-        return value
-    # Approximate systemic scale from layer when missing
-    layer_number = 5
-    if layer.startswith("L") and layer[1:].isdigit():
-        try:
-            layer_number = int(layer[1:])
-        except ValueError:
-            layer_number = 5
-    return max(1, min(10, 4 + layer_number))
-
-
-def _load_json(path: Path) -> Any:
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except FileNotFoundError:
-        return None
-    except json.JSONDecodeError:
-        return None
-
-
 def _load_backlog() -> Iterable[Candidate]:
-    data = _load_json(BACKLOG_PATH)
+    data = load_json(BACKLOG_PATH)
     if not isinstance(data, dict):
         return []
     items = data.get("items")
@@ -143,8 +114,8 @@ def _load_backlog() -> Iterable[Candidate]:
             continue
         identifier = str(item.get("id") or "")
         title = str(item.get("title") or identifier)
-        layer = _normalise_layer(item.get("layer"))
-        systemic_scale = _normalise_scale(item.get("systemic_scale"), layer)
+        layer = normalise_layer(item.get("layer"))
+        systemic_scale = normalise_scale(item.get("systemic_scale"), layer)
         receipts = [r for r in (item.get("receipts") or []) if isinstance(r, str)]
         candidates.append(
             Candidate(
@@ -163,7 +134,7 @@ def _load_backlog() -> Iterable[Candidate]:
 
 
 def _load_tasks() -> Iterable[Candidate]:
-    data = _load_json(TASKS_PATH)
+    data = load_json(TASKS_PATH)
     if not isinstance(data, dict):
         return []
     tasks = data.get("tasks")
@@ -178,8 +149,8 @@ def _load_tasks() -> Iterable[Candidate]:
             continue
         identifier = str(task.get("id") or "")
         title = str(task.get("title") or identifier)
-        layer = _normalise_layer(task.get("layer"))
-        systemic_scale = _normalise_scale(task.get("systemic_scale"), layer)
+        layer = normalise_layer(task.get("layer"))
+        systemic_scale = normalise_scale(task.get("systemic_scale"), layer)
         receipts = [r for r in (task.get("receipts") or []) if isinstance(r, str)]
         candidates.append(
             Candidate(
@@ -199,7 +170,7 @@ def _load_tasks() -> Iterable[Candidate]:
 
 
 def _load_state_facts() -> Iterable[Candidate]:
-    data = _load_json(STATE_PATH)
+    data = load_json(STATE_PATH)
     if not isinstance(data, dict):
         return []
     facts = data.get("facts")
@@ -211,8 +182,8 @@ def _load_state_facts() -> Iterable[Candidate]:
             continue
         identifier = str(fact.get("id") or "")
         title = str(fact.get("statement") or identifier)
-        layer = _normalise_layer(fact.get("layer"))
-        systemic_scale = _normalise_scale(fact.get("systemic_scale"), layer)
+        layer = normalise_layer(fact.get("layer"))
+        systemic_scale = normalise_scale(fact.get("systemic_scale"), layer)
         confidence = fact.get("confidence")
         try:
             conf_val = float(confidence) if confidence is not None else None
@@ -343,7 +314,7 @@ def _log_summary() -> dict[str, int]:
             for _ in handle:
                 log_count += 1
     facts_count = 0
-    data = _load_json(state_path)
+    data = load_json(state_path)
     if isinstance(data, dict) and isinstance(data.get("facts"), list):
         facts_count = len(data["facts"])
     return {"log_entries": log_count, "facts": facts_count}

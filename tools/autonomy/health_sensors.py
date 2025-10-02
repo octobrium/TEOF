@@ -1,11 +1,11 @@
 """Emit health metrics for autonomy backlog synthesis."""
 from __future__ import annotations
 
-import json
-from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Mapping
+
+from tools.autonomy.shared import load_json
 
 ROOT = Path(__file__).resolve().parents[2]
 SUMMARY_PATH = ROOT / "_report" / "usage" / "external-summary.json"
@@ -21,17 +21,9 @@ def _iso_now() -> str:
     return _utc_now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def _load_json(path: Path) -> Mapping[str, object] | None:
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except FileNotFoundError:
-        return None
-    except json.JSONDecodeError:
-        return None
-
-
 def _authenticity_signal() -> Mapping[str, object]:
-    summary = _load_json(SUMMARY_PATH)
+    raw = load_json(SUMMARY_PATH)
+    summary = raw if isinstance(raw, Mapping) else None
     attention_count = 0
     if summary and isinstance(summary.get("feeds"), dict):
         for feed in summary["feeds"].values():
@@ -48,7 +40,8 @@ def _latest_hygiene() -> Mapping[str, object] | None:
     if not reports:
         return None
     latest = reports[-1]
-    data = _load_json(latest)
+    raw = load_json(latest)
+    data = raw if isinstance(raw, Mapping) else None
     if data is None:
         return None
     data = dict(data)

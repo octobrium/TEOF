@@ -66,6 +66,10 @@ def test_generate_status(tmp_path: Path) -> None:
     assert "Package: teof 9.9.9" in report
     assert "Artifacts latest" in report
     assert "Authenticity dashboard" in report
+    assert "## Autonomy Footprint" in report
+    assert "Modules:" in report
+    assert "Receipts:" in report
+    assert "Recent Footprint Deltas" in report
     assert "[done] OBJ-A4" in report
     assert "[done] OBJ-A5" in report
     assert report.strip().endswith("Python ≥3.9 for local dev.")
@@ -80,11 +84,12 @@ def test_cli_writes_file(tmp_path: Path, monkeypatch) -> None:
     result = bootloader.main(["status", "--out", str(out_path), "--quiet"])
     assert result == 0
     assert out_path.exists()
-    expected = status_report.generate_status(tmp_path)
+    expected = status_report.generate_status(tmp_path, log=False)
     assert out_path.read_text(encoding="utf-8") == expected
 
     # Without --quiet, CLI should print to stdout
     buffer = io.StringIO()
     monkeypatch.setattr(sys, 'stdout', buffer)
     bootloader.main(['status'])
-    assert buffer.getvalue().rstrip('\n') == expected.rstrip('\n')
+    expected_after = status_report.generate_status(tmp_path, log=False)
+    assert buffer.getvalue().rstrip('\n') == expected_after.rstrip('\n')

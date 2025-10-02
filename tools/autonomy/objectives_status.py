@@ -7,6 +7,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Mapping, Sequence
 
+from tools.autonomy.shared import load_json
+
 ROOT = Path(__file__).resolve().parents[2]
 REFLECTION_DIR = ROOT / "memory" / "reflections"
 CONDUCTOR_DIR = ROOT / "_report" / "usage" / "autonomy-conductor"
@@ -25,13 +27,6 @@ COORDINATION_DOC_PATHS = (
 IMPACT_LOG_PATH = ROOT / "memory" / "impact" / "log.jsonl"
 IMPACT_LEDGER_PATH = ROOT / "docs" / "vision" / "impact-ledger.md"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
-
-
-def _load_json(path: Path) -> Mapping[str, Any] | None:
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return None
 
 
 def _parse_iso(value: str | None) -> datetime | None:
@@ -62,7 +57,8 @@ def _reflections_since(threshold: datetime) -> int:
         return 0
     count = 0
     for path in REFLECTION_DIR.glob("reflection-*.json"):
-        data = _load_json(path)
+        raw = load_json(path)
+        data = raw if isinstance(raw, Mapping) else None
         captured = _parse_iso(data.get("captured_at") if data else None)
         if captured and captured >= threshold:
             count += 1
@@ -74,7 +70,8 @@ def _conductor_cycles_since(threshold: datetime) -> int:
         return 0
     count = 0
     for path in CONDUCTOR_DIR.glob("conductor-*.json"):
-        data = _load_json(path)
+        raw = load_json(path)
+        data = raw if isinstance(raw, Mapping) else None
         generated = _parse_iso(data.get("generated_at") if data else None)
         if generated and generated >= threshold:
             count += 1
@@ -82,7 +79,8 @@ def _conductor_cycles_since(threshold: datetime) -> int:
 
 
 def _auth_status() -> Mapping[str, Any] | None:
-    data = _load_json(AUTH_PATH_JSON)
+    raw = load_json(AUTH_PATH_JSON)
+    data = raw if isinstance(raw, Mapping) else None
     if data is None:
         return None
     overall = data.get("overall_avg_trust")
@@ -162,8 +160,9 @@ def _unique_agents_since(threshold: datetime) -> int:
         return 0
     agents: set[str] = set()
     for path in CLAIMS_DIR.glob("*.json"):
-        data = _load_json(path)
-        if not isinstance(data, Mapping):
+        raw = load_json(path)
+        data = raw if isinstance(raw, Mapping) else None
+        if data is None:
             continue
         claimed = _parse_iso(data.get("claimed_at"))
         if claimed and claimed >= threshold:

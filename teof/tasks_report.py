@@ -242,6 +242,8 @@ def collect_tasks(root: Path | None = None) -> list[TaskRecord]:
             branch = claim.get("branch")
             if not record.branch and isinstance(branch, str):
                 record.branch = branch
+            if record.released_at and record.claim_status not in {"done", "released"}:
+                record.claim_status = "released"
         if record.claim_status:
             record.claim_status = _normalise_status(record.claim_status)
         record.priority = _normalise_priority(record.priority)
@@ -317,6 +319,7 @@ def render_table(tasks: Iterable[TaskRecord]) -> str:
 
 def compute_warnings(tasks: Iterable[TaskRecord]) -> list[str]:
     warnings: list[str] = []
+    active_claim_statuses = {"open", "active", "in_progress", "pending"}
     for task in tasks:
         if task.status == "done" and not task.receipts:
             warnings.append(
@@ -326,7 +329,13 @@ def compute_warnings(tasks: Iterable[TaskRecord]) -> list[str]:
             warnings.append(
                 f"{task.task_id}: open with no assignment or active claim"
             )
-        if task.assignment_engineer and task.claim_agent and task.assignment_engineer != task.claim_agent:
+        if (
+            task.assignment_engineer
+            and task.claim_agent
+            and task.assignment_engineer != task.claim_agent
+            and task.claim_status in active_claim_statuses
+            and not task.released_at
+        ):
             warnings.append(
                 f"{task.task_id}: assignment to {task.assignment_engineer} but active claim by {task.claim_agent}"
             )

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import datetime as dt
+import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterable
@@ -13,6 +14,16 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for older runtimes
 
 ROOT = Path(__file__).resolve().parents[1]
 ISO_FMT = "%Y-%m-%dT%H:%M:%S%zZ"
+
+
+def _footprint_log_path(base: Path | None = None) -> Path:
+    root = base or ROOT
+    return root / "_report" / "usage" / "autonomy-footprint.jsonl"
+
+
+def _footprint_baseline_path(base: Path | None = None) -> Path:
+    root = base or ROOT
+    return root / "docs" / "automation" / "autonomy-footprint-baseline.json"
 
 
 @dataclass
@@ -86,6 +97,173 @@ def _authenticity_line(root: Path) -> str:
     return f"Authenticity dashboard: `{rel}` (missing — run `teof-external-summary`)"
 
 
+def _count_autonomy_metrics(root: Path) -> tuple[int, int, int]:
+    """Return (python_file_count, loc, helper_defs) for tools.autonomy."""
+
+    autonomy_dir = root / "tools" / "autonomy"
+    if not autonomy_dir.exists():
+        return 0, 0, 0
+
+    python_files = [path for path in autonomy_dir.rglob("*.py") if path.name != "__init__.py"]
+    file_count = 0
+    loc_total = 0
+    helper_defs = 0
+
+    for path in python_files:
+        try:
+            text = path.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        file_count += 1
+        for line in text.splitlines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            loc_total += 1
+            if stripped.startswith("def _"):
+                helper_defs += 1
+    return file_count, loc_total, helper_defs
+
+
+def _count_autonomy_receipts(root: Path) -> int:
+    usage_dir = root / "_report" / "usage"
+    if not usage_dir.exists():
+        return 0
+    count = 0
+    for path in usage_dir.rglob("*.json"):
+        if "autonomy" in path.stem:
+            count += 1
+    return count
+
+
+def _find_autonomy_receipts(root: Path) -> list[Path]:
+    usage_dir = root / "_report" / "usage"
+    if not usage_dir.exists():
+        return []
+    matches: list[Path] = []
+    for path in usage_dir.rglob("*.json"):
+        if "autonomy" in path.stem:
+            matches.append(path)
+    return matches
+
+
+def _load_autonomy_baseline(root: Path | None = None) -> dict[str, int] | None:
+    path = _footprint_baseline_path(root)
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+    if isinstance(data, dict):
+        return {key: int(data.get(key, 0)) for key in ("module_files", "loc", "helper_defs", "receipt_count")}
+    return None
+
+
+def get_autonomy_footprint(root: Path | None = None) -> dict[str, int]:
+    """Return current autonomy footprint metrics for reporting/tests."""
+
+    root = root or ROOT
+    files, loc, helpers = _count_autonomy_metrics(root)
+    receipts = _count_autonomy_receipts(root)
+    return {
+        "module_files": files,
+        "loc": loc,
+        "helper_defs": helpers,
+        "receipt_count": receipts,
+    }
+
+
+def get_autonomy_baseline(root: Path | None = None) -> dict[str, int] | None:
+    return _load_autonomy_baseline(root)
+
+
+def log_autonomy_footprint(root: Path | None = None) -> dict[str, int]:
+    """Append current autonomy footprint to the JSONL log and return metrics."""
+
+    root = root or ROOT
+    metrics = get_autonomy_footprint(root)
+    youngest_receipts = _find_autonomy_receipts(root)
+    log_path = _footprint_log_path(root)
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    entry = {
+        "generated_at": _now_iso(),
+        **metrics,
+        "receipt_paths": [str(p.relative_to(root)) for p in youngest_receipts[:20]],
+    }
+    with log_path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    _trim_autonomy_footprint_log(log_path)
+    return metrics
+
+
+def get_recent_autonomy_footprint_entries(
+    root: Path | None = None, limit: int = 5
+) -> list[dict[str, str | int]]:
+    log_path = _footprint_log_path(root)
+    if not log_path.exists():
+        return []
+    lines = log_path.read_text(encoding="utf-8").strip().splitlines()
+    entries: list[dict[str, str | int]] = []
+    for raw in lines[-limit:]:
+        try:
+            parsed = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(parsed, dict):
+            entries.append(parsed)
+    return entries
+
+
+def _trim_autonomy_footprint_log(log_path: Path, max_entries: int = 100) -> None:
+    if not log_path.exists():
+        return
+    data = log_path.read_text(encoding="utf-8").splitlines()
+    if len(data) <= max_entries:
+        return
+    trimmed = data[-max_entries:]
+    log_path.write_text("\n".join(trimmed) + "\n", encoding="utf-8")
+
+
+def _format_delta_label(current: int, baseline: int | None) -> str:
+    if baseline is None:
+        return str(current)
+    delta = current - baseline
+    if delta == 0:
+        return f"{current} (Δ0)"
+    sign = "+" if delta > 0 else ""
+    return f"{current} ({sign}{delta})"
+
+
+def detect_sustained_autonomy_growth(
+    entries: list[dict[str, str | int]],
+    baseline: dict[str, int] | None,
+    *,
+    lookback: int = 3,
+) -> bool:
+    if len(entries) < lookback or not baseline:
+        return False
+    metrics = ("module_files", "loc", "helper_defs")
+    window = entries[-lookback:]
+    # ensure chronological order
+    try:
+        window = sorted(
+            window,
+            key=lambda item: str(item.get("generated_at", "")),
+        )
+    except Exception:
+        pass
+    for metric in metrics:
+        try:
+            values = [int(item.get(metric, 0)) for item in window]
+        except (TypeError, ValueError):
+            continue
+        if all(b > a for a, b in zip(values, values[1:])):
+            if values[-1] > baseline.get(metric, values[0]):
+                return True
+    return False
+
+
 def _detect_obj_a4(root: Path) -> tuple[bool, str]:
     quickstart = root / "docs" / "quickstart.md"
     if not quickstart.exists():
@@ -154,15 +332,62 @@ def gather_objective_lines(root: Path, objectives: Iterable[Objective]) -> list[
     return lines
 
 
-def generate_status(root: Path | None = None) -> str:
+def generate_status(root: Path | None = None, *, log: bool = True) -> str:
     root = root or ROOT
     timestamp = _now_iso()
+    if log and root.resolve() == ROOT.resolve():
+        footprint = log_autonomy_footprint(root)
+    else:
+        footprint = get_autonomy_footprint(root)
+    baseline = _load_autonomy_baseline(root)
+    baseline_lookup = baseline or {}
+    recent_entries = get_recent_autonomy_footprint_entries(root)
     lines: list[str] = []
     lines.append(f"# TEOF Status ({timestamp})")
     lines.append("")
     lines.append("## Snapshot")
     for entry in gather_snapshot_lines(root):
         lines.append(f"- {entry}")
+    lines.append("")
+    lines.append("## Autonomy Footprint")
+    lines.append(
+        "- Modules: "
+        + " · ".join(
+            [
+                f"{_format_delta_label(footprint['module_files'], baseline_lookup.get('module_files'))} files",
+                f"{_format_delta_label(footprint['loc'], baseline_lookup.get('loc'))} LOC",
+                f"{_format_delta_label(footprint['helper_defs'], baseline_lookup.get('helper_defs'))} helper defs",
+            ]
+        )
+    )
+    receipt_label = _format_delta_label(
+        footprint["receipt_count"], baseline_lookup.get("receipt_count")
+    )
+    lines.append(
+        f"- Receipts: {receipt_label} JSON receipts under `_report/usage` containing 'autonomy'"
+    )
+    if footprint["receipt_count"] > 200:
+        lines.append(
+            "- Warning: autonomy receipts exceed 200; prune stale entries under `_report/usage`."
+        )
+    growth_flag = detect_sustained_autonomy_growth(recent_entries, baseline_lookup)
+    if recent_entries:
+        lines.append("- Recent Footprint Deltas:")
+        for entry in reversed(recent_entries[-3:]):
+            stamp = entry.get("generated_at", "?")
+            modules = entry.get("module_files", "?")
+            loc = entry.get("loc", "?")
+            helpers = entry.get("helper_defs", "?")
+            receipts = entry.get("receipt_count", "?")
+            lines.append(
+                f"  - {stamp}: modules={modules}, loc={loc}, helpers={helpers}, receipts={receipts}"
+            )
+    else:
+        lines.append("- Recent Footprint Deltas: (no log entries)")
+    if growth_flag:
+        lines.append(
+            "- Warning: sustained autonomy growth detected across recent runs; prune receipts or reassess scope."
+        )
     lines.append("")
     lines.append("## Auto Objectives (detected)")
     for entry in gather_objective_lines(root, OBJECTIVES):
@@ -180,7 +405,7 @@ def generate_status(root: Path | None = None) -> str:
 
 def write_status(path: Path, *, root: Path | None = None, quiet: bool = False) -> Path:
     root = root or ROOT
-    content = generate_status(root)
+    content = generate_status(root, log=root.resolve() == ROOT.resolve())
     path = path.resolve()
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
@@ -190,4 +415,13 @@ def write_status(path: Path, *, root: Path | None = None, quiet: bool = False) -
     return path
 
 
-__all__ = ["generate_status", "write_status", "OBJECTIVES"]
+__all__ = [
+    "generate_status",
+    "write_status",
+    "OBJECTIVES",
+    "get_autonomy_footprint",
+    "get_autonomy_baseline",
+    "log_autonomy_footprint",
+    "get_recent_autonomy_footprint_entries",
+    "detect_sustained_autonomy_growth",
+]

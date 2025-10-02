@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
 
+from tools.autonomy.shared import load_json, normalise_layer, normalise_scale
+
 ROOT = Path(__file__).resolve().parents[2]
 BACKLOG_PATH = ROOT / "_plans" / "next-development.todo.json"
 TASKS_PATH = ROOT / "agents" / "tasks" / "tasks.json"
@@ -16,34 +18,6 @@ CLAIMS_DIR = ROOT / "_bus" / "claims"
 GUARD_KEYWORDS = ("consent", "review", "ethics")
 HIGH_RISK_LAYERS = {"L6"}
 HIGH_RISK_SCALE_THRESHOLD = 8
-
-
-def _load_json(path: Path) -> Any:
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return None
-
-
-def _normalise_layer(value: str | None) -> str:
-    if not value:
-        return "L5"
-    val = value.strip().upper()
-    if val.startswith("L") and val[1:].isdigit():
-        return val
-    return "L5"
-
-
-def _normalise_scale(value: Any, layer: str) -> int:
-    if isinstance(value, int) and 1 <= value <= 10:
-        return value
-    try:
-        layer_num = int(layer[1:]) if layer.startswith("L") else 5
-    except ValueError:
-        layer_num = 5
-    return max(1, min(10, 4 + layer_num))
-
-
 def _is_high_risk(item: dict[str, Any], layer: str, systemic_scale: int) -> bool:
     risk_flag = (item.get("risk") or "").strip().lower()
     if risk_flag == "high":
@@ -68,14 +42,14 @@ def _extract_receipts(item: dict[str, Any]) -> list[str]:
 
 def detect_violations() -> list[dict[str, Any]]:
     violations: list[dict[str, Any]] = []
-    backlog_data = _load_json(BACKLOG_PATH)
+    backlog_data = load_json(BACKLOG_PATH)
     backlog_items = backlog_data.get("items") if isinstance(backlog_data, dict) else None
     if isinstance(backlog_items, list):
         for item in backlog_items:
             if not isinstance(item, dict):
                 continue
-            layer = _normalise_layer(item.get("layer"))
-            scale = _normalise_scale(item.get("systemic_scale"), layer)
+            layer = normalise_layer(item.get("layer"))
+            scale = normalise_scale(item.get("systemic_scale"), layer)
             if not _is_high_risk(item, layer, scale):
                 continue
             receipts = _extract_receipts(item)
@@ -92,14 +66,14 @@ def detect_violations() -> list[dict[str, Any]]:
                 }
             )
 
-    tasks_data = _load_json(TASKS_PATH)
+    tasks_data = load_json(TASKS_PATH)
     tasks = tasks_data.get("tasks") if isinstance(tasks_data, dict) else None
     if isinstance(tasks, list):
         for task in tasks:
             if not isinstance(task, dict):
                 continue
-            layer = _normalise_layer(task.get("layer"))
-            scale = _normalise_scale(task.get("systemic_scale"), layer)
+            layer = normalise_layer(task.get("layer"))
+            scale = normalise_scale(task.get("systemic_scale"), layer)
             if not _is_high_risk(task, layer, scale):
                 continue
             receipts = _extract_receipts(task)
