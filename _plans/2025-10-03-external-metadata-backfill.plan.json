@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-external-metadata-backfill",
+  "created": "2025-10-03T03:24:40Z",
+  "actor": "codex-4",
+  "summary": "Backfill metadata on operator brief and external adoption plans",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Annotate operator session plans",
+      "status": "done",
+      "notes": "Add OCERS metadata to session-brief-operator and VDP pilot plans.",
+      "receipts": [
+        "_plans/2025-09-21-session-brief-operator.plan.json",
+        "_plans/2025-09-21-vdp-pilot-case-study.plan.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Update external adoption plans",
+      "status": "done",
+      "notes": "Backfill metadata on decentralized propagation pilot, external adoption runbook, and external feed demo plans.",
+      "receipts": [
+        "_plans/2025-09-22-decentralized-propagation-pilot.plan.json",
+        "_plans/2025-09-22-external-adoption-runbook.plan.json",
+        "_plans/2025-09-22-external-feed-demo.plan.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Operator/external adoption plans carry OCERS metadata and advisories drop",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-21-session-brief-operator.plan.json",
+    "_plans/2025-09-21-vdp-pilot-case-study.plan.json",
+    "_plans/2025-09-22-decentralized-propagation-pilot.plan.json",
+    "_plans/2025-09-22-external-adoption-runbook.plan.json",
+    "_plans/2025-09-22-external-feed-demo.plan.json",
+    "_report/autonomy/backlog-synth/summary-20251003T032400Z.md"
+  ],
+  "ocers_target": "Coherence↑ Outreach↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}

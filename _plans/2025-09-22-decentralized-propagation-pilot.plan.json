@@ -41,5 +41,8 @@
   "receipts": [
     "docs/examples/decentralized/receipt-sync/conflicts.json",
     "docs/examples/decentralized/receipt-sync/ledger.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Outreach↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

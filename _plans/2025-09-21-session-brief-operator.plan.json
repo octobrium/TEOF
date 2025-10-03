@@ -64,5 +64,8 @@
   "receipts": [
     "_report/agent/codex-1/2025-09-21-session-brief-operator/summary.json",
     "_report/agent/codex-1/2025-09-21-session-brief-operator/actions.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Clarity↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

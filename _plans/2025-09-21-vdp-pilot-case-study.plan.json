@@ -49,5 +49,8 @@
     "_report/case-studies/vdp_guard_check.json",
     "_report/case-studies/vdp_guard_pytest.json",
     "_report/planner/validate/summary-20250921T214456Z.json"
-  ]
+  ],
+  "ocers_target": "Clarity↑ Evidence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

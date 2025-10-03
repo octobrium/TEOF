@@ -249,6 +249,7 @@
         "_plans/2025-10-03-autonomy-metadata-backfill.plan.json",
         "_plans/2025-10-03-backlog-advisory-report.plan.json",
         "_plans/2025-10-03-capsule-metadata-backfill.plan.json",
+        "_plans/2025-10-03-external-metadata-backfill.plan.json",
         "_plans/2025-10-03-governance-metadata-backfill.plan.json",
         "_plans/2025-10-03-heartbeat-metadata-backfill.plan.json",
         "_plans/2025-10-03-plan-metadata-backfill.plan.json",

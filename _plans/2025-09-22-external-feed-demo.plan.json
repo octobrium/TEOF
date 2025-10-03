@@ -43,5 +43,8 @@
     "_report/external/demo/20250922T014500Z.json",
     "_report/planner/validate/summary-20250922T021548Z.json",
     "_report/usage/external-summary.json"
-  ]
+  ],
+  "ocers_target": "Observation↑ Outreach↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }
