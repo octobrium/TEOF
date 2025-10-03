@@ -10,6 +10,7 @@ from typing import Any
 
 from tools import reconcile_metrics_summary as metrics_summary
 from tools.planner import queue_warnings as planner_queue_warnings
+from tools.planner.validate import validate_plan
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSIGN_DIR = ROOT / "_bus" / "assignments"
@@ -19,6 +20,7 @@ REPORT_DIR = ROOT / "_report" / "manager"
 TASKS_FILE = ROOT / "agents" / "tasks" / "tasks.json"
 AUTH_JSON = ROOT / "_report" / "usage" / "external-authenticity.json"
 AUTH_MD = ROOT / "_report" / "usage" / "external-authenticity.md"
+PLANS_DIR = ROOT / "_plans"
 
 
 def iso_now() -> str:
@@ -82,6 +84,7 @@ def write_report(
     metrics: dict[str, Any] | None,
     authenticity: dict[str, Any] | None,
     planner_warnings: list[dict[str, Any]] | None,
+    plan_validation_issues: list[dict[str, Any]] | None = None,
 ) -> Path:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     ts = iso_now()
@@ -126,6 +129,23 @@ def write_report(
                 )
             else:
                 lines.append(f"- {warning}")
+        lines.append("")
+
+    if plan_validation_issues:
+        lines.append("## Plan Validation Issues")
+        for issue in plan_validation_issues:
+            plan_path = issue.get("plan")
+            errors = issue.get("errors", [])
+            if plan_path:
+                lines.append(f"- {plan_path}")
+                prefix = "  - "
+            else:
+                prefix = "- "
+            if errors:
+                for err in errors:
+                    lines.append(f"{prefix}{err}")
+            else:
+                lines.append(f"{prefix}(no details provided)")
         lines.append("")
 
     if metrics:
@@ -220,6 +240,33 @@ def gather_metrics(metrics_dir: Path) -> dict[str, Any] | None:
     return summary
 
 
+def collect_plan_validation_issues(root: Path | None = None) -> list[dict[str, Any]]:
+    base = root or ROOT
+    plans_dir = base / "_plans"
+    issues: list[dict[str, Any]] = []
+    if not plans_dir.exists():
+        return issues
+    for plan_path in sorted(plans_dir.glob("*.plan.json")):
+        try:
+            result = validate_plan(plan_path, strict=True)
+        except Exception as exc:  # pragma: no cover - defensive
+            issues.append(
+                {
+                    "plan": plan_path.relative_to(base).as_posix(),
+                    "errors": [f"validation failed: {exc}"],
+                }
+            )
+            continue
+        if result.errors:
+            issues.append(
+                {
+                    "plan": plan_path.relative_to(base).as_posix(),
+                    "errors": list(result.errors),
+                }
+            )
+    return issues
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Generate manager summary")
     parser.add_argument("--manager", help="Manager agent id")
@@ -269,6 +316,8 @@ def main(argv: list[str] | None = None) -> int:
     if not isinstance(authenticity_data, dict):
         authenticity_data = None
     planner_warning_data = planner_queue_warnings.load_queue_warnings(ROOT)
+    plan_validation_issues = collect_plan_validation_issues()
+
     report_path = write_report(
         manager_id,
         tasks,
@@ -277,6 +326,7 @@ def main(argv: list[str] | None = None) -> int:
         metrics_data,
         authenticity_data,
         planner_warning_data,
+        plan_validation_issues,
     )
     print(f"Manager report written to {report_path.relative_to(ROOT)}")
 

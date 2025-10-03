@@ -407,7 +407,7 @@ def main(argv: list[str] | None = None) -> int:
         printed_messages.append("No other active agents detected.")
 
     printed_messages.append(
-        "Tip: keep the manager-report feed open with `python -m tools.agent.bus_watch --limit 20 --follow --event status`"
+        "Tip: keep the manager-report feed open with `python -m tools.agent.bus_watch --task manager-report --follow --limit 20`"
     )
 
     status_output = ""

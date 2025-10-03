@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -203,6 +204,34 @@ def test_manager_report_includes_metrics(repo: Path):
     content = report_path.read_text(encoding="utf-8")
     assert "Reconciliation Metrics" in content
     assert "Differences: 2" in content
+
+
+def test_manager_report_includes_plan_validation_issues(repo: Path):
+    report_dir = repo / "_report" / "manager"
+    report_dir.mkdir(parents=True, exist_ok=True)
+
+    def fake_plan_issues() -> list[dict[str, Any]]:
+        return [
+            {
+                "plan": "_plans/2025-10-10-test.plan.json",
+                "errors": ["layer must be one of L0-L6"],
+            }
+        ]
+
+    original = manager_report.collect_plan_validation_issues
+    manager_report.collect_plan_validation_issues = fake_plan_issues  # type: ignore[assignment]
+    try:
+        rc = manager_report.main(["--manager", "codex-manager"])
+    finally:
+        manager_report.collect_plan_validation_issues = original  # type: ignore[assignment]
+
+    assert rc == 0
+    reports = sorted(report_dir.glob("manager-report-*.md"))
+    assert reports
+    content = reports[-1].read_text(encoding="utf-8")
+    assert "## Plan Validation Issues" in content
+    assert "_plans/2025-10-10-test.plan.json" in content
+    assert "layer must be one of L0-L6" in content
 
 
 def test_manager_report_includes_authenticity(repo: Path):
