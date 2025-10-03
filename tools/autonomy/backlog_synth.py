@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Iterable, List, Mapping
+from typing import Callable, Iterable, List, Mapping
 
 from tools.autonomy import health_sensors
 from tools.autonomy.shared import load_json
@@ -36,6 +36,24 @@ def _append_item(todo: Mapping[str, object], item: Mapping[str, object]) -> Mapp
     history = list(_ensure_list(data.get("history")))
     data["history"] = history
     return data
+
+
+def _remove_items(
+    todo: Mapping[str, object], *, predicate: Callable[[Mapping[str, object]], bool]
+) -> tuple[Mapping[str, object], List[Mapping[str, object]]]:
+    data = dict(todo)
+    remaining: List[Mapping[str, object]] = []
+    removed: List[Mapping[str, object]] = []
+    for raw in _ensure_list(todo.get("items")):
+        item = dict(raw)
+        if predicate(item):
+            removed.append(item)
+            continue
+        remaining.append(item)
+    data["items"] = remaining
+    history = list(_ensure_list(data.get("history")))
+    data["history"] = history
+    return data, removed
 
 
 def _relative(path: Path) -> str:
@@ -102,6 +120,7 @@ def _write_receipt(
     health_report: Path,
     advisory_context: List[Mapping[str, object]],
     added: List[Mapping[str, object]],
+    removed: List[Mapping[str, object]],
 ) -> Path:
     RECEIPT_DIR.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -113,6 +132,7 @@ def _write_receipt(
         "health_report": _relative(health_report),
         "advisories": advisory_context,
         "added": added,
+        "removed": removed,
     }
     destination.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return destination
@@ -134,6 +154,7 @@ def synthesise(todo_path: Path = TODO_PATH, policy_path: Path = POLICY_PATH) -> 
     health: Mapping[str, object] = raw_health if isinstance(raw_health, Mapping) else {}
 
     added: List[Mapping[str, object]] = []
+    removed: List[Mapping[str, object]] = []
     advisory_receipts: List[Mapping[str, object]] = []
     for rule in rules:
         rule_id = rule.get("id")
@@ -186,10 +207,14 @@ def synthesise(todo_path: Path = TODO_PATH, policy_path: Path = POLICY_PATH) -> 
             else:
                 advisory_path = ROOT / "_report" / "fractal" / "advisories" / "latest.json"
             advisories = _load_advisories(advisory_path)
+            current_ids: set[str] = set()
             added_ids: List[str] = []
             for advisory in advisories:
                 advisory_id = advisory.get("id")
-                if not isinstance(advisory_id, str) or _has_item(updated, advisory_id):
+                if not isinstance(advisory_id, str):
+                    continue
+                current_ids.add(advisory_id)
+                if _has_item(updated, advisory_id):
                     continue
                 item = _advisory_item(advisory, plan_hint=rule.get("plan_suggestion"))
                 if not item:
@@ -197,29 +222,68 @@ def synthesise(todo_path: Path = TODO_PATH, policy_path: Path = POLICY_PATH) -> 
                 updated = _append_item(updated, item)
                 added.append(item)
                 added_ids.append(advisory_id)
+            removed_ids: List[str] = []
+            if current_ids:
+                updated, removed_items = _remove_items(
+                    updated,
+                    predicate=lambda item: (
+                        isinstance(item.get("id"), str)
+                        and (
+                            str(item["id"]).startswith("ADV-")
+                            or item.get("source") == "fractal-advisory"
+                        )
+                        and str(item["id"]) not in current_ids
+                    ),
+                )
+            else:
+                updated, removed_items = _remove_items(
+                    updated,
+                    predicate=lambda item: (
+                        isinstance(item.get("id"), str)
+                        and (
+                            str(item["id"]).startswith("ADV-")
+                            or item.get("source") == "fractal-advisory"
+                        )
+                    ),
+                )
+            if removed_items:
+                removed.extend(removed_items)
+                for entry in removed_items:
+                    entry_id = entry.get("id")
+                    if isinstance(entry_id, str):
+                        removed_ids.append(entry_id)
             advisory_receipts.append(
                 {
                     "rule_id": rule_id,
                     "path": _relative(advisory_path),
                     "total": len(advisories),
                     "added": added_ids,
+                    "removed": removed_ids,
                 }
             )
 
     receipt_path: Path | None = None
-    if added:
+    if added or removed:
+        timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+        updated["updated"] = timestamp
         todo_path.write_text(json.dumps(updated, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         receipt_path = _write_receipt(
             todo_path=todo_path,
             policy_path=policy_path,
             health_report=health_report,
-            advisory_context=[ctx for ctx in advisory_receipts if ctx.get("added")],
+            advisory_context=[
+                ctx
+                for ctx in advisory_receipts
+                if ctx.get("added") or ctx.get("removed")
+            ],
             added=added,
+            removed=removed,
         )
     result: dict[str, object] = {
         "todo_path": _relative(todo_path),
         "policy_path": _relative(policy_path),
         "added": added,
+        "removed": removed,
         "health_report": _relative(health_report),
     }
     if receipt_path is not None:

@@ -13,6 +13,8 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
+from tools.fractal import conformance as fractal_conformance
+
 ROOT = Path(__file__).resolve().parents[2]
 PLANS_DIR = ROOT / "_plans"
 PLAN_STATUS = {"queued", "in_progress", "blocked", "done"}
@@ -26,6 +28,123 @@ PlanDict = Dict[str, Any]
 
 
 DEFAULT_SUMMARY_DIR = ROOT / "_report" / "planner" / "validate"
+
+_QUEUE_INDEX: Dict[str, fractal_conformance.QueueEntry] | None = None
+
+
+def _get_queue_index() -> Dict[str, fractal_conformance.QueueEntry]:
+    global _QUEUE_INDEX
+    if _QUEUE_INDEX is None:
+        _QUEUE_INDEX = fractal_conformance.gather_queue_entries()
+    return _QUEUE_INDEX
+
+
+def _parse_coordinate_token(token: str) -> tuple[Optional[int], Optional[str]]:
+    token = token.strip()
+    if not token or ":" not in token:
+        return None, None
+    left, right = token.split(":", 1)
+    systemic: Optional[int] = None
+    layer: Optional[str] = None
+    left = left.strip()
+    if left.upper().startswith("S"):
+        try:
+            systemic = int(left[1:])
+        except ValueError:
+            systemic = None
+    right = right.strip().upper()
+    if right.startswith("L") and len(right) >= 2:
+        layer = right[:2]
+    return systemic, layer
+
+
+def _extract_coordinate_pairs(entry: fractal_conformance.QueueEntry) -> list[tuple[Optional[int], Optional[str]]]:
+    pairs: list[tuple[Optional[int], Optional[str]]] = []
+    for coord in entry.coordinates:
+        pairs.append(_parse_coordinate_token(coord))
+    return pairs
+
+
+def _detect_queue_warnings(
+    plan: PlanDict,
+    queue_index: Dict[str, fractal_conformance.QueueEntry],
+) -> List[Dict[str, Any]]:
+    warnings: List[Dict[str, Any]] = []
+    plan_id = plan.get("plan_id") or str(plan.get("path"))
+    plan_ocers = plan.get("ocers_target")
+    plan_layer = plan.get("layer")
+    plan_systemic = plan.get("systemic_scale")
+    links = plan.get("links") or []
+    for link in links:
+        if not isinstance(link, dict) or link.get("type") != "queue":
+            continue
+        ref = link.get("ref")
+        if not isinstance(ref, str) or not ref:
+            continue
+        entry = queue_index.get(ref)
+        if entry is None:
+            warnings.append(
+                {
+                    "plan_id": plan_id,
+                    "queue_ref": ref,
+                    "issue": "missing_queue_entry",
+                    "message": f"{plan_id}: queue entry '{ref}' not found",
+                }
+            )
+            continue
+
+        if entry.ocers_target and plan_ocers and entry.ocers_target != plan_ocers:
+            warnings.append(
+                {
+                    "plan_id": plan_id,
+                    "queue_ref": ref,
+                    "issue": "ocers_mismatch",
+                    "expected": entry.ocers_target,
+                    "actual": plan_ocers,
+                    "message": (
+                        f"{plan_id}: ocers_target '{plan_ocers}' differs from queue "
+                        f"'{entry.ocers_target}' ({ref})"
+                    ),
+                }
+            )
+
+        coordinate_pairs = _extract_coordinate_pairs(entry)
+        systemic_candidates = [pair[0] for pair in coordinate_pairs if pair[0] is not None]
+        layer_candidates = [pair[1] for pair in coordinate_pairs if pair[1]]
+
+        if (
+            systemic_candidates
+            and isinstance(plan_systemic, int)
+            and plan_systemic not in systemic_candidates
+        ):
+            warnings.append(
+                {
+                    "plan_id": plan_id,
+                    "queue_ref": ref,
+                    "issue": "systemic_mismatch",
+                    "expected": systemic_candidates,
+                    "actual": plan_systemic,
+                    "message": (
+                        f"{plan_id}: systemic_scale {plan_systemic} not in queue {ref}"
+                    ),
+                }
+            )
+
+        if layer_candidates and isinstance(plan_layer, str) and plan_layer not in layer_candidates:
+            warnings.append(
+                {
+                    "plan_id": plan_id,
+                    "queue_ref": ref,
+                    "issue": "layer_mismatch",
+                    "expected": layer_candidates,
+                    "actual": plan_layer,
+                    "message": (
+                        f"{plan_id}: layer {plan_layer} not in queue {ref}"
+                    ),
+                }
+            )
+
+    return warnings
 
 
 @dataclass
@@ -385,6 +504,8 @@ def main() -> int:
         print("no plan files found", file=sys.stderr)
         return 1
 
+    queue_index = _get_queue_index()
+
     results: List[Dict[str, Any]] = []
     failures = 0
     for path in plan_paths:
@@ -394,6 +515,9 @@ def main() -> int:
         entry: Dict[str, Any] = {"path": rel_str, "ok": result.ok, "errors": list(result.errors)}
         if result.plan and result.plan.get("plan_id"):
             entry["plan_id"] = result.plan["plan_id"]
+            entry["queue_warnings"] = _detect_queue_warnings(result.plan, queue_index)
+        else:
+            entry["queue_warnings"] = []
         results.append(entry)
 
         if result.ok:

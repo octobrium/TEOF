@@ -1,0 +1,69 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-coordination-dashboard-metadata",
+  "created": "2025-10-03T06:07:00Z",
+  "actor": "codex-5",
+  "summary": "Expose planner queue warnings in coordination dashboards",
+  "status": "done",
+  "layer": "L5",
+  "systemic_scale": 5,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Catalogue queue warning signals",
+      "status": "done",
+      "notes": "Catalogued validator queue_warnings payload and loader contract.",
+      "receipts": [
+        "tools/planner/validate.py",
+        "tools/planner/queue_warnings.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Pipe warnings into coordination dashboard",
+      "status": "done",
+      "notes": "Coordination dashboard ingests planner warnings and surfaces alerts.",
+      "receipts": [
+        "tools/agent/coord_dashboard.py",
+        "tests/test_coord_dashboard.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Surface warnings in manager report",
+      "status": "done",
+      "notes": "Manager report prints planner queue warning section with metadata.",
+      "receipts": [
+        "tools/agent/manager_report.py",
+        "tests/test_manager_report.py"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Validate and document",
+      "status": "done",
+      "notes": "Validated via pytest + strict planner summary; recorded backlog receipts.",
+      "receipts": [
+        "tests/test_planner_validation.py",
+        "_plans/next-development.todo.json",
+        "_report/planner/validate/summary-20251003T063046Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Dashboards and reports display planner queue warnings with receipts",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_report/planner/validate/summary-20251003T063046Z.json",
+    "tests/test_coord_dashboard.py",
+    "tests/test_manager_report.py",
+    "tests/test_planner_validation.py",
+    "tools/agent/coord_dashboard.py",
+    "tools/agent/manager_report.py",
+    "tools/planner/queue_warnings.py",
+    "tools/planner/validate.py"
+  ],
+  "ocers_target": "Coherence\u2191 Observation\u2191"
+}

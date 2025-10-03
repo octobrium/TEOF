@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from tools.fractal import conformance as fractal_conformance
 from tools.planner import validate as planner_validate
 from tools.planner.validate import validate_plan
 
@@ -191,6 +192,34 @@ def test_cli_output_summary(tmp_path: Path) -> None:
     entry = data['plans'][0]
     assert entry['ok'] is True
     assert entry['errors'] == []
+    assert 'queue_warnings' in entry
+
+
+def test_queue_warning_mismatch_detected(tmp_path: Path) -> None:
+    payload = base_payload(plan_id="2025-09-17-queue-mismatch")
+    payload["links"] = [{"type": "queue", "ref": "queue/030-consensus-ledger-cli.md"}]
+    path = write_plan(tmp_path, payload)
+
+    entry = fractal_conformance.QueueEntry(
+        path="queue/030-consensus-ledger-cli.md",
+        ocers_target="Observation↑ Coherence↑",
+        coordinates=["S6:L5"],
+        issues=[],
+    )
+    original_index = planner_validate._QUEUE_INDEX
+    try:
+        planner_validate._QUEUE_INDEX = {"queue/030-consensus-ledger-cli.md": entry}
+        result = validate_plan(path)
+        assert result.ok, result.errors
+        assert result.plan is not None
+        warnings = planner_validate._detect_queue_warnings(
+            result.plan,
+            planner_validate._QUEUE_INDEX,
+        )
+        assert warnings, "expected queue mismatch warnings"
+        assert any(warning.get("issue") == "ocers_mismatch" for warning in warnings)
+    finally:
+        planner_validate._QUEUE_INDEX = original_index
 
 
 

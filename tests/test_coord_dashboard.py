@@ -165,6 +165,41 @@ def dashboard_env(tmp_path, monkeypatch):
         encoding="utf-8",
     )
 
+    summary_dir = tmp_path / "_report" / "planner" / "validate"
+    summary_dir.mkdir(parents=True, exist_ok=True)
+    summary_payload = {
+        "generated_at": iso(now),
+        "strict": True,
+        "exit_code": 0,
+        "plans": [
+            {
+                "path": "_plans/plan-001.plan.json",
+                "ok": True,
+                "errors": [],
+                "plan_id": "PLAN-001",
+                "queue_warnings": [],
+            },
+            {
+                "path": "_plans/plan-002.plan.json",
+                "ok": True,
+                "errors": [],
+                "plan_id": "PLAN-002",
+                "queue_warnings": [
+                    {
+                        "plan_id": "PLAN-002",
+                        "queue_ref": "queue/999-sync.md",
+                        "issue": "ocers_mismatch",
+                        "message": "PLAN-002 ocers mismatch with queue/999-sync.md",
+                    }
+                ],
+            },
+        ],
+    }
+    (summary_dir / "summary-latest.json").write_text(
+        json.dumps(summary_payload, indent=2),
+        encoding="utf-8",
+    )
+
     return tmp_path, now
 
 
@@ -218,6 +253,9 @@ def test_json_report(tmp_path, dashboard_env, capsys):
     assert dirty_entry["pending_count"] == 2
     assert "docs/b.txt" in ";".join(dirty_entry.get("status_preview", []))
     assert any("Dirty handoff pending for codex-2" in alert for alert in data["alerts"])
+    warnings = data["planner_queue_warnings"]
+    assert warnings and warnings[0]["issue"] == "ocers_mismatch"
+    assert any("Queue warning" in alert for alert in data["alerts"])
     captured = capsys.readouterr().out
     assert "Output written" in captured
 
@@ -246,3 +284,5 @@ def test_markdown_default_output(tmp_path, dashboard_env):
     assert "2025-09-19-heartbeat-docs-codex3" in content
     assert "## Dirty Handoffs" in content
     assert "codex-2" in content
+    assert "## Planner Queue Warnings" in content
+    assert "PLAN-002" in content

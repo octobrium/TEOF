@@ -60,7 +60,7 @@ Review cadence: Monthly sweep
   - `systemic_scale` (1–10, see [`docs/foundation/systemic-scale.md`](docs/foundation/systemic-scale.md))
   - `impact_score` (relative leverage)
 - **Optional shorthand.** When talking out loud, you can abbreviate the coordinate (e.g. `S6:L4` for Truth/Architecture), but always keep the explicit numeric fields in plans and memory so automation can parse them.
-- **Use the planner CLI** to enforce the schema; `planner list` sorts by these fields so the highest leverage work stays obvious.
+- **Use the planner CLI** to enforce the schema; `planner list` sorts by these fields so the highest leverage work stays obvious. `planner new --queue-ref queue/<id>.md` auto-populates OCERS/layer/systemic from the queue entry and fails fast when metadata drifts. Run `python3 -m tools.planner.queue_scan --fail-on-warning` before consensus to emit a receipt if mismatches remain.
 - **Log the run** (`teof memory doctor`, `teof memory timeline`) so future sessions understand why the plan exists and where it ranks.
 
 ---

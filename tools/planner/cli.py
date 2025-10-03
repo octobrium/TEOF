@@ -12,6 +12,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable, List
 
+from tools.planner import queue_warnings
 from tools.planner.validate import PLAN_STATUS, STEP_STATUS, strict_checks, validate_plan
 from tools.receipts.scaffold import scaffold_plan, format_created, ScaffoldError
 
@@ -30,6 +31,117 @@ SYSTEMIC_SCALE_CHOICES = tuple(range(1, 11))
 
 class PlannerCliError(RuntimeError):
     """Raised when a planner CLI command cannot complete."""
+
+
+def _load_queue_entry(ref: str) -> tuple[str | None, list[str]]:
+    path = ROOT / ref
+    if not path.exists():
+        raise PlannerCliError(f"queue reference not found: {ref}")
+    ocers_target: str | None = None
+    coordinates: list[str] = []
+    try:
+        content = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise PlannerCliError(f"unable to read queue entry {ref}: {exc}") from exc
+    for raw_line in content.splitlines():
+        line = raw_line.strip()
+        lowered = line.lower()
+        if lowered.startswith("ocers target:"):
+            value = line.split(":", 1)[1].strip().rstrip(".")
+            ocers_target = value or None
+        elif lowered.startswith("coordinate:"):
+            value = line.split(":", 1)[1].strip()
+            if value:
+                coordinates.append(value)
+    return ocers_target, coordinates
+
+
+def _parse_coordinate_token(token: str) -> tuple[int | None, str | None]:
+    token = token.strip()
+    if not token or ":" not in token:
+        return None, None
+    left, right = token.split(":", 1)
+    systemic: int | None = None
+    layer: str | None = None
+    left = left.strip()
+    if left.upper().startswith("S"):
+        try:
+            systemic = int(left[1:])
+        except ValueError:
+            systemic = None
+    right = right.strip().upper()
+    if right.startswith("L") and len(right) >= 2:
+        layer = right[:2]
+    return systemic, layer
+
+
+def _resolve_queue_metadata(
+    queue_refs: list[str],
+    ocers_target: str | None,
+    layer: str | None,
+    systemic_scale: int | None,
+) -> tuple[str | None, str | None, int | None, list[dict[str, str]]]:
+    if not queue_refs:
+        return ocers_target, layer, systemic_scale, []
+    links: list[dict[str, str]] = []
+    for raw_ref in queue_refs:
+        ref = Path(raw_ref).as_posix()
+        ocers_from_queue, coordinates = _load_queue_entry(ref)
+
+        links.append({"type": "queue", "ref": ref})
+
+        if ocers_from_queue:
+            if ocers_target is None:
+                ocers_target = ocers_from_queue
+            elif ocers_from_queue != ocers_target:
+                raise PlannerCliError(
+                    f"queue {ref} expects ocers_target '{ocers_from_queue}' but got '{ocers_target}'"
+                )
+
+        coordinate_pairs = [_parse_coordinate_token(coord) for coord in coordinates]
+        systemic_candidates = [value for value, _ in coordinate_pairs if value is not None]
+        layer_candidates = [value for _, value in coordinate_pairs if value]
+
+        if systemic_candidates:
+            if systemic_scale is None:
+                systemic_scale = systemic_candidates[0]
+            elif systemic_scale not in systemic_candidates:
+                raise PlannerCliError(
+                    f"queue {ref} expects systemic_scale in {systemic_candidates} but got {systemic_scale}"
+                )
+
+        if layer_candidates:
+            if layer is None:
+                layer = layer_candidates[0]
+            elif layer not in layer_candidates:
+                raise PlannerCliError(
+                    f"queue {ref} expects layer in {layer_candidates} but got {layer}"
+                )
+
+    return ocers_target, layer, systemic_scale, links
+
+
+def _render_warning_table(warnings: list[dict[str, Any]]) -> str:
+    if not warnings:
+        return "No planner queue warnings detected."
+    headers = ("plan", "queue", "issue", "message")
+    widths = [len(header) for header in headers]
+    rows: list[tuple[str, str, str, str]] = []
+    for warning in warnings:
+        plan_id = str(warning.get("plan_id", "-"))
+        queue_ref = str(warning.get("queue_ref", "-"))
+        issue = str(warning.get("issue", "-"))
+        message = str(warning.get("message", "-"))
+        row = (plan_id, queue_ref, issue, message)
+        rows.append(row)
+        for idx, cell in enumerate(row):
+            widths[idx] = max(widths[idx], len(cell))
+    header_line = " | ".join(header.ljust(widths[idx]) for idx, header in enumerate(headers))
+    divider = " | ".join("-" * widths[idx] for idx in range(len(headers)))
+    lines = [header_line, divider]
+    for row in rows:
+        lines.append(" | ".join(cell.ljust(widths[idx]) for idx, cell in enumerate(row)))
+    return "\n".join(lines)
 
 
 def _default_actor() -> str:
@@ -214,14 +326,26 @@ def cmd_new(args: argparse.Namespace) -> int:
     steps = _parse_steps(args.step, summary=summary)
 
     priority = _ensure_priority(getattr(args, "priority", None))
-    layer = (getattr(args, "layer", None) or "").upper()
-    if layer not in LAYER_CHOICES:
-        raise PlannerCliError(f"--layer must be one of {', '.join(LAYER_CHOICES)}")
-    systemic_scale = _ensure_systemic_scale(getattr(args, "systemic_scale", None))
+    ocers_target = (getattr(args, "ocers_target", None) or "").strip() or None
+    layer_arg = getattr(args, "layer", None)
+    layer = layer_arg.upper() if layer_arg else None
+    systemic_scale = getattr(args, "systemic_scale", None)
     impact_score = _ensure_impact_score(getattr(args, "impact_score", None))
-    ocers_target = (getattr(args, "ocers_target", None) or "").strip()
+    queue_refs: list[str] = [ref for ref in getattr(args, "queue_ref", []) if ref]
+    ocers_target, layer, systemic_scale, queue_links = _resolve_queue_metadata(
+        queue_refs,
+        ocers_target,
+        layer,
+        systemic_scale,
+    )
+
     if not ocers_target:
-        raise PlannerCliError("--ocers-target must be non-empty")
+        raise PlannerCliError("--ocers-target is required (provide manually or via --queue-ref)")
+    if layer is None or layer not in LAYER_CHOICES:
+        raise PlannerCliError(f"layer must be one of {', '.join(LAYER_CHOICES)} (provide manually or via --queue-ref)")
+    if systemic_scale is None:
+        raise PlannerCliError("--systemic-scale is required (provide manually or via --queue-ref)")
+    systemic_scale = _ensure_systemic_scale(systemic_scale)
 
     payload = {
         "version": 0,
@@ -241,7 +365,7 @@ def cmd_new(args: argparse.Namespace) -> int:
             "owner": owner,
             "status": "pending",
         },
-        "links": [],
+        "links": queue_links,
         "receipts": [],
     }
 
@@ -354,6 +478,12 @@ def cmd_show(args: argparse.Namespace) -> int:
 def _collect_plan_rows(strict: bool) -> tuple[List[dict], List[tuple[Path, List[str]]]]:
     rows: List[dict] = []
     failures: List[tuple[Path, List[str]]] = []
+    warning_index: dict[str, List[dict[str, Any]]] = {}
+    for warning in queue_warnings.load_queue_warnings(ROOT):
+        plan_id = str(warning.get("plan_id") or warning.get("plan") or "")
+        if not plan_id:
+            continue
+        warning_index.setdefault(plan_id, []).append(warning)
     for path in sorted(DEFAULT_PLAN_DIR.glob("*.plan.json")):
         result = validate_plan(path, strict=strict)
         if not result.ok or result.plan is None:
@@ -368,14 +498,17 @@ def _collect_plan_rows(strict: bool) -> tuple[List[dict], List[tuple[Path, List[
         impact_val = _safe_int((raw_plan or {}).get("impact_score"))
         layer_val = (raw_plan or {}).get("layer")
         scale_val = (raw_plan or {}).get("systemic_scale")
+        plan_id = plan.get("plan_id")
+        warnings_for_plan = warning_index.get(plan_id, []) if plan_id else []
         rows.append(
             {
-                "plan_id": plan.get("plan_id"),
+                "plan_id": plan_id,
                 "status": plan.get("status"),
                 "checkpoint": (plan.get("checkpoint") or {}).get("status"),
                 "steps_total": total_steps,
                 "steps_done": done_steps,
                 "receipts": len(plan.get("receipts") or []),
+                "queue_warnings": len(warnings_for_plan),
                 "priority": priority_val,
                 "layer": layer_val,
                 "systemic_scale": scale_val,
@@ -398,7 +531,7 @@ def _print_plan_table(rows: List[dict]) -> None:
         print("(no plans found)")
         return
 
-    headers = ["plan_id", "priority", "layer", "scale", "impact", "status", "checkpoint", "steps", "receipts"]
+    headers = ["plan_id", "priority", "layer", "scale", "impact", "status", "checkpoint", "steps", "receipts", "warnings"]
     widths = {key: len(key) for key in headers}
     formatted: List[dict] = []
     for row in rows:
@@ -412,6 +545,7 @@ def _print_plan_table(rows: List[dict]) -> None:
             "checkpoint": row["checkpoint"] or "-",
             "steps": f"{row['steps_done']}/{row['steps_total']}",
             "receipts": str(row["receipts"]),
+            "warnings": str(row.get("queue_warnings", 0)),
         }
         for key, value in cell_map.items():
             widths[key] = max(widths[key], len(str(value)))
@@ -451,6 +585,7 @@ def cmd_list(args: argparse.Namespace) -> int:
                 "checkpoint": row["checkpoint"],
                 "steps": {"done": row["steps_done"], "total": row["steps_total"]},
                 "receipts": row["receipts"],
+                "queue_warnings": row.get("queue_warnings", 0),
                 "path": row["path"],
             }
             for row in rows
@@ -586,6 +721,21 @@ def cmd_attach_receipt(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_warnings(args: argparse.Namespace) -> int:
+    warnings = queue_warnings.load_queue_warnings(ROOT)
+    if args.format == "json":
+        payload = {
+            "generated_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "warnings": warnings,
+        }
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        print(_render_warning_table(warnings))
+    if args.fail_on_warning and warnings:
+        return 1
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="planner", description="Planner authoring helpers")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -605,18 +755,22 @@ def build_parser() -> argparse.ArgumentParser:
     new.add_argument("--priority", type=int, required=True, help="Numeric priority (0 = highest)")
     new.add_argument(
         "--ocers-target",
-        required=True,
         help="OCERS focus for the plan (e.g. Observation↑ Coherence↑)",
     )
-    new.add_argument("--layer", choices=LAYER_CHOICES, required=True, help="Layer label (L0–L6)")
+    new.add_argument("--layer", choices=LAYER_CHOICES, help="Layer label (L0–L6)")
     new.add_argument(
         "--systemic-scale",
         type=int,
         choices=SYSTEMIC_SCALE_CHOICES,
-        required=True,
         help="Systemic axis (S1–S10)",
     )
     new.add_argument("--impact-score", type=int, required=True, help="Relative impact score (>=0)")
+    new.add_argument(
+        "--queue-ref",
+        action="append",
+        default=[],
+        help="Attach queue/<id>.md references and auto-populate metadata",
+    )
     new.add_argument("--plan-dir", default=str(DEFAULT_PLAN_DIR), help="Directory for plan artifacts")
     new.add_argument("--timestamp", help="Override creation timestamp (UTC, e.g. 2025-09-17T00:00:00Z)")
     new.add_argument("--force", action="store_true", help="Overwrite existing plan if present")
@@ -676,6 +830,15 @@ def build_parser() -> argparse.ArgumentParser:
     attach.add_argument("step_id", help="Step identifier to receive the receipt")
     attach.add_argument("--file", required=True, help="Path to receipt JSON")
     attach.set_defaults(func=cmd_attach_receipt)
+
+    warn = sub.add_parser("warnings", help="Show queue metadata warnings from the latest validation run")
+    warn.add_argument("--format", choices=["table", "json"], default="table")
+    warn.add_argument(
+        "--fail-on-warning",
+        action="store_true",
+        help="Exit with status 1 when warnings are present",
+    )
+    warn.set_defaults(func=cmd_warnings)
 
     return parser
 

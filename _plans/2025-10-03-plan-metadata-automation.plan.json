@@ -1,0 +1,56 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-plan-metadata-automation",
+  "created": "2025-10-03T06:07:30Z",
+  "actor": "codex-5",
+  "summary": "Automate planner metadata enforcement",
+  "status": "done",
+  "layer": "L6",
+  "systemic_scale": 6,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add metadata requirements to planner CLI",
+      "status": "done",
+      "notes": "Planner CLI now accepts --queue-ref, auto-fills metadata, and blocks mismatches.",
+      "receipts": [
+        "tools/planner/cli.py",
+        "tests/test_planner_cli.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Build pre-consensus receipt scan",
+      "status": "done",
+      "notes": "queue_scan module emits receipts for planner queue warnings prior to consensus.",
+      "receipts": [
+        "tools/planner/queue_scan.py",
+        "tests/test_planner_queue_scan.py",
+        "_report/planner/queue-warnings/scan-20251003T063038Z.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document automation flow",
+      "status": "done",
+      "notes": "Workflow docs updated to reference queue-linked scaffolding and warning scans.",
+      "receipts": [
+        "docs/workflow.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Planner metadata guardrails enforced with automation receipts",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_report/planner/queue-warnings/scan-20251003T063038Z.md",
+    "docs/workflow.md",
+    "tests/test_planner_cli.py",
+    "tests/test_planner_queue_scan.py",
+    "tools/planner/cli.py",
+    "tools/planner/queue_scan.py"
+  ],
+  "ocers_target": "Self-repair\u2191 Reproducibility\u2191"
+}

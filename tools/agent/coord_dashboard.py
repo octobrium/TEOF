@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any, Iterable, Sequence
 
 from tools.usage.logger import record_usage
+from tools.planner import queue_warnings as planner_queue_warnings
 
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 ROOT = Path(__file__).resolve().parents[2]
@@ -666,6 +667,13 @@ def build_dashboard(
     pruning = _collect_pruning_candidates(root)
     dirty_handoffs = _collect_dirty_handoffs(root)
     alerts = _build_alerts(plans, heartbeats, unclaimed_plans, dirty_handoffs)
+    queue_warnings = planner_queue_warnings.load_queue_warnings(root)
+    for warning in queue_warnings:
+        message = warning.get("message")
+        if isinstance(message, str) and message:
+            formatted = f"Queue warning: {message}"
+            if formatted not in alerts:
+                alerts.append(formatted)
     heartbeat_meta = {
         "manager_window_minutes": manager_window,
         "agent_window_minutes": agent_window,
@@ -685,6 +693,7 @@ def build_dashboard(
         "pruning_candidates": pruning,
         "heartbeat_meta": heartbeat_meta,
         "dirty_handoffs": dirty_handoffs,
+        "planner_queue_warnings": queue_warnings,
     }
 
 
@@ -772,6 +781,15 @@ def render_markdown(data: dict[str, Any], *, compact: bool = False) -> str:
         if alerts:
             for alert in alerts:
                 lines.append(f"- {_format_alert(alert)}")
+        else:
+            lines.append("- none")
+        warnings = data.get("planner_queue_warnings", [])
+        lines.append("")
+        lines.append("## Planner Queue Warnings")
+        if warnings:
+            for warning in warnings:
+                message = warning.get("message") if isinstance(warning, dict) else str(warning)
+                lines.append(f"- {message}")
         else:
             lines.append("- none")
 
@@ -922,6 +940,28 @@ def render_markdown(data: dict[str, Any], *, compact: bool = False) -> str:
             lines.append(f"- {_format_alert(alert)}")
     else:
         lines.append("- none")
+    warnings = data.get("planner_queue_warnings", [])
+    lines.append("")
+    lines.append("## Planner Queue Warnings")
+    if warnings:
+        rows = []
+        for warning in warnings:
+            if isinstance(warning, dict):
+                rows.append(
+                    (
+                        warning.get("plan_id", "-"),
+                        warning.get("queue_ref", "-"),
+                        warning.get("issue", "-"),
+                        warning.get("message", "-"),
+                    )
+                )
+            else:
+                rows.append(("-", "-", "-", str(warning)))
+        lines.extend(
+            _render_table(("plan", "queue", "issue", "message"), rows)
+        )
+    else:
+        lines.append("No queue warnings detected.")
 
     return "\n".join(lines)
 

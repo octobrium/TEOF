@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from tools import reconcile_metrics_summary as metrics_summary
+from tools.planner import queue_warnings as planner_queue_warnings
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSIGN_DIR = ROOT / "_bus" / "assignments"
@@ -80,6 +81,7 @@ def write_report(
     claims: dict[str, Any],
     metrics: dict[str, Any] | None,
     authenticity: dict[str, Any] | None,
+    planner_warnings: list[dict[str, Any]] | None,
 ) -> Path:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     ts = iso_now()
@@ -109,6 +111,21 @@ def write_report(
             lines.extend([f"  {msg}" for msg in message_lines])
         if task.get("notes"):
             lines.append(f"- Notes: {task['notes']}")
+        lines.append("")
+
+    if planner_warnings:
+        lines.append("## Planner Queue Warnings")
+        for warning in planner_warnings:
+            if isinstance(warning, dict):
+                message = warning.get("message", "(no message)")
+                plan_id = warning.get("plan_id", "-")
+                queue_ref = warning.get("queue_ref", "-")
+                issue = warning.get("issue", "-")
+                lines.append(
+                    f"- {plan_id} [{issue}] ← {queue_ref}: {message}"
+                )
+            else:
+                lines.append(f"- {warning}")
         lines.append("")
 
     if metrics:
@@ -251,7 +268,16 @@ def main(argv: list[str] | None = None) -> int:
     authenticity_data = load_json(AUTH_JSON)
     if not isinstance(authenticity_data, dict):
         authenticity_data = None
-    report_path = write_report(manager_id, tasks, assignments, claims, metrics_data, authenticity_data)
+    planner_warning_data = planner_queue_warnings.load_queue_warnings(ROOT)
+    report_path = write_report(
+        manager_id,
+        tasks,
+        assignments,
+        claims,
+        metrics_data,
+        authenticity_data,
+        planner_warning_data,
+    )
     print(f"Manager report written to {report_path.relative_to(ROOT)}")
 
     if args.log_heartbeat:

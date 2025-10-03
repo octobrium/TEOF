@@ -202,12 +202,28 @@ def run_loop(
         if processed == 0:
             if watch:
                 synth_result = backlog_synth.synthesise()
-                if synth_result and synth_result.get("added"):
-                    ids = ", ".join(
-                        item.get("id", "?") for item in synth_result.get("added", []) if isinstance(item, Mapping)
-                    )
-                    _log(f"auto-loop: backlog synthesiser added {ids or 'items'}")
-                    continue
+                if synth_result:
+                    added = [
+                        item
+                        for item in synth_result.get("added", [])
+                        if isinstance(item, Mapping)
+                    ]
+                    removed = [
+                        item
+                        for item in synth_result.get("removed", [])
+                        if isinstance(item, Mapping)
+                    ]
+                    if added or removed:
+                        parts: list[str] = []
+                        if added:
+                            ids = ", ".join(entry.get("id", "?") for entry in added)
+                            parts.append(f"added {ids or 'items'}")
+                        if removed:
+                            ids = ", ".join(entry.get("id", "?") for entry in removed)
+                            parts.append(f"removed {ids or 'items'}")
+                        _log(f"auto-loop: backlog synthesiser {'; '.join(parts)}")
+                    if added:
+                        continue
 
                 evergreen_id = _ensure_evergreen_task()
                 if evergreen_id:

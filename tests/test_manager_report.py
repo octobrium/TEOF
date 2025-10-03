@@ -77,6 +77,34 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(manager_report, "AUTH_JSON", auth_json)
     monkeypatch.setattr(manager_report, "AUTH_MD", auth_md)
 
+    summary_dir = root / "_report" / "planner" / "validate"
+    summary_dir.mkdir(parents=True, exist_ok=True)
+    summary_payload = {
+        "generated_at": "2025-09-21T00:30:00Z",
+        "strict": True,
+        "exit_code": 0,
+        "plans": [
+            {
+                "path": "_plans/sample.plan.json",
+                "ok": True,
+                "errors": [],
+                "plan_id": "PLAN-002",
+                "queue_warnings": [
+                    {
+                        "plan_id": "PLAN-002",
+                        "queue_ref": "queue/999-sync.md",
+                        "issue": "layer_mismatch",
+                        "message": "PLAN-002 layer mismatch with queue/999-sync.md",
+                    }
+                ],
+            }
+        ],
+    }
+    (summary_dir / "summary-latest.json").write_text(
+        json.dumps(summary_payload, indent=2),
+        encoding="utf-8",
+    )
+
     return root
 
 
@@ -86,6 +114,10 @@ def test_manager_report_writes_file(repo: Path):
     assert rc == 0
     reports = list(report_dir.glob("manager-report-*.md"))
     assert reports, "manager report file should be created"
+    latest = sorted(reports)[-1]
+    content = latest.read_text(encoding="utf-8")
+    assert "Planner Queue Warnings" in content
+    assert "PLAN-002" in content
 
 
 def test_manager_report_logs_heartbeat(repo: Path):

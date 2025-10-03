@@ -1,0 +1,15 @@
+{
+  "captured_at": "2025-10-03T05:48:06Z",
+  "title": "Queue metadata automation lessons",
+  "layers": [
+    "L5"
+  ],
+  "summary": "Planner CLI + validator now auto-fill plan metadata from queue links; next step is to surface queue warnings in the dashboard so managers see conflicts early.",
+  "signals": "tools/planner/cli.py queue_ref flag; tools/planner/validate.py queue_warnings output",
+  "actions": "Create follow-up task to ingest queue_warnings into coordination dashboard and manager-report summaries.",
+  "tags": [
+    "metadata",
+    "coordination"
+  ],
+  "receipt": null
+}

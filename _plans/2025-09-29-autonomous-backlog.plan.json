@@ -8,43 +8,60 @@
   "layer": "L5",
   "systemic_scale": 5,
   "impact_score": 85,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Assess advisory volume",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Reviewed latest conformance + advisory receipts; backlog summary empty as of 2025-10-03.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/summary-20251003T060031Z.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Design queue integration flow",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Designed removal-aware synthesis flow and auto_loop logging for advisory deltas.",
+      "receipts": [
+        "tools/autonomy/backlog_synth.py",
+        "tools/autonomy/auto_loop.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Implement automation",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Implemented backlog pruning + watcher logging and verified via targeted pytest.",
+      "receipts": [
+        "tests/test_autonomy_backlog_synth.py"
+      ]
     },
     {
       "id": "S4",
       "title": "Document and validate",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Documented receipts in ND-020 backlog item and extended regression tests.",
+      "receipts": [
+        "_plans/next-development.todo.json",
+        "memory/log.jsonl"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": [],
-  "ocers_target": "Self-repair↑ Reproducibility↑"
+  "receipts": [
+    "_plans/next-development.todo.json",
+    "_report/autonomy/backlog-synth/summary-20251003T060031Z.md",
+    "memory/log.jsonl",
+    "tests/test_autonomy_backlog_synth.py",
+    "tools/autonomy/auto_loop.py",
+    "tools/autonomy/backlog_synth.py"
+  ],
+  "ocers_target": "Self-repair\u2191 Reproducibility\u2191"
 }

@@ -1,0 +1,14 @@
+{
+  "captured_at": "2025-10-03T05:48:08Z",
+  "title": "Plan metadata guardrail lessons",
+  "layers": [
+    "L6"
+  ],
+  "summary": "Duplicate plan keys and queue metadata drift require automated lint + sync",
+  "signals": "planner validate duplicate key failures; queue-derived metadata mismatches",
+  "actions": "Expand planner CLI to enforce metadata during creation; add pre-consensus receipt scan",
+  "tags": [],
+  "plan_suggestion": "2025-10-03-plan-metadata-automation",
+  "notes": "Manifest variants need a standard location; codex-4 manifest deleted earlier session.",
+  "receipt": "memory/reflections/reflection-20251003T054808Z.json"
+}

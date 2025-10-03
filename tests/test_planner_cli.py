@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from tools.planner import cli as planner_cli
+from tools.planner import queue_warnings
 from tools.planner import validate as planner_validate
 from tools.planner.validate import validate_plan
 
@@ -38,6 +39,8 @@ def planner_root(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     monkeypatch.setattr(planner_cli, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(planner_validate, "ROOT", root)
     monkeypatch.setattr(planner_validate, "PLANS_DIR", plan_dir)
+    monkeypatch.setattr(queue_warnings, "ROOT", root)
+    planner_validate._QUEUE_INDEX = None
     return root
 
 
@@ -191,6 +194,215 @@ def test_cli_status_updates_plan(planner_root: Path) -> None:
     assert exit_code == 0
     with pytest.raises(SystemExit):
         run_cli(["status", str(plan_path), "in_progress"])
+
+
+def _write_queue_entry(root: Path, slug: str, *, ocers: str, coordinate: str) -> str:
+    queue_dir = root / "queue"
+    queue_dir.mkdir(parents=True, exist_ok=True)
+    filename = f"{slug}.md"
+    (queue_dir / filename).write_text(
+        f"OCERS Target: {ocers}\nCoordinate: {coordinate}\n",
+        encoding="utf-8",
+    )
+    return f"queue/{filename}"
+
+
+def test_cli_new_queue_ref_autofills_metadata(planner_root: Path) -> None:
+    queue_ref = _write_queue_entry(
+        planner_root,
+        "030-auto",
+        ocers="Observation↑ Coherence↑",
+        coordinate="S5:L5",
+    )
+    plan_dir = planner_root / "_plans"
+    args = [
+        "new",
+        "auto",
+        "--summary",
+        "Queue-linked plan",
+        "--actor",
+        "tester",
+        "--priority",
+        "1",
+        "--impact-score",
+        "70",
+        "--queue-ref",
+        queue_ref,
+        "--allow-unclaimed",
+        "--plan-dir",
+        str(plan_dir),
+        "--timestamp",
+        "2025-10-03T00:00:00Z",
+    ]
+    exit_code = planner_cli.main(args)
+    assert exit_code == 0
+    plan_path = plan_dir / "2025-10-03-auto.plan.json"
+    data = read_plan(plan_path)
+    assert data["ocers_target"] == "Observation↑ Coherence↑"
+    assert data["layer"] == "L5"
+    assert data["systemic_scale"] == 5
+    assert data["links"] == [{"type": "queue", "ref": queue_ref}]
+    result = validate_plan(plan_path, strict=True)
+    assert result.ok
+
+
+def test_cli_new_queue_ref_conflict_raises(planner_root: Path) -> None:
+    queue_ref = _write_queue_entry(
+        planner_root,
+        "031-conflict",
+        ocers="Observation↑ Coherence↑",
+        coordinate="S5:L5",
+    )
+    plan_dir = planner_root / "_plans"
+    with pytest.raises(SystemExit):
+        planner_cli.main(
+            [
+                "new",
+                "conflict",
+                "--summary",
+                "Conflicting plan",
+                "--actor",
+                "tester",
+                "--priority",
+                "1",
+                "--impact-score",
+                "70",
+                "--queue-ref",
+                queue_ref,
+                "--layer",
+                "L4",
+                "--systemic-scale",
+                "7",
+                "--allow-unclaimed",
+                "--plan-dir",
+                str(plan_dir),
+                "--timestamp",
+                "2025-10-03T00:00:00Z",
+            ]
+        )
+
+
+def _write_warning_summary(root: Path, *, warnings: list[dict]) -> None:
+    summary_dir = root / "_report" / "planner" / "validate"
+    summary_dir.mkdir(parents=True, exist_ok=True)
+    if warnings:
+        plans = [
+            {
+                "path": "_plans/example.plan.json",
+                "ok": True,
+                "errors": [],
+                "plan_id": warning.get("plan_id", "PLAN-XYZ"),
+                "queue_warnings": [warning],
+            }
+            for warning in warnings
+        ]
+    else:
+        plans = [
+            {
+                "path": "_plans/example.plan.json",
+                "ok": True,
+                "errors": [],
+                "plan_id": "PLAN-EMPTY",
+                "queue_warnings": [],
+            }
+        ]
+    payload = {
+        "generated_at": "2025-10-03T07:00:00Z",
+        "strict": True,
+        "exit_code": 0,
+        "plans": plans,
+    }
+    (summary_dir / "summary-latest.json").write_text(
+        json.dumps(payload, indent=2),
+        encoding="utf-8",
+    )
+
+
+def test_cli_warnings_table_output(planner_root: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    _write_warning_summary(
+        planner_root,
+        warnings=[
+            {
+                "plan_id": "PLAN-XYZ",
+                "queue_ref": "queue/030-test.md",
+                "issue": "ocers_mismatch",
+                "message": "PLAN-XYZ ocers mismatch",
+            }
+        ],
+    )
+    exit_code = planner_cli.main(["warnings"])
+    assert exit_code == 0
+    out = capsys.readouterr().out
+    assert "PLAN-XYZ" in out
+    assert "queue/030-test.md" in out
+
+
+def test_cli_warnings_fail_on_warning(planner_root: Path) -> None:
+    _write_warning_summary(
+        planner_root,
+        warnings=[
+            {
+                "plan_id": "PLAN-XYZ",
+                "queue_ref": "queue/030-test.md",
+                "issue": "ocers_mismatch",
+                "message": "PLAN-XYZ ocers mismatch",
+            }
+        ],
+    )
+    exit_code = planner_cli.main(["warnings", "--fail-on-warning"])
+    assert exit_code == 1
+
+
+def test_cli_warnings_no_warnings(planner_root: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    _write_warning_summary(planner_root, warnings=[])
+    exit_code = planner_cli.main(["warnings", "--format", "json"])
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["warnings"] == []
+
+
+def test_cli_list_reports_queue_warnings(planner_root: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    plan_dir = planner_root / "_plans"
+    run_cli(
+        [
+            "new",
+            "queue-list",
+            "--summary",
+            "List warnings",
+            "--actor",
+            "tester",
+            "--priority",
+            "0",
+            "--layer",
+            "L5",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "10",
+            "--plan-dir",
+            str(plan_dir),
+            "--timestamp",
+            "2025-10-03T00:00:00Z",
+            "--allow-unclaimed",
+        ]
+    )
+    capsys.readouterr()
+    _write_warning_summary(
+        planner_root,
+        warnings=[
+            {
+                "plan_id": "2025-10-03-queue-list",
+                "queue_ref": "queue/030-test.md",
+                "issue": "ocers_mismatch",
+                "message": "metadata mismatch",
+            }
+        ],
+    )
+    exit_code = planner_cli.main(["list", "--format", "json"])
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    row = next(item for item in payload if item["plan_id"] == "2025-10-03-queue-list")
+    assert row["queue_warnings"] == 1
 
 
 def test_cli_step_add_and_set(planner_root: Path) -> None:
