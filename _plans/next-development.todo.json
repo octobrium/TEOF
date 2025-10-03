@@ -247,7 +247,8 @@
         "_plans/2025-10-03-autonomous-backlog-synthesis.plan.json",
         "_plans/2025-10-03-backlog-advisory-report.plan.json",
         "_plans/2025-10-03-plan-metadata-backfill.plan.json",
-        "_plans/2025-10-03-planner-metadata-backfill.plan.json"
+        "_plans/2025-10-03-planner-metadata-backfill.plan.json",
+        "_plans/2025-10-03-reconcile-metadata-backfill.plan.json"
       ]
     },
     {

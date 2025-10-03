@@ -49,5 +49,8 @@
     "_report/agent/codex-1/backlog-refresh/analysis-20250918T192600Z.md",
     "_report/agent/codex-1/backlog-refresh/handoff-20250918T192900Z.txt",
     "_report/agent/codex-1/backlog-refresh/summary-20250918T192800Z.txt"
-  ]
+  ],
+  "ocers_target": "Self-repair↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

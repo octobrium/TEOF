@@ -57,5 +57,8 @@
     "_report/agent/codex-1/auto-claim/analysis-20250918T200100Z.md",
     "_report/agent/codex-1/auto-claim/pytest-20250918T200300Z.txt",
     "_report/agent/codex-1/auto-claim/summary-20250918T200400Z.txt"
-  ]
+  ],
+  "ocers_target": "Self-repair↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

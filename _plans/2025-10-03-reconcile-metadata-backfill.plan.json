@@ -1,0 +1,72 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-reconcile-metadata-backfill",
+  "created": "2025-10-03T03:03:00Z",
+  "actor": "codex-4",
+  "summary": "Backfill metadata on reconcile and bus automation plans",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Annotate reconcile plan cluster",
+      "status": "done",
+      "notes": "Add OCERS metadata to reconcile-ci/merge/pipeline umbrella plans.",
+      "receipts": [
+        "_plans/2025-09-17-reconcile-ci.plan.json",
+        "_plans/2025-09-17-reconcile-merge.plan.json",
+        "_plans/2025-09-17-reconcile-pipeline.plan.json",
+        "_plans/2025-09-17-reconciliation.plan.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Update bus automation helpers",
+      "status": "done",
+      "notes": "Backfill metadata on runner-ux, agent-bus-status, auto-claim, backlog-refresh, claim-session-cli, codex4-bus-followups.",
+      "receipts": [
+        "_plans/2025-09-17-runner-ux.plan.json",
+        "_plans/2025-09-18-agent-bus-status.plan.json",
+        "_plans/2025-09-18-auto-claim.plan.json",
+        "_plans/2025-09-18-backlog-refresh.plan.json",
+        "_plans/2025-09-18-claim-session-cli.plan.json",
+        "_plans/2025-09-18-codex4-bus-followups.plan.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Refresh advisory snapshot",
+      "status": "done",
+      "notes": "Regenerate advisory summary to confirm reductions and update ND-020 receipts.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/summary-20251003T030700Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Reconcile + bus automation plans carry OCERS metadata and drop out of advisory backlog",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-17-reconcile-ci.plan.json",
+    "_plans/2025-09-17-reconcile-merge.plan.json",
+    "_plans/2025-09-17-reconcile-pipeline.plan.json",
+    "_plans/2025-09-17-reconciliation.plan.json",
+    "_plans/2025-09-17-runner-ux.plan.json",
+    "_plans/2025-09-18-agent-bus-status.plan.json",
+    "_plans/2025-09-18-auto-claim.plan.json",
+    "_plans/2025-09-18-backlog-refresh.plan.json",
+    "_plans/2025-09-18-claim-session-cli.plan.json",
+    "_plans/2025-09-18-codex4-bus-followups.plan.json",
+    "_report/autonomy/backlog-synth/summary-20251003T030700Z.md"
+  ],
+  "ocers_target": "Self-repair↑ Coherence↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}

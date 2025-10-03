@@ -38,5 +38,8 @@
   "links": [],
   "receipts": [
     "_report/runner/20250917T192859Z-f2e12d90.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Self-repair↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }
