@@ -14,6 +14,7 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 - Agents log progress to `_bus/events/events.jsonl` via `tools/agent/bus_event.py log ...`.
 - Claims reference planner artifacts (set `--plan` to `_plans/<id>.plan.json`).
 - Release claims with `bus_claim release --task QUEUE-001 --status done`.
+- When reclaiming a task, the CLI now clears stale `released_at` timestamps automatically; add `--clear-notes` if you need to drop the previous note while keeping the claim active.
 - CI ensures one active claim per task and validates event JSON.
 
 > **Hub quick commands (manager-report)**

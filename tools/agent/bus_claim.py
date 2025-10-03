@@ -132,18 +132,33 @@ def handle_claim(args: argparse.Namespace) -> None:
         )
     if existing is None and not args.allow_unassigned:
         _require_assignment(args.task, agent_id)
+
+    plan_id = args.plan or (existing.plan_id if existing else None)
+    clear_notes = bool(getattr(args, "clear_notes", False))
+    if args.notes is not None:
+        notes = args.notes
+    elif clear_notes:
+        notes = None
+    elif existing:
+        notes = existing.notes
+    else:
+        notes = None
+
+    if existing and args.status not in {"active", "paused"}:
+        released_at = existing.released_at
+    else:
+        released_at = None
+
     claim = Claim(
         task_id=args.task,
         agent_id=agent_id,
         branch=branch,
         status=args.status,
         claimed_at=_iso_now() if existing is None else existing.claimed_at,
-        plan_id=args.plan,
-        notes=args.notes,
-        released_at=existing.released_at if existing else None,
+        plan_id=plan_id,
+        notes=notes,
+        released_at=released_at,
     )
-    if existing and existing.plan_id and not claim.plan_id:
-        claim.plan_id = existing.plan_id
     _write_claim(path, claim)
     print(f"Recorded claim for {args.task} by {agent_id} → {path.relative_to(ROOT)}")
 
@@ -178,6 +193,11 @@ def build_parser() -> argparse.ArgumentParser:
     claim.add_argument("--branch", help="Working branch name")
     claim.add_argument("--status", default="active", help="Claim status")
     claim.add_argument("--notes", help="Optional notes")
+    claim.add_argument(
+        "--clear-notes",
+        action="store_true",
+        help="Clear existing notes when updating a claim",
+    )
     claim.add_argument(
         "--allow-unassigned",
         action="store_true",

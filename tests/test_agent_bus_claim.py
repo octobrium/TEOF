@@ -117,6 +117,84 @@ def test_bus_claim_release_updates_status(monkeypatch, tmp_path):
     assert "released_at" in data
 
 
+def test_bus_claim_reclaim_clears_released_timestamp(monkeypatch, tmp_path):
+    claims_dir, assignments_dir, _ = setup_bus_claim(monkeypatch, tmp_path)
+    write_assignment(assignments_dir, "QUEUE-210", "codex-3")
+
+    bus_claim.main([
+        "claim",
+        "--task",
+        "QUEUE-210",
+        "--agent",
+        "codex-3",
+    ])
+
+    bus_claim.main([
+        "release",
+        "--task",
+        "QUEUE-210",
+        "--agent",
+        "codex-3",
+        "--status",
+        "done",
+        "--notes",
+        "Initial delivery",
+    ])
+
+    bus_claim.main([
+        "claim",
+        "--task",
+        "QUEUE-210",
+        "--agent",
+        "codex-3",
+    ])
+
+    claim_path = claims_dir / "QUEUE-210.json"
+    data = load_claim(claim_path)
+    assert data["status"] == "active"
+    assert "released_at" not in data
+    assert data.get("notes") == "Initial delivery"
+
+
+def test_bus_claim_clear_notes(monkeypatch, tmp_path):
+    claims_dir, assignments_dir, _ = setup_bus_claim(monkeypatch, tmp_path)
+    write_assignment(assignments_dir, "QUEUE-211", "codex-3")
+
+    bus_claim.main([
+        "claim",
+        "--task",
+        "QUEUE-211",
+        "--agent",
+        "codex-3",
+    ])
+
+    bus_claim.main([
+        "release",
+        "--task",
+        "QUEUE-211",
+        "--agent",
+        "codex-3",
+        "--status",
+        "done",
+        "--notes",
+        "Wrap-up",
+    ])
+
+    bus_claim.main([
+        "claim",
+        "--task",
+        "QUEUE-211",
+        "--agent",
+        "codex-3",
+        "--clear-notes",
+    ])
+
+    claim_path = claims_dir / "QUEUE-211.json"
+    data = load_claim(claim_path)
+    assert data["status"] == "active"
+    assert "notes" not in data
+
+
 def test_bus_claim_requires_assignment(monkeypatch, tmp_path):
     claims_dir, assignments_dir, _ = setup_bus_claim(monkeypatch, tmp_path)
     # no assignment written
