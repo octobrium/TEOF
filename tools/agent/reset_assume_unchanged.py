@@ -1,29 +1,27 @@
 #!/usr/bin/env python3
-"""Helpers for clearing `assume-unchanged` flags on tracked files."""
+"""Helpers for listing and clearing git assume-unchanged flags."""
 from __future__ import annotations
 
 import argparse
 import subprocess
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Sequence
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
+def _run(cmd: Sequence[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(cmd, cwd=ROOT, text=True, capture_output=True, check=True)
+
+
 def _ls_files() -> list[str]:
-    result = subprocess.run(
-        ["git", "ls-files", "-v"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        check=True,
-    )
+    result = _run(["git", "ls-files", "-v"])
     return result.stdout.splitlines()
 
 
-def _flagged(paths: Iterable[str]) -> list[str]:
+def list_flags() -> list[str]:
     flagged: list[str] = []
-    for line in paths:
+    for line in _ls_files():
         if not line:
             continue
         status, _, path = line.partition(" ")
@@ -32,8 +30,15 @@ def _flagged(paths: Iterable[str]) -> list[str]:
     return flagged
 
 
+def clear_flags(paths: Iterable[str]) -> None:
+    items = list(paths)
+    if not items:
+        return
+    _run(["git", "update-index", "--no-assume-unchanged", *items])
+
+
 def cmd_list(_: argparse.Namespace) -> int:
-    flagged = _flagged(_ls_files())
+    flagged = list_flags()
     if not flagged:
         print("No files are marked assume-unchanged.")
         return 0
@@ -44,15 +49,11 @@ def cmd_list(_: argparse.Namespace) -> int:
 
 
 def cmd_clear(_: argparse.Namespace) -> int:
-    flagged = _flagged(_ls_files())
+    flagged = list_flags()
     if not flagged:
         print("Nothing to clear; no files are marked assume-unchanged.")
         return 0
-    subprocess.run(
-        ["git", "update-index", "--no-assume-unchanged", *flagged],
-        cwd=ROOT,
-        check=True,
-    )
+    clear_flags(flagged)
     print(f"Cleared assume-unchanged flag on {len(flagged)} file(s).")
     return 0
 
@@ -73,7 +74,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     return args.func(args)
