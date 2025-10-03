@@ -1,0 +1,10 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0
+rootdir: /Users/evan/Documents/GitHub/TEOF
+configfile: pyproject.toml
+collected 5 items
+
+tests/test_tools_capsule_cadence.py ..                                   [ 40%]
+tests/test_ci_check_capsule_cadence.py ...                               [100%]
+
+============================== 5 passed in 0.02s ===============================

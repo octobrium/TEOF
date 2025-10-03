@@ -2,8 +2,9 @@
   "agent_id": "codex-2",
   "branch": "agent/codex-2/queue-039",
   "claimed_at": "2025-09-18T20:25:33Z",
+  "notes": "Automation landed via codex-4 proxy; cadence summary CLI now available",
   "plan_id": "2025-09-21-capsule-cadence-automation",
-  "released_at": "2025-09-18T20:32:53Z",
-  "status": "active",
+  "released_at": "2025-10-03T02:19:45Z",
+  "status": "done",
   "task_id": "QUEUE-039"
 }

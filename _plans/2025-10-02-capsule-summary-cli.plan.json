@@ -1,0 +1,72 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-02-capsule-summary-cli",
+  "created": "2025-10-02T23:59:45Z",
+  "actor": "codex-4",
+  "summary": "Ship capsule cadence summary CLI and refresh receipts",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Confirm capsule cadence requirements and target outputs",
+      "status": "done",
+      "notes": "Review docs/maintenance/capsule-cadence.md and existing guards to scope CLI contract.",
+      "receipts": [
+        "queue/039-capsule-cadence-plan.md",
+        "scripts/ci/check_capsule_cadence.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement capsule cadence summary CLI",
+      "status": "done",
+      "notes": "Add tools.capsule.cadence summary command to emit summary-latest.json deterministically.",
+      "receipts": [
+        "tools/capsule/cadence.py",
+        "_report/capsule/summary-latest.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add regression coverage and refresh docs",
+      "status": "done",
+      "notes": "Cover the CLI with tests and update docs/maintenance/capsule-cadence.md to remove the WIP escape hatch.",
+      "receipts": [
+        "tests/test_tools_capsule_cadence.py",
+        "docs/maintenance/capsule-cadence.md"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Run guardrails and publish receipts",
+      "status": "done",
+      "notes": "Run focused tests, update _report/agent receipts, and log status via bus tooling.",
+      "receipts": [
+        "_report/agent/codex-4/queue-039/pytest-capsule-cadence.log",
+        "_bus/events/events.jsonl"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "capsule cadence summary CLI generates current receipts and docs reference the automated flow",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/039-capsule-cadence-plan.md"
+    },
+    {
+      "type": "task",
+      "ref": "_bus/claims/QUEUE-039.json"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-4/queue-039/pytest-capsule-cadence.log",
+    "_report/capsule/summary-latest.json"
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "systemic_scale": 6,
+  "layer": "L4"
+}

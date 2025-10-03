@@ -239,3 +239,6 @@
 {"agent_id": "teof-next-step", "event": "status", "notes": "Append tier summary to daily Chronicle so leadership sees drift.", "summary": "next-step suggestion: ND-002 Chronicle authenticity snapshot", "ts": "2025-09-22T21:41:03Z"}
 {"agent_id": "teof-auth-monitor", "event": "status", "sample_tier": "unassigned;trust=0.480", "summary": "authenticity alert: tiers unassigned<0.60; attention feeds sample", "ts": "2025-09-22T22:02:58Z"}
 {"agent_id": "teof-next-step", "event": "status", "notes": "Append tier summary to daily Chronicle so leadership sees drift.", "summary": "next-step suggestion: ND-002 Chronicle authenticity snapshot", "ts": "2025-09-22T22:05:45Z"}
+{"agent_id": "codex-4", "branch_prefix": "agent/codex-4/", "event": "handshake", "meta": {"focus": "release"}, "summary": "Session handshake", "ts": "2025-10-03T00:08:04Z"}
+{"agent_id": "codex-4", "event": "note", "plan_id": "2025-10-02-capsule-summary-cli", "receipts": ["_report/capsule/summary-latest.json"], "summary": "Capsule cadence summary CLI delivered; receipt regenerated", "task_id": "QUEUE-039", "ts": "2025-10-03T02:19:00Z"}
+{"agent_id": "codex-4", "event": "note", "plan_id": "2025-09-21-consensus-ci-integration", "summary": "Released stale Codex-2 claim; consensus CI plan already satisfied", "task_id": "QUEUE-038", "ts": "2025-10-03T02:20:23Z"}
