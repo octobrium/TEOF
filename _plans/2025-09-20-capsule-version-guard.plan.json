@@ -44,5 +44,8 @@
     "capsule/v1.6/canonical-teof.md",
     "scripts/ci/guard_dna.sh",
     "docs/ci-guarantees.md"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

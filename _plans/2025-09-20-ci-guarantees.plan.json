@@ -47,5 +47,8 @@
     "docs/ci-guarantees.md",
     "docs/quick-links.json",
     "docs/quick-links.md"
-  ]
+  ],
+  "ocers_target": "Reproducibility↑ Safety↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

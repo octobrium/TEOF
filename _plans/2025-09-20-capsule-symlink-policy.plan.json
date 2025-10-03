@@ -45,5 +45,8 @@
     "docs/workflow.md",
     "governance/DNA.md",
     "docs/ci-guarantees.md"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Safety↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

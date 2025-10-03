@@ -49,5 +49,8 @@
     "tools/agent/directive_pointer.py",
     "tests/test_agent_directive_pointer.py",
     "_report/agent/codex-1/manager-directive-pointer/sample-cross-post.jsonl"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Observation↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

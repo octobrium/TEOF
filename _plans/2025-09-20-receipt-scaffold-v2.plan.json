@@ -70,5 +70,8 @@
     }
   ],
   "summary": "Automate receipt scaffolding and polish bus/session tooling",
-  "version": 0
+  "version": 0,
+  "ocers_target": "Reproducibility↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

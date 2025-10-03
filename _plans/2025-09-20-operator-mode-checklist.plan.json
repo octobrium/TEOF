@@ -42,5 +42,8 @@
   "links": [],
   "receipts": [
     "_report/agent/codex-2/2025-09-20-operator-mode-checklist/summary.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Observation↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

@@ -47,5 +47,8 @@
     "_report/agent/codex-4/2025-09-20-repo-hygiene-codex4/design.md",
     "_report/agent/codex-4/2025-09-20-repo-hygiene-codex4/tests.json",
     "_bus/messages/BUS-COORD-0004.jsonl"
-  ]
+  ],
+  "ocers_target": "Self-repair↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

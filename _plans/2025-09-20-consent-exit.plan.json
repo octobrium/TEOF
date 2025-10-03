@@ -45,5 +45,8 @@
     "capsule/v1.6/canonical-teof.md",
     "capsule/v1.6/hashes.json",
     "governance/anchors.json"
-  ]
+  ],
+  "ocers_target": "Ethics↑ Safety↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

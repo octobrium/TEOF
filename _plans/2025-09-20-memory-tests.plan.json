@@ -45,5 +45,8 @@
   "receipts": [
     "tests/test_memory_tools.py",
     "docs/ci-guarantees.md"
-  ]
+  ],
+  "ocers_target": "Observation↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

@@ -1,0 +1,72 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-capsule-metadata-backfill",
+  "created": "2025-10-03T03:16:40Z",
+  "actor": "codex-4",
+  "summary": "Backfill metadata on capsule guard and readiness plans",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update capsule guard plans",
+      "status": "done",
+      "notes": "Add OCERS metadata to capsule-symlink-policy, capsule-version-guard, ci-guarantees, consent-exit.",
+      "receipts": [
+        "_plans/2025-09-20-capsule-symlink-policy.plan.json",
+        "_plans/2025-09-20-capsule-version-guard.plan.json",
+        "_plans/2025-09-20-ci-guarantees.plan.json",
+        "_plans/2025-09-20-consent-exit.plan.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Annotate readiness tooling",
+      "status": "done",
+      "notes": "Backfill metadata on docs-quicklinks-v2, manager-directive-pointer, memory-tests, operator-mode-checklist, receipt-scaffold-v2, repo-hygiene-codex4.",
+      "receipts": [
+        "_plans/2025-09-20-docs-quicklinks-v2.plan.json",
+        "_plans/2025-09-20-manager-directive-pointer.plan.json",
+        "_plans/2025-09-20-memory-tests.plan.json",
+        "_plans/2025-09-20-operator-mode-checklist.plan.json",
+        "_plans/2025-09-20-receipt-scaffold-v2.plan.json",
+        "_plans/2025-09-20-repo-hygiene-codex4.plan.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Refresh advisory report",
+      "status": "done",
+      "notes": "Regenerate backlog summary capturing reductions.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/summary-20251003T032000Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Capsule guard + readiness plans carry OCERS metadata and drop from advisory backlog",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-20-capsule-symlink-policy.plan.json",
+    "_plans/2025-09-20-capsule-version-guard.plan.json",
+    "_plans/2025-09-20-ci-guarantees.plan.json",
+    "_plans/2025-09-20-consent-exit.plan.json",
+    "_plans/2025-09-20-docs-quicklinks-v2.plan.json",
+    "_plans/2025-09-20-manager-directive-pointer.plan.json",
+    "_plans/2025-09-20-memory-tests.plan.json",
+    "_plans/2025-09-20-operator-mode-checklist.plan.json",
+    "_plans/2025-09-20-receipt-scaffold-v2.plan.json",
+    "_plans/2025-09-20-repo-hygiene-codex4.plan.json",
+    "_report/autonomy/backlog-synth/summary-20251003T032000Z.md"
+  ],
+  "ocers_target": "Self-repair↑ Coherence↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}
