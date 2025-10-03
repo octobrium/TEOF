@@ -1,0 +1,12 @@
+{
+  "captured_at": "2025-10-03T05:10:00Z",
+  "title": "Scaling dirty handoff automation for many agents",
+  "layers": ["L6"],
+  "summary": "Dirty-handshake receipts work for a handful of codex seats but will exhaust dashboards and humans if agents scale arbitrarily.",
+  "signals": "coord_dashboard dirty handoff alerts, manual manifest swaps, multi-commit release",
+  "actions": "Prototype auto-resolution when git status clears; shard coordination receipts; add push-ready guard that fails if unrelated plan receipts missing.",
+  "tags": ["scaling", "automation"],
+  "plan_suggestion": "2025-10-05-dirty-handoff-scaling",
+  "notes": "Need queue-driven cleanup bot to reconcile receipts, auto-assign dirty contexts, and enforce manifest activation per agent to avoid cross-seat drift.",
+  "receipt": "memory/reflections/reflection-20251003T050104Z.json"
+}

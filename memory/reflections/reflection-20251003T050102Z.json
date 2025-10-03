@@ -1,0 +1,14 @@
+{
+  "captured_at": "2025-10-03T05:01:02Z",
+  "title": "Coordination scaling friction",
+  "layers": [
+    "L6"
+  ],
+  "summary": "Manifest mismatch and manual receipt chasing slow multi-agent consensus",
+  "signals": "bus_message manifest mismatch; dirty-handoff untracked receipts blocking validator",
+  "actions": "Automate session manifest sync; add preflight surfaces for referencing foreign receipts",
+  "tags": [],
+  "plan_suggestion": "2025-10-03-plan-schema-dedupe",
+  "notes": "Need shared dashboard to surface receipt gaps before consensus loops.",
+  "receipt": "memory/reflections/reflection-20251003T050102Z.json"
+}

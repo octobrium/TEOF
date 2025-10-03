@@ -1,0 +1,16 @@
+{
+  "captured_at": "2025-10-03T05:01:14Z",
+  "title": "Metadata sweep + push coordination notes",
+  "layers": [
+    "L5"
+  ],
+  "summary": "Metadata backfill tooling worked smoothly; push coordination still blocked by cross-seat changes",
+  "signals": "Fractal conformance now clean; manager-report and bus_status show multiple active seats with uncommitted work",
+  "actions": "Align on shared staging protocol or per-agent push windows; consider automation that snapshots dirty worktree state during session_boot and routes status to managers",
+  "tags": [
+    "coordination",
+    "automation"
+  ],
+  "notes": "Attaching strict receipts required re-running planner validate with --output because _report/ is ignored; codex-2 owns dirty handoff automation so docs temporarily reference manual step.",
+  "receipt": null
+}
