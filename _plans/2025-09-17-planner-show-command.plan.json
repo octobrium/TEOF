@@ -26,5 +26,8 @@
   "receipts": [
     "_report/planner/20250917T071612Z-714227ed.json",
     "_report/planner/20250917T073637Z-714227ed.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Evidence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

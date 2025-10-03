@@ -38,5 +38,8 @@
   "links": [],
   "receipts": [
     "_plans/2025-09-17-ledger-upkeep.plan.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Clarity↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

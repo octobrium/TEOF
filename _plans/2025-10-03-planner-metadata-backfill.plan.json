@@ -1,0 +1,72 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-planner-metadata-backfill",
+  "created": "2025-10-03T02:58:00Z",
+  "actor": "codex-4",
+  "summary": "Backfill metadata on planner and metrics plans",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update metrics plans",
+      "status": "done",
+      "notes": "Add OCERS metadata to metrics JSON/logging plans and meaning-memory context.",
+      "receipts": [
+        "_plans/2025-09-17-meaning-memory.plan.json",
+        "_plans/2025-09-17-metrics-jsonl.plan.json",
+        "_plans/2025-09-17-metrics-logging.plan.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Annotate planner bootstrap plans",
+      "status": "done",
+      "notes": "Backfill OCERS metadata across planner CLI/eval/insight/show/v0.2/validator upgrade plans.",
+      "receipts": [
+        "_plans/2025-09-17-planner-cli-bootstrap.plan.json",
+        "_plans/2025-09-17-planner-eval-bootstrap.plan.json",
+        "_plans/2025-09-17-planner-insight-tools.plan.json",
+        "_plans/2025-09-17-planner-show-command.plan.json",
+        "_plans/2025-09-17-planner-v0-2.plan.json",
+        "_plans/2025-09-17-planner-validator-upgrade.plan.json",
+        "_plans/2025-09-17-queue-hygiene.plan.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Refresh backlog report",
+      "status": "done",
+      "notes": "Regenerate advisory summary to confirm reductions and update ND-020 receipts.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/summary-20251003T030200Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Planner + metrics plans carry OCERS metadata and no longer appear in advisory backlog",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-17-meaning-memory.plan.json",
+    "_plans/2025-09-17-metrics-jsonl.plan.json",
+    "_plans/2025-09-17-metrics-logging.plan.json",
+    "_plans/2025-09-17-planner-cli-bootstrap.plan.json",
+    "_plans/2025-09-17-planner-eval-bootstrap.plan.json",
+    "_plans/2025-09-17-planner-insight-tools.plan.json",
+    "_plans/2025-09-17-planner-show-command.plan.json",
+    "_plans/2025-09-17-planner-v0-2.plan.json",
+    "_plans/2025-09-17-planner-validator-upgrade.plan.json",
+    "_plans/2025-09-17-queue-hygiene.plan.json",
+    "_report/autonomy/backlog-synth/summary-20251003T030200Z.md"
+  ],
+  "ocers_target": "Self-repair↑ Coherence↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}

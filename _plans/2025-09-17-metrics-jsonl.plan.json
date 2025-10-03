@@ -40,5 +40,8 @@
   "receipts": [
     "_report/runner/20250917T215047Z-b5be6a55.json",
     "_report/runner/20250917T220422Z-0b250c8e.json"
-  ]
+  ],
+  "ocers_target": "Evidence↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

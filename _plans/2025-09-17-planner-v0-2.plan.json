@@ -44,5 +44,8 @@
     "_report/planner/20250917T070355Z-714227ed.json",
     "_report/planner/20250917T071612Z-714227ed.json"
   ],
-  "status": "done"
+  "status": "done",
+  "ocers_target": "Coherence↑ Evidence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

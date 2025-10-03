@@ -38,5 +38,8 @@
   "links": [],
   "receipts": [
     "_report/runner/20250917T210558Z-0623753d.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Clarity↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

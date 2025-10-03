@@ -38,5 +38,8 @@
   "receipts": [
     "_report/runner/20250917T062542Z-205e24b5.json"
   ],
-  "status": "done"
+  "status": "done",
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

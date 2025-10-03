@@ -40,11 +40,17 @@
     "status": "satisfied"
   },
   "links": [
-    {"type": "plan", "ref": "_plans/2025-09-17-metrics-jsonl.plan.json"}
+    {
+      "type": "plan",
+      "ref": "_plans/2025-09-17-metrics-jsonl.plan.json"
+    }
   ],
   "receipts": [
     "_report/runner/20250917T215047Z-b5be6a55.json",
     "_report/runner/20250917T220422Z-0b250c8e.json",
     "_report/agent/codex-1/metrics-logging/verification.md"
-  ]
+  ],
+  "ocers_target": "Evidence↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }
