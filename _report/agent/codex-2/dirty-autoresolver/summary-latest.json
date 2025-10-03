@@ -1,0 +1,6 @@
+{
+  "agents": [],
+  "fail_threshold_minutes": 60,
+  "generated_at": "2025-10-03T05:29:53Z",
+  "warn_threshold_minutes": 30
+}

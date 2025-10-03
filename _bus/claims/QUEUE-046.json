@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/queue-046",
+  "claimed_at": "2025-10-03T05:25:38Z",
+  "notes": "codex-2: dirty handoff auto-resolver shipped",
+  "plan_id": "2025-10-03-dirty-handoff-autoresolver",
+  "released_at": "2025-10-03T05:32:22Z",
+  "status": "done",
+  "task_id": "QUEUE-046"
+}

@@ -1,0 +1,55 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-dirty-handoff-autoresolver",
+  "created": "2025-10-03T05:28:00Z",
+  "actor": "codex-2",
+  "summary": "Automate dirty handoff receipt detection and escalation",
+  "status": "done",
+  "layer": "L5",
+  "systemic_scale": 4,
+  "ocers_target": "Observation↑ Self-repair↑",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design resolver flow",
+      "status": "done",
+      "notes": "Define scanning algorithm, TTL thresholds, and escalation outputs; capture design in _report/agent/codex-2/dirty-autoresolver/design.md",
+      "receipts": [
+        "_report/agent/codex-2/dirty-autoresolver/design.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement CLI + tests",
+      "status": "done",
+      "notes": "Create tools.agent.dirty_autoresolver module with summary + optional bus messaging; add pytest coverage",
+      "receipts": [
+        "tools/agent/dirty_autoresolver.py",
+        "tests/test_dirty_autoresolver.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Docs & rollout",
+      "status": "done",
+      "notes": "Document automation in docs/parallel-codex.md and log manager-report status with summary",
+      "receipts": [
+        "docs/parallel-codex.md",
+        "_bus/messages/manager-report.jsonl"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Dirty handoff resolver emits receipts and escalations within configured TTL",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_report/agent/codex-2/dirty-autoresolver/design.md",
+    "_report/agent/codex-2/dirty-autoresolver/summary-latest.json",
+    "tools/agent/dirty_autoresolver.py",
+    "tests/test_dirty_autoresolver.py",
+    "docs/parallel-codex.md",
+    "_bus/messages/manager-report.jsonl"
+  ]
+}

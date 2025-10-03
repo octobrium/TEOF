@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-10-03T05:25:38Z",
+  "branch": null,
+  "engineer": "codex-2",
+  "manager": "codex-4",
+  "note": "Automate dirty handoff escalation",
+  "plan_id": "2025-10-03-dirty-handoff-autoresolver",
+  "task_id": "QUEUE-046"
+}
