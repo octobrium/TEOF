@@ -56,6 +56,7 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/AGENTS.md`) reuse t
 11. **Managers run reports** (`python -m tools.agent.manager_report --log-heartbeat --heartbeat-shift <label>`, `python -m tools.agent.coord_dashboard report`) to produce `_report/manager/manager-report-<timestamp>.md`, emit a fresh heartbeat, and capture a coordination snapshot for follow-up triage. `bus_status --preset manager` now surfaces the heartbeat summary + metadata alongside the timestamp, so use `--heartbeat-shift` (or additional `--heartbeat-meta key=value`) to broadcast context like `shift=mid` or `cadence=daily`. The dashboard view has become the default “source of truth” during sweeps, so stash the generated receipt with any bus follow-ups.
 12. **Run preflight** (`tools/agent/preflight.sh`) to ensure receipts and plans are valid before opening/refreshing the PR.
 13. **Release** claim once merged/closed and optionally refresh handshake (`session_boot --summary "session wrap" --focus idle`). Capture a short reflection (`_report/agent/<id>/reflections/<date>.md`) on what worked, what stalled, and any nudges for the next session—the receipts become training data for future automation. Keep reflections there to avoid convenience creep scattering them across docs/ surfaces.
+14. **Consensus push** — before pushing to `main`, follow the receipts-proven checklist in [`docs/consensus/push-checklist.md`](consensus/push-checklist.md) so approvals, plan validation, tests, and bus updates are all logged.
 
 <a id="self-audit"></a>
 ## Self-Audit & Cross-Audit
