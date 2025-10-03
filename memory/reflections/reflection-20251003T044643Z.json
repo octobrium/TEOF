@@ -1,0 +1,14 @@
+{
+  "captured_at": "2025-10-03T04:46:43Z",
+  "title": "Plan schema dedupe friction",
+  "layers": [
+    "L6"
+  ],
+  "summary": "Planner files still allow duplicate keys that derail metadata backfill",
+  "signals": "_plans/2025-09-27-relay-case-run.plan.json duplicate steps",
+  "actions": "Ship plan-schema-dedupe guard and clean offenders",
+  "tags": [],
+  "plan_suggestion": "2025-10-03-plan-schema-dedupe",
+  "notes": "Strict validator failed on dirty-handoff receipts while running sweep; need owner to add receipts.",
+  "receipt": "memory/reflections/reflection-20251003T044643Z.json"
+}
