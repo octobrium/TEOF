@@ -1,0 +1,62 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-authenticity-metadata-backfill",
+  "created": "2025-10-03T03:21:20Z",
+  "actor": "codex-4",
+  "summary": "Backfill metadata on authenticity and governance hardening plans",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Annotate authenticity automation plans",
+      "status": "done",
+      "notes": "Add OCERS metadata to authenticity chronicle, steward alerts, and autonomy auto-proceed plans.",
+      "receipts": [
+        "_plans/2025-09-23-authenticity-chronicle.plan.json",
+        "_plans/2025-09-23-authenticity-steward-alerts.plan.json",
+        "_plans/2025-09-23-autonomy-auto-proceed.plan.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Update governance L1 hardening and status CLI",
+      "status": "done",
+      "notes": "Backfill metadata on governance-l1-hardening and teof-status-cli plans.",
+      "receipts": [
+        "_plans/2025-09-22-governance-l1-hardening.plan.json",
+        "_plans/2025-09-22-teof-status-cli.plan.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Refresh advisory summary",
+      "status": "done",
+      "notes": "Regenerate backlog report to confirm reductions.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/summary-20251003T032700Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Authenticity/governance status plans have OCERS metadata and drop from advisory backlog",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-22-governance-l1-hardening.plan.json",
+    "_plans/2025-09-22-teof-status-cli.plan.json",
+    "_plans/2025-09-23-authenticity-chronicle.plan.json",
+    "_plans/2025-09-23-authenticity-steward-alerts.plan.json",
+    "_plans/2025-09-23-autonomy-auto-proceed.plan.json",
+    "_report/autonomy/backlog-synth/summary-20251003T032700Z.md"
+  ],
+  "ocers_target": "Observation↑ Safety↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}

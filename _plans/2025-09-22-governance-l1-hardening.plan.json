@@ -44,5 +44,8 @@
     "_report/planner/validate/summary-20250922T043023Z.json",
     "_report/planner/validate/summary-20250922T043224Z.json",
     "_report/usage/plan-receipts-check.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Observation↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

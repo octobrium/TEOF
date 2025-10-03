@@ -36,5 +36,8 @@
   "links": [],
   "receipts": [
     "docs/STATUS.md"
-  ]
+  ],
+  "ocers_target": "Observation↑ Clarity↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

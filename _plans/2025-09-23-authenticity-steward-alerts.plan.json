@@ -44,5 +44,8 @@
   "receipts": [
     "tools/agent/authenticity_escalation.py",
     "_report/agent/teof-auth-monitor/escalations.json"
-  ]
+  ],
+  "ocers_target": "Observation↑ Safety↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }
