@@ -14,7 +14,7 @@
       "stage": "done",
       "notes": "Decide which metrics (commit count, file count, last touch) and default directories to report.",
       "receipts": [
-        "memory/reflections/reflection-20251003T211604Z.json"
+        "docs/maintenance/macro-hygiene.md"
       ]
     },
     {
@@ -35,7 +35,6 @@
       "stage": "done",
       "notes": "Document usage and capture an initial anatomy summary receipt (stored under `_report/usage/repo-anatomy/`).",
       "receipts": [
-        "docs/maintenance/macro-hygiene.md",
         "_report/usage/repo-anatomy/summary-20251003T221257Z.json",
         "queue/048-repo-anatomy-dashboard.md"
       ]
@@ -53,7 +52,6 @@
     }
   ],
   "receipts": [
-    "memory/reflections/reflection-20251003T211604Z.json",
     "tools/maintenance/repo_anatomy.py",
     "tests/test_repo_anatomy.py",
     "docs/maintenance/macro-hygiene.md",
