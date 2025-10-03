@@ -1,0 +1,57 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-backlog-advisory-report",
+  "created": "2025-10-03T02:41:00Z",
+  "actor": "codex-4",
+  "summary": "Emit advisory backlog report grouped by plan",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design advisory report tool",
+      "status": "done",
+      "notes": "Define CLI to group fractal advisories from next-development backlog.",
+      "receipts": [
+        "_plans/2025-10-03-backlog-advisory-report.justification.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement report generation and tests",
+      "status": "done",
+      "notes": "Create tools.autonomy.advisory_report module with JSON/markdown output and regression tests.",
+      "receipts": [
+        "tools/autonomy/advisory_report.py",
+        "tests/test_autonomy_advisory_report.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Produce latest advisory summary receipt",
+      "status": "done",
+      "notes": "Run the tool against current backlog and store receipt for ND-020 triage.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/summary-20251003T024300Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Advisory backlog report grouped by plan is available as receipt",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "tools/autonomy/advisory_report.py",
+    "tests/test_autonomy_advisory_report.py",
+    "_report/autonomy/backlog-synth/summary-20251003T024300Z.md"
+  ],
+  "ocers_target": "Clarity↑ Self-repair↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}

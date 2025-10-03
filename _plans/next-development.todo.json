@@ -244,7 +244,8 @@
       "notes": "Integrate retro advisories and conformance receipts into automatic queue generation so unattended agents pick the next task deterministically.",
       "receipts": [
         "_plans/2025-09-29-autonomous-backlog.plan.json",
-        "_plans/2025-10-03-autonomous-backlog-synthesis.plan.json"
+        "_plans/2025-10-03-autonomous-backlog-synthesis.plan.json",
+        "_plans/2025-10-03-backlog-advisory-report.plan.json"
       ]
     },
     {
