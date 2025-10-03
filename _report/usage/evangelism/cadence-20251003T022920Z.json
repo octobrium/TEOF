@@ -1,0 +1,40 @@
+{
+  "generated_at": "2025-10-03T02:29:20Z",
+  "owner": "codex-4",
+  "cycles": [
+    {
+      "date": "2025-09-29",
+      "channel": "blog",
+      "arc": "Arc A",
+      "asset": "docs/evangelism/one-pager.md",
+      "status": "published",
+      "follow_up": "Capture subscriber questions for next authenticity primer."
+    },
+    {
+      "date": "2025-10-01",
+      "channel": "social",
+      "arc": "Arc C",
+      "asset": "docs/evangelism/slide-deck-outline.md",
+      "status": "sent",
+      "follow_up": "Package coordination dashboard clip into next briefing."
+    },
+    {
+      "date": "2025-10-03",
+      "channel": "webinar",
+      "arc": "Arc B",
+      "asset": "docs/evangelism/demo-video-script.md",
+      "status": "scheduled",
+      "follow_up": "Highlight capsule cadence summary CLI during Q&A."
+    },
+    {
+      "date": "2025-10-08",
+      "channel": "newsletter",
+      "arc": "Arc D",
+      "asset": "docs/evangelism/one-pager.md",
+      "status": "scheduled",
+      "follow_up": "Include link to refreshed evangelism README and cadence receipts."
+    }
+  ],
+  "next_update": "2025-10-04T00:00:00Z",
+  "notes": "Cadence reflects completed touches and upcoming commitments; update statuses after webinar and newsletter drop."
+}

@@ -1,0 +1,61 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-evangelism-kit-refresh",
+  "created": "2025-10-03T02:29:30Z",
+  "actor": "codex-4",
+  "summary": "Refresh evangelism kit to v0.2 with capsule cadence story and live receipts",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add capsule cadence narrative to evangelism arcs",
+      "status": "done",
+      "notes": "Document Arc D so release partners see capsule cadence receipts and anchors.",
+      "receipts": [
+        "docs/evangelism/narrative-arcs.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Refresh README and cadence guide with current status",
+      "status": "done",
+      "notes": "Promote the kit to Active v0.2 and surface the newest cadence schedule.",
+      "receipts": [
+        "docs/evangelism/README.md",
+        "docs/evangelism/distribution-cadence.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Log outreach receipts and cadence snapshot",
+      "status": "done",
+      "notes": "Record recent touches and write an updated cadence receipt covering the next cycle.",
+      "receipts": [
+        "_report/usage/evangelism/event-20251003T022842Z.json",
+        "_report/usage/evangelism/event-20251003T022850Z.json",
+        "_report/usage/evangelism/event-20251003T022859Z.json",
+        "_report/usage/evangelism/cadence-20251003T022920Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Evangelism kit reflects current outreach cadence with receipts logged for every touch",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-018"
+    }
+  ],
+  "receipts": [
+    "docs/evangelism/README.md",
+    "docs/evangelism/narrative-arcs.md",
+    "docs/evangelism/distribution-cadence.md",
+    "_report/usage/evangelism/cadence-20251003T022920Z.json"
+  ],
+  "ocers_target": "Clarity↑ Outreach↑",
+  "systemic_scale": 4,
+  "layer": "L2"
+}

@@ -215,12 +215,13 @@
     {
       "id": "ND-018",
       "title": "Narrative & evangelism kit",
-      "status": "pending",
-      "plan_suggestion": "2025-09-26-evangelism",
+      "status": "done",
+      "plan_suggestion": "2025-10-03-evangelism-kit-refresh",
       "layer": "L2",
       "notes": "Create reusable storytelling assets and launch a distribution rhythm tied to live receipts.",
       "receipts": [
-        "_plans/2025-09-26-evangelism.plan.json"
+        "_plans/2025-09-26-evangelism.plan.json",
+        "_plans/2025-10-03-evangelism-kit-refresh.plan.json"
       ]
     },
     {

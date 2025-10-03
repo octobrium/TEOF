@@ -1,0 +1,12 @@
+{
+  "event_id": "36f9c66c0bee4878abac84ca6e8ce7b0",
+  "generated_at": "2025-10-03T02:28:59Z",
+  "date": "2025-10-03",
+  "channel": "webinar",
+  "arc": "Arc B",
+  "asset": "docs/evangelism/demo-video-script.md",
+  "status": "scheduled",
+  "summary": "Prepped compliance Q&A webinar",
+  "audience": "governance stakeholders",
+  "notes": "Include capsule cadence summary demo"
+}

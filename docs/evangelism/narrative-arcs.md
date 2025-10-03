@@ -28,3 +28,12 @@ Every arc maps to L2 Objective O3 (shared mental model) and O4 (impact feedback)
   - Manager heartbeat receipts that sample the dashboard output (`_report/agent/codex-4/2025-09-19-heartbeat-integration-codex4/coord-dashboard.json`).
   - Multi-neuron playbook describing onboarding rhythm (`docs/vision/multi-neuron-playbook.md`).
 - **Call to Action:** offer a dry-run session using `python -m tools.agent.session_boot` so they see claims, events, and dashboards update in real time.
+
+## Arc D — Capsule Cadence Confidence
+- **Audience:** release managers and compliance partners validating ship-readiness.
+- **Thesis:** capsule releases stay trustworthy because cadence receipts, anchors, and consensus summaries regenerate on demand.
+- **Proof Points:**
+  - Capsule cadence summary generated via CLI (`_report/capsule/summary-latest.json`).
+  - Governance anchors illustrating traceable release lineage (`governance/anchors.json`).
+  - Capsule freeze checklist (`docs/maintenance/capsule-cadence.md`).
+- **Call to Action:** walk through `python3 -m tools.capsule.cadence summary` then show the matching receipts under `_report/capsule/` and governance anchors.

@@ -1,0 +1,12 @@
+{
+  "event_id": "d83dad5148a54bc8a3eb91fcc36c52a9",
+  "generated_at": "2025-10-03T02:28:42Z",
+  "date": "2025-09-29",
+  "channel": "blog",
+  "arc": "Arc A",
+  "asset": "docs/evangelism/one-pager.md",
+  "status": "published",
+  "summary": "Published blog on receipts-first autonomy",
+  "audience": "engineering leads",
+  "link": "docs/evangelism/one-pager.md"
+}

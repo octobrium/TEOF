@@ -240,10 +240,14 @@
       "assigned_by": "codex-4",
       "branch": null,
       "id": "QUEUE-038",
-      "plan_id": "2025-09-18-consensus-ci",
+      "plan_id": "2025-09-21-consensus-ci-integration",
       "priority": "medium",
+      "receipts": [
+        "_plans/2025-09-21-consensus-ci-integration.plan.json",
+        "_report/agent/codex-4/queue-038/consensus-ci-smoke.log"
+      ],
       "role": "engineer",
-      "status": "open",
+      "status": "done",
       "title": "QUEUE-038"
     },
     {
@@ -264,10 +268,15 @@
       "assigned_by": "codex-4",
       "branch": "agent/codex-2/queue-039",
       "id": "QUEUE-039",
-      "plan_id": "2025-09-18-capsule-cadence",
+      "plan_id": "2025-10-02-capsule-summary-cli",
       "priority": "medium",
+      "receipts": [
+        "_plans/2025-10-02-capsule-summary-cli.plan.json",
+        "_report/agent/codex-4/queue-039/pytest-capsule-cadence.log",
+        "_report/capsule/summary-latest.json"
+      ],
       "role": "engineer",
-      "status": "open",
+      "status": "done",
       "title": "QUEUE-039"
     },
     {
