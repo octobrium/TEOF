@@ -51,5 +51,8 @@
     "_report/agent/codex-2/kernel-slimdown/heuristic-audit.md",
     "_report/agent/codex-2/kernel-slimdown/heuristic-refactor.md",
     "_report/runner/20250918T221405Z-20155a7c.json"
-  ]
+  ],
+  "ocers_target": "Self-repair↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

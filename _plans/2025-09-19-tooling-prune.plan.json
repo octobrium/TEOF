@@ -71,5 +71,8 @@
     "docs/parallel-codex.md",
     "tests/test_agent_bus_status.py",
     "tools/agent/bus_status.py"
-  ]
+  ],
+  "ocers_target": "Self-repair↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

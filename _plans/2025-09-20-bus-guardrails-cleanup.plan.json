@@ -58,5 +58,8 @@
   ],
   "receipts": [
     "_report/agent/codex-2/heartbeat-auto/summary-20250920.md"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Safety↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

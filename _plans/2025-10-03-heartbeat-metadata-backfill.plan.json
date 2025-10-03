@@ -1,0 +1,72 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-heartbeat-metadata-backfill",
+  "created": "2025-10-03T03:11:45Z",
+  "actor": "codex-4",
+  "summary": "Backfill metadata on heartbeat follow-up and bus guardrail plans",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Annotate heartbeat follow-up plans",
+      "status": "done",
+      "notes": "Add OCERS metadata to heartbeat followup/integration/kernel-slimdown/manager heartbeat auto plans.",
+      "receipts": [
+        "_plans/2025-09-19-heartbeat-followup.plan.json",
+        "_plans/2025-09-19-heartbeat-integration-codex4.plan.json",
+        "_plans/2025-09-19-kernel-slimdown.plan.json",
+        "_plans/2025-09-19-manager-heartbeat-auto.plan.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Update tooling/bus guardrail plans",
+      "status": "done",
+      "notes": "Backfill metadata on plan-hygiene-dedupe, retire-codex-observer, tooling-prune, bus guardrails/heartbeat/ping helper plans.",
+      "receipts": [
+        "_plans/2025-09-19-plan-hygiene-dedupe.plan.json",
+        "_plans/2025-09-19-retire-codex-observer.plan.json",
+        "_plans/2025-09-19-tooling-prune.plan.json",
+        "_plans/2025-09-20-bus-guardrails-cleanup.plan.json",
+        "_plans/2025-09-20-bus-heartbeat-refresh.plan.json",
+        "_plans/2025-09-20-bus-ping-helper.plan.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Refresh advisory report",
+      "status": "done",
+      "notes": "Regenerate summary to record reductions.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/summary-20251003T031500Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Heartbeat and bus guardrail plans carry OCERS metadata and drop from advisory backlog",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-19-heartbeat-followup.plan.json",
+    "_plans/2025-09-19-heartbeat-integration-codex4.plan.json",
+    "_plans/2025-09-19-kernel-slimdown.plan.json",
+    "_plans/2025-09-19-manager-heartbeat-auto.plan.json",
+    "_plans/2025-09-19-plan-hygiene-dedupe.plan.json",
+    "_plans/2025-09-19-retire-codex-observer.plan.json",
+    "_plans/2025-09-19-tooling-prune.plan.json",
+    "_plans/2025-09-20-bus-guardrails-cleanup.plan.json",
+    "_plans/2025-09-20-bus-heartbeat-refresh.plan.json",
+    "_plans/2025-09-20-bus-ping-helper.plan.json",
+    "_report/autonomy/backlog-synth/summary-20251003T031500Z.md"
+  ],
+  "ocers_target": "Self-repair↑ Coherence↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}

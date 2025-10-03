@@ -63,5 +63,8 @@
     }
   ],
   "summary": "Automate bus heartbeat monitoring and idle alerts",
-  "version": 0
+  "version": 0,
+  "ocers_target": "Observation↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

@@ -51,5 +51,8 @@
     "_plans/2025-09-19-heartbeat-followup.plan.json",
     "_report/manager/coordination-dashboard-2025-09-19T22:02:06Z.json",
     "_bus/messages/PLAN-2025-09-19-retire-codex-observer.jsonl"
-  ]
+  ],
+  "ocers_target": "Self-repair↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

@@ -54,5 +54,8 @@
     }
   ],
   "summary": "Automate manager heartbeat when reports run",
-  "version": 0
+  "version": 0,
+  "ocers_target": "Coherence↑ Observation↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }
