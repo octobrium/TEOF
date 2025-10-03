@@ -44,5 +44,8 @@
     "_report/usage/selfprompt/run-20250922T222605Z.json",
     "_plans/next-development.todo.json",
     "docs/automation.md"
-  ]
+  ],
+  "ocers_target": "Clarity↑ Self-repair↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

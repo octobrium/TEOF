@@ -41,5 +41,8 @@
     }
   ],
   "summary": "Consolidate automation surface and trim unused artifacts",
-  "version": 0
+  "version": 0,
+  "ocers_target": "Self-repair↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

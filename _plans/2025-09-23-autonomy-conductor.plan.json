@@ -55,5 +55,8 @@
     "tools/autonomy/conductor.py"
   ],
   "updated": "2025-09-23T06:24:59Z",
-  "completed": "2025-09-23T06:08:31Z"
+  "completed": "2025-09-23T06:08:31Z",
+  "ocers_target": "Observation↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

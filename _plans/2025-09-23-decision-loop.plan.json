@@ -57,5 +57,8 @@
     "docs/vision/decision-loop.md"
   ],
   "completed": "2025-09-24T23:54:33Z",
-  "updated": "2025-09-24T23:54:33Z"
+  "updated": "2025-09-24T23:54:33Z",
+  "ocers_target": "Coherence↑ Observation↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

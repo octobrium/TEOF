@@ -1,0 +1,70 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-autonomy-roadmap-metadata",
+  "created": "2025-10-03T03:26:30Z",
+  "actor": "codex-4",
+  "summary": "Backfill metadata on autonomy roadmap and hygiene plans",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Annotate autonomy roadmap plans",
+      "status": "done",
+      "notes": "Add OCERS metadata to autonomy conductor, autonomy roadmap, decision loop, and selfprompt pilot plans.",
+      "receipts": [
+        "_plans/2025-09-23-autonomy-conductor.plan.json",
+        "_plans/2025-09-23-autonomy-roadmap.plan.json",
+        "_plans/2025-09-23-decision-loop.plan.json",
+        "_plans/2025-09-23-selfprompt-pilot.plan.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Update hygiene/oversight plans",
+      "status": "done",
+      "notes": "Backfill metadata on repo hygiene, backlog hygiene, memory layer, oversight guard, and TEOF anatomy dashboard plans.",
+      "receipts": [
+        "_plans/2025-09-23-repo-hygiene.plan.json",
+        "_plans/2025-09-25-backlog-hygiene.plan.json",
+        "_plans/2025-09-25-memory-layer.plan.json",
+        "_plans/2025-09-25-oversight-guard.plan.json",
+        "_plans/2025-09-25-teof-anatomy-dashboard.plan.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Refresh backlog summary",
+      "status": "done",
+      "notes": "Regenerate advisory report to record reductions.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/summary-20251003T032700Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Autonomy roadmap and hygiene plans carry OCERS metadata and backlog shrinks",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-23-autonomy-conductor.plan.json",
+    "_plans/2025-09-23-autonomy-roadmap.plan.json",
+    "_plans/2025-09-23-decision-loop.plan.json",
+    "_plans/2025-09-23-repo-hygiene.plan.json",
+    "_plans/2025-09-23-selfprompt-pilot.plan.json",
+    "_plans/2025-09-25-backlog-hygiene.plan.json",
+    "_plans/2025-09-25-memory-layer.plan.json",
+    "_plans/2025-09-25-oversight-guard.plan.json",
+    "_plans/2025-09-25-teof-anatomy-dashboard.plan.json",
+    "_report/autonomy/backlog-synth/summary-20251003T032700Z.md"
+  ],
+  "ocers_target": "Coherence↑ Self-repair↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}
