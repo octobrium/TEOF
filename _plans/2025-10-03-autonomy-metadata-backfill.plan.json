@@ -1,0 +1,70 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-autonomy-metadata-backfill",
+  "created": "2025-10-03T03:19:40Z",
+  "actor": "codex-4",
+  "summary": "Backfill metadata on autonomy batch and capsule sync plans",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Annotate automation/batch plans",
+      "status": "done",
+      "notes": "Add OCERS metadata to autonomy batch runner, metrics, status CLI/receipt, hygiene thresholds, batch refinement set.",
+      "receipts": [
+        "_plans/2025-09-21-autonomy-batch-runner.plan.json",
+        "_plans/2025-09-21-autonomy-metrics.plan.json",
+        "_plans/2025-09-21-autonomy-status-cli.plan.json",
+        "_plans/2025-09-21-autonomy-status-receipt.plan.json",
+        "_plans/2025-09-21-batch-hygiene-thresholds.plan.json",
+        "_plans/2025-09-21-batch-refinement-log.plan.json",
+        "_plans/2025-09-21-batch-refinement-report.plan.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Update capsule sync + session tooling",
+      "status": "done",
+      "notes": "Backfill metadata on capsule-version-sync and session-boot-tail-tests.",
+      "receipts": [
+        "_plans/2025-09-21-capsule-version-sync.plan.json",
+        "_plans/2025-09-20-session-boot-tail-tests.plan.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Regenerate backlog report",
+      "status": "done",
+      "notes": "Capture updated advisory summary showing reductions.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/summary-20251003T032000Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Autonomy batch + capsule sync plans carry OCERS metadata and drop from advisory backlog",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-21-autonomy-batch-runner.plan.json",
+    "_plans/2025-09-21-autonomy-metrics.plan.json",
+    "_plans/2025-09-21-autonomy-status-cli.plan.json",
+    "_plans/2025-09-21-autonomy-status-receipt.plan.json",
+    "_plans/2025-09-21-batch-hygiene-thresholds.plan.json",
+    "_plans/2025-09-21-batch-refinement-log.plan.json",
+    "_plans/2025-09-21-batch-refinement-report.plan.json",
+    "_plans/2025-09-21-capsule-version-sync.plan.json",
+    "_plans/2025-09-20-session-boot-tail-tests.plan.json",
+    "_report/autonomy/backlog-synth/summary-20251003T032000Z.md"
+  ],
+  "ocers_target": "Self-repair↑ Coherence↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}

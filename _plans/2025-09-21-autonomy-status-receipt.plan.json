@@ -39,5 +39,8 @@
   "receipts": [
     "_report/planner/validate/summary-20250922T041758Z.json",
     "_report/usage/autonomy-status.json"
-  ]
+  ],
+  "ocers_target": "Observation↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

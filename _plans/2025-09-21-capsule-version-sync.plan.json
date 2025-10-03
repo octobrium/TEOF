@@ -39,5 +39,8 @@
     "capsule/v1.6/RELEASE.md",
     "capsule/v1.6/reconstruction.json",
     "docs/STATUS.md"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

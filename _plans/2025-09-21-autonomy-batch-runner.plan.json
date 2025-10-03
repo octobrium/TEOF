@@ -46,5 +46,8 @@
     "docs/workflow.md",
     "docs/quick-links.json",
     "tests/test_batch_refinement.py"
-  ]
+  ],
+  "ocers_target": "Self-repair↑ Throughput↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

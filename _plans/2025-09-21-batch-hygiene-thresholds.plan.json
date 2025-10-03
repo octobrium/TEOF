@@ -41,5 +41,8 @@
     "tools/agent/batch_refinement.py",
     "tests/test_batch_refinement.py",
     "docs/automation.md"
-  ]
+  ],
+  "ocers_target": "Self-repair↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

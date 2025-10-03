@@ -43,5 +43,8 @@
     "tools/agent/batch_report.py",
     "tools/agent/autonomy_status.py",
     "docs/automation.md"
-  ]
+  ],
+  "ocers_target": "Observation↑ Evidence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

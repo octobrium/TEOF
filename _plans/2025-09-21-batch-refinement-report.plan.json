@@ -45,5 +45,8 @@
     "docs/automation.md",
     "docs/quick-links.md",
     "docs/quick-links.json"
-  ]
+  ],
+  "ocers_target": "Clarity↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

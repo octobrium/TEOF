@@ -50,5 +50,8 @@
     "_report/planner/validate/summary-20250921T221632Z.json",
     "_report/planner/validate/summary-20250922T013722Z.json",
     "_report/usage/external-summary.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Self-repair↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }
