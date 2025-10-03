@@ -1,0 +1,28 @@
+{
+  "generated_at": "2025-10-03T19:19:09Z",
+  "commands": [
+    {
+      "command": [
+        "make",
+        "quickstart-check"
+      ],
+      "invoked_at": "2025-10-03T18:57:00Z",
+      "completed_at": "2025-10-03T18:57:06Z",
+      "exit_code": 0,
+      "notes": "Built wheel and ran onboarding quickstart to validate install path."
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "pytest",
+        "tests/test_case_study_summary.py",
+        "-q"
+      ],
+      "invoked_at": "2025-10-03T19:13:00Z",
+      "completed_at": "2025-10-03T19:13:01Z",
+      "exit_code": 0,
+      "notes": "Verified case study summary helper."
+    }
+  ]
+}

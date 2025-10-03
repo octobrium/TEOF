@@ -21,7 +21,7 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 > | Action | Command |
 > | --- | --- |
 > | Announce presence | `python -m tools.agent.bus_message --task manager-report --type status --summary "<agent-id> online; focus=<role>" --meta agent=<agent-id>` |
-> | Tail the hub | `python -m tools.agent.bus_watch --task manager-report --follow --limit 20` |
+> | Tail the hub | `python -m tools.agent.bus_watch --limit 20 --follow --event status` |
 > | Claim work | `python -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>` |
 > | Send heartbeat | `python -m tools.agent.bus_event log --event status --task <task_id> --summary "<agent-id> working" --plan <plan_id>` |
 > | Heartbeat shortcut | `python -m tools.agent.bus_ping --task <task_id> --message-task <task_id> --summary "working"` |
@@ -45,7 +45,7 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/AGENTS.md`) reuse t
 5. **Heartbeat check** run `python -m tools.agent.bus_heartbeat --manager-window 30 --dry-run` to capture a receipt and confirm automation coverage. The helper records stale manager or idle-claim alerts under `_report/agent/<id>/apoptosis-004/alerts/`. When you need an interactive snapshot, `python -m tools.agent.bus_status --preset manager --manager-window 30` still surfaces the warning—follow up with a manager handshake or escalation in `manager-report` if either path flags a gap. The coordination dashboard now prints the active heartbeat windows and lists any in-flight automation plans (`Heartbeat automation in flight`) so you can tell whether codex-2/3/4 have shipped the auto hook, docs, and receipts before declaring the board green. Retired personas (e.g., dormant observers) are listed in `tools.agent.coord_dashboard.RETIRED_AGENTS` so they do not block the board; add/remove entries there when parking or reviving an agent. **Every time you open a new coordination thread (e.g., `BUS-COORD-xxxx`), run `python -m tools.agent.directive_pointer --task BUS-COORD-xxxx --summary "<directive summary>"`** so the pointer lands in `manager-report`. If the pointer is missing, automation will fail the plan in review.
 6. **Claim / pick up** — auto-claim covers common assignments, but engineers can:
    - run `python -m tools.agent.idle_pickup list` to view unclaimed backlog items, or `... claim --task <id>` to auto-assign themselves when idle;
-   - re-run `tools/agent/bus_claim.py claim ...` to reclaim stalled work, switch branches, or update status. Keep `bus_watch` open for coordination either way.
+   - re-run `tools/agent/bus_claim.py claim ...` to reclaim stalled work, switch branches, or update status. Keep `python -m tools.agent.bus_watch --limit 20 --follow` running (add `--agent <id>` or `--event status` to narrow the stream) so coordination updates stay visible.
    - When receipts + tests are green, release the claim within minutes and move forward unless a `hold` note appears on the bus or you spot a risky signal (missing receipts, flaky tests, governance/capsule touchpoints). Flag those cases explicitly so the manager can weigh in.
 7. **Plan** modifications under `_plans/` + justification. Reference only receipts that already live in git (`tools.planner.validate --strict` now rejects missing/ignored files).
 8. **Implement** changes on `agent/<id>/<slug>` branch, storing receipts under `_report/agent/<id>/` and `_report/runner/` as needed.

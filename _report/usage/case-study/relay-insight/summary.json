@@ -1,0 +1,100 @@
+{
+  "generated_at": "2025-10-03T19:32:49Z",
+  "slug": "relay-insight",
+  "case_dir": "_report/usage/case-study/relay-insight",
+  "artifact_status": {
+    "consent": {
+      "present": true,
+      "count": 1,
+      "items": [
+        {
+          "path": "_report/usage/case-study/relay-insight/consent.json",
+          "size_bytes": 352,
+          "captured_at": "2025-09-27T19:55:34Z"
+        }
+      ]
+    },
+    "dry_runs": {
+      "present": true,
+      "count": 1,
+      "items": [
+        {
+          "path": "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json",
+          "size_bytes": 22232,
+          "generated_at": "2025-09-27T19:57:24Z",
+          "task": {
+            "id": "ND-014",
+            "title": "Relay offering pilot",
+            "status": "pending"
+          },
+          "guardrails": {
+            "diff_limit": 200,
+            "tests": [
+              "pytest",
+              "pytest"
+            ],
+            "receipts_dir": "_report/usage/case-study/relay-insight"
+          }
+        }
+      ]
+    },
+    "live_runs": {
+      "present": true,
+      "count": 1,
+      "items": [
+        {
+          "path": "_report/usage/case-study/relay-insight/conductor-run-20251003T191500Z.json",
+          "size_bytes": 1321,
+          "generated_at": "2025-10-03T19:19:16Z",
+          "task": {
+            "id": "ND-014",
+            "title": "Relay offering pilot",
+            "status": "in_progress"
+          },
+          "guardrails": {
+            "diff_limit": 200,
+            "tests": [
+              "pytest"
+            ],
+            "receipts_dir": "_report/usage/case-study/relay-insight"
+          }
+        }
+      ]
+    },
+    "command_logs": {
+      "present": true,
+      "count": 1,
+      "items": [
+        {
+          "path": "_report/usage/case-study/relay-insight/command-log-20251003T191500Z.json",
+          "size_bytes": 660
+        }
+      ]
+    },
+    "diffs": {
+      "present": true,
+      "count": 1,
+      "items": [
+        {
+          "path": "_report/usage/case-study/relay-insight/diffs-20251003T191620Z.json",
+          "size_bytes": 650,
+          "generated_at": "2025-10-03T19:20:42Z"
+        }
+      ]
+    },
+    "tests": {
+      "present": true,
+      "count": 1,
+      "items": [
+        {
+          "path": "_report/usage/case-study/relay-insight/tests-20251003T191310Z.json",
+          "size_bytes": 294
+        }
+      ]
+    }
+  },
+  "missing_requirements": [],
+  "notes": [
+    "Re-run `python -m tools.impact.case_study summarize --slug relay-insight` after adding new receipts."
+  ]
+}

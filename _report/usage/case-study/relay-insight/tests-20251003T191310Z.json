@@ -1,0 +1,14 @@
+{
+  "generated_at": "2025-10-03T19:19:22Z",
+  "command": [
+    "python3",
+    "-m",
+    "pytest",
+    "tests/test_case_study_summary.py",
+    "-q"
+  ],
+  "exit_code": 0,
+  "stdout": "3 passed in 0.02s",
+  "stderr": "",
+  "notes": "Validated impact summary CLI prior to client-facing report."
+}

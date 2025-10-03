@@ -1,0 +1,23 @@
+{
+  "generated_at": "2025-10-03T19:18:17Z",
+  "python": "3.9.6 (default, Apr 30 2025, 02:07:17) \n[Clang 17.0.0 (clang-1700.0.13.5)]",
+  "command": [
+    "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "-m",
+    "build",
+    "--outdir",
+    "dist"
+  ],
+  "artifacts": [
+    {
+      "path": "dist/teof-0.1.0a2-py3-none-any.whl",
+      "sha256": "42677694af0f2caef592e1fbe722dec26ec7af4ab3bbf09fbc568229806844b0",
+      "size": 288095
+    },
+    {
+      "path": "dist/teof-0.1.0a2.tar.gz",
+      "sha256": "cbf2128bf65e1f2c288fb5bc21e342802c2f0ad79feecfbd999831420ecd2b6f",
+      "size": 273779
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2025-10-03T19:19:16Z",
+  "task": {
+    "id": "ND-014",
+    "title": "Relay offering pilot",
+    "status": "in_progress",
+    "plan_suggestion": "2025-09-24-relay-offering",
+    "notes": "Validate onboarding pipeline and capture live artifacts before external delivery."
+  },
+  "guardrails": {
+    "diff_limit": 200,
+    "tests": [
+      "pytest"
+    ],
+    "receipts_dir": "_report/usage/case-study/relay-insight"
+  },
+  "summary": "Validated the install + quickstart flow and verified the case study summariser so the relay sprint can ship receipts without manual cleanup.",
+  "commands": [
+    {
+      "ref": "command-log-20251003T191500Z.json#commands[0]",
+      "description": "Run onboarding quickstart check"
+    },
+    {
+      "ref": "command-log-20251003T191500Z.json#commands[1]",
+      "description": "Run pytest for case study summary helper"
+    }
+  ],
+  "receipts": [
+    "_report/usage/onboarding/build-20251003T190822Z.json",
+    "_report/usage/onboarding/quickstart-20251003T190832Z.json",
+    "_report/usage/case-study/relay-insight/command-log-20251003T191500Z.json",
+    "_report/usage/case-study/relay-insight/tests-20251003T191310Z.json"
+  ],
+  "notes": [
+    "Next: capture client-facing deliverable draft and diff receipts under _report/usage/case-study/relay-insight/."
+  ]
+}

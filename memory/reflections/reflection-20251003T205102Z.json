@@ -1,0 +1,15 @@
+{
+  "captured_at": "2025-10-03T20:51:02Z",
+  "title": "Manager session wrap",
+  "layers": [
+    "L5",
+    "L6"
+  ],
+  "summary": "Codex-1 coordinated publish handoff for Relay Insight case study and kept upkeep loop automated",
+  "signals": "All sprint receipts present; queue/047 ready for writers; upkeep automation codified in docs",
+  "actions": "Ensure writing agent claims QUEUE-047; consider automating manager_report and case_study summarize post-handshake",
+  "tags": [],
+  "plan_suggestion": "2025-09-26-external-proof",
+  "notes": "Session covered upkeep, doc refresh, and tests; friction mainly around manifest swaps before logging bus events.",
+  "receipt": "memory/reflections/reflection-20251003T205102Z.json"
+}

@@ -43,6 +43,7 @@ before/after improvement within 1–2 weeks.
 - Translate receipts into narrative (`docs/impact/<slug>.md`).
 - Produce public asset (Notion/blog/video) referencing receipts.
 - Update ledgers and CHANGLELOG/Governance anchor.
+- Generate `_report/usage/case-study/<slug>/summary.json` via `python -m tools.impact.case_study summarize --slug <slug> --out _report/usage/case-study/<slug>/summary.json`.
 - Outcome: published asset + impact ledger entry + anchor.
 
 ## Open Questions
@@ -57,6 +58,7 @@ before/after improvement within 1–2 weeks.
 - Consent notes: `_report/usage/case-study/relay-insight/consent-notes.md`
 
 ## Next Actions
-1. Collect partner consent (update `consent.json`) and confirm scope.
-2. Schedule conductor run (update plan S2) and log bus claim for ND-014.
-3. Prepare public case study template referencing the receipts above.
+1. Draft the public narrative + client-facing summary using the captured receipts.
+2. Log the win in `memory/impact/log.jsonl` and append the entry to `docs/vision/impact-ledger.md`.
+3. Package the external asset (blog/video) with explicit links to `_report/usage/case-study/relay-insight/` receipts.
+4. Continue rerunning `python -m tools.impact.case_study summarize --slug relay-insight --out _report/usage/case-study/relay-insight/summary.json` after any updates so dashboards stay current.

@@ -1,0 +1,30 @@
+{
+  "generated_at": "2025-10-03T19:20:42Z",
+  "summary": [
+    {
+      "path": "_plans/2025-09-24-relay-offering.plan.json",
+      "additions": 5,
+      "deletions": 1
+    },
+    {
+      "path": "_plans/2025-09-26-external-proof.plan.json",
+      "additions": 16,
+      "deletions": 7
+    },
+    {
+      "path": "_plans/2025-09-27-relay-case-run.plan.json",
+      "additions": 12,
+      "deletions": 33
+    },
+    {
+      "path": "docs/impact/relay-insight-case-study.md",
+      "additions": 10,
+      "deletions": 7
+    },
+    {
+      "path": "_plans/2025-09-26-package-onboarding.plan.json",
+      "additions": 16,
+      "deletions": 7
+    }
+  ]
+}

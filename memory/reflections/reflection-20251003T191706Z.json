@@ -1,0 +1,18 @@
+{
+  "captured_at": "2025-10-03T19:17:06Z",
+  "title": "Manager idle loop auto-escalation gap",
+  "layers": [
+    "L5",
+    "L6"
+  ],
+  "summary": "Codex-1 required prompting to switch from standby to proactive coordination tasks",
+  "signals": "Manager session remained idle after handshake; user nudged to pursue high-yield coordination",
+  "actions": "Codify default manager playbook when no blocking claims: sweep active plans/claims, refresh dashboards, queue follow-up plans",
+  "tags": [
+    "manager",
+    "auto-loop"
+  ],
+  "plan_suggestion": "2025-09-18-manager-coordination",
+  "notes": "Update docs/parallel-codex.md or manager SOP to enforce automatic task selection when idle; consider guard for session_boot to prompt next action.",
+  "receipt": "memory/reflections/reflection-20251003T191706Z.json"
+}
