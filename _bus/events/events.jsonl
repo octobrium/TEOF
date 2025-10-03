@@ -246,3 +246,4 @@
 {"agent_id": "codex-2", "event": "status", "focus": "engineering", "summary": "Active on TEoF development; scanning backlog", "task_id": "manager-report", "ts": "2025-10-03T04:32:33Z"}
 {"agent_id": "codex-2", "event": "status", "receipts": ["docs/parallel-codex.md"], "summary": "codex-2: Documented dirty handoff protocol and queued automation guard", "task_id": "manager-report", "ts": "2025-10-03T04:34:48Z"}
 {"agent_id": "codex-2", "event": "status", "plan_id": "2025-10-03-dirty-handoff-automation", "receipts": ["_report/agent/codex-2/dirty-handoff/pytest.json"], "summary": "Automation writes dirty receipts + dashboard view", "task_id": "QUEUE-044", "ts": "2025-10-03T04:44:02Z"}
+{"agent_id": "codex-2", "event": "release", "plan_id": "2025-10-03-dirty-handoff-automation", "receipts": ["_report/agent/codex-2/dirty-handoff/pytest.json"], "summary": "Dirty handoff automation + metadata guard merged to main", "task_id": "QUEUE-044", "ts": "2025-10-03T04:59:41Z"}
