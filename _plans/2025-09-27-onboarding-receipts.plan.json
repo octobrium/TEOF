@@ -60,5 +60,6 @@
     "docs/receipts/INDEX.md",
     "tools/receipts/main.py",
     "tools/receipts/status.py"
-  ]
+  ],
+  "ocers_target": "Reproducibility↑ Clarity↑"
 }

@@ -50,5 +50,8 @@
     "docs/automation/autonomy-preflight.md",
     "_report/usage/autonomy-preflight/preflight-20250927T200419Z.json",
     ".github/workflows/autonomy-preflight.yml"
-  ]
+  ],
+  "ocers_target": "Safety↑ Evidence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

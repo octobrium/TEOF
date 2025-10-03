@@ -54,5 +54,8 @@
   "receipts": [
     "docs/vision/relay-offering-collateral.md",
     "docs/vision/relay-offering-dry-run.md"
-  ]
+  ],
+  "ocers_target": "Outreach↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

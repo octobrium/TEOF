@@ -1,0 +1,2430 @@
+{
+  "generated_at": "2025-10-03T04:35:31.806785+00:00",
+  "memory": [
+    {
+      "index": 0,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Scaffold persistent memory log and CI guard",
+      "systemic_scale": 6
+    },
+    {
+      "index": 1,
+      "issues": [],
+      "layer": "L4",
+      "run_id": null,
+      "summary": "Add hot memory index utility",
+      "systemic_scale": 5
+    },
+    {
+      "index": 2,
+      "issues": [],
+      "layer": "L4",
+      "run_id": null,
+      "summary": "Add runner receipts and cache",
+      "systemic_scale": 5
+    },
+    {
+      "index": 3,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Bootstrap planner validation + minimal evaluation scaffolding",
+      "systemic_scale": 5
+    },
+    {
+      "index": 4,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Harden planner validation with schema + strict receipts",
+      "systemic_scale": 5
+    },
+    {
+      "index": 5,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Introduce planner CLI scaffolding + documentation",
+      "systemic_scale": 5
+    },
+    {
+      "index": 6,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-planner-v0-2: Planner v0.2 lifecycle + receipts + CI guard",
+      "systemic_scale": 5
+    },
+    {
+      "index": 7,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-planner-v0-2: Planner v0.2 lifecycle + receipts + CI guard",
+      "systemic_scale": 5
+    },
+    {
+      "index": 8,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-planner-v0-2: Planner v0.2 lifecycle + receipts + CI guard",
+      "systemic_scale": 5
+    },
+    {
+      "index": 9,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-planner-show-command: Add CLI show command for plans",
+      "systemic_scale": 5
+    },
+    {
+      "index": 10,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-planner-insight-tools: Added planner list/report helpers",
+      "systemic_scale": 5
+    },
+    {
+      "index": 11,
+      "issues": [],
+      "layer": "L6",
+      "run_id": null,
+      "summary": "Doctor rebuilds brief artifacts to keep latest/ symlink valid",
+      "systemic_scale": 5
+    },
+    {
+      "index": 12,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-anchors-guard: Tighten anchors append-only guard",
+      "systemic_scale": 5
+    },
+    {
+      "index": 13,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-ledger-upkeep: Automate ledger updates post-autocollab",
+      "systemic_scale": 5
+    },
+    {
+      "index": 14,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-queue-hygiene: Retire completed queue tasks",
+      "systemic_scale": 5
+    },
+    {
+      "index": 15,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-runner-ux: Smooth runner command UX",
+      "systemic_scale": 5
+    },
+    {
+      "index": 16,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-commandments: Draft TEOF commandments & covenant",
+      "systemic_scale": 5
+    },
+    {
+      "index": 17,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-docs-landing: Link key covenants from README",
+      "systemic_scale": 5
+    },
+    {
+      "index": 18,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-meaning-memory: Explore meaning vs memory balance",
+      "systemic_scale": 5
+    },
+    {
+      "index": 19,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-commandment-tags: Tag plans with commandment hooks",
+      "systemic_scale": 5
+    },
+    {
+      "index": 20,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-reconciliation: Sketch cross-instance reconciliation",
+      "systemic_scale": 5
+    },
+    {
+      "index": 21,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-handshake-cli: Prototype reconciliation hello packet",
+      "systemic_scale": 5
+    },
+    {
+      "index": 22,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-handshake-diff: Diff reconciliation hello packets",
+      "systemic_scale": 5
+    },
+    {
+      "index": 23,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-delta-exchange: Prototype receipt exchange for reconciliation",
+      "systemic_scale": 5
+    },
+    {
+      "index": 24,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-layer-update: Assess adding L6 Automation",
+      "systemic_scale": 5
+    },
+    {
+      "index": 25,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-automation-doc: Draft automation layer vision",
+      "systemic_scale": 5
+    },
+    {
+      "index": 26,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-reconcile-merge: Prototype reconciliation merge summary",
+      "systemic_scale": 5
+    },
+    {
+      "index": 27,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-reconcile-pipeline: Compose reconciliation pipeline",
+      "systemic_scale": 5
+    },
+    {
+      "index": 28,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-reconcile-ci: Integrate reconciliation checks into CI",
+      "systemic_scale": 5
+    },
+    {
+      "index": 29,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-convergence-metrics: Explore convergence metrics",
+      "systemic_scale": 5
+    },
+    {
+      "index": 30,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-commandments-diff: Prototype semantic diff for commandments",
+      "systemic_scale": 5
+    },
+    {
+      "index": 31,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-metrics-jsonl: Log reconciliation metrics to JSONL",
+      "systemic_scale": 5
+    },
+    {
+      "index": 32,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-metrics-aggregate: Summarize reconciliation metrics",
+      "systemic_scale": 5
+    },
+    {
+      "index": 33,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-17-commandment-defaults: Embed CMD tag reminder in plan notes",
+      "systemic_scale": 5
+    },
+    {
+      "index": 34,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Codex coordination & branch tidy",
+      "systemic_scale": 4
+    },
+    {
+      "index": 35,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-19-quickstart-refresh: Restore Quickstart doc with validated commands",
+      "systemic_scale": 6
+    },
+    {
+      "index": 36,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-19-onboarding-quickstart-sync: Mirror Quickstart commands across onboarding surfaces",
+      "systemic_scale": 6
+    },
+    {
+      "index": 37,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-19-readme-quickstart-sync: Align README quickstart with canonical commands",
+      "systemic_scale": 6
+    },
+    {
+      "index": 38,
+      "issues": [],
+      "layer": "L4",
+      "run_id": null,
+      "summary": "Plan update 2025-09-19-planner-cli-entrypoint: Expose planner CLI as console script",
+      "systemic_scale": 5
+    },
+    {
+      "index": 39,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-19-quickstart-quicklinks: Add quickstart entry to doc_links manifest",
+      "systemic_scale": 6
+    },
+    {
+      "index": 40,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-19-quickstart-snippet-generator: Extract shared Quickstart snippet",
+      "systemic_scale": 6
+    },
+    {
+      "index": 41,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Plan update 2025-09-19-quickstart-snippet-preflight: Guard quickstart snippet via preflight",
+      "systemic_scale": 6
+    },
+    {
+      "index": 42,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Reflection: heartbeat docs & dashboard polish",
+      "systemic_scale": 5
+    },
+    {
+      "index": 43,
+      "issues": [],
+      "layer": "L5",
+      "run_id": null,
+      "summary": "Tracked required _report artifacts after CI failures",
+      "systemic_scale": 6
+    },
+    {
+      "index": 44,
+      "issues": [],
+      "layer": "L2",
+      "run_id": null,
+      "summary": "Reflection logged: nine observable power levers outside TEOF",
+      "systemic_scale": 7
+    },
+    {
+      "index": 45,
+      "issues": [],
+      "layer": "L3",
+      "run_id": null,
+      "summary": "Reflection logged: need for ranked memory",
+      "systemic_scale": 5
+    },
+    {
+      "index": 46,
+      "issues": [],
+      "layer": "L4",
+      "run_id": "20250926T180946Z-d2de77",
+      "summary": "Implemented memory helper API",
+      "systemic_scale": 6
+    },
+    {
+      "index": 47,
+      "issues": [],
+      "layer": "L5",
+      "run_id": "20250926T182405Z-cab440",
+      "summary": "Added memory diagnostics CLI",
+      "systemic_scale": 5
+    },
+    {
+      "index": 48,
+      "issues": [],
+      "layer": "L2",
+      "run_id": "20250926T182819Z-5d57af",
+      "summary": "Promoted memory CLI fact",
+      "systemic_scale": 5
+    },
+    {
+      "index": 49,
+      "issues": [],
+      "layer": "L5",
+      "run_id": "20250926T183054Z-f26171",
+      "summary": "Updated docs with memory layer usage",
+      "systemic_scale": 5
+    },
+    {
+      "index": 50,
+      "issues": [],
+      "layer": "L5",
+      "run_id": "20250926T190628Z-717d8d",
+      "summary": "Completed backlog hygiene plan",
+      "systemic_scale": 5
+    },
+    {
+      "index": 51,
+      "issues": [],
+      "layer": "L1",
+      "run_id": "20250926T191518Z-d91f4a",
+      "summary": "Documented TEOF future horizon",
+      "systemic_scale": 10
+    },
+    {
+      "index": 52,
+      "issues": [],
+      "layer": "L1",
+      "run_id": "20250926T202901Z-bfa9f2",
+      "summary": "Captured reflection on coherence vs ethics distinction",
+      "systemic_scale": 8
+    },
+    {
+      "index": 53,
+      "issues": [],
+      "layer": "L4",
+      "run_id": "20250926T203409Z-bbf19a",
+      "summary": "Manual verification receipts for scaffolding checks",
+      "systemic_scale": 4
+    },
+    {
+      "index": 54,
+      "issues": [],
+      "layer": "L4",
+      "run_id": "20250926T203602Z-42b11f",
+      "summary": "Manual verification receipts for scaffolding checks",
+      "systemic_scale": 4
+    },
+    {
+      "index": 55,
+      "issues": [],
+      "layer": "L4",
+      "run_id": "20250926T213219Z-178cfe",
+      "summary": "Attestation of repo scaffold guardrails",
+      "systemic_scale": 8
+    },
+    {
+      "index": 56,
+      "issues": [],
+      "layer": "L4",
+      "run_id": "20250926T214326Z-328377",
+      "summary": "Automated attestation with ethics guard satisfied",
+      "systemic_scale": 8
+    },
+    {
+      "index": 57,
+      "issues": [],
+      "layer": "L4",
+      "run_id": "20250926T214558Z-7eef59",
+      "summary": "Attestation of repo scaffold guardrails",
+      "systemic_scale": 8
+    }
+  ],
+  "plans": [
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑",
+      "path": "_plans/1970-01-01-agent-template.plan.json",
+      "plan_id": "1970-01-01-agent-template",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S3:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Safety↑ Evidence↑",
+      "path": "_plans/2025-09-17-agent-bus-awareness.plan.json",
+      "plan_id": "2025-09-17-agent-bus-awareness",
+      "referenced_queue": [
+        "queue/001-agent-bus-watch.md"
+      ],
+      "systemic_scale": 3
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Evidence↑",
+      "path": "_plans/2025-09-17-agent-bus-watch.plan.json",
+      "plan_id": "2025-09-17-agent-bus-watch",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "_plans/2025-09-17-anchors-append-guard.plan.json",
+      "plan_id": "2025-09-17-anchors-append-guard",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "_plans/2025-09-17-anchors-guard.plan.json",
+      "plan_id": "2025-09-17-anchors-guard",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Clarity↑",
+      "path": "_plans/2025-09-17-automation-doc.plan.json",
+      "plan_id": "2025-09-17-automation-doc",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-17-codex1-support.plan.json",
+      "plan_id": "2025-09-17-codex1-support",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Clarity↑",
+      "path": "_plans/2025-09-17-commandment-defaults.plan.json",
+      "plan_id": "2025-09-17-commandment-defaults",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Clarity↑",
+      "path": "_plans/2025-09-17-commandment-tags.plan.json",
+      "plan_id": "2025-09-17-commandment-tags",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Clarity↑",
+      "path": "_plans/2025-09-17-commandments-diff.plan.json",
+      "plan_id": "2025-09-17-commandments-diff",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Clarity↑",
+      "path": "_plans/2025-09-17-commandments.plan.json",
+      "plan_id": "2025-09-17-commandments",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Evidence↑ Clarity↑",
+      "path": "_plans/2025-09-17-convergence-metrics.plan.json",
+      "plan_id": "2025-09-17-convergence-metrics",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-17-delta-exchange.plan.json",
+      "plan_id": "2025-09-17-delta-exchange",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Evidence↑",
+      "path": "_plans/2025-09-17-docs-landing.plan.json",
+      "plan_id": "2025-09-17-docs-landing",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-17-handshake-cli.plan.json",
+      "plan_id": "2025-09-17-handshake-cli",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-17-handshake-diff.plan.json",
+      "plan_id": "2025-09-17-handshake-diff",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Clarity↑",
+      "path": "_plans/2025-09-17-layer-update.plan.json",
+      "plan_id": "2025-09-17-layer-update",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Evidence↑",
+      "path": "_plans/2025-09-17-ledger-upkeep.plan.json",
+      "plan_id": "2025-09-17-ledger-upkeep",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Evidence↑",
+      "path": "_plans/2025-09-17-meaning-memory.plan.json",
+      "plan_id": "2025-09-17-meaning-memory",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Evidence↑ Clarity↑",
+      "path": "_plans/2025-09-17-metrics-aggregate.plan.json",
+      "plan_id": "2025-09-17-metrics-aggregate",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Evidence↑ Reproducibility↑",
+      "path": "_plans/2025-09-17-metrics-jsonl.plan.json",
+      "plan_id": "2025-09-17-metrics-jsonl",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Evidence↑ Reproducibility↑",
+      "path": "_plans/2025-09-17-metrics-logging.plan.json",
+      "plan_id": "2025-09-17-metrics-logging",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-17-planner-cli-bootstrap.plan.json",
+      "plan_id": "2025-09-17-planner-cli-bootstrap",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-17-planner-eval-bootstrap.plan.json",
+      "plan_id": "2025-09-17-planner-eval-bootstrap",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-17-planner-insight-tools.plan.json",
+      "plan_id": "2025-09-17-planner-insight-tools",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-17-planner-show-command.plan.json",
+      "plan_id": "2025-09-17-planner-show-command",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-17-planner-v0-2.plan.json",
+      "plan_id": "2025-09-17-planner-v0-2",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-17-planner-validator-upgrade.plan.json",
+      "plan_id": "2025-09-17-planner-validator-upgrade",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-09-17-queue-hygiene.plan.json",
+      "plan_id": "2025-09-17-queue-hygiene",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "_plans/2025-09-17-reconcile-ci.plan.json",
+      "plan_id": "2025-09-17-reconcile-ci",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "_plans/2025-09-17-reconcile-merge.plan.json",
+      "plan_id": "2025-09-17-reconcile-merge",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Coherence↑",
+      "path": "_plans/2025-09-17-reconcile-pipeline.plan.json",
+      "plan_id": "2025-09-17-reconcile-pipeline",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Self-repair↑",
+      "path": "_plans/2025-09-17-reconciliation.plan.json",
+      "plan_id": "2025-09-17-reconciliation",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Coherence↑",
+      "path": "_plans/2025-09-17-runner-ux.plan.json",
+      "plan_id": "2025-09-17-runner-ux",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Evidence↑",
+      "path": "_plans/2025-09-18-agent-bus-status.plan.json",
+      "plan_id": "2025-09-18-agent-bus-status",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-09-18-auto-claim.plan.json",
+      "plan_id": "2025-09-18-auto-claim",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-09-18-backlog-refresh.plan.json",
+      "plan_id": "2025-09-18-backlog-refresh",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S3:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-18-bus-message-claim-guard.plan.json",
+      "plan_id": "2025-09-18-bus-message-claim-guard",
+      "referenced_queue": [
+        "queue/012-bus-message-claim-guard.md"
+      ],
+      "systemic_scale": 3
+    },
+    {
+      "inferred_coordinate": "S6:LL4",
+      "issues": [],
+      "layer": "L4",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-18-capsule-cadence.plan.json",
+      "plan_id": "2025-09-18-capsule-cadence",
+      "referenced_queue": [
+        "queue/039-capsule-cadence-plan.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S6:LL4",
+      "issues": [],
+      "layer": "L4",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-18-capsule-status-ledger.plan.json",
+      "plan_id": "2025-09-18-capsule-status-ledger",
+      "referenced_queue": [
+        "queue/035-capsule-status-ledger.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S3:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-18-claim-seed-docs.plan.json",
+      "plan_id": "2025-09-18-claim-seed-docs",
+      "referenced_queue": [
+        "queue/014-claim-seed-docs.md"
+      ],
+      "systemic_scale": 3
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Evidence↑",
+      "path": "_plans/2025-09-18-claim-session-cli.plan.json",
+      "plan_id": "2025-09-18-claim-session-cli",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-18-codex4-bus-followups.plan.json",
+      "plan_id": "2025-09-18-codex4-bus-followups",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S3:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-18-codex4-bus-watch-window.plan.json",
+      "plan_id": "2025-09-18-codex4-bus-watch-window",
+      "referenced_queue": [
+        "queue/009-bus-watch-window.md"
+      ],
+      "systemic_scale": 3
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Evidence↑",
+      "path": "_plans/2025-09-18-codex4-consensus-context.plan.json",
+      "plan_id": "2025-09-18-codex4-consensus-context",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S6:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "_plans/2025-09-18-codex4-consensus-draft.plan.json",
+      "plan_id": "2025-09-18-codex4-consensus-draft",
+      "referenced_queue": [
+        "queue/030-consensus-ledger-cli.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S3:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑ Safety↑",
+      "path": "_plans/2025-09-18-collab-support.plan.json",
+      "plan_id": "2025-09-18-collab-support",
+      "referenced_queue": [
+        "queue/010-collab-support.md"
+      ],
+      "systemic_scale": 3
+    },
+    {
+      "inferred_coordinate": "S6:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Self-repair↑",
+      "path": "_plans/2025-09-18-consensus-cadence.plan.json",
+      "plan_id": "2025-09-18-consensus-cadence",
+      "referenced_queue": [
+        "queue/032-consensus-cadence.md",
+        "queue/030-consensus-ledger-cli.md",
+        "queue/031-consensus-receipts.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S6:LL6",
+      "issues": [],
+      "layer": "L6",
+      "ocers_target": "Evidence↑ Safety↑",
+      "path": "_plans/2025-09-18-consensus-ci.plan.json",
+      "plan_id": "2025-09-18-consensus-ci",
+      "referenced_queue": [
+        "queue/038-ci-consensus-integration.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S6:LL4",
+      "issues": [],
+      "layer": "L4",
+      "ocers_target": "Observation↑ Evidence↑",
+      "path": "_plans/2025-09-18-consensus-dashboard.plan.json",
+      "plan_id": "2025-09-18-consensus-dashboard",
+      "referenced_queue": [
+        "queue/033-consensus-dashboard.md",
+        "queue/031-consensus-receipts.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S6:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "_plans/2025-09-18-consensus-ledger-cli.plan.json",
+      "plan_id": "2025-09-18-consensus-ledger-cli",
+      "referenced_queue": [
+        "queue/030-consensus-ledger-cli.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S6:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Ethics↑ Reproducibility↑",
+      "path": "_plans/2025-09-18-consensus-receipts.plan.json",
+      "plan_id": "2025-09-18-consensus-receipts",
+      "referenced_queue": [
+        "queue/031-consensus-receipts.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Observation↑",
+      "path": "_plans/2025-09-18-governance-bridge.plan.json",
+      "plan_id": "2025-09-18-governance-bridge",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-09-18-idle-pickup.plan.json",
+      "plan_id": "2025-09-18-idle-pickup",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Coherence↑",
+      "path": "_plans/2025-09-18-l4-bindings.plan.json",
+      "plan_id": "2025-09-18-l4-bindings",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL2",
+      "issues": [],
+      "layer": "L2",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-18-macro-hygiene.plan.json",
+      "plan_id": "2025-09-18-macro-hygiene",
+      "referenced_queue": [
+        "queue/036-macro-hygiene-objective.md"
+      ],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Self-repair↑",
+      "path": "_plans/2025-09-18-maintenance-pruning.plan.json",
+      "plan_id": "2025-09-18-maintenance-pruning",
+      "referenced_queue": [
+        "queue/013-maintenance-pruning.md"
+      ],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S3:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-18-manager-coordination.plan.json",
+      "plan_id": "2025-09-18-manager-coordination",
+      "referenced_queue": [
+        "queue/002-bus-status-filters.md"
+      ],
+      "systemic_scale": 3
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "_plans/2025-09-18-manager-heartbeat.plan.json",
+      "plan_id": "2025-09-18-manager-heartbeat",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-18-manifest-helper-codex3.plan.json",
+      "plan_id": "2025-09-18-manifest-helper-codex3",
+      "referenced_queue": [
+        "queue/037-manifest-helper.md"
+      ],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL6",
+      "issues": [],
+      "layer": "L6",
+      "ocers_target": "Self-repair↑ Reproducibility↑",
+      "path": "_plans/2025-09-18-prune-script.plan.json",
+      "plan_id": "2025-09-18-prune-script",
+      "referenced_queue": [
+        "queue/015-prune-script.md"
+      ],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Coherence↑",
+      "path": "_plans/2025-09-18-release-readiness.plan.json",
+      "plan_id": "2025-09-18-release-readiness",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S6:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Reproducibility↑",
+      "path": "_plans/2025-09-19-coordination-dashboard-codex2.plan.json",
+      "plan_id": "2025-09-19-coordination-dashboard-codex2",
+      "referenced_queue": [
+        "queue/042-coordination-dashboard.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S2:LL4",
+      "issues": [],
+      "layer": "L4",
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "_plans/2025-09-19-docs-quicklinks-codex2.plan.json",
+      "plan_id": "2025-09-19-docs-quicklinks-codex2",
+      "referenced_queue": [
+        "queue/040-code-compaction.md"
+      ],
+      "systemic_scale": 2
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-09-19-governance-trim.plan.json",
+      "plan_id": "2025-09-19-governance-trim",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "_plans/2025-09-19-heartbeat-auto-codex2.plan.json",
+      "plan_id": "2025-09-19-heartbeat-auto-codex2",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Coherence↑",
+      "path": "_plans/2025-09-19-heartbeat-docs-codex3.plan.json",
+      "plan_id": "2025-09-19-heartbeat-docs-codex3",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Observation↑",
+      "path": "_plans/2025-09-19-heartbeat-followup.plan.json",
+      "plan_id": "2025-09-19-heartbeat-followup",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Observation↑",
+      "path": "_plans/2025-09-19-heartbeat-integration-codex4.plan.json",
+      "plan_id": "2025-09-19-heartbeat-integration-codex4",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Reproducibility↑",
+      "path": "_plans/2025-09-19-kernel-slimdown.plan.json",
+      "plan_id": "2025-09-19-kernel-slimdown",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Observation↑",
+      "path": "_plans/2025-09-19-manager-heartbeat-auto.plan.json",
+      "plan_id": "2025-09-19-manager-heartbeat-auto",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S3:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "_plans/2025-09-19-manifest-swap.plan.json",
+      "plan_id": "2025-09-19-manifest-swap",
+      "referenced_queue": [
+        "queue/037-manifest-swap-helper.md"
+      ],
+      "systemic_scale": 3
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-09-19-plan-hygiene-dedupe.plan.json",
+      "plan_id": "2025-09-19-plan-hygiene-dedupe",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S6:LL4",
+      "issues": [],
+      "layer": "L4",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-19-plan-hygiene.plan.json",
+      "plan_id": "2025-09-19-plan-hygiene",
+      "referenced_queue": [
+        "queue/039-capsule-cadence-plan.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-09-19-retire-codex-observer.plan.json",
+      "plan_id": "2025-09-19-retire-codex-observer",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Reproducibility↑",
+      "path": "_plans/2025-09-19-tooling-prune.plan.json",
+      "plan_id": "2025-09-19-tooling-prune",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Safety↑",
+      "path": "_plans/2025-09-20-bus-guardrails-cleanup.plan.json",
+      "plan_id": "2025-09-20-bus-guardrails-cleanup",
+      "referenced_queue": [
+        "QUEUE-012-bus-message-claim-guard",
+        "QUEUE-042-coordination-dashboard"
+      ],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "_plans/2025-09-20-bus-heartbeat-refresh.plan.json",
+      "plan_id": "2025-09-20-bus-heartbeat-refresh",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "_plans/2025-09-20-bus-ping-helper.plan.json",
+      "plan_id": "2025-09-20-bus-ping-helper",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Safety↑",
+      "path": "_plans/2025-09-20-capsule-symlink-policy.plan.json",
+      "plan_id": "2025-09-20-capsule-symlink-policy",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-20-capsule-version-guard.plan.json",
+      "plan_id": "2025-09-20-capsule-version-guard",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Safety↑",
+      "path": "_plans/2025-09-20-ci-guarantees.plan.json",
+      "plan_id": "2025-09-20-ci-guarantees",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Ethics↑ Safety↑",
+      "path": "_plans/2025-09-20-consent-exit.plan.json",
+      "plan_id": "2025-09-20-consent-exit",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Coherence↑",
+      "path": "_plans/2025-09-20-docs-quicklinks-v2.plan.json",
+      "plan_id": "2025-09-20-docs-quicklinks-v2",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Observation↑",
+      "path": "_plans/2025-09-20-manager-directive-pointer.plan.json",
+      "plan_id": "2025-09-20-manager-directive-pointer",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Reproducibility↑",
+      "path": "_plans/2025-09-20-memory-tests.plan.json",
+      "plan_id": "2025-09-20-memory-tests",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Observation↑",
+      "path": "_plans/2025-09-20-operator-mode-checklist.plan.json",
+      "plan_id": "2025-09-20-operator-mode-checklist",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Coherence↑",
+      "path": "_plans/2025-09-20-receipt-scaffold-v2.plan.json",
+      "plan_id": "2025-09-20-receipt-scaffold-v2",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Reproducibility↑",
+      "path": "_plans/2025-09-20-repo-hygiene-codex4.plan.json",
+      "plan_id": "2025-09-20-repo-hygiene-codex4",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-20-session-boot-tail-tests.plan.json",
+      "plan_id": "2025-09-20-session-boot-tail-tests",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Self-repair↑",
+      "path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
+      "plan_id": "2025-09-21-automation-governance-upgrade",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Throughput↑",
+      "path": "_plans/2025-09-21-autonomy-batch-runner.plan.json",
+      "plan_id": "2025-09-21-autonomy-batch-runner",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Evidence↑",
+      "path": "_plans/2025-09-21-autonomy-metrics.plan.json",
+      "plan_id": "2025-09-21-autonomy-metrics",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "_plans/2025-09-21-autonomy-status-cli.plan.json",
+      "plan_id": "2025-09-21-autonomy-status-cli",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Reproducibility↑",
+      "path": "_plans/2025-09-21-autonomy-status-receipt.plan.json",
+      "plan_id": "2025-09-21-autonomy-status-receipt",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Reproducibility↑",
+      "path": "_plans/2025-09-21-batch-hygiene-thresholds.plan.json",
+      "plan_id": "2025-09-21-batch-hygiene-thresholds",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Self-repair↑",
+      "path": "_plans/2025-09-21-batch-refinement-log.plan.json",
+      "plan_id": "2025-09-21-batch-refinement-log",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Coherence↑",
+      "path": "_plans/2025-09-21-batch-refinement-report.plan.json",
+      "plan_id": "2025-09-21-batch-refinement-report",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S6:LL4",
+      "issues": [],
+      "layer": "L4",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-21-capsule-cadence-automation.plan.json",
+      "plan_id": "2025-09-21-capsule-cadence-automation",
+      "referenced_queue": [
+        "queue/039-capsule-cadence-plan.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-21-capsule-version-sync.plan.json",
+      "plan_id": "2025-09-21-capsule-version-sync",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "_plans/2025-09-21-ci-vdp-automation.plan.json",
+      "plan_id": "2025-09-21-ci-vdp-automation",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S2:LL4",
+      "issues": [],
+      "layer": "L4",
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "_plans/2025-09-21-code-compaction.plan.json",
+      "plan_id": "2025-09-21-code-compaction",
+      "referenced_queue": [
+        "queue/040-code-compaction.md"
+      ],
+      "systemic_scale": 2
+    },
+    {
+      "inferred_coordinate": "S6:LL4",
+      "issues": [],
+      "layer": "L4",
+      "ocers_target": "Observation↑ Evidence↑",
+      "path": "_plans/2025-09-21-consensus-ci-integration.plan.json",
+      "plan_id": "2025-09-21-consensus-ci-integration",
+      "referenced_queue": [
+        "queue/033-consensus-dashboard.md",
+        "queue/038-ci-consensus-integration.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S6:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Reproducibility↑",
+      "path": "_plans/2025-09-21-coordination-dashboard.plan.json",
+      "plan_id": "2025-09-21-coordination-dashboard",
+      "referenced_queue": [
+        "queue/042-coordination-dashboard.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "_plans/2025-09-21-guard-plan-receipt-exists.plan.json",
+      "plan_id": "2025-09-21-guard-plan-receipt-exists",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Evidence↑",
+      "path": "_plans/2025-09-21-plan-receipt-guard-docs.plan.json",
+      "plan_id": "2025-09-21-plan-receipt-guard-docs",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Observation↑",
+      "path": "_plans/2025-09-21-quickstart-smoke-ci.plan.json",
+      "plan_id": "2025-09-21-quickstart-smoke-ci",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL2",
+      "issues": [],
+      "layer": "L2",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-09-21-readability-guard.plan.json",
+      "plan_id": "2025-09-21-readability-guard",
+      "referenced_queue": [
+        "queue/036-macro-hygiene-objective.md"
+      ],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Self-repair↑",
+      "path": "_plans/2025-09-21-receipts-hygiene-alerts.plan.json",
+      "plan_id": "2025-09-21-receipts-hygiene-alerts",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Self-repair↑",
+      "path": "_plans/2025-09-21-receipts-hygiene-thresholds.plan.json",
+      "plan_id": "2025-09-21-receipts-hygiene-thresholds",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Self-repair↑",
+      "path": "_plans/2025-09-21-receipts-hygiene.plan.json",
+      "plan_id": "2025-09-21-receipts-hygiene",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Reproducibility↑",
+      "path": "_plans/2025-09-21-receipts-indexer.plan.json",
+      "plan_id": "2025-09-21-receipts-indexer",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Throughput↑",
+      "path": "_plans/2025-09-21-receipts-latency.plan.json",
+      "plan_id": "2025-09-21-receipts-latency",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Safety↑",
+      "path": "_plans/2025-09-21-reduce-handshake.plan.json",
+      "plan_id": "2025-09-21-reduce-handshake",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Clarity↑",
+      "path": "_plans/2025-09-21-session-brief-operator.plan.json",
+      "plan_id": "2025-09-21-session-brief-operator",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S3:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "_plans/2025-09-21-session-sync.plan.json",
+      "plan_id": "2025-09-21-session-sync",
+      "referenced_queue": [
+        "queue/041-session-sync.md"
+      ],
+      "systemic_scale": 3
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Evidence↑",
+      "path": "_plans/2025-09-21-vdp-pilot-case-study.plan.json",
+      "plan_id": "2025-09-21-vdp-pilot-case-study",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Outreach↑",
+      "path": "_plans/2025-09-22-decentralized-propagation-pilot.plan.json",
+      "plan_id": "2025-09-22-decentralized-propagation-pilot",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Outreach↑",
+      "path": "_plans/2025-09-22-external-adoption-runbook.plan.json",
+      "plan_id": "2025-09-22-external-adoption-runbook",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Outreach↑",
+      "path": "_plans/2025-09-22-external-feed-demo.plan.json",
+      "plan_id": "2025-09-22-external-feed-demo",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Observation↑",
+      "path": "_plans/2025-09-22-governance-l1-hardening.plan.json",
+      "plan_id": "2025-09-22-governance-l1-hardening",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Clarity↑",
+      "path": "_plans/2025-09-22-teof-status-cli.plan.json",
+      "plan_id": "2025-09-22-teof-status-cli",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Safety↑",
+      "path": "_plans/2025-09-23-authenticity-chronicle.plan.json",
+      "plan_id": "2025-09-23-authenticity-chronicle",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Safety↑",
+      "path": "_plans/2025-09-23-authenticity-steward-alerts.plan.json",
+      "plan_id": "2025-09-23-authenticity-steward-alerts",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Throughput↑",
+      "path": "_plans/2025-09-23-autonomy-auto-proceed.plan.json",
+      "plan_id": "2025-09-23-autonomy-auto-proceed",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "_plans/2025-09-23-autonomy-conductor.plan.json",
+      "plan_id": "2025-09-23-autonomy-conductor",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Self-repair↑",
+      "path": "_plans/2025-09-23-autonomy-roadmap.plan.json",
+      "plan_id": "2025-09-23-autonomy-roadmap",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Observation↑",
+      "path": "_plans/2025-09-23-decision-loop.plan.json",
+      "plan_id": "2025-09-23-decision-loop",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Reproducibility↑",
+      "path": "_plans/2025-09-23-repo-hygiene.plan.json",
+      "plan_id": "2025-09-23-repo-hygiene",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Self-repair↑",
+      "path": "_plans/2025-09-23-selfprompt-pilot.plan.json",
+      "plan_id": "2025-09-23-selfprompt-pilot",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Outreach↑ Coherence↑",
+      "path": "_plans/2025-09-24-relay-offering.plan.json",
+      "plan_id": "2025-09-24-relay-offering",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-09-25-backlog-hygiene.plan.json",
+      "plan_id": "2025-09-25-backlog-hygiene",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S6:LL4",
+      "issues": [],
+      "layer": "L4",
+      "ocers_target": "Observation↑ Reproducibility↑",
+      "path": "_plans/2025-09-25-memory-layer.plan.json",
+      "plan_id": "2025-09-25-memory-layer",
+      "referenced_queue": [],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Safety↑ Evidence↑",
+      "path": "_plans/2025-09-25-oversight-guard.plan.json",
+      "plan_id": "2025-09-25-oversight-guard",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Observation↑",
+      "path": "_plans/2025-09-25-teof-anatomy-dashboard.plan.json",
+      "plan_id": "2025-09-25-teof-anatomy-dashboard",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Safety↑ Evidence↑",
+      "path": "_plans/2025-09-26-autonomy-preflight.plan.json",
+      "plan_id": "2025-09-26-autonomy-preflight",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Outreach↑ Clarity↑",
+      "path": "_plans/2025-09-26-evangelism.plan.json",
+      "plan_id": "2025-09-26-evangelism",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S6:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Evidence↑ Outreach↑",
+      "path": "_plans/2025-09-26-external-proof.plan.json",
+      "plan_id": "2025-09-26-external-proof",
+      "referenced_queue": [],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Clarity↑",
+      "path": "_plans/2025-09-26-package-onboarding.plan.json",
+      "plan_id": "2025-09-26-package-onboarding",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL1",
+      "issues": [],
+      "layer": "L1",
+      "ocers_target": "Ethics↑ Observation↑",
+      "path": "_plans/2025-09-27-ethics-clarity.plan.json",
+      "plan_id": "2025-09-27-ethics-clarity",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S7:LL1",
+      "issues": [],
+      "layer": "L1",
+      "ocers_target": "Ethics↑ Coherence↑",
+      "path": "_plans/2025-09-27-ethics-scenarios.plan.json",
+      "plan_id": "2025-09-27-ethics-scenarios",
+      "referenced_queue": [],
+      "systemic_scale": 7
+    },
+    {
+      "inferred_coordinate": "S6:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Clarity↑",
+      "path": "_plans/2025-09-27-onboarding-receipts.plan.json",
+      "plan_id": "2025-09-27-onboarding-receipts",
+      "referenced_queue": [],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S6:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Evidence↑ Outreach↑",
+      "path": "_plans/2025-09-27-relay-case-run.plan.json",
+      "plan_id": "2025-09-27-relay-case-run",
+      "referenced_queue": [],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S6:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Ethics↑ Evidence↑",
+      "path": "_plans/2025-09-28-ethics-playbook-tool.plan.json",
+      "plan_id": "2025-09-28-ethics-playbook-tool",
+      "referenced_queue": [],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S9:LL2",
+      "issues": [],
+      "layer": "L2",
+      "ocers_target": "Coherence↑ Ethics↑",
+      "path": "_plans/2025-09-28-philosophical-alignment.plan.json",
+      "plan_id": "2025-09-28-philosophical-alignment",
+      "referenced_queue": [],
+      "systemic_scale": 9
+    },
+    {
+      "inferred_coordinate": "S8:LL1",
+      "issues": [],
+      "layer": "L1",
+      "ocers_target": "Ethics↑ Clarity↑",
+      "path": "_plans/2025-09-28-religious-wisdom-distillation.plan.json",
+      "plan_id": "2025-09-28-religious-wisdom-distillation",
+      "referenced_queue": [],
+      "systemic_scale": 8
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Self-repair↑",
+      "path": "_plans/2025-09-28-response-latency.plan.json",
+      "plan_id": "2025-09-28-response-latency",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Reproducibility↑",
+      "path": "_plans/2025-09-29-autonomous-backlog.plan.json",
+      "plan_id": "2025-09-29-autonomous-backlog",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S8:LL1",
+      "issues": [],
+      "layer": "L1",
+      "ocers_target": "Ethics↑ Clarity↑",
+      "path": "_plans/2025-09-29-ethics-seed-prioritization.plan.json",
+      "plan_id": "2025-09-29-ethics-seed-prioritization",
+      "referenced_queue": [],
+      "systemic_scale": 8
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Self-repair↑",
+      "path": "_plans/2025-09-29-response-streamlining.plan.json",
+      "plan_id": "2025-09-29-response-streamlining",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S6:LL4",
+      "issues": [],
+      "layer": "L4",
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "_plans/2025-10-02-capsule-summary-cli.plan.json",
+      "plan_id": "2025-10-02-capsule-summary-cli",
+      "referenced_queue": [
+        "queue/039-capsule-cadence-plan.md"
+      ],
+      "systemic_scale": 6
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "_plans/2025-10-03-2025-10-04-plan-metadata-backfill-phase2.plan.json",
+      "plan_id": "2025-10-03-2025-10-04-plan-metadata-backfill-phase2",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Observation↑ Safety↑",
+      "path": "_plans/2025-10-03-authenticity-metadata-backfill.plan.json",
+      "plan_id": "2025-10-03-authenticity-metadata-backfill",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Throughput↑",
+      "path": "_plans/2025-10-03-autonomous-backlog-synthesis.plan.json",
+      "plan_id": "2025-10-03-autonomous-backlog-synthesis",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-10-03-autonomy-metadata-backfill.plan.json",
+      "plan_id": "2025-10-03-autonomy-metadata-backfill",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Self-repair↑",
+      "path": "_plans/2025-10-03-autonomy-roadmap-metadata.plan.json",
+      "plan_id": "2025-10-03-autonomy-roadmap-metadata",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Clarity↑ Self-repair↑",
+      "path": "_plans/2025-10-03-backlog-advisory-report.plan.json",
+      "plan_id": "2025-10-03-backlog-advisory-report",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-10-03-capsule-metadata-backfill.plan.json",
+      "plan_id": "2025-10-03-capsule-metadata-backfill",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S4:LL2",
+      "issues": [],
+      "layer": "L2",
+      "ocers_target": "Clarity↑ Outreach↑",
+      "path": "_plans/2025-10-03-evangelism-kit-refresh.plan.json",
+      "plan_id": "2025-10-03-evangelism-kit-refresh",
+      "referenced_queue": [],
+      "systemic_scale": 4
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Outreach↑",
+      "path": "_plans/2025-10-03-external-metadata-backfill.plan.json",
+      "plan_id": "2025-10-03-external-metadata-backfill",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Coherence↑ Self-repair↑",
+      "path": "_plans/2025-10-03-governance-metadata-backfill.plan.json",
+      "plan_id": "2025-10-03-governance-metadata-backfill",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-10-03-heartbeat-metadata-backfill.plan.json",
+      "plan_id": "2025-10-03-heartbeat-metadata-backfill",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-10-03-plan-metadata-backfill.plan.json",
+      "plan_id": "2025-10-03-plan-metadata-backfill",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-10-03-planner-metadata-backfill.plan.json",
+      "plan_id": "2025-10-03-planner-metadata-backfill",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    },
+    {
+      "inferred_coordinate": "S5:LL5",
+      "issues": [],
+      "layer": "L5",
+      "ocers_target": "Self-repair↑ Coherence↑",
+      "path": "_plans/2025-10-03-reconcile-metadata-backfill.plan.json",
+      "plan_id": "2025-10-03-reconcile-metadata-backfill",
+      "referenced_queue": [],
+      "systemic_scale": 5
+    }
+  ],
+  "queue": [
+    {
+      "coordinates": [
+        "S6:L1"
+      ],
+      "issues": [],
+      "ocers_target": "Evidence↑ Safety↑ Coherence↑",
+      "path": "queue/000-welcome.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Safety↑ Evidence↑",
+      "path": "queue/001-agent-bus-watch.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "queue/002-bus-status-filters.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "queue/005-bus-message-cli.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "queue/006-task-assign-bus-message.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Evidence↑ Safety↑",
+      "path": "queue/007-bus-event-severity.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "queue/008-bus-status-staleness.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Evidence↑",
+      "path": "queue/009-bus-watch-window.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Evidence↑ Safety↑",
+      "path": "queue/010-collab-support.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Evidence↑ Reliability↑",
+      "path": "queue/011-bus-tooling-review.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "queue/012-bus-message-claim-guard.md"
+    },
+    {
+      "coordinates": [
+        "S5:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Observation↑ Self-repair↑",
+      "path": "queue/013-maintenance-pruning.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "queue/014-claim-seed-docs.md"
+    },
+    {
+      "coordinates": [
+        "S5:L6"
+      ],
+      "issues": [],
+      "ocers_target": "Self-repair↑ Reproducibility↑",
+      "path": "queue/015-prune-script.md"
+    },
+    {
+      "coordinates": [
+        "S6:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "queue/030-consensus-ledger-cli.md"
+    },
+    {
+      "coordinates": [
+        "S6:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Ethics↑ Reproducibility↑",
+      "path": "queue/031-consensus-receipts.md"
+    },
+    {
+      "coordinates": [
+        "S6:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Self-repair↑",
+      "path": "queue/032-consensus-cadence.md"
+    },
+    {
+      "coordinates": [
+        "S6:L4"
+      ],
+      "issues": [],
+      "ocers_target": "Observation↑ Evidence↑",
+      "path": "queue/033-consensus-dashboard.md"
+    },
+    {
+      "coordinates": [
+        "S6:L4"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "queue/034-governance-l4-binding.md"
+    },
+    {
+      "coordinates": [
+        "S6:L4"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "queue/034-l4-binding-brief.md"
+    },
+    {
+      "coordinates": [
+        "S6:L4"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "queue/035-capsule-status-ledger.md"
+    },
+    {
+      "coordinates": [
+        "S5:L2"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "queue/036-macro-hygiene-objective.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "queue/037-manifest-swap-helper.md"
+    },
+    {
+      "coordinates": [
+        "S6:L6"
+      ],
+      "issues": [],
+      "ocers_target": "Evidence↑ Safety↑",
+      "path": "queue/038-ci-consensus-integration.md"
+    },
+    {
+      "coordinates": [
+        "S6:L4"
+      ],
+      "issues": [],
+      "ocers_target": "Coherence↑ Reproducibility↑",
+      "path": "queue/039-capsule-cadence-plan.md"
+    },
+    {
+      "coordinates": [
+        "S2:L4"
+      ],
+      "issues": [],
+      "ocers_target": "Reproducibility↑ Self-repair↑",
+      "path": "queue/040-code-compaction.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "queue/041-session-sync.md"
+    },
+    {
+      "coordinates": [
+        "S6:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Observation↑ Reproducibility↑",
+      "path": "queue/042-coordination-dashboard.md"
+    },
+    {
+      "coordinates": [
+        "S3:L5"
+      ],
+      "issues": [],
+      "ocers_target": "Observation↑ Coherence↑",
+      "path": "queue/044-dirty-handoff-automation.md"
+    }
+  ],
+  "summary": {
+    "memory_total": 58,
+    "memory_with_issues": 0,
+    "plans_total": 165,
+    "plans_with_issues": 0,
+    "queue_total": 29,
+    "queue_with_issues": 0
+  },
+  "plan_id": "2025-10-03-2025-10-04-plan-metadata-backfill-phase2",
+  "plan_step_id": "S3"
+}

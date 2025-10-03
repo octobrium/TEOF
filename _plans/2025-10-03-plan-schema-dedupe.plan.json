@@ -1,0 +1,52 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-plan-schema-dedupe",
+  "created": "2025-10-03T04:45:00Z",
+  "actor": "codex-3",
+  "summary": "Guard planner files against duplicate sections",
+  "status": "queued",
+  "stage": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Survey existing duplicate-key offenders",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Inventory plans with repeated keys (e.g. duplicate steps arrays) and capture evidence under `_report/usage/plan-lint/`.",
+      "receipts": [
+        "_report/usage/plan-lint/duplicate-keys-20251003T044138Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add planner lint for duplicate keys",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Extend `tools.planner.validate` (or CI guard) to fail when JSON keys repeat within plan documents.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Clean existing plans and document rule",
+      "status": "queued",
+      "stage": "queued",
+      "notes": "Normalize current plans, record diffs, and update docs/workflow.md with the duplicate-key policy.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Planner validator blocks duplicate keys; existing plans deduped with receipts",
+    "owner": "codex-3",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "advisory",
+      "ref": "ADV-372e0fe3"
+    }
+  ],
+  "receipts": [],
+  "ocers_target": "Self-repair↑ Reproducibility↑",
+  "layer": "L6",
+  "systemic_scale": 6
+}

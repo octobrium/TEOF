@@ -48,5 +48,6 @@
     "_report/usage/governance/response-latency-samples-20250928T182047Z.json",
     "_report/usage/governance/response-latency-causes-20250928T182137Z.json",
     "_report/usage/governance/response-latency-improvements-20250928T182244Z.json"
-  ]
+  ],
+  "ocers_target": "Observation↑ Self-repair↑"
 }

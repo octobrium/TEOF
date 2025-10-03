@@ -62,5 +62,8 @@
     "_report/usage/case-study/relay-insight/consent.json",
     "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json",
     "docs/impact/relay-insight-case-study.md"
-  ]
+  ],
+  "ocers_target": "Evidence↑ Outreach↑",
+  "layer": "L5",
+  "systemic_scale": 6
 }

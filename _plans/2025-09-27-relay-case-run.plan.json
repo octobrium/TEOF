@@ -4,6 +4,8 @@
   "created": "2025-09-27T19:56:00Z",
   "actor": "codex-5",
   "summary": "Execute Relay Insight Sprint case study run with receipts",
+  "layer": "L6",
+  "systemic_scale": 6,
   "status": "queued",
   "stage": "queued",
   "steps": [
@@ -77,5 +79,6 @@
       "ref": "2025-09-26-external-proof"
     }
   ],
-  "receipts": []
+  "receipts": [],
+  "ocers_target": "Evidence↑ Outreach↑"
 }

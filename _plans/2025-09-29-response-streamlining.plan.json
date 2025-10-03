@@ -48,5 +48,6 @@
     "docs/reference/quick-reference.md",
     "tools/reference/lookup.py",
     "docs/workflow.md"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Self-repair↑"
 }

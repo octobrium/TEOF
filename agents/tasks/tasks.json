@@ -482,13 +482,13 @@
       "id": "AUTH-PRIMARY_TRUTH-codex-5-20250926",
       "plan_id": null,
       "priority": "medium",
-      "role": "engineer",
-      "status": "done",
-      "title": "AUTH-PRIMARY_TRUTH-codex-5-20250926",
       "receipts": [
         "_report/usage/external-summary.json",
         "_report/agent/codex-5/authenticity-review-20250926.md"
-      ]
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "AUTH-PRIMARY_TRUTH-codex-5-20250926"
     },
     {
       "assigned_by": "codex-4",
@@ -496,13 +496,33 @@
       "id": "AUTH-UNASSIGNED-codex-5-20250926",
       "plan_id": null,
       "priority": "medium",
-      "role": "engineer",
-      "status": "done",
-      "title": "AUTH-UNASSIGNED-codex-5-20250926",
       "receipts": [
         "_report/usage/external-summary.json",
         "_report/agent/codex-5/authenticity-review-20250926.md"
-      ]
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "AUTH-UNASSIGNED-codex-5-20250926"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": null,
+      "id": "QUEUE-044",
+      "plan_id": "2025-10-03-dirty-handoff-automation",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "QUEUE-044"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": "agent/codex-3/plan-schema-dedupe",
+      "id": "PLAN-2025-10-03-plan-schema-dedupe",
+      "plan_id": "2025-10-03-plan-schema-dedupe",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "PLAN-2025-10-03-plan-schema-dedupe"
     }
   ],
   "version": 1

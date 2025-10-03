@@ -4,6 +4,8 @@
   "created": "2025-09-27T20:20:00Z",
   "actor": "codex-5",
   "summary": "Automate market/macro data ingestion for relay case studies",
+  "layer": "L6",
+  "systemic_scale": 6,
   "status": "queued",
   "stage": "queued",
   "steps": [
@@ -47,5 +49,6 @@
       "ref": "2025-09-27-relay-case-run"
     }
   ],
-  "receipts": []
+  "receipts": [],
+  "ocers_target": "Observation↑ Evidence↑"
 }

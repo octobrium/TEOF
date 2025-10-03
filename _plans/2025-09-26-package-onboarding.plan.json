@@ -51,5 +51,8 @@
     "docs/onboarding/package-onboarding-roadmap.md",
     "_report/usage/onboarding/build-20250927T193756Z.json",
     "_report/usage/onboarding/quickstart-20250927T193806Z.json"
-  ]
+  ],
+  "ocers_target": "Reproducibility↑ Clarity↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

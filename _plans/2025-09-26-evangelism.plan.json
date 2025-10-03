@@ -12,7 +12,7 @@
       "title": "Craft narrative arcs",
       "status": "done",
       "stage": "done",
-      "notes": "Define 2\u20133 stories (alignment kernel, receipts-first automation, relay sprint case) mapped to target audiences.",
+      "notes": "Define 2–3 stories (alignment kernel, receipts-first automation, relay sprint case) mapped to target audiences.",
       "receipts": [
         "docs/evangelism/narrative-arcs.md"
       ]
@@ -58,5 +58,8 @@
     "docs/evangelism/one-pager.md",
     "docs/evangelism/slide-deck-outline.md",
     "tools/evangelism/log_event.py"
-  ]
+  ],
+  "ocers_target": "Outreach↑ Clarity↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

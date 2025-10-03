@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-2025-10-04-plan-metadata-backfill-phase2",
+  "created": "2025-10-03T04:33:16Z",
+  "actor": "codex-1",
+  "summary": "Backfill OCERS metadata for late September plans",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 4,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Confirm plans missing OCERS metadata",
+      "status": "done",
+      "notes": "Identified 16 plans missing OCERS metadata",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Annotate plan files",
+      "status": "done",
+      "notes": "Annotated 16 plans with OCERS targets and coordinates",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Run conformance + planner validation",
+      "status": "done",
+      "notes": "Fractal conformance + planner validation receipts captured",
+      "receipts": [
+        "_report/agent/codex-1/2025-10-03-2025-10-04-plan-metadata-backfill-phase2/fractal-conformance-20251003T0436Z.json",
+        "_report/agent/codex-1/2025-10-03-2025-10-04-plan-metadata-backfill-phase2/planner-validate-20251003T0437Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Fractal report clears remaining September plan metadata debt",
+    "owner": "codex-1",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-1/2025-10-03-2025-10-04-plan-metadata-backfill-phase2/fractal-conformance-20251003T0436Z.json",
+    "_report/agent/codex-1/2025-10-03-2025-10-04-plan-metadata-backfill-phase2/planner-validate-20251003T0437Z.json"
+  ],
+  "ocers_target": "Reproducibility↑ Self-repair↑"
+}

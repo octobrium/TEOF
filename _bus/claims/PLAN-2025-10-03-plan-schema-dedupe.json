@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-3",
+  "branch": "agent/codex-3/plan-schema-dedupe",
+  "claimed_at": "2025-10-03T04:50:52Z",
+  "notes": "Queued plan; waiting on receipt unblock from codex-2",
+  "plan_id": "2025-10-03-plan-schema-dedupe",
+  "released_at": "2025-10-03T04:51:19Z",
+  "status": "done",
+  "task_id": "PLAN-2025-10-03-plan-schema-dedupe"
+}

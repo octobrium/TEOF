@@ -19,6 +19,8 @@ PLAN_STATUS = {"queued", "in_progress", "blocked", "done"}
 STEP_STATUS = PLAN_STATUS
 LEGACY_STATUS = {"pending": "queued"}
 CHECKPOINT_STATUS = {"pending", "satisfied", "superseded"}
+VALID_LAYERS = {f"L{idx}" for idx in range(7)}
+SYSTEMIC_MIN, SYSTEMIC_MAX = 1, 10
 
 PlanDict = Dict[str, Any]
 
@@ -202,6 +204,33 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
     else:
         errors.append("links must be list when provided")
 
+    raw_layer = data.get("layer")
+    layer = None
+    if not isinstance(raw_layer, str) or raw_layer.strip() not in VALID_LAYERS:
+        errors.append("layer must be one of L0-L6")
+    else:
+        layer = raw_layer.strip()
+
+    raw_systemic_scale = data.get("systemic_scale")
+    systemic_scale = None
+    if not isinstance(raw_systemic_scale, int):
+        errors.append("systemic_scale must be integer")
+    elif not (SYSTEMIC_MIN <= raw_systemic_scale <= SYSTEMIC_MAX):
+        errors.append(
+            f"systemic_scale must be between {SYSTEMIC_MIN} and {SYSTEMIC_MAX}"
+        )
+    else:
+        systemic_scale = raw_systemic_scale
+
+    raw_ocers = data.get("ocers_target")
+    ocers_target = None
+    if not isinstance(raw_ocers, str) or not raw_ocers.strip():
+        errors.append("ocers_target must be non-empty string")
+    elif "↑" not in raw_ocers:
+        errors.append("ocers_target must include direction marker '↑'")
+    else:
+        ocers_target = raw_ocers.strip()
+
     if errors:
         return None, errors
 
@@ -218,6 +247,9 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
             "receipts": receipts,
             "links": links,
             "path": path,
+            "layer": layer,
+            "systemic_scale": systemic_scale,
+            "ocers_target": ocers_target,
         },
         [],
     )

@@ -19,6 +19,9 @@ def base_payload(plan_id: str = "2025-09-17-sample") -> dict:
         "actor": "tester",
         "summary": "Sample plan",
         "status": "queued",
+        "layer": "L5",
+        "systemic_scale": 5,
+        "ocers_target": "Observation↑ Evidence↑",
         "steps": [
             {
                 "id": "S1",
@@ -76,6 +79,33 @@ def test_validate_plan_rejects_duplicate_step_ids(tmp_path: Path) -> None:
     result = validate_plan(path)
     assert not result.ok
     assert any("duplicates" in err for err in result.errors)
+
+
+def test_validate_plan_requires_metadata(tmp_path: Path) -> None:
+    payload = base_payload()
+    payload.pop("layer")
+    path = write_plan(tmp_path, payload)
+    result = validate_plan(path)
+    assert not result.ok
+    assert any("layer" in err for err in result.errors)
+
+
+def test_validate_plan_validates_systemic_range(tmp_path: Path) -> None:
+    payload = base_payload()
+    payload["systemic_scale"] = 11
+    path = write_plan(tmp_path, payload)
+    result = validate_plan(path)
+    assert not result.ok
+    assert any("systemic_scale" in err for err in result.errors)
+
+
+def test_validate_plan_requires_ocers_direction(tmp_path: Path) -> None:
+    payload = base_payload()
+    payload["ocers_target"] = "Observation"
+    path = write_plan(tmp_path, payload)
+    result = validate_plan(path)
+    assert not result.ok
+    assert any("ocers_target" in err for err in result.errors)
 
 
 def test_validate_plan_strict_requires_receipt_presence(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
