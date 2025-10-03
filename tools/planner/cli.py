@@ -219,6 +219,9 @@ def cmd_new(args: argparse.Namespace) -> int:
         raise PlannerCliError(f"--layer must be one of {', '.join(LAYER_CHOICES)}")
     systemic_scale = _ensure_systemic_scale(getattr(args, "systemic_scale", None))
     impact_score = _ensure_impact_score(getattr(args, "impact_score", None))
+    ocers_target = (getattr(args, "ocers_target", None) or "").strip()
+    if not ocers_target:
+        raise PlannerCliError("--ocers-target must be non-empty")
 
     payload = {
         "version": 0,
@@ -226,6 +229,7 @@ def cmd_new(args: argparse.Namespace) -> int:
         "created": f"{timestamp:%Y-%m-%dT%H:%M:%SZ}",
         "actor": actor,
         "summary": summary,
+        "ocers_target": ocers_target,
         "priority": priority,
         "layer": layer,
         "systemic_scale": systemic_scale,
@@ -599,6 +603,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Add a step in format ID:Title (may be repeated)",
     )
     new.add_argument("--priority", type=int, required=True, help="Numeric priority (0 = highest)")
+    new.add_argument(
+        "--ocers-target",
+        required=True,
+        help="OCERS focus for the plan (e.g. Observation↑ Coherence↑)",
+    )
     new.add_argument("--layer", choices=LAYER_CHOICES, required=True, help="Layer label (L0–L6)")
     new.add_argument(
         "--systemic-scale",

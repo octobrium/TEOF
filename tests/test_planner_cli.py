@@ -8,12 +8,22 @@ from tools.planner import validate as planner_validate
 from tools.planner.validate import validate_plan
 
 
+DEFAULT_OCERS = "Observation↑ Coherence↑"
+
+
+def with_ocers(args: list[str]) -> list[str]:
+    return [*args, "--ocers-target", DEFAULT_OCERS]
+
+
 def read_plan(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def run_cli(argv: list[str]) -> int:
-    return planner_cli.main(argv)
+    args = list(argv)
+    if args and args[0] == "new" and "--ocers-target" not in args:
+        args += ["--ocers-target", DEFAULT_OCERS]
+    return planner_cli.main(args)
 
 
 @pytest.fixture
@@ -34,7 +44,7 @@ def planner_root(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
     plan_dir = planner_root / "_plans"
     exit_code = run_cli(
-        [
+        with_ocers([
             "new",
             "example-slug",
             "--summary",
@@ -62,7 +72,7 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
             "--timestamp",
             "2025-09-17T00:00:00Z",
             "--allow-unclaimed",
-        ]
+        ])
     )
     assert exit_code == 0
 
@@ -77,6 +87,7 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
     assert data["layer"] == "L5"
     assert data["systemic_scale"] == 5
     assert data["impact_score"] == 90
+    assert data["ocers_target"] == DEFAULT_OCERS
 
     result = validate_plan(plan_path, strict=True)
     assert result.ok, result.errors
