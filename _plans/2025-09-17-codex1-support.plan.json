@@ -45,5 +45,8 @@
       "type": "bus",
       "ref": "_bus/events/events.jsonl"
     }
-  ]
+  ],
+  "ocers_target": "Coherence↑ Evidence↑",
+  "systemic_scale": 5,
+  "layer": "L5"
 }

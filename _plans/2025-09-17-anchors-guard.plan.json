@@ -45,5 +45,8 @@
   "links": [],
   "receipts": [
     "_report/runner/20250917T165832Z-5488bcc3.json"
-  ]
+  ],
+  "ocers_target": "Reproducibility↑ Self-repair↑",
+  "systemic_scale": 5,
+  "layer": "L5"
 }

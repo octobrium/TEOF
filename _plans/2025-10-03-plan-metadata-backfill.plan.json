@@ -1,0 +1,62 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-plan-metadata-backfill",
+  "created": "2025-10-03T02:46:30Z",
+  "actor": "codex-4",
+  "summary": "Backfill OCERS metadata on high-priority plans",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update bus instrumentation plans",
+      "status": "done",
+      "notes": "Add OCERS, layer, and systemic scale to agent-bus-watch and codex1-support plans.",
+      "receipts": [
+        "_plans/2025-09-17-agent-bus-watch.plan.json",
+        "_plans/2025-09-17-codex1-support.plan.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Backfill anchors guard metadata",
+      "status": "done",
+      "notes": "Annotate anchors guard plans with OCERS target and systemic scale to satisfy advisory requirements.",
+      "receipts": [
+        "_plans/2025-09-17-anchors-append-guard.plan.json",
+        "_plans/2025-09-17-anchors-guard.plan.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document automation vision metadata",
+      "status": "done",
+      "notes": "Add metadata to automation doc plan and remove resolved advisories from backlog.",
+      "receipts": [
+        "_plans/2025-09-17-automation-doc.plan.json",
+        "_plans/next-development.todo.json",
+        "_report/autonomy/backlog-synth/summary-20251003T024600Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "High-priority 2025-09-17 plans carry OCERS metadata and no longer appear in advisory backlog",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-17-agent-bus-watch.plan.json",
+    "_plans/2025-09-17-anchors-append-guard.plan.json",
+    "_plans/2025-09-17-automation-doc.plan.json",
+    "_plans/2025-09-17-codex1-support.plan.json",
+    "_report/autonomy/backlog-synth/summary-20251003T024600Z.md"
+  ],
+  "ocers_target": "Self-repair↑ Coherence↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}

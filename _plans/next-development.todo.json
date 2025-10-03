@@ -245,83 +245,9 @@
       "receipts": [
         "_plans/2025-09-29-autonomous-backlog.plan.json",
         "_plans/2025-10-03-autonomous-backlog-synthesis.plan.json",
-        "_plans/2025-10-03-backlog-advisory-report.plan.json"
+        "_plans/2025-10-03-backlog-advisory-report.plan.json",
+        "_plans/2025-10-03-plan-metadata-backfill.plan.json"
       ]
-    },
-    {
-      "id": "ADV-126418cb",
-      "title": "Plan 2025-09-17-agent-bus-watch (_plans/2025-09-17-agent-bus-watch.plan.json) is missing: missing_ocers_target, missing_layer, missing_systemic_scale",
-      "status": "pending",
-      "source": "fractal-advisory",
-      "plan_suggestion": "2025-09-29-autonomous-backlog",
-      "notes": "Target: _plans/2025-09-17-agent-bus-watch.plan.json",
-      "layer": "L5",
-      "receipts": [
-        "_report/fractal/conformance/latest.json"
-      ],
-      "evidence": {
-        "source_receipt": "_report/fractal/conformance/latest.json"
-      }
-    },
-    {
-      "id": "ADV-91a1e32a",
-      "title": "Plan 2025-09-17-anchors-append-guard (_plans/2025-09-17-anchors-append-guard.plan.json) is missing: missing_ocers_target, missing_layer, missing_systemic_scale",
-      "status": "pending",
-      "source": "fractal-advisory",
-      "plan_suggestion": "2025-09-29-autonomous-backlog",
-      "notes": "Target: _plans/2025-09-17-anchors-append-guard.plan.json",
-      "layer": "L5",
-      "receipts": [
-        "_report/fractal/conformance/latest.json"
-      ],
-      "evidence": {
-        "source_receipt": "_report/fractal/conformance/latest.json"
-      }
-    },
-    {
-      "id": "ADV-b13ca418",
-      "title": "Plan 2025-09-17-anchors-guard (_plans/2025-09-17-anchors-guard.plan.json) is missing: missing_ocers_target, missing_layer, missing_systemic_scale",
-      "status": "pending",
-      "source": "fractal-advisory",
-      "plan_suggestion": "2025-09-29-autonomous-backlog",
-      "notes": "Target: _plans/2025-09-17-anchors-guard.plan.json",
-      "layer": "L5",
-      "receipts": [
-        "_report/fractal/conformance/latest.json"
-      ],
-      "evidence": {
-        "source_receipt": "_report/fractal/conformance/latest.json"
-      }
-    },
-    {
-      "id": "ADV-03b929b1",
-      "title": "Plan 2025-09-17-automation-doc (_plans/2025-09-17-automation-doc.plan.json) is missing: missing_ocers_target, missing_layer, missing_systemic_scale",
-      "status": "pending",
-      "source": "fractal-advisory",
-      "plan_suggestion": "2025-09-29-autonomous-backlog",
-      "notes": "Target: _plans/2025-09-17-automation-doc.plan.json",
-      "layer": "L5",
-      "receipts": [
-        "_report/fractal/conformance/latest.json"
-      ],
-      "evidence": {
-        "source_receipt": "_report/fractal/conformance/latest.json"
-      }
-    },
-    {
-      "id": "ADV-c32beec6",
-      "title": "Plan 2025-09-17-codex1-support (_plans/2025-09-17-codex1-support.plan.json) is missing: missing_ocers_target, missing_layer, missing_systemic_scale",
-      "status": "pending",
-      "source": "fractal-advisory",
-      "plan_suggestion": "2025-09-29-autonomous-backlog",
-      "notes": "Target: _plans/2025-09-17-codex1-support.plan.json",
-      "layer": "L5",
-      "receipts": [
-        "_report/fractal/conformance/latest.json"
-      ],
-      "evidence": {
-        "source_receipt": "_report/fractal/conformance/latest.json"
-      }
     },
     {
       "id": "ADV-172ce804",

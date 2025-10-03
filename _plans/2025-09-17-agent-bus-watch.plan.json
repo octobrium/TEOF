@@ -43,5 +43,8 @@
   ],
   "receipts": [
     "_report/agent/codex-2/agent-bus-watch/pytest.json"
-  ]
+  ],
+  "ocers_target": "Observation↑ Evidence↑",
+  "systemic_scale": 5,
+  "layer": "L5"
 }
