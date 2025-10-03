@@ -1,0 +1,67 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-autonomous-backlog-synthesis",
+  "created": "2025-10-03T02:37:30Z",
+  "actor": "codex-4",
+  "summary": "Extend backlog synthesis with fractal advisories and receipts",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update backlog policy",
+      "status": "done",
+      "notes": "Add FRACTAL-ADVISORY rule pointing at latest advisories receipt.",
+      "receipts": [
+        "docs/automation/backlog-policy.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Teach synthesiser to ingest advisories and write receipts",
+      "status": "done",
+      "notes": "Extend tools.autonomy.backlog_synth to append advisory tasks and emit receipt JSON backed by health sensors.",
+      "receipts": [
+        "tools/autonomy/backlog_synth.py",
+        "tools/autonomy/health_sensors.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add regression coverage",
+      "status": "done",
+      "notes": "Cover advisory ingestion and idempotence in tests.",
+      "receipts": [
+        "tests/test_autonomy_backlog_synth.py"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Run synthesis and publish receipts",
+      "status": "done",
+      "notes": "Run synthesise() to append advisory actions, capture backlog receipt, and mark ND-020 active.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/synth-20251003T023654Z.json",
+        "_plans/next-development.todo.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "ND-020 backlog synthesis auto-enqueues advisories with receipts proving execution",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "docs/automation/backlog-policy.json",
+    "tools/autonomy/backlog_synth.py",
+    "_report/autonomy/backlog-synth/synth-20251003T023654Z.json"
+  ],
+  "ocers_target": "Self-repair↑ Throughput↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}

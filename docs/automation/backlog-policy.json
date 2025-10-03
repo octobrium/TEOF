@@ -23,6 +23,15 @@
       },
       "plan_suggestion": "2025-09-23-repo-hygiene",
       "backlog_id": "ND-HYGIENE-ACTION"
+    },
+    {
+      "id": "FRACTAL-ADVISORY",
+      "layer": "L5",
+      "description": "Surface retro advisories emitted by fractal conformance",
+      "conditions": {
+        "advisories": "_report/fractal/advisories/latest.json"
+      },
+      "plan_suggestion": "2025-09-29-autonomous-backlog"
     }
   ],
   "notes": "Initial policy sketch; extend with full L0-L6 mapping."

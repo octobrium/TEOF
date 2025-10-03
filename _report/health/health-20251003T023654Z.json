@@ -1,0 +1,65 @@
+{
+  "generated_at": "2025-10-03T02:36:54Z",
+  "authenticity": {
+    "source": "_report/usage/external-summary.json",
+    "attention_feeds": 0
+  },
+  "hygiene": {
+    "generated_at": "2025-09-23T06:02:52Z",
+    "dry_run": false,
+    "targets": {
+      "report_usage": {
+        "size_bytes": 1444518,
+        "size_mb": 1.378,
+        "file_count": 361,
+        "path": "_report/usage"
+      },
+      "report_agent": {
+        "size_bytes": 227687,
+        "size_mb": 0.217,
+        "file_count": 203,
+        "path": "_report/agent"
+      },
+      "artifacts": {
+        "size_bytes": 449111,
+        "size_mb": 0.428,
+        "file_count": 1741,
+        "path": "artifacts"
+      },
+      "apoptosis": {
+        "size_bytes": 2443123,
+        "size_mb": 2.33,
+        "file_count": 919,
+        "path": "_apoptosis"
+      }
+    },
+    "actions": {
+      "chronicle_rotation": {
+        "removed": []
+      },
+      "selfprompt_rotation": {
+        "removed": []
+      },
+      "prune": {
+        "stamp": "20250923T060252Z",
+        "cutoff_hours": 72.0,
+        "targets": [
+          "_report/agent",
+          "_report/manager",
+          "_report/planner",
+          "_report/runner",
+          "_report/usage"
+        ],
+        "moves": [
+          {
+            "source": "_report/agent/codex-4/bus-ping-helper",
+            "destination": "_apoptosis/20250923T060252Z/_report/agent/codex-4/bus-ping-helper",
+            "newest_mtime": "2025-09-20T05:52:05Z"
+          }
+        ],
+        "executed": true
+      }
+    },
+    "report_path": "_report/usage/autonomy-actions/hygiene-20250923T060252Z.json"
+  }
+}
