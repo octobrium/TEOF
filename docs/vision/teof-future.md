@@ -1,6 +1,6 @@
 # TEOF Future Horizon (Fractal Projection)
 
-*Last updated: 2025-09-26*
+*Last updated: 2025-10-03*
 
 This note records the current projection of where TEOF evolves when the
 fractal memory lattice (L0–L6 × S1–S10) is fully instrumented. It aligns
@@ -24,6 +24,33 @@ reference for planning conversations.
 | Institutional (mid) | Multiple orgs/agents dock into shared lattice; TEOF becomes coordination fabric. | Cross-team S1–S8, L4–L6 |
 | Civilizational (long) | Distributed but coherent metasystem guiding policy, science, economy. | All axes; emphasis on S8–S10 for governance and meaning |
 | Cosmic (speculative) | Substrate-neutral observer protocol for any intelligence. | Entire lattice; emphasis on maintaining Unity → Meaning balance |
+
+### Applied Trajectory (Human Impact)
+
+- **Coordinated civic response:** Agencies, researchers, and local communities
+  log observations, plans, and outcomes against the shared lattice so relief
+  work stays citational, receipts-backed, and auditable.
+- **Reproducible science and engineering:** Labs and vendors ship upgrades with
+  embedded plan metadata (layer/systemic scale + OCERS targets), letting any
+  observer replay provenance and judge risk before adoption.
+- **Policy narration and accountability:** Governance teams publish rollups that
+  link decisions to principles (L1) and observable effects (L0), shrinking the
+  trust gap for constituents.
+- **Assistive automation:** High-trust automations (L6) enforce guardrails,
+  track receipts, and surface consensus status so many human/LLM agents can act
+  in parallel without losing coherence.
+
+### Near-Term Scaling Initiatives (2025-10)
+
+The current four-agent loop is shipping the following to unlock larger swarms:
+
+1. **Dirty-state auto-resolution** – queue workers ingest `_report/session/*/dirty-handoff` receipts, nudge owners, and clear alerts once trees are clean.
+2. **Session guardrails** – `session_boot` now blocks manifest/branch mismatches by default; upcoming work standardises per-agent staging and manifest swaps.
+3. **Push isolation** – preflight scripts will detect unrelated plan receipts or untracked data before merges, preventing accidental bundle of foreign work.
+4. **Dashboard sharding** – `coord_dashboard` gains paginated dirty-hand-off and heartbeat slices so dozens of simultaneous agents remain legible.
+5. **Consensus automation** – release events and manager reports emit machine-readable receipts that future bots can promote directly into governance decisions.
+
+Each initiative is tracked under `_plans/2025-10-03-session-guard-upgrade.plan.json` and follow-on plans queued in `queue/`. They explicitly advance OCERS: Observation (better receipts), Coherence (consistent manifests), Ethics (guarded power), Reproducibility (automated checks), and Self-repair (auto escalation).
 
 ## Maturity Signals
 
@@ -73,4 +100,3 @@ The framework behaves as self-developing when:
 - `docs/automation/memory-layer.md` — memory schema.
 - Planned enhancements: see `_plans/2025-09-25-oversight-guard.plan.json`
   and future plans for reward/critic/TMS/curriculum.
-

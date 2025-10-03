@@ -44,6 +44,20 @@ TEOF is built on seven principles that define observation’s role in reality, t
 
 ---
 
+### 2.1 OCERS Operating Loop
+
+TEOF grounds implementation decisions in a reusable loop: **Observation → Coherence → Ethics → Reproducibility → Self-repair (OCERS)**.
+
+- **Observation** captures raw signals and receipts, honouring the primacy noted above.
+- **Coherence** reconciles those observations with higher-layer principles so plans never drift from the constitution.
+- **Ethics** evaluates leverage: power is legitimate only when it preserves the ability to observe.
+- **Reproducibility** requires every pathway to be replayable—deterministic commands, hashes, and receipts that make truth auditable.
+- **Self-repair** closes the loop; contradictions trigger new observation plans instead of silent decay.
+
+OCERS is the operational bridge between the philosophical core and the layered architecture (L0–L6). Each plan, automation, or governance change records the layers and systemic scale it touches alongside the OCERS vector it advances.
+
+---
+
 ## 3. Defining Observation
 
 Observation is **the act of registering a difference or state**, whether through sensory perception, measurement, or awareness. It is the capacity for systems to detect, encode, and use information about their environment or themselves.
@@ -121,7 +135,7 @@ Societal implications include:
 
 ---
 
-## 8. Applications
+## 8. Applications & Deployment Narrative
 
 TEOF’s principles apply across domains:
 - **AI Alignment**: Develop agents that prioritize observation and coherence, using recursive loops to avoid goal misalignment.
@@ -129,6 +143,31 @@ TEOF’s principles apply across domains:
 - **Education**: Teach recursive observation as a skill, fostering critical thinking and meta-learning.
 - **Personal Development**: Encourage self-observation to cultivate clarity and systemic understanding.
 - **Conflict Resolution**: Reconcile disputes by aligning observations, restoring shared coherence.
+
+### Deployment Scenario: Civic Response Grid
+
+1. **Event Capture (L0–L2)**  
+   Sensor networks, community reporters, and agencies log observations into the
+   lattice with receipts; objectives (S3) form as clarity emerges about impact
+   zones and needs.
+
+2. **Plan & Guard (L3–L5)**  
+   Response teams draft plans annotated with systemic coordinates and OCERS
+   targets. Planner validators enforce receipts and metadata so every action is
+   auditable and traceable back to principles.
+
+3. **Actuation (L6)**  
+   Automation dispatches resources (logistics, medical, infrastructure) inside
+   guardrails. Every action references the plan and records receipts
+   automatically.
+
+4. **Feedback & Meaning (S6–S10)**  
+   Recurring observation loops compare outcomes to expectations; contradictions
+   spawn repair tasks; narratives summarise lessons for constituents, improving
+   trust and readiness for the next event.
+
+This scenario illustrates how TEOF evolves from theory to a trustable,
+receipt-backed coordination substrate for humans and automated agents.
 
 ---
 

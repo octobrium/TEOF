@@ -47,6 +47,10 @@ Each layer must **obey and serve the layer(s) above it**:
 Downstream layers are invalid if they contradict upstream layers.  
 This ordering is enforced during review and is part of TEOF’s living constitution.
 
+### OCERS Guiding Loop
+
+Across every layer we measure work against the OCERS loop—**Observation → Coherence → Ethics → Reproducibility → Self-repair**. Observation is the irreducible foundation (whitepaper §2); Coherence keeps signals consistent with higher layers; Ethics preserves the lattice when systems gain leverage; Reproducibility guarantees anyone can replay the proof; Self-repair ensures contradictions trigger plans and receipts instead of accumulating debt. Every plan, receipt, or automation should state how it advances OCERS and which layer/systemic window it serves.
+
 ---
 
 ## What’s in this repo
@@ -83,6 +87,7 @@ If you prefer an end-to-end bootstrap, run `bin/teof-up` to install dependencies
 Coordinate with other TEOF agents through the repository bus:
 
 - Announce your session: `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status` captures a handshake and heartbeat receipt.
+- `session_boot` now verifies that `AGENT_MANIFEST.json` matches `--agent` and that you are on `agent/<id>/…` (or an approved branch). Run `python -m tools.agent.manifest_helper activate <id>` if you swap seats; pass `--allow-manifest-mismatch` or `--allow-branch-mismatch` only when you capture the override receipt on purpose.
 - Claim the task: `python -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>` writes `_bus/claims/<task_id>.json` and advertises ownership.
 - Log status: `python -m tools.agent.bus_event log --event status --task <task_id> --summary "..."` keeps `_bus/events/events.jsonl` and task message channels current.
 - Listen in: `python -m tools.agent.bus_watch --follow` (or `python -m tools.agent.bus_status --preset support`) to monitor peers, manager directives, and stale claims.
