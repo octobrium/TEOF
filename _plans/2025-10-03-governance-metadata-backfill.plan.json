@@ -1,0 +1,72 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-governance-metadata-backfill",
+  "created": "2025-10-03T03:06:30Z",
+  "actor": "codex-4",
+  "summary": "Annotate governance and heartbeat plans with OCERS metadata",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update governance bridge cluster",
+      "status": "done",
+      "notes": "Backfill OCERS metadata on codex4-consensus-context, governance-bridge, idle-pickup, l4-bindings, manifest-helper plans.",
+      "receipts": [
+        "_plans/2025-09-18-codex4-consensus-context.plan.json",
+        "_plans/2025-09-18-governance-bridge.plan.json",
+        "_plans/2025-09-18-idle-pickup.plan.json",
+        "_plans/2025-09-18-l4-bindings.plan.json",
+        "_plans/2025-09-18-manifest-helper-codex3.plan.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Annotate heartbeat plans",
+      "status": "done",
+      "notes": "Add metadata on manager-heartbeat, release-readiness, governance-trim, heartbeat auto/docs plans.",
+      "receipts": [
+        "_plans/2025-09-18-manager-heartbeat.plan.json",
+        "_plans/2025-09-18-release-readiness.plan.json",
+        "_plans/2025-09-19-governance-trim.plan.json",
+        "_plans/2025-09-19-heartbeat-auto-codex2.plan.json",
+        "_plans/2025-09-19-heartbeat-docs-codex3.plan.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Refresh backlog summary",
+      "status": "done",
+      "notes": "Regenerate advisory report to capture reductions.",
+      "receipts": [
+        "_report/autonomy/backlog-synth/summary-20251003T031100Z.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Governance and heartbeat plans carry OCERS metadata and fall out of advisory backlog",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-020"
+    }
+  ],
+  "receipts": [
+    "_plans/2025-09-18-codex4-consensus-context.plan.json",
+    "_plans/2025-09-18-governance-bridge.plan.json",
+    "_plans/2025-09-18-idle-pickup.plan.json",
+    "_plans/2025-09-18-l4-bindings.plan.json",
+    "_plans/2025-09-18-manifest-helper-codex3.plan.json",
+    "_plans/2025-09-18-manager-heartbeat.plan.json",
+    "_plans/2025-09-18-release-readiness.plan.json",
+    "_plans/2025-09-19-governance-trim.plan.json",
+    "_plans/2025-09-19-heartbeat-auto-codex2.plan.json",
+    "_plans/2025-09-19-heartbeat-docs-codex3.plan.json",
+    "_report/autonomy/backlog-synth/summary-20251003T031100Z.md"
+  ],
+  "ocers_target": "Coherence↑ Self-repair↑",
+  "systemic_scale": 5,
+  "layer": "L5"
+}

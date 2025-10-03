@@ -52,10 +52,22 @@
     "status": "satisfied"
   },
   "links": [
-    {"type": "task", "ref": "agents/tasks/tasks.json#APOP-003"},
-    {"type": "doc", "ref": ".github/AGENT_ONBOARDING.md"},
-    {"type": "doc", "ref": "docs/AGENTS.md"},
-    {"type": "doc", "ref": "docs/parallel-codex.md"}
+    {
+      "type": "task",
+      "ref": "agents/tasks/tasks.json#APOP-003"
+    },
+    {
+      "type": "doc",
+      "ref": ".github/AGENT_ONBOARDING.md"
+    },
+    {
+      "type": "doc",
+      "ref": "docs/AGENTS.md"
+    },
+    {
+      "type": "doc",
+      "ref": "docs/parallel-codex.md"
+    }
   ],
   "receipts": [
     "_report/agent/codex-4/apoptosis-003/inventory-20250918.md",
@@ -66,5 +78,8 @@
     ".github/AGENT_ONBOARDING.md",
     "docs/AGENTS.md",
     "docs/parallel-codex.md"
-  ]
+  ],
+  "ocers_target": "Self-repair↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

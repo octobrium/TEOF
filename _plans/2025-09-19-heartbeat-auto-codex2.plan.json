@@ -54,5 +54,8 @@
     "tools/agent/manifest_helper.py",
     "tools/agent/heartbeat.py",
     "tests/test_agent_heartbeat.py"
-  ]
+  ],
+  "ocers_target": "Observation↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

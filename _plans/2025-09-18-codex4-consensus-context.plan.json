@@ -43,5 +43,8 @@
   ],
   "receipts": [
     "_report/agent/codex-4/consensus/context-20250918T1928Z.md"
-  ]
+  ],
+  "ocers_target": "Observation↑ Evidence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

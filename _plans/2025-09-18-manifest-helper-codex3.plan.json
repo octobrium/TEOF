@@ -66,5 +66,8 @@
     "docs/AGENTS.md",
     "docs/parallel-codex.md",
     "tools/agent/manifest_helper.py"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

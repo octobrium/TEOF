@@ -45,5 +45,8 @@
   "receipts": [
     "_report/agent/codex-1/governance-bridge/analysis-20250918T193600Z.md",
     "_report/agent/codex-1/governance-bridge/summary-20250918T193800Z.txt"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Observation↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

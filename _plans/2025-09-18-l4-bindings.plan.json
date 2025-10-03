@@ -60,5 +60,8 @@
     "docs/architecture.md",
     "_report/agent/codex-3/l4-bindings/diff-review.json",
     "_report/agent/codex-3/l4-bindings/notes.md"
-  ]
+  ],
+  "ocers_target": "Clarity↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

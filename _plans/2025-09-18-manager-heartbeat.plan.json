@@ -62,5 +62,8 @@
     "docs/AGENTS.md",
     "docs/parallel-codex.md",
     "tools/agent/bus_status.py"
-  ]
+  ],
+  "ocers_target": "Observation↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

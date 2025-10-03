@@ -45,5 +45,8 @@
     "docs/parallel-codex.md",
     "docs/AGENTS.md",
     "tests/test_coord_dashboard.py"
-  ]
+  ],
+  "ocers_target": "Clarity↑ Coherence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }
