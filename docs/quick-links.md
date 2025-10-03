@@ -22,7 +22,6 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `proposal-inbox` | Proposal Inbox | Canonical drop zone for draft improvements awaiting review. | [docs/proposals/README.md#proposal-inbox-docsproposals](docs/proposals/README.md#proposal-inbox-docsproposals) |
 | `emergent-principles-ledger` | Emergent Principles Ledger | Append lessons to reuse patterns before automating. | [governance/core/emergent-principles.jsonl](governance/core/emergent-principles.jsonl) |
 | `consensus-ledger` | Consensus Ledger Usage | Entry point for `tools.consensus.ledger` commands and receipt capture. | [docs/consensus/README.md#usage](docs/consensus/README.md#usage) |
-| `consensus-push` | Consensus Push Checklist | Receipts-first protocol for pushing to `main` after approvals. | [docs/consensus/push-checklist.md](docs/consensus/push-checklist.md) |
 | `consensus-ci-summary` | Consensus CI Guard | Stable receipts + CI check ensuring QUEUE-030..033 stay covered. | [_report/consensus/summary-latest.json](_report/consensus/summary-latest.json) |
 | `capsule-cadence-summary` | Capsule Cadence Guard | Release checklist tied to consensus receipts and capsule hashes. | [_report/capsule/summary-latest.json](_report/capsule/summary-latest.json) |
 | `receipts-index` | Receipts Index CLI | Build a JSONL ledger of plans, receipts, and manager messages before handoff. | [docs/automation.md#receipts-index](docs/automation.md#receipts-index) |
