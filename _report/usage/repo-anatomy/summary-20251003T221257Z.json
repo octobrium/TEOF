@@ -1,0 +1,59 @@
+{
+  "generated_at": "2025-10-03T22:12:57Z",
+  "paths": [
+    {
+      "path": "agents",
+      "files": 2,
+      "commits": 21,
+      "last_touch": "2025-10-02T21:58:40-07:00"
+    },
+    {
+      "path": "teof",
+      "files": 7,
+      "commits": 22,
+      "last_touch": "2025-10-02T16:56:43-07:00"
+    },
+    {
+      "path": "memory",
+      "files": 33,
+      "commits": 54,
+      "last_touch": "2025-10-03T14:55:31-07:00"
+    },
+    {
+      "path": "_report",
+      "files": 1449,
+      "commits": 69,
+      "last_touch": "2025-10-03T14:33:20-07:00"
+    },
+    {
+      "path": "capsule",
+      "files": 36,
+      "commits": 99,
+      "last_touch": "2025-09-20T23:44:13-07:00"
+    },
+    {
+      "path": "tests",
+      "files": 100,
+      "commits": 101,
+      "last_touch": "2025-10-03T14:53:13-07:00"
+    },
+    {
+      "path": "tools",
+      "files": 152,
+      "commits": 148,
+      "last_touch": "2025-10-03T14:54:27-07:00"
+    },
+    {
+      "path": "_plans",
+      "files": 224,
+      "commits": 173,
+      "last_touch": "2025-10-02T23:58:08-07:00"
+    },
+    {
+      "path": "docs",
+      "files": 217,
+      "commits": 298,
+      "last_touch": "2025-10-03T14:55:31-07:00"
+    }
+  ]
+}

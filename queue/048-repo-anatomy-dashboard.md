@@ -1,10 +1,10 @@
 # Task: Repo Anatomy Dashboard
-Goal: add automation that reports commit frequency, file counts, and last-touch metrics for major directories so agents know which surfaces are highways vs dirt roads.
-Notes: leverage git metadata; output to `_report/usage/repo-anatomy/summary.json` and expose a CLI (`python -m tools.maintenance.repo_anatomy`).
+Goal: add automation that reports commit frequency, file counts, and last-touch metrics for major directories so agents know which surfaces are highways vs dirt roads. **Status: done (2025-10-03T22:02Z)**
+Notes: `python -m tools.maintenance.repo_anatomy` now emits table/JSON summaries; receipts land under `_report/usage/repo-anatomy/`. Default directories cover docs/tools/_plans/_report/memory/tests/teof/agents/capsule.
 OCERS Target: Observation↑ Clarity↑
 Coordinate: S4:L5
-Sunset: close once dashboard CLI exists, documentation references it, and an initial summary lands in `_report/usage/`.
-Fallback: if automation is heavy, document a manual command sequence under docs/maintenance/ and attach a receipt.
+Sunset: closed—CLI shipped, docs updated, initial summary recorded.
+Fallback: not needed; future enhancements can extend the CLI with additional metrics.
 
 Readiness Checklist:
 - tools/maintenance/ (existing maintenance scripts)

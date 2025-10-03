@@ -1,0 +1,64 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-repo-anatomy-dashboard",
+  "created": "2025-10-03T22:05:00Z",
+  "actor": "codex-2",
+  "summary": "Add repo anatomy CLI to surface directory traffic metrics",
+  "status": "done",
+  "stage": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design output schema",
+      "status": "done",
+      "stage": "done",
+      "notes": "Decide which metrics (commit count, file count, last touch) and default directories to report.",
+      "receipts": [
+        "tools/maintenance/repo_anatomy.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement CLI",
+      "status": "done",
+      "stage": "done",
+      "notes": "Create tools.maintenance.repo_anatomy with JSON/table output and optional --out path.",
+      "receipts": [
+        "tools/maintenance/repo_anatomy.py",
+        "tests/test_repo_anatomy.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Docs + queue update",
+      "status": "done",
+      "stage": "done",
+      "notes": "Document usage and capture an initial anatomy summary receipt (stored under `_report/usage/repo-anatomy/`).",
+      "receipts": [
+        "docs/maintenance/macro-hygiene.md",
+        "_report/usage/repo-anatomy/summary-20251003T221257Z.json",
+        "queue/048-repo-anatomy-dashboard.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Repo anatomy CLI emits summary + receipt under _report/usage/repo-anatomy/",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/048-repo-anatomy-dashboard.md"
+    }
+  ],
+  "receipts": [
+    "tools/maintenance/repo_anatomy.py",
+    "tests/test_repo_anatomy.py",
+    "docs/maintenance/macro-hygiene.md",
+    "_report/usage/repo-anatomy/summary-20251003T221257Z.json"
+  ],
+  "ocers_target": "Observation↑ Clarity↑",
+  "layer": "L5",
+  "systemic_scale": 4
+}
