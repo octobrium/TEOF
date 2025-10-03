@@ -38,5 +38,8 @@
   "links": [],
   "receipts": [
     "_report/usage/plan-receipts-check.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Evidence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

@@ -49,5 +49,8 @@
   "receipts": [
     "_report/planner/validate/summary-20250921T074142Z.json",
     "_report/agent/codex-1/plan-receipt-guard-docs/pytest-20250921T0745Z.txt"
-  ]
+  ],
+  "ocers_target": "Clarity↑ Evidence↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

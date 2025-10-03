@@ -55,5 +55,8 @@
     "docs/workflow.md",
     "tools/agent/session_brief.py",
     "governance/anchors.json"
-  ]
+  ],
+  "ocers_target": "Coherence↑ Safety↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

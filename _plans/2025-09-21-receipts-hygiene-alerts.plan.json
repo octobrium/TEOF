@@ -39,5 +39,8 @@
   "receipts": [
     "tools/agent/receipts_hygiene.py",
     "tests/test_receipts_hygiene.py"
-  ]
+  ],
+  "ocers_target": "Observation↑ Self-repair↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

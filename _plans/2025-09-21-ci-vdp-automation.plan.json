@@ -45,5 +45,8 @@
   "links": [],
   "receipts": [
     "_report/planner/validate/summary-20250921T211530Z.json"
-  ]
+  ],
+  "ocers_target": "Reproducibility↑ Self-repair↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

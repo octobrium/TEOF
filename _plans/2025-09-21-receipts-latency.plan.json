@@ -68,5 +68,8 @@
     "_report/usage/receipts-latency-sample.jsonl",
     "_report/agent/codex-1/2025-09-21-receipts-latency/actions.json",
     "_report/agent/codex-1/2025-09-21-receipts-latency/summary.json"
-  ]
+  ],
+  "ocers_target": "Observation↑ Throughput↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

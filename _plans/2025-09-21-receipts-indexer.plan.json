@@ -64,5 +64,8 @@
   ],
   "receipts": [
     "_report/usage/receipts-index-sample.jsonl"
-  ]
+  ],
+  "ocers_target": "Observation↑ Reproducibility↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

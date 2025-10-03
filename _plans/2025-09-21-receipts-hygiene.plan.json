@@ -56,5 +56,8 @@
     "_report/usage/receipts-index-sample.jsonl",
     "_report/usage/receipts-latency-sample.jsonl",
     "_report/usage/receipts-hygiene-summary.json"
-  ]
+  ],
+  "ocers_target": "Observation↑ Self-repair↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }

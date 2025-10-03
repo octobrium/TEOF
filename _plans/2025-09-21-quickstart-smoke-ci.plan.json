@@ -48,5 +48,8 @@
     "docs/workflow.md",
     "scripts/ci/quickstart_smoke.sh",
     "tests/test_quickstart_snippet_guard.py"
-  ]
+  ],
+  "ocers_target": "Reproducibility↑ Observation↑",
+  "layer": "L5",
+  "systemic_scale": 5
 }
