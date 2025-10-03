@@ -1,0 +1,1 @@
+{"ts": "2025-10-03T05:04:32Z", "from": "codex-2", "type": "assignment", "task_id": "QUEUE-045", "summary": "Assigned to codex-2", "meta": {"plan_id": "2025-10-03-session-guard-upgrade", "assignee": "codex-2", "plan": "2025-10-03-session-guard-upgrade"}, "note": "Implement session manifest + branch guard"}

@@ -11,12 +11,13 @@ current snapshot for receipts.
 from __future__ import annotations
 
 import argparse
-import json
 import contextlib
+import json
+import subprocess
 import sys
-from io import StringIO
 from collections import defaultdict
 from datetime import datetime, timezone
+from io import StringIO
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +26,7 @@ EVENT_LOG = ROOT / "_bus" / "events" / "events.jsonl"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 MANAGER_REPORT_LOG = ROOT / "_bus" / "messages" / "manager-report.jsonl"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
+SESSION_GUARD_DIR = ROOT / "_report" / "agent"
 
 from tools.agent import bus_status, session_sync, coord_dashboard
 
@@ -117,6 +119,100 @@ def summarize_peers(claims: list[dict[str, Any]], self_agent: str) -> list[str]:
         tasks = ", ".join(f"{row.get('task_id')}[{row.get('status')}]=@{row.get('branch')}" for row in rows)
         summary.append(f"Peer {agent_id}: {tasks}")
     return summary
+
+
+class ManifestMismatchError(RuntimeError):
+    """Raised when AGENT_MANIFEST.json does not match the requested agent."""
+
+
+class BranchMismatchError(RuntimeError):
+    """Raised when the git branch does not align with agent naming conventions."""
+
+
+def _log_session_warning(agent_id: str, code: str, message: str, *, details: dict[str, Any] | None = None) -> None:
+    warn_dir = SESSION_GUARD_DIR / agent_id / "session_guard"
+    warn_dir.mkdir(parents=True, exist_ok=True)
+    payload: dict[str, Any] = {
+        "ts": _iso_now(),
+        "agent_id": agent_id,
+        "code": code,
+        "message": message,
+    }
+    if details:
+        payload.update(details)
+    warnings_path = warn_dir / "warnings.jsonl"
+    with warnings_path.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(payload, sort_keys=True) + "\n")
+
+
+def _get_current_branch() -> str:
+    result = subprocess.run(
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+        capture_output=True,
+        text=True,
+        cwd=ROOT,
+    )
+    if result.returncode != 0:
+        raise BranchMismatchError("Unable to determine current branch (run inside a git repository)")
+    return result.stdout.strip()
+
+
+def _ensure_manifest_agent(agent_id: str, *, allow_override: bool) -> None:
+    manifest_agent = _default_agent()
+    if not manifest_agent:
+        return
+    if manifest_agent == agent_id:
+        return
+    message = (
+        f"Manifest agent mismatch: AGENT_MANIFEST.json declares '{manifest_agent}' but session_boot "
+        f"was asked to operate as '{agent_id}'. Run `python -m tools.agent.manifest_helper activate {agent_id}` "
+        "before starting the session, or pass --allow-manifest-mismatch if this is intentional."
+    )
+    if allow_override:
+        _log_session_warning(
+            agent_id,
+            code="manifest_mismatch",
+            message=message,
+            details={"manifest_agent": manifest_agent},
+        )
+        print(f"Warning: {message}", file=sys.stderr)
+        return
+    raise ManifestMismatchError(message)
+
+
+def _ensure_branch(agent_id: str, *, allow_override: bool) -> None:
+    try:
+        branch = _get_current_branch()
+    except BranchMismatchError as exc:
+        if allow_override:
+            _log_session_warning(agent_id, code="branch_unknown", message=str(exc))
+            print(f"Warning: {exc}", file=sys.stderr)
+            return
+        raise
+
+    allowed_branch_prefix = f"agent/{agent_id}"
+    allowed_exact = {"main", "origin/main"}
+
+    matches = branch == allowed_branch_prefix or branch.startswith(f"{allowed_branch_prefix}/")
+    matches = matches or branch in allowed_exact
+
+    if matches:
+        return
+
+    message = (
+        f"Branch mismatch: current branch '{branch}' does not start with '{allowed_branch_prefix}/'. "
+        "Checkout or create an agent-specific branch before running session_boot, or pass --allow-branch-mismatch."
+    )
+    if allow_override:
+        _log_session_warning(
+            agent_id,
+            code="branch_mismatch",
+            message=message,
+            details={"branch": branch},
+        )
+        print(f"Warning: {message}", file=sys.stderr)
+        return
+    raise BranchMismatchError(message)
 
 
 def _tail_manager_report(agent_id: str, limit: int) -> tuple[Path, int]:
@@ -220,6 +316,16 @@ def build_parser() -> argparse.ArgumentParser:
         default=10,
         help="How many manager-report entries to capture for the receipt (default: 10)",
     )
+    parser.add_argument(
+        "--allow-manifest-mismatch",
+        action="store_true",
+        help="Allow running even if AGENT_MANIFEST.json does not match the requested agent",
+    )
+    parser.add_argument(
+        "--allow-branch-mismatch",
+        action="store_true",
+        help="Allow running even if the current git branch does not match agent/<id> conventions",
+    )
     return parser
 
 
@@ -232,6 +338,16 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("Agent id missing; provide --agent or populate AGENT_MANIFEST.json")
 
     printed_messages: list[str] = []
+
+    try:
+        _ensure_manifest_agent(agent_id, allow_override=args.allow_manifest_mismatch)
+        _ensure_branch(agent_id, allow_override=args.allow_branch_mismatch)
+    except ManifestMismatchError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    except BranchMismatchError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
 
     if args.sync:
         try:

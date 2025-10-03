@@ -1,0 +1,54 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-session-guard-upgrade",
+  "created": "2025-10-03T05:18:00Z",
+  "actor": "codex-2",
+  "summary": "Harden session_boot manifest + branch guardrails",
+  "status": "done",
+  "layer": "L5",
+  "systemic_scale": 4,
+  "ocers_target": "Observation↑ Coherence↑",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design guard",
+      "status": "done",
+      "notes": "Specify manifest/branch validation rules and overrides; record notes under _report/agent/codex-2/session-guard/design.md",
+      "receipts": [
+        "_report/agent/codex-2/session-guard/design.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement + test",
+      "status": "done",
+      "notes": "Update session_boot/session_sync to enforce manifest match and branch prefix checks with overrides where needed; add pytest coverage",
+      "receipts": [
+        "tools/agent/session_boot.py",
+        "tests/test_session_boot.py",
+        "_report/agent/codex-2/session-guard/pytest.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Doc and broadcast",
+      "status": "done",
+      "notes": "Document new safeguards in docs/parallel-codex.md and log manager-report status",
+      "receipts": [
+        "docs/parallel-codex.md",
+        "_bus/messages/manager-report.jsonl"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "session_boot blocks manifest/branch mismatch unless explicitly overridden",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_report/agent/codex-2/session-guard/design.md",
+    "_report/agent/codex-2/session-guard/pytest.json",
+    "docs/parallel-codex.md",
+    "_bus/messages/manager-report.jsonl"
+  ]
+}

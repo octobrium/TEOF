@@ -81,6 +81,8 @@ def _setup_env(
     monkeypatch.setattr(session_boot, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(session_boot, "MANIFEST_PATH", manifest_path)
     monkeypatch.setattr(session_boot, "MANAGER_REPORT_LOG", manager_log)
+    monkeypatch.setattr(session_boot, "SESSION_GUARD_DIR", root / "_report" / "agent")
+    monkeypatch.setattr(session_boot, "_get_current_branch", lambda: f"agent/{agent_id}/test")
 
     return events_path, manager_log
 
@@ -168,6 +170,65 @@ def test_session_boot_dirty_receipt(monkeypatch, tmp_path, capsys):
     content = receipt_path.read_text(encoding="utf-8")
     assert "# dirty handoff" in content
     assert "docs/file.py" in content
+
+
+def test_session_boot_manifest_mismatch_blocks(monkeypatch, tmp_path, capsys):
+    events_path, _ = _setup_env(monkeypatch, tmp_path, agent_id="codex-3")
+    # Simulate manifest containing codex-3 but request codex-4
+    monkeypatch.setattr(session_boot, "_get_current_branch", lambda: "agent/codex-4/test")
+
+    exit_code = session_boot.main(["--agent", "codex-4"])
+
+    assert exit_code == 1
+    captured = capsys.readouterr().err
+    assert "Manifest agent mismatch" in captured
+    assert not events_path.exists()
+
+
+def test_session_boot_manifest_mismatch_allowed(monkeypatch, tmp_path, capsys):
+    events_path, _ = _setup_env(monkeypatch, tmp_path, agent_id="codex-3")
+    sync = FakeSync()
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", FakeDashboard())
+    warnings_path = session_boot.SESSION_GUARD_DIR / "codex-4" / "session_guard" / "warnings.jsonl"
+
+    monkeypatch.setattr(session_boot, "_get_current_branch", lambda: "agent/codex-4/branch")
+    exit_code = session_boot.main(["--agent", "codex-4", "--allow-manifest-mismatch", "--no-dashboard"])
+
+    assert exit_code == 0
+    assert warnings_path.exists()
+    warning = warnings_path.read_text(encoding="utf-8").strip()
+    assert "manifest_mismatch" in warning
+    assert events_path.exists()
+
+
+def test_session_boot_branch_mismatch_blocks(monkeypatch, tmp_path, capsys):
+    events_path, _ = _setup_env(monkeypatch, tmp_path, agent_id="codex-3")
+    monkeypatch.setattr(session_boot, "_get_current_branch", lambda: "feature/random")
+
+    exit_code = session_boot.main(["--agent", "codex-3"])
+
+    assert exit_code == 1
+    captured = capsys.readouterr().err
+    assert "Branch mismatch" in captured
+    assert not events_path.exists()
+
+
+def test_session_boot_branch_mismatch_allowed(monkeypatch, tmp_path):
+    events_path, _ = _setup_env(monkeypatch, tmp_path, agent_id="codex-3")
+    sync = FakeSync()
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", FakeDashboard())
+    monkeypatch.setattr(session_boot, "_get_current_branch", lambda: "feature/random")
+    warnings_path = session_boot.SESSION_GUARD_DIR / "codex-3" / "session_guard" / "warnings.jsonl"
+
+    exit_code = session_boot.main(["--agent", "codex-3", "--allow-branch-mismatch", "--no-dashboard"])
+
+    assert exit_code == 0
+    assert warnings_path.exists()
+    warning = warnings_path.read_text(encoding="utf-8").splitlines()[-1]
+    assert "branch_mismatch" in warning
+    assert events_path.exists()
 
 
 def test_session_boot_allows_dirty(monkeypatch, tmp_path):

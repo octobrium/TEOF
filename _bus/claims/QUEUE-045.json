@@ -1,0 +1,8 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/queue-045",
+  "claimed_at": "2025-10-03T05:04:32Z",
+  "plan_id": "2025-10-03-session-guard-upgrade",
+  "status": "active",
+  "task_id": "QUEUE-045"
+}

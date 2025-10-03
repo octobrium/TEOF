@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-10-03T05:04:32Z",
+  "branch": null,
+  "engineer": "codex-2",
+  "manager": "codex-2",
+  "note": "Implement session manifest + branch guard",
+  "plan_id": "2025-10-03-session-guard-upgrade",
+  "task_id": "QUEUE-045"
+}
