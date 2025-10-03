@@ -1,0 +1,60 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-03-dirty-handoff-automation",
+  "created": "2025-10-03T04:50:00Z",
+  "actor": "codex-2",
+  "summary": "Automate dirty worktree handoff guardrails in session_boot",
+  "status": "done",
+  "layer": "L5",
+  "systemic_scale": 3,
+  "ocers_target": "Observation↑ Coherence↑",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design guardrail receipts",
+      "status": "done",
+      "notes": "Define receipt format + bus event payload for dirty sync aborts; record under _report/agent/codex-2/dirty-handoff/design.md",
+      "receipts": [
+        "_report/agent/codex-2/dirty-handoff/design.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement automation + tests",
+      "status": "done",
+      "notes": "Update session_boot/session_sync to write receipt + event; add pytest covering dirty flow",
+      "receipts": [
+        "tools/agent/session_boot.py",
+        "tools/agent/coord_dashboard.py",
+        "tests/test_session_boot.py",
+        "tests/test_coord_dashboard.py",
+        "_report/agent/codex-2/dirty-handoff/pytest.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document workflow",
+      "status": "done",
+      "notes": "Update docs/parallel-codex.md noting automation + receipts; log manager-report status",
+      "receipts": [
+        "docs/parallel-codex.md",
+        "_bus/messages/manager-report.jsonl"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Dirty handoff automation emits receipt + event with tests and docs",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_report/agent/codex-2/dirty-handoff/design.md",
+    "_report/agent/codex-2/dirty-handoff/pytest.json",
+    "tools/agent/session_boot.py",
+    "tools/agent/coord_dashboard.py",
+    "tests/test_session_boot.py",
+    "tests/test_coord_dashboard.py",
+    "docs/parallel-codex.md",
+    "_bus/messages/manager-report.jsonl"
+  ]
+}

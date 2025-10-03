@@ -154,6 +154,17 @@ def dashboard_env(tmp_path, monkeypatch):
     ]
     messages_path.write_text("\n".join(json.dumps(item) for item in directives), encoding="utf-8")
 
+    dirty_dir = tmp_path / coord_dashboard.SESSION_DIRNAME / "codex-2" / coord_dashboard.DIRTY_HANDOFF_SUBDIR
+    dirty_dir.mkdir(parents=True, exist_ok=True)
+    (dirty_dir / "dirty-20250920T234500Z.txt").write_text(
+        "# dirty handoff\n# agent=codex-2\n# captured_at=2025-09-20T23:45:00Z\n\n M docs/a.txt\n",
+        encoding="utf-8",
+    )
+    (dirty_dir / "dirty-20250921T002500Z.txt").write_text(
+        "# dirty handoff\n# agent=codex-2\n# captured_at=2025-09-21T00:25:00Z\n\n M docs/b.txt\n?? new.md\n",
+        encoding="utf-8",
+    )
+
     return tmp_path, now
 
 
@@ -201,6 +212,12 @@ def test_json_report(tmp_path, dashboard_env, capsys):
     assert heartbeat_meta["agent_window_minutes"] == coord_dashboard.DEFAULT_AGENT_WINDOW_MINUTES
     automation_plans = {item["plan_id"] for item in heartbeat_meta["automation_plans"]}
     assert "2025-09-19-heartbeat-docs-codex3" in automation_plans
+    dirty = data["dirty_handoffs"]
+    assert dirty, "expected dirty handoff summary"
+    dirty_entry = next(entry for entry in dirty if entry["agent_id"] == "codex-2")
+    assert dirty_entry["pending_count"] == 2
+    assert "docs/b.txt" in ";".join(dirty_entry.get("status_preview", []))
+    assert any("Dirty handoff pending for codex-2" in alert for alert in data["alerts"])
     captured = capsys.readouterr().out
     assert "Output written" in captured
 
@@ -227,3 +244,5 @@ def test_markdown_default_output(tmp_path, dashboard_env):
     assert "Heartbeat windows — managers: 30m, agents: 60m." in content
     assert "Heartbeat automation in flight" in content
     assert "2025-09-19-heartbeat-docs-codex3" in content
+    assert "## Dirty Handoffs" in content
+    assert "codex-2" in content

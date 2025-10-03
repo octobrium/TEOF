@@ -141,6 +141,35 @@ def test_session_boot_sync_failure(monkeypatch, tmp_path, capsys):
     assert "Session sync failed" in captured.err
 
 
+def test_session_boot_dirty_receipt(monkeypatch, tmp_path, capsys):
+    events_path, _ = _setup_env(monkeypatch, tmp_path)
+
+    def dirty_sync(**_):
+        raise session_sync.DirtyWorktreeError(" M docs/file.py\n?? new.txt")
+
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", dirty_sync)
+
+    exit_code = session_boot.main(["--agent", "codex-3"])
+
+    assert exit_code == 1
+    captured = capsys.readouterr()
+    assert "receipt=_report/session/codex-3/dirty-handoff" in captured.err
+    assert "observation logged" in captured.err
+    assert events_path.exists()
+    payloads = [json.loads(line) for line in events_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    assert payloads, "observation event expected"
+    event = payloads[-1]
+    assert event["event"] == "observation"
+    assert event["agent_id"] == "codex-3"
+    receipts = event.get("receipts")
+    assert receipts and isinstance(receipts, list)
+    receipt_path = Path(session_boot.ROOT) / receipts[0]
+    assert receipt_path.exists()
+    content = receipt_path.read_text(encoding="utf-8")
+    assert "# dirty handoff" in content
+    assert "docs/file.py" in content
+
+
 def test_session_boot_allows_dirty(monkeypatch, tmp_path):
     events_path, _ = _setup_env(monkeypatch, tmp_path)
 

@@ -242,3 +242,7 @@
 {"agent_id": "codex-4", "branch_prefix": "agent/codex-4/", "event": "handshake", "meta": {"focus": "release"}, "summary": "Session handshake", "ts": "2025-10-03T00:08:04Z"}
 {"agent_id": "codex-4", "event": "note", "plan_id": "2025-10-02-capsule-summary-cli", "receipts": ["_report/capsule/summary-latest.json"], "summary": "Capsule cadence summary CLI delivered; receipt regenerated", "task_id": "QUEUE-039", "ts": "2025-10-03T02:19:00Z"}
 {"agent_id": "codex-4", "event": "note", "plan_id": "2025-09-21-consensus-ci-integration", "summary": "Released stale Codex-2 claim; consensus CI plan already satisfied", "task_id": "QUEUE-038", "ts": "2025-10-03T02:20:23Z"}
+{"agent_id": "codex-2", "branch_prefix": "agent/codex-2/", "event": "handshake", "meta": {"focus": "engineering"}, "summary": "Session handshake", "ts": "2025-10-03T04:31:46Z"}
+{"agent_id": "codex-2", "event": "status", "focus": "engineering", "summary": "Active on TEoF development; scanning backlog", "task_id": "manager-report", "ts": "2025-10-03T04:32:33Z"}
+{"agent_id": "codex-2", "event": "status", "receipts": ["docs/parallel-codex.md"], "summary": "codex-2: Documented dirty handoff protocol and queued automation guard", "task_id": "manager-report", "ts": "2025-10-03T04:34:48Z"}
+{"agent_id": "codex-2", "event": "status", "plan_id": "2025-10-03-dirty-handoff-automation", "receipts": ["_report/agent/codex-2/dirty-handoff/pytest.json"], "summary": "Automation writes dirty receipts + dashboard view", "task_id": "QUEUE-044", "ts": "2025-10-03T04:44:02Z"}

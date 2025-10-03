@@ -20,6 +20,8 @@ CLAIMS_DIRNAME = "_bus/claims"
 EVENT_LOG = "_bus/events/events.jsonl"
 MANAGER_MESSAGES = "_bus/messages/manager-report.jsonl"
 ASSIGN_DIRNAME = "_bus/assignments"
+SESSION_DIRNAME = "_report/session"
+DIRTY_HANDOFF_SUBDIR = "dirty-handoff"
 DEFAULT_MANAGER_WINDOW_MINUTES = 30.0
 DEFAULT_AGENT_WINDOW_MINUTES = 60.0
 DEFAULT_DIRECTIVE_LIMIT = 10
@@ -175,6 +177,24 @@ def _iter_plan_paths(root: Path) -> Iterable[Path]:
     if not plans_dir.exists():
         return []
     return sorted(plans_dir.glob("*.plan.json"))
+
+
+def _parse_dirty_receipt(path: Path) -> tuple[str | None, list[str]]:
+    try:
+        content = path.read_text(encoding="utf-8")
+    except OSError:
+        return None, []
+    captured_at: str | None = None
+    preview: list[str] = []
+    for line in content.splitlines():
+        if line.startswith("#"):
+            if line.startswith("# captured_at="):
+                captured_at = line.partition("=")[2].strip() or None
+            continue
+        stripped = line.strip()
+        if stripped:
+            preview.append(stripped)
+    return captured_at, preview[:5]
 
 
 def _collect_plan_summary(root: Path) -> list[PlanSummary]:
@@ -367,6 +387,48 @@ def _collect_manager_candidates(root: Path) -> set[str]:
     return managers
 
 
+def _collect_dirty_handoffs(root: Path) -> list[dict[str, Any]]:
+    session_root = root / SESSION_DIRNAME
+    if not session_root.exists():
+        return []
+    latest: dict[str, dict[str, Any]] = {}
+    pending_counts: dict[str, int] = {}
+    for agent_dir in sorted(session_root.iterdir()):
+        if not agent_dir.is_dir():
+            continue
+        agent_id = agent_dir.name
+        if _is_retired(agent_id):
+            continue
+        handoff_dir = agent_dir / DIRTY_HANDOFF_SUBDIR
+        if not handoff_dir.exists():
+            continue
+        for receipt_path in sorted(handoff_dir.glob("*.txt")):
+            pending_counts[agent_id] = pending_counts.get(agent_id, 0) + 1
+            captured_at, preview = _parse_dirty_receipt(receipt_path)
+            if not captured_at:
+                ts = datetime.fromtimestamp(receipt_path.stat().st_mtime, tz=timezone.utc)
+                captured_at = ts.strftime(ISO_FMT)
+            current = latest.get(agent_id)
+            current_key = current.get("captured_at") if current else ""
+            candidate_key = captured_at or ""
+            if current is None or candidate_key > current_key:
+                try:
+                    rel_path = receipt_path.relative_to(root)
+                    receipt_value = rel_path.as_posix()
+                except ValueError:
+                    receipt_value = receipt_path.as_posix()
+                latest[agent_id] = {
+                    "agent_id": agent_id,
+                    "captured_at": captured_at,
+                    "receipt": receipt_value,
+                    "status_preview": preview,
+                }
+    for agent_id, count in pending_counts.items():
+        if agent_id in latest:
+            latest[agent_id]["pending_count"] = count
+    return [latest[key] for key in sorted(latest)]
+
+
 def _collect_events(root: Path) -> list[dict[str, Any]]:
     path = root / EVENT_LOG
     if not path.exists():
@@ -502,6 +564,7 @@ def _build_alerts(
     plans: list[PlanSummary],
     heartbeats: dict[str, list[HeartbeatRecord]],
     unclaimed_plans: list[PlanSummary],
+    dirty_handoffs: list[dict[str, Any]],
 ) -> list[str]:
     alerts: list[str] = []
     seen: set[str] = set()
@@ -524,6 +587,13 @@ def _build_alerts(
             if message not in seen:
                 alerts.append(message)
                 seen.add(message)
+    for record in dirty_handoffs:
+        agent = record.get("agent_id", "unknown")
+        receipt = record.get("receipt", "-")
+        message = f"Dirty handoff pending for {agent} (receipt={receipt})"
+        if message not in seen:
+            alerts.append(message)
+            seen.add(message)
     return alerts
 
 
@@ -594,7 +664,8 @@ def build_dashboard(
     )
     directives = _collect_directives(root, directive_limit)
     pruning = _collect_pruning_candidates(root)
-    alerts = _build_alerts(plans, heartbeats, unclaimed_plans)
+    dirty_handoffs = _collect_dirty_handoffs(root)
+    alerts = _build_alerts(plans, heartbeats, unclaimed_plans, dirty_handoffs)
     heartbeat_meta = {
         "manager_window_minutes": manager_window,
         "agent_window_minutes": agent_window,
@@ -613,6 +684,7 @@ def build_dashboard(
         "unclaimed_plans": [plan.to_payload() for plan in unclaimed_plans],
         "pruning_candidates": pruning,
         "heartbeat_meta": heartbeat_meta,
+        "dirty_handoffs": dirty_handoffs,
     }
 
 
@@ -681,6 +753,18 @@ def render_markdown(data: dict[str, Any], *, compact: bool = False) -> str:
             lines.extend(_render_table(("actor", "plan", "status", "pending"), rows))
         else:
             lines.append("None")
+        lines.append("")
+
+        dirty = data.get("dirty_handoffs", [])
+        lines.append("## Dirty Handoffs")
+        if dirty:
+            for record in dirty:
+                agent = record.get("agent_id", "-")
+                captured = record.get("captured_at", "-")
+                receipt = record.get("receipt", "-")
+                lines.append(f"- {agent}: {captured} ({receipt})")
+        else:
+            lines.append("- none")
         lines.append("")
 
         alerts = data.get("alerts", [])
@@ -762,6 +846,33 @@ def render_markdown(data: dict[str, Any], *, compact: bool = False) -> str:
     else:
         lines.append("No active plans without claims.")
     lines.append("")
+
+    lines.append("## Dirty Handoffs")
+    dirty = data.get("dirty_handoffs", [])
+    if dirty:
+        rows = []
+        for record in dirty:
+            preview = "; ".join(record.get("status_preview", [])) or "-"
+            rows.append(
+                (
+                    record.get("agent_id", "-"),
+                    record.get("captured_at", "-"),
+                    record.get("receipt", "-"),
+                    preview,
+                )
+            )
+        lines.extend(_render_table(("agent", "captured", "receipt", "preview"), rows))
+        counts = [
+            f"{record.get('agent_id', '-')}: {record.get('pending_count', 1)} receipt(s)"
+            for record in dirty
+            if record.get("pending_count")
+        ]
+        if counts:
+            lines.append("Outstanding dirty receipts: " + "; ".join(counts))
+        lines.append("")
+    else:
+        lines.append("No dirty handoffs detected.")
+        lines.append("")
 
     lines.append("## Heartbeats")
     heartbeat_meta = data.get("heartbeat_meta", {})

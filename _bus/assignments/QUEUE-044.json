@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-10-03T04:37:03Z",
+  "branch": null,
+  "engineer": "codex-2",
+  "manager": "codex-4",
+  "note": "Implement dirty handoff automation",
+  "plan_id": "2025-10-03-dirty-handoff-automation",
+  "task_id": "QUEUE-044"
+}

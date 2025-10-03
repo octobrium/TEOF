@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/queue-044",
+  "claimed_at": "2025-10-03T04:37:03Z",
+  "notes": "codex-2: dirty handoff automation receipts + dashboard shipped",
+  "plan_id": "2025-10-03-dirty-handoff-automation",
+  "released_at": "2025-10-03T04:44:32Z",
+  "status": "done",
+  "task_id": "QUEUE-044"
+}

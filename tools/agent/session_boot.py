@@ -29,6 +29,45 @@ MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 from tools.agent import bus_status, session_sync, coord_dashboard
 
 
+def _sanitize_iso_for_filename(ts: str) -> str:
+    return ts.replace(":", "").replace("-", "")
+
+
+def _relative_to_root(path: Path) -> Path | str:
+    try:
+        return path.relative_to(ROOT)
+    except ValueError:
+        return path
+
+
+def _write_dirty_receipt(agent_id: str, status_output: str) -> Path:
+    timestamp = _iso_now()
+    receipt_dir = ROOT / "_report" / "session" / agent_id / "dirty-handoff"
+    receipt_dir.mkdir(parents=True, exist_ok=True)
+    safe_ts = _sanitize_iso_for_filename(timestamp)
+    receipt_path = receipt_dir / f"dirty-{safe_ts}.txt"
+    header = (
+        "# dirty handoff\n"
+        f"# agent={agent_id}\n"
+        f"# captured_at={timestamp}\n"
+        "# git_status=git status --porcelain\n\n"
+    )
+    body = status_output.rstrip() + "\n" if status_output.strip() else "(no status output captured)\n"
+    receipt_path.write_text(header + body, encoding="utf-8")
+    return receipt_path
+
+
+def _record_dirty_event(agent_id: str, receipt_path: Path) -> None:
+    payload = {
+        "ts": _iso_now(),
+        "agent_id": agent_id,
+        "event": "observation",
+        "summary": "Dirty working tree detected during session_boot",
+        "receipts": [str(_relative_to_root(receipt_path))],
+    }
+    _append_event(payload)
+
+
 def _iso_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -198,12 +237,20 @@ def main(argv: list[str] | None = None) -> int:
         try:
             sync_result = session_sync.run_sync(allow_dirty=args.sync_allow_dirty)
         except session_sync.DirtyWorktreeError as exc:
+            receipt_path = _write_dirty_receipt(agent_id, exc.status_output)
+            _record_dirty_event(agent_id, receipt_path)
+            rel_receipt = _relative_to_root(receipt_path)
             print(
                 "Session sync aborted: working tree has local changes; commit/stash or rerun with --sync-allow-dirty.",
                 file=sys.stderr,
             )
             for line in exc.status_output.splitlines():
                 print(f"  {line}", file=sys.stderr)
+            print(f"  receipt={rel_receipt}", file=sys.stderr)
+            print(
+                "  observation logged to _bus/events/events.jsonl; follow up with bus_event status if coordination needs more detail.",
+                file=sys.stderr,
+            )
             return 1
         except session_sync.SessionSyncError as exc:
             print(f"Session sync failed: {exc}", file=sys.stderr)
