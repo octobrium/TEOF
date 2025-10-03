@@ -14,7 +14,7 @@
       "stage": "done",
       "notes": "Decide which metrics (commit count, file count, last touch) and default directories to report.",
       "receipts": [
-        "docs/maintenance/macro-hygiene.md"
+        "memory/reflections/reflection-20251003T211604Z.json"
       ]
     },
     {
@@ -53,10 +53,12 @@
     }
   ],
   "receipts": [
+    "memory/reflections/reflection-20251003T211604Z.json",
     "tools/maintenance/repo_anatomy.py",
     "tests/test_repo_anatomy.py",
     "docs/maintenance/macro-hygiene.md",
-    "_report/usage/repo-anatomy/summary-20251003T221257Z.json"
+    "_report/usage/repo-anatomy/summary-20251003T221257Z.json",
+    "queue/048-repo-anatomy-dashboard.md"
   ],
   "ocers_target": "Observation\u2191 Clarity\u2191",
   "layer": "L5",
