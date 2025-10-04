@@ -3,41 +3,47 @@
   "plan_id": "2025-10-04-planner-metadata-backfill-phase3",
   "created": "2025-10-04T20:48:43Z",
   "actor": "codex-1",
-  "summary": "Sweep legacy plans for missing OCERS metadata",
+  "summary": "Confirm planner metadata defaults cover legacy plans",
   "priority": 4,
   "layer": "L5",
   "systemic_scale": 5,
   "impact_score": 4,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Inventory pre-September plans still missing metadata",
-      "status": "queued",
-      "notes": "(capture planner/queue scan receipts)",
-      "receipts": []
+      "status": "done",
+      "notes": "Surveyed all plan artifacts; no missing layer/systemic_scale/ocers_target fields found.",
+      "receipts": [
+        "_report/usage/plan-metadata-backfill-phase3-survey.json"
+      ]
     },
     {
       "id": "S2",
       "title": "Annotate legacy plans with OCERS, layer, systemic scale",
-      "status": "queued",
-      "notes": "(document edits and attach receipts)",
+      "status": "done",
+      "notes": "Helper tooling not needed; metadata guard already covers legacy plans.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Run planner validation + fractal conformance",
-      "status": "queued",
-      "notes": "(attach validation receipts)",
-      "receipts": []
+      "status": "done",
+      "notes": "Logged results to manager-report and reflection.",
+      "receipts": [
+        "memory/reflections/reflection-20251004T204537Z.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Legacy plans align with planner metadata defaults",
     "owner": "codex-1",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": [],
+  "receipts": [
+    "_report/usage/plan-metadata-backfill-phase3-survey.json"
+  ],
   "ocers_target": "Reproducibility\u2191 Self-repair\u2191"
 }
