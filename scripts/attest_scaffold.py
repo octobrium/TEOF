@@ -14,7 +14,7 @@ from typing import Any, Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUT_ROOT = ROOT / "docs" / "receipts" / "attest"
-INDEX_PATH = ROOT / "docs" / "receipts" / "INDEX.md"
+INDEX_PATH = ROOT / "docs" / "receipts" / "index.md"
 
 
 class StepResult(dict):

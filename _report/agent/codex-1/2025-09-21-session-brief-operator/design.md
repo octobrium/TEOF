@@ -1,7 +1,7 @@
 # Design log — session_brief operator preset (2025-09-21)
 
 ## Goals
-- Provide a `--preset operator` so `session_brief` walks the Operator Mode checklist from `docs/AGENTS.md`.
+- Provide a `--preset operator` so `session_brief` walks the Operator Mode checklist from `docs/agents.md`.
 - Emit deterministic receipts verifying prerequisites: manager-report tail, plan validation, quickstart receipts, claim seed/task sync, and Meta-TEP pointer when present.
 - Keep default behaviour unchanged; preset only adds structured checklist output.
 

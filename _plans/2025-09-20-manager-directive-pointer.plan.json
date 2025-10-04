@@ -13,7 +13,7 @@
       "notes": "Document the rule that all BUS-COORD directives must be announced in manager-report.",
       "receipts": [
         ".github/AGENT_ONBOARDING.md",
-        "docs/AGENTS.md",
+        "docs/agents.md",
         "docs/parallel-codex.md"
       ]
     },
@@ -44,7 +44,7 @@
   },
   "receipts": [
     ".github/AGENT_ONBOARDING.md",
-    "docs/AGENTS.md",
+    "docs/agents.md",
     "docs/parallel-codex.md",
     "tools/agent/directive_pointer.py",
     "tests/test_agent_directive_pointer.py",

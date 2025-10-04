@@ -1,12 +1,12 @@
 # Plan Justification — 2025-09-19-governance-trim
 
 ## Why this matters
-Agent onboarding now spans `.github/AGENT_ONBOARDING.md`, `docs/AGENTS.md`, `docs/parallel-codex.md`, and scattered governance notes. Each surface repeats the quick loop, coordination bus rules, and cadence expectations with diverging wording. The drift inflates review time, makes updates error-prone, and obscures which instructions are canonical—risking conflicts with governance policy.
+Agent onboarding now spans `.github/AGENT_ONBOARDING.md`, `docs/agents.md`, `docs/parallel-codex.md`, and scattered governance notes. Each surface repeats the quick loop, coordination bus rules, and cadence expectations with diverging wording. The drift inflates review time, makes updates error-prone, and obscures which instructions are canonical—risking conflicts with governance policy.
 
 ## Proposal
 1. Audit the current guidance set and decide which doc owns each concept (quickstart, coordination, governance escalations).
 2. Reshape `.github/AGENT_ONBOARDING.md` into a lean entry point that links to the authoritative doc for deeper detail.
-3. Adjust `docs/AGENTS.md`, `docs/parallel-codex.md`, and related governance references so they complement (not duplicate) onboarding, including explicit links back to policy anchors.
+3. Adjust `docs/agents.md`, `docs/parallel-codex.md`, and related governance references so they complement (not duplicate) onboarding, including explicit links back to policy anchors.
 4. Capture a delta report summarising the removals and new link structure for traceability.
 
 ## Deliverables

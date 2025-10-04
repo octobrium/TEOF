@@ -18,7 +18,7 @@
     },
     "tools/agent/bus_status.py": {
       "decision": "retain",
-      "reason": "New manager heartbeat guard requires this CLI; referenced in docs/AGENTS.md."
+      "reason": "New manager heartbeat guard requires this CLI; referenced in docs/agents.md."
     },
     "tools/agent/bus_watch.py": {
       "decision": "retain",

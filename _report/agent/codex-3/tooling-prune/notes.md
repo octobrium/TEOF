@@ -2,7 +2,7 @@
 
 ## Surface inventory
 - `tools/agent/` python entrypoints: `bus_claim.py`, `bus_event.py`, `bus_message.py`, `bus_status.py`, `bus_watch.py`, `claim_seed.py`, `idle_pickup.py`, `manager_report.py`, `manifest_helper.py`, `session_boot.py`, `session_brief.py`, `task_assign.py`, `task_sync.py`. Shell helpers: `preflight.sh`, `runner.sh`.
-- Documentation touch points: `docs/AGENTS.md`, `docs/collab-support.md`, `docs/parallel-codex.md`, `docs/workflow.md`, `_bus/README.md`, recent governance/manager plans. Each references the corresponding `python -m tools.agent.*` invocation.
+- Documentation touch points: `docs/agents.md`, `docs/collab-support.md`, `docs/parallel-codex.md`, `docs/workflow.md`, `_bus/README.md`, recent governance/manager plans. Each references the corresponding `python -m tools.agent.*` invocation.
 - Related automation beyond `tools/agent`: `tools/maintenance/prune_artifacts.py` (apoptosis workflow), `scripts/ops/apoptosis.sh`, `scripts/ci/guard_*` (guard rails); will cross-check overlap before pruning.
 
 ## Flag & UX survey (captured via `--help` output)

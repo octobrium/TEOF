@@ -7,7 +7,7 @@ SNIPPET_PATH = ROOT / "docs" / "_generated" / "quickstart_snippet.md"
 DOCS = [
     ROOT / "README.md",
     ROOT / ".github" / "AGENT_ONBOARDING.md",
-    ROOT / "docs" / "AGENTS.md",
+    ROOT / "docs" / "agents.md",
     ROOT / "docs" / "quickstart.md",
 ]
 

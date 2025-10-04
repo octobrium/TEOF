@@ -30,7 +30,7 @@
       "status": "done",
       "notes": "Align bus CLI UX (argument names/help consistency) and refresh docs referencing the commands.",
       "receipts": [
-        "docs/AGENTS.md",
+        "docs/agents.md",
         "docs/parallel-codex.md",
         "tools/agent/bus_status.py"
       ]
@@ -67,7 +67,7 @@
     "_report/agent/codex-3/tooling-prune/notes.md",
     "_report/agent/codex-3/tooling-prune/summary.json",
     "_report/agent/codex-3/tooling-prune/tests.json",
-    "docs/AGENTS.md",
+    "docs/agents.md",
     "docs/parallel-codex.md",
     "tests/test_agent_bus_status.py",
     "tools/agent/bus_status.py"

@@ -101,10 +101,10 @@ jobs:
       - name: pytest (soft)
         continue-on-error: true
         run: pytest -q
-      - name: Refresh STATUS.md (best effort)
+      - name: Refresh status.md (best effort)
         run: |
           if teof status; then
-            head -n 20 docs/STATUS.md || true
+            head -n 20 docs/status.md || true
           else
             echo "::warning ::teof status unavailable; skipping STATUS preview"
           fi

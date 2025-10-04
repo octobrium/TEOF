@@ -20,7 +20,7 @@ SNIPPET_TARGETS = [
 
 REFERENCE_BLOCKS = {
     ROOT / 'README.md': None,
-    ROOT / 'docs' / 'AGENTS.md': None,
+    ROOT / 'docs' / 'agents.md': None,
     ROOT / '.github' / 'AGENT_ONBOARDING.md': None,
 }
 MARKER = '<!-- generated: quickstart snippet -->'

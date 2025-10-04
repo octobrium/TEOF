@@ -24,7 +24,7 @@
       "id": "S3",
       "title": "Regenerate docs and receipts",
       "status": "done",
-      "notes": "Refreshed docs/STATUS.md via CLI + recorded pytest run (CMD-4)",
+      "notes": "Refreshed docs/status.md via CLI + recorded pytest run (CMD-4)",
       "receipts": []
     }
   ],
@@ -35,7 +35,7 @@
   },
   "links": [],
   "receipts": [
-    "docs/STATUS.md"
+    "docs/status.md"
   ],
   "ocers_target": "Observation↑ Clarity↑",
   "layer": "L5",

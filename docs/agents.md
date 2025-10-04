@@ -10,7 +10,7 @@ Treat this page as the day-to-day companion to the lightweight onboarding entry 
 - Full manifest lives in `docs/quick-links.md`.
 - Need machine-readable output? `python -m tools.agent.doc_links list --format json`.
 - Need a manual receipt scaffold? `python -m tools.receipts.main scaffold plan --plan-id <id> --agent <id>` or `... claim --task <id> --agent <id>` creates the default files without touching plans/claims.
-- Canonical core map: `governance/core/INDEX.md`.
+- Canonical core map: `governance/core/index.md`.
 
 ## Communication Quickstart (manager-report hub)
 - **Verify manifest** – confirm `AGENT_MANIFEST.json` (or `python3 -m tools.agent.manifest_helper show`) lists the `agent_id` you will broadcast with.

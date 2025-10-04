@@ -6,7 +6,7 @@
       "artifacts": [
         "tools/agent/session_brief.py",
         "tests/test_session_brief.py",
-        "docs/AGENTS.md"
+        "docs/agents.md"
       ]
     }
   ],

@@ -12,7 +12,7 @@
       "type": "task"
     },
     {
-      "ref": "docs/AGENTS.md#contract",
+      "ref": "docs/agents.md#contract",
       "type": "doc"
     }
   ],
@@ -54,7 +54,7 @@
         "tests/test_agent_task_assign.py",
         "tests/test_claim_seed.py",
         ".github/AGENT_ONBOARDING.md",
-        "docs/AGENTS.md"
+        "docs/agents.md"
       ],
       "status": "done",
       "title": "Enhance bus_status & session bootstrap"

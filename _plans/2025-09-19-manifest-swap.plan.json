@@ -50,7 +50,7 @@
       "notes": "Updated onboarding and coordination docs to reference session-save/session-restore usage.",
       "receipts": [
         ".github/AGENT_ONBOARDING.md",
-        "docs/AGENTS.md",
+        "docs/agents.md",
         "docs/parallel-codex.md"
       ],
       "status": "done",

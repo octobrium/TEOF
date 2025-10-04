@@ -9,7 +9,7 @@ Document a recurring consensus review loop covering:
 - Roles (manager, reviewers, observers) and required receipts.
 - Escalation path when consensus is blocked.
 
-Update `docs/parallel-codex.md` (session loop) and `docs/workflow.md` (manager ladder) so agents know how to initiate and record consensus reviews. Add a short reference in `docs/AGENTS.md` if needed.
+Update `docs/parallel-codex.md` (session loop) and `docs/workflow.md` (manager ladder) so agents know how to initiate and record consensus reviews. Add a short reference in `docs/agents.md` if needed.
 
 ## Deliverables
 - Updated docs with cadence section and escalation guidance.

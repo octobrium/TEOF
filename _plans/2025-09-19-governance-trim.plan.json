@@ -30,7 +30,7 @@
       "status": "done",
       "notes": "Agents guide now defers to onboarding/playbook; playbook exposes explicit anchors for deep links and cross-links updated.",
       "receipts": [
-        "docs/AGENTS.md",
+        "docs/agents.md",
         "docs/parallel-codex.md"
       ]
     },
@@ -62,7 +62,7 @@
     },
     {
       "type": "doc",
-      "ref": "docs/AGENTS.md"
+      "ref": "docs/agents.md"
     },
     {
       "type": "doc",
@@ -76,7 +76,7 @@
     "_report/agent/codex-4/apoptosis-003/preflight-20250918.log",
     "_report/agent/codex-4/apoptosis-003/planner-validate-20250918.log",
     ".github/AGENT_ONBOARDING.md",
-    "docs/AGENTS.md",
+    "docs/agents.md",
     "docs/parallel-codex.md"
   ],
   "ocers_target": "Self-repair↑ Coherence↑",

@@ -22,9 +22,9 @@
       "id": "S2",
       "title": "Refresh status docs",
       "status": "done",
-      "notes": "Update docs/STATUS.md to reflect v1.6 current capsule.",
+      "notes": "Update docs/status.md to reflect v1.6 current capsule.",
       "receipts": [
-        "docs/STATUS.md"
+        "docs/status.md"
       ]
     }
   ],
@@ -38,7 +38,7 @@
     "capsule/v1.6/PROVENANCE.md",
     "capsule/v1.6/RELEASE.md",
     "capsule/v1.6/reconstruction.json",
-    "docs/STATUS.md"
+    "docs/status.md"
   ],
   "ocers_target": "Coherence↑ Reproducibility↑",
   "layer": "L5",

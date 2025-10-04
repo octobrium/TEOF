@@ -31,7 +31,7 @@
       "status": "done",
       "notes": "Linked the doc via quick-links + index so agents can find it quickly.",
       "receipts": [
-        "docs/INDEX.md",
+        "docs/index.md",
         "docs/quick-links.json",
         "docs/quick-links.md"
       ]

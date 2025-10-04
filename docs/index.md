@@ -1,8 +1,8 @@
 # Docs Index
 
 ## General
-- [TEOF Repo Audit (20250824T213802Z)](./REPO_AUDIT.md)
-- [TEOF Status (2025-08-26T02:21:24+00:00Z)](./STATUS.md)
+- [TEOF Repo Audit (20250824T213802Z)](./repo_audit.md)
+- [TEOF Status (2025-08-26T02:21:24+00:00Z)](./status.md)
 - [TEOF Repo Architecture (v1.5, minimal)](./architecture.md)
 - [TEOF Clarifications & Responses](./clarifications.md)
 - [Hyper-Organism (Conceptual)](./concept.md)

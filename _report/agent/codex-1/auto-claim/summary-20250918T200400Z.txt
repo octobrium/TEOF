@@ -1,1 +1,1 @@
-Auto-claim enabled by default in tools/agent/task_assign.py. Docs updated (docs/parallel-codex.md, docs/AGENTS.md). Tests: pytest tests/test_agent_task_assign.py.
+Auto-claim enabled by default in tools/agent/task_assign.py. Docs updated (docs/parallel-codex.md, docs/agents.md). Tests: pytest tests/test_agent_task_assign.py.

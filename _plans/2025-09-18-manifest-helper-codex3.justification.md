@@ -9,7 +9,7 @@ Build a helper (likely `tools/agent/manifest_helper.py` or similar) to:
 - Swap the active `AGENT_MANIFEST.json` to a chosen variant and optionally restore a default.
 - Provide a safe backup and receipts so automation can verify switches.
 
-CLI should support `--list`, `--activate <name>`, `--restore-default`. Include docs in `docs/AGENTS.md`/`docs/parallel-codex.md` for multi-agent workflows.
+CLI should support `--list`, `--activate <name>`, `--restore-default`. Include docs in `docs/agents.md`/`docs/parallel-codex.md` for multi-agent workflows.
 
 ## Receipts
 - `_report/agent/codex-3/manifest-helper/pytest.json`

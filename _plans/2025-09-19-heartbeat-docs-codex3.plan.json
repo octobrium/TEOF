@@ -19,10 +19,10 @@
       "id": "S2",
       "title": "Refresh documentation",
       "status": "done",
-      "notes": "Update docs/parallel-codex.md and docs/AGENTS.md with session-close heartbeat guidance.",
+      "notes": "Update docs/parallel-codex.md and docs/agents.md with session-close heartbeat guidance.",
       "receipts": [
         "docs/parallel-codex.md",
-        "docs/AGENTS.md"
+        "docs/agents.md"
       ]
     },
     {
@@ -43,7 +43,7 @@
   "receipts": [
     "tools/agent/coord_dashboard.py",
     "docs/parallel-codex.md",
-    "docs/AGENTS.md",
+    "docs/agents.md",
     "tests/test_coord_dashboard.py"
   ],
   "ocers_target": "Clarity↑ Coherence↑",

@@ -29,4 +29,4 @@
 ## Contact & Next Steps
 - Coordinator dashboard renders active plans and claims (`docs/parallel-codex.md#coordination-dashboard`).
 - Distribution cadence lives in `_report/usage/evangelism/` (see `docs/evangelism/distribution-cadence.md`).
-- Request the latest capsule snapshot (`capsule/current/STATUS.md`).
+- Request the latest capsule snapshot (`capsule/current/status.md`).

@@ -11,7 +11,7 @@ Problem
 Proposal
 - Establish a single minimal, testable L1: `governance/core/L1 - principles/canonical-teof.md` with P1–P7.
 - Mark `principles.md` as Summary (advisory). Mark “whitepaper copy” and “TAP copy” as Advisory.
-- Add `governance/core/INDEX.md` enumerating canonical paths and statuses for L0–L5; mark L6 unassigned.
+- Add `governance/core/index.md` enumerating canonical paths and statuses for L0–L5; mark L6 unassigned.
 - Make `bindings.yml` the authoritative enforcement map and update `architecture.md` to point to it.
 - Clarify DNA symlink language to prefer symlink, accept fallback, and restore when practical.
 
@@ -32,5 +32,5 @@ Rollback
   - `governance/core/L1 - principles/TAP copy.md`
   - `governance/core/L4 - architecture/architecture.md`
   - `governance/DNA.md`
-  - Remove `governance/core/INDEX.md`
+  - Remove `governance/core/index.md`
 

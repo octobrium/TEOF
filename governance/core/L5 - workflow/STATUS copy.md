@@ -8,7 +8,7 @@
 
 ## Auto Objectives (detected)
 - [todo] OBJ-A4 — Update docs/quickstart.md with editable install and CLI — Include `pip install -e .` and `teof brief` usage in Quickstart.
-- [todo] OBJ-A5 — Append STATUS refresh to pre-commit — Add `teof status --quiet || true` and `git add docs/STATUS.md || true` to .githooks/pre-commit
+- [todo] OBJ-A5 — Append STATUS refresh to pre-commit — Add `teof status --quiet || true` and `git add docs/status.md || true` to .githooks/pre-commit
 
 ## Manual Objectives (optional)
 - (none listed)

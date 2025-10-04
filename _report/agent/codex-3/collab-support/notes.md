@@ -1,7 +1,7 @@
 # Collab Support — Survey Notes (S1)
 
 ## Existing Guidance
-- `docs/AGENTS.md` covers core coordination tools but lacks explicit instructions for idle agents.
+- `docs/agents.md` covers core coordination tools but lacks explicit instructions for idle agents.
 - `docs/parallel-codex.md` encourages keeping `bus_watch` running and using `bus_message`, yet offers no cadence for availability pings.
 
 ## Bus Activity Patterns

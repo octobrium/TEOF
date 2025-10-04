@@ -50,7 +50,7 @@ teof brief
     hook = root / ".githooks" / "pre-commit"
     hook.parent.mkdir(parents=True, exist_ok=True)
     hook.write_text(
-        "#!/bin/sh\nset -e\nteof status --out docs/STATUS.md --quiet\ngit add docs/STATUS.md\n",
+        "#!/bin/sh\nset -e\nteof status --out docs/status.md --quiet\ngit add docs/status.md\n",
         encoding="utf-8",
     )
     # authenticity dashboard
@@ -80,7 +80,7 @@ def test_cli_writes_file(tmp_path: Path, monkeypatch) -> None:
     # Ensure CLI looks at tmp_path
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(status_report, "ROOT", tmp_path)
-    out_path = tmp_path / "docs" / "STATUS.md"
+    out_path = tmp_path / "docs" / "status.md"
     result = bootloader.main(["status", "--out", str(out_path), "--quiet"])
     assert result == 0
     assert out_path.exists()

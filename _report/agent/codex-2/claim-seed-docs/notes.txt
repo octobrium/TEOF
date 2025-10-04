@@ -1,11 +1,11 @@
 Claim seeding docs (codex-2)
-- Added manager-side claim seeding guidance to docs/AGENTS.md with example command and verification steps.
+- Added manager-side claim seeding guidance to docs/agents.md with example command and verification steps.
 - Documented workflow requirements and post-seed checks in docs/workflow.md.
 - Published detailed helper walkthrough in docs/maintenance/claim-seed.md.
 - Planner entry updated; this file recorded as receipt.
 
 2025-09-18T19:10:35Z codex-2
-- Refreshed docs/AGENTS.md and docs/workflow.md with claim_seed guard coverage plus session_brief reference.
+- Refreshed docs/agents.md and docs/workflow.md with claim_seed guard coverage plus session_brief reference.
 - Highlighted the bus_message claim guard dependency so managers seed before calling task_assign.
 - Follow-up when `python -m tools.agent.session_brief` ships on main; rerun the command as part of verification.
 2025-09-18T19:18:41Z codex-2

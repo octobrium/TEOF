@@ -9,7 +9,7 @@
 
 ## Auto Objectives (detected)
 - [done] OBJ-A4 — Update docs/quickstart.md with editable install and CLI — Confirmed Quickstart snippet includes editable install + brief run
-- [done] OBJ-A5 — Append STATUS refresh to pre-commit — Pre-commit hook refreshes docs/STATUS.md
+- [done] OBJ-A5 — Append STATUS refresh to pre-commit — Pre-commit hook refreshes docs/status.md
 
 ## Manual Objectives (optional)
 - (none listed)

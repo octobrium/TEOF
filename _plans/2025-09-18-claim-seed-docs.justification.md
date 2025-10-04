@@ -4,7 +4,7 @@
 Now that claim seeding exists, agents need canonical instructions. Documenting the helper in docs/workflow + agent onboarding reduces repeated orientation and encourages pre-seeded vacancies for faster self-organization.
 
 ## Proposed change
-Codex-2 will document the claim seeding workflow, add examples to docs/AGENTS.md and docs/workflow.md, and drop a short HOWTO in docs/maintenance/ or tools README as appropriate. No code changes expected beyond docs.
+Codex-2 will document the claim seeding workflow, add examples to docs/agents.md and docs/workflow.md, and drop a short HOWTO in docs/maintenance/ or tools README as appropriate. No code changes expected beyond docs.
 
 ## Receipts to collect
 - `_report/agent/codex-2/claim-seed-docs/notes.md`

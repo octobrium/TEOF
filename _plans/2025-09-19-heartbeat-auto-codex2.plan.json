@@ -35,7 +35,7 @@
       "notes": "Docs now mention automatic heartbeat, overrides, and shift tagging.",
       "receipts": [
         "docs/parallel-codex.md",
-        "docs/AGENTS.md"
+        "docs/agents.md"
       ]
     }
   ],

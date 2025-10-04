@@ -38,7 +38,7 @@
       "receipts": [
         "tests/test_manager_report.py",
         ".github/AGENT_ONBOARDING.md",
-        "docs/AGENTS.md"
+        "docs/agents.md"
       ],
       "status": "done",
       "title": "Tests+Docs"

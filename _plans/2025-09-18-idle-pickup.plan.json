@@ -32,7 +32,7 @@
       "status": "done",
       "notes": "Document helper usage for agents and managers.",
       "receipts": [
-        "docs/AGENTS.md",
+        "docs/agents.md",
         "docs/parallel-codex.md"
       ]
     },

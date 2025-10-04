@@ -3,7 +3,7 @@
   "plan_id": "2025-09-20-operator-mode-checklist",
   "created": "2025-09-20T21:56:48Z",
   "actor": "codex-2",
-  "summary": "Add operator-mode quick checklist to docs/AGENTS.md",
+  "summary": "Add operator-mode quick checklist to docs/agents.md",
   "status": "done",
   "steps": [
     {
@@ -19,9 +19,9 @@
       "id": "S2",
       "title": "Draft-checklist-update",
       "status": "done",
-      "notes": "Inserted Operator Mode Checklist into docs/AGENTS.md (communication section).",
+      "notes": "Inserted Operator Mode Checklist into docs/agents.md (communication section).",
       "receipts": [
-        "docs/AGENTS.md"
+        "docs/agents.md"
       ]
     },
     {

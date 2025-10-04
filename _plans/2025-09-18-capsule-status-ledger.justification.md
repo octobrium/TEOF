@@ -5,7 +5,7 @@ Capsule directories lack explicit status markers; auditors cannot tell at a glan
 
 ## Proposal
 - Add `capsule/README.md` summarizing available versions and current pointer.
-- Add `capsule/v1.5/STATUS.md` (archived/immutable) and `capsule/v1.6/STATUS.md` (active) files.
+- Add `capsule/v1.5/status.md` (archived/immutable) and `capsule/v1.6/status.md` (active) files.
 - Update `docs/workflow.md` and/or `docs/architecture.md` to reference the status docs for release guidance.
 
 ## Receipts

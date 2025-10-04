@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EX_IN = ROOT / "docs" / "examples" / "brief" / "inputs"
 OUT_ROOT = Path(os.environ.get("OUT_ROOT", ROOT / "artifacts"))
 OCERS_OUT = OUT_ROOT / "ocers_out"
-STATUS_MD = ROOT / "docs" / "STATUS.md"
+STATUS_MD = ROOT / "docs" / "status.md"
 OBJECTIVES_JSON = ROOT / "governance" / "objectives.json"
 
 # ---- Time helpers ----
@@ -180,7 +180,7 @@ def collect_auto_objectives() -> List[Dict[str, Any]]:
             "priority": 3
         })
 
-    # A5) Pre-commit hook refreshes STATUS.md
+    # A5) Pre-commit hook refreshes status.md
     hook = ROOT / ".githooks" / "pre-commit"
     needs_status = True
     if hook.exists():
@@ -194,7 +194,7 @@ def collect_auto_objectives() -> List[Dict[str, Any]]:
         tasks.append({
             "id": "OBJ-A5",
             "title": "Append STATUS refresh to pre-commit",
-            "how": "Add `teof status --quiet || true` and `git add docs/STATUS.md || true` to .githooks/pre-commit",
+            "how": "Add `teof status --quiet || true` and `git add docs/status.md || true` to .githooks/pre-commit",
             "status": "todo",
             "priority": 3
         })
@@ -226,7 +226,7 @@ def merged_tasks() -> List[Dict[str, Any]]:
     tasks.sort(key=lambda t: (t.get("status", "todo") != "todo", t.get("priority", 99), t.get("id", "")))
     return tasks
 
-# ---- STATUS.md template ----
+# ---- status.md template ----
 STATUS_TEMPLATE = """# TEOF Status ({now})
 
 ## Snapshot
@@ -313,7 +313,7 @@ def main():
     p_brief = sub.add_parser("brief", help="Run brief pipeline and write artifacts")
     p_brief.set_defaults(func=cmd_brief)
 
-    p_status = sub.add_parser("status", help="Refresh docs/STATUS.md snapshot/objectives")
+    p_status = sub.add_parser("status", help="Refresh docs/status.md snapshot/objectives")
     p_status.add_argument("--quiet", action="store_true")
     p_status.set_defaults(func=cmd_status)
 

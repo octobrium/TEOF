@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Review existing docs",
       "status": "done",
-      "notes": "Identify sections in docs/AGENTS.md and docs/workflow.md referencing claims.",
+      "notes": "Identify sections in docs/agents.md and docs/workflow.md referencing claims.",
       "receipts": []
     },
     {

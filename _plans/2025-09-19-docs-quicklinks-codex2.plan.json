@@ -47,10 +47,10 @@
     },
     {
       "id": "S3",
-      "notes": "Ensure .github/AGENT_ONBOARDING.md, docs/AGENTS.md, and docs/parallel-codex.md point at the CLI + manifest.",
+      "notes": "Ensure .github/AGENT_ONBOARDING.md, docs/agents.md, and docs/parallel-codex.md point at the CLI + manifest.",
       "receipts": [
         ".github/AGENT_ONBOARDING.md",
-        "docs/AGENTS.md",
+        "docs/agents.md",
         "docs/parallel-codex.md"
       ],
       "status": "done",

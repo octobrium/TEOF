@@ -18,10 +18,10 @@ lower ones but must not bypass their contracts.
 | `_plans/` | L4 → L5 | Structured plans drive workflow; lifecycle changes must stay monotonic and pass strict validation. | Authoring + validation rules live in [`_plans/README.md`](../_plans/README.md). |
 | `_report/` | L0 | Receipts from evaluations, coordination dashboards, and audits; automation appends new runs under scoped folders. | Treat subdirectories as evidence stores referenced by bus/plans/memory. |
 | `_apoptosis/` | L0 | Cold storage for retired artifacts (timestamped). No mutation once archived. | Populated by pruning/retirement automation. |
-| `agents/` | L5 | Task registry and role manifests mirrored in automation. | Coupled with [`docs/AGENTS.md`](AGENTS.md). |
+| `agents/` | L5 | Task registry and role manifests mirrored in automation. | Coupled with [`docs/agents.md`](agents.md). |
 | `archive/` | L0 | Frozen historical snapshots that must not be imported or mutated. | Use only for provenance. |
 | `bin/` | L6 | Thin console entrypoints that wrap `extensions/…:main()` or `tools/` helpers. | Keep logic in packages; `bin/*` stays minimal. |
-| `capsule/` | L0 ↔ L1 | Immutable release capsules and hashes; only add new versions plus the moving `current` pointer. | Each release carries a `STATUS.md` receipt inside its folder. |
+| `capsule/` | L0 ↔ L1 | Immutable release capsules and hashes; only add new versions plus the moving `current` pointer. | Each release carries a `status.md` receipt inside its folder. |
 | `datasets/` | L3 ↔ L4 | Goldens and evaluation corpora; mutations must maintain reproducible hashes. | Reference from tests and receipts. |
 | `docs/` | L3 ↔ L4 | Living constitution, workflow guidance, examples. | Cross-link automation surfaces via [`docs/automation.md`](automation.md). |
 | `extensions/` | L4 | Canonical, packaged kernel modules (`import extensions.…`). | Covered by policy checks + tests. |

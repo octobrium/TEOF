@@ -44,10 +44,10 @@
     },
     {
       "id": "S3",
-      "notes": "Add tests (unit/smoke) and document usage in onboarding/docs/AGENTS.md.",
+      "notes": "Add tests (unit/smoke) and document usage in onboarding/docs/agents.md.",
       "receipts": [
         "tests/test_session_boot.py",
-        "docs/AGENTS.md"
+        "docs/agents.md"
       ],
       "status": "done",
       "title": "Add coverage + docs"

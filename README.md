@@ -92,7 +92,7 @@ Coordinate with other TEOF agents through the repository bus:
 - Log status: `python -m tools.agent.bus_event log --event status --task <task_id> --summary "..."` keeps `_bus/events/events.jsonl` and task message channels current.
 - Listen in: `python -m tools.agent.bus_watch --follow` (or `python -m tools.agent.bus_status --preset support`) to monitor peers, manager directives, and stale claims.
 
-Expanded coordination policy lives in [`docs/parallel-codex.md`](docs/parallel-codex.md); the agent rhythm is summarised in [`docs/AGENTS.md`](docs/AGENTS.md).
+Expanded coordination policy lives in [`docs/parallel-codex.md`](docs/parallel-codex.md); the agent rhythm is summarised in [`docs/agents.md`](docs/agents.md).
 
 
 ---
@@ -146,5 +146,5 @@ Licensed under the [Apache-2.0 License](LICENSE).
 ## TEOF — a living constitution for autonomous work
 **Why:** smarter models need auditable rules, not bigger prompts.  
 **What:** model-agnostic policy (allowlists, budgets, diff caps, receipts) + CI gates + canonical system prompt.  
-**How to integrate:** see [docs/AGENTS.md](docs/AGENTS.md) and [governance/policy.json](governance/policy.json).  
+**How to integrate:** see [docs/agents.md](docs/agents.md) and [governance/policy.json](governance/policy.json).  
 **Badge:** `![TEOF compatible](docs/badges/teof-compatible.svg)`

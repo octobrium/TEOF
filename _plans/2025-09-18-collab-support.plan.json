@@ -28,7 +28,7 @@
       "id": "S3",
       "title": "Publish docs + template",
       "status": "done",
-      "notes": "Updated docs/AGENTS.md and published docs/collab-support.md",
+      "notes": "Updated docs/agents.md and published docs/collab-support.md",
       "receipts": [
         "_report/agent/codex-3/collab-support/docs.json"
       ]

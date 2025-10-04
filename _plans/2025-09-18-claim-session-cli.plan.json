@@ -27,7 +27,7 @@
       "notes": "Add pytest coverage (tests/test_claim_seed.py, tests/test_session_brief.py) and update docs to remove pending note.",
       "receipts": [
         "_report/agent/codex-4/claim-session-cli/pytest.txt",
-        "docs/AGENTS.md",
+        "docs/agents.md",
         "docs/workflow.md"
       ]
     }
@@ -44,7 +44,7 @@
     },
     {
       "type": "docs",
-      "ref": "docs/AGENTS.md"
+      "ref": "docs/agents.md"
     },
     {
       "type": "docs",

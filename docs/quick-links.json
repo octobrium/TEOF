@@ -6,7 +6,7 @@
       "id": "agents-claim-seeding",
       "title": "Claim Seeding (Managers)",
       "summary": "Manager flow for staging claims before assignments so auto-claim succeeds.",
-      "path": "docs/AGENTS.md",
+      "path": "docs/agents.md",
       "anchor": "#claim-seeding-managers",
       "category": "cadence"
     },
@@ -14,7 +14,7 @@
       "id": "agents-idle-cadence",
       "title": "Idle Cadence",
       "summary": "Idle escalation loop for agents broadcasting availability and claiming work.",
-      "path": "docs/AGENTS.md",
+      "path": "docs/agents.md",
       "anchor": "#idle-cadence",
       "category": "cadence"
     },
@@ -62,7 +62,7 @@
       "id": "comm-directive-pointer",
       "title": "Directive Pointer Helper",
       "summary": "Run `tools.agent.directive_pointer` to log BUS-COORD directives and mirror them in manager-report.",
-      "path": "docs/AGENTS.md",
+      "path": "docs/agents.md",
       "anchor": "#idle-cadence",
       "category": "coordination"
     },
@@ -214,7 +214,7 @@
       "id": "quickstart-agents-bootstrap",
       "title": "Agent Bootstrap",
       "summary": "One-minute agent bootstrap snippet with install + teof brief.",
-      "path": "docs/AGENTS.md",
+      "path": "docs/agents.md",
       "anchor": "#bootstrap-one-minute",
       "category": "quickstart"
     },

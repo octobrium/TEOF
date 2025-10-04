@@ -3,7 +3,7 @@
 Governance in TEOF provides supporting structures for continuity and audit.  
 It ensures contributors and external observers can verify that changes follow an append-only pattern and that optional cryptographic anchors exist for replication and trust minimization.
 
-For a map of canonical core documents (L0–L5) and their status, see `governance/core/INDEX.md`.
+For a map of canonical core documents (L0–L5) and their status, see `governance/core/index.md`.
 
 ---
 

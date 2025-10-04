@@ -16,7 +16,7 @@ jobs:
             docs_only:
               - 'docs/**'
               - '!docs/teps/**'
-              - '!docs/STATUS.md'
+              - '!docs/status.md'
               - '!.github/**'
               - '!capsule/**'
               - '!extensions/**'

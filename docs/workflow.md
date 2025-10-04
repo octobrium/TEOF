@@ -175,7 +175,7 @@ Use these layer labels together with the systemic axis (`docs/foundation/systemi
    (cd capsule && zip -r "../artifacts/teof-vX.Y.Z.zip" "vX.Y")
    ```
 5) Publish the release with the zip (optional).
-6) Update capsule status markers: adjust `capsule/README.md` and add/update `capsule/vX.Y/STATUS.md` when promoting a new baseline so downstream tooling sees the active release.  
+6) Update capsule status markers: adjust `capsule/README.md` and add/update `capsule/vX.Y/status.md` when promoting a new baseline so downstream tooling sees the active release.  
 7) Review `docs/maintenance/capsule-cadence.md` and capture receipts (`_report/manager/…`) before tagging a release.  
 
 ---

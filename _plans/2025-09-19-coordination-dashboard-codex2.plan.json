@@ -44,7 +44,7 @@
       "notes": "Create pytest coverage + markdown/JSON output verification; document usage in onboarding/parallel playbook.",
       "receipts": [
         ".github/AGENT_ONBOARDING.md",
-        "docs/AGENTS.md",
+        "docs/agents.md",
         "docs/parallel-codex.md"
       ],
       "status": "done",

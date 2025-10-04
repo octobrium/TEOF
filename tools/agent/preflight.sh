@@ -53,7 +53,7 @@ python3 tools/receipts/main.py check
 python3 -m tools.maintenance.worktree_guard --max-changes 80
 python3 tools/snippets/render_quickstart.py
 python3 tools/snippets/check_quickstart_docs.py --apply
-git diff --exit-code docs/_generated/quickstart_snippet.md README.md docs/quickstart.md docs/AGENTS.md .github/AGENT_ONBOARDING.md
+git diff --exit-code docs/_generated/quickstart_snippet.md README.md docs/quickstart.md docs/agents.md .github/AGENT_ONBOARDING.md
 python3 -m tools.maintenance.plan_hygiene
 python3 scripts/ci/check_plans.py
 python3 tools/planner/validate.py --strict --output _report/planner/validate/summary-latest.json

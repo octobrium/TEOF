@@ -7,7 +7,7 @@ To treat `main` as a save point, ensure the following items are complete:
 
 [x] **Finalize governance bindings**
   - L4 bindings map lives at `governance/core/L4 - architecture/bindings.yml` with references in docs/architecture.md.
-  - Capsule status ledger established (`capsule/README.md`, `capsule/v1.*/STATUS.md`); docs updated accordingly.
+  - Capsule status ledger established (`capsule/README.md`, `capsule/v1.*/status.md`); docs updated accordingly.
 
 [x] **Wire new helpers into CI**
   - GitHub workflow `.github/workflows/teof-ci.yml` now runs consensus smoke + pytest suites; manifest helper/prune/heartbeat checks in coverage.

@@ -285,14 +285,14 @@ def _detect_obj_a5(root: Path) -> tuple[bool, str]:
         return False, "`.githooks/pre-commit` missing"
     text = hook.read_text(encoding="utf-8", errors="ignore")
     has_status = "teof status" in text
-    has_add = "git add docs/STATUS.md" in text
+    has_add = "git add docs/status.md" in text
     if has_status and has_add:
-        return True, "Pre-commit hook refreshes docs/STATUS.md"
+        return True, "Pre-commit hook refreshes docs/status.md"
     missing: list[str] = []
     if not has_status:
         missing.append("`teof status` step")
     if not has_add:
-        missing.append("`git add docs/STATUS.md`")
+        missing.append("`git add docs/status.md`")
     detail = "Missing " + " & ".join(missing)
     return False, detail
 

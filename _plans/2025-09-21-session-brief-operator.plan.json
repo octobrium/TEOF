@@ -41,7 +41,7 @@
       "status": "done",
       "notes": "Docs updated with operator preset instructions",
       "receipts": [
-        "docs/AGENTS.md",
+        "docs/agents.md",
         "docs/parallel-codex.md"
       ]
     }

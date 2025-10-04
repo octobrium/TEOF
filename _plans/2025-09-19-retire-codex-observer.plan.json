@@ -10,10 +10,10 @@
       "id": "S1",
       "title": "Update governance docs",
       "status": "done",
-      "notes": "Docs/parallel-codex.md and docs/AGENTS.md now explain how to park personas.",
+      "notes": "Docs/parallel-codex.md and docs/agents.md now explain how to park personas.",
       "receipts": [
         "docs/parallel-codex.md",
-        "docs/AGENTS.md"
+        "docs/agents.md"
       ]
     },
     {
@@ -45,7 +45,7 @@
   },
   "receipts": [
     "docs/parallel-codex.md",
-    "docs/AGENTS.md",
+    "docs/agents.md",
     "tools/agent/coord_dashboard.py",
     "tests/test_coord_dashboard.py",
     "_plans/2025-09-19-heartbeat-followup.plan.json",

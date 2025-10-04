@@ -5,8 +5,8 @@ Purpose: give a new human + LLM pair the minimum set of rails to join TEOF safel
 ## First Session Checklist
 1. **Prep access** – issue a read-scoped credential (GitHub App or PAT) and sandbox the checkout. Only upgrade to write access for `agent/<id>/*` branches after review. (See `docs/workflow.md#non-negotiables-apply-to-every-change`.)
 2. **Read the rails** – follow the architecture/workflow overview (`docs/workflow.md#architecture-gate-before-writing-code`) and receipts discipline (`docs/workflow.md#dna-recursion-self-improvement-of-the-rules`) before touching code.
-3. **Capture your manifest** – copy `AGENT_MANIFEST.example.json` → `AGENT_MANIFEST.json`, fill in metadata, and store locally. Reference: `docs/AGENTS.md#files-to-know`.
-4. **Plan before edits** – duplicate `_plans/1970-01-01-agent-template.plan.json`, add a justification, and log the plan per `docs/AGENTS.md#contract`. Prefer `teof-plan new <slug> --summary "..." --scaffold` (fallback: `python3 -m tools.planner.cli new ...`) so the receipt folder is created immediately.
+3. **Capture your manifest** – copy `AGENT_MANIFEST.example.json` → `AGENT_MANIFEST.json`, fill in metadata, and store locally. Reference: `docs/agents.md#files-to-know`.
+4. **Plan before edits** – duplicate `_plans/1970-01-01-agent-template.plan.json`, add a justification, and log the plan per `docs/agents.md#contract`. Prefer `teof-plan new <slug> --summary "..." --scaffold` (fallback: `python3 -m tools.planner.cli new ...`) so the receipt folder is created immediately.
 5. **Run the Quickstart smoke** – verify your checkout produces canonical artifacts before touching new work.
 <!-- generated: quickstart snippet -->
 Run this smoke test on a fresh checkout:
@@ -52,7 +52,7 @@ Need quick references? `python -m tools.agent.doc_links list --category quicksta
 
 ## Where to Go Deeper
 - **Quick links** – `python -m tools.agent.doc_links list` (use `... show <id>` for details; manifest lives in `docs/quick-links.md`) for a canonical index of guidance surfaces.
-- **Daily rhythms** – `docs/AGENTS.md` for idle cadence, claim seeding, and optional role coordination.
+- **Daily rhythms** – `docs/agents.md` for idle cadence, claim seeding, and optional role coordination.
 - **Multi-agent coordination** – `docs/parallel-codex.md` for detailed bus usage, follow-up logging, and consensus tooling.
 - **Tooling reference** – `_plans/README.md` (plan schema), `_bus/README.md` (claims/events), `tools/agent/runner.sh` (optional helper).
 

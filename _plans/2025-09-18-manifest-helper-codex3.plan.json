@@ -37,9 +37,9 @@
       "id": "S4",
       "title": "Document workflow",
       "status": "done",
-      "notes": "Update docs/parallel-codex.md and docs/AGENTS.md to describe using the helper during multi-agent sessions.",
+      "notes": "Update docs/parallel-codex.md and docs/agents.md to describe using the helper during multi-agent sessions.",
       "receipts": [
-        "docs/AGENTS.md",
+        "docs/agents.md",
         "docs/parallel-codex.md"
       ]
     }
@@ -63,7 +63,7 @@
     "_plans/2025-09-18-manifest-helper-codex3.justification.md",
     "_report/agent/codex-3/manifest-helper/notes.md",
     "_report/agent/codex-3/manifest-helper/pytest.json",
-    "docs/AGENTS.md",
+    "docs/agents.md",
     "docs/parallel-codex.md",
     "tools/agent/manifest_helper.py"
   ],

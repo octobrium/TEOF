@@ -19,6 +19,6 @@ Use this scaffold with your preferred presentation tool. Each slide cites live r
    - Evidence: `docs/impact/case-study-roadmap.md` and `_report/usage/case-study/relay-insight/` receipts.
 6. **Call to Action**
    - Invite pilot or integration.
-   - Next steps: `docs/evangelism/distribution-cadence.md`, `teof-objectives-status` demo, capsule request (`capsule/current/STATUS.md`).
+   - Next steps: `docs/evangelism/distribution-cadence.md`, `teof-objectives-status` demo, capsule request (`capsule/current/status.md`).
 
 Add appendices with quickstart commands, authenticity escalation history, and ledger excerpts if the audience needs deeper dives.

@@ -11,7 +11,7 @@
 - **L2.2 Coherence with Observation** ↔ `tests/test_agent_bus_status.py`, `scripts/ci/check_plans.py`.
 - **L2.3 Preserve Enabling Conditions** ↔ `scripts/ops/apoptosis.sh`, `_apoptosis/` cadence docs.
 - **L2.4 Functional Continuity** ↔ `_plans` lifecycle validators (`tests/test_ci_check_plans.py`).
-- **L2.5 Legibility to Many Intelligences** ↔ documentation lint + `docs/AGENTS.md` updates (no explicit guard yet).
+- **L2.5 Legibility to Many Intelligences** ↔ documentation lint + `docs/agents.md` updates (no explicit guard yet).
 - **L2.6 Universality & Portability** ↔ policy to stay text-first (needs future hook).
 - **L2.7 Self-Seeding** ↔ capsule + quickstart; guard is `docs/quickstart.md` validation (manual).
 - **L2.8 Corrigibility & Stewardship** ↔ `tools/agent/session_boot.py` receipts, bus claims ensures control.
