@@ -32,7 +32,8 @@
         81634.0,
         null
       ]
-    ]
+    ],
+    "slow_plan_alerts": null
   },
   "batch_logs": {
     "entries": 5,
@@ -80,5 +81,41 @@
     "2025-09-19-kernel-slimdown",
     "2025-09-24-relay-offering",
     "2025-09-18-bus-message-claim-guard"
-  ]
+  ],
+  "readiness": {
+    "status": "attention",
+    "missing_receipts": 1,
+    "slow_plan_count": 5,
+    "slow_plan_alert_counts": {},
+    "batch_warn_count": 3,
+    "batch_fail_count": 1,
+    "attention": [
+      {
+        "kind": "missing_receipts",
+        "count": 1,
+        "plan_ids": [
+          "2025-10-03-plan-schema-dedupe"
+        ]
+      },
+      {
+        "kind": "slow_plans",
+        "count": 5,
+        "plan_ids": [
+          "2025-09-19-kernel-slimdown",
+          "2025-09-24-relay-offering",
+          "2025-09-18-bus-message-claim-guard",
+          "2025-09-25-memory-layer",
+          "2025-09-26-evangelism"
+        ]
+      },
+      {
+        "kind": "batch_failures",
+        "count": 1
+      },
+      {
+        "kind": "batch_warnings",
+        "count": 3
+      }
+    ]
+  }
 }

@@ -86,6 +86,7 @@ def test_receipts_hygiene_cli(tmp_path: Path, monkeypatch, capsys) -> None:
     assert exit_code == 0
     out = capsys.readouterr().out
     assert "Receipts hygiene summary" in out
+    assert "Slow plan alerts" in out
     assert (repo_root / "custom" / "receipts-hygiene-summary.json").exists()
 
 
@@ -140,4 +141,63 @@ def test_run_hygiene_fail_on_latency(tmp_path: Path, monkeypatch) -> None:
             output_dir=output_dir,
             quiet=True,
             max_plan_latency=100.0,
+        )
+
+
+def test_run_hygiene_warn_alert(tmp_path: Path, monkeypatch) -> None:
+    output_dir = tmp_path / "out"
+
+    monkeypatch.setattr(receipts_hygiene.receipts_index, "_git_tracked_paths", lambda root: set())
+    monkeypatch.setattr(receipts_hygiene.receipts_index, "build_index", lambda root, tracked: [])
+
+    metrics_entries = [
+        {
+            "kind": "plan_latency",
+            "plan_id": "2025-09-21-slow",
+            "latency_seconds": {"plan_to_first_receipt": 200.0, "note_to_first_receipt": None},
+            "missing_receipts": [],
+        }
+    ]
+    monkeypatch.setattr(
+        receipts_hygiene.receipts_metrics, "build_metrics", lambda root, output: metrics_entries
+    )
+
+    summary = receipts_hygiene.run_hygiene(
+        root=tmp_path,
+        output_dir=output_dir,
+        quiet=True,
+        warn_plan_latency=150.0,
+        fail_plan_latency=0.0,
+    )
+
+    alerts = summary.get("slow_plan_alerts", {}).get("alerts", [])
+    assert alerts
+    assert alerts[0]["severity"] == "warn"
+
+
+def test_run_hygiene_fail_threshold(tmp_path: Path, monkeypatch) -> None:
+    output_dir = tmp_path / "out"
+
+    monkeypatch.setattr(receipts_hygiene.receipts_index, "_git_tracked_paths", lambda root: set())
+    monkeypatch.setattr(receipts_hygiene.receipts_index, "build_index", lambda root, tracked: [])
+
+    metrics_entries = [
+        {
+            "kind": "plan_latency",
+            "plan_id": "2025-09-21-slow",
+            "latency_seconds": {"plan_to_first_receipt": 1000.0, "note_to_first_receipt": None},
+            "missing_receipts": [],
+        }
+    ]
+    monkeypatch.setattr(
+        receipts_hygiene.receipts_metrics, "build_metrics", lambda root, output: metrics_entries
+    )
+
+    with pytest.raises(SystemExit):
+        receipts_hygiene.run_hygiene(
+            root=tmp_path,
+            output_dir=output_dir,
+            quiet=True,
+            warn_plan_latency=100.0,
+            fail_plan_latency=200.0,
         )

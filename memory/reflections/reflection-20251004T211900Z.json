@@ -1,0 +1,17 @@
+{
+  "captured_at": "2025-10-04T21:17:03Z",
+  "title": "Slow-plan latency thresholds shipped",
+  "layers": [
+    "L5"
+  ],
+  "summary": "Receipts hygiene now emits warn/fail alerts and autonomy latency mirrors the severity on the bus.",
+  "signals": "tests/test_receipts_hygiene.py; tests/test_autonomy_latency.py; docs/automation.md",
+  "actions": "Added warn/fail thresholds with severity tagging, extended autonomy latency/batch refinement wiring, updated automation docs, and logged bus receipts.",
+  "tags": [
+    "receipts",
+    "automation"
+  ],
+  "plan_suggestion": "2025-10-04-receipts-hygiene-upgrade",
+  "notes": "Defaults: warn=259200s, fail=604800s. Future work: surface thresholds in batch summary dashboards.",
+  "receipt": "memory/reflections/reflection-20251004T211900Z.json"
+}

@@ -125,6 +125,8 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
         fail_on_missing=True,
         max_plan_latency=123.0,
         latency_threshold=3600.0,
+        latency_warn_threshold=None,
+        latency_fail_threshold=None,
         latency_dry_run=True,
     )
 
@@ -136,6 +138,8 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
     assert result["receipts_hygiene"]["metrics"]["plans_missing_receipts"] == 0
     assert hygiene_called["kwargs"]["fail_on_missing"] is True
     assert hygiene_called["kwargs"]["max_plan_latency"] == 123.0
+    assert hygiene_called["kwargs"]["warn_plan_latency"] == batch_refinement.receipts_hygiene.DEFAULT_WARN_THRESHOLD
+    assert hygiene_called["kwargs"]["fail_plan_latency"] == batch_refinement.receipts_hygiene.DEFAULT_FAIL_THRESHOLD
     assert result["task_sync"]["changes"]
     autonomy_receipt = tmp_path / "_report" / "usage" / "autonomy-status.json"
     assert autonomy_receipt.exists()
@@ -252,3 +256,5 @@ def test_batch_refinement_main_passes_hygiene_flags(monkeypatch: pytest.MonkeyPa
     assert result == 0
     assert hygiene_kwargs["fail_on_missing"] is True
     assert hygiene_kwargs["max_plan_latency"] == 30.0
+    assert "warn_plan_latency" in hygiene_kwargs
+    assert "fail_plan_latency" in hygiene_kwargs

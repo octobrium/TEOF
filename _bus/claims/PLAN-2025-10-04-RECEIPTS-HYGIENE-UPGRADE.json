@@ -3,6 +3,7 @@
   "branch": "agent/codex-2/plan-2025-10-04-receipts-hygiene-upgrade",
   "claimed_at": "2025-10-04T20:49:30Z",
   "plan_id": "2025-10-04-receipts-hygiene-upgrade",
-  "status": "active",
+  "released_at": "2025-10-04T21:16:31Z",
+  "status": "done",
   "task_id": "PLAN-2025-10-04-RECEIPTS-HYGIENE-UPGRADE"
 }

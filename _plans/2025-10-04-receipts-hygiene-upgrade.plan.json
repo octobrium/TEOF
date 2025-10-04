@@ -8,36 +8,53 @@
   "layer": "L5",
   "systemic_scale": 6,
   "impact_score": 5,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Design latency thresholds + alert criteria",
-      "status": "queued",
-      "notes": "(capture design notes/receipts)",
-      "receipts": []
+      "status": "done",
+      "notes": "Design thresholds and alert criteria recorded.",
+      "receipts": [
+        "_report/agent/codex-2/receipts-hygiene-upgrade/design.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Integrate thresholds into receipts_hygiene + autonomy latency",
-      "status": "queued",
-      "notes": "(update tooling, add tests)",
-      "receipts": []
+      "status": "done",
+      "notes": "Implemented warn/fail thresholds and severity propagation with regression tests.",
+      "receipts": [
+        "_report/agent/codex-2/receipts-hygiene-upgrade/pytest-20251004T204900Z.txt",
+        "tests/test_autonomy_latency.py",
+        "tests/test_autonomy_status.py",
+        "tests/test_batch_refinement.py",
+        "tests/test_receipts_hygiene.py",
+        "tools/agent/autonomy_latency.py",
+        "tools/agent/batch_refinement.py",
+        "tools/agent/receipts_hygiene.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Document workflow and wire alerts to bus",
-      "status": "queued",
-      "notes": "(attach docs + bus receipts)",
-      "receipts": []
+      "status": "done",
+      "notes": "Documented new thresholds and readiness signals.",
+      "receipts": [
+        "docs/automation.md",
+        "tools/agent/autonomy_status.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Slow-plan alerts run automatically with documented thresholds",
     "owner": "codex-2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": [],
+  "receipts": [
+    "_report/agent/codex-2/receipts-hygiene-upgrade/design.md",
+    "docs/automation.md"
+  ],
   "ocers_target": "Observation\u2191 Self-repair\u2191"
 }

@@ -36,6 +36,8 @@ Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the
 
 - `--fail-on-missing` exits non-zero if any plan lacks receipts.
 - `--max-plan-latency <seconds>` exits non-zero if `plan_to_first_receipt` or `note_to_first_receipt` exceeds the threshold.
+- `--warn-plan-latency <seconds>` (default **259200s**, 3 days) annotates slow plans with `severity="warn"` in `slow_plan_alerts`.
+- `--fail-plan-latency <seconds>` (default **604800s**, 7 days) raises a non-zero exit and records `severity="fail"` when breached.
 
 ### Batch refinement runner
 
@@ -43,6 +45,7 @@ For a single command that runs tests, refreshes receipts hygiene, reconciles tas
 
 - `--fail-on-missing` and `--max-plan-latency <seconds>` pass straight through to the hygiene bundle so batches halt when receipts drift.
 - Logs capture runtime metrics (`pytest_seconds`, `hygiene_seconds`), task synchronization deltas, the refreshed autonomy status receipt under `_report/usage/autonomy-status.json`, the heartbeat payload recorded on the coordination bus, and any autonomy latency alerts generated during the run.
+- `--latency-warn-threshold` / `--latency-fail-threshold` let you forward custom thresholds to the latency sentinel; omit them to fall back to the defaults.
 
 ### Batch refinement log summary
 
@@ -57,7 +60,7 @@ Use `python -m tools.agent.batch_report [--limit N] [--json]` to list recent bat
 
 ### Autonomy latency sentinel
 
-Run `python -m tools.agent.autonomy_latency --threshold 3600` to alert on any plan whose receipts latency exceeds the configured number of seconds. The sentinel reads `_report/usage/autonomy-status.json`, mirrors offending plan ids onto the coordination bus as `alert` events, and writes a receipt (`_report/usage/autonomy-latency.json` by default) summarising alert payloads. Use `--dry-run` to inspect without logging events and `--no-write` to skip receipt emission. Batch refinement can also invoke this sentinel automatically via `--latency-threshold` (adding `--latency-dry-run` to avoid logging).
+Run `python -m tools.agent.autonomy_latency --warn-threshold 259200 --fail-threshold 604800` to alert on plans whose receipts latency exceeds the configured bounds. The sentinel reads `_report/usage/autonomy-status.json`, mirrors offending plan ids onto the coordination bus as `alert` events (severity `warn` or `high`), and writes a receipt (`_report/usage/autonomy-latency.json` by default) summarising alert payloads and counts by severity. Use `--dry-run` to inspect without logging events and `--no-write` to skip receipt emission. `--threshold` remains available as a shorthand when warn/fail share the same value. Batch refinement can also invoke this sentinel automatically via `--latency-warn-threshold` / `--latency-fail-threshold` (adding `--latency-dry-run` to avoid logging).
 
 ### Case study: VDP guard pilot (2025-09-21)
 

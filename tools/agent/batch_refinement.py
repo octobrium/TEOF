@@ -167,6 +167,8 @@ def run_batch(
     fail_on_missing: bool = False,
     max_plan_latency: Optional[float] = None,
     latency_threshold: Optional[float] = None,
+    latency_warn_threshold: Optional[float] = None,
+    latency_fail_threshold: Optional[float] = None,
     latency_dry_run: bool = False,
 ) -> dict:
     resolved_agent = _resolve_agent(agent)
@@ -186,6 +188,8 @@ def run_batch(
         quiet=True,
         fail_on_missing=fail_on_missing,
         max_plan_latency=max_plan_latency,
+        warn_plan_latency=receipts_hygiene.DEFAULT_WARN_THRESHOLD,
+        fail_plan_latency=receipts_hygiene.DEFAULT_FAIL_THRESHOLD,
     )
     hygiene_duration = time.perf_counter() - (start_ts + pytest_duration)
 
@@ -282,9 +286,11 @@ def run_batch(
         report["heartbeat"] = heartbeat_payload
         log_payload["heartbeat"] = heartbeat_payload
 
-    if latency_threshold is not None:
+    if latency_threshold is not None or latency_warn_threshold is not None or latency_fail_threshold is not None:
         latency_result = autonomy_latency.check_latency(
             threshold=latency_threshold,
+            warn_threshold=latency_warn_threshold,
+            fail_threshold=latency_fail_threshold,
             dry_run=latency_dry_run,
             write=not latency_dry_run,
         )
@@ -335,7 +341,17 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument(
         "--latency-threshold",
         type=float,
-        help="Emit autonomy latency alerts for plans exceeding this many seconds",
+        help="Legacy single threshold forwarded to autonomy_latency",
+    )
+    parser.add_argument(
+        "--latency-warn-threshold",
+        type=float,
+        help="Warn threshold forwarded to autonomy_latency (seconds)",
+    )
+    parser.add_argument(
+        "--latency-fail-threshold",
+        type=float,
+        help="Fail threshold forwarded to autonomy_latency (seconds)",
     )
     parser.add_argument(
         "--latency-dry-run",
@@ -355,6 +371,8 @@ def main(argv: Optional[List[str]] = None) -> int:
             fail_on_missing=args.fail_on_missing,
             max_plan_latency=args.max_plan_latency,
             latency_threshold=args.latency_threshold,
+            latency_warn_threshold=args.latency_warn_threshold,
+            latency_fail_threshold=args.latency_fail_threshold,
             latency_dry_run=args.latency_dry_run,
         )
     except SystemExit:

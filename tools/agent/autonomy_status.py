@@ -43,6 +43,7 @@ def load_batch_logs(limit: int | None = None) -> List[Dict[str, Any]]:
 
 def summarise(hygiene: Dict[str, Any] | None, logs: List[Dict[str, Any]]) -> Dict[str, Any]:
     metrics = hygiene.get("metrics", {}) if isinstance(hygiene, dict) else {}
+    slow_plan_alerts = hygiene.get("slow_plan_alerts") if isinstance(hygiene, dict) else None
     missing = metrics.get("plans_missing_receipts")
     slow_plans = metrics.get("slow_plans") or []
     top_slow = [plan_id for plan_id, _, _ in slow_plans[:3]]
@@ -67,6 +68,43 @@ def summarise(hygiene: Dict[str, Any] | None, logs: List[Dict[str, Any]]) -> Dic
         average_pytest = pytest_total / metric_counts
         average_hygiene = hygiene_total / metric_counts
 
+    readiness_attention = []
+    if missing:
+        readiness_attention.append(
+            {
+                "kind": "missing_receipts",
+                "count": missing,
+                "plan_ids": metrics.get("missing_plan_ids") or [],
+            }
+        )
+    if slow_plans:
+        readiness_attention.append(
+            {
+                "kind": "slow_plans",
+                "count": len(slow_plans),
+                "plan_ids": [entry[0] for entry in slow_plans],
+            }
+        )
+    alert_counts = (slow_plan_alerts or {}).get("counts") or {}
+    if alert_counts.get("fail"):
+        readiness_attention.append({"kind": "slow_plan_fail", "count": alert_counts["fail"]})
+    elif alert_counts.get("warn"):
+        readiness_attention.append({"kind": "slow_plan_warn", "count": alert_counts["warn"]})
+    if failed_batches:
+        readiness_attention.append({"kind": "batch_failures", "count": len(failed_batches)})
+    if warn_batches:
+        readiness_attention.append({"kind": "batch_warnings", "count": len(warn_batches)})
+
+    readiness = {
+        "status": "ready" if not readiness_attention else "attention",
+        "missing_receipts": missing or 0,
+        "slow_plan_count": len(slow_plans),
+        "slow_plan_alert_counts": alert_counts,
+        "batch_warn_count": len(warn_batches),
+        "batch_fail_count": len(failed_batches),
+        "attention": readiness_attention,
+    }
+
     return {
         "hygiene": {
             "generated_at": hygiene.get("generated_at") if hygiene else None,
@@ -74,6 +112,7 @@ def summarise(hygiene: Dict[str, Any] | None, logs: List[Dict[str, Any]]) -> Dic
             "plans_missing_receipts": missing,
             "missing_plan_ids": metrics.get("missing_plan_ids"),
             "slow_plans": slow_plans,
+            "slow_plan_alerts": slow_plan_alerts,
         },
         "batch_logs": {
             "entries": len(logs),
@@ -86,6 +125,7 @@ def summarise(hygiene: Dict[str, Any] | None, logs: List[Dict[str, Any]]) -> Dic
             "avg_hygiene_seconds": average_hygiene,
         },
         "top_slow_plans": top_slow,
+        "readiness": readiness,
     }
 
 
@@ -107,6 +147,43 @@ def print_human(summary: Dict[str, Any]) -> None:
             print(f"    - {plan_id}: first_receipt={first_delta} note_to_receipt={note_delta}")
     else:
         print("  Slow plans: none")
+    alerts = hygiene.get("slow_plan_alerts") or {}
+    alert_counts = alerts.get("counts") or {}
+    if alert_counts:
+        print(f"  Slow plan alerts: warn={alert_counts.get('warn', 0)} fail={alert_counts.get('fail', 0)}")
+
+    readiness = summary.get("readiness") or {}
+    if readiness:
+        status = readiness.get("status")
+        if status:
+            print(
+                "  Readiness: "
+                f"{status}"
+                f" (missing={readiness.get('missing_receipts')} slow={readiness.get('slow_plan_count')}"
+                f" warn={readiness.get('slow_plan_alert_counts', {}).get('warn', 0)}"
+                f" fail={readiness.get('slow_plan_alert_counts', {}).get('fail', 0)}"
+                f" batch_warn={readiness.get('batch_warn_count')} batch_fail={readiness.get('batch_fail_count')})"
+            )
+        attention_items = readiness.get("attention") or []
+        if attention_items:
+            print("  Readiness attention:")
+            for item in attention_items:
+                kind = item.get("kind")
+                count = item.get("count")
+                if kind == "missing_receipts":
+                    plans = ", ".join(item.get("plan_ids", [])) or "none listed"
+                    print(f"    - Missing receipts ({count}): {plans}")
+                elif kind == "slow_plans":
+                    plans = ", ".join(item.get("plan_ids", [])) or "unknown"
+                    print(f"    - Slow plans ({count}): {plans}")
+                elif kind == "slow_plan_fail":
+                    print(f"    - Slow plan fail alerts ({count})")
+                elif kind == "slow_plan_warn":
+                    print(f"    - Slow plan warn alerts ({count})")
+                elif kind == "batch_failures":
+                    print(f"    - Batch failures in last runs ({count})")
+                elif kind == "batch_warnings":
+                    print(f"    - Batch warnings in last runs ({count})")
 
     print(f"  Batch logs: total={batch['entries']} warn={batch['warn_count']} fail={batch['fail_count']}")
     print(

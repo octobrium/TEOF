@@ -63,7 +63,8 @@ def test_autonomy_latency_alerts(tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 
     output_path = tmp_path / "latency.json"
     result = autonomy_latency.check_latency(
-        threshold=3600.0,
+        fail_threshold=3600.0,
+        warn_threshold=1800.0,
         dry_run=False,
         output=output_path,
     )
@@ -71,13 +72,16 @@ def test_autonomy_latency_alerts(tmp_path: Path, monkeypatch: pytest.MonkeyPatch
     assert len(alerts) == 1
     payload = alerts[0]
     assert payload["plan_id"] == "plan-slow"
+    assert payload["severity"] == "fail"
     assert stub_bus.calls
     bus_args = stub_bus.calls[0]
     assert bus_args.summary.startswith("Autonomy latency")
     assert bus_args.plan == "plan-slow"
+    assert bus_args.severity == "high"
     assert result["receipt_path"] == output_path
     data = json.loads(output_path.read_text())
     assert data["slow_count"] == 1
+    assert data["counts"]["fail"] == 1
 
 
 def test_autonomy_latency_dry_run(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys) -> None:
@@ -101,7 +105,8 @@ def test_autonomy_latency_dry_run(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
     monkeypatch.setattr(autonomy_latency.autonomy_status, "summarise", fake_summarise)
 
     result = autonomy_latency.check_latency(
-        threshold=3600.0,
+        fail_threshold=3600.0,
+        warn_threshold=1800.0,
         dry_run=True,
         write=False,
     )
@@ -110,3 +115,39 @@ def test_autonomy_latency_dry_run(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
     assert result["receipt_path"] is None
     output = capsys.readouterr().out
     assert "plan-slow" in output
+
+
+def test_autonomy_latency_warn(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    write_summary(tmp_path, [["plan-slow", 200000.0, None]])
+
+    def fake_load_hygiene():
+        return json.loads((tmp_path / "_report" / "usage" / "receipts-hygiene-summary.json").read_text())
+
+    monkeypatch.setattr(autonomy_latency.autonomy_status, "load_hygiene", fake_load_hygiene)
+    monkeypatch.setattr(autonomy_latency.autonomy_status, "load_batch_logs", lambda limit=None: [])
+
+    def fake_summarise(hygiene, logs):
+        return {
+            "hygiene": {
+                "slow_plans": hygiene["metrics"]["slow_plans"],
+                "slow_plan_alerts": {
+                    "alerts": [],
+                    "warn_threshold_seconds": 100000.0,
+                    "fail_threshold_seconds": 300000.0,
+                },
+            },
+            "batch_logs": {"entries": 0, "warn_count": 0, "fail_count": 0},
+            "top_slow_plans": [],
+        }
+
+    monkeypatch.setattr(autonomy_latency.autonomy_status, "summarise", fake_summarise)
+
+    result = autonomy_latency.check_latency(
+        warn_threshold=100000.0,
+        fail_threshold=300000.0,
+        dry_run=True,
+        write=False,
+    )
+    alerts = result["alerts"]
+    assert len(alerts) == 1
+    assert alerts[0]["severity"] == "warn"
