@@ -1,0 +1,26 @@
+{
+  "feed_id": "sample",
+  "plan_id": "2025-09-21-automation-governance-upgrade",
+  "issued_at": "2025-10-04T16:49:00Z",
+  "observations": [
+    {
+      "label": "Web:SentimentScore",
+      "value": 0.72,
+      "timestamp_utc": "2025-10-04T05:57:37Z",
+      "source": "https://api.sample.example/sentiment",
+      "volatile": true,
+      "stale_labeled": false
+    },
+    {
+      "label": "DevRel:RequestsPerHour",
+      "value": 184,
+      "timestamp_utc": "2025-10-04T05:54:37Z",
+      "source": "https://api.sample.example/requests",
+      "volatile": true,
+      "stale_labeled": false
+    }
+  ],
+  "hash_sha256": "68680a3ba6a0da796b97f305f3e03a1fb3c167f6c5fb7ebe0706cb41cb53178d",
+  "signature": "8OidTskKIWIp1E_l2fnAlqvVd--4ObfmyDzEYPKxOSqtkzAeydRQB7rESxrdX4-MuEbe8Fdg_pzKYPeXzbnJBg==",
+  "public_key_id": "feed.sample-2025"
+}

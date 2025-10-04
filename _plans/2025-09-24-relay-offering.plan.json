@@ -4,8 +4,8 @@
   "created": "2025-09-24T03:05:00Z",
   "actor": "codex-5",
   "summary": "Pilot a monetizable research offering using the API relay loop",
-  "status": "in_progress",
-  "stage": "in_progress",
+  "status": "done",
+  "stage": "done",
   "steps": [
     {
       "id": "S1",
@@ -30,20 +30,27 @@
     {
       "id": "S3",
       "title": "Run first client sprint",
-      "status": "in_progress",
-      "stage": "in_progress",
-      "notes": "Use decision+relay loop to deliver a paid engagement; log impact via teof-impact-log",
+      "status": "done",
+      "stage": "done",
+      "notes": "Use decision+relay loop to deliver a paid engagement; log impact via teof-impact-log\nReceipts refreshed after publishing relay insight sprint case study.",
       "receipts": [
+        "_report/usage/case-study/relay-insight/command-log-20251003T191500Z.json",
+        "_report/usage/case-study/relay-insight/conductor-run-20251003T191500Z.json",
+        "_report/usage/case-study/relay-insight/diffs-20251003T191620Z.json",
+        "_report/usage/case-study/relay-insight/summary.json",
+        "_report/usage/case-study/relay-insight/tests-20251003T191310Z.json",
+        "docs/impact/relay-insight-case-study.md",
+        "docs/impact/relay-insight-public.md",
         "docs/vision/relay-offering-dry-run.md",
-        "memory/decisions/decision-20250926T220511Z.json",
-        "docs/vision/relay-offering-sample-brief.md"
+        "docs/vision/relay-offering-sample-brief.md",
+        "memory/decisions/decision-20250926T220511Z.json"
       ]
     }
   ],
   "checkpoint": {
     "description": "First paid relay engagement delivered with receipts and reflection",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -52,6 +59,8 @@
     }
   ],
   "receipts": [
+    "_report/usage/case-study/relay-insight/summary.json",
+    "docs/impact/relay-insight-case-study.md",
     "docs/vision/relay-offering-collateral.md",
     "docs/vision/relay-offering-dry-run.md"
   ],

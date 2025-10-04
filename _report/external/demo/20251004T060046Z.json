@@ -1,0 +1,26 @@
+{
+  "feed_id": "demo",
+  "plan_id": "2025-09-22-external-feed-demo",
+  "issued_at": "2025-10-04T16:48:52Z",
+  "observations": [
+    {
+      "label": "Commodities:Oil",
+      "value": 96.4,
+      "timestamp_utc": "2025-10-04T05:57:29Z",
+      "source": "https://api.demo.example/oil",
+      "volatile": true,
+      "stale_labeled": false
+    },
+    {
+      "label": "Economy:InflationForecast",
+      "value": 2.8,
+      "timestamp_utc": "2025-10-04T05:52:29Z",
+      "source": "https://api.demo.example/inflation",
+      "volatile": true,
+      "stale_labeled": false
+    }
+  ],
+  "hash_sha256": "901d0548fd3b51a3fcf8a7c09664f1c16c61377d74b17e77b40f0c486ed73ff2",
+  "signature": "oaxb-UuU5rksBKbZHVyrsRKRahNKQ36Z1g19OV7TvZc8vtttFeaEgXWXHjTkAwyaxMdYoyW23usMjezgjq03AQ==",
+  "public_key_id": "feed.demo-2025"
+}

@@ -8,7 +8,7 @@
   "layer": "L2",
   "systemic_scale": 9,
   "impact_score": 4,
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -22,24 +22,35 @@
     {
       "id": "S2",
       "title": "Implement philosophy prompt module",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Module `extensions.prompts.philosophy` exposes build_prompt(); CLI writes prompts to _report/usage/prompts/. (CMD-4, CMD-5)",
+      "receipts": [
+        "_report/usage/prompts/philosophy-20251004T165612Z.md",
+        "extensions/prompts/philosophy.py",
+        "tools/prompts/philosophy.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Validate answers against core documents",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Added prompt tests and CLI smoke to verify references align with TAP/workflow; run under pytest. (CMD-4)",
+      "receipts": [
+        "tests/test_philosophy_prompt.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "LLM guidance backed by TAP/workflow references",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": [],
-  "ocers_target": "Coherence↑ Ethics↑"
+  "receipts": [
+    "datasets/philosophy/faq_map.json",
+    "extensions/prompts/philosophy.py",
+    "tests/test_philosophy_prompt.py",
+    "tools/prompts/philosophy.py"
+  ],
+  "ocers_target": "Coherence\u2191 Ethics\u2191"
 }

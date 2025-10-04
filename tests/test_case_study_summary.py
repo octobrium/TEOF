@@ -13,6 +13,18 @@ def _write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
+def _write_next_dev(path: Path, statuses: dict[str, str]) -> None:
+    payload = {
+        "version": 0,
+        "items": [
+            {"id": task_id, "status": status}
+            for task_id, status in statuses.items()
+        ],
+        "history": [],
+    }
+    _write_json(path, payload)
+
+
 def test_build_summary_flags_missing_requirements(tmp_path: Path) -> None:
     case_dir = tmp_path / "_report" / "usage" / "case-study" / "demo"
     consent = {
@@ -28,6 +40,8 @@ def test_build_summary_flags_missing_requirements(tmp_path: Path) -> None:
             "task": {"id": "ND-014", "title": "Relay offering pilot", "status": "pending"},
         },
     )
+    next_dev = tmp_path / "_plans" / "next-development.todo.json"
+    _write_next_dev(next_dev, {"ND-014": "done"})
 
     summary = case_study.build_summary("demo", root=tmp_path)
 
@@ -38,6 +52,9 @@ def test_build_summary_flags_missing_requirements(tmp_path: Path) -> None:
     assert "command_logs" in missing
     consent_items = summary["artifact_status"]["consent"]["items"]
     assert consent_items[0]["captured_at"] == "2025-09-27T19:55:34Z"
+    dry_run_task = summary["artifact_status"]["dry_runs"]["items"][0]["task"]
+    assert dry_run_task["status"] == "done"
+    assert dry_run_task["status_source"] == "_plans/next-development.todo.json"
 
 
 def test_write_summary_creates_file(tmp_path: Path) -> None:

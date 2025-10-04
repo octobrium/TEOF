@@ -157,45 +157,60 @@
     {
       "id": "ND-014",
       "title": "Relay offering pilot",
-      "status": "in_progress",
+      "status": "done",
       "plan_suggestion": "2025-09-24-relay-offering",
       "notes": "Design and market a revenue-positive service built on the API relay loop.",
       "risk": "high",
       "receipts": [
-        "memory/decisions/decision-20250924T030000Z.json",
-        "docs/vision/relay-offering.md",
-        "docs/vision/relay-offering-consent.md",
-        "docs/vision/relay-offering-collateral.md",
-        "docs/vision/relay-offering-dry-run.md",
-        "memory/decisions/decision-20250926T220511Z.json",
         "_plans/2025-09-27-relay-case-run.plan.json",
-        "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json"
+        "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json",
+        "_report/usage/case-study/relay-insight/conductor-run-20251003T191500Z.json",
+        "_report/usage/case-study/relay-insight/summary.json",
+        "docs/impact/relay-insight-case-study.md",
+        "docs/impact/relay-insight-public.md",
+        "docs/vision/relay-offering-collateral.md",
+        "docs/vision/relay-offering-consent.md",
+        "docs/vision/relay-offering-dry-run.md",
+        "docs/vision/relay-offering.md",
+        "memory/decisions/decision-20250924T030000Z.json",
+        "memory/decisions/decision-20250926T220511Z.json"
       ]
     },
     {
       "id": "ND-015",
       "title": "Streamlined onboarding path",
-      "status": "in_progress",
+      "status": "done",
       "plan_suggestion": "2025-09-26-package-onboarding",
       "layer": "L4",
       "notes": "Deliver a pip-installable package and 10-minute quickstart with automated verification.",
       "receipts": [
+        ".github/workflows/onboarding-check.yml",
         "_plans/2025-09-26-package-onboarding.plan.json",
-        "docs/onboarding/quickstart.md",
         "_report/usage/onboarding/build-20250927T193756Z.json",
-        "_report/usage/onboarding/quickstart-20250927T193806Z.json"
+        "_report/usage/onboarding/build-20251003T190822Z.json",
+        "_report/usage/onboarding/build-20251004T000258Z.json",
+        "_report/usage/onboarding/quickstart-20250927T193806Z.json",
+        "_report/usage/onboarding/quickstart-20251003T190832Z.json",
+        "_report/usage/onboarding/quickstart-20251004T000310Z.json",
+        "_report/usage/onboarding/summary.json",
+        "docs/onboarding/quickstart.md"
       ]
     },
     {
       "id": "ND-016",
       "title": "Public case study with receipts",
-      "status": "in_progress",
+      "status": "done",
       "plan_suggestion": "2025-09-26-external-proof",
       "layer": "L5",
       "notes": "Run and publish a verifiable external engagement that demonstrates TEOF value.",
       "receipts": [
         "_plans/2025-09-26-external-proof.plan.json",
-        "docs/impact/case-study-roadmap.md"
+        "_report/usage/case-study/relay-insight/summary.json",
+        "docs/impact/case-study-roadmap.md",
+        "docs/impact/relay-insight-case-study.md",
+        "docs/impact/relay-insight-public.md",
+        "docs/vision/impact-ledger.md",
+        "memory/impact/log.jsonl"
       ]
     },
     {
@@ -297,6 +312,15 @@
         "_report/planner/queue-warnings/scan-20251003T063038Z.md",
         "docs/workflow.md"
       ]
+    },
+    {
+      "id": "ND-023",
+      "title": "Cleanup slow-plan latency",
+      "status": "pending",
+      "plan_suggestion": "2025-09-21-receipts-hygiene",
+      "layer": "L5",
+      "notes": "Review plans flagged in receipts_hygiene slow list and either close or annotate long-running backfills.",
+      "receipts": []
     }
   ],
   "history": [
@@ -385,6 +409,18 @@
     {
       "id": "ND-022",
       "completed_at": "2025-10-03T06:31:06Z"
+    },
+    {
+      "id": "ND-014",
+      "completed_at": "2025-10-03T23:47:46Z"
+    },
+    {
+      "id": "ND-015",
+      "completed_at": "2025-10-03T19:08:32Z"
+    },
+    {
+      "id": "ND-016",
+      "completed_at": "2025-10-03T23:47:46Z"
     }
   ]
 }

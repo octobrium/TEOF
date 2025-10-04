@@ -20,5 +20,6 @@ Each entry points to authoritative documents.
 ## Philosophy Guidance
 - **Meaning/purpose:** `docs/foundation/alignment-protocol/TAP.md#meaning`, `docs/whitepaper.md#purpose`
 - **Other minds / trust:** `docs/foundation/alignment-protocol/TAP.md#observer`, `docs/workflow.md#observation-primacy`
+- **Prompt module:** `python3 -m tools.prompts.philosophy "<question>"` → writes `_report/usage/prompts/philosophy-<UTC>.md`
 
 Add new rows as the philosophical alignment plan delivers richer mappings.

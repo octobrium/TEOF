@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-03T19:32:49Z",
+  "generated_at": "2025-10-03T23:51:42Z",
   "slug": "relay-insight",
   "case_dir": "_report/usage/case-study/relay-insight",
   "artifact_status": {
@@ -25,7 +25,8 @@
           "task": {
             "id": "ND-014",
             "title": "Relay offering pilot",
-            "status": "pending"
+            "status": "done",
+            "status_source": "_plans/next-development.todo.json"
           },
           "guardrails": {
             "diff_limit": 200,
@@ -49,7 +50,8 @@
           "task": {
             "id": "ND-014",
             "title": "Relay offering pilot",
-            "status": "in_progress"
+            "status": "done",
+            "status_source": "_plans/next-development.todo.json"
           },
           "guardrails": {
             "diff_limit": 200,

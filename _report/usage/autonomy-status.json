@@ -1,58 +1,82 @@
 {
   "hygiene": {
-    "generated_at": "2025-09-21T20:33:49Z",
-    "plans_total": 114,
+    "generated_at": "2025-10-04T05:00:34Z",
+    "plans_total": 173,
     "plans_missing_receipts": 0,
     "missing_plan_ids": [],
     "slow_plans": [
       [
+        "2025-09-21-capsule-cadence-automation",
+        993898.0,
+        null
+      ],
+      [
+        "2025-09-23-authenticity-steward-alerts",
+        977033.0,
+        null
+      ],
+      [
+        "2025-09-24-relay-offering",
+        836049.0,
+        null
+      ],
+      [
         "2025-09-17-planner-eval-bootstrap",
-        176070.0,
+        517698.0,
         null
       ],
       [
         "2025-09-17-planner-validator-upgrade",
-        174520.0,
-        null
-      ],
-      [
-        "2025-09-17-planner-cli-bootstrap",
-        174010.0,
-        null
-      ],
-      [
-        "2025-09-17-planner-v0-2",
-        173146.0,
-        null
-      ],
-      [
-        "2025-09-17-planner-show-command",
-        170557.0,
+        516148.0,
         null
       ]
     ]
   },
   "batch_logs": {
-    "entries": 1,
-    "latest_summary": "warn",
-    "latest_agent": "codex-4",
-    "latest_generated_at": "20250921T181427Z",
-    "warn_count": 1,
-    "fail_count": 0,
-    "avg_pytest_seconds": null,
-    "avg_hygiene_seconds": null,
+    "entries": 5,
+    "latest_summary": "pass",
+    "latest_agent": "codex-5",
+    "latest_generated_at": "20251004T050034Z",
+    "warn_count": 3,
+    "fail_count": 1,
+    "avg_pytest_seconds": 0.1777669895,
+    "avg_hygiene_seconds": 0.29858591675,
     "entries_detail": [
       {
         "generated_at": "20250921T181427Z",
         "summary": "warn",
         "agent": "codex-4",
         "log_path": "_report/usage/batch-refinement/batch-refinement-20250921T181427Z.json"
+      },
+      {
+        "generated_at": "20251004T003038Z",
+        "summary": "fail",
+        "agent": "codex-5",
+        "log_path": "_report/usage/batch-refinement/batch-refinement-20251004T003038Z.json"
+      },
+      {
+        "generated_at": "20251004T003932Z",
+        "summary": "warn",
+        "agent": "codex-5",
+        "log_path": "_report/usage/batch-refinement/batch-refinement-20251004T003932Z.json"
+      },
+      {
+        "generated_at": "20251004T045951Z",
+        "summary": "warn",
+        "agent": "codex-5",
+        "log_path": "_report/usage/batch-refinement/batch-refinement-20251004T045951Z.json"
+      },
+      {
+        "generated_at": "20251004T050034Z",
+        "summary": "pass",
+        "agent": "codex-5",
+        "log_path": "_report/usage/batch-refinement/batch-refinement-20251004T050034Z.json"
       }
     ]
   },
   "top_slow_plans": [
-    "2025-09-17-planner-eval-bootstrap",
-    "2025-09-17-planner-validator-upgrade",
-    "2025-09-17-planner-cli-bootstrap"
+    "2025-09-21-capsule-cadence-automation",
+    "2025-09-23-authenticity-steward-alerts",
+    "2025-09-24-relay-offering"
   ]
 }

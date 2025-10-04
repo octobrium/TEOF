@@ -1,0 +1,11 @@
+{
+  "assigned_at": "2025-10-04T05:57:55Z",
+  "branch": null,
+  "engineer": "codex-5",
+  "manager": "codex-4",
+  "note": "Authenticity tier primary_truth below threshold for consecutive runs; feeds demo:0.255 (avg=0.255).",
+  "plan_id": null,
+  "task_id": "AUTH-PRIMARY_TRUTH-codex-5-20251004",
+  "resolved_at": "2025-10-04T06:51:06Z",
+  "resolution_note": "Refreshed signed receipts with rotated keys; authenticity trust restored."
+}

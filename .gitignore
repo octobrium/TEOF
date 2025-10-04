@@ -131,7 +131,9 @@ capsule/**/*
 !capsule/**/files
 !capsule/**/count
 memory/hot_index.json
-_apoptosis/
+_apoptosis/*
+!_apoptosis/external/
+!_apoptosis/external/**
 # sample decentralized data for network pilot
 !datasets/samples/decentralized/**
 # Legacy ignore retained above; keep exceptions active.

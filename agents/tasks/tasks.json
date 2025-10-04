@@ -511,7 +511,7 @@
       "plan_id": "2025-10-03-dirty-handoff-automation",
       "priority": "medium",
       "role": "engineer",
-      "status": "open",
+      "status": "done",
       "title": "QUEUE-044"
     },
     {
@@ -521,8 +521,44 @@
       "plan_id": "2025-10-03-plan-schema-dedupe",
       "priority": "medium",
       "role": "engineer",
-      "status": "open",
+      "status": "done",
       "title": "PLAN-2025-10-03-plan-schema-dedupe"
+    },
+    {
+      "assigned_by": "codex-5",
+      "branch": "agent/codex-5/batch-refinement-refresh",
+      "id": "QUEUE-050",
+      "notes": "Refresh batch refinement receipts and autonomy status telemetry",
+      "plan_id": "2025-09-21-autonomy-status-receipt",
+      "priority": "medium",
+      "receipts": [
+        "_report/usage/batch-refinement/batch-refinement-20251004T050034Z.json",
+        "_report/usage/external-summary.json",
+        "_report/usage/external-authenticity.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "Batch refinement telemetry refresh"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": null,
+      "id": "AUTH-PRIMARY_TRUTH-codex-5-20251004",
+      "plan_id": null,
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "AUTH-PRIMARY_TRUTH-codex-5-20251004"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": null,
+      "id": "AUTH-UNASSIGNED-codex-5-20251004",
+      "plan_id": null,
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "AUTH-UNASSIGNED-codex-5-20251004"
     }
   ],
   "version": 1

@@ -70,6 +70,12 @@
       "by": "codex-5",
       "note": "Rotated feed.demo-2025/feed.sample-2025 keys and refreshed receipts; authenticity restored to ≥0.7."
     }
+    ,
+    {
+      "ts": "2025-10-04T06:00:30Z",
+      "by": "codex-5",
+      "note": "Rotated feed.demo-2025/feed.sample-2025 keys again, archived legacy receipts under _apoptosis/external, and restored authenticity trust."
+    }
   ],
   "releases": []
 }

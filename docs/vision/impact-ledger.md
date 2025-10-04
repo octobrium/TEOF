@@ -30,3 +30,9 @@ Record raw entries with `teof-impact-log --title ...` (writes to
   - Value: Pre-revenue (unlocking Tier A/B pricing conversations).
   - Receipts: `tools/autonomy/objectives_status.py`, `tools/autonomy/conductor.py`, `docs/vision/objectives-ledger.md`, `docs/automation/autonomy-conductor.md`.
   - Notes: Enables quoting prospects with concrete guardrail evidence ahead of the Relay Insight Sprint pilot.
+
+- *2025-10-03 — Relay Insight Sprint Case Study*
+  - Outcome: First client-facing relay sprint published with verifiable receipts and public brief.
+  - Value: 0.0 (pipeline cred)
+  - Receipts: `_report/usage/case-study/relay-insight/summary.json`, `docs/impact/relay-insight-public.md`, `docs/impact/relay-insight-case-study.md`, `_report/usage/case-study/relay-insight/conductor-run-20251003T191500Z.json`
+  - Notes: Case study closes ND-014/ND-016 by tying conductor runs, guarded commands, and ledger updates together for sales collateral.

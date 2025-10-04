@@ -83,7 +83,11 @@ def _collect_files(base: Path, patterns: Sequence[str]) -> list[Path]:
     return sorted(set(matches))
 
 
-def _summarise_json_file(path: Path, root: Path) -> dict[str, object]:
+def _summarise_json_file(
+    path: Path,
+    root: Path,
+    task_status: dict[str, str] | None = None,
+) -> dict[str, object]:
     info: dict[str, object] = {
         "path": _relative(path, root),
         "size_bytes": path.stat().st_size,
@@ -105,6 +109,13 @@ def _summarise_json_file(path: Path, root: Path) -> dict[str, object]:
             for key in ("id", "title", "status")
             if task.get(key) is not None
         }
+        task_id = task_info.get("id")
+        override = None
+        if task_status and isinstance(task_id, str):
+            override = task_status.get(task_id)
+        if override and task_info.get("status") != override:
+            task_info["status"] = override
+            task_info["status_source"] = "_plans/next-development.todo.json"
         if task_info:
             info["task"] = task_info
 
@@ -128,6 +139,29 @@ def _summarise_text_file(path: Path, root: Path) -> dict[str, object]:
     }
 
 
+def _load_task_statuses(root: Path) -> dict[str, str]:
+    """Return latest task statuses from ``next-development.todo.json`` if present."""
+
+    path = root / "_plans" / "next-development.todo.json"
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+    statuses: dict[str, str] = {}
+    items = payload.get("items", [])
+    if isinstance(items, list):
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            task_id = item.get("id")
+            status = item.get("status")
+            if isinstance(task_id, str) and isinstance(status, str):
+                statuses[task_id] = status
+
+    return statuses
+
+
 def build_summary(slug: str = DEFAULT_SLUG, *, root: Path | None = None) -> dict[str, object]:
     """Collect receipts for ``slug`` and produce a structured summary."""
 
@@ -138,11 +172,15 @@ def build_summary(slug: str = DEFAULT_SLUG, *, root: Path | None = None) -> dict
 
     artifact_status: dict[str, dict[str, object]] = {}
     missing: list[str] = []
+    task_statuses = _load_task_statuses(root)
 
     for group in ARTIFACT_GROUPS:
         files = _collect_files(case_dir, group.patterns)
         if group.kind == "json":
-            items = [_summarise_json_file(path, root) for path in files]
+            items = [
+                _summarise_json_file(path, root, task_status=task_statuses)
+                for path in files
+            ]
         else:
             items = [_summarise_text_file(path, root) for path in files]
 

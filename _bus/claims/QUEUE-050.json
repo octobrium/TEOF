@@ -1,10 +1,10 @@
 {
-  "agent_id": "codex-4",
-  "branch": "agent/codex-4/capsule-symlink-policy",
-  "claimed_at": "2025-09-20T23:45:44Z",
-  "plan_id": "2025-09-20-capsule-symlink-policy",
+  "agent_id": "codex-5",
+  "branch": "agent/codex-5/batch-refinement-refresh",
+  "claimed_at": "2025-10-04T04:59:24Z",
+  "notes": "Refresh batch refinement telemetry",
+  "plan_id": "2025-09-21-autonomy-status-receipt",
   "status": "done",
   "task_id": "QUEUE-050",
-  "notes": "Document symlink policy",
-  "released_at": "2025-09-21T02:33:01Z"
+  "released_at": "2025-10-04T06:02:32Z"
 }

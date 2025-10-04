@@ -1,7 +1,7 @@
 {
-  "generated_at": "2025-09-23T20:42:13Z",
-  "authenticity_report": "/private/var/folders/6d/59_vm4q104lbkd16jvmxf8p80000gn/T/pytest-of-evan/pytest-622/test_authenticity_report_gener0/_report/usage/external-authenticity.json",
-  "summary_report": "/private/var/folders/6d/59_vm4q104lbkd16jvmxf8p80000gn/T/pytest-of-evan/pytest-622/test_authenticity_report_gener0/_report/usage/external-summary.json",
+  "generated_at": "2025-10-04T16:49:35Z",
+  "authenticity_report": "_report/usage/external-authenticity.json",
+  "summary_report": "_report/usage/external-summary.json",
   "threshold": 0.6,
   "streak_required": 2,
   "escalations": [],
@@ -9,6 +9,11 @@
     {
       "tier": "primary_truth",
       "avg_adjusted_trust": 0.85,
+      "feed_count": 1
+    },
+    {
+      "tier": "unassigned",
+      "avg_adjusted_trust": 0.68,
       "feed_count": 1
     }
   ]

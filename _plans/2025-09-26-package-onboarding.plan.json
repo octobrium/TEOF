@@ -4,8 +4,8 @@
   "created": "2025-09-26T22:30:00Z",
   "actor": "codex-5",
   "summary": "Ship a beginner-friendly install path (pip + quickstart) with receipts",
-  "status": "in_progress",
-  "stage": "in_progress",
+  "status": "done",
+  "stage": "done",
   "steps": [
     {
       "id": "S1",
@@ -14,8 +14,9 @@
       "stage": "done",
       "notes": "Build wheel/sdist and capture artifacts for reproducible installs.",
       "receipts": [
-        "docs/onboarding/package-onboarding-roadmap.md",
-        "_report/usage/onboarding/build-20250927T193756Z.json"
+        "_report/usage/onboarding/build-20250927T193756Z.json",
+        "_report/usage/onboarding/build-20251004T000258Z.json",
+        "docs/onboarding/package-onboarding-roadmap.md"
       ]
     },
     {
@@ -37,20 +38,28 @@
       "notes": "Add a CI/CLI helper that reruns the onboarding script and fails if it drifts.",
       "receipts": [
         ".github/workflows/onboarding-check.yml",
-        "_report/usage/onboarding/quickstart-20250927T193806Z.json"
+        "_report/usage/onboarding/quickstart-20250927T193806Z.json",
+        "_report/usage/onboarding/quickstart-20251003T190832Z.json",
+        "_report/usage/onboarding/quickstart-20251004T000310Z.json"
       ]
     }
   ],
   "checkpoint": {
     "description": "Clean environment completes install + quickstart in <10 minutes with receipts committed",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
   "receipts": [
-    "docs/onboarding/package-onboarding-roadmap.md",
+    ".github/workflows/onboarding-check.yml",
     "_report/usage/onboarding/build-20250927T193756Z.json",
-    "_report/usage/onboarding/quickstart-20250927T193806Z.json"
+    "_report/usage/onboarding/build-20251003T190822Z.json",
+    "_report/usage/onboarding/build-20251004T000258Z.json",
+    "_report/usage/onboarding/quickstart-20250927T193806Z.json",
+    "_report/usage/onboarding/quickstart-20251003T190832Z.json",
+    "_report/usage/onboarding/quickstart-20251004T000310Z.json",
+    "_report/usage/onboarding/summary.json",
+    "docs/onboarding/package-onboarding-roadmap.md"
   ],
   "ocers_target": "Reproducibility↑ Clarity↑",
   "layer": "L5",

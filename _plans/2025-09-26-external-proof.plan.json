@@ -4,42 +4,55 @@
   "created": "2025-09-26T22:31:00Z",
   "actor": "codex-5",
   "summary": "Publish a public case study that proves TEOF value with receipts",
-  "status": "in_progress",
-  "stage": "in_progress",
+  "status": "done",
+  "stage": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Select and prep pilot partner",
-      "status": "in_progress",
-      "stage": "in_progress",
+      "status": "done",
+      "stage": "done",
       "notes": "Align on scope, consent, and guardrails for an external engagement (Relay sprint or authenticity audit).",
       "receipts": [
+        "_report/usage/case-study/relay-insight/consent-notes.md",
+        "_report/usage/case-study/relay-insight/consent.json",
         "docs/impact/case-study-roadmap.md",
-        "docs/impact/relay-insight-briefing.md",
-        "_report/usage/case-study/relay-insight/consent-notes.md"
+        "docs/impact/relay-insight-briefing.md"
       ]
     },
     {
       "id": "S2",
       "title": "Run the engagement end-to-end",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Capture conductor prompts, diff/test receipts, and outcomes under `_report/usage/case-study/`.",
-      "receipts": []
+      "status": "done",
+      "stage": "done",
+      "notes": "Capture conductor prompts, diff/test receipts, and outcomes under `_report/usage/case-study/`.\nReceipts captured from live sprint and pytest guard.",
+      "receipts": [
+        "_report/usage/case-study/relay-insight/command-log-20251003T191500Z.json",
+        "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json",
+        "_report/usage/case-study/relay-insight/conductor-run-20251003T191500Z.json",
+        "_report/usage/case-study/relay-insight/diffs-20251003T191620Z.json",
+        "_report/usage/case-study/relay-insight/tests-20251003T191310Z.json"
+      ]
     },
     {
       "id": "S3",
       "title": "Publish case study + ledger entry",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Write a public-facing summary (blog/video) linking to receipts and log the win in `docs/vision/impact-ledger.md`.",
-      "receipts": []
+      "status": "done",
+      "stage": "done",
+      "notes": "Write a public-facing summary (blog/video) linking to receipts and log the win in `docs/vision/impact-ledger.md`.\nPublic brief + ledger entry published with receipts.",
+      "receipts": [
+        "_report/usage/case-study/relay-insight/summary.json",
+        "docs/impact/relay-insight-case-study.md",
+        "docs/impact/relay-insight-public.md",
+        "docs/vision/impact-ledger.md",
+        "memory/impact/log.jsonl"
+      ]
     }
   ],
   "checkpoint": {
     "description": "External partner confirms value; public case study links to verifiable receipts",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -56,12 +69,20 @@
     }
   ],
   "receipts": [
-    "docs/impact/case-study-roadmap.md",
-    "docs/impact/relay-insight-briefing.md",
+    "_report/usage/case-study/relay-insight/command-log-20251003T191500Z.json",
+    "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json",
+    "_report/usage/case-study/relay-insight/conductor-run-20251003T191500Z.json",
     "_report/usage/case-study/relay-insight/consent-notes.md",
     "_report/usage/case-study/relay-insight/consent.json",
-    "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json",
-    "docs/impact/relay-insight-case-study.md"
+    "_report/usage/case-study/relay-insight/diffs-20251003T191620Z.json",
+    "_report/usage/case-study/relay-insight/summary.json",
+    "_report/usage/case-study/relay-insight/tests-20251003T191310Z.json",
+    "docs/impact/case-study-roadmap.md",
+    "docs/impact/relay-insight-briefing.md",
+    "docs/impact/relay-insight-case-study.md",
+    "docs/impact/relay-insight-public.md",
+    "docs/vision/impact-ledger.md",
+    "memory/impact/log.jsonl"
   ],
   "ocers_target": "Evidence↑ Outreach↑",
   "layer": "L5",

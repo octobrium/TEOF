@@ -1,6 +1,6 @@
 # External Authenticity Dashboard
-Generated at: 2025-09-26T22:20:13.641244+00:00
-Summary generated at: 2025-09-26T22:20:13Z
+Generated at: 2025-10-04T16:49:35.239927+00:00
+Summary generated at: 2025-10-04T16:49:35Z
 Total feeds: 2
 Overall adjusted trust: 0.765
 

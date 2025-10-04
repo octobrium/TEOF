@@ -31,29 +31,30 @@
         "dist/teof-0.1.0a2-py3-none-any.whl",
         "dist/teof-0.1.0a2.tar.gz"
       ]
+    },
+    {
+      "path": "_report/usage/onboarding/build-20251004T000258Z.json",
+      "generated_at": "2025-10-04T00:02:58Z",
+      "artifacts": [
+        "dist/teof-0.1.0a2-py3-none-any.whl",
+        "dist/teof-0.1.0a2.tar.gz"
+      ]
     }
   ],
   "quickstart": [
     {
       "path": "_report/usage/onboarding/quickstart-20250927T193806Z.json",
-      "generated_at": "2025-10-03T19:21:41Z",
+      "generated_at": "2025-09-27T19:38:06Z",
       "install_source": "wheel",
-      "latest_target": "artifacts/ocers_out/20251003T192141Z",
-      "run_target": "artifacts/ocers_out/20251003T192141Z"
-    },
-    {
-      "path": "_report/usage/onboarding/quickstart-20250927T195311Z.json",
-      "generated_at": "2025-10-03T19:21:48Z",
-      "install_source": "wheel",
-      "latest_target": "artifacts/ocers_out/20251003T192148Z",
-      "run_target": "artifacts/ocers_out/20251003T192148Z"
+      "latest_target": "artifacts/ocers_out/20250927T001720Z",
+      "run_target": "artifacts/ocers_out/20250927T001720Z"
     },
     {
       "path": "_report/usage/onboarding/quickstart-20250927T213103Z.json",
-      "generated_at": "2025-10-03T19:21:56Z",
+      "generated_at": "2025-09-27T21:31:03Z",
       "install_source": "wheel",
-      "latest_target": "artifacts/ocers_out/20251003T192156Z",
-      "run_target": "artifacts/ocers_out/20251003T192156Z"
+      "latest_target": "artifacts/ocers_out/20250927T210030Z",
+      "run_target": "artifacts/ocers_out/20250927T210030Z"
     },
     {
       "path": "_report/usage/onboarding/quickstart-20251003T190832Z.json",
@@ -61,6 +62,13 @@
       "install_source": "wheel",
       "latest_target": "artifacts/ocers_out/20251003T191825Z",
       "run_target": "artifacts/ocers_out/20251003T191825Z"
+    },
+    {
+      "path": "_report/usage/onboarding/quickstart-20251004T000310Z.json",
+      "generated_at": "2025-10-04T00:03:10Z",
+      "install_source": "wheel",
+      "latest_target": "artifacts/ocers_out/20251003T234322Z",
+      "run_target": "artifacts/ocers_out/20251003T234322Z"
     }
   ]
 }
