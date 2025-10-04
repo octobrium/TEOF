@@ -1,12 +1,15 @@
 {
   "captured_at": "2025-10-04T21:46:00Z",
-  "title": "Push readiness guard deployed",
+  "title": "Autonomy and hygiene follow-ups staged",
   "layers": ["L5"],
-  "summary": "Added push_ready CLI and assignment locator to enforce clean handoffs before pushing to main.",
-  "signals": "tools/agent/push_ready.py; tools/agent/assignment_locator.py; tests/test_push_ready.py; tests/test_assignment_locator.py",
-  "actions": "CLI checks git cleanliness, branch policy, active claims, and required receipts/tests; assignment locator flags missing plan artifacts; documented progress in manager report.",
-  "tags": ["handoff", "automation"],
-  "plan_suggestion": "2025-10-04-push-ready-checklist",
-  "notes": "Future work: finish SOP draft and pilot across active branches.",
+  "summary": "Documented that codex-2 and codex-4 have active claims for hygiene alerts and autonomy status upgrades.",
+  "signals": [
+    "_bus/claims/PLAN-2025-10-04-RECEIPTS-HYGIENE-UPGRADE.json",
+    "_bus/claims/PLAN-2025-10-04-autonomy-status-upgrade.json"
+  ],
+  "actions": "Scaffolded plans and recorded claims to keep the handoff explicit after today's push.",
+  "tags": ["handoff", "coordination"],
+  "plan_suggestion": null,
+  "notes": "Reflection clarifies outstanding work for the next cycle and prevents plan drift.",
   "receipt": "memory/reflections/reflection-20251004T214600Z.json"
 }

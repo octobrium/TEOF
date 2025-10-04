@@ -105,7 +105,7 @@ Use these layer labels together with the systemic axis (`docs/foundation/systemi
 
 ## Non‑negotiables (apply to every change)
 - **Minimalism:** keep complexity the same or lower for equal capability. If complexity increases, justify in one sentence in the PR body.
-- **Single Source of Truth:** immutable baselines live under `capsule/<version>/` and are covered by `capsule/<version>/hashes.json`. `capsule/current` is a symlink to the active version (release tooling also accepts a plain-text pointer as a portability fallback).
+- **Single Source of Truth:** immutable baselines live under `capsule/<version>/` and are covered by `capsule/<version>/hashes.json`. `capsule/current` stays a symlink to the active version; treat it as the canonical pointer.
 - **Determinism:** commands run reproducibly on a clean machine (no hidden state, same output paths).
 - **Append-Only Governance:** `governance/anchors.json` is append-only; releases map to a baseline with a `prev_content_hash`.
 - **Observation Discipline:** claims follow [VDP](foundation/alignment-protocol/TAP.md#volatile-data-protocol-vdp-and-ogs-requirements); reasoning can be scored with [OGS](OGS-spec.md). The `check_vdp` guard and golden fixtures keep receipts citational; use **N/A** when not applicable.

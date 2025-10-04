@@ -1,1 +1,12 @@
-{"captured_at":"20251004T213948Z","title":"Push-ready handoff","layers":["L5"],"summary":"Push readiness helper + assignment locator on main; next agents can run push_ready and assignment_locator before new work.","signals":["tools/agent/push_ready.py","tools/agent/assignment_locator.py"],"actions":"Documented readiness workflow on manager lane, committed helper receipts to repo, and pushed to main.","tags":["handoff","workflow"],"plan_suggestion":null,"notes":"Before new pushes, run python3 -m tools.agent.push_ready --require-test <receipt> and python3 -m tools.agent.assignment_locator to catch stale claims/plan gaps."}
+{
+  "captured_at": "2025-10-04T21:39:48Z",
+  "title": "Push-ready checklist queued",
+  "layers": ["L5"],
+  "summary": "Captured that codex-3 owns the push-readiness checklist and has a live plan for the helper tooling.",
+  "signals": "_bus/claims/PLAN-2025-10-04-push-ready-checklist.json",
+  "actions": "Ensured the plan scaffold is on main so the owning agent can proceed without waiting for additional instructions.",
+  "tags": ["coordination"],
+  "plan_suggestion": "2025-10-04-push-ready-checklist",
+  "notes": "Checklist work remains outstanding; reflection records the handoff state for traceability.",
+  "receipt": "memory/reflections/reflection-20251004T213948Z.json"
+}

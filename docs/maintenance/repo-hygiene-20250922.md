@@ -62,3 +62,9 @@ Next steps:
   explicit `prune_targets` list if you intend to sweep other paths (e.g., legacy
   plans) so CI fixtures stay intact. Dry-run receipts always preserve the full
   candidate list for optional follow-up.
+
+## Update — 2025-10-04
+
+- Root-level manifest variants (`AGENT_MANIFEST.codex-2/3/4.json`) now live under
+  `docs/examples/agents/`; only the active `AGENT_MANIFEST.json` remains at the
+  repo root so manifests stay tidy between seat swaps.

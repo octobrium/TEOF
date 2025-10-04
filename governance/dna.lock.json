@@ -1,17 +1,20 @@
 {
   "canonical_dirs": [
+    "capsule",
     "extensions",
     "governance",
+    "memory",
+    "queue",
     "scripts",
-    "capsule"
+    "teof"
   ],
   "capsule": {
     "count": null,
     "current": "(NOT_A_SYMLINK)",
     "root": null
   },
-  "content_tree_sha256": "18613421531ebb14ba4031164cf701982040724fd002dcfb453b8e4ec8abcad2",
-  "generated_at": "20250828T190810Z",
+  "content_tree_sha256": "5721fd3598f30b00abfdbb014a8737c2846815e5fb1dc15a8145a04cc62d9826",
+  "generated_at": "20251004T220428Z",
   "guards": [
     "scripts/ci/guard_apoptosis.sh",
     "scripts/ci/guard_dna.sh"
@@ -22,31 +25,38 @@
     "scripts/ops"
   ],
   "top_level_allowlist": [
+    ".editorconfig",
+    ".gitattributes",
+    ".githooks",
     ".github",
-    "bin",
-    "capsule",
-    "cli",
-    "docs",
-    "extensions",
-    "governance",
-    "scripts",
-    "tools",
-    "tests",
-    "queue",
+    ".gitignore",
+    "AGENT_MANIFEST.json",
+    "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
     "LICENSE",
+    "Makefile",
     "NOTICE",
     "README.md",
     "SECURITY.md",
-    "CONTRIBUTING.md",
-    "CODE_OF_CONDUCT.md",
-    "CHANGELOG.md",
-    "Makefile",
-    ".gitignore",
-    ".editorconfig",
-    ".gitattributes",
-    ".pre-commit-config.yaml",
-    ".markdownlint.yml",
-    "pyproject.toml"
+    "_apoptosis",
+    "_bus",
+    "_plans",
+    "_report",
+    "agents",
+    "bin",
+    "capsule",
+    "datasets",
+    "docs",
+    "extensions",
+    "governance",
+    "memory",
+    "pyproject.toml",
+    "queue",
+    "scripts",
+    "teof",
+    "tests",
+    "tools"
   ],
   "version": 1
 }

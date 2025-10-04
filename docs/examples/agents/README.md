@@ -2,6 +2,8 @@
 
 Sample manifest files for local automation experiments now live here:
 
+- `AGENT_MANIFEST.codex-2.json`
+- `AGENT_MANIFEST.codex-3.json`
 - `AGENT_MANIFEST.codex-4.json`
 - `AGENT_MANIFEST.codex-manager.json`
 - `AGENT_MANIFEST.example.json`

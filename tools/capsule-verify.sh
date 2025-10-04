@@ -1,17 +1,16 @@
 #!/usr/bin/env sh
 set -eu
 
-if [ -L "capsule/current" ]; then
-  ver="$(readlink "capsule/current")"
-elif [ -f "capsule/current" ]; then
-  ver="$(tr -d '\n' < capsule/current)"
-else
-  ver=""
+if [ ! -L "capsule/current" ]; then
+  echo "ERROR: capsule/current must be a symlink to the active capsule version"
+  exit 1
 fi
+
+ver="$(readlink "capsule/current")"
 ver="${ver#capsule/}"
 
 if [ -z "$ver" ]; then
-  echo "ERROR: capsule/current does not point to a version"
+  echo "ERROR: capsule/current symlink is empty"
   exit 1
 fi
 

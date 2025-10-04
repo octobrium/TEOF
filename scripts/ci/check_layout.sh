@@ -32,12 +32,10 @@ fi
 
 # --- Top-level hygiene (WARN for now) ---
 # Allowlist of top-level dirs/files currently present
-allow_dirs=( archive capsule docs extensions experimental .github .githooks scripts bin
-             governance memory reports teof tests tools _plans _bus _apoptosis _report agents queue )
-allow_files=( README.md LICENSE .gitignore .editorconfig .gitattributes
-              .markdownlint-cli2.jsonc .markdownlint.jsonc .markdownlintignore
-              CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md NOTICE SECURITY.md TRADEMARKS.md
-              pyproject.toml quickstart.md examples_hello.json
+allow_dirs=( capsule docs extensions .github .githooks scripts bin
+             governance memory teof tests tools _plans _bus _apoptosis _report agents queue datasets )
+allow_files=( README.md LICENSE Makefile NOTICE SECURITY.md CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md
+              pyproject.toml .gitignore .editorconfig .gitattributes
               AGENT_MANIFEST.json )
 
 # unexpected top-level directories

@@ -57,10 +57,21 @@ echo
 info "branch-protection check disabled (intentionally)"
 echo
 
+echo
+
+# ---------------- TEOF guards ------------------
+if scripts/ci/guard_apoptosis.sh; then
+  ok "apoptosis guard passed"
+else
+  bad "apoptosis guard failed"
+  exit 1
+fi
+
+if scripts/ci/guard_dna.sh; then
+  ok "dna guard passed"
+else
+  bad "dna guard failed"
+  exit 1
+fi
+
 exit 0
-
-# apoptosis guard
-scripts/ci/guard_apoptosis.sh
-
-# dna guard
-scripts/ci/guard_dna.sh
