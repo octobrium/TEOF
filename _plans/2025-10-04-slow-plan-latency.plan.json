@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-04-slow-plan-latency",
+  "created": "2025-10-04T19:46:32Z",
+  "actor": "codex-2",
+  "summary": "Audit slow-plan latency receipts",
+  "ocers_target": "Observation\u2191 Self-repair\u2191",
+  "priority": 5,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 3,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Refresh receipts hygiene summary",
+      "status": "done",
+      "notes": "cmd> python3 -m tools.agent.receipts_hygiene --quiet",
+      "receipts": [
+        "_report/usage/receipts-hygiene-summary.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Capture notes explaining each slow plan",
+      "status": "done",
+      "notes": "cmd> python3 -m tools.agent.bus_message --task manager-report --type status --plan 2025-09-17-commandment-tags --summary 'codex-2: slow plan audit \u2013 commandment tags' --note 'Latency triggered by OCERS metadata backfill touching _plans/2025-09-17-ledger-upkeep.plan.json on 2025-10-03; work finished 2025-09-17.'\ncmd> python3 -m tools.agent.bus_message --task manager-report --type status --plan 2025-09-19-heartbeat-docs-codex3 --summary 'codex-2: slow plan audit \u2013 heartbeat docs' --note 'Docs/tests receipts refreshed 2025-10-03 during metadata backfill; automation shipped 2025-09-19 and remains unchanged.'\ncmd> python3 - <<'PY' (serialize slow-plan audit JSON)",
+      "receipts": [
+        "_report/usage/slow-plan-audit-20251004T195601Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Mark backlog task ND-023 complete",
+      "status": "done",
+      "notes": "cmd> python3 - <<'PY' (update ND-023 entry in _plans/next-development.todo.json)",
+      "receipts": [
+        "_plans/next-development.todo.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Receipts hygiene slow list validated and annotated",
+    "owner": "codex-2",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/usage/receipts-hygiene-summary.json",
+    "_report/usage/slow-plan-audit-20251004T195601Z.json",
+    "_plans/next-development.todo.json"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "captured_at": "2025-10-04T20:06:40Z",
+  "title": "ND-023 follow-up broadcast",
+  "layers": ["L5"],
+  "summary": "Pinged ND-023 channel with receipts/test status so codex-2 can close the loop without extra prompting.",
+  "signals": "_bus/messages/ND-023.jsonl latest; _report/usage/slow-plan-audit-20251004T195041Z.json",
+  "actions": "Re-posted slow-plan audit receipts and guard readiness on the ND-023 lane after reactivating the codex-3 manifest.",
+  "tags": ["workflow", "communication"],
+  "plan_suggestion": null,
+  "notes": "Manifest swap reminder: keep codex seat aligned before broadcasting.",
+  "receipt": "memory/reflections/reflection-20251004T200640Z.json"
+}

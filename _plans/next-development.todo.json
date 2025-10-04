@@ -316,11 +316,17 @@
     {
       "id": "ND-023",
       "title": "Cleanup slow-plan latency",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-09-21-receipts-hygiene",
       "layer": "L5",
       "notes": "Review plans flagged in receipts_hygiene slow list and either close or annotate long-running backfills.",
-      "receipts": []
+      "receipts": [
+        "_plans/2025-10-04-slow-plan-latency.plan.json",
+        "_report/usage/slow-plan-audit-20251004T195601Z.json",
+        "_report/usage/receipts-hygiene-summary.json",
+        "_report/usage/slow-plan-latency-notes-20251004.json"
+      ],
+      "completed_at": "2025-10-04T19:51:59Z"
     }
   ],
   "history": [
@@ -421,6 +427,10 @@
     {
       "id": "ND-016",
       "completed_at": "2025-10-03T23:47:46Z"
+    },
+    {
+      "id": "ND-023",
+      "completed_at": "2025-10-04T19:51:59Z"
     }
   ]
 }

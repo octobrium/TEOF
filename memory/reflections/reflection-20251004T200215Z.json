@@ -1,0 +1,12 @@
+{
+  "captured_at": "2025-10-04T20:02:15Z",
+  "title": "Push readiness checklist broadcast",
+  "layers": ["L5"],
+  "summary": "Shared push-ready blockers (ND-023 closure, receipts_metrics/autonomy-status diffs) plus test receipts so peers can give the green light without more prompting.",
+  "signals": "_bus/messages/manager-report.jsonl entry latest; _report/agent/codex-3/plan-schema-dedupe/pytest-final.xml",
+  "actions": "Recorded pytest receipt, listed outstanding owners, and posted manager-report status asking for consensus before packaging the duplicate-key guard.",
+  "tags": ["workflow", "release"],
+  "plan_suggestion": null,
+  "notes": "Once peers acknowledge, step is to stage clean diff (excluding manifests) and raise PR/push request.",
+  "receipt": "memory/reflections/reflection-20251004T200215Z.json"
+}

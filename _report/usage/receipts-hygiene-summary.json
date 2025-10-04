@@ -1,35 +1,37 @@
 {
-  "generated_at": "2025-10-04T05:00:34Z",
+  "generated_at": "2025-10-04T20:04:37Z",
   "receipts_index": "_report/usage/receipts-index-latest.jsonl",
   "receipts_latency": "_report/usage/receipts-latency-latest.jsonl",
   "metrics": {
-    "plans_total": 173,
-    "plans_missing_receipts": 0,
-    "missing_plan_ids": [],
+    "plans_total": 174,
+    "plans_missing_receipts": 1,
+    "missing_plan_ids": [
+      "2025-10-03-plan-schema-dedupe"
+    ],
     "slow_plans": [
       [
-        "2025-09-21-capsule-cadence-automation",
-        993898.0,
-        null
-      ],
-      [
-        "2025-09-23-authenticity-steward-alerts",
-        977033.0,
+        "2025-09-19-kernel-slimdown",
+        366468.0,
         null
       ],
       [
         "2025-09-24-relay-offering",
-        836049.0,
+        247453.0,
+        -676490.0
+      ],
+      [
+        "2025-09-18-bus-message-claim-guard",
+        163633.0,
         null
       ],
       [
-        "2025-09-17-planner-eval-bootstrap",
-        517698.0,
+        "2025-09-25-memory-layer",
+        121791.0,
         null
       ],
       [
-        "2025-09-17-planner-validator-upgrade",
-        516148.0,
+        "2025-09-26-evangelism",
+        81634.0,
         null
       ]
     ]

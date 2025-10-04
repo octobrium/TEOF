@@ -1,0 +1,9 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/nd-023",
+  "claimed_at": "2025-10-04T19:46:29Z",
+  "plan_id": "2025-10-04-slow-plan-latency",
+  "released_at": "2025-10-04T19:58:58Z",
+  "status": "done",
+  "task_id": "ND-023"
+}
