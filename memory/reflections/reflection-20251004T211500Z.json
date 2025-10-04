@@ -1,0 +1,1 @@
+{"captured_at":"2025-10-04T21:15:00Z","title":"Push-ready helper shipped","layers":["L5"],"summary":"Codified push readiness checklist + helper CLI","signals":["tools/agent/push_ready.py","tests/test_push_ready.py"],"actions":"Published tools.agent.push_ready with pytest coverage and SOP receipts","tags":["workflow","release"],"plan_suggestion":"2025-10-04-push-ready-checklist"}

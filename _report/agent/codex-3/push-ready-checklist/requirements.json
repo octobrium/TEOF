@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-10-04T20:35:00Z",
+  "sources": {
+    "workflow_operating_order": "docs/workflow.md:29",
+    "manager_protocol": "_bus/messages/manager-report.jsonl:299-300",
+    "reflections": [
+      "memory/reflections/reflection-20251004T201840Z.json",
+      "memory/reflections/reflection-20251004T202455Z.json"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "clean-worktree",
+      "description": "Working tree must be clean and on the correct agent/* branch before announcing readiness.",
+      "checks": ["git status --porcelain", "branch prefix matches agent"],
+      "evidence": []
+    },
+    {
+      "id": "claims-closed",
+      "description": "No active _bus/claims entries assigned to the announcing agent (except the target plan).",
+      "checks": ["python3 -m tools.agent.bus_claim list --agent <id>", "manual review of _bus/claims/*.json"],
+      "evidence": ["_bus/claims/PLAN-2025-10-04-push-ready-checklist.json"]
+    },
+    {
+      "id": "tests-green",
+      "description": "Latest relevant tests/guards executed with receipts stored under _report/agent/<id>/...",
+      "checks": ["python3 -m pytest <targets>", "python3 -m tools.planner.validate --strict"],
+      "evidence": ["_report/agent/codex-3/plan-schema-dedupe/pytest-final.xml"]
+    },
+    {
+      "id": "bus-update",
+      "description": "Manager-report status entry logs readiness and points to receipts (summary + note).",
+      "checks": ["python3 -m tools.agent.bus_message --task manager-report --type status ..."],
+      "evidence": []
+    },
+    {
+      "id": "reflection-logged",
+      "description": "Reflection capturing the readiness decision is stored under memory/reflections/ for traceability.",
+      "checks": ["create memory/reflections/<timestamp>.json summarising pre-push state"],
+      "evidence": ["memory/reflections/reflection-20251004T202455Z.json"]
+    }
+  ]
+}

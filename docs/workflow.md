@@ -29,6 +29,7 @@ Review cadence: Monthly sweep
 **Operating order**
 1) Confirm structure matches `docs/architecture.md`.  
 2) Produce an E2E plan using `docs/quickstart.md` (exact commands, no guessing) and drop it in `_plans/` (`*.plan.json`). Validate with `python3 tools/planner/validate.py`.  
+ 2a) Run `python3 -m tools.agent.push_ready --require-test <receipt>` before pushing so the working tree, branch, claims, and receipts are captured with a readiness summary.  
  3) Verify enforcement: confirm `scripts/policy_checks.sh` and `scripts/ci/check_vdp.py` run in CI; the latter blocks volatile data without timestamps/sources using the fixtures in `datasets/goldens/`.  
  4) Triangulate gaps: if Quickstart or imports/paths are stale, propose the smallest patches to make them true.  
  5) Output a prioritized plan (next 3–6 steps) to make the repo self-propagating (CLI → CI → freeze → docs).  

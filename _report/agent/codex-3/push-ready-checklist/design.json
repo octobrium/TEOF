@@ -1,0 +1,28 @@
+{
+  "generated_at": "2025-10-04T20:40:00Z",
+  "overview": "Provide a python module (tools.agent.push_ready) that checks common push prerequisites: clean worktree, branch/manifest alignment, no active claims, optional receipt existence, and emits a readiness summary/exit code.",
+  "cli": {
+    "entrypoint": "python3 -m tools.agent.push_ready",
+    "options": [
+      "--agent <id> (default from manifest)",
+      "--require-branch <name> (repeatable)",
+      "--require-receipt <path> (repeatable; ensures file tracked)",
+      "--require-tests <path> (repeatable receipts or junit xml)"
+    ],
+    "exit_codes": {
+      "0": "ready",
+      "1": "checks failed"
+    }
+  },
+  "checks": [
+    "git_clean: git status --porcelain must be empty",
+    "branch_match: current branch must be in allowed set (default agent/<id> or main)",
+    "claims_clear: no active claims for agent in _bus/claims",
+    "receipts_exist: any --require-receipt must exist and be tracked",
+    "tests_exist: optional receipts (e.g., pytest xml) exist"
+  ],
+  "outputs": {
+    "json": "Readiness summary printed to stdout (JSON) for easy machine parsing",
+    "log": "non-zero exit prints failed checks"
+  }
+}
