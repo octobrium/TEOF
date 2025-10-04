@@ -8,7 +8,7 @@
   "layer": "L5",
   "systemic_scale": 5,
   "impact_score": 5,
-  "status": "queued",
+  "status": "in_progress",
   "steps": [
     {
       "id": "S1",
@@ -20,9 +20,14 @@
     {
       "id": "S2",
       "title": "Automate checklist enforcement (lint/CLI)",
-      "status": "in_progress",
-      "notes": "Implement push-ready helper CLI + tests.",
-      "receipts": []
+      "status": "done",
+      "notes": "Implemented push_ready CLI + assignment locator helper with regression coverage.",
+      "receipts": [
+        "tools/agent/push_ready.py",
+        "tools/agent/assignment_locator.py",
+        "tests/test_push_ready.py",
+        "tests/test_assignment_locator.py"
+      ]
     },
     {
       "id": "S3",

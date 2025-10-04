@@ -1,0 +1,12 @@
+{
+  "captured_at": "2025-10-04T21:46:00Z",
+  "title": "Push readiness guard deployed",
+  "layers": ["L5"],
+  "summary": "Added push_ready CLI and assignment locator to enforce clean handoffs before pushing to main.",
+  "signals": "tools/agent/push_ready.py; tools/agent/assignment_locator.py; tests/test_push_ready.py; tests/test_assignment_locator.py",
+  "actions": "CLI checks git cleanliness, branch policy, active claims, and required receipts/tests; assignment locator flags missing plan artifacts; documented progress in manager report.",
+  "tags": ["handoff", "automation"],
+  "plan_suggestion": "2025-10-04-push-ready-checklist",
+  "notes": "Future work: finish SOP draft and pilot across active branches.",
+  "receipt": "memory/reflections/reflection-20251004T214600Z.json"
+}
