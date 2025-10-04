@@ -16,7 +16,7 @@ Every scenario, however novel, follows the same ladder:
    - Include preliminary receipts and proposed options; if time is short, drop a high-severity bus event.
 
 3. **Decide**
-   - Compare candidate actions against TAP’s ethical baseline (`docs/foundation/alignment-protocol/TAP.md`).
+   - Compare candidate actions against TAP’s ethical baseline (`docs/foundation/alignment-protocol/tap.md`).
    - Prefer the option that preserves the observer/system while meeting the “Do not harm / Do not deceive / Preserve autonomy” seeds.
 
 4. **Act**

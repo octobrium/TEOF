@@ -29,7 +29,7 @@
       "receipts": [
         "tools/receipts/status.py",
         "tools/receipts/main.py",
-        "docs/receipts/INDEX.md"
+        "docs/receipts/index.md"
       ]
     },
     {
@@ -57,7 +57,7 @@
     "_report/usage/onboarding/quickstart-20250927T213103Z.json",
     "bin/teof-up",
     "docs/onboarding/quickstart.md",
-    "docs/receipts/INDEX.md",
+    "docs/receipts/index.md",
     "tools/receipts/main.py",
     "tools/receipts/status.py"
   ],

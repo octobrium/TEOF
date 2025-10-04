@@ -9,7 +9,7 @@
     "Call to action: encode system-response reasoning and reciprocity into ethics guidance so future agents can derive the right moves."
   ],
   "links": [
-    "docs/foundation/alignment-protocol/TAP.md",
+    "docs/foundation/alignment-protocol/tap.md",
     "docs/commandments.md",
     "docs/workflow.md",
     "_plans/2025-09-27-ethics-scenarios.plan.json"

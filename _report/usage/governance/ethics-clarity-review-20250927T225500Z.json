@@ -3,7 +3,7 @@
   "focus": "ethics-clarity",
   "summary": "Reviewed TAP baseline and existing workflow guidance to align observation-first escalation before updates",
   "files_observed": [
-    "docs/foundation/alignment-protocol/TAP.md",
+    "docs/foundation/alignment-protocol/tap.md",
     "docs/commandments.md",
     "docs/workflow.md"
   ],

@@ -6,7 +6,7 @@
     {
       "question": "Meaning of life",
       "sources": [
-        "docs/foundation/alignment-protocol/TAP.md#meaning",
+        "docs/foundation/alignment-protocol/tap.md#meaning",
         "docs/whitepaper.md#purpose"
       ],
       "notes": "Lean on observation \u2192 coherence \u2192 meaning (S10)"
@@ -14,7 +14,7 @@
     {
       "question": "Problem of other minds",
       "sources": [
-        "docs/foundation/alignment-protocol/TAP.md#observer",
+        "docs/foundation/alignment-protocol/tap.md#observer",
         "docs/workflow.md#observation-primacy"
       ],
       "notes": "Show how receipts/logs establish trust across agents"

@@ -19,9 +19,9 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `comm-mainline` | Communication Quickstart | Shows how to claim, broadcast, and monitor the coordination bus (manager-report) on day one. | [.github/AGENT_ONBOARDING.md#communication-quickstart-manager-report-hub](.github/AGENT_ONBOARDING.md#communication-quickstart-manager-report-hub) |
 | `comm-directive-pointer` | Directive Pointer Helper | Run `tools.agent.directive_pointer` so BUS-COORD directives automatically mirror into manager-report. | [docs/AGENTS.md#idle-cadence](docs/AGENTS.md#idle-cadence) |
 | `decision-hierarchy` | Decision Hierarchy | Map governance objectives before downstream work becomes decidable. | [docs/decision-hierarchy.md](docs/decision-hierarchy.md) |
-| `proposal-inbox` | Proposal Inbox | Canonical drop zone for draft improvements awaiting review. | [docs/proposals/README.md#proposal-inbox-docsproposals](docs/proposals/README.md#proposal-inbox-docsproposals) |
+| `proposal-inbox` | Proposal Inbox | Canonical drop zone for draft improvements awaiting review. | [docs/proposals/readme.md#proposal-inbox-docsproposals](docs/proposals/readme.md#proposal-inbox-docsproposals) |
 | `emergent-principles-ledger` | Emergent Principles Ledger | Append lessons to reuse patterns before automating. | [governance/core/emergent-principles.jsonl](governance/core/emergent-principles.jsonl) |
-| `consensus-ledger` | Consensus Ledger Usage | Entry point for `tools.consensus.ledger` commands and receipt capture. | [docs/consensus/README.md#usage](docs/consensus/README.md#usage) |
+| `consensus-ledger` | Consensus Ledger Usage | Entry point for `tools.consensus.ledger` commands and receipt capture. | [docs/consensus/readme.md#usage](docs/consensus/readme.md#usage) |
 | `consensus-ci-summary` | Consensus CI Guard | Stable receipts + CI check ensuring QUEUE-030..033 stay covered. | [_report/consensus/summary-latest.json](_report/consensus/summary-latest.json) |
 | `capsule-cadence-summary` | Capsule Cadence Guard | Release checklist tied to consensus receipts and capsule hashes. | [_report/capsule/summary-latest.json](_report/capsule/summary-latest.json) |
 | `receipts-index` | Receipts Index CLI | Build a JSONL ledger of plans, receipts, and manager messages before handoff. | [docs/automation.md#receipts-index](docs/automation.md#receipts-index) |
@@ -43,7 +43,7 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `workflow-architecture` | Architecture Gate | Explains the governance gate that blocks edits without a plan and receipts. | [docs/workflow.md#architecture-gate-before-writing-code](docs/workflow.md#architecture-gate-before-writing-code) |
 | `workflow-receipts` | DNA Recursion (Receipts) | Details the receipts-first mandate used by manager directives and CI guards. | [docs/workflow.md#dna-recursion-self-improvement-of-the-rules](docs/workflow.md#dna-recursion-self-improvement-of-the-rules) |
 | `ci-guardrails` | CI Guardrail Guarantees | One-screen summary mapping invariants to the scripts that enforce them. | [docs/ci-guarantees.md#ci-guardrail-guarantees](docs/ci-guarantees.md#ci-guardrail-guarantees) |
-| `evangelism-kit` | Narrative & Evangelism Kit | Story arcs, assets, and cadence backed by receipts. | [docs/evangelism/README.md#narrative--evangelism-kit](docs/evangelism/README.md#narrative--evangelism-kit) |
-| `receipts-dashboard` | Receipt Dashboard | Aggregate pass/fail view for attest receipts. | [docs/receipts/INDEX.md#receipt-dashboard](docs/receipts/INDEX.md#receipt-dashboard) |
-| `evangelism-log-event` | Evangelism Event Logger | CLI helper to log outreach receipts. | [docs/evangelism/README.md#logging-outreach](docs/evangelism/README.md#logging-outreach) |
+| `evangelism-kit` | Narrative & Evangelism Kit | Story arcs, assets, and cadence backed by receipts. | [docs/evangelism/readme.md#narrative--evangelism-kit](docs/evangelism/readme.md#narrative--evangelism-kit) |
+| `receipts-dashboard` | Receipt Dashboard | Aggregate pass/fail view for attest receipts. | [docs/receipts/index.md#receipt-dashboard](docs/receipts/index.md#receipt-dashboard) |
+| `evangelism-log-event` | Evangelism Event Logger | CLI helper to log outreach receipts. | [docs/evangelism/readme.md#logging-outreach](docs/evangelism/readme.md#logging-outreach) |
 _Last updated: 2025-09-27

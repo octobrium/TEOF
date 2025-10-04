@@ -17,7 +17,7 @@
       "id": "S2",
       "title": "Map receipts & dependencies",
       "status": "done",
-      "notes": "Listed receipts/tests (tests/test_consensus_ledger_cli.py, docs/consensus/README.md, _report/consensus outputs) and dependencies (tools/ledger.sh, manager-report).",
+      "notes": "Listed receipts/tests (tests/test_consensus_ledger_cli.py, docs/consensus/readme.md, _report/consensus outputs) and dependencies (tools/ledger.sh, manager-report).",
       "receipts": []
     },
     {

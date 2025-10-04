@@ -38,7 +38,7 @@ Review cadence: Monthly sweep
  8) Only if rules block progress: propose a minimal DNA edit via a one-page Meta‑TEP (Problem, Proposal, Alternatives, Impact, Rollback).  
  9) For external feeds, open a plan, register the signing key (anchors entry), build `python -m tools.external.adapter` receipts, and extend `scripts/ci/check_vdp.py` + dashboards before promoting.  
  10) Keep plan receipts audited: run `python3 scripts/ci/check_plan_receipts_exist.py` regularly and log the summary under `_report/usage/` so missing/untracked evidence is caught early.
-   - Draft the idea in `docs/proposals/` first (see `docs/proposals/README.md`) so other seats can review before it graduates to a Meta‑TEP.
+   - Draft the idea in `docs/proposals/` first (see `docs/proposals/readme.md`) so other seats can review before it graduates to a Meta‑TEP.
 
 **Response format**
 - Summary (2–4 bullets)  

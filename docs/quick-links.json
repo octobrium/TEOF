@@ -78,7 +78,7 @@
       "id": "proposal-inbox",
       "title": "Proposal Inbox",
       "summary": "Canonical drop zone for draft improvements awaiting review.",
-      "path": "docs/proposals/README.md",
+      "path": "docs/proposals/readme.md",
       "anchor": "#proposal-inbox-docsproposals",
       "category": "governance"
     },
@@ -94,7 +94,7 @@
       "id": "consensus-ledger",
       "title": "Consensus Ledger Usage",
       "summary": "Entry point for `tools.consensus.ledger` commands and receipt capture.",
-      "path": "docs/consensus/README.md",
+      "path": "docs/consensus/readme.md",
       "anchor": "#usage",
       "category": "consensus"
     },
@@ -270,7 +270,7 @@
       "id": "evangelism-kit",
       "title": "Narrative & Evangelism Kit",
       "summary": "Story arcs, assets, and cadence with receipts for public outreach.",
-      "path": "docs/evangelism/README.md",
+      "path": "docs/evangelism/readme.md",
       "anchor": "#narrative--evangelism-kit",
       "category": "adoption"
     },
@@ -278,7 +278,7 @@
       "id": "receipts-dashboard",
       "title": "Receipt Dashboard",
       "summary": "Aggregate pass/fail view of attestation receipts.",
-      "path": "docs/receipts/INDEX.md",
+      "path": "docs/receipts/index.md",
       "anchor": "#receipt-dashboard",
       "category": "maintenance"
     },
@@ -286,7 +286,7 @@
       "id": "evangelism-log-event",
       "title": "Evangelism Event Logger",
       "summary": "CLI helper for logging outreach touches to receipts.",
-      "path": "docs/evangelism/README.md",
+      "path": "docs/evangelism/readme.md",
       "anchor": "#logging-outreach",
       "category": "adoption"
     }

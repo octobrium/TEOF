@@ -34,10 +34,10 @@
       "id": "S4",
       "title": "Wire receipts + docs",
       "status": "done",
-      "notes": "Document usage in docs/consensus/README.md (new) and update docs/parallel-codex.md consensus section; ensure CLI writes receipts to _report/consensus/ when invoked in CI.",
+      "notes": "Document usage in docs/consensus/readme.md (new) and update docs/parallel-codex.md consensus section; ensure CLI writes receipts to _report/consensus/ when invoked in CI.",
       "receipts": [
         "_report/consensus/ledger-cli-sample.jsonl",
-        "docs/consensus/README.md"
+        "docs/consensus/readme.md"
       ]
     },
     {

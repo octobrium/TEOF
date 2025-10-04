@@ -21,7 +21,7 @@
       "status": "done",
       "notes": "Promote the kit to Active v0.2 and surface the newest cadence schedule.",
       "receipts": [
-        "docs/evangelism/README.md",
+        "docs/evangelism/readme.md",
         "docs/evangelism/distribution-cadence.md"
       ]
     },
@@ -50,7 +50,7 @@
     }
   ],
   "receipts": [
-    "docs/evangelism/README.md",
+    "docs/evangelism/readme.md",
     "docs/evangelism/narrative-arcs.md",
     "docs/evangelism/distribution-cadence.md",
     "_report/usage/evangelism/cadence-20251003T022920Z.json"

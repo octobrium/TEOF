@@ -1,7 +1,7 @@
 {
   "timestamp": "2025-09-26T21:45:58Z",
   "git_commit": "1603e31",
-  "workspace_status": "M docs/receipts/INDEX.md\n M scripts/attest_scaffold.py\n?? docs/receipts/attest/20250926T214558Z/",
+  "workspace_status": "M docs/receipts/index.md\n M scripts/attest_scaffold.py\n?? docs/receipts/attest/20250926T214558Z/",
   "environment": {
     "python": "Python 3.9.6",
     "git": "git version 2.39.5 (Apple Git-154)",

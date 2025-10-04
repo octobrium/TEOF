@@ -5,7 +5,7 @@
     "question": "What is the meaning of life?",
     "summary": "Ground purpose in Observation → Coherence → Ethics → Reproducibility → Self-repair. Demonstrate how TEOF frames meaning as responsible stewardship of signals and receipts.",
     "sources": [
-      "docs/foundation/alignment-protocol/TAP.md#meaning",
+      "docs/foundation/alignment-protocol/tap.md#meaning",
       "docs/whitepaper.md#purpose"
     ]
   },
@@ -15,7 +15,7 @@
     "question": "How does TEOF handle the problem of other minds?",
     "summary": "Highlight that observation primacy plus append-only receipts let independent agents audit one another without assuming intent.",
     "sources": [
-      "docs/foundation/alignment-protocol/TAP.md#observer",
+      "docs/foundation/alignment-protocol/tap.md#observer",
       "docs/workflow.md#observation-primacy"
     ]
   },

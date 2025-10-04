@@ -71,10 +71,10 @@ def build_prompt(question: str, *, path: Path = DEFAULT_FAQ_PATH) -> str:
 
     if entry is None:
         guidance = (
-            "No specialised mapping exists. Default to TAP (docs/foundation/alignment-protocol/TAP.md), "
+            "No specialised mapping exists. Default to TAP (docs/foundation/alignment-protocol/tap.md), "
             "the Commandments (docs/commandments.md), and the Workflow observation rules (docs/workflow.md#observation-primacy)."
         )
-        sources_block = "- docs/foundation/alignment-protocol/TAP.md\n- docs/commandments.md\n- docs/workflow.md#observation-primacy"
+        sources_block = "- docs/foundation/alignment-protocol/tap.md\n- docs/commandments.md\n- docs/workflow.md#observation-primacy"
     else:
         guidance = entry.summary
         sources_block = "\n".join(f"- {source}" for source in entry.sources)

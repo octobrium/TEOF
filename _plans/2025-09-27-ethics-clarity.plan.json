@@ -25,7 +25,7 @@
       "status": "done",
       "notes": "Added observation->escalation->receipts clause to TAP ethical baseline",
       "receipts": [
-        "docs/foundation/alignment-protocol/TAP.md"
+        "docs/foundation/alignment-protocol/tap.md"
       ]
     },
     {
@@ -48,7 +48,7 @@
   "receipts": [
     "_report/usage/governance/ethics-clarity-review-20250927T225500Z.json",
     "docs/commandments.md",
-    "docs/foundation/alignment-protocol/TAP.md",
+    "docs/foundation/alignment-protocol/tap.md",
     "docs/workflow.md"
   ],
   "ocers_target": "Ethics↑ Observation↑"
