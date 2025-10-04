@@ -132,6 +132,30 @@ def _collect_manager_candidates(manifests: list[dict[str, Any]]) -> set[str]:
     return candidates
 
 
+def _default_agents_from_manifests(manifests: list[dict[str, Any]]) -> list[str]:
+    if not manifests:
+        return []
+    primary: Optional[str] = None
+    fallback: Optional[str] = None
+    for manifest in manifests:
+        agent_id = manifest.get("agent_id")
+        if isinstance(agent_id, str) and agent_id.strip():
+            agent_id = agent_id.strip()
+        else:
+            continue
+        path = manifest.get("_path")
+        if path == "AGENT_MANIFEST.json":
+            primary = agent_id
+            break
+        if fallback is None:
+            fallback = agent_id
+    if primary:
+        return [primary]
+    if fallback:
+        return [fallback]
+    return []
+
+
 def _detect_manager_status(
     manager_ids: set[str],
     events: Sequence[dict[str, Any]],
@@ -477,11 +501,15 @@ def main(argv: list[str] | None = None) -> int:
             args.manager_window = preset["manager_window"]
 
     limit = args.limit if args.limit is not None else 10
+    manifests = _load_manifests()
+    default_agents = _default_agents_from_manifests(manifests)
+
+    agents = args.agent
+    if not agents and default_agents:
+        agents = list(default_agents)
+
     all_events = load_events(limit=None, since=since)
     events = all_events[-limit:] if limit else all_events
-    agents = args.agent
-
-    manifests = _load_manifests()
     manager_candidates = _collect_manager_candidates(manifests)
     manager_status = _detect_manager_status(
         manager_candidates,

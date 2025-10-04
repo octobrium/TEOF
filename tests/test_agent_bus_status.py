@@ -142,16 +142,29 @@ def test_bus_status_json_output(tmp_path, monkeypatch, capsys):
 def test_bus_status_since_filters_events(tmp_path, monkeypatch, capsys):
     iso = _setup_bus(tmp_path, monkeypatch)
     cutoff = iso(1)
-    exit_code = bus_status.main(["--json", "--since", cutoff, "--limit", "5"])
+    exit_code = bus_status.main(["--json", "--since", cutoff, "--limit", "5", "--agent", "codex-2"])
     assert exit_code == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["filters"]["since"] == cutoff
-    assert len(payload["claims"]) == 2
+    assert len(payload["claims"]) == 1
     assert len(payload["events"]) == 1
     assert payload["events"][0]["agent_id"] == "codex-2"
     manager_status = payload["manager_status"]
     assert not manager_status["active"]
     assert manager_status["missing"][0]["agent_id"] == "codex-1"
+
+
+def test_bus_status_defaults_to_manifest_agent(tmp_path, monkeypatch, capsys):
+    _setup_bus(tmp_path, monkeypatch)
+    manifest = tmp_path / "AGENT_MANIFEST.json"
+    manifest.write_text(json.dumps({"agent_id": "codex-1"}), encoding="utf-8")
+
+    exit_code = bus_status.main(["--json", "--limit", "5"])
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["filters"]["agents"] == ["codex-1"]
+    assert len(payload["claims"]) == 1
+    assert all(claim["agent_id"] == "codex-1" for claim in payload["claims"])
 
 
 def test_manager_warning_when_no_recent_heartbeat(tmp_path, monkeypatch, capsys):
