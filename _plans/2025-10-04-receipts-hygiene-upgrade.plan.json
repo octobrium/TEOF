@@ -1,0 +1,43 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-04-receipts-hygiene-upgrade",
+  "created": "2025-10-04T20:48:43Z",
+  "actor": "codex-2",
+  "summary": "Productionize slow-plan latency thresholds and alerts",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 5,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design latency thresholds + alert criteria",
+      "status": "queued",
+      "notes": "(capture design notes/receipts)",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Integrate thresholds into receipts_hygiene + autonomy latency",
+      "status": "queued",
+      "notes": "(update tooling, add tests)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document workflow and wire alerts to bus",
+      "status": "queued",
+      "notes": "(attach docs + bus receipts)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Slow-plan alerts run automatically with documented thresholds",
+    "owner": "codex-2",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": [],
+  "ocers_target": "Observation\u2191 Self-repair\u2191"
+}

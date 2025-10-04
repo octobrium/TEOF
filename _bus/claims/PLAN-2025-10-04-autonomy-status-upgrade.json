@@ -1,0 +1,8 @@
+{
+  "agent_id": "codex-4",
+  "branch": "agent/codex-4/autonomy-status-upgrade",
+  "claimed_at": "2025-10-04T20:48:50Z",
+  "plan_id": "2025-10-04-autonomy-status-upgrade",
+  "status": "active",
+  "task_id": "PLAN-2025-10-04-autonomy-status-upgrade"
+}

@@ -1,0 +1,43 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-04-planner-metadata-backfill-phase3",
+  "created": "2025-10-04T20:48:43Z",
+  "actor": "codex-1",
+  "summary": "Sweep legacy plans for missing OCERS metadata",
+  "priority": 4,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 4,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Inventory pre-September plans still missing metadata",
+      "status": "queued",
+      "notes": "(capture planner/queue scan receipts)",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Annotate legacy plans with OCERS, layer, systemic scale",
+      "status": "queued",
+      "notes": "(document edits and attach receipts)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Run planner validation + fractal conformance",
+      "status": "queued",
+      "notes": "(attach validation receipts)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Legacy plans align with planner metadata defaults",
+    "owner": "codex-1",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": [],
+  "ocers_target": "Reproducibility\u2191 Self-repair\u2191"
+}

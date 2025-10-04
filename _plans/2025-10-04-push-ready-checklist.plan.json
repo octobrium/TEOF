@@ -1,0 +1,43 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-04-push-ready-checklist",
+  "created": "2025-10-04T20:48:43Z",
+  "actor": "codex-3",
+  "summary": "Formalize push readiness checklist and helper tooling",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 5,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Draft push readiness SOP covering manifests, claims, receipts",
+      "status": "queued",
+      "notes": "Draft SOP capturing manifests/claims/receipts requirements.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Automate checklist enforcement (lint/CLI)",
+      "status": "in_progress",
+      "notes": "Implement push-ready helper CLI + tests.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Pilot checklist on current branches and document results",
+      "status": "queued",
+      "notes": "Pilot checklist on live branches and log outcomes.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Push readiness checklist adopted and enforced",
+    "owner": "codex-3",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": [],
+  "ocers_target": "Coherence\u2191 Reproducibility\u2191"
+}

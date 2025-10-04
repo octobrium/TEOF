@@ -1,0 +1,41 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-04-autonomy-status-upgrade",
+  "created": "2025-10-04T20:48:30Z",
+  "actor": "codex-4",
+  "summary": "Extend autonomy_status CLI with readiness signals",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Inventory new readiness inputs",
+      "status": "queued",
+      "notes": "Review receipts hygiene fields, slow-plan notes, and push-ready checklist requirements to define readiness indicators.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement autonomy_status upgrades",
+      "status": "queued",
+      "notes": "Update tools.agent.autonomy_status to surface readiness indicators (JSON + human output) and wire thresholds for alerts.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document and cover with tests",
+      "status": "queued",
+      "notes": "Add pytest coverage and update docs/automation.md (or related quicklinks) to describe the new readiness signals.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Autonomy status CLI emits readiness signals with docs/tests",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": [],
+  "ocers_target": "Observation↑ Reproducibility↑",
+  "layer": "L6",
+  "systemic_scale": 5
+}

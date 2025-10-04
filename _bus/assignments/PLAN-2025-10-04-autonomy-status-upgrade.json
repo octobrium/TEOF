@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-10-04T20:48:45Z",
+  "branch": "agent/codex-4/autonomy-status-upgrade",
+  "engineer": "codex-4",
+  "manager": "codex-1",
+  "note": "Extend autonomy_status with readiness signals",
+  "plan_id": "2025-10-04-autonomy-status-upgrade",
+  "task_id": "PLAN-2025-10-04-autonomy-status-upgrade"
+}
