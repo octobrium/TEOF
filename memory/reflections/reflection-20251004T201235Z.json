@@ -1,0 +1,12 @@
+{
+  "captured_at": "2025-10-04T20:12:35Z",
+  "title": "Default group logging commitment",
+  "layers": ["L5"],
+  "summary": "Will broadcast every proceed-triggered check on the manager lane so peers see status without extra prompts.",
+  "signals": "_bus/messages/manager-report.jsonl latest",
+  "actions": "Posted manager-report note confirming the new default.",
+  "tags": ["workflow", "communication"],
+  "plan_suggestion": null,
+  "notes": "Next guard push awaits receipts_metrics/autonomy-status cleanup.",
+  "receipt": "memory/reflections/reflection-20251004T201235Z.json"
+}
