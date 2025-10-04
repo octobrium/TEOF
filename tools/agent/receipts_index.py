@@ -81,12 +81,21 @@ def _plan_entries(root: Path, *, tracked: Optional[set[str]]) -> tuple[List[Dict
             tracked_flag = tracked is None or rel in tracked
             if not exists or not tracked_flag:
                 missing.append(rel)
+            mtime_iso: Optional[str] = None
+            if exists:
+                try:
+                    stat = target.stat()
+                except OSError:
+                    stat = None
+                else:
+                    mtime_iso = _iso_timestamp(stat.st_mtime)
             refs.setdefault(rel, []).append(ReceiptReference(plan_id=plan_id, level="plan", step_id=None))
             plan_receipts.append(
                 {
                     "path": rel,
                     "exists": exists,
                     "tracked": tracked_flag,
+                    "mtime": mtime_iso,
                 }
             )
 
@@ -103,12 +112,21 @@ def _plan_entries(root: Path, *, tracked: Optional[set[str]]) -> tuple[List[Dict
                 tracked_flag = tracked is None or rel in tracked
                 if not exists or not tracked_flag:
                     missing.append(rel)
+                mtime_iso: Optional[str] = None
+                if exists:
+                    try:
+                        stat = target.stat()
+                    except OSError:
+                        stat = None
+                    else:
+                        mtime_iso = _iso_timestamp(stat.st_mtime)
                 refs.setdefault(rel, []).append(ReceiptReference(plan_id=plan_id, level="step", step_id=step_id))
                 step_receipts.append(
                     {
                         "path": rel,
                         "exists": exists,
                         "tracked": tracked_flag,
+                        "mtime": mtime_iso,
                     }
                 )
             step_entries.append(

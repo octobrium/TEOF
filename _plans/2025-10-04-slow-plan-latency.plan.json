@@ -26,7 +26,8 @@
       "status": "done",
       "notes": "cmd> python3 -m tools.agent.bus_message --task manager-report --type status --plan 2025-09-17-commandment-tags --summary 'codex-2: slow plan audit \u2013 commandment tags' --note 'Latency triggered by OCERS metadata backfill touching _plans/2025-09-17-ledger-upkeep.plan.json on 2025-10-03; work finished 2025-09-17.'\ncmd> python3 -m tools.agent.bus_message --task manager-report --type status --plan 2025-09-19-heartbeat-docs-codex3 --summary 'codex-2: slow plan audit \u2013 heartbeat docs' --note 'Docs/tests receipts refreshed 2025-10-03 during metadata backfill; automation shipped 2025-09-19 and remains unchanged.'\ncmd> python3 - <<'PY' (serialize slow-plan audit JSON)",
       "receipts": [
-        "_report/usage/slow-plan-audit-20251004T195601Z.json"
+        "_report/usage/slow-plan-audit-20251004T195601Z.json",
+        "_report/usage/slow-plan-latency-notes-20251004.json"
       ]
     },
     {
@@ -48,6 +49,7 @@
   "receipts": [
     "_report/usage/receipts-hygiene-summary.json",
     "_report/usage/slow-plan-audit-20251004T195601Z.json",
+    "_report/usage/slow-plan-latency-notes-20251004.json",
     "_plans/next-development.todo.json"
   ]
 }

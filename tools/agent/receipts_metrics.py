@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import statistics
+import subprocess
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -15,6 +16,9 @@ from tools.agent import receipts_index
 ROOT = Path(__file__).resolve().parents[2]
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 DEFAULT_USAGE_DIR = ROOT / "_report" / "usage"
+
+_GIT_MTIME_CACHE: Dict[str, Optional[datetime]] = {}
+_GIT_FIRST_COMMIT_CACHE: Dict[tuple[str, str], Optional[datetime]] = {}
 
 
 def _parse_datetime(value: Any) -> Optional[datetime]:
@@ -68,9 +72,79 @@ def _build_manager_map(entries: List[Dict[str, Any]]) -> Dict[str, List[Dict[str
     return mapping
 
 
-def _collect_plan_receipts(plan: Dict[str, Any], receipt_map: Dict[str, Dict[str, Any]]) -> tuple[List[float], List[str], Optional[str], Optional[str]]:
+def _git_commit_datetime(rel: str) -> Optional[datetime]:
+    cached = _GIT_MTIME_CACHE.get(rel)
+    if cached is not None or rel in _GIT_MTIME_CACHE:
+        return cached
+
+    try:
+        output = subprocess.check_output(
+            ["git", "-C", str(receipts_index.ROOT), "log", "-1", "--format=%ct", "--", rel],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except (subprocess.CalledProcessError, FileNotFoundError, OSError):
+        result = None
+    else:
+        if output:
+            try:
+                result = datetime.fromtimestamp(int(output), tz=timezone.utc)
+            except ValueError:
+                result = None
+        else:
+            result = None
+
+    _GIT_MTIME_CACHE[rel] = result
+    return result
+
+
+def _git_first_commit_after(rel: str, *, created: Optional[datetime]) -> Optional[datetime]:
+    if created is None:
+        return None
+    key = (rel, created.strftime(ISO_FMT))
+    if key in _GIT_FIRST_COMMIT_CACHE:
+        return _GIT_FIRST_COMMIT_CACHE[key]
+
+    since_arg = created.strftime("%Y-%m-%dT%H:%M:%SZ")
+    try:
+        output = subprocess.check_output(
+            [
+                "git",
+                "-C",
+                str(receipts_index.ROOT),
+                "log",
+                "--format=%ct",
+                "--since",
+                since_arg,
+                "--reverse",
+                "--",
+                rel,
+            ],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError, OSError):
+        result = None
+    else:
+        line = next((line.strip() for line in output.splitlines() if line.strip()), "")
+        if line:
+            try:
+                result = datetime.fromtimestamp(int(line), tz=timezone.utc)
+            except ValueError:
+                result = None
+        else:
+            result = None
+
+    _GIT_FIRST_COMMIT_CACHE[key] = result
+    return result
+
+
+def _collect_plan_receipts(
+    plan: Dict[str, Any], receipt_map: Dict[str, Dict[str, Any]]
+) -> tuple[List[float], List[float], List[str], Optional[str], Optional[str]]:
     created = _parse_datetime(plan.get("created"))
-    receipt_times: List[datetime] = []
+    receipt_first_times: List[datetime] = []
+    receipt_last_times: List[datetime] = []
     missing: set[str] = set(plan.get("missing_receipts", []))
 
     def handle_receipt(info: Dict[str, Any]) -> None:
@@ -84,11 +158,40 @@ def _collect_plan_receipts(plan: Dict[str, Any], receipt_map: Dict[str, Dict[str
             missing.add(rel)
             return
         meta = receipt_map.get(rel)
-        if not meta:
-            return
-        mtime = _parse_datetime(meta.get("mtime"))
-        if mtime:
-            receipt_times.append(mtime)
+        candidates: List[datetime] = []
+        if meta:
+            meta_dt = _parse_datetime(meta.get("mtime"))
+            if meta_dt:
+                candidates.append(meta_dt)
+
+        commit_dt = _git_first_commit_after(rel, created=created)
+        if commit_dt:
+            candidates.append(commit_dt)
+
+        if not candidates:
+            extra = info.get("mtime")
+            if isinstance(extra, str):
+                extra_dt = _parse_datetime(extra)
+                if extra_dt:
+                    candidates.append(extra_dt)
+
+        if not candidates:
+            fallback = _git_commit_datetime(rel)
+            if fallback:
+                candidates.append(fallback)
+
+        if not candidates:
+            target = receipts_index.ROOT / rel
+            try:
+                stat = target.stat()
+            except (FileNotFoundError, OSError):
+                missing.add(rel)
+                return
+            candidates.append(datetime.fromtimestamp(stat.st_mtime, tz=timezone.utc))
+
+        if candidates:
+            receipt_first_times.append(min(candidates))
+            receipt_last_times.append(max(candidates))
 
     for rec in plan.get("receipts", []) or []:
         if isinstance(rec, dict):
@@ -99,19 +202,27 @@ def _collect_plan_receipts(plan: Dict[str, Any], receipt_map: Dict[str, Dict[str
             if isinstance(rec, dict):
                 handle_receipt(rec)
 
-    receipt_times.sort()
-    latencies: List[float] = []
+    first_receipt_ts_dt: Optional[datetime] = (
+        min(receipt_first_times) if receipt_first_times else None
+    )
+    last_receipt_ts_dt: Optional[datetime] = (
+        max(receipt_last_times) if receipt_last_times else None
+    )
+
+    first_latencies: List[float] = []
+    last_latencies: List[float] = []
     if created:
-        for ts in receipt_times:
-            latencies.append((ts - created).total_seconds())
+        for ts in receipt_first_times:
+            first_latencies.append((ts - created).total_seconds())
+        for ts in receipt_last_times:
+            last_latencies.append((ts - created).total_seconds())
 
-    first_receipt_ts: Optional[datetime] = receipt_times[0] if receipt_times else None
-    last_receipt_ts: Optional[datetime] = receipt_times[-1] if receipt_times else None
-
-    return latencies, sorted(missing), (
-        first_receipt_ts.strftime(ISO_FMT) if first_receipt_ts else None
-    ), (
-        last_receipt_ts.strftime(ISO_FMT) if last_receipt_ts else None
+    return (
+        first_latencies,
+        last_latencies,
+        sorted(missing),
+        first_receipt_ts_dt.strftime(ISO_FMT) if first_receipt_ts_dt else None,
+        last_receipt_ts_dt.strftime(ISO_FMT) if last_receipt_ts_dt else None,
     )
 
 
@@ -131,9 +242,15 @@ def _compute_plan_metrics(plan: Dict[str, Any], receipt_map: Dict[str, Dict[str,
     plan_id = plan.get("plan_id")
     created = _parse_datetime(plan.get("created"))
 
-    latencies, missing_receipts, first_receipt_ts, last_receipt_ts = _collect_plan_receipts(plan, receipt_map)
-    first_delta = latencies[0] if latencies else None
-    last_delta = latencies[-1] if latencies else None
+    (
+        first_latencies,
+        last_latencies,
+        missing_receipts,
+        first_receipt_ts,
+        last_receipt_ts,
+    ) = _collect_plan_receipts(plan, receipt_map)
+    first_delta = min(first_latencies) if first_latencies else None
+    last_delta = max(last_latencies) if last_latencies else None
     notes, first_note = _collect_manager_notes(plan_id, manager_map)
 
     note_to_plan = (first_note - created).total_seconds() if first_note and created else None
@@ -149,7 +266,7 @@ def _compute_plan_metrics(plan: Dict[str, Any], receipt_map: Dict[str, Dict[str,
         "status": plan.get("status"),
         "created": plan.get("created"),
         "checkpoint_status": plan.get("checkpoint_status"),
-        "receipt_count": len(latencies),
+        "receipt_count": len(first_latencies),
         "missing_receipts": missing_receipts,
         "latency_seconds": {
             "plan_to_first_receipt": first_delta,

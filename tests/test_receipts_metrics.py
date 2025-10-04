@@ -101,6 +101,82 @@ def test_receipts_metrics_outputs_latencies(tmp_path: Path, monkeypatch) -> None
     assert plan_entry["missing_receipts"] == []
 
 
+def test_receipts_metrics_includes_non_report_receipts(tmp_path: Path, monkeypatch) -> None:
+    repo_root = tmp_path / "repo"
+    repo_root.mkdir()
+    subprocess.run(["git", "init"], cwd=repo_root, check=True, stdout=subprocess.PIPE)
+    subprocess.run(["git", "config", "user.email", "test@example.com"], cwd=repo_root, check=True)
+    subprocess.run(["git", "config", "user.name", "Test Agent"], cwd=repo_root, check=True)
+
+    plan_payload = {
+        "version": 0,
+        "plan_id": "2025-09-21-mixed",
+        "created": "2025-09-21T00:00:00Z",
+        "actor": "tester",
+        "summary": "Mixed receipts",
+        "status": "done",
+        "steps": [],
+        "checkpoint": {
+            "description": "Ensure mixed receipts counted",
+            "owner": "tester",
+            "status": "satisfied",
+        },
+        "receipts": ["docs/note.md", "_report/agent/tester/late.json"],
+    }
+    plan_path = repo_root / "_plans" / "2025-09-21-mixed.plan.json"
+    _write(plan_path, json.dumps(plan_payload))
+
+    doc_receipt = repo_root / "docs" / "note.md"
+    report_receipt = repo_root / "_report" / "agent" / "tester" / "late.json"
+    _write(doc_receipt, "note")
+    _write(report_receipt, "{}\n")
+
+    subprocess.run(["git", "add", "_plans", "docs", "_report"], cwd=repo_root, check=True)
+    env = os.environ.copy()
+    env["GIT_AUTHOR_DATE"] = "2025-09-21T00:05:00Z"
+    env["GIT_COMMITTER_DATE"] = "2025-09-21T00:05:00Z"
+    subprocess.run(
+        ["git", "commit", "-m", "seed mixed receipts"],
+        cwd=repo_root,
+        check=True,
+        env=env,
+        stdout=subprocess.PIPE,
+    )
+
+    _write(report_receipt, "{\"updated\": true}\n")
+    _set_mtime(report_receipt, datetime(2025, 9, 21, 1, 0, tzinfo=timezone.utc))
+    subprocess.run(["git", "add", "_report"], cwd=repo_root, check=True)
+    later_env = os.environ.copy()
+    later_env["GIT_AUTHOR_DATE"] = "2025-09-21T01:00:00Z"
+    later_env["GIT_COMMITTER_DATE"] = "2025-09-21T01:00:00Z"
+    subprocess.run(
+        ["git", "commit", "-m", "plan receipt update"],
+        cwd=repo_root,
+        check=True,
+        env=later_env,
+        stdout=subprocess.PIPE,
+    )
+
+    _set_mtime(doc_receipt, datetime(2025, 9, 21, 2, 0, tzinfo=timezone.utc))
+
+    monkeypatch.setattr(receipts_index, "ROOT", repo_root)
+    monkeypatch.setattr(receipts_index, "PLANS_DIR", repo_root / "_plans")
+    monkeypatch.setattr(receipts_index, "REPORT_DIR", repo_root / "_report")
+    monkeypatch.setattr(receipts_index, "MANAGER_REPORT", repo_root / "_bus" / "messages" / "manager-report.jsonl")
+    monkeypatch.setattr(receipts_index, "DEFAULT_USAGE_DIR", repo_root / "_report" / "usage")
+    monkeypatch.setattr(receipts_metrics, "ROOT", repo_root)
+    monkeypatch.setattr(receipts_metrics, "DEFAULT_USAGE_DIR", repo_root / "_report" / "usage")
+
+    entries = receipts_metrics.build_metrics(repo_root, output=None)
+    plan_entries = [entry for entry in entries if entry.get("kind") == "plan_latency"]
+    plan_entry = next(entry for entry in plan_entries if entry.get("plan_id") == "2025-09-21-mixed")
+
+    latencies = plan_entry["latency_seconds"]
+    assert latencies["plan_to_first_receipt"] == 300.0
+    assert latencies["plan_to_last_receipt"] == 3600.0
+    assert plan_entry["missing_receipts"] == []
+
+
 def test_receipts_metrics_stdout(tmp_path: Path, monkeypatch) -> None:
     repo_root = tmp_path / "repo"
     repo_root.mkdir()

@@ -36,6 +36,9 @@ def write_plan(
                 "actor": actor,
                 "summary": "Test plan",
                 "status": status,
+                "layer": "L5",
+                "systemic_scale": 5,
+                "ocers_target": "Observation↑",
                 "steps": [
                     {"id": "S1", "title": "Step", "status": "queued"}
                 ],
