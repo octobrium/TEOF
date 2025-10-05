@@ -17,7 +17,7 @@
       "status": "done",
       "notes": "Catalogued existing bus guard expectations and handshake receipts",
       "receipts": [
-        "docs/automation/session-guard.md"
+        "_report/usage/session-guard/audit-20251005T175630Z.json"
       ]
     },
     {
@@ -41,7 +41,6 @@
       "status": "done",
       "notes": "Documented guard usage + overrides and captured broadcast receipts",
       "receipts": [
-        "docs/automation/session-guard.md",
         "_bus/messages/manager-report.jsonl"
       ]
     }
@@ -53,7 +52,6 @@
   },
   "links": [],
   "receipts": [
-    "docs/automation/session-guard.md",
     "tools/agent/session_guard.py",
     "tests/test_session_guard.py",
     "_bus/messages/manager-report.jsonl"
