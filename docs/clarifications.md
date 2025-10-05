@@ -83,3 +83,12 @@ Therefore, the framework treats TEOF as a mirror: useful because it reflects wha
 Practical implication: never elevate protocol compliance above direct coherence. When conflict arises, return to Observation → Coherence and let receipts show whether TEOF’s current expression still mirrors the observer’s clarity.
 
 ---
+
+## 10. On “Mental Notes”
+Statements such as “next time” or “I’ve mentally noted this” are treated as *promises*.  
+Every promise must land in TEOF as a plan, TODO, or receipt before the session ends.  
+Run `python -m tools.autonomy.commitment_guard` if you are unsure whether a commitment exists on disk.
+
+Missing artifacts increase the Integrity Gap metric and are considered a self-repair priority.
+
+---

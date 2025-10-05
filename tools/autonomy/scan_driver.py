@@ -265,10 +265,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     return exit_code
 
 
-if __name__ == "__main__":  # pragma: no cover
-    raise SystemExit(main())
-
-
 def load_policy(candidate: Path | None) -> ScanPolicy:
     path = candidate if candidate is not None else DEFAULT_POLICY_PATH
     data = load_json(path) if path.exists() else None
@@ -338,3 +334,7 @@ def load_policy(candidate: Path | None) -> ScanPolicy:
         reuse_window_seconds=reuse_window_seconds,
         reuse_requires_summary=reuse_requires_summary,
     )
+
+
+if __name__ == "__main__":  # pragma: no cover
+    raise SystemExit(main())

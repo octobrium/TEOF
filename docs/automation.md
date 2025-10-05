@@ -69,6 +69,12 @@ teof-scan-driver --summary --emit-bus
 - Repeat `--force <component>` to include guards even when inputs are unchanged; use `--skip <component>` to suppress a guard for the current iteration.
 - `--dry-run` prints the planned command and still records the decision in history so operators can rehearse policies without executing guards.
 
+### Commitment guard
+
+Use `python -m tools.autonomy.commitment_guard` to scan `_bus/messages/**/*.jsonl` and `_report/usage/reflection-intake/*.md` for phrases such as “next time” or “mental note”. Any matches indicate a promise that must be captured as a plan, TODO, or receipt.
+
+Call the script before ending a session to keep the Integrity Gap metric honest. Combine it with `docs/usage/direction-metrics.md` so TTΔ escalations include missing artifacts.
+
 ### Batch refinement runner
 
 For a single command that runs tests, refreshes receipts hygiene, reconciles task status, emits the operator preset receipt, logs a heartbeat, and (optionally) checks autonomy latency, use `python -m tools.agent.batch_refinement --task <id> [--agent <id>] [--pytest-args ...]`. The helper stops on the first failure, writes the receipt path to stdout, and returns non-zero if pytest fails, task synchronization trips, or hygiene cannot complete. Each run also records a JSON summary under `_report/usage/batch-refinement/` so auditors can replay the batch, plus a rolling `summary.json` that tracks averages, missing-receipt runs, and the latest batch metadata for automation to consume.
