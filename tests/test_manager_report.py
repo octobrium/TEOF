@@ -34,6 +34,8 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(manager_report, "MESSAGES_DIR", messages_dir)
     monkeypatch.setattr(manager_report, "REPORT_DIR", root / "_report" / "manager")
     monkeypatch.setattr(manager_report, "TASKS_FILE", tasks_path)
+    ttd_path = root / "memory" / "impact" / "ttd.jsonl"
+    monkeypatch.setattr(manager_report, "TTD_LOG", ttd_path)
 
     event_log = events_dir / "events.jsonl"
     monkeypatch.setattr(bus_event, "ROOT", root)
@@ -119,6 +121,19 @@ def test_manager_report_writes_file(repo: Path):
     content = latest.read_text(encoding="utf-8")
     assert "Planner Queue Warnings" in content
     assert "PLAN-002" in content
+    assert "## Direction-of-Travel (TTΔ)" in content
+
+    ttd_log = repo / "memory" / "impact" / "ttd.jsonl"
+    assert ttd_log.exists(), "TTΔ log should be appended"
+    entries = [
+        json.loads(line)
+        for line in ttd_log.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    assert entries, "TTΔ log must contain at least one entry"
+    latest_entry = entries[-1]
+    assert latest_entry.get("metrics"), "TTΔ entry should include metrics payload"
+    assert "observation.capacity" in latest_entry["metrics"]
 
 
 def test_manager_report_logs_heartbeat(repo: Path):

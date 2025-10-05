@@ -89,8 +89,9 @@ Recursive failure detection is essential for course correction.
 
 ## 5. Systemic Hierarchy
 
-To guide the design and alignment of systems, TEOF proposes a hierarchy of interdependent layers, each building on observation and coherence.  
-Each layer includes a failure mode to diagnose misalignment.
+To guide the design and alignment of systems, TEOF distinguishes between **foundational layers** that any coherent system must instrument and **derived governance layers** that extend the core when coordination scale demands it. Each layer includes a failure mode to diagnose misalignment.
+
+### 5.1 Foundational Layers (Core, minimally sufficient)
 
 1. **Unity**: A stable reference frame for observation; failure: fragmentation.
 2. **Energy**: Capacity for change or action; failure: stasis or entropy.
@@ -98,12 +99,17 @@ Each layer includes a failure mode to diagnose misalignment.
 4. **Defense**: Protection of coherence; failure: degradation.
 5. **Intelligence**: Recursive refinement of observation; failure: rigidity or overreaction.
 6. **Truth**: Alignment with invariants; failure: delusion.
+
+These six layers form the minimal lattice that can regenerate TEOF after collapse and map directly to the capsule’s immutable core.
+
+### 5.2 Derived Governance Layers (extend when scale requires)
+
 7. **Power**: Capacity to effect change; failure: impotence.
 8. **Ethics**: Use of power to preserve coherence; failure: destruction.
 9. **Freedom**: Adaptive range within coherence; failure: brittleness or dissolution.
 10. **Meaning**: Integration of layers into coherent narratives; failure: nihilism.
 
-**Note.** Power, Ethics, Freedom, and Meaning are treated as *derived governance layers* (Appendix A) to minimize Core attack surface.
+Derived layers inherit constraints from the foundational six and are treated as governance extensions (Appendix A) to minimize the Core attack surface.
 
 ---
 

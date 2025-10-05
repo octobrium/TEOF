@@ -13,6 +13,7 @@
 - [TEOF Master Workflow (Minimal v1.3)](./workflow.md)
 - [CI Guardrail Guarantees](./ci-guarantees.md)
 - [External Authenticity Dashboard](_report/usage/external-authenticity.md)
+- [Direction-of-Travel Metrics](./usage/direction-metrics.md)
 
 ## examples
 - [Readme](./examples/brief/goldens/README.md)
@@ -25,6 +26,7 @@
 
 ## specs
 - [Connectivity & Emergence (Spec)](./specs/connectivity.md)
+- [Recursive Integrity Spec](./specs/recursive-integrity.md)
 
 ## teps
 - [TEP-0000: <Title>](./teps/TEP-0000-template.md)
