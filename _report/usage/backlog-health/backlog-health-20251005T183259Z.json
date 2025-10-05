@@ -1,0 +1,21 @@
+{
+  "generated_at": "2025-10-05T18:32:59Z",
+  "threshold": 3,
+  "pending_threshold_breached": true,
+  "updated": "2025-10-05T04:35:47Z",
+  "total_items": 25,
+  "status_counts": {
+    "done": 24,
+    "pending": 1
+  },
+  "pending_items": [
+    {
+      "id": "ND-025",
+      "title": "TT\u0394 trend reporting",
+      "priority": "medium",
+      "layer": "L5",
+      "systemic_scale": null,
+      "plan_suggestion": "TTD-TREND"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-05-backlog-health",
+  "created": "2025-10-05T18:32:00Z",
+  "actor": "codex-4",
+  "summary": "Auto-generate and prioritize backlog when pending items fall low",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 4,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define backlog health metrics (pending count, age, systemic scale)",
+      "status": "done",
+      "receipts": [
+        "_report/usage/backlog-health/backlog-health-20251005T183259Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Build guard CLI + receipts",
+      "status": "queued",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Surface high-yield backlog view in docs/automation",
+      "status": "queued",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Backlog autopopulation guard raises receipt when pending items < threshold",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "ocers_target": "Observation↑ Self-repair↑",
+  "receipts": []
+}
