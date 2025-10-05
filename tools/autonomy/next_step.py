@@ -262,6 +262,10 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Automatically loop through backlog according to consent policy",
     )
+    parser.add_argument(
+        "--agent",
+        help="Agent id (forwarded by automation; currently informational)",
+    )
     args = parser.parse_args(argv)
 
     if args.auto:

@@ -1,0 +1,17 @@
+{
+  "captured_at": "2025-10-05T19:01:28Z",
+  "title": "Parallel guard integration",
+  "layers": [
+    "L6"
+  ],
+  "summary": "Parallel guardrails now halt automation unless session receipts and active claims are in place",
+  "signals": "tools/autonomy/auto_loop.py, tools/autonomy/scan_driver.py, docs/automation/autonomy-consent.json",
+  "actions": "Added parallel_guard module, wired auto_loop/scan_driver to enforce severity, documented policy knobs, added regression tests",
+  "tags": [
+    "parallel",
+    "automation"
+  ],
+  "plan_suggestion": "2025-10-05-agent-collision-guard",
+  "notes": "Most friction came from propagating agent context through legacy CLIs; adding a single helper for resolve+detect simplified future call sites.",
+  "receipt": "memory/reflections/reflection-20251005T190128Z.json"
+}

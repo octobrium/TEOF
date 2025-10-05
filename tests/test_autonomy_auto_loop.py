@@ -56,14 +56,39 @@ def consent_policy(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     monkeypatch.setattr(auto_loop, "PID_FILE", log_dir / "auto-loop.pid")
     monkeypatch.setattr(auto_loop, "TODO_PATH", todo)
     monkeypatch.setattr(auto_loop.backlog_synth, "synthesise", lambda: {"added": []})
+    monkeypatch.setattr(auto_loop.session_guard, "resolve_agent_id", lambda explicit=None: "codex-test")
+    monkeypatch.setattr(auto_loop.session_guard, "ensure_recent_session", lambda *a, **k: None)
+
+    base_report = auto_loop.parallel_guard.ParallelReport(
+        agent_id="codex-test",
+        severity="none",
+        generated_at="2025-10-05T00:00:00Z",
+        config={},
+    )
+    base_report.requirements = {
+        "session_boot": False,
+        "plan_claim": False,
+        "post_run_scan": False,
+    }
+    monkeypatch.setattr(
+        auto_loop.parallel_guard,
+        "detect_parallel_state",
+        lambda agent_id, *, now=None: base_report,
+    )
+    monkeypatch.setattr(
+        auto_loop.parallel_guard,
+        "write_parallel_receipt",
+        lambda agent_id, report: log_dir / "parallel.json",
+    )
+    monkeypatch.setattr(auto_loop.parallel_guard, "agent_has_active_claim", lambda agent_id, report=None: True)
     return tmp_path
 
 
 def test_run_loop_halts_when_no_pending(consent_policy: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     runs = []
 
-    def fake_invoke(*, allow_apply: bool, skip_synth: bool):
-        runs.append((allow_apply, skip_synth))
+    def fake_invoke(*, allow_apply: bool, skip_synth: bool, agent_id: str | None):
+        runs.append((allow_apply, skip_synth, agent_id))
         return 0, {}
 
     monkeypatch.setattr(auto_loop, "_invoke_next_step", fake_invoke)
@@ -75,7 +100,7 @@ def test_run_loop_halts_when_no_pending(consent_policy: Path, monkeypatch: pytes
         max_idle=1,
         max_runtime=None,
     )
-    assert runs == [(True, True)]
+    assert runs == [(True, True, None)]
 
 
 def test_background_start_creates_pid(consent_policy: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -130,7 +155,7 @@ def test_status_and_stop(consent_policy: Path, monkeypatch: pytest.MonkeyPatch) 
 def test_watch_mode_retries(consent_policy: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     responses = [0, 1]
 
-    def fake_invoke(*, allow_apply: bool, skip_synth: bool):
+    def fake_invoke(*, allow_apply: bool, skip_synth: bool, agent_id: str | None):
         result = responses.pop(0)
         if result:
             return 1, {"runs": [{"id": "ND-999", "status": "done"}]}
@@ -148,6 +173,50 @@ def test_watch_mode_retries(consent_policy: Path, monkeypatch: pytest.MonkeyPatc
     assert not responses
     todo = json.loads(auto_loop.TODO_PATH.read_text(encoding="utf-8"))
     assert any(item.get("status") == "pending" for item in todo.get("items", []))
+
+
+def test_parallel_guard_halts_loop(consent_policy: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    receipts: list[dict[str, object]] = []
+
+    def detect(agent_id, *, now=None):
+        report = auto_loop.parallel_guard.ParallelReport(
+            agent_id=agent_id,
+            severity="hard",
+            generated_at="2025-10-05T01:02:03Z",
+            config={},
+        )
+        report.requirements = {
+            "session_boot": True,
+            "plan_claim": True,
+            "post_run_scan": True,
+        }
+        report.self_active_claims = []
+        return report
+
+    monkeypatch.setattr(auto_loop.parallel_guard, "detect_parallel_state", detect)
+    monkeypatch.setattr(auto_loop.parallel_guard, "write_parallel_receipt", lambda agent_id, report: auto_loop.LOG_DIR / "parallel-halt.json")
+    monkeypatch.setattr(auto_loop.parallel_guard, "agent_has_active_claim", lambda agent_id, report=None: False)
+
+    def record_event(report: auto_loop.parallel_guard.ParallelReport, *, reason: str, agent_id: str | None):
+        payload = report.to_payload()
+        payload["reason"] = reason
+        receipts.append(payload)
+        return auto_loop.LOG_DIR / "parallel-halt.json"
+
+    monkeypatch.setattr(auto_loop, "_record_parallel_event", record_event)
+    monkeypatch.setattr(auto_loop, "_invoke_next_step", lambda **_: pytest.fail("should not invoke next_step"))
+
+    auto_loop.run_loop(
+        sleep_seconds=0.0,
+        max_cycles=1,
+        skip_synth=True,
+        watch=False,
+        max_idle=0,
+        max_runtime=None,
+        agent_id="codex-test",
+    )
+
+    assert receipts and receipts[0]["severity"] == "hard"
 
 
 def test_main_writes_objectives_status(consent_policy: Path, monkeypatch: pytest.MonkeyPatch) -> None:

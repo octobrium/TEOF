@@ -118,3 +118,9 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse t
 - `_plans` `links` field: add `{ "type": "bus", "ref": "_bus/claims/QUEUE-001.json" }` for easy traceability.
 
 Following this playbook keeps parallel Codex sessions deterministic, auditable, and low-friction.
+
+## Parallel Mode Guardrails
+
+- `python -m tools.agent.session_boot` emits a parallel-state receipt under `_report/session/<agent>/parallel-state/` and prints the current severity (`none|soft|hard`). When severity is **HARD**, keep an active claim and plan receipt before editing and close the loop with `teof scan --summary`.
+- `python -m tools.autonomy.scan_driver` records the parallel payload in every history entry and requires a fresh session receipt when severity is **SOFT** or **HARD**, providing evidence that the post-run scan requirement was satisfied.
+- External automation should check `tools.agent.parallel_guard.detect_parallel_state` before executing unattended work and pause when `severity == "hard"` unless the operator passes an explicit override receipt.

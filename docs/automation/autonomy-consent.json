@@ -6,5 +6,12 @@
   "continuous": true,
   "halt_on_attention_feeds": true,
   "halt_on_ci_failure": true,
+  "parallel": {
+    "hard_window_seconds": 900,
+    "soft_window_seconds": 1800,
+    "stale_window_seconds": 3600,
+    "require_plan_claim": true,
+    "require_scan_receipt": true
+  },
   "notes": "Auto-proceed enabled; loop runs up to max_iterations unless guardrails trip."
 }

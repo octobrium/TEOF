@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Iterable, Mapping, MutableMapping, Sequence
 
 from teof import bootloader
+from tools.agent import parallel_guard, session_guard
 from tools.autonomy.shared import load_json, utc_timestamp
 
 
@@ -150,6 +151,13 @@ def _write_history(path: Path, entry: Mapping[str, object]) -> None:
         handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
 
+def _resolve_agent_id(agent: str | None) -> str | None:
+    try:
+        return session_guard.resolve_agent_id(agent)
+    except SystemExit:
+        return None
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=10, help="Frontier entry limit (default: 10)")
@@ -163,6 +171,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--history", type=Path, help="Override scan history path")
     parser.add_argument("--policy", type=Path, help="Override scan policy path")
     parser.add_argument("--dry-run", action="store_true", help="Print planned execution without running `teof scan`")
+    parser.add_argument("--agent", help="Agent id for guard enforcement (defaults to AGENT_MANIFEST.json)")
     return parser.parse_args(argv)
 
 
@@ -174,6 +183,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 2
 
     policy = load_policy(args.policy if args.policy is not None else DEFAULT_POLICY_PATH)
+
+    agent_id = _resolve_agent_id(args.agent)
+    parallel_report = parallel_guard.detect_parallel_state(agent_id)
+    print(parallel_guard.format_summary(parallel_report))
+    if agent_id and parallel_report.requirements.get("session_boot"):
+        try:
+            session_guard.ensure_recent_session(agent_id, context="scan_driver")
+        except SystemExit as exc:
+            print(f"::error:: {exc}")
+            return 3
+    if agent_id and parallel_report.severity == "hard":
+        parallel_guard.write_parallel_receipt(agent_id, parallel_report)
 
     history_path = args.history if args.history is not None else HISTORY_PATH
     previous_entry = _read_last_history(history_path)
@@ -202,6 +223,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "inputs": current_inputs,
             "dry_run": bool(args.dry_run),
             "exit_code": 0,
+            "parallel": parallel_report.to_payload(),
         }
         _write_history(history_path, history_entry)
         return 0
@@ -223,6 +245,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "inputs": current_inputs,
             "dry_run": True,
             "exit_code": 0,
+            "parallel": parallel_report.to_payload(),
         }
         _write_history(history_path, history_entry)
         return 0
@@ -259,6 +282,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "emit_plan": bool(args.emit_plan),
         "out": str(args.out) if args.out else None,
         "limit": max(0, args.limit),
+        "parallel": parallel_report.to_payload(),
     }
     _write_history(history_path, history_entry)
 

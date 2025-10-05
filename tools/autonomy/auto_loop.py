@@ -21,6 +21,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
+from tools.agent import parallel_guard, session_guard
 from tools.autonomy import backlog_synth, objectives_status
 from tools.autonomy.shared import load_json
 
@@ -45,7 +46,35 @@ def _load_policy(path: Path = CONSENT_PATH) -> Mapping[str, Any]:
         return {}
 
 
-def _invoke_next_step(*, allow_apply: bool, skip_synth: bool) -> tuple[int, Mapping[str, Any]]:
+def _resolve_agent_id(agent: str | None) -> str | None:
+    try:
+        return session_guard.resolve_agent_id(agent)
+    except SystemExit:
+        return None
+
+
+def _record_parallel_event(
+    report: parallel_guard.ParallelReport,
+    *,
+    reason: str,
+    agent_id: str | None,
+) -> Path:
+    payload = report.to_payload()
+    payload["reason"] = reason
+    payload["recorded_at"] = _iso_now()
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    safe_ts = report.generated_at.replace(":", "").replace("-", "")
+    receipt = LOG_DIR / f"parallel-{reason}-{safe_ts}.json"
+    receipt.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if agent_id:
+        try:
+            parallel_guard.write_parallel_receipt(agent_id, report)
+        except OSError:
+            pass
+    return receipt
+
+
+def _invoke_next_step(*, allow_apply: bool, skip_synth: bool, agent_id: str | None) -> tuple[int, Mapping[str, Any]]:
     cmd = [
         sys.executable,
         "-m",
@@ -57,6 +86,8 @@ def _invoke_next_step(*, allow_apply: bool, skip_synth: bool) -> tuple[int, Mapp
         cmd.append("--apply")
     if skip_synth:
         cmd.append("--skip-synth")
+    if agent_id:
+        cmd.extend(["--agent", agent_id])
 
     result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     if result.returncode != 0:
@@ -166,6 +197,7 @@ def run_loop(
     watch: bool,
     max_idle: int,
     max_runtime: float | None,
+    agent_id: str | None = None,
 ) -> None:
     policy = _load_policy()
     if not policy.get("auto_enabled", False):
@@ -184,6 +216,30 @@ def run_loop(
     start_time = time.monotonic()
 
     while True:
+        parallel_report = parallel_guard.detect_parallel_state(agent_id)
+        if agent_id and parallel_report.requirements.get("session_boot"):
+            try:
+                session_guard.ensure_recent_session(agent_id, context="auto_loop")
+            except SystemExit as exc:
+                _log(f"auto-loop: session guard failed ({exc}); halting")
+                receipt = _record_parallel_event(parallel_report, reason="session_guard", agent_id=agent_id)
+                _log(f"auto-loop: parallel receipt → {receipt.relative_to(ROOT)}")
+                break
+        if parallel_report.severity == "hard":
+            if agent_id and not parallel_guard.agent_has_active_claim(agent_id, parallel_report):
+                _log("auto-loop: parallel guard severity=HARD; no active claim for this agent — halting")
+                reason = "halt_no_claim"
+            else:
+                _log("auto-loop: parallel guard severity=HARD; pausing automation")
+                reason = "halt"
+            receipt = _record_parallel_event(parallel_report, reason=reason, agent_id=agent_id)
+            _log(f"auto-loop: parallel receipt → {receipt.relative_to(ROOT)}")
+            break
+        if parallel_report.severity == "soft":
+            _log("auto-loop: parallel guard severity=SOFT; continuing with caution")
+        elif parallel_report.severity == "stale":
+            _log("auto-loop: parallel signals stale; monitoring")
+
         if max_cycles is not None and cycles >= max_cycles:
             break
 
@@ -193,7 +249,9 @@ def run_loop(
 
         try:
             processed, payload = _invoke_next_step(
-                allow_apply=allow_apply, skip_synth=skip_synth
+                allow_apply=allow_apply,
+                skip_synth=skip_synth,
+                agent_id=agent_id,
             )
         except RuntimeError as exc:
             _log(f"auto-loop error: {exc}")
@@ -295,6 +353,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="Optional maximum runtime in seconds",
     )
     parser.add_argument(
+        "--agent",
+        help="Agent id for guardrails (defaults to AGENT_MANIFEST.json when available)",
+    )
+    parser.add_argument(
         "--stop",
         action="store_true",
         help="Terminate the background auto-loop if it is running",
@@ -384,6 +446,8 @@ def main(argv: list[str] | None = None) -> int:
         cmd += ["--max-idle", str(args.max_idle)]
         if args.max_runtime is not None:
             cmd += ["--max-runtime", str(args.max_runtime)]
+        if args.agent:
+            cmd += ["--agent", args.agent]
 
         log_handle = LOG_FILE.open("a", encoding="utf-8")
         try:
@@ -408,6 +472,7 @@ def main(argv: list[str] | None = None) -> int:
         atexit.register(PID_FILE.unlink, missing_ok=True)
 
     try:
+        agent_id = _resolve_agent_id(args.agent)
         run_loop(
             sleep_seconds=args.sleep,
             max_cycles=args.max_cycles,
@@ -415,6 +480,7 @@ def main(argv: list[str] | None = None) -> int:
             watch=args.watch,
             max_idle=args.max_idle,
             max_runtime=args.max_runtime,
+            agent_id=agent_id,
         )
     except RuntimeError as exc:
         print(f"auto-loop fatal: {exc}", file=sys.stderr)
@@ -423,11 +489,11 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
-if __name__ == "__main__":
-    raise SystemExit(main())
-
-
 def _write_objectives_status(window_days: float = 7.0) -> None:
     status = objectives_status.compute_status(window_days=window_days)
     OBJECTIVES_STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
     OBJECTIVES_STATUS_PATH.write_text(json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
