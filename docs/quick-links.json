@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "updated": "2025-09-27",
+  "version": 4,
+  "updated": "2025-10-05",
   "links": [
     {
       "id": "agents-claim-seeding",
@@ -171,11 +171,27 @@
       "category": "coordination"
     },
     {
+      "id": "session-guard",
+      "title": "Session Guard",
+      "summary": "Enforces fresh session_boot receipts before bus writes; learn override policy.",
+      "path": "docs/automation/session-guard.md",
+      "anchor": "#session-guard",
+      "category": "coordination"
+    },
+    {
       "id": "onboarding-first-session",
       "title": "First Session Checklist",
       "summary": "Seat-up instructions for pairing the repo checkout with governance rails on day one.",
       "path": ".github/AGENT_ONBOARDING.md",
       "anchor": "#first-session-checklist",
+      "category": "onboarding"
+    },
+    {
+      "id": "onboarding-landing",
+      "title": "Onboarding Landing",
+      "summary": "Single-screen orientation linking quickstart, claims, and receipts helpers.",
+      "path": "docs/onboarding/README.md",
+      "anchor": "#first-hour-path",
       "category": "onboarding"
     },
     {
@@ -209,6 +225,14 @@
       "path": "_plans/README.md",
       "anchor": "#file-format-v0",
       "category": "tooling"
+    },
+    {
+      "id": "quickstart-reference",
+      "title": "Quick Reference",
+      "summary": "Curated list of canonical doc anchors and automation commands.",
+      "path": "docs/reference/quick-reference.md",
+      "anchor": "#foundations",
+      "category": "quickstart"
     },
     {
       "id": "quickstart-agents-bootstrap",

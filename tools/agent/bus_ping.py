@@ -5,7 +5,13 @@ from __future__ import annotations
 import argparse
 from typing import Iterable
 
-from tools.agent import bus_event, bus_message
+from tools.agent import bus_event, bus_message, session_guard
+
+
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 
 
 DEFAULT_EVENT = "status"
@@ -119,6 +125,16 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Skip posting the optional bus_message even if --message-task is supplied",
     )
+    parser.add_argument(
+        "--allow-stale-session",
+        action="store_true",
+        help="Bypass session freshness guard (logs override receipt)",
+    )
+    parser.add_argument(
+        "--session-max-age",
+        type=int,
+        help="Override session freshness limit in seconds (default: env TEOF_SESSION_MAX_AGE or 3600)",
+    )
     return parser
 
 
@@ -126,16 +142,20 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
 
-    agent_id = args.agent or bus_event._default_agent()  # type: ignore[attr-defined]
-    if not agent_id:
-        raise SystemExit("agent id required (supply --agent or populate AGENT_MANIFEST.json)")
+    agent_id = session_guard.resolve_agent_id(args.agent, manifest_path=MANIFEST_PATH)
+    session_guard.ensure_recent_session(
+        agent_id,
+        allow_stale=args.allow_stale_session,
+        max_age_seconds=args.session_max_age,
+        context="bus_ping",
+    )
 
     summary = _ensure_prefix(agent_id, args.summary or "heartbeat")
 
     if not args.skip_event:
         event_argv = _build_event_args(
             summary=summary,
-            agent=args.agent,
+            agent=agent_id,
             event=args.event,
             task=args.task,
             plan=args.plan,
@@ -143,6 +163,10 @@ def main(argv: list[str] | None = None) -> int:
             pr=args.pr,
             receipt=args.event_receipt,
         )
+        if args.allow_stale_session:
+            event_argv += ["--allow-stale-session"]
+        if args.session_max_age is not None:
+            event_argv += ["--session-max-age", str(args.session_max_age)]
         rc = bus_event.main(event_argv)
         if rc != 0:
             return rc
@@ -152,11 +176,15 @@ def main(argv: list[str] | None = None) -> int:
             task=args.message_task,
             msg_type=args.message_type,
             summary=summary,
-            agent=args.agent,
+            agent=agent_id,
             note=args.note,
             receipts=args.message_receipt,
             meta=args.message_meta,
         )
+        if args.allow_stale_session:
+            message_argv += ["--allow-stale-session"]
+        if args.session_max_age is not None:
+            message_argv += ["--session-max-age", str(args.session_max_age)]
         rc = bus_message.main(message_argv)
         if rc != 0:
             return rc

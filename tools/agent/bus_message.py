@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, Mapping, Optional
 
 from tools.agent.claim_guard import ensure_claim_owner
+from tools.agent import session_guard
 from tools.usage.logger import record_usage
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -23,19 +24,6 @@ GUARDED_MESSAGE_TYPES = {"status", "note", "request", "summary", "consensus", "p
 
 def _iso_now() -> str:
     return datetime.now(timezone.utc).strftime(ISO_FMT)
-
-
-def _default_agent() -> str | None:
-    if not MANIFEST_PATH.exists():
-        return None
-    try:
-        data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return None
-    agent_id = data.get("agent_id")
-    if isinstance(agent_id, str) and agent_id.strip():
-        return agent_id.strip()
-    return None
 
 
 def _parse_meta(values: Iterable[str] | None) -> Dict[str, Any]:
@@ -60,23 +48,6 @@ def _append_message(path: Path, payload: Mapping[str, Any]) -> Path:
     return path
 
 
-def _resolve_agent(explicit: Optional[str]) -> str:
-    manifest_agent = _default_agent()
-    if explicit is not None:
-        agent_id = explicit.strip()
-        if not agent_id:
-            raise SystemExit("agent id required; use --agent or populate AGENT_MANIFEST.json")
-        if manifest_agent and agent_id != manifest_agent:
-            raise SystemExit(
-                "agent mismatch: manifest has"
-                f" '{manifest_agent}' but --agent='{agent_id}'. Run session_boot or update the manifest before posting."
-            )
-        return agent_id
-    if manifest_agent:
-        return manifest_agent
-    raise SystemExit("agent id required; use --agent or populate AGENT_MANIFEST.json")
-
-
 def log_message(
     *,
     task_id: str,
@@ -89,8 +60,17 @@ def log_message(
     meta: Optional[Mapping[str, Any]] = None,
     note: Optional[str] = None,
     timestamp: Optional[str] = None,
+    allow_stale_session: bool = False,
+    session_max_age: Optional[int] = None,
+    context: str = "bus_message",
 ) -> Path:
-    agent_id = _resolve_agent(agent_id)
+    agent_id = session_guard.resolve_agent_id(agent_id, manifest_path=MANIFEST_PATH)
+    session_guard.ensure_recent_session(
+        agent_id,
+        allow_stale=allow_stale_session,
+        max_age_seconds=session_max_age,
+        context=context,
+    )
 
     if task_id and msg_type in GUARDED_MESSAGE_TYPES:
         ensure_claim_owner(
@@ -144,6 +124,16 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--receipt", action="append", help="Receipt path to attach (repeatable)")
     parser.add_argument("--meta", action="append", help="Additional key=value metadata (repeatable)")
     parser.add_argument("--note", help="Optional note to include in the message")
+    parser.add_argument(
+        "--allow-stale-session",
+        action="store_true",
+        help="Bypass session freshness guard (logs override receipt)",
+    )
+    parser.add_argument(
+        "--session-max-age",
+        type=int,
+        help="Override session freshness limit in seconds (default: env TEOF_SESSION_MAX_AGE or 3600)",
+    )
     return parser
 
 
@@ -161,6 +151,8 @@ def main(argv: list[str] | None = None) -> int:
         receipts=args.receipt,
         meta=meta,
         note=args.note,
+        allow_stale_session=args.allow_stale_session,
+        session_max_age=args.session_max_age,
     )
     try:
         display_path = path.relative_to(ROOT)

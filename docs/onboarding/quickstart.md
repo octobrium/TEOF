@@ -1,5 +1,9 @@
 # TEOF Quickstart (10-minute path)
 
+> Looking for the full onboarding map? Start with
+> `docs/onboarding/README.md` and return here when you need the
+> step-by-step quickstart receipts.
+
 ## One-command bootstrap
 
 Run `bin/teof-up` from the repository root to:
@@ -41,4 +45,3 @@ After the run you'll find:
 Once the onboarding workflow is wired into CI, failures in the quickstart step
 will surface as build failures and the objectives status (O3/O5) will flag the
 issue automatically.
-

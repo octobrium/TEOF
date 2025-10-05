@@ -22,6 +22,8 @@ def _configure_paths(tmp_path, monkeypatch):
     monkeypatch.setattr(bus_ping.bus_message, "AGENT_REPORT_DIR", report_dir)
     monkeypatch.setattr(bus_ping.bus_message, "MANIFEST_PATH", tmp_path / "manifest.json")
 
+    monkeypatch.setattr(bus_ping, "MANIFEST_PATH", tmp_path / "manifest.json")
+
     events_dir.mkdir(parents=True, exist_ok=True)
     messages_dir.mkdir(parents=True, exist_ok=True)
     claims_dir.mkdir(parents=True, exist_ok=True)

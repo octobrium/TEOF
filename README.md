@@ -13,6 +13,8 @@
 - [Plans](./_plans/README.md)
 - [Automation](docs/automation.md)
 - [Agent Onboarding](.github/AGENT_ONBOARDING.md)
+- [Onboarding Landing](docs/onboarding/README.md)
+- [Quick Reference](docs/reference/quick-reference.md)
 - [Parallel Codex Playbook](docs/parallel-codex.md)
 
 
@@ -27,6 +29,7 @@ TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agent
 > - Operator mode (LLM quick brief): [`docs/workflow.md#operator-mode-llm-quick-brief`](docs/workflow.md#operator-mode-llm-quick-brief)  
 > - Quickstart (one command → artifacts): [`docs/quickstart.md`](docs/quickstart.md)
 > - Guided onboarding (pip + receipts): [`docs/onboarding/quickstart.md`](docs/onboarding/quickstart.md)
+> - Single-screen landing (first hour + daily loop): [`docs/onboarding/README.md`](docs/onboarding/README.md)
 > - Commandments & Covenant (fast trust contract): [`docs/commandments.md`](docs/commandments.md)
 
 ---

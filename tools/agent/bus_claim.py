@@ -10,6 +10,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from tools.agent import session_guard
+
 ROOT = Path(__file__).resolve().parents[2]
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 ASSIGNMENTS_DIR = ROOT / "_bus" / "assignments"
@@ -49,19 +51,6 @@ VALID_STATUS = {"active", "paused", "released", "done"}
 
 def _iso_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-
-def _default_agent() -> str | None:
-    if not MANIFEST_PATH.exists():
-        return None
-    try:
-        data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return None
-    agent_id = data.get("agent_id")
-    if isinstance(agent_id, str) and agent_id.strip():
-        return agent_id.strip()
-    return None
 
 
 def _read_claim(path: Path) -> Claim | None:
@@ -117,9 +106,13 @@ def _require_assignment(task_id: str, engineer: str) -> None:
 
 
 def handle_claim(args: argparse.Namespace) -> None:
-    agent_id = args.agent or _default_agent()
-    if not agent_id:
-        raise SystemExit("agent id required (supply --agent or populate AGENT_MANIFEST.json)")
+    agent_id = session_guard.resolve_agent_id(args.agent, manifest_path=MANIFEST_PATH)
+    session_guard.ensure_recent_session(
+        agent_id,
+        allow_stale=getattr(args, "allow_stale_session", False),
+        max_age_seconds=getattr(args, "session_max_age", None),
+        context="bus_claim",
+    )
     if args.status not in VALID_STATUS:
         raise SystemExit(f"status must be one of {sorted(VALID_STATUS)}")
 
@@ -168,7 +161,13 @@ def handle_release(args: argparse.Namespace) -> None:
     claim = _read_claim(path)
     if not claim:
         raise SystemExit(f"no claim found for task {args.task}")
-    agent_id = args.agent or _default_agent() or claim.agent_id
+    agent_id = session_guard.resolve_agent_id(args.agent or claim.agent_id, manifest_path=MANIFEST_PATH)
+    session_guard.ensure_recent_session(
+        agent_id,
+        allow_stale=getattr(args, "allow_stale_session", False),
+        max_age_seconds=getattr(args, "session_max_age", None),
+        context="bus_claim_release",
+    )
     if claim.agent_id != agent_id:
         raise SystemExit(f"task {args.task} owned by {claim.agent_id}, not {agent_id}")
     status = args.status
@@ -203,6 +202,16 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Bypass assignment requirement (manager override)",
     )
+    claim.add_argument(
+        "--allow-stale-session",
+        action="store_true",
+        help="Bypass session freshness guard (logs override receipt)",
+    )
+    claim.add_argument(
+        "--session-max-age",
+        type=int,
+        help="Override session freshness limit in seconds (default: env TEOF_SESSION_MAX_AGE or 3600)",
+    )
     claim.set_defaults(func=handle_claim)
 
     release = sub.add_parser("release", help="Release a task claim")
@@ -210,6 +219,16 @@ def build_parser() -> argparse.ArgumentParser:
     release.add_argument("--status", default="done", help="New status (done/released/paused)")
     release.add_argument("--agent", help="Agent id (defaults to manifest)")
     release.add_argument("--notes", help="Optional notes to append")
+    release.add_argument(
+        "--allow-stale-session",
+        action="store_true",
+        help="Bypass session freshness guard (logs override receipt)",
+    )
+    release.add_argument(
+        "--session-max-age",
+        type=int,
+        help="Override session freshness limit in seconds (default: env TEOF_SESSION_MAX_AGE or 3600)",
+    )
     release.set_defaults(func=handle_release)
 
     return parser

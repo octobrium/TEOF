@@ -1,25 +1,49 @@
-# TEOF Quick Reference (Draft)
+# TEOF Quick Reference
 
-Use this sheet to answer common questions without re-scanning the entire corpus.
-Each entry points to authoritative documents.
+Use this sheet when you need citations fast. Each entry links to the canonical
+source so you can jump straight to the definitive rule or command.
 
-## Alignment Foundations
-- **Ethical Baseline:** `docs/foundation/alignment-protocol/tap.md#iii-service-to-the-observer`
+## Foundations
+- **Architecture map:** `docs/architecture.md`
+- **Workflow gate:** `docs/workflow.md#architecture-gate-before-writing-code`
+- **Receipts discipline:** `docs/workflow.md#dna-recursion-self-improvement-of-the-rules`
 - **Commandments:** `docs/commandments.md`
-- **Workflow order:** `docs/workflow.md#teof-master-workflow-minimal-v13`
+- **Alignment protocol (TAP):** `docs/foundation/alignment-protocol/tap.md`
 
-## Defensive Procedure
-- **Observation → escalation → receipts clause:** `docs/foundation/alignment-protocol/tap.md#iii-service-to-the-observer`
-- **Defensive logging:** `docs/commandments.md#defensive-exceptions`, `docs/workflow.md` (Defensive exception logging)
+## Coordination & Claims
+- **First session loop:** `.github/AGENT_ONBOARDING.md#communication-quickstart-manager-report-hub`
+- **Suggested ongoing loop:** `docs/parallel-codex.md#suggested-session-loop`
+- **Claim schema:** `_bus/README.md#claim-file-schema-_busclaimstask_idjson`
+- **Event logging:** `docs/parallel-codex.md#coordination-bus`
+- **Manager dashboard:** `docs/parallel-codex.md#coordination-dashboard`
 
-## Automation Helpers
-- Onboarding: `bin/teof-up`
-- Scenario logging: `python3 -m tools.ethics.log_scenario`
-- Receipts status: `python3 -m tools.receipts.main status`
+## Plans, Receipts, Memory
+- **Plan schema:** `_plans/README.md#file-format-v0`
+- **Scaffold helpers:** `docs/automation.md#receipts-index`
+- **Receipts hygiene bundle:** `docs/automation.md#receipts-hygiene-bundle`
+- **Memory usage:** `memory/README.md`
 
-## Philosophy Guidance
-- **Meaning/purpose:** `docs/foundation/alignment-protocol/tap.md#meaning`, `docs/whitepaper.md#purpose`
-- **Other minds / trust:** `docs/foundation/alignment-protocol/tap.md#observer`, `docs/workflow.md#observation-primacy`
-- **Prompt module:** `python3 -m tools.prompts.philosophy "<question>"` → writes `_report/usage/prompts/philosophy-<UTC>.md`
+## Automation Commands
+| Action | Command | Source |
+| --- | --- | --- |
+| Seat manifest | `python -m tools.agent.manifest_helper activate <id>` | `docs/agents.md#files-to-know` |
+| Session boot | `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status` | `.github/AGENT_ONBOARDING.md#communication-quickstart-manager-report-hub` |
+| Claim task | `python -m tools.agent.bus_claim claim --task <task> --plan <plan>` | `docs/parallel-codex.md#coordination-bus` |
+| Emit heartbeat | `python -m tools.agent.bus_event log --event status --task <task> --summary "..."` | `docs/parallel-codex.md#coordination-bus` |
+| Quickstart run | `bin/teof-up` | `docs/onboarding/quickstart.md` |
+| Preflight | `tools/agent/preflight.sh` | `.github/AGENT_ONBOARDING.md#operating-rhythm` |
+| Reference search | `python -m tools.reference.lookup <topic>` | `docs/reference/quick-reference.md` |
 
-Add new rows as the philosophical alignment plan delivers richer mappings.
+## Philosophy & Prompts
+- **Meaning & purpose passages:** `docs/foundation/alignment-protocol/tap.md#meaning`, `docs/whitepaper.md#purpose`
+- **Trust / observer framing:** `docs/foundation/alignment-protocol/tap.md#observer`, `docs/workflow.md#observation-primacy`
+- **Prompt helper:** `python -m tools.prompts.philosophy "<question>"` (emits `_report/usage/prompts/` receipts)
+
+## Related Helpers
+- **Onboarding landing:** `docs/onboarding/README.md`
+- **Agent discipline:** `docs/agents.md`
+- **Quick links manifest:** `docs/quick-links.md`
+- **Doc links CLI:** `python -m tools.agent.doc_links list --category onboarding`
+
+Run `python -m tools.reference.lookup` with keywords (for example `lookup quickstart`)
+when you need the matching lines from this sheet inside the terminal.

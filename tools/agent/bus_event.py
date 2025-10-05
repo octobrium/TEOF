@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Dict
 
 from tools.agent.claim_guard import ensure_claim_owner
+from tools.agent import session_guard
 
 ROOT = Path(__file__).resolve().parents[2]
 EVENT_LOG = ROOT / "_bus" / "events" / "events.jsonl"
@@ -24,19 +25,6 @@ SEVERITY_LEVELS = {"low", "medium", "high"}
 
 def _iso_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-
-def _default_agent() -> str | None:
-    if not MANIFEST_PATH.exists():
-        return None
-    try:
-        data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return None
-    agent_id = data.get("agent_id")
-    if isinstance(agent_id, str) and agent_id.strip():
-        return agent_id.strip()
-    return None
 
 
 def _append_event(payload: dict[str, Any]) -> None:
@@ -58,9 +46,13 @@ def _parse_kv_pairs(pairs: list[str] | None, *, context: str) -> Dict[str, str]:
 
 
 def handle_log(args: argparse.Namespace) -> None:
-    agent_id = args.agent or _default_agent()
-    if not agent_id:
-        raise SystemExit("agent id required (supply --agent or populate AGENT_MANIFEST.json)")
+    agent_id = session_guard.resolve_agent_id(args.agent, manifest_path=MANIFEST_PATH)
+    session_guard.ensure_recent_session(
+        agent_id,
+        allow_stale=getattr(args, "allow_stale_session", False),
+        max_age_seconds=getattr(args, "session_max_age", None),
+        context="bus_event",
+    )
 
     payload: dict[str, Any] = {
         "ts": _iso_now(),
@@ -157,6 +149,16 @@ def build_parser() -> argparse.ArgumentParser:
     )
     log.add_argument("--agent", help="Agent id (defaults to manifest)")
     log.add_argument("--extra", nargs="*", help="Additional key=value pairs")
+    log.add_argument(
+        "--allow-stale-session",
+        action="store_true",
+        help="Bypass session freshness guard (logs override receipt)",
+    )
+    log.add_argument(
+        "--session-max-age",
+        type=int,
+        help="Override session freshness limit in seconds (default: env TEOF_SESSION_MAX_AGE or 3600)",
+    )
     log.set_defaults(func=handle_log)
 
     return parser

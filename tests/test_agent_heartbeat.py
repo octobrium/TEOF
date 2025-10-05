@@ -11,6 +11,9 @@ def test_emit_status_writes_event(tmp_path, monkeypatch):
     monkeypatch.setattr(bus_event, "AGENT_REPORT_DIR", report_dir)
     monkeypatch.setattr(bus_event, "CLAIMS_DIR", tmp_path / "claims")
     monkeypatch.setattr(bus_event, "ROOT", tmp_path)
+    manifest_path = tmp_path / "AGENT_MANIFEST.json"
+    manifest_path.write_text(json.dumps({"agent_id": "codex-2"}), encoding="utf-8")
+    monkeypatch.setattr(bus_event, "MANIFEST_PATH", manifest_path)
 
     payload = heartbeat.emit_status(
         "codex-2",
@@ -35,6 +38,9 @@ def test_emit_status_dry_run_prints_payload(tmp_path, capsys, monkeypatch):
     # Ensure no event file is touched when dry_run=True
     event_log = tmp_path / "events.jsonl"
     monkeypatch.setattr(bus_event, "EVENT_LOG", event_log)
+    manifest_path = tmp_path / "AGENT_MANIFEST.json"
+    manifest_path.write_text(json.dumps({"agent_id": "codex-2"}), encoding="utf-8")
+    monkeypatch.setattr(bus_event, "MANIFEST_PATH", manifest_path)
 
     payload = heartbeat.emit_status(
         "codex-2",

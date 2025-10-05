@@ -1,0 +1,9 @@
+{
+  "plan_id": "2025-10-05-agent-collision-guard",
+  "captured_at": "2025-10-05T17:56:30Z",
+  "summary": "Reviewed existing bus_* commands; confirmed manifest checks existed without session freshness guard prior to enforcement.",
+  "findings": [
+    "bus_claim, bus_event, bus_message, and bus_ping only enforced claim ownership and manifest matching",
+    "No automation recorded stale session receipts; onboarding docs lacked guard instructions"
+  ]
+}

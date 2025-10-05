@@ -162,7 +162,14 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
-def auto_claim(task_id: str, engineer: str, plan_id: str | None, branch: str | None) -> None:
+def auto_claim(
+    task_id: str,
+    engineer: str,
+    plan_id: str | None,
+    branch: str | None,
+    *,
+    manifest_agent: str | None,
+) -> None:
     """Create a claim entry for the assigned engineer."""
 
     claim_args = [
@@ -180,10 +187,27 @@ def auto_claim(task_id: str, engineer: str, plan_id: str | None, branch: str | N
     # Ensure bus_claim writes into the same claims directory during tests.
     bus_claim.CLAIMS_DIR = CLAIMS_DIR
 
+    original_manifest_path = bus_claim.MANIFEST_PATH
+    temp_manifest_path: Path | None = None
     try:
+        if manifest_agent and manifest_agent != engineer:
+            tmp_file = tempfile.NamedTemporaryFile("w", encoding="utf-8", delete=False)
+            try:
+                json.dump({"agent_id": engineer}, tmp_file)
+            finally:
+                tmp_file.close()
+            temp_manifest_path = Path(tmp_file.name)
+            bus_claim.MANIFEST_PATH = temp_manifest_path
         rc = bus_claim.main(claim_args)
     except SystemExit as exc:  # pragma: no cover - passthrough for bus_claim errors
         raise SystemExit(f"auto-claim failed for {task_id}: {exc}") from exc
+    finally:
+        bus_claim.MANIFEST_PATH = original_manifest_path
+        if temp_manifest_path is not None:
+            try:
+                temp_manifest_path.unlink()
+            except FileNotFoundError:
+                pass
     if rc != 0:
         raise SystemExit(f"auto-claim failed for {task_id}; exit code {rc}")
 
@@ -198,7 +222,13 @@ def main(argv: list[str] | None = None) -> int:
     update_tasks(args.task, args.engineer, args.plan, args.branch, manager)
 
     if args.auto_claim:
-        auto_claim(args.task, args.engineer, args.plan, args.branch)
+        auto_claim(
+            args.task,
+            args.engineer,
+            args.plan,
+            args.branch,
+            manifest_agent=manifest_agent,
+        )
 
     scaffold_message: str | None = None
     if args.scaffold:

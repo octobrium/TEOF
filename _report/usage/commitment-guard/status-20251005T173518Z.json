@@ -1,0 +1,36 @@
+{
+  "plan_id": "2025-10-05-commitment-guard",
+  "run_at": "2025-10-05T17:35:18Z",
+  "summary": "commitment_guard scan reviewed; all detections mapped to existing plans or completed automation, leaving no untracked commitments.",
+  "matches": [
+    {
+      "path": "_bus/messages/manager-report.jsonl",
+      "line": 125,
+      "excerpt": "{\"ts\": \"2025-09-20T04:33:34Z\", \"from\": \"codex-4\", \"type\": \"status\", \"task_id\": \"manager-report\", \"summary\": \"codex-4: Consensus on comm-onboarding fixes\", \"note\": \"Reviewed proposals from codex-1/3. Consensus: (1) ship a Communication Quickstart box in .github/AGENT_ONBOARDING.md that names manager-report as the hub, walks manifest check \u2192 session_boot \u2192 bus_message \u2192 session_brief, and links docs/parallel-codex.md; (2) mirror the quickstart + a short session transcript into docs/agents.md and add a docs/parallel-codex.md command table with manifest reminder + standard '<agent-id>: \u2026' summary guidance; (3) add a doc_links alias (e.g. comm-mainline) so new seats jump straight to the hub instructions. Follow-up candidates (bus_ping helper, duplicate-audit guard) noted for later once these land.\"}",
+      "covered_by": [
+        "_plans/2025-09-20-bus-ping-helper.plan.json",
+        "_plans/2025-09-20-bus-guardrails-cleanup.plan.json"
+      ],
+      "notes": "Manager-report follow-up already tracked via bus_ping helper and guardrails cleanup plans; no additional commitments outstanding."
+    },
+    {
+      "path": "_report/usage/reflection-intake/reflection-20251005T041204Z.md",
+      "line": 13,
+      "excerpt": "2. Adopt a guardrail: whenever I mention future work or \u201cnext time,\u201d create an artifact (plan, TODO, or receipt) during the same session.",
+      "covered_by": [
+        "_plans/2025-10-05-commitment-guard.plan.json"
+      ],
+      "notes": "Reflection lines that triggered the commitment guard rollout; plan now satisfied and automation deployed."
+    },
+    {
+      "path": "_report/usage/reflection-intake/reflection-20251005T041204Z.md",
+      "line": 14,
+      "excerpt": "3. Propose automation: add a manager-report lint that flags phrases like \u201cnext time\u201d or \u201cmental note\u201d without accompanying artifacts.",
+      "covered_by": [
+        "_plans/2025-10-05-commitment-guard.plan.json"
+      ],
+      "notes": "Reflection lines that triggered the commitment guard rollout; plan now satisfied and automation deployed."
+    }
+  ],
+  "result": "clean"
+}

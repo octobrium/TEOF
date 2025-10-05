@@ -31,11 +31,14 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `batch-refinement-log` | Batch Refinement Log Summary | List recent batch receipts for audit and automation. | [docs/automation.md#batch-refinement-log-summary](docs/automation.md#batch-refinement-log-summary) |
 | `autonomy-status` | Autonomy Status Digest | Aggregate hygiene metrics and batch outcomes. | [docs/automation.md#autonomy-status-digest](docs/automation.md#autonomy-status-digest) |
 | `coordination-dashboard` | Coordination Dashboard | Run the aggregated snapshot CLI for plans, claims, and heartbeat alerts. | [docs/parallel-codex.md#coordination-dashboard](docs/parallel-codex.md#coordination-dashboard) |
+| `session-guard` | Session Guard | Enforces fresh session_boot receipts before bus writes; learn override policy. | [docs/automation/session-guard.md#session-guard](docs/automation/session-guard.md#session-guard) |
 | `onboarding-first-session` | First Session Checklist | Seat-up instructions for pairing the repo checkout with governance rails on day one. | [.github/AGENT_ONBOARDING.md#first-session-checklist](.github/AGENT_ONBOARDING.md#first-session-checklist) |
+| `onboarding-landing` | Onboarding Landing | Single-screen orientation linking quickstart, claims, and receipts helpers. | [docs/onboarding/README.md#first-hour-path](docs/onboarding/README.md#first-hour-path) |
 | `onboarding-rhythm` | Operating Rhythm | Daily cadence reminder covering receipts discipline, hooks, and preflight guardrails. | [.github/AGENT_ONBOARDING.md#operating-rhythm](.github/AGENT_ONBOARDING.md#operating-rhythm) |
 | `parallel-follow-ups` | Follow-up Logging | How to close manager follow-ups with mirrored bus events and receipts. | [docs/parallel-codex.md#follow-up-logging](docs/parallel-codex.md#follow-up-logging) |
 | `parallel-session-loop` | Suggested Session Loop | Canonical 13-step loop covering sync, bus traffic, planning, and release. | [docs/parallel-codex.md#suggested-session-loop](docs/parallel-codex.md#suggested-session-loop) |
 | `plans-schema` | Plan File Format (v0) | Planner contract describing required fields, receipts, and lifecycle. | [_plans/README.md#file-format-v0](_plans/README.md#file-format-v0) |
+| `quickstart-reference` | Quick Reference | Curated list of canonical doc anchors and automation commands. | [docs/reference/quick-reference.md#foundations](docs/reference/quick-reference.md#foundations) |
 | `quickstart-agents-bootstrap` | Agent Bootstrap | One-minute agent bootstrap snippet with install + teof brief. | [docs/agents.md#bootstrap-one-minute](docs/agents.md#bootstrap-one-minute) |
 | `quickstart-readme` | Quickstart (README) | Root README snippet: install locally then run `teof brief`. | [README.md#quickstart](README.md#quickstart) |
 | `quickstart-smoke` | Quickstart Smoke | Install locally then run `teof brief` to produce OCERS receipts under artifacts/ocers_out/ | [docs/quickstart.md#quickstart](docs/quickstart.md#quickstart) |
@@ -46,4 +49,4 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `evangelism-kit` | Narrative & Evangelism Kit | Story arcs, assets, and cadence backed by receipts. | [docs/evangelism/readme.md#narrative--evangelism-kit](docs/evangelism/readme.md#narrative--evangelism-kit) |
 | `receipts-dashboard` | Receipt Dashboard | Aggregate pass/fail view for attest receipts. | [docs/receipts/index.md#receipt-dashboard](docs/receipts/index.md#receipt-dashboard) |
 | `evangelism-log-event` | Evangelism Event Logger | CLI helper to log outreach receipts. | [docs/evangelism/readme.md#logging-outreach](docs/evangelism/readme.md#logging-outreach) |
-_Last updated: 2025-09-27
+_Last updated: 2025-10-05

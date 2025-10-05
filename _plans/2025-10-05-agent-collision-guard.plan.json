@@ -1,0 +1,61 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-05-agent-collision-guard",
+  "created": "2025-10-05T17:41:10Z",
+  "actor": "codex-4",
+  "summary": "Enforce session boot + agent identity before bus usage",
+  "ocers_target": "Coherence↑ Self-repair↑",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 3,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit current guardrails",
+      "status": "done",
+      "notes": "Catalogued existing bus guard expectations and handshake receipts",
+      "receipts": [
+        "docs/automation/session-guard.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement enforcement + tests",
+      "status": "done",
+      "notes": "Session guard enforces manifest alignment + freshness across bus_*; coverage via new tests",
+      "receipts": [
+        "tools/agent/session_guard.py",
+        "tools/agent/bus_message.py",
+        "tools/agent/bus_event.py",
+        "tools/agent/bus_claim.py",
+        "tools/agent/bus_ping.py",
+        "tools/agent/task_assign.py",
+        "tests/test_session_guard.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Update docs and receipts",
+      "status": "done",
+      "notes": "Documented guard usage + overrides and captured broadcast receipts",
+      "receipts": [
+        "docs/automation/session-guard.md",
+        "_bus/messages/manager-report.jsonl"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Session guard refuses anonymous or stale agents",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "docs/automation/session-guard.md",
+    "tools/agent/session_guard.py",
+    "tests/test_session_guard.py",
+    "_bus/messages/manager-report.jsonl"
+  ]
+}
