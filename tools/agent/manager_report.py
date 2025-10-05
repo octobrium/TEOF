@@ -12,6 +12,7 @@ from typing import Any
 from statistics import median
 
 from tools import reconcile_metrics_summary as metrics_summary
+from tools.autonomy import commitment_guard
 from tools.planner import queue_warnings as planner_queue_warnings
 from tools.planner.validate import validate_plan
 
@@ -145,6 +146,7 @@ def collect_direction_metrics(
     base: Path,
     reconciliation: dict[str, Any] | None,
     authenticity: dict[str, Any] | None,
+    commitment_matches: list[dict[str, Any]] | None,
 ) -> dict[str, dict[str, Any]]:
     metrics: dict[str, dict[str, Any]] = {}
 
@@ -254,6 +256,12 @@ def collect_direction_metrics(
     return metrics
 
 
+def collect_commitment_flags() -> list[dict[str, Any]]:
+    phrases = [phrase.lower() for phrase in commitment_guard.DEFAULT_PHRASES]
+    paths = commitment_guard.default_paths()
+    return commitment_guard.scan(paths, phrases)
+
+
 def append_direction_log(
     metrics: dict[str, dict[str, Any]],
     manager_id: str,
@@ -283,6 +291,7 @@ def write_report(
     planner_warnings: list[dict[str, Any]] | None,
     plan_validation_issues: list[dict[str, Any]] | None = None,
     direction_metrics: dict[str, dict[str, Any]] | None = None,
+    commitment_matches: list[dict[str, Any]] | None = None,
 ) -> Path:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     report_path = REPORT_DIR / f"manager-report-{ts}.md"
@@ -603,7 +612,10 @@ def main(argv: list[str] | None = None) -> int:
         authenticity_data = None
     planner_warning_data = planner_queue_warnings.load_queue_warnings(ROOT)
     plan_validation_issues = collect_plan_validation_issues()
-    direction_metrics = collect_direction_metrics(ROOT, metrics_data, authenticity_data)
+    commitment_matches = collect_commitment_flags()
+    direction_metrics = collect_direction_metrics(
+        ROOT, metrics_data, authenticity_data, commitment_matches
+    )
 
     report_ts = iso_now()
     report_path = write_report(
@@ -617,6 +629,7 @@ def main(argv: list[str] | None = None) -> int:
         planner_warning_data,
         plan_validation_issues,
         direction_metrics,
+        commitment_matches=commitment_matches,
     )
     print(f"Manager report written to {report_path.relative_to(ROOT)}")
 

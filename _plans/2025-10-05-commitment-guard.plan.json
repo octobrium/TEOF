@@ -1,54 +1,52 @@
 {
-  "version": 0,
+  "version": 1,
   "plan_id": "2025-10-05-commitment-guard",
-  "created": "2025-10-05T04:35:00Z",
-  "actor": "codex-5",
-  "summary": "Ship commitment guard so every verbal promise lands as a receipt or plan",
-  "priority": 2,
+  "created": "2025-10-05T04:45:00Z",
+  "actor": "codex-manager",
+  "summary": "Automate detection of unbacked commitments and integrate into TTΔ/manager report",
+  "status": "in_progress",
   "layer": "L5",
   "systemic_scale": 4,
-  "impact_score": 5,
-  "status": "done",
+  "receipts": [
+    "tools/autonomy/commitment_guard.py",
+    "tools/agent/manager_report.py",
+    "docs/automation.md"
+  ],
   "steps": [
     {
-      "id": "S1",
-      "title": "Catalogue risky phrases and surfaces",
+      "id": "sg-commit-1",
+      "title": "Ship commitment_guard CLI + tests",
       "status": "done",
-      "notes": "DEFAULT_PHRASES in commitment_guard enumerates risk phrases; default_paths covers bus messages and reflections.",
-      "receipts": [
-        "tools/autonomy/commitment_guard.py"
-      ]
+      "receipts": ["tools/autonomy/commitment_guard.py", "tests/test_commitment_guard.py"]
     },
     {
-      "id": "S2",
-      "title": "Implement commitment guard CLI + tests",
+      "id": "sg-commit-2",
+      "title": "Document expectation in TTΔ guidance and clarifications",
       "status": "done",
-      "notes": "CLI shipped with regression coverage.",
-      "receipts": [
-        "tools/autonomy/commitment_guard.py",
-        "tests/test_commitment_guard.py"
-      ]
+      "receipts": ["docs/usage/direction-metrics.md", "docs/clarifications.md"]
     },
     {
-      "id": "S3",
-      "title": "Integrate guard into manager report + docs",
+      "id": "sg-commit-3",
+      "title": "Integrate commitment guard into manager report",
       "status": "done",
-      "notes": "Manager report surfaces matches and docs instruct operators to run the guard.",
-      "receipts": [
-        "tools/agent/manager_report.py",
-        "docs/usage/direction-metrics.md",
-        "docs/clarifications.md"
-      ]
+      "receipts": ["tools/agent/manager_report.py"]
+    },
+    {
+      "id": "sg-commit-4",
+      "title": "Ensure scan-driver policy drives guard execution",
+      "status": "done",
+      "receipts": ["docs/automation/scan-policy.json", "tools/autonomy/scan_driver.py"]
+    },
+    {
+      "id": "sg-commit-5",
+      "title": "Monitor guard results and close plan once clean",
+      "status": "in_progress"
     }
   ],
   "checkpoint": {
-    "description": "Commitment guard running automatically with TTΔ visibility",
-    "owner": "codex-5",
-    "status": "satisfied"
+    "status": "pending",
+    "owner": "codex-manager",
+    "description": "Confirm no unbacked commitments detected for 7 consecutive days"
   },
-  "links": [],
-  "receipts": [
-    "_report/usage/reflection-intake/reflection-20251005T041204Z.md"
-  ],
-  "ocers_target": "Observation↑ Integrity Gap↓ Self-repair↑"
+  "ocers_target": "Observation ↑ Coherence ↑ Ethics"
 }
