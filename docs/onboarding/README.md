@@ -11,15 +11,17 @@ needed for a productive first session and shows where to deepen later.
 2. **Seat your manifest** – copy `docs/examples/agents/AGENT_MANIFEST.example.json`
    (or another seat) to `AGENT_MANIFEST.json`, fill in your metadata, and keep it
    private. Reference: `docs/agents.md#files-to-know`.
-3. **Spin the quickstart** – follow the short run in
-   `docs/quickstart.md#quickstart`. Prefer `bin/teof-up` for the single command
-   path; fall back to the two-command sequence in `docs/onboarding/quickstart.md`
-   when you need to inspect each step.
-4. **Announce & claim** – run `python -m tools.agent.session_boot --agent <id>
+3. **Inspect the backlog** – open `_plans/next-development.todo.json` (or read
+   `docs/backlog.md`) and note the first pending item that fits your seat.
+4. **Spin the quickstart** – follow the short run in `docs/quickstart.md#quickstart`.
+   Prefer `bin/teof-up` for the single command path; fall back to the
+   two-command sequence in `docs/onboarding/quickstart.md` when you need to
+   inspect each step.
+5. **Announce & claim** – run `python -m tools.agent.session_boot --agent <id>
    --focus <role> --with-status`, then follow the coordination loop at
    `.github/AGENT_ONBOARDING.md#communication-quickstart-manager-report-hub` and
    `docs/parallel-codex.md#suggested-session-loop`.
-5. **Scaffold your plan** – duplicate `_plans/1970-01-01-agent-template.plan.json`
+6. **Scaffold your plan** – duplicate `_plans/1970-01-01-agent-template.plan.json`
    or run `teof-plan new <slug> --summary "..." --scaffold` so the receipts
    folder exists before edits.
 
@@ -27,6 +29,8 @@ needed for a productive first session and shows where to deepen later.
 - **Stay receipts-first:** `python -m tools.receipts.main status` shows missing
   artifacts; `python -m tools.agent.session_brief --preset operator` captures
   what the manager preflight checks expect.
+- **Work the backlog:** prioritize `_plans/next-development.todo.json`, keep
+  your plan steps in sync, and release claims cleanly at handoff.
 - **Guardrails before push:** `tools/agent/preflight.sh` mirrors the pre-push
   hook (`tools/hooks/install.sh`) and fails fast on missing plans, receipts, or
   bus tail evidence.

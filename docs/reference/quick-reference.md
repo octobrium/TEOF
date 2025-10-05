@@ -23,6 +23,11 @@ source so you can jump straight to the definitive rule or command.
 - **Receipts hygiene bundle:** `docs/automation.md#receipts-hygiene-bundle`
 - **Memory usage:** `memory/README.md`
 
+## Backlog & Queue
+- **Source of truth:** `docs/backlog.md`
+- **Next Development list:** `_plans/next-development.todo.json`
+- **Claim files:** `_bus/claims/`
+
 ## Automation Commands
 | Action | Command | Source |
 | --- | --- | --- |

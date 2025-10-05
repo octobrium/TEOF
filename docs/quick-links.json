@@ -179,6 +179,14 @@
       "category": "coordination"
     },
     {
+      "id": "backlog-source",
+      "title": "Backlog Source",
+      "summary": "Single source of truth for Next Development, plans, and claims.",
+      "path": "docs/backlog.md",
+      "anchor": "#backlog-source-of-truth",
+      "category": "backlog"
+    },
+    {
       "id": "onboarding-first-session",
       "title": "First Session Checklist",
       "summary": "Seat-up instructions for pairing the repo checkout with governance rails on day one.",
