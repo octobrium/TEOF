@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "plan_id": "2025-10-05-parallel-detection",
+  "created": "2025-10-05T18:45:00Z",
+  "actor": "codex-5",
+  "summary": "Harden parallel-agent guardrails across session, automation, and docs",
+  "status": "done",
+  "layer": "L6",
+  "systemic_scale": 10,
+  "links": [
+    {"type": "doc", "ref": "docs/parallel-codex.md"},
+    {"type": "doc", "ref": "docs/automation/autonomy-consent.json"}
+  ],
+  "receipts": [
+    "tools/agent/parallel_guard.py",
+    "tools/autonomy/next_step.py",
+    "tools/autonomy/auto_loop.py",
+    "tools/autonomy/scan_driver.py",
+    "tests/test_parallel_guard.py",
+    "tests/test_session_boot.py",
+    "tests/test_autonomy_next_step.py",
+    "tests/test_autonomy_auto_loop.py",
+    "tests/test_scan_driver.py"
+  ],
+  "steps": [
+    {
+      "id": "pd-1",
+      "title": "Design heuristics",
+      "status": "done",
+      "receipts": ["memory/reflections/reflection-20251005T183505Z.json"]
+    },
+    {
+      "id": "pd-2",
+      "title": "Wire interactive guard",
+      "status": "done",
+      "receipts": [
+        "tools/agent/parallel_guard.py",
+        "tools/agent/session_boot.py",
+        "tools/autonomy/next_step.py",
+        "tests/test_parallel_guard.py",
+        "tests/test_session_boot.py",
+        "tests/test_autonomy_next_step.py"
+      ]
+    },
+    {
+      "id": "pd-3",
+      "title": "Guard automation surfaces",
+      "status": "done",
+      "receipts": [
+        "tools/autonomy/auto_loop.py",
+        "tools/autonomy/scan_driver.py",
+        "docs/automation/autonomy-consent.json",
+        "tests/test_autonomy_auto_loop.py",
+        "tests/test_scan_driver.py"
+      ]
+    },
+    {
+      "id": "pd-4",
+      "title": "Document operator expectations",
+      "status": "done",
+      "receipts": ["docs/parallel-codex.md", "docs/automation.md"]
+    }
+  ],
+  "checkpoint": {
+    "status": "satisfied",
+    "owner": "codex-5",
+    "description": "Parallel guard reports show HARD state enforcement and docs instruct operators how to react",
+    "receipts": [
+      "memory/reflections/reflection-20251005T183505Z.json"
+    ]
+  },
+  "ocers_target": "Observation ↑ Coherence ↑ Self-repair"
+}
