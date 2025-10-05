@@ -1,9 +1,15 @@
 """Shared helpers for autonomy tooling."""
 from __future__ import annotations
 
+import hashlib
 import json
+import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
+
+
+_RECEIPT_TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 
 def load_json(path: Path) -> Any:
@@ -38,4 +44,90 @@ def normalise_scale(value: Any, layer: str, *, lower: int = 1, upper: int = 10) 
     return max(lower, min(upper, 4 + layer_num))
 
 
-__all__ = ["load_json", "normalise_layer", "normalise_scale"]
+def utc_timestamp() -> str:
+    """Return current UTC timestamp compatible with receipt payloads."""
+
+    return datetime.now(timezone.utc).strftime(_RECEIPT_TS_FORMAT)
+
+
+def git_commit(root: Path) -> str | None:
+    """Return short git commit hash for *root*, or ``None`` when unavailable."""
+
+    head = root / ".git" / "HEAD"
+    if not head.exists():
+        return None
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=root,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (FileNotFoundError, subprocess.SubprocessError, OSError):
+        return None
+    commit = result.stdout.strip()
+    return commit or None
+
+
+def count_lines(path: Path) -> int:
+    """Count text lines in *path*, returning ``0`` when missing or unreadable."""
+
+    count = 0
+    try:
+        with path.open(encoding="utf-8") as handle:
+            for count, _ in enumerate(handle, 1):
+                pass
+    except (FileNotFoundError, OSError):
+        return 0
+    return count
+
+
+def load_backlog_items(path: Path) -> list[dict[str, Any]]:
+    """Return backlog item dictionaries from *path* (empty list when missing)."""
+
+    data = load_json(path)
+    items = data.get("items") if isinstance(data, dict) else None
+    return [item for item in items if isinstance(item, dict)] if items else []
+
+
+def load_task_items(path: Path) -> list[dict[str, Any]]:
+    """Return task dictionaries from *path* (empty list when missing)."""
+
+    data = load_json(path)
+    tasks = data.get("tasks") if isinstance(data, dict) else None
+    return [task for task in tasks if isinstance(task, dict)] if tasks else []
+
+
+def load_state_facts(path: Path) -> list[dict[str, Any]]:
+    """Return fact dictionaries from *path* (empty list when missing)."""
+
+    data = load_json(path)
+    facts = data.get("facts") if isinstance(data, dict) else None
+    return [fact for fact in facts if isinstance(fact, dict)] if facts else []
+
+
+def write_receipt_payload(out_path: Path, payload: Mapping[str, Any]) -> Path:
+    """Persist *payload* as a receipt, appending ``receipt_sha256`` checksum."""
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    data = dict(payload)
+    base_json = json.dumps(data, ensure_ascii=False, indent=2)
+    checksum = hashlib.sha256(base_json.encode("utf-8")).hexdigest()
+    data["receipt_sha256"] = checksum
+    out_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return out_path
+
+
+__all__ = [
+    "load_json",
+    "normalise_layer",
+    "normalise_scale",
+    "utc_timestamp",
+    "git_commit",
+    "count_lines",
+    "load_backlog_items",
+    "load_task_items",
+    "load_state_facts",
+    "write_receipt_payload",
+]

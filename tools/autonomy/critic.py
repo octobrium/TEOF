@@ -1,38 +1,34 @@
-"""Critic/anomaly detection loop for backlog, tasks, and memory facts."""
+"""Critic/anomaly detection loop for backlog items and memory facts."""
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
 
-from tools.autonomy.shared import load_json, normalise_layer, normalise_scale
+from tools.autonomy.shared import (
+    count_lines,
+    git_commit,
+    load_backlog_items,
+    load_state_facts,
+    normalise_layer,
+    normalise_scale,
+    utc_timestamp,
+    write_receipt_payload,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 BACKLOG_PATH = ROOT / "_plans" / "next-development.todo.json"
-TASKS_PATH = ROOT / "agents" / "tasks" / "tasks.json"
 STATE_PATH = ROOT / "memory" / "state.json"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 
 
 def _load_backlog() -> list[dict[str, Any]]:
-    data = load_json(BACKLOG_PATH)
-    items = data.get("items") if isinstance(data, dict) else None
-    return [item for item in items if isinstance(item, dict)] if items else []
-
-
-def _load_tasks() -> list[dict[str, Any]]:
-    data = load_json(TASKS_PATH)
-    items = data.get("tasks") if isinstance(data, dict) else None
-    return [item for item in items if isinstance(item, dict)] if items else []
+    return load_backlog_items(BACKLOG_PATH)
 
 
 def _load_facts() -> list[dict[str, Any]]:
-    data = load_json(STATE_PATH)
-    items = data.get("facts") if isinstance(data, dict) else None
-    return [item for item in items if isinstance(item, dict)] if items else []
+    return load_state_facts(STATE_PATH)
 
 
 def _detect_missing_receipts(backlog: Sequence[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -106,49 +102,20 @@ def detect_anomalies() -> list[dict[str, Any]]:
     return anomalies
 
 
-def _git_commit() -> str | None:
-    head = ROOT / ".git" / "HEAD"
-    if not head.exists():
-        return None
-    try:
-        import subprocess
-
-        result = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        return result.stdout.strip()
-    except Exception:
-        return None
-
-
 def _state_snapshot() -> dict[str, int]:
     log_path = ROOT / "memory" / "log.jsonl"
-    logs = 0
-    if log_path.exists():
-        with log_path.open(encoding="utf-8") as handle:
-            for _ in handle:
-                logs += 1
     facts = len(_load_facts())
-    return {"log_entries": logs, "facts": facts}
+    return {"log_entries": count_lines(log_path), "facts": facts}
 
 
 def write_receipt(anomalies: Sequence[dict[str, Any]], out_path: Path) -> Path:
-    out_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "git_commit": _git_commit(),
+        "generated_at": utc_timestamp(),
+        "git_commit": git_commit(ROOT),
         "state_snapshot": _state_snapshot(),
         "anomalies": list(anomalies),
     }
-    base = json.dumps(payload, ensure_ascii=False, indent=2)
-    checksum = hashlib.sha256(base.encode("utf-8")).hexdigest()
-    payload["receipt_sha256"] = checksum
-    out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    return out_path
+    return write_receipt_payload(out_path, payload)
 
 
 def _emit_bus_claim(anomaly: dict[str, Any], receipt_path: Path) -> Path:

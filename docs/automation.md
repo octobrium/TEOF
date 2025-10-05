@@ -39,6 +39,35 @@ Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the
 - `--warn-plan-latency <seconds>` (default **259200s**, 3 days) annotates slow plans with `severity="warn"` in `slow_plan_alerts`.
 - `--fail-plan-latency <seconds>` (default **604800s**, 7 days) raises a non-zero exit and records `severity="fail"` when breached.
 
+### OCERS scan bundle
+
+`teof scan` runs the frontier, critic, TMS, and ethics guardrails together so humans get a single OCERS snapshot.
+
+```bash
+teof scan --out _report/usage/ocers-scan --format json --emit-bus --emit-plan
+```
+
+- Writes `frontier.json`, `critic.json`, `tms.json`, and `ethics.json` into the chosen directory with matching `receipt_sha256` fields.
+- Summaries land on stdout (table by default, JSON when `--format json` is set) with counts for each subsystem.
+- `--emit-bus` seeds repair claims for critic/ethics findings when receipts are captured; `--emit-plan` adds TMS plan skeletons that inherit the receipt path.
+- Use `--limit` to cap frontier entries (default **10**). Skipping `--out` keeps the run read-only.
+- Scope the run with `--only <component>` (repeat for multiple) or `--skip <component>` to evaluate a subset. Component names: `frontier`, `critic`, `tms`, `ethics`.
+- Pass `--summary` to print a quick counts list instead of full tables when you only need OCERS tallies.
+
+### Dynamic scan driver
+
+`teof-scan-driver` chooses which guards to run by inspecting tracked inputs, then delegates to `teof scan` and logs each decision under `_report/usage/scan-history.jsonl`.
+
+```bash
+teof-scan-driver --summary --emit-bus
+```
+
+- Tracked files: `_plans/next-development.todo.json`, `agents/tasks/tasks.json`, `memory/state.json`.
+- Each fingerprint captures both `mtime_ns` and a SHA-256 digest so unchanged writes do not trigger redundant guards.
+- Triggers: changes to backlog/tasks run **frontier** and **ethics**; changes to backlog/state run **critic**; state changes run **tms**.
+- Repeat `--force <component>` to include guards even when inputs are unchanged; use `--skip <component>` to suppress a guard for the current iteration.
+- `--dry-run` prints the planned command and still records the decision in history so operators can rehearse policies without executing guards.
+
 ### Batch refinement runner
 
 For a single command that runs tests, refreshes receipts hygiene, reconciles task status, emits the operator preset receipt, logs a heartbeat, and (optionally) checks autonomy latency, use `python -m tools.agent.batch_refinement --task <id> [--agent <id>] [--pytest-args ...]`. The helper stops on the first failure, writes the receipt path to stdout, and returns non-zero if pytest fails, task synchronization trips, or hygiene cannot complete. Each run also records a JSON summary under `_report/usage/batch-refinement/` so auditors can replay the batch, plus a rolling `summary.json` that tracks averages, missing-receipt runs, and the latest batch metadata for automation to consume.

@@ -2,13 +2,19 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
 
-from tools.autonomy.shared import load_json, normalise_layer, normalise_scale
+from tools.autonomy.shared import (
+    git_commit,
+    load_backlog_items,
+    load_task_items,
+    normalise_layer,
+    normalise_scale,
+    utc_timestamp,
+    write_receipt_payload,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 BACKLOG_PATH = ROOT / "_plans" / "next-development.todo.json"
@@ -42,12 +48,9 @@ def _extract_receipts(item: dict[str, Any]) -> list[str]:
 
 def detect_violations() -> list[dict[str, Any]]:
     violations: list[dict[str, Any]] = []
-    backlog_data = load_json(BACKLOG_PATH)
-    backlog_items = backlog_data.get("items") if isinstance(backlog_data, dict) else None
-    if isinstance(backlog_items, list):
+    backlog_items = load_backlog_items(BACKLOG_PATH)
+    if backlog_items:
         for item in backlog_items:
-            if not isinstance(item, dict):
-                continue
             layer = normalise_layer(item.get("layer"))
             scale = normalise_scale(item.get("systemic_scale"), layer)
             if not _is_high_risk(item, layer, scale):
@@ -66,12 +69,9 @@ def detect_violations() -> list[dict[str, Any]]:
                 }
             )
 
-    tasks_data = load_json(TASKS_PATH)
-    tasks = tasks_data.get("tasks") if isinstance(tasks_data, dict) else None
-    if isinstance(tasks, list):
+    tasks = load_task_items(TASKS_PATH)
+    if tasks:
         for task in tasks:
-            if not isinstance(task, dict):
-                continue
             layer = normalise_layer(task.get("layer"))
             scale = normalise_scale(task.get("systemic_scale"), layer)
             if not _is_high_risk(task, layer, scale):
@@ -125,35 +125,13 @@ def render_table(violations: Sequence[dict[str, Any]]) -> str:
         lines.append(fmt.format(*row))
     return "\n".join(lines)
 
-
-def _git_commit() -> str | None:
-    try:
-        import subprocess
-
-        result = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        return result.stdout.strip()
-    except Exception:
-        return None
-
-
 def write_receipt(violations: Sequence[dict[str, Any]], out_path: Path) -> Path:
-    out_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "git_commit": _git_commit(),
+        "generated_at": utc_timestamp(),
+        "git_commit": git_commit(ROOT),
         "violations": list(violations),
     }
-    base = json.dumps(payload, ensure_ascii=False, indent=2)
-    checksum = hashlib.sha256(base.encode("utf-8")).hexdigest()
-    payload["receipt_sha256"] = checksum
-    out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    return out_path
+    return write_receipt_payload(out_path, payload)
 
 
 def _emit_bus_claim(violation: dict[str, Any], receipt_path: Path) -> Path:

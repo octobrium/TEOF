@@ -2,15 +2,22 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
-import subprocess
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
-from tools.autonomy.shared import load_json, normalise_layer, normalise_scale
+from tools.autonomy.shared import (
+    count_lines,
+    git_commit,
+    load_backlog_items,
+    load_state_facts,
+    load_task_items,
+    normalise_layer,
+    normalise_scale,
+    utc_timestamp,
+    write_receipt_payload,
+)
 ROOT = Path(__file__).resolve().parents[2]
 BACKLOG_PATH = ROOT / "_plans" / "next-development.todo.json"
 TASKS_PATH = ROOT / "agents" / "tasks" / "tasks.json"
@@ -99,16 +106,9 @@ PRIORITY_WEIGHTS = {
 }
 
 def _load_backlog() -> Iterable[Candidate]:
-    data = load_json(BACKLOG_PATH)
-    if not isinstance(data, dict):
-        return []
-    items = data.get("items")
-    if not isinstance(items, list):
-        return []
+    items = load_backlog_items(BACKLOG_PATH)
     candidates: list[Candidate] = []
     for item in items:
-        if not isinstance(item, dict):
-            continue
         status = (item.get("status") or "").lower()
         if status == "done":
             continue
@@ -134,16 +134,9 @@ def _load_backlog() -> Iterable[Candidate]:
 
 
 def _load_tasks() -> Iterable[Candidate]:
-    data = load_json(TASKS_PATH)
-    if not isinstance(data, dict):
-        return []
-    tasks = data.get("tasks")
-    if not isinstance(tasks, list):
-        return []
+    tasks = load_task_items(TASKS_PATH)
     candidates: list[Candidate] = []
     for task in tasks:
-        if not isinstance(task, dict):
-            continue
         status = (task.get("status") or "").lower()
         if status == "done":
             continue
@@ -170,16 +163,9 @@ def _load_tasks() -> Iterable[Candidate]:
 
 
 def _load_state_facts() -> Iterable[Candidate]:
-    data = load_json(STATE_PATH)
-    if not isinstance(data, dict):
-        return []
-    facts = data.get("facts")
-    if not isinstance(facts, list):
-        return []
+    facts = load_state_facts(STATE_PATH)
     candidates: list[Candidate] = []
     for fact in facts:
-        if not isinstance(fact, dict):
-            continue
         identifier = str(fact.get("id") or "")
         title = str(fact.get("statement") or identifier)
         layer = normalise_layer(fact.get("layer"))
@@ -291,49 +277,21 @@ def render_table(entries: Sequence[FrontierEntry]) -> str:
     return "\n".join(lines)
 
 
-def _git_commit() -> str | None:
-    try:
-        result = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        return result.stdout.strip()
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        return None
-
-
 def _log_summary() -> dict[str, int]:
     log_path = ROOT / "memory" / "log.jsonl"
-    state_path = ROOT / "memory" / "state.json"
-    log_count = 0
-    if log_path.exists():
-        with log_path.open(encoding="utf-8") as handle:
-            for _ in handle:
-                log_count += 1
-    facts_count = 0
-    data = load_json(state_path)
-    if isinstance(data, dict) and isinstance(data.get("facts"), list):
-        facts_count = len(data["facts"])
-    return {"log_entries": log_count, "facts": facts_count}
+    facts_count = len(load_state_facts(STATE_PATH))
+    return {"log_entries": count_lines(log_path), "facts": facts_count}
 
 
 def write_receipt(entries: Sequence[FrontierEntry], out_path: Path, *, limit: int) -> Path:
-    out_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "git_commit": _git_commit(),
+        "generated_at": utc_timestamp(),
+        "git_commit": git_commit(ROOT),
         "parameters": {"limit": limit},
         "state_snapshot": _log_summary(),
         "entries": [entry.as_dict() for entry in entries],
     }
-    base_json = json.dumps(payload, ensure_ascii=False, indent=2)
-    checksum = hashlib.sha256(base_json.encode("utf-8")).hexdigest()
-    payload["receipt_sha256"] = checksum
-    out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    return out_path
+    return write_receipt_payload(out_path, payload)
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:

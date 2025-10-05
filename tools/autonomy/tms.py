@@ -2,11 +2,17 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
+
+from tools.autonomy.shared import (
+    count_lines,
+    git_commit,
+    load_state_facts,
+    utc_timestamp,
+    write_receipt_payload,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 STATE_PATH = ROOT / "memory" / "state.json"
@@ -14,12 +20,7 @@ PLANS_DIR = ROOT / "_plans"
 
 
 def _load_state() -> list[dict[str, Any]]:
-    try:
-        data = json.loads(STATE_PATH.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
-    facts = data.get("facts") if isinstance(data, dict) else None
-    return [fact for fact in facts if isinstance(fact, dict)] if facts else []
+    return load_state_facts(STATE_PATH)
 
 
 def _normalise_layer(layer: str | None) -> str:
@@ -140,52 +141,26 @@ def render_table(conflicts: Sequence[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
-def _git_commit() -> str | None:
-    try:
-        import subprocess
-
-        result = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        return result.stdout.strip()
-    except Exception:
-        return None
-
-
 def _state_snapshot() -> dict[str, int]:
     log_path = ROOT / "memory" / "log.jsonl"
-    log_count = 0
-    if log_path.exists():
-        with log_path.open(encoding="utf-8") as handle:
-            for _ in handle:
-                log_count += 1
-    return {"log_entries": log_count, "facts": len(_load_state())}
+    return {"log_entries": count_lines(log_path), "facts": len(_load_state())}
 
 
 def write_receipt(conflicts: Sequence[dict[str, Any]], out_path: Path) -> Path:
-    out_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "git_commit": _git_commit(),
+        "generated_at": utc_timestamp(),
+        "git_commit": git_commit(ROOT),
         "state_snapshot": _state_snapshot(),
         "conflicts": list(conflicts),
     }
-    base = json.dumps(payload, ensure_ascii=False, indent=2)
-    checksum = hashlib.sha256(base.encode("utf-8")).hexdigest()
-    payload["receipt_sha256"] = checksum
-    out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    return out_path
+    return write_receipt_payload(out_path, payload)
 
 
 def _emit_plan(conflict: dict[str, Any], receipt_path: Path) -> Path:
     skeleton = {
         "version": 0,
         "plan_id": conflict.get("suggested_plan", {}).get("plan_id"),
-        "created": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "created": utc_timestamp(),
         "actor": "tms",
         "summary": conflict.get("suggested_plan", {}).get("summary"),
         "status": "pending",

@@ -124,6 +124,12 @@ jobs:
         shell: bash
         run: pytest tests/test_consensus_ledger_cli.py tests/test_consensus_receipts.py tests/test_consensus_dashboard.py
 
+      - name: Dynamic OCERS scan (summary)
+        shell: bash
+        run: |
+          set -euo pipefail
+          teof-scan-driver --summary --history _report/usage/scan-history-ci.jsonl
+
       # ---- Capsule baseline detection/verification ----
       - name: Detect capsule baseline
         id: detect

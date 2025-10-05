@@ -12,13 +12,11 @@ from tools.autonomy import critic
 def temp_repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     root = tmp_path
     (root / "_plans").mkdir(parents=True, exist_ok=True)
-    (root / "agents" / "tasks").mkdir(parents=True, exist_ok=True)
     (root / "memory").mkdir(parents=True, exist_ok=True)
     (root / "_bus" / "claims").mkdir(parents=True, exist_ok=True)
 
     monkeypatch.setattr(critic, "ROOT", root)
     monkeypatch.setattr(critic, "BACKLOG_PATH", root / "_plans" / "next-development.todo.json")
-    monkeypatch.setattr(critic, "TASKS_PATH", root / "agents" / "tasks" / "tasks.json")
     monkeypatch.setattr(critic, "STATE_PATH", root / "memory" / "state.json")
     monkeypatch.setattr(critic, "CLAIMS_DIR", root / "_bus" / "claims")
     return root

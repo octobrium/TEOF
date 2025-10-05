@@ -27,6 +27,7 @@ teof-reflection-intake = "tools.autonomy.reflection_intake:main"
 teof-objectives-status = "tools.autonomy.objectives_status:main"
 teof-impact-log = "tools.autonomy.impact_log:main"
 teof-decision-intake = "tools.autonomy.decision_intake:main"
+teof-scan-driver = "tools.autonomy.scan_driver:main"
 
 [tool.setuptools]
 include-package-data = true
