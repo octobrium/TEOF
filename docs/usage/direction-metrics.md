@@ -13,10 +13,10 @@ Running `python -m tools.agent.manager_report` now appends every TTΔ snapshot t
 | **Coherence Score (CS)** | Accuracy of models vs. receipts/tests. | `pytest` pass rate, `scripts/ci/check_consensus_receipts.py`, `artifacts/consensus/ci-dashboard.txt`. | 100 % CI pass; consensus drift = 0. | Record as `coherence.score`. |
 | **Recursion Depth (RD)** | Closed loops from observation → plan → correction. | `_plans/`, `_bus/claims/*.json`, `_report/usage/plan-lint/*.json` and plan hygiene tests. | Every contradiction produces a plan + closure receipt within 48 h. | Track open/closed ratio (`recursion.depth`). |
 | **Integrity Gap (IG)** | Delta between stated policy and behaviour. | Guardrails badge, `scripts/policy_checks.sh`, `governance/anchors.json` append-only audit, capsule hash checks. | Zero unresolved failures; capsule/current symlink correct. | Record last failure timestamp (`integrity.gap`). |
-
-> **Reminder**: Verbal commitments (“next time”, “mental note”, etc.) without receipts count as IG debt. Use `python -m tools.autonomy.commitment_guard` to surface unbacked statements and file a plan before concluding the session.
 | **Sustainability (SC)** | Ability to run under failure/starvation. | Scheduled bus heartbeat (`.github/workflows/bus-heartbeat.yml`), `_report/usage/autonomy-status.json`, quickstart smoke receipts. | Heartbeat succeeds for 7d; quickstart receipts regen ≤ daily. | Capture in manager report (`sustainability.signal`). |
 | **Safe Optionality (SO)** | Option sets preserved for peers. | Mirror status (cold storage ledger), `governance/anchors.json` key registry, `docs/badges/`, `_report/usage/external-authenticity.md`. | ≥2 signed mirrors current; authenticity ≥0.7. | Record as `optional.safe`. |
+
+> **Reminder:** verbal commitments (“next time”, “mental note”, etc.) without receipts count as IG debt. Use `python -m tools.autonomy.commitment_guard` to surface unbacked statements and file a plan before concluding the session.
 
 ### Operating Cadence
 

@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-10-03T06:31:06Z",
+  "updated": "2025-10-05T04:35:47Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -331,11 +331,28 @@
     {
       "id": "ND-024",
       "title": "Automate detection of unbacked commitments",
-      "status": "pending",
+      "status": "done",
       "layer": "L5",
       "priority": "medium",
       "notes": "Implement commitment guard lint and update TT\u0394 docs",
-      "plan_suggestion": "PLAN-COMMITMENT-GUARD",
+      "plan_suggestion": "2025-10-05-commitment-guard",
+      "receipts": [
+        "_plans/2025-10-05-commitment-guard.plan.json",
+        "docs/clarifications.md",
+        "docs/usage/direction-metrics.md",
+        "tools/agent/manager_report.py",
+        "tools/autonomy/commitment_guard.py"
+      ],
+      "completed_at": "2025-10-05T04:35:38Z"
+    },
+    {
+      "id": "ND-025",
+      "title": "TT\u0394 trend reporting",
+      "status": "pending",
+      "layer": "L5",
+      "priority": "medium",
+      "notes": "Build tooling to summarise memory/impact/ttd.jsonl (sparkline, slope, threshold alerts).",
+      "plan_suggestion": "TTD-TREND",
       "receipts": []
     }
   ],

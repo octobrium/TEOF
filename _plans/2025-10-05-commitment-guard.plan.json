@@ -1,0 +1,54 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-05-commitment-guard",
+  "created": "2025-10-05T04:35:00Z",
+  "actor": "codex-5",
+  "summary": "Ship commitment guard so every verbal promise lands as a receipt or plan",
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 4,
+  "impact_score": 5,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Catalogue risky phrases and surfaces",
+      "status": "done",
+      "notes": "DEFAULT_PHRASES in commitment_guard enumerates risk phrases; default_paths covers bus messages and reflections.",
+      "receipts": [
+        "tools/autonomy/commitment_guard.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement commitment guard CLI + tests",
+      "status": "done",
+      "notes": "CLI shipped with regression coverage.",
+      "receipts": [
+        "tools/autonomy/commitment_guard.py",
+        "tests/test_commitment_guard.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Integrate guard into manager report + docs",
+      "status": "done",
+      "notes": "Manager report surfaces matches and docs instruct operators to run the guard.",
+      "receipts": [
+        "tools/agent/manager_report.py",
+        "docs/usage/direction-metrics.md",
+        "docs/clarifications.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Commitment guard running automatically with TTΔ visibility",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/usage/reflection-intake/reflection-20251005T041204Z.md"
+  ],
+  "ocers_target": "Observation↑ Integrity Gap↓ Self-repair↑"
+}
