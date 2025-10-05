@@ -45,7 +45,9 @@
       "ref": "ADV-372e0fe3"
     }
   ],
-  "receipts": [],
+  "receipts": [
+    "_report/usage/plan-lint/duplicate-keys-20251003T044138Z.json"
+  ],
   "ocers_target": "Self-repair↑ Reproducibility↑",
   "layer": "L6",
   "systemic_scale": 6

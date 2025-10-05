@@ -1,0 +1,25 @@
+{
+  "agent": "codex-4",
+  "branch": "main",
+  "ready": false,
+  "checks": [
+    {
+      "name": "git_clean",
+      "ok": false,
+      "details": "working tree has staged or unstaged changes"
+    },
+    {
+      "name": "branch_match",
+      "ok": true
+    },
+    {
+      "name": "claims_clear",
+      "ok": true
+    },
+    {
+      "name": "tests_exist",
+      "ok": false,
+      "details": "/Users/evan/Documents/GitHub/TEOF/_report/agent/codex-4/push-ready-checklist/pytest.txt (untracked)"
+    }
+  ]
+}

@@ -2,7 +2,9 @@
   "agent_id": "codex-4",
   "branch": "agent/codex-4/autonomy-status-upgrade",
   "claimed_at": "2025-10-04T20:48:50Z",
+  "notes": "autonomy readiness merged",
   "plan_id": "2025-10-04-autonomy-status-upgrade",
-  "status": "active",
+  "released_at": "2025-10-05T18:20:09Z",
+  "status": "done",
   "task_id": "PLAN-2025-10-04-autonomy-status-upgrade"
 }
