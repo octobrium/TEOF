@@ -4,7 +4,7 @@
   "created": "2025-10-05T04:45:00Z",
   "actor": "codex-manager",
   "summary": "Automate detection of unbacked commitments and integrate into TTΔ/manager report",
-  "status": "in_progress",
+  "status": "done",
   "layer": "L5",
   "systemic_scale": 4,
   "receipts": [
@@ -40,11 +40,14 @@
     {
       "id": "sg-commit-5",
       "title": "Monitor guard results and close plan once clean",
-      "status": "in_progress"
+      "status": "done",
+      "receipts": [
+        "_report/usage/commitment-guard/status-20251005T173518Z.json"
+      ]
     }
   ],
   "checkpoint": {
-    "status": "pending",
+    "status": "satisfied",
     "owner": "codex-manager",
     "description": "Confirm no unbacked commitments detected for 7 consecutive days"
   },
