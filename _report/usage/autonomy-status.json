@@ -1,12 +1,15 @@
 {
   "hygiene": {
-    "generated_at": "2025-10-04T20:04:37Z",
-    "plans_total": 174,
-    "plans_missing_receipts": 1,
-    "missing_plan_ids": [
-      "2025-10-03-plan-schema-dedupe"
-    ],
+    "generated_at": "2025-10-05T18:32:30Z",
+    "plans_total": 180,
+    "plans_missing_receipts": 0,
+    "missing_plan_ids": [],
     "slow_plans": [
+      [
+        "2025-09-22-teof-status-cli",
+        1051248.0,
+        null
+      ],
       [
         "2025-09-19-kernel-slimdown",
         366468.0,
@@ -26,14 +29,30 @@
         "2025-09-25-memory-layer",
         121791.0,
         null
-      ],
-      [
-        "2025-09-26-evangelism",
-        81634.0,
-        null
       ]
     ],
-    "slow_plan_alerts": null
+    "slow_plan_alerts": {
+      "warn_threshold_seconds": 259200.0,
+      "fail_threshold_seconds": 604800.0,
+      "counts": {
+        "warn": 1,
+        "fail": 1
+      },
+      "alerts": [
+        {
+          "plan_id": "2025-09-19-kernel-slimdown",
+          "severity": "warn",
+          "plan_to_first_seconds": 366468.0,
+          "note_to_first_seconds": null
+        },
+        {
+          "plan_id": "2025-09-22-teof-status-cli",
+          "severity": "fail",
+          "plan_to_first_seconds": 1051248.0,
+          "note_to_first_seconds": null
+        }
+      ]
+    }
   },
   "batch_logs": {
     "entries": 5,
@@ -78,35 +97,35 @@
     ]
   },
   "top_slow_plans": [
+    "2025-09-22-teof-status-cli",
     "2025-09-19-kernel-slimdown",
-    "2025-09-24-relay-offering",
-    "2025-09-18-bus-message-claim-guard"
+    "2025-09-24-relay-offering"
   ],
   "readiness": {
     "status": "attention",
-    "missing_receipts": 1,
+    "missing_receipts": 0,
     "slow_plan_count": 5,
-    "slow_plan_alert_counts": {},
+    "slow_plan_alert_counts": {
+      "warn": 1,
+      "fail": 1
+    },
     "batch_warn_count": 3,
     "batch_fail_count": 1,
     "attention": [
       {
-        "kind": "missing_receipts",
-        "count": 1,
-        "plan_ids": [
-          "2025-10-03-plan-schema-dedupe"
-        ]
-      },
-      {
         "kind": "slow_plans",
         "count": 5,
         "plan_ids": [
+          "2025-09-22-teof-status-cli",
           "2025-09-19-kernel-slimdown",
           "2025-09-24-relay-offering",
           "2025-09-18-bus-message-claim-guard",
-          "2025-09-25-memory-layer",
-          "2025-09-26-evangelism"
+          "2025-09-25-memory-layer"
         ]
+      },
+      {
+        "kind": "slow_plan_fail",
+        "count": 1
       },
       {
         "kind": "batch_failures",

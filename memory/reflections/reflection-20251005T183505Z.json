@@ -1,0 +1,16 @@
+{
+  "captured_at": "2025-10-05T18:35:05Z",
+  "title": "Push-ready receipts + hygiene refresh",
+  "layers": ["L6"],
+  "summary": "Regenerated codex-4 push-ready receipts, cleared the readiness block in autonomy_status, and reran receipts_hygiene so the digest reflects the latest slow-plan picture.",
+  "signals": [
+    "_report/agent/codex-4/push-ready-checklist/push-ready.json",
+    "_report/usage/receipts-hygiene-summary.json",
+    "python3 -m tools.agent.autonomy_status --json"
+  ],
+  "actions": "Captured new pytest receipt, re-ran push_ready, refreshed receipts_hygiene, logged the status on the bus, pushed the receipts commit to main, and preserved the pre-existing WIP in stashes so owners can resume.",
+  "tags": ["hygiene", "readiness", "receipts"],
+  "plan_suggestion": null,
+  "notes": "What went well: receipt regeneration + autonomy_status wiring confirmed the readiness surface without touching the user’s parallel work. Friction: inherited dirty tree created a long tail of stash juggling; the receipts_hygiene CLI still exits 1 on known long-tail plans, which looks like a failure. Improvement: add an opt-in override to receipts_hygiene to treat known archival plans as informational, and teach session_boot to snapshot the preexisting stash list so the next agent sees the backlog without manual spelunking.",
+  "receipt": "memory/reflections/reflection-20251005T183505Z.json"
+}
