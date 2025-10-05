@@ -1,11 +1,8 @@
 """Dynamic coordinator for `teof scan` runs.
 
-Chooses which OCERS guards to execute based on recent changes to
-`_plans/next-development.todo.json`, `agents/tasks/tasks.json`, and
-`memory/state.json`, then delegates to :mod:`teof.bootloader`.
-
-The driver appends execution metadata to `_report/usage/scan-history.jsonl`
-so subsequent runs can avoid repeating work when inputs have not changed.
+Chooses which OCERS guards to execute based on policy-defined inputs,
+delegates to :mod:`teof.bootloader`, and records history so future runs can
+skip redundant checks.
 """
 from __future__ import annotations
 
@@ -17,24 +14,33 @@ from pathlib import Path
 from typing import Iterable, Mapping, MutableMapping, Sequence
 
 from teof import bootloader
-from tools.autonomy.shared import utc_timestamp
+from tools.autonomy.shared import load_json, utc_timestamp
 
 
 ROOT = Path(__file__).resolve().parents[2]
 HISTORY_PATH = ROOT / "_report" / "usage" / "scan-history.jsonl"
+DEFAULT_POLICY_PATH = ROOT / "docs" / "automation" / "scan-policy.json"
 
-TRACKED_INPUTS: Mapping[str, Path] = {
-    "backlog": ROOT / "_plans" / "next-development.todo.json",
-    "tasks": ROOT / "agents" / "tasks" / "tasks.json",
-    "state": ROOT / "memory" / "state.json",
+DEFAULT_TRACKED_INPUTS: Mapping[str, str] = {
+    "backlog": "_plans/next-development.todo.json",
+    "tasks": "agents/tasks/tasks.json",
+    "state": "memory/state.json",
 }
 
-COMPONENT_TRIGGERS: Mapping[str, tuple[str, ...]] = {
+DEFAULT_COMPONENT_TRIGGERS: Mapping[str, tuple[str, ...]] = {
     "frontier": ("backlog", "tasks"),
     "critic": ("backlog", "state"),
     "tms": ("state",),
     "ethics": ("backlog", "tasks"),
 }
+
+
+@dataclass(frozen=True)
+class ScanPolicy:
+    tracked_inputs: Mapping[str, Path]
+    component_triggers: Mapping[str, tuple[str, ...]]
+    reuse_window_seconds: int
+    reuse_requires_summary: bool
 
 
 @dataclass
@@ -59,8 +65,8 @@ def _fingerprint(path: Path) -> dict[str, object] | None:
     return {"mtime_ns": stat_result.st_mtime_ns, "sha256": digest.hexdigest()}
 
 
-def _current_inputs() -> dict[str, dict[str, object] | None]:
-    return {name: _fingerprint(path) for name, path in TRACKED_INPUTS.items()}
+def _current_inputs(tracked_inputs: Mapping[str, Path]) -> dict[str, dict[str, object] | None]:
+    return {name: _fingerprint(path) for name, path in tracked_inputs.items()}
 
 
 def _read_last_history(path: Path) -> dict[str, object] | None:
@@ -106,9 +112,12 @@ def _detect_changes(
     return result
 
 
-def _choose_components(changed: Mapping[str, bool]) -> dict[str, list[str]]:
+def _choose_components(
+    changed: Mapping[str, bool],
+    component_triggers: Mapping[str, tuple[str, ...]],
+) -> dict[str, list[str]]:
     reasons: dict[str, list[str]] = {}
-    for component, triggers in COMPONENT_TRIGGERS.items():
+    for component, triggers in component_triggers.items():
         hit = [trigger for trigger in triggers if changed.get(trigger, False)]
         if hit:
             reasons[component] = hit
@@ -121,9 +130,10 @@ def make_decision(
     skipped: Iterable[str],
     current_inputs: Mapping[str, dict[str, object] | None],
     previous_inputs: Mapping[str, object] | None,
+    component_triggers: Mapping[str, tuple[str, ...]],
 ) -> ScanDecision:
     changed = _detect_changes(current_inputs, previous_inputs)
-    reason_map = _choose_components(changed)
+    reason_map = _choose_components(changed, component_triggers)
     selected = set(reason_map)
     forced_set = {comp for comp in forced if comp in bootloader.SCAN_COMPONENTS}
     skip_set = {comp for comp in skipped if comp in bootloader.SCAN_COMPONENTS}
@@ -151,6 +161,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--force", action="append", choices=bootloader.SCAN_COMPONENTS, help="Always run the specified component(s)")
     parser.add_argument("--skip", action="append", choices=bootloader.SCAN_COMPONENTS, help="Never run the specified component(s)")
     parser.add_argument("--history", type=Path, help="Override scan history path")
+    parser.add_argument("--policy", type=Path, help="Override scan policy path")
     parser.add_argument("--dry-run", action="store_true", help="Print planned execution without running `teof scan`")
     return parser.parse_args(argv)
 
@@ -162,12 +173,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         print("::error:: --summary is only available with table output")
         return 2
 
+    policy = load_policy(args.policy if args.policy is not None else DEFAULT_POLICY_PATH)
+
     history_path = args.history if args.history is not None else HISTORY_PATH
     previous_entry = _read_last_history(history_path)
-    previous_inputs = (
-        previous_entry.get("inputs") if isinstance(previous_entry, Mapping) else None
-    )
-    current_inputs = _current_inputs()
+    previous_inputs = previous_entry.get("inputs") if isinstance(previous_entry, Mapping) else None
+    current_inputs = _current_inputs(policy.tracked_inputs)
 
     forced = args.force or []
     skipped = args.skip or []
@@ -176,6 +187,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         skipped=skipped,
         current_inputs=current_inputs,
         previous_inputs=previous_inputs if isinstance(previous_inputs, Mapping) else None,
+        component_triggers=policy.component_triggers,
     )
 
     if not decision.components:
@@ -255,3 +267,74 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 if __name__ == "__main__":  # pragma: no cover
     raise SystemExit(main())
+
+
+def load_policy(candidate: Path | None) -> ScanPolicy:
+    path = candidate if candidate is not None else DEFAULT_POLICY_PATH
+    data = load_json(path) if path.exists() else None
+
+    tracked_inputs: dict[str, Path] = {}
+    component_triggers: dict[str, tuple[str, ...]] = {}
+    reuse_window_seconds = 0
+    reuse_requires_summary = True
+
+    if isinstance(data, Mapping):
+        inputs = data.get("tracked_inputs")
+        if isinstance(inputs, Mapping):
+            for name, entry in inputs.items():
+                rel = None
+                if isinstance(entry, Mapping):
+                    rel = entry.get("path")
+                elif isinstance(entry, str):
+                    rel = entry
+                if isinstance(rel, str):
+                    tracked_inputs[name] = (ROOT / rel).resolve()
+
+        components = data.get("components")
+        if isinstance(components, Mapping):
+            for name, entry in components.items():
+                triggers: Sequence[str] | None = None
+                if isinstance(entry, Mapping):
+                    trig_val = entry.get("triggers")
+                    if isinstance(trig_val, Sequence):
+                        triggers = [str(item) for item in trig_val if isinstance(item, str)]
+                if isinstance(entry, Sequence) and not isinstance(entry, (str, bytes)):
+                    triggers = [str(item) for item in entry if isinstance(item, str)]
+                if triggers:
+                    component_triggers[name] = tuple(triggers)
+
+        cache = data.get("cache")
+        if isinstance(cache, Mapping):
+            window = cache.get("reuse_window_seconds")
+            if isinstance(window, int) and window >= 0:
+                reuse_window_seconds = window
+            summary_flag = cache.get("reuse_requires_summary")
+            if isinstance(summary_flag, bool):
+                reuse_requires_summary = summary_flag
+
+    if not tracked_inputs:
+        tracked_inputs = {
+            name: (ROOT / rel).resolve()
+            for name, rel in DEFAULT_TRACKED_INPUTS.items()
+        }
+
+    if not component_triggers:
+        component_triggers = dict(DEFAULT_COMPONENT_TRIGGERS)
+    else:
+        normalized: dict[str, tuple[str, ...]] = {}
+        for name, triggers in component_triggers.items():
+            normalized[name] = tuple(
+                trig for trig in triggers if trig in tracked_inputs
+            )
+        component_triggers = normalized
+
+    # Ensure every bootloader component has a trigger mapping
+    for comp in bootloader.SCAN_COMPONENTS:
+        component_triggers.setdefault(comp, DEFAULT_COMPONENT_TRIGGERS.get(comp, tuple()))
+
+    return ScanPolicy(
+        tracked_inputs=tracked_inputs,
+        component_triggers=component_triggers,
+        reuse_window_seconds=reuse_window_seconds,
+        reuse_requires_summary=reuse_requires_summary,
+    )

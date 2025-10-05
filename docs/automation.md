@@ -65,6 +65,7 @@ teof-scan-driver --summary --emit-bus
 - Tracked files: `_plans/next-development.todo.json`, `agents/tasks/tasks.json`, `memory/state.json`.
 - Each fingerprint captures both `mtime_ns` and a SHA-256 digest so unchanged writes do not trigger redundant guards.
 - Triggers: changes to backlog/tasks run **frontier** and **ethics**; changes to backlog/state run **critic**; state changes run **tms**.
+- Policy lives at `docs/automation/scan-policy.json`; override with `--policy <path>` for custom mappings or alternative guard sets.
 - Repeat `--force <component>` to include guards even when inputs are unchanged; use `--skip <component>` to suppress a guard for the current iteration.
 - `--dry-run` prints the planned command and still records the decision in history so operators can rehearse policies without executing guards.
 

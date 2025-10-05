@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "tracked_inputs": {
+    "backlog": {
+      "path": "_plans/next-development.todo.json",
+      "description": "Architecture backlog driving frontier and critic loops"
+    },
+    "tasks": {
+      "path": "agents/tasks/tasks.json",
+      "description": "Agent task ledger used by frontier and ethics guards"
+    },
+    "state": {
+      "path": "memory/state.json",
+      "description": "Fact store powering critic and TMS loops"
+    }
+  },
+  "components": {
+    "frontier": {
+      "triggers": ["backlog", "tasks"],
+      "summary": "Score backlog/tasks/facts to surface active frontier entries"
+    },
+    "critic": {
+      "triggers": ["backlog", "state"],
+      "summary": "Detect anomalies (missing receipts, low-confidence facts)"
+    },
+    "tms": {
+      "triggers": ["state"],
+      "summary": "Resolve contradictory or low-confidence facts"
+    },
+    "ethics": {
+      "triggers": ["backlog", "tasks"],
+      "summary": "Ensure high-risk items carry guard receipts"
+    }
+  },
+  "cache": {
+    "reuse_window_seconds": 0,
+    "reuse_requires_summary": true
+  }
+}

@@ -17,21 +17,29 @@ def _setup_repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     # Point driver globals at the temporary repository
     monkeypatch.setattr(scan_driver, "ROOT", root, raising=False)
     monkeypatch.setattr(scan_driver, "HISTORY_PATH", root / "_report" / "usage" / "scan-history.jsonl", raising=False)
-    monkeypatch.setattr(
-        scan_driver,
-        "TRACKED_INPUTS",
-        {
-            "backlog": root / "_plans" / "next-development.todo.json",
-            "tasks": root / "agents" / "tasks" / "tasks.json",
-            "state": root / "memory" / "state.json",
-        },
-        raising=False,
-    )
+    monkeypatch.setattr(scan_driver, "DEFAULT_POLICY_PATH", root / "scan-policy.json", raising=False)
 
     # Seed default files
     (root / "_plans" / "next-development.todo.json").write_text(json.dumps({"items": []}) + "\n", encoding="utf-8")
     (root / "agents" / "tasks" / "tasks.json").write_text(json.dumps({"tasks": []}) + "\n", encoding="utf-8")
     (root / "memory" / "state.json").write_text(json.dumps({"facts": []}) + "\n", encoding="utf-8")
+
+    policy = {
+        "version": 1,
+        "tracked_inputs": {
+            "backlog": {"path": "_plans/next-development.todo.json"},
+            "tasks": {"path": "agents/tasks/tasks.json"},
+            "state": {"path": "memory/state.json"},
+        },
+        "components": {
+            "frontier": {"triggers": ["backlog", "tasks"]},
+            "critic": {"triggers": ["backlog", "state"]},
+            "tms": {"triggers": ["state"]},
+            "ethics": {"triggers": ["backlog", "tasks"]},
+        },
+        "cache": {"reuse_window_seconds": 0, "reuse_requires_summary": True},
+    }
+    (root / "scan-policy.json").write_text(json.dumps(policy, indent=2) + "\n", encoding="utf-8")
 
 
 def _read_history(path: Path) -> list[dict]:
@@ -49,7 +57,7 @@ def _read_history(path: Path) -> list[dict]:
 def test_dry_run_lists_components(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
     _setup_repo(tmp_path, monkeypatch)
 
-    exit_code = scan_driver.main(["--dry-run"])
+    exit_code = scan_driver.main(["--dry-run", "--policy", str(scan_driver.DEFAULT_POLICY_PATH)])
     assert exit_code == 0
 
     output = capsys.readouterr().out
@@ -64,7 +72,8 @@ def test_detects_state_change_and_runs_subset(tmp_path: Path, monkeypatch: pytes
     _setup_repo(tmp_path, monkeypatch)
 
     # Record baseline inputs
-    baseline = scan_driver._current_inputs()
+    policy = scan_driver.load_policy(scan_driver.DEFAULT_POLICY_PATH)
+    baseline = scan_driver._current_inputs(policy.tracked_inputs)
     entry = {
         "generated_at": "baseline",
         "components": ["frontier", "critic", "tms", "ethics"],
@@ -83,7 +92,7 @@ def test_detects_state_change_and_runs_subset(tmp_path: Path, monkeypatch: pytes
 
     monkeypatch.setattr(scan_driver.bootloader, "main", fake_main)
 
-    exit_code = scan_driver.main([])
+    exit_code = scan_driver.main(["--policy", str(scan_driver.DEFAULT_POLICY_PATH)])
     assert exit_code == 0
     assert recorded_args
     scan_args = recorded_args[0]
@@ -118,6 +127,8 @@ def test_skip_all_results_in_noop(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
             "tms",
             "--skip",
             "ethics",
+            "--policy",
+            str(scan_driver.DEFAULT_POLICY_PATH),
         ]
     )
     assert exit_code == 0
