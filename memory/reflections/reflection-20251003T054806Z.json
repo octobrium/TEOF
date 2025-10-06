@@ -11,5 +11,6 @@
     "metadata",
     "coordination"
   ],
-  "receipt": null
+  "receipt": null,
+  "plan_suggestion": "2025-10-03-plan-metadata-automation"
 }

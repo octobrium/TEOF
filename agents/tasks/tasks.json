@@ -559,6 +559,20 @@
       "role": "engineer",
       "status": "open",
       "title": "AUTH-UNASSIGNED-codex-5-20251004"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": null,
+      "id": "ND-025",
+      "plan_id": "2025-10-05-ttd-trend-reporting",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "done",
+      "title": "ND-025",
+      "receipts": [
+        "_report/usage/ttd-trend/summary-20251005T214512Z.json",
+        "docs/usage/direction-metrics.md"
+      ]
     }
   ],
   "version": 1

@@ -1,0 +1,2 @@
+{"ts": "2025-10-05T21:41:18Z", "from": "codex-4", "type": "assignment", "task_id": "ND-025", "summary": "Assigned to codex-4", "meta": {"plan_id": "2025-10-05-ttd-trend-reporting", "assignee": "codex-4", "plan": "2025-10-05-ttd-trend-reporting"}, "note": "TTΔ trend reporting sweep"}
+{"ts": "2025-10-05T21:46:51Z", "from": "codex-4", "type": "status", "task_id": "ND-025", "summary": "TTΔ trend CLI shipped; alerts captured", "meta": {"plan_id": "2025-10-05-ttd-trend-reporting"}, "receipts": ["_report/usage/ttd-trend/summary-20251005T214512Z.json"]}

@@ -1,0 +1,59 @@
+{
+  "plan_id": "2025-10-05-ttd-trend-reporting",
+  "created": "2025-10-05T21:40:39Z",
+  "actor": "codex-4",
+  "status": "done",
+  "summary": "Build TTΔ trend reporting tooling to visualize and alert on trust delta changes.",
+  "links": [
+    {
+      "type": "plan",
+      "ref": "_plans/next-development.todo.json#ND-025"
+    }
+  ],
+  "receipts": [
+    "tools/impact/ttd_trend.py",
+    "tests/test_ttd_trend.py"
+  ],
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Capture TTΔ requirements and data format",
+      "status": "done",
+      "description": "Confirm schema for memory/impact/ttd.jsonl and desired outputs (sparkline, slope, alert thresholds).",
+      "receipts": [
+        "docs/usage/direction-metrics.md"
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "Implement trend computation and CLI",
+      "status": "done",
+      "description": "Add tooling under tools/autonomy or tools/impact to compute TTΔ trend metrics and generate summaries.",
+      "receipts": [
+        "tools/impact/ttd_trend.py",
+        "tests/test_ttd_trend.py"
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "Generate receipts and update docs/dashboard",
+      "status": "done",
+      "description": "Emit receipts under _report/usage/, update docs/automation or dashboards with instructions, and integrate thresholds if needed.",
+      "receipts": [
+        "docs/quick-links.md",
+        "CHANGELOG.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "TTΔ trend tooling live with docs and receipts",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "version": 0,
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 4,
+  "ocers_target": "Observation↑ Coherence↑"
+}

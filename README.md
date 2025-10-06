@@ -85,6 +85,7 @@ cat artifacts/ocers_out/latest/brief.json
 
 - Install exposes the teof console script.
 - teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
+- teof reflections surfaces the latest `memory/reflections/` entries, layer coverage, and tags (add `--format json` for automation).
 
 If you prefer an end-to-end bootstrap, run `bin/teof-up` to install dependencies, refresh quickstart receipts, and print the next docs to read. Additional CLI entrypoints live in [`docs/quickstart.md`](docs/quickstart.md), and automation guardrails remain catalogued under [`docs/automation/autonomy-preflight.md`](docs/automation/autonomy-preflight.md).
 

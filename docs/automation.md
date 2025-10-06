@@ -30,6 +30,10 @@ Run `python -m tools.agent.receipts_index --output receipts-index.jsonl` to emit
 
 To measure how quickly reflections turn into evidence, run `python -m tools.agent.receipts_metrics --output receipts-latency.jsonl`. The CLI reuses the receipts ledger, computes deltas between plan creation, manager-report notes (`meta.plan_id`), and the first/last receipts, and writes per-plan metrics (including missing receipts). Relative output paths also land under `_report/usage/`.
 
+### Reflections overview
+
+`teof reflections` prints a quick audit of `memory/reflections/`: totals, latest capture time, layer coverage, and top tags. Use `--layer`, `--tag`, or `--days` filters to focus on a subset and `--limit` to cap the table rows. Pass `--format json` when automation needs the structured payload (summary + selected reflections) instead of the table view.
+
 ### Receipts hygiene bundle
 
 Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the indexer and latency metrics together, writes `_report/usage/receipts-index-latest.jsonl`, `_report/usage/receipts-latency-latest.jsonl`, and a summary (`receipts-hygiene-summary.json`) listing missing receipts and the slowest plans. Batch refinement mode expects that summary plus the operator preset receipt from `python -m tools.agent.session_brief --preset operator` to anchor autonomous runs.
@@ -53,6 +57,7 @@ teof scan --out _report/usage/ocers-scan --format json --emit-bus --emit-plan
 - Use `--limit` to cap frontier entries (default **10**). Skipping `--out` keeps the run read-only.
 - Scope the run with `--only <component>` (repeat for multiple) or `--skip <component>` to evaluate a subset. Component names: `frontier`, `critic`, `tms`, `ethics`.
 - Pass `--summary` to print a quick counts list instead of full tables when you only need OCERS tallies.
+- Always capture a fresh manager-report tail before automation runs (`python -m tools.agent.session_boot --agent <id> --with-status`) so the session guard sees the latest coordination receipts. CI jobs should run `session_boot` in the same step as the scan.
 
 ### Dynamic scan driver
 

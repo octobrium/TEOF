@@ -2,5 +2,5 @@
 
 __all__ = [
     "case_study",
+    "ttd_trend",
 ]
-

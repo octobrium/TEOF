@@ -334,7 +334,7 @@
       "status": "done",
       "layer": "L5",
       "priority": "medium",
-      "notes": "Implement commitment guard lint and update TT\u0394 docs",
+      "notes": "Implement commitment guard lint and update TTΔ docs",
       "plan_suggestion": "2025-10-05-commitment-guard",
       "receipts": [
         "_plans/2025-10-05-commitment-guard.plan.json",
@@ -347,12 +347,27 @@
     },
     {
       "id": "ND-025",
-      "title": "TT\u0394 trend reporting",
-      "status": "pending",
+      "title": "TTΔ trend reporting",
+      "status": "done",
       "layer": "L5",
       "priority": "medium",
       "notes": "Build tooling to summarise memory/impact/ttd.jsonl (sparkline, slope, threshold alerts).",
       "plan_suggestion": "TTD-TREND",
+      "receipts": [
+        "_plans/2025-10-05-ttd-trend-reporting.plan.json",
+        "tools/impact/ttd_trend.py",
+        "_report/usage/ttd-trend/summary-20251005T214512Z.json"
+      ],
+      "completed_at": "2025-10-05T21:45:12Z"
+    },
+    {
+      "id": "ND-036",
+      "title": "OCERS scan automation",
+      "status": "pending",
+      "layer": "L5",
+      "priority": "high",
+      "notes": "Automate session_boot step before OCERS scans so guards see manager-report tail receipts.",
+      "plan_suggestion": "2025-10-05-ocers-scan-automation",
       "receipts": []
     }
   ],

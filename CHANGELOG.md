@@ -23,6 +23,8 @@ Versioning: SemVer (0.y until first stable)
 - Feed keys rotated (`feed.demo-2025`, `feed.sample-2025`) and fresh receipts
   emitted so authenticity trust returns to green (`governance/keys/feed.*.pub`,
   `_report/external/{demo,sample}/20250926*.json`).
+- Reflection overview CLI (`teof reflections`) summarises `memory/reflections/` with layer/tag filters and JSON output; docs refreshed with the new anchor.
+- TTΔ trend reporting CLI (`teof ttd-trend` / `python -m tools.impact.ttd_trend`) parses `memory/impact/ttd.jsonl`, emits sparklines + readiness alerts, and manager_report now writes the latest summary to `_report/usage/ttd-trend/` with refreshed documentation.
 
 > Tracking work intended for the *next* tag. Use this list instead of a standalone TODO.
 

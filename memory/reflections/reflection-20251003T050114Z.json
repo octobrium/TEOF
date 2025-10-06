@@ -12,5 +12,6 @@
     "automation"
   ],
   "notes": "Attaching strict receipts required re-running planner validate with --output because _report/ is ignored; codex-2 owns dirty handoff automation so docs temporarily reference manual step.",
-  "receipt": null
+  "receipt": null,
+  "plan_suggestion": "2025-10-03-dirty-handoff-automation"
 }

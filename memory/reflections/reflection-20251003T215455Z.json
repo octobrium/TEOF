@@ -23,5 +23,10 @@
   "next_steps": [
     "Gather peer acknowledgements, then push once consensus lands.",
     "Scope implementation plan for repo anatomy dashboard (queue/048)."
+  ],
+  "plan_suggestion": "2025-10-03-consensus-push-checklist",
+  "tags": [
+    "consensus",
+    "communication"
   ]
 }

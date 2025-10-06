@@ -1,12 +1,17 @@
 {
   "captured_at": "2025-10-04T21:39:44Z",
   "title": "Post-push handoff ready for next macro goal",
-  "layers": ["L5"],
+  "layers": [
+    "L5"
+  ],
   "summary": "All agents have current plans or completed claims; manager lane records readiness for the next macro objective.",
   "signals": "_bus/messages/manager-report.jsonl entries 300-302",
   "actions": "Confirmed latest push, logged manager status, and verified no open claims remain for codex-1.",
-  "tags": ["handoff", "workflow"],
-  "plan_suggestion": null,
+  "tags": [
+    "handoff",
+    "workflow"
+  ],
+  "plan_suggestion": "2025-10-04-push-ready-checklist",
   "notes": "Sequencing for codex-2/3/4 is enqueued via their new plans; new macro goal discussion can start immediately.",
   "receipt": "memory/reflections/reflection-20251004T213944Z.json"
 }

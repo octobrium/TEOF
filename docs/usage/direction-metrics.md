@@ -41,3 +41,11 @@ When all six metrics trend up while IG trends down, TTΔ is positive and the sys
 - Legacy summary: `Infodumps/meat infodump 3.txt` (TTΔ guidance)
 - Current automation: `.github/workflows/guardrails.yml`, `.github/workflows/bus-heartbeat.yml`
 - Receipts indices: `_report/usage/receipts-*.jsonl`
+
+### Trend reporting CLI
+
+- Run `teof ttd-trend --format table` (or `python -m tools.impact.ttd_trend --format table`) for a quick terminal summary (latest value, trend, alerts).
+- Pass `--out _report/usage/ttd-trend/summary-<UTC>.json` to capture receipts for dashboards; the JSON payload includes sparklines, slope per entry, and readiness alerts.
+- Use `--window <count>` and/or `--days <N>` to focus on recent history (default window: 14 entries).
+- Treat alerts (IG or sustainability readiness != green, optional safety trust < 0.7) as triggers for a new plan or manager broadcast.
+- Running `python -m tools.agent.manager_report` now appends the TTΔ entry *and* emits the latest trend summary under `_report/usage/ttd-trend/` automatically.

@@ -8,7 +8,10 @@
   "summary": "Codex-1 manager loop executed upkeep sweep (report refresh + case-study summary)",
   "signals": "Playbook now codifies manager upkeep; running upkeep after handshake",
   "actions": "Continue running upkeep checklist after each handshake; monitor for automation opportunities",
-  "tags": [],
+  "tags": [
+    "manager",
+    "operations"
+  ],
   "plan_suggestion": "2025-09-18-manager-coordination",
   "notes": "Upkeep includes manager_report, case_study summarize, reflection scan; consider scripting auto-trigger in future",
   "receipt": "memory/reflections/reflection-20251003T192323Z.json"

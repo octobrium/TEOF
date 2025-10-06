@@ -5,6 +5,7 @@ from typing import Any
 import pytest
 
 from tools.agent import manager_report, bus_event, bus_status
+from tools.impact import ttd_trend
 
 
 @pytest.fixture
@@ -36,6 +37,7 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(manager_report, "TASKS_FILE", tasks_path)
     ttd_path = root / "memory" / "impact" / "ttd.jsonl"
     monkeypatch.setattr(manager_report, "TTD_LOG", ttd_path)
+    monkeypatch.setattr(ttd_trend, "ROOT", root)
 
     event_log = events_dir / "events.jsonl"
     monkeypatch.setattr(bus_event, "ROOT", root)
@@ -134,6 +136,12 @@ def test_manager_report_writes_file(repo: Path):
     latest_entry = entries[-1]
     assert latest_entry.get("metrics"), "TTΔ entry should include metrics payload"
     assert "observation.capacity" in latest_entry["metrics"]
+
+    trend_dir = repo / "_report" / "usage" / "ttd-trend"
+    summaries = list(trend_dir.glob("summary-*.json"))
+    assert summaries, "TTΔ trend summary should be generated"
+    payload = json.loads(summaries[-1].read_text(encoding="utf-8"))
+    assert payload.get("entry_count") >= 1
 
 
 def test_manager_report_logs_heartbeat(repo: Path):

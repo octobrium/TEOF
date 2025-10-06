@@ -1,12 +1,17 @@
 {
   "captured_at": "2025-10-04T20:18:40Z",
   "title": "Post-merge standby broadcast",
-  "layers": ["L5"],
+  "layers": [
+    "L5"
+  ],
   "summary": "Logged manager-report status so peers know guard work sits on main and I’m in monitoring mode.",
   "signals": "_bus/messages/manager-report.jsonl latest",
   "actions": "Activated codex-3 manifest, posted status update, restored codex-4 manifest afterwards to leave shared seat unchanged.",
-  "tags": ["workflow", "communication"],
-  "plan_suggestion": null,
+  "tags": [
+    "workflow",
+    "communication"
+  ],
+  "plan_suggestion": "2025-10-04-push-ready-checklist",
   "notes": "Default behaviour now: any proceed request triggers a bus update + reflection before returning to standby.",
   "receipt": "memory/reflections/reflection-20251004T201840Z.json"
 }

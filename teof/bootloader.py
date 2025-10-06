@@ -16,11 +16,12 @@ from pathlib import Path
 from typing import Iterable
 
 from extensions.validator.scorers.ensemble import score_file
-from . import status_report, tasks_report
+from . import reflections_report, status_report, tasks_report
 from tools.autonomy import critic as critic_mod
 from tools.autonomy import ethics_gate as ethics_mod
 from tools.autonomy import frontier as frontier_mod
 from tools.autonomy import tms as tms_mod
+from tools.impact import ttd_trend as ttd_trend_mod
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 EXAMPLES_DIR = ROOT / "docs" / "examples" / "brief" / "inputs"
@@ -117,6 +118,73 @@ def build_parser() -> argparse.ArgumentParser:
         help="Include completed tasks in the report",
     )
     tasks.set_defaults(func=cmd_tasks)
+
+    reflections = sub.add_parser(
+        "reflections",
+        help="Summarise captured reflections and layer coverage",
+    )
+    reflections.add_argument(
+        "--format",
+        choices=("table", "json"),
+        default="table",
+        help="Output format (default: table)",
+    )
+    reflections.add_argument(
+        "--limit",
+        type=int,
+        help="Optional maximum number of reflections to include",
+    )
+    reflections.add_argument(
+        "--layer",
+        action="append",
+        dest="layers",
+        help="Filter to reflections that include the specified layer (repeatable)",
+    )
+    reflections.add_argument(
+        "--tag",
+        action="append",
+        dest="tags",
+        help="Filter to reflections that include the specified tag (repeatable)",
+    )
+    reflections.add_argument(
+        "--days",
+        type=float,
+        help="Show reflections captured within the last N days",
+    )
+    reflections.set_defaults(func=cmd_reflections)
+
+    ttd_trend = sub.add_parser(
+        "ttd-trend",
+        help="Analyse TTΔ history and emit trend summaries",
+    )
+    ttd_trend.add_argument(
+        "--input",
+        type=Path,
+        help="Override path to ttd.jsonl (default: memory/impact/ttd.jsonl)",
+    )
+    ttd_trend.add_argument(
+        "--window",
+        type=int,
+        default=14,
+        help="Number of recent entries to analyse (default: 14)",
+    )
+    ttd_trend.add_argument(
+        "--days",
+        type=float,
+        help="Optional time window in days for analysis",
+    )
+    ttd_trend.add_argument(
+        "--format",
+        choices=("table", "json"),
+        default="table",
+        help="Output format (default: table)",
+    )
+    ttd_trend.add_argument(
+        "--out",
+        type=Path,
+        help="Optional path to write JSON summary",
+    )
+    ttd_trend.set_defaults(func=cmd_ttd_trend)
 
     scan = sub.add_parser(
         "scan",
@@ -312,6 +380,65 @@ def cmd_tasks(args: argparse.Namespace) -> int:
     else:
         print("- none")
     return 0
+
+
+def cmd_reflections(args: argparse.Namespace) -> int:
+    reflections = reflections_report.collect_reflections(root=ROOT)
+
+    since = None
+    if args.days is not None:
+        if args.days < 0:
+            raise SystemExit("--days must be non-negative")
+        since = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=args.days)
+
+    filtered = reflections_report.filter_reflections(
+        reflections,
+        layers=getattr(args, "layers", None),
+        tags=getattr(args, "tags", None),
+        since=since,
+    )
+
+    summary = reflections_report.summarize(filtered)
+    filters: dict[str, object] = {}
+    if args.layers:
+        filters["layers"] = args.layers
+    if args.tags:
+        filters["tags"] = args.tags
+    if args.days is not None:
+        filters["days"] = args.days
+
+    if args.format == "json":
+        payload = reflections_report.to_payload(
+            filtered,
+            limit=args.limit,
+            summary=summary,
+            filters=filters if filters else None,
+        )
+        json.dump(payload, sys.stdout, ensure_ascii=False, indent=2)
+        sys.stdout.write("\n")
+        return 0
+
+    summary_text = reflections_report.format_summary(summary)
+    if summary_text:
+        print(summary_text)
+        print()
+
+    table = reflections_report.render_table(filtered, limit=args.limit)
+    print(table)
+    return 0
+
+
+def cmd_ttd_trend(args: argparse.Namespace) -> int:
+    argv: list[str] = ["--window", str(args.window), "--format", args.format]
+    if args.input is not None:
+        input_path = args.input if args.input.is_absolute() else ROOT / args.input
+        argv.extend(["--input", str(input_path)])
+    if args.days is not None:
+        argv.extend(["--days", str(args.days)])
+    if args.out is not None:
+        out_path = args.out if args.out.is_absolute() else ROOT / args.out
+        argv.extend(["--out", str(out_path)])
+    return ttd_trend_mod.main(argv)
 
 
 def cmd_frontier(args: argparse.Namespace) -> int:

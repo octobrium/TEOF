@@ -13,5 +13,10 @@
     "docs/commandments.md",
     "docs/workflow.md",
     "_plans/2025-09-27-ethics-scenarios.plan.json"
+  ],
+  "plan_suggestion": "2025-09-27-ethics-scenarios",
+  "tags": [
+    "ethics",
+    "governance"
   ]
 }

@@ -26,7 +26,9 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `capsule-cadence-summary` | Capsule Cadence Guard | Release checklist tied to consensus receipts and capsule hashes. | [_report/capsule/summary-latest.json](_report/capsule/summary-latest.json) |
 | `receipts-index` | Receipts Index CLI | Build a JSONL ledger of plans, receipts, and manager messages before handoff. | [docs/automation.md#receipts-index](docs/automation.md#receipts-index) |
 | `receipts-latency` | Receipts Latency Metrics | Compute deltas between reflections and receipts using the ledger. | [docs/automation.md#receipts-latency](docs/automation.md#receipts-latency) |
+| `reflections-overview` | Reflections Overview | Summarise reflection cadence, layer coverage, and tags via `teof reflections`. | [docs/automation.md#reflections-overview](docs/automation.md#reflections-overview) |
 | `receipts-hygiene` | Receipts Hygiene Bundle | Run index + latency metrics together and review the summary. | [docs/automation.md#receipts-hygiene-bundle](docs/automation.md#receipts-hygiene-bundle) |
+| `ttd-trend` | TTΔ Trend Reporting | Analyse `memory/impact/ttd.jsonl` history and generate readiness alerts. | [docs/usage/direction-metrics.md#trend-reporting-cli](docs/usage/direction-metrics.md#trend-reporting-cli) |
 | `batch-refinement` | Batch Refinement Runner | Run tests, hygiene, and operator preset in one command. | [docs/automation.md#batch-refinement-runner](docs/automation.md#batch-refinement-runner) |
 | `batch-refinement-log` | Batch Refinement Log Summary | List recent batch receipts for audit and automation. | [docs/automation.md#batch-refinement-log-summary](docs/automation.md#batch-refinement-log-summary) |
 | `autonomy-status` | Autonomy Status Digest | Aggregate hygiene metrics and batch outcomes. | [docs/automation.md#autonomy-status-digest](docs/automation.md#autonomy-status-digest) |

@@ -1,0 +1,55 @@
+{
+  "plan_id": "2025-10-05-ttd-trend-integration",
+  "created": "2025-10-05T22:45:04Z",
+  "actor": "codex-4",
+  "status": "done",
+  "summary": "Integrate TTΔ trend reporting into manager report workflow and ensure receipts.",
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/usage/direction-metrics.md#trend-reporting-cli"
+    }
+  ],
+  "receipts": [
+    "tools/agent/manager_report.py",
+    "tests/test_manager_report.py"
+  ],
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Wire manager_report to emit TTΔ trend summary",
+      "status": "done",
+      "receipts": [
+        "tools/agent/manager_report.py"
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "Extend tests to cover new summary receipts",
+      "status": "done",
+      "receipts": [
+        "tests/test_manager_report.py",
+        "tests/test_ttd_trend.py"
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "Update backlog/docs if needed",
+      "status": "done",
+      "receipts": [
+        "docs/usage/direction-metrics.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Manager report emits TTΔ summaries automatically",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "version": 0,
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 4,
+  "impact_score": 3,
+  "ocers_target": "Observation↑ Reproducibility↑"
+}

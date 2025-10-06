@@ -11,6 +11,6 @@
     "workflow",
     "metadata"
   ],
-  "plan_suggestion": null,
+  "plan_suggestion": "2025-10-04-planner-metadata-backfill-phase3",
   "notes": "Future sweeps can reuse the survey helper; no additional tooling needed today."
 }

@@ -13,6 +13,7 @@ from statistics import median
 
 from tools import reconcile_metrics_summary as metrics_summary
 from tools.autonomy import commitment_guard
+from tools.impact import ttd_trend as ttd_trend_mod
 from tools.planner import queue_warnings as planner_queue_warnings
 from tools.planner.validate import validate_plan
 
@@ -278,6 +279,28 @@ def append_direction_log(
     with TTD_LOG.open("a", encoding="utf-8") as handle:
         json.dump(payload, handle, ensure_ascii=False)
         handle.write("\n")
+    _write_trend_summary(ts)
+
+
+def _write_trend_summary(ts: str) -> None:
+    summary_dir = ROOT / "_report" / "usage" / "ttd-trend"
+    summary_dir.mkdir(parents=True, exist_ok=True)
+    safe_ts = ts.replace(":", "").replace("-", "")
+    summary_path = summary_dir / f"summary-{safe_ts}.json"
+    argv = [
+        "--input",
+        str(TTD_LOG),
+        "--window",
+        "14",
+        "--format",
+        "json",
+        "--out",
+        str(summary_path),
+    ]
+    try:
+        ttd_trend_mod.main(argv)
+    except Exception:
+        summary_path.unlink(missing_ok=True)
 
 
 def write_report(

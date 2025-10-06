@@ -1,0 +1,42 @@
+{
+  "plan_id": "2025-10-05-ocers-scan-automation",
+  "created": "2025-10-06T17:23:43Z",
+  "actor": "codex-4",
+  "status": "queued",
+  "summary": "Automate session_boot integration before OCERS scans to keep guards satisfied.",
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/automation.md#ocers-scan-bundle"
+    }
+  ],
+  "receipts": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Map guard expectations",
+      "status": "queued"
+    },
+    {
+      "id": "step-2",
+      "title": "Wire session_boot into automation workflow",
+      "status": "queued"
+    },
+    {
+      "id": "step-3",
+      "title": "Capture receipts and update docs",
+      "status": "queued"
+    }
+  ],
+  "checkpoint": {
+    "description": "OCERS scan runs include session_boot integration",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "version": 0,
+  "priority": 4,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 4,
+  "ocers_target": "Observation↑ Self-repair↑"
+}
