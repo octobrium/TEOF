@@ -128,7 +128,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m tools.agent.session_boot --agent codex-4 --focus manager --with-status
+          python -m tools.agent.session_boot \
+            --agent codex-4 \
+            --focus manager \
+            --with-status \
+            --sync-allow-dirty
 
       - name: Dynamic OCERS scan (summary)
         shell: bash
