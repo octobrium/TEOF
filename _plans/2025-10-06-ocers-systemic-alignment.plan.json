@@ -1,0 +1,52 @@
+{
+  "plan_id": "2025-10-06-ocers-systemic-alignment",
+  "created": "2025-10-06T20:17:09Z",
+  "actor": "codex-4",
+  "status": "queued",
+  "summary": "Document OCERS as a subordinate diagnostic overlay mapped to systemic hierarchy S1–S10.",
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/foundation/systemic-scale.md"
+    },
+    {
+      "type": "doc",
+      "ref": "README.md#framework-ordering"
+    }
+  ],
+  "receipts": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Inventory OCERS references",
+      "status": "queued",
+      "notes": "Collect docs/guards mentioning OCERS to scope updates",
+      "receipts": []
+    },
+    {
+      "id": "step-2",
+      "title": "Draft OCERS↔S mapping",
+      "status": "queued",
+      "notes": "Produce table mapping each OCERS phase to S/L coordinates with receipt",
+      "receipts": []
+    },
+    {
+      "id": "step-3",
+      "title": "Update docs/guards",
+      "status": "queued",
+      "notes": "Patch docs/automation, workflow, manager_report to cite systemic coordinates and note future adaptation",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "OCERS overlay documented as subordinate to S1–S10 with receipts",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "version": 0,
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 3,
+  "ocers_target": "Observation↑ Coherence↑"
+}

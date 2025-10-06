@@ -373,6 +373,16 @@
         ".github/workflows/teof-ci.yml"
       ],
       "completed_at": "2025-10-06T17:32:00Z"
+    },
+    {
+      "id": "ND-037",
+      "title": "OCERS/systemic mapping",
+      "status": "pending",
+      "layer": "L5",
+      "priority": "medium",
+      "notes": "Execute plan 2025-10-06-ocers-systemic-alignment; document OCERS as diagnostic overlay and update stress tests.",
+      "plan_suggestion": "2025-10-06-ocers-systemic-alignment",
+      "receipts": []
     }
   ],
   "history": [

@@ -1,0 +1,54 @@
+{
+  "plan_id": "2025-10-06-teof-btc-scoreboard",
+  "created": "2025-10-06T20:47:41Z",
+  "actor": "codex-4",
+  "status": "queued",
+  "summary": "Document and audit the TEOF BTC wallet as an external scoreboard tied to observation-fueled initiatives.",
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/vision/impact-ledger.md"
+    },
+    {
+      "type": "plan",
+      "ref": "_plans/2025-10-06-ocers-systemic-alignment.plan.json"
+    }
+  ],
+  "receipts": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Publish wallet details",
+      "status": "in_progress",
+      "notes": "Document address, custody, and policy decisions",
+      "receipts": [
+        "docs/impact/teof-btc-wallet.md"
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "Link contributions to observation",
+      "status": "queued",
+      "notes": "Define how receipts tie donations to specific observation-driven actions",
+      "receipts": []
+    },
+    {
+      "id": "step-3",
+      "title": "Audit trail",
+      "status": "queued",
+      "notes": "Set up automated dashboards/receipts so the scoreboard stays observable",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "BTC scoreboard documented with transparent receipts",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "version": 0,
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 4,
+  "ocers_target": "Observation↑ Impact↑"
+}
