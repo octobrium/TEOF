@@ -24,5 +24,5 @@ if [[ -n "$LATEST_RECEIPT" ]]; then
 fi
 
 printf '\nNext steps:\n'
-printf '  • Review docs/STATUS.md for the current snapshot.\n'
+printf '  • Review docs/status.md for the current snapshot.\n'
 printf '  • Check docs/usage/chronicle.md for the latest authenticity pulse.\n'

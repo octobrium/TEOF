@@ -1,4 +1,4 @@
-# TEOF Status (2025-09-26T22:21:36+00:00Z)
+# TEOF Status (2025-10-06T17:44:23+00:00Z)
 
 ## Snapshot
 - Capsule: /Users/evan/Documents/GitHub/TEOF/capsule/current -> v1.6
@@ -6,6 +6,14 @@
 - CLI: `teof brief` → writes `artifacts/ocers_out/<UTCSTAMP>/` and updates `artifacts/ocers_out/latest/`
 - Artifacts latest: /Users/evan/Documents/GitHub/TEOF/artifacts/ocers_out/latest (ready: yes)
 - Authenticity dashboard: `_report/usage/external-authenticity.md` (auto-refreshes with each summary run)
+
+## Autonomy Footprint
+- Modules: 23 (Δ0) files · 3990 (+86) LOC · 117 (+3) helper defs
+- Receipts: 1 (Δ0) JSON receipts under `_report/usage` containing 'autonomy'
+- Recent Footprint Deltas:
+  - 2025-10-06T17:44:23+00:00Z: modules=23, loc=3990, helpers=117, receipts=1
+  - 2025-10-06T17:44:01+00:00Z: modules=23, loc=3990, helpers=117, receipts=1
+  - 2025-10-06T17:41:11+00:00Z: modules=23, loc=3990, helpers=117, receipts=1
 
 ## Auto Objectives (detected)
 - [done] OBJ-A4 — Update docs/quickstart.md with editable install and CLI — Confirmed Quickstart snippet includes editable install + brief run
