@@ -2,7 +2,7 @@
   "plan_id": "2025-10-05-ocers-scan-automation",
   "created": "2025-10-06T17:23:43Z",
   "actor": "codex-4",
-  "status": "queued",
+  "status": "done",
   "summary": "Automate session_boot integration before OCERS scans to keep guards satisfied.",
   "links": [
     {
@@ -10,28 +10,38 @@
       "ref": "docs/automation.md#ocers-scan-bundle"
     }
   ],
-  "receipts": [],
+  "receipts": [
+    ".github/workflows/teof-ci.yml",
+    "docs/automation.md"
+  ],
   "steps": [
     {
       "id": "step-1",
       "title": "Map guard expectations",
-      "status": "queued"
+      "status": "done",
+      "receipts": []
     },
     {
       "id": "step-2",
       "title": "Wire session_boot into automation workflow",
-      "status": "queued"
+      "status": "done",
+      "receipts": [
+        ".github/workflows/teof-ci.yml"
+      ]
     },
     {
       "id": "step-3",
       "title": "Capture receipts and update docs",
-      "status": "queued"
+      "status": "done",
+      "receipts": [
+        "docs/automation.md"
+      ]
     }
   ],
   "checkpoint": {
-    "description": "OCERS scan runs include session_boot integration",
+    "description": "Session_boot automated ahead of OCERS scan in CI",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied"
   },
   "version": 0,
   "priority": 4,

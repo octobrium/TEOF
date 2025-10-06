@@ -363,12 +363,16 @@
     {
       "id": "ND-036",
       "title": "OCERS scan automation",
-      "status": "pending",
+      "status": "done",
       "layer": "L5",
       "priority": "high",
       "notes": "Automate session_boot step before OCERS scans so guards see manager-report tail receipts.",
       "plan_suggestion": "2025-10-05-ocers-scan-automation",
-      "receipts": []
+      "receipts": [
+        "_plans/2025-10-05-ocers-scan-automation.plan.json",
+        ".github/workflows/teof-ci.yml"
+      ],
+      "completed_at": "2025-10-06T17:32:00Z"
     }
   ],
   "history": [

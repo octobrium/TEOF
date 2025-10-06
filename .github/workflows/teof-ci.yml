@@ -124,6 +124,12 @@ jobs:
         shell: bash
         run: pytest tests/test_consensus_ledger_cli.py tests/test_consensus_receipts.py tests/test_consensus_dashboard.py
 
+      - name: Capture manager-report tail for OCERS guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m tools.agent.session_boot --agent codex-4 --focus manager --with-status
+
       - name: Dynamic OCERS scan (summary)
         shell: bash
         run: |
