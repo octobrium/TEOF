@@ -11,6 +11,7 @@ import json
 import re
 import subprocess
 import sys
+from copy import deepcopy
 from pathlib import Path
 from typing import Mapping, MutableMapping, Sequence
 
@@ -42,6 +43,30 @@ def load_json_bytes(b: bytes):
         return json.loads(b.decode("utf-8"))
     except Exception:
         return None
+
+
+def _serialize_json(payload: MutableMapping[str, object]) -> str:
+    return json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+
+
+def _compute_backfilled_events(head_json: MutableMapping[str, object]) -> list[dict[str, object]]:
+    events = head_json.get("events")
+    if not isinstance(events, list):
+        return []
+
+    computed: list[dict[str, object]] = []
+    base = deepcopy(head_json)
+
+    for idx, raw_event in enumerate(events):
+        if not isinstance(raw_event, dict):
+            return []
+        state = deepcopy(base)
+        state["events"] = [deepcopy(ev) for ev in computed]
+        prev_hash = sha256_bytes(_serialize_json(state).encode("utf-8"))
+        event = dict(raw_event)
+        event["prev_content_hash"] = prev_hash
+        computed.append(event)
+    return computed
 
 
 def _require_event_fields(event: Mapping[str, object]) -> None:
@@ -97,6 +122,8 @@ def validate_events(
     if head_json is not None:
         head_events = head_json.get("events", []) if isinstance(head_json.get("events", []), list) else []
 
+    backfill_ok = False
+
     if head_json is not None:
         if len(events) < len(head_events):
             raise AnchorsGuardError(
@@ -104,14 +131,18 @@ def validate_events(
             )
         prefix_len = len(head_events)
         if events[:prefix_len] != list(head_events):
-            raise AnchorsGuardError("mid-file edits detected (prefix differs from HEAD)")
+            expected_backfill = _compute_backfilled_events(deepcopy(head_json))
+            if expected_backfill and events[:prefix_len] == expected_backfill:
+                backfill_ok = True
+            else:
+                raise AnchorsGuardError("mid-file edits detected (prefix differs from HEAD)")
     else:
         prefix_len = 0
         if not events:
             raise AnchorsGuardError("anchors.json has no events")
 
     if len(events) == prefix_len:
-        return "events unchanged"
+        return "events prev_content_hash backfill" if backfill_ok else "events unchanged"
 
     added = events[prefix_len:]
     if len(added) != 1:

@@ -10,30 +10,33 @@
     {
       "ts": "2025-08-26T01:59:17Z",
       "by": "observer",
-      "note": "reset lineage; canonical steward = observer"
+      "note": "reset lineage; canonical steward = observer",
+      "prev_content_hash": "fcbd2ac7c9444216c6d6af531701218c90b8dd034139f5c77a7718d08d762da7"
     },
     {
       "ts": "2025-08-25T09:41:27Z",
       "by": "evan",
       "note": "status checkpoint: refresh snapshot + vision note",
-      "prev_content_hash": "63eae00fc0acc6cc8b0052410dd0d75a44f5432117d00ba08bb77c45919952ed"
+      "prev_content_hash": "f3e6cea00d9cec22c7667f8f4ec42848066f93a154ed80ddd5c4d1776b18cb14"
     },
     {
       "type": "freeze",
-      "ts": "2025-09-21T02:26:38Z"
+      "ts": "2025-09-21T02:26:38Z",
+      "prev_content_hash": "ec889abc8cbea1adceb6277081664a289aa2d0f5957e6695955908f6ec1434c1"
     },
     {
       "ts": "2025-09-21T10:35:00Z",
       "by": "codex-1",
       "note": "Document batch refinement mode and trusted automation receipts",
-      "prev_content_hash": "9cdc138b93b2ed413837c0acffb1760b902f9eb7824a978c5328b9b1f59272dc"
+      "prev_content_hash": "73aeb2f90f01e978f86f6a6dd23c788d85f8297ca0d7d051b9519390c87fe748"
     },
     {
       "type": "canon-change",
       "ts": "2025-09-21T20:14:44Z",
       "by": "codex-4",
       "scope": "L1",
-      "note": "Consolidate L1: single canonical P1–P7; mark other L1 docs advisory; add core index; align architecture coverage to bindings.yml; clarify DNA symlink wording"
+      "note": "Consolidate L1: single canonical P1–P7; mark other L1 docs advisory; add core index; align architecture coverage to bindings.yml; clarify DNA symlink wording",
+      "prev_content_hash": "fb7b576b4ce632995479d31a0816850abfa535679fbff9e6bb034dfde9f10e39"
     },
     {
       "type": "canon-change",
@@ -41,7 +44,7 @@
       "by": "codex-5",
       "scope": "L6",
       "note": "Introduce Automation canon v1.0; require signed external receipt envelopes and authenticated intake property",
-      "prev_content_hash": "898a9c412035e6239bbd859f32f8807ddb1b144d6514f2b3e13569cff4d302c9"
+      "prev_content_hash": "e3b5ddd545b3634d3cace33872c0b2bd1510f3ee2b6f3aac49249cbb13120a47"
     },
     {
       "type": "key",
@@ -50,7 +53,7 @@
       "note": "Register feed.demo-2025 Ed25519 key for external adapter pilot",
       "key_id": "feed.demo-2025",
       "public_key_path": "governance/keys/feed.demo-2025.pub",
-      "prev_content_hash": "aa001c6c5868364275f16c9da5670d86e2c147c0c9deea7b3e8acb114cfd1e98"
+      "prev_content_hash": "5283234112b58cf928f53df64934e1447f26504aeb9b17a4c1888be0da5f0cc4"
     },
     {
       "type": "key",
@@ -58,23 +61,26 @@
       "by": "codex-5",
       "note": "Register feed.sample-2025 Ed25519 key for governance upgrade pilot",
       "key_id": "feed.sample-2025",
-      "public_key_path": "governance/keys/feed.sample-2025.pub"
+      "public_key_path": "governance/keys/feed.sample-2025.pub",
+      "prev_content_hash": "5050a204be0538afc7c8992482e09061be61459bce24f052fc6113c577eab2c9"
     },
     {
       "ts": "2025-09-26T22:55:00Z",
       "by": "codex-5",
-      "note": "Aligned L2 objective instrumentation with monetization collateral (relay pilot)."
+      "note": "Aligned L2 objective instrumentation with monetization collateral (relay pilot).",
+      "prev_content_hash": "f2ed969638d9e32bfff7c37c8fae7eaa210658097161638f020de7daa6890f6c"
     },
     {
       "ts": "2025-09-26T22:20:30Z",
       "by": "codex-5",
-      "note": "Rotated feed.demo-2025/feed.sample-2025 keys and refreshed receipts; authenticity restored to ≥0.7."
-    }
-    ,
+      "note": "Rotated feed.demo-2025/feed.sample-2025 keys and refreshed receipts; authenticity restored to ≥0.7.",
+      "prev_content_hash": "9149aaaf12af0bc2bb6c1ab58e4fcf311eca70f87f5da3962cff09dc140c9862"
+    },
     {
       "ts": "2025-10-04T06:00:30Z",
       "by": "codex-5",
-      "note": "Rotated feed.demo-2025/feed.sample-2025 keys again, archived legacy receipts under _apoptosis/external, and restored authenticity trust."
+      "note": "Rotated feed.demo-2025/feed.sample-2025 keys again, archived legacy receipts under _apoptosis/external, and restored authenticity trust.",
+      "prev_content_hash": "2ef1e986bd93f8efb9be0287fe4ee810e7f141ab36dffe59da4a3e8d53ac09f6"
     }
   ],
   "releases": []

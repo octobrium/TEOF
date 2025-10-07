@@ -72,6 +72,31 @@ def future_anchor_ts(head_json: dict, *, offset_seconds: int) -> str:
     return (latest + timedelta(seconds=offset_seconds)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def test_validate_events_allows_prev_hash_backfill():
+    full_head_json, _ = load_head()
+    head_json = copy.deepcopy(full_head_json)
+    for ev in head_json.get("events", []):
+        if isinstance(ev, dict):
+            ev.pop("prev_content_hash", None)
+
+    head_bytes = json.dumps(head_json, ensure_ascii=False, indent=2).encode("utf-8") + b"\n"
+    current = copy.deepcopy(head_json)
+
+    backfilled: list[dict] = []
+    for idx, ev in enumerate(current.get("events", [])):
+        state = copy.deepcopy(current)
+        state["events"] = [copy.deepcopy(e) for e in backfilled]
+        prev_hash = sha256_bytes(json.dumps(state, ensure_ascii=False, indent=2).encode("utf-8") + b"\n")
+        updated = dict(ev)
+        updated["prev_content_hash"] = prev_hash
+        backfilled.append(updated)
+
+    current["events"] = backfilled
+
+    msg = validate_events(head_json, current, head_bytes)
+    assert "prev_content_hash backfill" in msg
+
+
 def test_validate_events_accepts_single_well_formed_append():
     head_json, head_bytes = load_head()
     current = copy.deepcopy(head_json)

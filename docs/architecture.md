@@ -26,7 +26,7 @@ lower ones but must not bypass their contracts.
 | `docs/` | L3 ↔ L4 | Living constitution, workflow guidance, examples. | Cross-link automation surfaces via [`docs/automation.md`](automation.md). |
 | `extensions/` | L4 | Canonical, packaged kernel modules (`import extensions.…`). | Covered by policy checks + tests. |
 | `experimental/` | L4 | Active candidates under evaluation; never imported by `extensions/`. | Promote per [`docs/promotion-policy.md`](promotion-policy.md). |
-| `governance/` | L1 ↔ L2 | Append-only anchors, policy, and key material. | See [`governance/README.md`](../governance/README.md). |
+| `governance/` | L1 ↔ L2 | Append-only anchors, policy, and key material. | See [`governance/README.md`](../governance/README.md); audit receipts live under `_report/usage/anchors/` until the append-only guard lands. |
 | `memory/` | L0 | Append-only decision log with hash chaining and signatures. | Schema + tooling in [`memory/README.md`](../memory/README.md). |
 | `queue/` | L4 ↔ L5 | Backlog briefs, coordination directives, consensus traces. | Mirrors bus/planner history for onboarding. |
 | `scripts/` | L6 | Policy guards, freeze helpers, CI glue. | Invoke via automation receipts; keep idempotent. |

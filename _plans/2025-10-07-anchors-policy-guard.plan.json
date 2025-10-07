@@ -8,34 +8,43 @@
   "layer": "L1",
   "systemic_scale": 6,
   "impact_score": 70,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Audit anchors append workflow and capture current failure modes",
-      "status": "queued",
+      "status": "done",
       "notes": "Review recent anchors events, confirm expected prev_content_hash semantics, and record gaps in docs/architecture.md.",
-      "receipts": []
+      "receipts": [
+        "docs/receipts/anchors/2025-10-07-append-audit.md",
+        "tools/governance/anchors_audit.py"
+      ]
     },
     {
       "id": "S2",
       "title": "Implement append-only guard with prev_content_hash enforcement",
-      "status": "queued",
+      "status": "done",
       "notes": "Add validation ensuring anchors.json changes append at the tail and include correct prev_content_hash; cover with tests.",
-      "receipts": []
+      "receipts": [
+        "governance/anchors.json",
+        "scripts/ci/check_anchors_guard.py",
+        "tests/test_anchors_guard.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Document guard behavior and recovery steps",
-      "status": "queued",
+      "status": "done",
       "notes": "Update governance/anchors docs and session playbooks so operators know how to satisfy the guard and repair violations.",
-      "receipts": []
+      "receipts": [
+        "docs/architecture.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Anchors automation rejects reorder attempts and docs show append-only policy with receipts",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -43,6 +52,13 @@
       "ref": "queue/000-welcome.md"
     }
   ],
-  "ocers_target": "Evidence↑ Safety↑ Coherence↑",
-  "receipts": []
+  "ocers_target": "Evidence\u2191 Safety\u2191 Coherence\u2191",
+  "receipts": [
+    "docs/architecture.md",
+    "docs/receipts/anchors/2025-10-07-append-audit.md",
+    "governance/anchors.json",
+    "scripts/ci/check_anchors_guard.py",
+    "tests/test_anchors_guard.py",
+    "tools/governance/anchors_audit.py"
+  ]
 }
