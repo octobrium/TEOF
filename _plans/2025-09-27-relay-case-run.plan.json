@@ -3,7 +3,7 @@
   "plan_id": "2025-09-27-relay-case-run",
   "created": "2025-09-27T19:56:00Z",
   "actor": "codex-5",
-  "summary": "[Cancelled 2025-10-07] Execute Relay Insight Sprint case study run with receipts",
+  "summary": "[Blocked 2025-10-07] Execute Relay Insight Sprint case study run with receipts (waiting on backlog restock and autonomy guard realignment)",
   "layer": "L6",
   "systemic_scale": 6,
   "status": "blocked",
@@ -51,6 +51,10 @@
     {
       "type": "plan",
       "ref": "2025-09-26-external-proof"
+    },
+    {
+      "type": "plan",
+      "ref": "2025-10-05-backlog-health"
     }
   ],
   "receipts": [],

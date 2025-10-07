@@ -27,3 +27,9 @@ Receipts land under `_report/usage/backlog-health/` and include:
 
 Run the guard after scans or autonomy batches so agents always see the next
 prioritized work without guessing.
+
+`python -m tools.agent.batch_refinement` now invokes this guard automatically.
+The batch run will stop with a non-zero exit if pending items drop below the
+threshold unless `--allow-backlog-breach` is supplied. Receipts continue to land
+under `_report/usage/backlog-health/` so stewards can restock the queue before
+automation resumes.

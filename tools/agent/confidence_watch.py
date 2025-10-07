@@ -15,6 +15,16 @@ from tools.agent.confidence_report import ConfidenceEntry, load_entries
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DIR = ROOT / "_report" / "agent"
 
+__all__ = [
+    "AgentSummary",
+    "build_parser",
+    "build_report",
+    "main",
+    "run_watch",
+    "scan_agents",
+    "summarise_agent",
+]
+
 
 @dataclass
 class AgentSummary:
@@ -176,6 +186,37 @@ def _write_report(report: dict[str, object], directory: Path) -> Path:
         json.dump(report, fh, indent=2, sort_keys=True)
         fh.write("\n")
     return path
+
+
+def run_watch(
+    *,
+    base_dir: Path | None = None,
+    warn_threshold: float = 0.9,
+    window: int = 10,
+    min_count: int = 5,
+    alert_ratio: float = 0.6,
+    report_dir: Path | None = None,
+) -> tuple[list[AgentSummary], dict[str, object], Path | None]:
+    """Execute the scan and optionally persist a report snapshot."""
+
+    summaries = scan_agents(
+        base_dir or DEFAULT_DIR,
+        warn_threshold=warn_threshold,
+        window=window,
+        min_count=min_count,
+        alert_ratio=alert_ratio,
+    )
+    report = build_report(
+        summaries,
+        warn_threshold=warn_threshold,
+        window=window,
+        min_count=min_count,
+        alert_ratio=alert_ratio,
+    )
+    written: Path | None = None
+    if report_dir is not None:
+        written = _write_report(report, report_dir)
+    return summaries, report, written
 
 
 def build_parser() -> argparse.ArgumentParser:

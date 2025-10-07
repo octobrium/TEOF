@@ -10,11 +10,21 @@ from pathlib import Path
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
-from tools.agent import autonomy_latency, autonomy_status, heartbeat, receipts_hygiene, session_brief, task_sync
+from tools.agent import (
+    autonomy_latency,
+    autonomy_status,
+    backlog_health,
+    confidence_watch,
+    heartbeat,
+    receipts_hygiene,
+    session_brief,
+    task_sync,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 BATCH_LOG_DIR_NAME = "batch-refinement"
+CONFIDENCE_REPORT_DIR = ROOT / "_report" / "usage" / "confidence-watch"
 
 
 def _run_pytest(pytest_args: List[str]) -> None:
@@ -127,6 +137,65 @@ def _write_batch_summary(log_dir: Path) -> tuple[dict[str, Any], Path] | tuple[N
     return summary_payload, summary_path
 
 
+def _relative_to_root(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _run_backlog_health_guard(threshold: int, candidate_limit: int) -> tuple[dict[str, Any], bool]:
+    if threshold < 0:
+        raise SystemExit("backlog threshold must be zero or positive")
+    if candidate_limit < 0:
+        raise SystemExit("backlog candidate limit must be zero or positive")
+    data = backlog_health.load_next_development(backlog_health.NEXT_DEV_PATH)
+    metrics = backlog_health.compute_metrics(
+        data,
+        threshold=threshold,
+        queue_dir=backlog_health.QUEUE_DIR,
+        candidate_limit=candidate_limit,
+    )
+    receipt_path = backlog_health.write_receipt(metrics, threshold, None)
+    payload = {
+        "metrics": metrics,
+        "receipt_path": _relative_to_root(receipt_path),
+    }
+    breached = bool(metrics.get("pending_threshold_breached"))
+    return payload, breached
+
+
+def _run_confidence_watch_guard(
+    warn_threshold: float,
+    window: int,
+    min_count: int,
+    alert_ratio: float,
+    report_dir: Path,
+) -> tuple[dict[str, Any], bool]:
+    if not 0.0 <= warn_threshold <= 1.0:
+        raise SystemExit("confidence warn threshold must be between 0.0 and 1.0")
+    if not 0.0 <= alert_ratio <= 1.0:
+        raise SystemExit("confidence alert ratio must be between 0.0 and 1.0")
+    if window < 0:
+        raise SystemExit("confidence window must be zero or positive")
+    if min_count < 1:
+        raise SystemExit("confidence min-count must be at least 1")
+
+    _, report, written = confidence_watch.run_watch(
+        warn_threshold=warn_threshold,
+        window=window,
+        min_count=min_count,
+        alert_ratio=alert_ratio,
+        report_dir=report_dir,
+    )
+    payload: dict[str, Any] = {
+        "report": report,
+        "report_path": _relative_to_root(written) if written is not None else None,
+    }
+    alerts = bool(report.get("alerts"))
+    return payload, alerts
+
+
 def _refresh_autonomy_status(logs: List[Dict[str, Any]]) -> tuple[Dict[str, Any], Path]:
     """Write the autonomy status summary and return payload/path."""
 
@@ -170,6 +239,16 @@ def run_batch(
     latency_warn_threshold: Optional[float] = None,
     latency_fail_threshold: Optional[float] = None,
     latency_dry_run: bool = False,
+    backlog_threshold: int = backlog_health.DEFAULT_THRESHOLD,
+    backlog_candidate_limit: int = backlog_health.DEFAULT_CANDIDATE_LIMIT,
+    allow_backlog_breach: bool = False,
+    skip_backlog_guard: bool = False,
+    confidence_warn_threshold: float = 0.9,
+    confidence_window: int = 10,
+    confidence_min_count: int = 5,
+    confidence_alert_ratio: float = 0.6,
+    allow_confidence_alerts: bool = False,
+    skip_confidence_watch: bool = False,
 ) -> dict:
     resolved_agent = _resolve_agent(agent)
     if not quiet:
@@ -244,7 +323,6 @@ def run_batch(
         "receipts_hygiene": summary,
         "task_sync_changes": task_sync_changes,
     }
-    log_path.write_text(json.dumps(log_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     report["log_path"] = str(log_path.relative_to(ROOT)) if log_path.is_relative_to(ROOT) else str(log_path)
 
     logs_for_summary = autonomy_status.load_batch_logs()
@@ -264,6 +342,41 @@ def run_batch(
     log_payload["autonomy_status_receipt"] = report["autonomy_status"]["receipt_path"]
     log_payload["autonomy_status_summary"] = auto_summary
 
+    guard_failures: list[str] = []
+
+    if not skip_backlog_guard:
+        backlog_payload, backlog_breached = _run_backlog_health_guard(
+            backlog_threshold,
+            backlog_candidate_limit,
+        )
+        report["backlog_health"] = backlog_payload
+        log_payload["backlog_health"] = backlog_payload
+        if backlog_breached:
+            report.setdefault("alerts", []).append("backlog_depleted")
+            if not allow_backlog_breach:
+                guard_failures.append(
+                    "backlog health guard breached: pending items below threshold (Observation→Self-repair)"
+                )
+
+    if not skip_confidence_watch:
+        confidence_payload, alerts_flag = _run_confidence_watch_guard(
+            confidence_warn_threshold,
+            confidence_window,
+            confidence_min_count,
+            confidence_alert_ratio,
+            CONFIDENCE_REPORT_DIR,
+        )
+        report["confidence_watch"] = confidence_payload
+        log_payload["confidence_watch"] = confidence_payload
+        if alerts_flag:
+            report.setdefault("alerts", []).append("confidence_alert")
+            if not allow_confidence_alerts:
+                guard_failures.append(
+                    "confidence watch raised alerts: overconfidence ratio above threshold (Truth→Ethics)"
+                )
+
+    log_path.write_text(json.dumps(log_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
     heartbeat_payload = None
     heartbeat_summary = f"Batch refinement {task.upper()} complete"
     heartbeat_extras = {
@@ -272,19 +385,20 @@ def run_batch(
         "autonomy_receipt": report["autonomy_status"]["receipt_path"],
         "operator_summary": str(report.get("summary")),
     }
-    try:
-        heartbeat_payload = heartbeat.emit_status(
-            resolved_agent,
-            heartbeat_summary,
-            extras=heartbeat_extras,
-        )
-    except Exception as exc:  # pragma: no cover - defensive
-        if not quiet:
-            print(f"Heartbeat emission failed: {exc}")
+    if not guard_failures:
+        try:
+            heartbeat_payload = heartbeat.emit_status(
+                resolved_agent,
+                heartbeat_summary,
+                extras=heartbeat_extras,
+            )
+        except Exception as exc:  # pragma: no cover - defensive
+            if not quiet:
+                print(f"Heartbeat emission failed: {exc}")
 
-    if heartbeat_payload:
-        report["heartbeat"] = heartbeat_payload
-        log_payload["heartbeat"] = heartbeat_payload
+        if heartbeat_payload:
+            report["heartbeat"] = heartbeat_payload
+            log_payload["heartbeat"] = heartbeat_payload
 
     if latency_threshold is not None or latency_warn_threshold is not None or latency_fail_threshold is not None:
         latency_result = autonomy_latency.check_latency(
@@ -316,6 +430,8 @@ def run_batch(
         log_payload["batch_summary"] = report["batch_summary"]
         log_path.write_text(json.dumps(log_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
+    if guard_failures:
+        raise SystemExit("; ".join(guard_failures))
     return report
 
 
@@ -358,6 +474,62 @@ def main(argv: Optional[List[str]] = None) -> int:
         action="store_true",
         help="Print latency alerts instead of logging to the bus",
     )
+    parser.add_argument(
+        "--skip-backlog-guard",
+        action="store_true",
+        help="Skip backlog health guard (not recommended)",
+    )
+    parser.add_argument(
+        "--allow-backlog-breach",
+        action="store_true",
+        help="Do not fail the batch when backlog health breaches the threshold",
+    )
+    parser.add_argument(
+        "--backlog-threshold",
+        type=int,
+        default=backlog_health.DEFAULT_THRESHOLD,
+        help="Pending item threshold before backlog guard fails (default matches backlog_health CLI)",
+    )
+    parser.add_argument(
+        "--backlog-candidate-limit",
+        type=int,
+        default=backlog_health.DEFAULT_CANDIDATE_LIMIT,
+        help="Number of queue candidates to surface when backlog is low (default matches backlog_health CLI)",
+    )
+    parser.add_argument(
+        "--skip-confidence-watch",
+        action="store_true",
+        help="Skip confidence watch guard (not recommended)",
+    )
+    parser.add_argument(
+        "--allow-confidence-alerts",
+        action="store_true",
+        help="Do not fail the batch when confidence watch raises alerts",
+    )
+    parser.add_argument(
+        "--confidence-warn-threshold",
+        type=float,
+        default=0.9,
+        help="Confidence value treated as high (default: 0.9)",
+    )
+    parser.add_argument(
+        "--confidence-window",
+        type=int,
+        default=10,
+        help="Recent entry window for confidence watch (default: 10; 0 = entire log)",
+    )
+    parser.add_argument(
+        "--confidence-min-count",
+        type=int,
+        default=5,
+        help="Minimum entries required before alerts can trigger (default: 5)",
+    )
+    parser.add_argument(
+        "--confidence-alert-ratio",
+        type=float,
+        default=0.6,
+        help="Fraction of high-confidence entries required for alert (default: 0.6)",
+    )
     args = parser.parse_args(argv)
 
     try:
@@ -374,6 +546,16 @@ def main(argv: Optional[List[str]] = None) -> int:
             latency_warn_threshold=args.latency_warn_threshold,
             latency_fail_threshold=args.latency_fail_threshold,
             latency_dry_run=args.latency_dry_run,
+            backlog_threshold=args.backlog_threshold,
+            backlog_candidate_limit=args.backlog_candidate_limit,
+            allow_backlog_breach=args.allow_backlog_breach,
+            skip_backlog_guard=args.skip_backlog_guard,
+            confidence_warn_threshold=args.confidence_warn_threshold,
+            confidence_window=args.confidence_window,
+            confidence_min_count=args.confidence_min_count,
+            confidence_alert_ratio=args.confidence_alert_ratio,
+            allow_confidence_alerts=args.allow_confidence_alerts,
+            skip_confidence_watch=args.skip_confidence_watch,
         )
     except SystemExit:
         raise

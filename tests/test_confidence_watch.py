@@ -138,3 +138,28 @@ def test_cli_fail_on_alert(tmp_path: Path) -> None:
         ]
     )
     assert exit_code == 1
+
+
+def test_run_watch_returns_report(tmp_path: Path) -> None:
+    base = tmp_path / "_report" / "agent"
+    entries = [
+        ConfidenceEntry(ts="2025-10-06T00:00:00Z", agent="codex-9", confidence=0.4, note="warmup"),
+        ConfidenceEntry(ts="2025-10-06T01:00:00Z", agent="codex-9", confidence=0.6, note=None),
+    ]
+    log_path = base / "codex-9" / "confidence.jsonl"
+    _write_entries(log_path, entries)
+
+    report_dir = tmp_path / "reports"
+    summaries, report, path = confidence_watch.run_watch(
+        base_dir=base,
+        warn_threshold=0.9,
+        window=0,
+        min_count=1,
+        alert_ratio=0.5,
+        report_dir=report_dir,
+    )
+    assert len(summaries) == 1
+    assert report["alerts"] == []
+    assert path is not None and path.exists()
+    recorded = json.loads(path.read_text(encoding="utf-8"))
+    assert recorded["agents"][0]["agent"] == "codex-9"

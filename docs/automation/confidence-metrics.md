@@ -54,6 +54,11 @@ python -m tools.agent.confidence_watch --format table --report-dir _report/usage
 JSON snapshots land in `_report/usage/confidence-watch/confidence-watch-<ts>.json`
 so stewards can compare runs. Use `--format json` for machine-readable output.
 
+`python -m tools.agent.batch_refinement` runs the watcher automatically and fails
+the batch when alerts fire (unless `--allow-confidence-alerts` is provided). This
+keeps overconfidence escalations inline with the OCERS Truth → Ethics contract
+before automation publishes heartbeats.
+
 ## Next Steps
 
 - Correlate confidence reports with task outcomes to measure calibration drift.

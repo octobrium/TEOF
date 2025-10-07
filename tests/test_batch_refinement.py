@@ -10,6 +10,20 @@ import pytest
 from tools.agent import batch_refinement
 
 
+@pytest.fixture(autouse=True)
+def stub_guards(monkeypatch: pytest.MonkeyPatch) -> None:
+    def fake_backlog(threshold: int, candidate_limit: int):
+        payload = {"metrics": {"pending_threshold_breached": False}, "receipt_path": "_report/usage/backlog-health/test.json"}
+        return payload, False
+
+    def fake_confidence(warn_threshold: float, window: int, min_count: int, alert_ratio: float, report_dir: Path):
+        payload = {"report": {"alerts": [], "generated_at": "2025-10-07T00:00:00Z"}, "report_path": "_report/usage/confidence-watch/test.json"}
+        return payload, False
+
+    monkeypatch.setattr(batch_refinement, "_run_backlog_health_guard", fake_backlog)
+    monkeypatch.setattr(batch_refinement, "_run_confidence_watch_guard", fake_confidence)
+
+
 class DummyResult:
     def __init__(self, returncode: int = 0) -> None:
         self.returncode = returncode
@@ -155,6 +169,8 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
     assert data["operator_preset"]["receipt_path"] == preset_calls["receipt"]
     assert data["task_sync_changes"]
     assert data["autonomy_status_receipt"].endswith("autonomy-status.json")
+    assert result["backlog_health"]["metrics"]["pending_threshold_breached"] is False
+    assert result["confidence_watch"]["report"]["alerts"] == []
     assert "batch_summary" in data
     assert heartbeat_called["agent"] == "codex-1"
     assert "QUEUE-999" in heartbeat_called["summary"]
@@ -170,6 +186,43 @@ def test_batch_refinement_runs_components(monkeypatch: pytest.MonkeyPatch, tmp_p
     summary_payload = json.loads(summary_path.read_text(encoding="utf-8"))
     assert summary_payload["total_runs"] >= 1
     assert "latest_log" in summary_payload
+
+
+def test_batch_refinement_guard_failure(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    monkeypatch.setattr(subprocess, "run", lambda *a, **k: DummyResult(0))
+    monkeypatch.setattr(batch_refinement.receipts_hygiene, "run_hygiene", lambda **k: {"metrics": {}})
+    monkeypatch.setattr(batch_refinement.receipts_hygiene, "DEFAULT_USAGE_DIR", tmp_path / "usage")
+    monkeypatch.setattr(batch_refinement.session_brief, "load_claim", lambda task: {})
+    monkeypatch.setattr(batch_refinement.session_brief, "_run_operator_preset", lambda *a, **k: {"summary": "pass", "receipt_path": "r"})
+    manifest = tmp_path / "AGENT_MANIFEST.json"
+    manifest.write_text('{"agent_id": "codex-1"}', encoding="utf-8")
+    monkeypatch.setattr(batch_refinement, "MANIFEST_PATH", manifest)
+    monkeypatch.setattr(batch_refinement.task_sync, "sync_tasks", lambda: [])
+    monkeypatch.setattr(batch_refinement.autonomy_status, "ROOT", tmp_path)
+    monkeypatch.setattr(batch_refinement.autonomy_status, "load_hygiene", lambda: {})
+    monkeypatch.setattr(batch_refinement.autonomy_status, "load_batch_logs", lambda: [])
+    monkeypatch.setattr(
+        batch_refinement.autonomy_status,
+        "summarise",
+        lambda hygiene, logs: {"batch_logs": {"entries": 0, "warn_count": 0, "fail_count": 0}},
+    )
+    monkeypatch.setattr(batch_refinement.autonomy_latency, "check_latency", lambda **k: {"alerts": [], "receipt_path": None})
+
+    def fail_backlog(threshold: int, candidate_limit: int):
+        return {"metrics": {"pending_threshold_breached": True}, "receipt_path": "_report/usage/backlog-health/fail.json"}, True
+
+    monkeypatch.setattr(batch_refinement, "_run_backlog_health_guard", fail_backlog)
+
+    with pytest.raises(SystemExit) as exc:
+        batch_refinement.run_batch(
+            task="QUEUE-123",
+            agent=None,
+            pytest_args=["-q"],
+            quiet=True,
+            output=None,
+            log_dir=tmp_path / "logs",
+        )
+    assert "backlog health guard breached" in str(exc.value)
 
 
 def test_batch_refinement_requires_agent(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:

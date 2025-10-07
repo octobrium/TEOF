@@ -3,7 +3,7 @@
   "plan_id": "2025-09-27-data-ingestion",
   "created": "2025-09-27T20:20:00Z",
   "actor": "codex-5",
-  "summary": "[Cancelled 2025-10-07] Automate market/macro data ingestion for relay case studies",
+  "summary": "[Blocked 2025-10-07] Automate market/macro data ingestion for relay case studies (deferred until systemic backlog guard restores pending work)",
   "layer": "L6",
   "systemic_scale": 6,
   "status": "blocked",
@@ -47,6 +47,10 @@
     {
       "type": "plan",
       "ref": "2025-09-27-relay-case-run"
+    },
+    {
+      "type": "plan",
+      "ref": "2025-10-05-backlog-health"
     }
   ],
   "receipts": [],

@@ -3,7 +3,7 @@
   "plan_id": "2025-10-04-autonomy-status-upgrade",
   "created": "2025-10-04T20:48:30Z",
   "actor": "codex-4",
-  "summary": "[Cancelled 2025-10-07] Extend autonomy_status CLI with readiness signals",
+  "summary": "[Blocked 2025-10-07] Extend autonomy_status CLI with readiness signals (revisit after backlog/confidence guards settle)",
   "status": "blocked",
   "steps": [
     {
@@ -33,7 +33,20 @@
     "owner": "codex-4",
     "status": "pending"
   },
-  "links": [],
+  "links": [
+    {
+      "type": "plan",
+      "ref": "2025-09-25-oversight-guard"
+    },
+    {
+      "type": "plan",
+      "ref": "2025-10-05-backlog-health"
+    },
+    {
+      "type": "plan",
+      "ref": "2025-10-06-confidence-calibration"
+    }
+  ],
   "receipts": [],
   "ocers_target": "Observation\u2191 Reproducibility\u2191",
   "layer": "L6",
