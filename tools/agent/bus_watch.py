@@ -123,9 +123,11 @@ def format_event(event: Mapping[str, object]) -> str:
     receipt_suffix = ""
     if isinstance(receipts, list) and receipts:
         receipt_suffix = " :: receipts=" + ",".join(str(r) for r in receipts)
+    severity = event.get("severity")
+    severity_suffix = f" [sev={severity}]" if severity else ""
     return (
         f"{event.get('ts')} :: {event.get('agent_id')} :: {event.get('event')} :: "
-        f"task={task} :: {summary}{receipt_suffix}"
+        f"task={task}{severity_suffix} :: {summary}{receipt_suffix}"
     )
 
 

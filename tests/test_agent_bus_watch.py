@@ -26,6 +26,8 @@ def make_event(ts: str, agent: str = "codex-1", event: str = "status", **extra):
     }
     if "receipts" in extra:
         payload["receipts"] = extra["receipts"]
+    if "severity" in extra:
+        payload["severity"] = extra["severity"]
     return payload
 
 
@@ -72,6 +74,17 @@ def test_format_event_includes_receipts():
     out = format_event(event)
     assert "added receipt" in out
     assert "receipts=_report/test.json" in out
+
+
+def test_format_event_includes_severity():
+    event = make_event(
+        "2025-09-17T23:20:00Z",
+        severity="high",
+        summary="escalation",
+    )
+    out = format_event(event)
+    assert "sev=high" in out
+    assert "escalation" in out
 
 
 def test_event_matches_invalid_timestamp_skips():

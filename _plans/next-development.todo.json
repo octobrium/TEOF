@@ -11,13 +11,18 @@
     {
       "id": "ND-042",
       "title": "Surface severity in bus_watch",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-07-bus-watch-severity",
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
       "ocers_target": "Coherence\u2191 Evidence\u2191",
-      "source": "queue/001-agent-bus-watch.md"
+      "source": "queue/001-agent-bus-watch.md",
+      "completed_at": "2025-10-07T19:46:45Z",
+      "receipts": [
+        "tests/test_agent_bus_watch.py",
+        "tools/agent/bus_watch.py"
+      ]
     },
     {
       "id": "ND-043",

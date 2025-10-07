@@ -8,27 +8,31 @@
   "layer": "L5",
   "systemic_scale": 3,
   "impact_score": 35,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Update bus_watch formatter to show severity",
-      "status": "queued",
+      "status": "done",
       "notes": "Display severity alongside event summary and ensure follow mode highlights high alerts.",
-      "receipts": []
+      "receipts": [
+        "tools/agent/bus_watch.py"
+      ]
     },
     {
       "id": "S2",
       "title": "Add tests for severity streaming",
-      "status": "queued",
+      "status": "done",
       "notes": "Expand tests/test_agent_bus_watch.py to cover severity output and filtering.",
-      "receipts": []
+      "receipts": [
+        "tests/test_agent_bus_watch.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "bus_watch output includes severity with regression coverage",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -36,6 +40,9 @@
       "ref": "queue/001-agent-bus-watch.md"
     }
   ],
-  "ocers_target": "Coherence↑ Evidence↑",
-  "receipts": []
+  "ocers_target": "Coherence\u2191 Evidence\u2191",
+  "receipts": [
+    "tools/agent/bus_watch.py",
+    "tests/test_agent_bus_watch.py"
+  ]
 }
