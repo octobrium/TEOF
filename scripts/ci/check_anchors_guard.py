@@ -11,7 +11,6 @@ import json
 import re
 import subprocess
 import sys
-from copy import deepcopy
 from pathlib import Path
 from typing import Mapping, MutableMapping, Sequence
 
@@ -54,18 +53,18 @@ def _compute_backfilled_events(head_json: MutableMapping[str, object]) -> list[d
     if not isinstance(events, list):
         return []
 
-    computed: list[dict[str, object]] = []
-    base = deepcopy(head_json)
+    base: MutableMapping[str, object] = json.loads(json.dumps(head_json))
+    base["events"] = []
 
-    for idx, raw_event in enumerate(events):
+    computed: list[dict[str, object]] = []
+    for raw_event in events:
         if not isinstance(raw_event, dict):
             return []
-        state = deepcopy(base)
-        state["events"] = [deepcopy(ev) for ev in computed]
-        prev_hash = sha256_bytes(_serialize_json(state).encode("utf-8"))
+        prev_hash = sha256_bytes(_serialize_json(base).encode("utf-8"))
         event = dict(raw_event)
         event["prev_content_hash"] = prev_hash
         computed.append(event)
+        base["events"].append(event)
     return computed
 
 
@@ -131,7 +130,7 @@ def validate_events(
             )
         prefix_len = len(head_events)
         if events[:prefix_len] != list(head_events):
-            expected_backfill = _compute_backfilled_events(deepcopy(head_json))
+            expected_backfill = _compute_backfilled_events(head_json)
             if expected_backfill and events[:prefix_len] == expected_backfill:
                 backfill_ok = True
             else:

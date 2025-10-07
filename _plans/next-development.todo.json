@@ -11,14 +11,20 @@
     {
       "id": "ND-038",
       "title": "Enforce anchors append-only policy",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-07-anchors-policy-guard",
       "notes": "Guard anchors.json with prev_content_hash enforcement and document append-only expectations.",
       "priority": "high",
       "layer": "L1",
       "systemic_scale": 6,
       "ocers_target": "Evidence\u2191 Safety\u2191 Coherence\u2191",
-      "source": "queue/000-welcome.md"
+      "source": "queue/000-welcome.md",
+      "completed_at": "2025-10-07T18:36:47Z",
+      "receipts": [
+        "docs/architecture.md",
+        "scripts/ci/check_anchors_guard.py",
+        "tools/governance/anchors_audit.py"
+      ]
     },
     {
       "id": "ND-039",
