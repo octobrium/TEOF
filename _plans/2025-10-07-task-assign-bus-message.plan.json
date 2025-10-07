@@ -1,0 +1,41 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-07-task-assign-bus-message",
+  "created": "2025-10-07T20:05:30Z",
+  "actor": "codex-4",
+  "summary": "Align task_assign follow-ups with the bus_message CLI",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 25,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit task_assign message usage",
+      "status": "queued",
+      "notes": "Inventory current follow-up patterns and identify gaps once the bus_message CLI ships.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Integrate CLI into task_assign workflow",
+      "status": "queued",
+      "notes": "Update tooling/docs so task_assign emits standardized bus_message receipts.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "task_assign automation emits bus_message receipts with alignment guidance",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/006-task-assign-bus-message.md"
+    }
+  ],
+  "ocers_target": "Coherence↑ Evidence↑",
+  "receipts": []
+}

@@ -1,0 +1,58 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-07-bus-message-cli",
+  "created": "2025-10-07T20:05:00Z",
+  "actor": "codex-4",
+  "summary": "[Superseded] bus_message CLI already exists",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 30,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design CLI ergonomics",
+      "status": "done",
+      "notes": "Define required flags for task, type, summary, and receipts with sensible defaults.",
+      "receipts": [
+        "docs/agents.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement CLI and validation",
+      "status": "done",
+      "notes": "Create tools.agent.bus_message CLI mirroring bus_event patterns and enforce manifest alignment.",
+      "receipts": [
+        "tools/agent/bus_message.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add tests and usage docs",
+      "status": "done",
+      "notes": "Cover happy-path/validation cases and document usage alongside bus_event/bus_status guidance.",
+      "receipts": [
+        "docs/parallel-codex.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Bus message CLI posts validated entries with tests/docs",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/005-bus-message-cli.md"
+    }
+  ],
+  "ocers_target": "Coherence\u2191 Evidence\u2191",
+  "receipts": [
+    "docs/agents.md",
+    "docs/parallel-codex.md",
+    "tools/agent/bus_message.py"
+  ]
+}

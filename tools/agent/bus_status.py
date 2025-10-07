@@ -17,6 +17,7 @@ MANIFEST_PATTERN = "AGENT_MANIFEST*.json"
 HEARTBEAT_EVENTS = {"handshake", "status"}
 DEFAULT_MANAGER_WINDOW_MINUTES = 30.0
 DEFAULT_WINDOW_HOURS = 24.0
+SEVERITY_LEVELS = {"low", "medium", "high"}
 
 PRESETS = {
     "support": {
@@ -278,12 +279,18 @@ def _filter_events(
     events: Iterable[dict[str, Any]],
     *,
     agents: Sequence[str] | None,
+    severities: Sequence[str] | None,
 ) -> list[dict[str, Any]]:
     selected: list[dict[str, Any]] = []
     for event in events:
         agent_id = str(event.get("agent_id", ""))
         if agents and agent_id not in agents:
             continue
+        if severities:
+            severity = event.get("severity")
+            severity_normalized = str(severity).lower() if isinstance(severity, str) else None
+            if severity_normalized not in severities:
+                continue
         selected.append(event)
     return selected
 
@@ -296,6 +303,7 @@ def summarize(
     agents: Sequence[str] | None,
     active_only: bool,
     since_filter: bool,
+    severity_filter: Sequence[str] | None,
 ) -> None:
     window = manager_status.get("window_minutes")
     candidates = manager_status.get("candidates", [])
@@ -327,9 +335,10 @@ def summarize(
             print()
 
     claim_filters = bool(agents) or active_only
-    event_filters = bool(agents) or since_filter
+    severity_filters_applied = bool(severity_filter)
+    event_filters = bool(agents) or since_filter or severity_filters_applied
     filtered_claims = _filter_claims(claims, agents=agents, active_only=active_only)
-    filtered_events = _filter_events(events, agents=agents)
+    filtered_events = _filter_events(events, agents=agents, severities=severity_filter)
 
     if filtered_claims:
         print("Active claims:")
@@ -369,9 +378,10 @@ def _print_summary(
     since_filter: bool,
     preset: str | None,
     limit: int,
+    severity_filter: Sequence[str] | None,
 ) -> None:
     filtered_claims = _filter_claims(claims, agents=agents, active_only=active_only)
-    filtered_events = _filter_events(events, agents=agents)
+    filtered_events = _filter_events(events, agents=agents, severities=severity_filter)
 
     print("Summary")
     meta_parts = [f"limit={limit}"]
@@ -439,6 +449,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--agent",
         action="append",
         help="Filter claims and events by agent id (repeatable)",
+    )
+    parser.add_argument(
+        "--severity",
+        action="append",
+        help="Filter events by severity (low|medium|high)",
     )
     parser.add_argument(
         "--active-only",
@@ -512,6 +527,17 @@ def main(argv: list[str] | None = None) -> int:
     if not agents and default_agents:
         agents = list(default_agents)
 
+    severity_filter = None
+    if args.severity:
+        normalized: list[str] = []
+        for value in args.severity:
+            val = str(value).strip().lower()
+            if val not in SEVERITY_LEVELS:
+                allowed = ", ".join(sorted(SEVERITY_LEVELS))
+                parser.error(f"--severity must be one of: {allowed}")
+            normalized.append(val)
+        severity_filter = normalized
+
     all_events = load_events(limit=None, since=since)
     events = all_events[-limit:] if limit else all_events
     manager_candidates = _collect_manager_candidates(manifests)
@@ -523,7 +549,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.json:
         filtered_claims = _filter_claims(claims, agents=agents, active_only=args.active_only)
-        filtered_events = _filter_events(events, agents=agents)
+        filtered_events = _filter_events(events, agents=agents, severities=severity_filter)
         payload = {
             "claims": filtered_claims,
             "events": filtered_events,
@@ -535,6 +561,7 @@ def main(argv: list[str] | None = None) -> int:
                 "window_hours": args.window_hours,
                 "manager_window": args.manager_window,
                 "preset": preset_applied,
+                "severity": severity_filter or [],
             },
             "manager_status": manager_status,
         }
@@ -551,6 +578,7 @@ def main(argv: list[str] | None = None) -> int:
             since_filter=since is not None,
             preset=preset_applied,
             limit=limit,
+            severity_filter=severity_filter,
         )
     else:
         summarize(
@@ -560,6 +588,7 @@ def main(argv: list[str] | None = None) -> int:
             agents=agents,
             active_only=args.active_only,
             since_filter=since is not None,
+            severity_filter=severity_filter,
         )
     return 0
 

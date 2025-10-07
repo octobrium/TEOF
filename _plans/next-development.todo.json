@@ -9,6 +9,44 @@
   },
   "items": [
     {
+      "id": "ND-046",
+      "title": "Add high-severity digest to manager dashboard",
+      "status": "pending",
+      "plan_suggestion": "2025-10-07-manager-severity-digest",
+      "priority": "medium",
+      "layer": "L5",
+      "systemic_scale": 3,
+      "ocers_target": "Coherence\u2191 Safety\u2191",
+      "source": "queue/001-agent-bus-watch.md"
+    },
+    {
+      "id": "ND-044",
+      "title": "Ship bus_message CLI",
+      "status": "done",
+      "plan_suggestion": "2025-10-07-bus-message-cli",
+      "priority": "medium",
+      "layer": "L5",
+      "systemic_scale": 3,
+      "ocers_target": "Coherence\u2191 Evidence\u2191",
+      "source": "queue/005-bus-message-cli.md",
+      "completed_at": "2025-10-07T20:17:37Z",
+      "receipts": [
+        "docs/parallel-codex.md",
+        "tools/agent/bus_message.py"
+      ]
+    },
+    {
+      "id": "ND-045",
+      "title": "Align task_assign bus messages",
+      "status": "pending",
+      "plan_suggestion": "2025-10-07-task-assign-bus-message",
+      "priority": "medium",
+      "layer": "L5",
+      "systemic_scale": 3,
+      "ocers_target": "Coherence\u2191 Evidence\u2191",
+      "source": "queue/006-task-assign-bus-message.md"
+    },
+    {
       "id": "ND-042",
       "title": "Surface severity in bus_watch",
       "status": "done",
@@ -27,13 +65,18 @@
     {
       "id": "ND-043",
       "title": "Add severity filters to bus_status presets",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-07-bus-status-filters",
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
       "ocers_target": "Coherence\u2191 Evidence\u2191",
-      "source": "queue/002-bus-status-filters.md"
+      "source": "queue/002-bus-status-filters.md",
+      "completed_at": "2025-10-07T19:59:55Z",
+      "receipts": [
+        "docs/parallel-codex.md",
+        "tools/agent/bus_status.py"
+      ]
     },
     {
       "id": "ND-038",

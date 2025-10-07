@@ -8,27 +8,32 @@
   "layer": "L5",
   "systemic_scale": 3,
   "impact_score": 30,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Add severity filter and presets",
-      "status": "queued",
+      "status": "done",
       "notes": "Support --severity high|medium|low and update presets to focus on escalations.",
-      "receipts": []
+      "receipts": [
+        "tools/agent/bus_status.py",
+        "tests/test_agent_bus_status.py"
+      ]
     },
     {
       "id": "S2",
       "title": "Document new filters",
-      "status": "queued",
+      "status": "done",
       "notes": "Update docs/parallel-codex.md or related guides with usage examples.",
-      "receipts": []
+      "receipts": [
+        "docs/parallel-codex.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "bus_status can filter by severity with updated documentation",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -36,6 +41,10 @@
       "ref": "queue/002-bus-status-filters.md"
     }
   ],
-  "ocers_target": "Coherence↑ Evidence↑",
-  "receipts": []
+  "ocers_target": "Coherence\u2191 Evidence\u2191",
+  "receipts": [
+    "tools/agent/bus_status.py",
+    "tests/test_agent_bus_status.py",
+    "docs/parallel-codex.md"
+  ]
 }

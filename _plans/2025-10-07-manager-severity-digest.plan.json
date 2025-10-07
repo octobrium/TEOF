@@ -1,0 +1,41 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-07-manager-severity-digest",
+  "created": "2025-10-07T20:22:00Z",
+  "actor": "codex-5",
+  "summary": "Add high-severity digest output to manager dashboard",
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 35,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Prototype severity digest",
+      "status": "queued",
+      "notes": "Collect recent high-severity events and render a concise digest for managers.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Integrate into coord_dashboard",
+      "status": "queued",
+      "notes": "Expose severity digest in tools.agent.coord_dashboard so cadence reviews surface escalations.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Coordination dashboard shows recent high-severity alerts",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "plan",
+      "ref": "2025-09-23-autonomy-roadmap"
+    }
+  ],
+  "ocers_target": "Coherence↑ Safety↑",
+  "receipts": []
+}

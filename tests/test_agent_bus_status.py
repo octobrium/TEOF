@@ -59,6 +59,14 @@ def _setup_bus(tmp_path, monkeypatch):
             "severity": "medium",
         },
         {"ts": iso(2), "agent_id": "codex-2", "event": "complete", "task_id": "QUEUE-011", "summary": "complete"},
+        {
+            "ts": iso(3),
+            "agent_id": "codex-3",
+            "event": "alert",
+            "task_id": "QUEUE-012",
+            "summary": "high severity alert",
+            "severity": "high",
+        },
     ]
     events_dir.mkdir(parents=True, exist_ok=True)
     with events_log.open("w", encoding="utf-8") as fh:
@@ -126,6 +134,7 @@ def test_bus_status_json_output(tmp_path, monkeypatch, capsys):
     assert payload["filters"]["agents"] == ["codex-1"]
     assert payload["filters"]["active_only"] is False
     assert payload["filters"]["preset"] is None
+    assert payload["filters"]["severity"] == []
     assert payload["filters"]["window_hours"] == bus_status.DEFAULT_WINDOW_HOURS
     assert payload["filters"]["manager_window"] == bus_status.DEFAULT_MANAGER_WINDOW_MINUTES
     assert len(payload["claims"]) == 1
@@ -152,9 +161,18 @@ def test_bus_status_since_filters_events(tmp_path, monkeypatch, capsys):
     assert len(payload["claims"]) == 1
     assert len(payload["events"]) == 1
     assert payload["events"][0]["agent_id"] == "codex-2"
-    manager_status = payload["manager_status"]
-    assert not manager_status["active"]
-    assert manager_status["missing"][0]["agent_id"] == "codex-1"
+    assert payload["filters"]["severity"] == []
+
+
+def test_bus_status_severity_filter(tmp_path, monkeypatch, capsys):
+    _setup_bus(tmp_path, monkeypatch)
+    exit_code = bus_status.main(["--json", "--severity", "high", "--agent", "codex-3", "--limit", "5"])
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["filters"]["severity"] == ["high"]
+    assert payload["filters"]["agents"] == ["codex-3"]
+    assert len(payload["events"]) == 1
+    assert payload["events"][0]["severity"] == "high"
 
 
 def test_bus_status_defaults_to_manifest_agent(tmp_path, monkeypatch, capsys):

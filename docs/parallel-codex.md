@@ -35,6 +35,7 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 - `high`: urgent escalation—treat as a safety/ethics signal and respond immediately.
 
 Pass `--severity <level>` to `bus_event log` whenever an action changes posture; automation surfaces the field in `bus_status` and `bus_watch` so managers can prioritize responses.
+Use `python -m tools.agent.bus_status --severity high --preset manager` to scan only high-priority alerts during cadence sweeps.
 
 Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse the same commands so every new seat can confirm access to the coordination bus before picking up work.
 
