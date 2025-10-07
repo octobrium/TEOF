@@ -377,12 +377,19 @@
     {
       "id": "ND-037",
       "title": "OCERS/systemic mapping",
-      "status": "pending",
+      "status": "done",
       "layer": "L5",
       "priority": "medium",
       "notes": "Execute plan 2025-10-06-ocers-systemic-alignment; document OCERS as diagnostic overlay and update stress tests.",
       "plan_suggestion": "2025-10-06-ocers-systemic-alignment",
-      "receipts": []
+      "receipts": [
+        "_plans/2025-10-06-ocers-systemic-alignment.plan.json",
+        "docs/automation/ocers-overview.md",
+        "docs/automation/ocers-systemic-mapping.md",
+        "README.md",
+        "docs/automation.md"
+      ],
+      "completed_at": "2025-10-07T01:55:00Z"
     }
   ],
   "history": [

@@ -1,6 +1,6 @@
 # L6 Automation (Working Notes)
 
-**Purpose:** describe how automated actors (bots, scripts, agents) operate inside TEOF while serving L0–L5.
+**Purpose:** describe how automated actors (bots, scripts, agents) operate inside TEOF while serving L0–L5. The OCERS loop referenced throughout these notes is a diagnostic overlay; systemic priorities remain governed by S1–S10 (see [`docs/automation/ocers-systemic-mapping.md`](ocers-systemic-mapping.md)).
 
 ## Core Duties
 

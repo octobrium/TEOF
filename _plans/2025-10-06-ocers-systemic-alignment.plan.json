@@ -2,7 +2,7 @@
   "plan_id": "2025-10-06-ocers-systemic-alignment",
   "created": "2025-10-06T20:17:09Z",
   "actor": "codex-4",
-  "status": "queued",
+  "status": "done",
   "summary": "Document OCERS as a subordinate diagnostic overlay mapped to systemic hierarchy S1–S10.",
   "links": [
     {
@@ -14,34 +14,52 @@
       "ref": "README.md#framework-ordering"
     }
   ],
-  "receipts": [],
+  "receipts": [
+    "docs/automation/ocers-overview.md",
+    "docs/automation/ocers-systemic-mapping.md",
+    "README.md",
+    "docs/automation.md"
+  ],
   "steps": [
     {
       "id": "step-1",
       "title": "Inventory OCERS references",
-      "status": "queued",
-      "notes": "Collect docs/guards mentioning OCERS to scope updates",
-      "receipts": []
+      "status": "done",
+      "notes": "Inventory OCERS references across docs/tools.",
+      "receipts": [
+        "docs/automation/ocers-overview.md"
+      ]
     },
     {
       "id": "step-2",
       "title": "Draft OCERS↔S mapping",
-      "status": "queued",
-      "notes": "Produce table mapping each OCERS phase to S/L coordinates with receipt",
-      "receipts": []
+      "status": "done",
+      "notes": "Draft mapping of OCERS phases to S axes.",
+      "receipts": [
+        "docs/automation/ocers-systemic-mapping.md"
+      ]
     },
     {
       "id": "step-3",
       "title": "Update docs/guards",
-      "status": "queued",
-      "notes": "Patch docs/automation, workflow, manager_report to cite systemic coordinates and note future adaptation",
-      "receipts": []
+      "status": "done",
+      "notes": "Updated docs to cite mapping and reinforce hierarchy.",
+      "receipts": [
+        "README.md",
+        "docs/automation.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "OCERS overlay documented as subordinate to S1–S10 with receipts",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied",
+    "receipts": [
+      "docs/automation/ocers-overview.md",
+      "docs/automation/ocers-systemic-mapping.md",
+      "README.md",
+      "docs/automation.md"
+    ]
   },
   "version": 0,
   "priority": 2,
