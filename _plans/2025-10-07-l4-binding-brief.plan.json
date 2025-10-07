@@ -3,12 +3,12 @@
   "plan_id": "2025-10-07-l4-binding-brief",
   "created": "2025-10-07T07:05:30Z",
   "actor": "codex-5",
-  "summary": "Link governance bindings to concrete receipts in a concise L4 brief",
+  "summary": "[Blocked 2025-10-07] Link governance bindings to concrete receipts in a concise L4 brief (waiting on systemic backlog guard)",
   "priority": 2,
   "layer": "L4",
   "systemic_scale": 6,
   "impact_score": 55,
-  "status": "queued",
+  "status": "blocked",
   "steps": [
     {
       "id": "S1",
@@ -43,6 +43,6 @@
       "ref": "queue/034-l4-binding-brief.md"
     }
   ],
-  "ocers_target": "Coherence↑ Reproducibility↑",
+  "ocers_target": "Coherence\u2191 Reproducibility\u2191",
   "receipts": []
 }

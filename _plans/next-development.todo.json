@@ -27,18 +27,6 @@
       ]
     },
     {
-      "id": "ND-039",
-      "title": "Publish L4 binding explainer",
-      "status": "pending",
-      "plan_suggestion": "2025-10-07-l4-binding-brief",
-      "notes": "Create the concise reference that links governance bindings to the enforcing tests and receipts.",
-      "priority": "high",
-      "layer": "L4",
-      "systemic_scale": 6,
-      "ocers_target": "Coherence\u2191 Reproducibility\u2191",
-      "source": "queue/034-l4-binding-brief.md"
-    },
-    {
       "id": "ND-040",
       "title": "Add severity metadata to bus_event",
       "status": "pending",
