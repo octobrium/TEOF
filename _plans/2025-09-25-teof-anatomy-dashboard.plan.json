@@ -3,7 +3,7 @@
   "plan_id": "2025-09-25-teof-anatomy-dashboard",
   "created": "2025-09-26T17:14:28Z",
   "actor": "codex-5",
-  "summary": "[Blocked 2025-10-07] Map subsystem anatomy and build health diagnostics (superseded by backlog summary + missing-receipts guards)",
+  "summary": "[Blocked 2025-10-08] Hold until backlog health + repo anatomy receipts expose subsystem gaps worth a bespoke dashboard; next receipt: rerun backlog synth under _report/autonomy/backlog-synth/ confirming the gap.",
   "priority": 1,
   "layer": "L5",
   "systemic_scale": 5,

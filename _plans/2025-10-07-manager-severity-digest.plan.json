@@ -8,27 +8,31 @@
   "layer": "L5",
   "systemic_scale": 3,
   "impact_score": 35,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Prototype severity digest",
-      "status": "queued",
+      "status": "done",
       "notes": "Collect recent high-severity events and render a concise digest for managers.",
-      "receipts": []
+      "receipts": [
+        "tests/test_coord_dashboard.py"
+      ]
     },
     {
       "id": "S2",
       "title": "Integrate into coord_dashboard",
-      "status": "queued",
+      "status": "done",
       "notes": "Expose severity digest in tools.agent.coord_dashboard so cadence reviews surface escalations.",
-      "receipts": []
+      "receipts": [
+        "tools/agent/coord_dashboard.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Coordination dashboard shows recent high-severity alerts",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -37,5 +41,8 @@
     }
   ],
   "ocers_target": "Coherence↑ Safety↑",
-  "receipts": []
+  "receipts": [
+    "tools/agent/coord_dashboard.py",
+    "tests/test_coord_dashboard.py"
+  ]
 }

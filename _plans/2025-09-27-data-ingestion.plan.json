@@ -3,7 +3,7 @@
   "plan_id": "2025-09-27-data-ingestion",
   "created": "2025-09-27T20:20:00Z",
   "actor": "codex-5",
-  "summary": "[Blocked 2025-10-07] Automate market/macro data ingestion for relay case studies (deferred until systemic backlog guard restores pending work)",
+  "summary": "[Blocked 2025-10-08] Waiting for backlog health and relay follow-up receipts to prioritize ingestion scope; next receipt: capture the data catalog prototype under _report/usage/data/ once the guard escalates demand.",
   "layer": "L6",
   "systemic_scale": 6,
   "status": "blocked",

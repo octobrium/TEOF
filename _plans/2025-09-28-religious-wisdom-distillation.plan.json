@@ -3,12 +3,12 @@
   "plan_id": "2025-09-28-religious-wisdom-distillation",
   "created": "2025-09-28T18:03:44Z",
   "actor": "codex-5",
-  "summary": "Distill cross-religious alignment patterns",
+  "summary": "[Blocked 2025-10-08] Distillation waits on ethics review to anchor the synthesis; next receipt: publish the religious-wisdom synthesis under _report/usage/governance/ once reviewers sign off.",
   "priority": 5,
   "layer": "L1",
   "systemic_scale": 8,
   "impact_score": 3,
-  "status": "in_progress",
+  "status": "blocked",
   "steps": [
     {
       "id": "S1",
@@ -32,7 +32,7 @@
       "id": "S3",
       "title": "Synthesize receipts-backed guidance",
       "status": "queued",
-      "notes": "(CMD-__)",
+      "notes": "Pending ethics review; capture synthesis receipt under _report/usage/governance/ when cleared.",
       "receipts": []
     }
   ],
