@@ -175,6 +175,42 @@ def test_bus_status_severity_filter(tmp_path, monkeypatch, capsys):
     assert payload["events"][0]["severity"] == "high"
 
 
+def test_bus_status_preset_support_sets_default_severity(tmp_path, monkeypatch, capsys):
+    _setup_bus(tmp_path, monkeypatch)
+    exit_code = bus_status.main(["--json", "--preset", "support", "--agent", "codex-3"])
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["filters"]["preset"] == "support"
+    assert payload["filters"]["severity"] == ["medium", "high"]
+    assert len(payload["events"]) == 1
+    assert payload["events"][0]["agent_id"] == "codex-3"
+    assert payload["events"][0]["severity"] == "high"
+
+
+def test_bus_status_summary_mentions_severity_when_filtered(tmp_path, monkeypatch, capsys):
+    _setup_bus(tmp_path, monkeypatch)
+    exit_code = bus_status.main([
+        "--summary",
+        "--preset",
+        "support",
+        "--agent",
+        "codex-3",
+    ])
+    assert exit_code == 0
+    out = capsys.readouterr().out
+    assert "severity=medium,high" in out
+    assert "- events (1):" in out
+    assert "[sev=high]" in out
+
+
+def test_bus_status_reports_when_no_events_match_severity(tmp_path, monkeypatch, capsys):
+    _setup_bus(tmp_path, monkeypatch)
+    exit_code = bus_status.main(["--agent", "codex-1", "--severity", "high"])
+    assert exit_code == 0
+    out = capsys.readouterr().out
+    assert "No events matching severity filter (high)." in out
+
+
 def test_bus_status_defaults_to_manifest_agent(tmp_path, monkeypatch, capsys):
     _setup_bus(tmp_path, monkeypatch)
     manifest = tmp_path / "AGENT_MANIFEST.json"

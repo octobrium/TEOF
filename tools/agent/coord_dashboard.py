@@ -26,6 +26,8 @@ DIRTY_HANDOFF_SUBDIR = "dirty-handoff"
 DEFAULT_MANAGER_WINDOW_MINUTES = 30.0
 DEFAULT_AGENT_WINDOW_MINUTES = 60.0
 DEFAULT_DIRECTIVE_LIMIT = 10
+SEVERITY_DIGEST_WINDOW_HOURS = 24.0
+SEVERITY_DIGEST_LEVELS = ("high",)
 
 # Personas moved out of rotation should live here until their manifests/plans
 # disappear entirely. This keeps historical events from forcing perpetual
@@ -492,11 +494,11 @@ def _collect_heartbeats(
     root: Path,
     plans: list[PlanSummary],
     claims: list[ClaimSummary],
+    events: list[dict[str, Any]],
     *,
     manager_window: float,
     agent_window: float,
 ) -> dict[str, list[HeartbeatRecord]]:
-    events = _collect_events(root)
     last_seen = _build_last_seen(events)
     now = utcnow()
     managers = _collect_manager_candidates(root)
@@ -529,6 +531,42 @@ def _collect_heartbeats(
         "managers": manager_records,
         "agents": agent_records,
     }
+
+
+def _collect_severity_digest(
+    events: Iterable[dict[str, Any]],
+    *,
+    now: datetime,
+    window_hours: float,
+    severities: Sequence[str],
+) -> list[dict[str, Any]]:
+    threshold = None
+    if window_hours > 0:
+        threshold = now - timedelta(hours=window_hours)
+    normalized_levels = {level.lower() for level in severities}
+    digest: list[dict[str, Any]] = []
+    for entry in events:
+        severity = entry.get("severity")
+        if not isinstance(severity, str) or severity.lower() not in normalized_levels:
+            continue
+        ts = _parse_iso(entry.get("ts"))
+        if ts is None:
+            continue
+        if threshold and ts < threshold:
+            continue
+        agent_id = entry.get("agent_id") if isinstance(entry.get("agent_id"), str) else None
+        digest.append(
+            {
+                "ts": ts.strftime(ISO_FMT),
+                "agent_id": agent_id,
+                "event": entry.get("event"),
+                "task_id": entry.get("task_id"),
+                "summary": entry.get("summary"),
+                "severity": severity,
+            }
+        )
+    digest.sort(key=lambda item: item.get("ts", ""), reverse=True)
+    return digest
 
 
 def _collect_directives(root: Path, limit: int) -> list[DirectiveRecord]:
@@ -653,13 +691,17 @@ def build_dashboard(
     agent_window: float,
     directive_limit: int,
 ) -> dict[str, Any]:
+    now = utcnow()
+    generated_at = now.strftime(ISO_FMT)
     plans = _collect_plan_summary(root)
     claims = _collect_claims(root)
     unclaimed_plans = _identify_unclaimed_plans(plans, claims)
+    events = _collect_events(root)
     heartbeats = _collect_heartbeats(
         root,
         plans,
         claims,
+        events,
         manager_window=manager_window,
         agent_window=agent_window,
     )
@@ -679,8 +721,18 @@ def build_dashboard(
         "agent_window_minutes": agent_window,
         "automation_plans": _collect_heartbeat_initiatives(plans),
     }
+    severity_digest = _collect_severity_digest(
+        events,
+        now=now,
+        window_hours=SEVERITY_DIGEST_WINDOW_HOURS,
+        severities=SEVERITY_DIGEST_LEVELS,
+    )
+    severity_meta = {
+        "window_hours": SEVERITY_DIGEST_WINDOW_HOURS,
+        "severities": list(SEVERITY_DIGEST_LEVELS),
+    }
     return {
-        "generated_at": iso_now(),
+        "generated_at": generated_at,
         "plans": [plan.to_payload() for plan in plans],
         "claims": [claim.to_payload() for claim in claims],
         "heartbeats": {
@@ -694,6 +746,8 @@ def build_dashboard(
         "heartbeat_meta": heartbeat_meta,
         "dirty_handoffs": dirty_handoffs,
         "planner_queue_warnings": queue_warnings,
+        "severity_digest": severity_digest,
+        "severity_digest_meta": severity_meta,
     }
 
 
@@ -774,6 +828,27 @@ def render_markdown(data: dict[str, Any], *, compact: bool = False) -> str:
                 lines.append(f"- {agent}: {captured} ({receipt})")
         else:
             lines.append("- none")
+        lines.append("")
+
+        digest = data.get("severity_digest", [])
+        digest_meta = data.get("severity_digest_meta", {})
+        lines.append("## Severity Digest")
+        if digest:
+            for entry in digest:
+                agent = entry.get("agent_id") or "-"
+                event_type = entry.get("event") or "-"
+                task = entry.get("task_id") or "-"
+                summary = entry.get("summary") or ""
+                lines.append(
+                    f"- {entry.get('ts')} :: {agent} :: {event_type} :: task={task} :: {summary}"
+                )
+        else:
+            window = digest_meta.get("window_hours")
+            severities = ",".join(digest_meta.get("severities", [])) or "-"
+            window_note = (
+                f"window={window:g}h" if isinstance(window, (int, float)) else "window=n/a"
+            )
+            lines.append(f"- none ({window_note}; severity={severities})")
         lines.append("")
 
         alerts = data.get("alerts", [])
@@ -891,6 +966,25 @@ def render_markdown(data: dict[str, Any], *, compact: bool = False) -> str:
     else:
         lines.append("No dirty handoffs detected.")
         lines.append("")
+
+    lines.append("## Severity Digest")
+    digest = data.get("severity_digest", [])
+    digest_meta = data.get("severity_digest_meta", {})
+    if digest:
+        for entry in digest:
+            agent = entry.get("agent_id") or "-"
+            event_type = entry.get("event") or "-"
+            task = entry.get("task_id") or "-"
+            summary = entry.get("summary") or ""
+            lines.append(
+                f"- {entry.get('ts')} :: {agent} :: {event_type} :: task={task} :: {summary}"
+            )
+    else:
+        window = digest_meta.get("window_hours")
+        severities = ",".join(digest_meta.get("severities", [])) or "-"
+        window_note = f"window={window:g}h" if isinstance(window, (int, float)) else "window=n/a"
+        lines.append(f"- none ({window_note}; severity={severities})")
+    lines.append("")
 
     lines.append("## Heartbeats")
     heartbeat_meta = data.get("heartbeat_meta", {})

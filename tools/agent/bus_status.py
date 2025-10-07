@@ -24,12 +24,14 @@ PRESETS = {
         "limit": 20,
         "active_only": True,
         "window_hours": 6.0,
+        "severity": ["medium", "high"],
     },
     "manager": {
         "limit": 20,
         "active_only": False,
         "window_hours": 4.0,
         "manager_window": DEFAULT_MANAGER_WINDOW_MINUTES,
+        "severity": ["high"],
     },
 }
 
@@ -353,7 +355,11 @@ def summarize(
         print(msg)
 
     if filtered_events:
-        print("\nRecent events:")
+        if severity_filter:
+            severity_label = ", ".join(severity_filter)
+            print(f"\nRecent events (severity: {severity_label}):")
+        else:
+            print("\nRecent events:")
         for entry in filtered_events:
             task = entry.get("task_id", "-")
             summary = entry.get("summary", "")
@@ -364,7 +370,11 @@ def summarize(
                 f" :: task={task}{severity_note} :: {summary}"
             )
     else:
-        msg = "No events matching filters." if event_filters else "No events recorded."
+        if severity_filter:
+            severity_label = ", ".join(severity_filter)
+            msg = f"No events matching severity filter ({severity_label})."
+        else:
+            msg = "No events matching filters." if event_filters else "No events recorded."
         print(f"\n{msg}")
 
 
@@ -387,8 +397,12 @@ def _print_summary(
     meta_parts = [f"limit={limit}"]
     if preset:
         meta_parts.append(f"preset={preset}")
+    if agents:
+        meta_parts.append(f"agents={','.join(agents)}")
     if since_filter:
         meta_parts.append("since-filter")
+    if severity_filter:
+        meta_parts.append(f"severity={','.join(severity_filter)}")
     meta_parts.append("active-only" if active_only else "all-claims")
     print(f"- settings: {', '.join(meta_parts)}")
 
@@ -413,7 +427,10 @@ def _print_summary(
                 f"{severity_note} :: {entry.get('summary', '')}"
             )
     else:
-        print("- events: none")
+        if severity_filter:
+            print(f"- events: none (severity={','.join(severity_filter)})")
+        else:
+            print("- events: none")
 
     active = manager_status.get("active", [])
     stale = manager_status.get("stale", [])
@@ -518,6 +535,8 @@ def main(argv: list[str] | None = None) -> int:
             args.window_hours = preset["window_hours"]
         if args.manager_window == DEFAULT_MANAGER_WINDOW_MINUTES and "manager_window" in preset:
             args.manager_window = preset["manager_window"]
+        if args.severity is None and "severity" in preset:
+            args.severity = list(preset["severity"])
 
     limit = args.limit if args.limit is not None else 10
     manifests = _load_manifests()

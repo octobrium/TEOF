@@ -16,7 +16,7 @@ import json
 import subprocess
 import sys
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from io import StringIO
 from pathlib import Path
 from typing import Any
@@ -30,6 +30,11 @@ SESSION_GUARD_DIR = ROOT / "_report" / "agent"
 CONFIDENCE_ROOT = ROOT / "_report" / "agent"
 
 from tools.agent import bus_status, session_sync, coord_dashboard
+
+
+AUTO_AGENT_POOL = ("codex-1", "codex-2", "codex-3", "codex-4")
+AUTO_AGENT_STALE_MINUTES = 90.0
+ACTIVE_CLAIM_STATUSES = {"active", "paused"}
 
 
 def _sanitize_iso_for_filename(ts: str) -> str:
@@ -91,6 +96,15 @@ def _iso_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def _parse_iso(ts: Any) -> datetime | None:
+    if not isinstance(ts, str):
+        return None
+    try:
+        return datetime.strptime(ts, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return None
+
+
 def _default_agent() -> str | None:
     if not MANIFEST_PATH.exists():
         return None
@@ -122,6 +136,89 @@ def _load_claims() -> list[dict[str, Any]]:
         data["_path"] = path.relative_to(ROOT).as_posix()
         claims.append(data)
     return claims
+
+
+def _load_handshake_times() -> dict[str, datetime]:
+    latest: dict[str, datetime] = {}
+    if not EVENT_LOG.exists():
+        return latest
+    with EVENT_LOG.open(encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                payload = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if payload.get("event") != "handshake":
+                continue
+            agent = payload.get("agent_id")
+            if not isinstance(agent, str) or not agent:
+                continue
+            ts = _parse_iso(payload.get("ts"))
+            if ts is None:
+                continue
+            previous = latest.get(agent)
+            if previous is None or ts > previous:
+                latest[agent] = ts
+    return latest
+
+
+def _select_auto_agent(
+    *,
+    pool: list[str],
+    stale_minutes: float,
+    claims: list[dict[str, Any]],
+) -> str | None:
+    now = datetime.now(timezone.utc)
+    handshakes = _load_handshake_times()
+    busy_agents = {
+        str(claim.get("agent_id"))
+        for claim in claims
+        if claim.get("status") in ACTIVE_CLAIM_STATUSES and claim.get("agent_id")
+    }
+
+    fallback_agent: str | None = None
+    fallback_delta: timedelta | None = None
+
+    for agent in pool:
+        if agent in busy_agents:
+            continue
+        last_seen = handshakes.get(agent)
+        if last_seen is None:
+            return agent
+        delta = now - last_seen
+        if delta > timedelta(minutes=stale_minutes):
+            return agent
+        if fallback_agent is None or delta > fallback_delta:
+            fallback_agent = agent
+            fallback_delta = delta
+
+    return fallback_agent
+
+
+def _update_manifest_agent(agent_id: str) -> None:
+    data: dict[str, Any]
+    if MANIFEST_PATH.exists():
+        try:
+            data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            data = {}
+    else:
+        data = {}
+
+    data["agent_id"] = agent_id
+    data["owner"] = data.get("owner") or agent_id
+    data["branch_prefix"] = f"agent/{agent_id}/"
+    data.setdefault("agent_type", "local-llm")
+    if not isinstance(data.get("capabilities"), list) or not data.get("capabilities"):
+        data["capabilities"] = ["engineering", "support"]
+    if not isinstance(data.get("desired_roles"), list) or not data.get("desired_roles"):
+        data["desired_roles"] = ["engineer"]
+    data["notes"] = f"{agent_id} session in progress"
+
+    MANIFEST_PATH.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def summarize_peers(claims: list[dict[str, Any]], self_agent: str) -> list[str]:
@@ -268,6 +365,22 @@ def _tail_manager_report(agent_id: str, limit: int) -> tuple[Path, int]:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Bootstrap an agent session")
     parser.add_argument("--agent", help="Agent id (defaults to AGENT_MANIFEST.json)")
+    parser.add_argument(
+        "--auto-agent",
+        action="store_true",
+        help="Select the first free codex seat automatically (ignores --agent and updates AGENT_MANIFEST.json)",
+    )
+    parser.add_argument(
+        "--auto-agent-pool",
+        action="append",
+        help="Override the default agent pool when using --auto-agent (repeatable)",
+    )
+    parser.add_argument(
+        "--auto-agent-stale-minutes",
+        type=float,
+        default=AUTO_AGENT_STALE_MINUTES,
+        help="Minutes since the last handshake before a seat is considered free (default: %(default)s)",
+    )
     parser.add_argument("--summary", default="Session handshake", help="Summary text for the handshake event")
     parser.add_argument("--focus", help="Focus area recorded in handshake metadata")
     parser.add_argument(
@@ -359,9 +472,26 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
 
-    agent_id = args.agent or _default_agent()
-    if not agent_id:
-        parser.error("Agent id missing; provide --agent or populate AGENT_MANIFEST.json")
+    claims = _load_claims()
+
+    if args.auto_agent:
+        pool = list(args.auto_agent_pool) if args.auto_agent_pool else list(AUTO_AGENT_POOL)
+        if not pool:
+            parser.error("--auto-agent requires a non-empty pool; pass --auto-agent-pool to specify candidates")
+        selected = _select_auto_agent(
+            pool=pool,
+            stale_minutes=args.auto_agent_stale_minutes,
+            claims=claims,
+        )
+        if selected is None:
+            parser.error("No available agent seats found; specify --agent explicitly or adjust the pool")
+        _update_manifest_agent(selected)
+        agent_id = selected
+        print(f"Auto-selected agent seat: {agent_id}")
+    else:
+        agent_id = args.agent or _default_agent()
+        if not agent_id:
+            parser.error("Agent id missing; provide --agent, use --auto-agent, or populate AGENT_MANIFEST.json")
 
     if args.confidence is not None and not 0.0 <= args.confidence <= 1.0:
         parser.error("--confidence must be between 0.0 and 1.0")
@@ -427,7 +557,6 @@ def main(argv: list[str] | None = None) -> int:
     else:
         printed_messages.append("Handshake skipped (--no-announce)")
 
-    claims = _load_claims()
     summary_lines = summarize_peers(claims, agent_id)
 
     if summary_lines:

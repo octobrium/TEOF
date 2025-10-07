@@ -2,8 +2,9 @@
   "agent_id": "codex-1",
   "branch": "agent/codex-1/autonomy-status-receipt",
   "claimed_at": "2025-09-21T17:19:30Z",
-  "notes": "Persist autonomy status receipts",
+  "notes": "Plan completed; releasing stale claim",
   "plan_id": "2025-09-21-autonomy-status-receipt",
-  "status": "active",
+  "released_at": "2025-10-07T22:46:58Z",
+  "status": "done",
   "task_id": "PLAN-2025-09-21-AUTONOMY-STATUS-RECEIPT"
 }

@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-10-07T07:03:40Z",
+  "updated": "2025-10-07T20:55:00Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -11,13 +11,18 @@
     {
       "id": "ND-046",
       "title": "Add high-severity digest to manager dashboard",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-07-manager-severity-digest",
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
       "ocers_target": "Coherence\u2191 Safety\u2191",
-      "source": "queue/001-agent-bus-watch.md"
+      "source": "queue/001-agent-bus-watch.md",
+      "completed_at": "2025-10-07T20:55:00Z",
+      "receipts": [
+        "tools/agent/coord_dashboard.py",
+        "tests/test_coord_dashboard.py"
+      ]
     },
     {
       "id": "ND-044",
@@ -38,13 +43,19 @@
     {
       "id": "ND-045",
       "title": "Align task_assign bus messages",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-07-task-assign-bus-message",
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
       "ocers_target": "Coherence\u2191 Evidence\u2191",
-      "source": "queue/006-task-assign-bus-message.md"
+      "source": "queue/006-task-assign-bus-message.md",
+      "completed_at": "2025-10-07T21:55:00Z",
+      "receipts": [
+        "tools/agent/task_assign.py",
+        "tests/test_agent_task_assign.py",
+        "docs/parallel-codex.md"
+      ]
     },
     {
       "id": "ND-042",

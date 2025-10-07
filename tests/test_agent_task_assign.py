@@ -71,7 +71,8 @@ def test_task_assign_records_assignment(tmp_path, monkeypatch, capsys):
     assert message["type"] == "assignment"
     assert message["summary"] == "Assigned to codex-2"
     assert message["meta"]["assignee"] == "codex-2"
-    assert message["meta"]["plan"] == "2025-09-18-task-assign-bus-message"
+    assert message["meta"]["plan_id"] == "2025-09-18-task-assign-bus-message"
+    assert "plan" not in message["meta"]
     assert message["note"] == "Follow bus_message schema"
 
     tasks_payload = json.loads(tasks_file.read_text(encoding="utf-8"))
@@ -82,6 +83,7 @@ def test_task_assign_records_assignment(tmp_path, monkeypatch, capsys):
 
     out = capsys.readouterr().out
     assert "Recorded assignment" in out
+    assert "Logged bus message" in out
 
     claim_payload = json.loads((claims_dir / "QUEUE-006.json").read_text(encoding="utf-8"))
     assert claim_payload["agent_id"] == "codex-2"

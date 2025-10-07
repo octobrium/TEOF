@@ -4,17 +4,18 @@
   "created": "2025-10-03T04:45:00Z",
   "actor": "codex-3",
   "summary": "Guard planner files against duplicate sections",
-  "status": "queued",
-  "stage": "queued",
+  "status": "in_progress",
+  "stage": "in_progress",
   "steps": [
     {
       "id": "S1",
       "title": "Survey existing duplicate-key offenders",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Inventory plans with repeated keys (e.g. duplicate steps arrays) and capture evidence under `_report/usage/plan-lint/`.",
+      "status": "done",
+      "stage": "done",
+      "notes": "Inventory plans with repeated keys (e.g. duplicate steps arrays) and capture evidence under `_report/usage/plan-lint/`. Latest scan (2025-10-07) flagged `_plans/2025-09-23-repo-hygiene.plan.json` (duplicate `status`) and `_plans/2025-10-06-teof-btc-scoreboard.plan.json` (duplicate `receipts`). Remediated duplicates in `_plans/2025-09-23-repo-hygiene.plan.json` and `_plans/2025-10-06-teof-btc-scoreboard.plan.json`.",
       "receipts": [
-        "_report/usage/plan-lint/duplicate-keys-20251003T044138Z.json"
+        "_report/usage/plan-lint/duplicate-keys-20251003T044138Z.json",
+        "_report/usage/plan-lint/duplicate-keys-20251007T224750Z.json"
       ]
     },
     {
@@ -46,9 +47,10 @@
     }
   ],
   "receipts": [
-    "_report/usage/plan-lint/duplicate-keys-20251003T044138Z.json"
+    "_report/usage/plan-lint/duplicate-keys-20251003T044138Z.json",
+    "_report/usage/plan-lint/duplicate-keys-20251007T224750Z.json"
   ],
-  "ocers_target": "Self-repair↑ Reproducibility↑",
+  "ocers_target": "Self-repair\u2191 Reproducibility\u2191",
   "layer": "L6",
   "systemic_scale": 6
 }

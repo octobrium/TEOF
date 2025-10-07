@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-2",
+  "branch": "agent/codex-2/plan-2025-09-27-relay-case-run",
+  "claimed_at": "2025-10-07T22:50:07Z",
+  "notes": "Plan updated to done; handing back to backlog",
+  "plan_id": "2025-09-27-relay-case-run",
+  "released_at": "2025-10-07T22:50:13Z",
+  "status": "done",
+  "task_id": "PLAN-2025-09-27-relay-case-run"
+}

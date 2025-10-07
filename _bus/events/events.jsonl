@@ -267,3 +267,9 @@
 {"agent_id": "codex-4", "branch_prefix": "agent/codex-4/", "event": "handshake", "meta": {"focus": "manager"}, "summary": "Session handshake", "ts": "2025-10-06T17:25:05Z"}
 {"agent_id": "codex-4", "branch_prefix": "agent/codex-4/", "event": "handshake", "meta": {"focus": "manager"}, "summary": "Session handshake", "ts": "2025-10-06T18:55:13Z"}
 {"agent_id": "codex-4", "branch_prefix": "agent/codex-4/", "event": "handshake", "meta": {"focus": "manager"}, "summary": "Session handshake", "ts": "2025-10-06T20:13:50Z"}
+{"agent_id": "codex-4", "event": "observation", "receipts": ["_report/session/codex-4/dirty-handoff/dirty-20251007T224123Z.txt"], "summary": "Dirty working tree detected during session_boot", "ts": "2025-10-07T22:41:23Z"}
+{"agent_id": "codex-4", "branch_prefix": "agent/codex-4/", "event": "handshake", "meta": {"focus": "engineer"}, "summary": "Session handshake", "ts": "2025-10-07T22:41:30Z"}
+{"agent_id": "codex-1", "branch_prefix": "agent/codex-1/", "event": "handshake", "meta": {"focus": "manager"}, "summary": "Session handshake", "ts": "2025-10-07T22:46:43Z"}
+{"agent_id": "codex-2", "branch_prefix": "agent/codex-2/", "event": "handshake", "meta": {"focus": "engineer"}, "summary": "Session handshake", "ts": "2025-10-07T22:48:34Z"}
+{"agent_id": "codex-2", "branch_prefix": "agent/codex-2/", "event": "handshake", "meta": {"focus": "support"}, "summary": "codex-2 support seat boot", "ts": "2025-10-07T22:48:40Z"}
+{"agent_id": "codex-3", "branch_prefix": "agent/codex-3/", "event": "handshake", "meta": {"focus": "engineer"}, "summary": "Session handshake", "ts": "2025-10-07T22:48:53Z"}

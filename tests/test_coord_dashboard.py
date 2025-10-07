@@ -110,6 +110,14 @@ def dashboard_env(tmp_path, monkeypatch):
             "summary": "manager ping",
         },
         {
+            "ts": iso(now - timedelta(minutes=15)),
+            "agent_id": "codex-5",
+            "event": "alert",
+            "summary": "high severity escalation",
+            "severity": "high",
+            "task_id": "QUEUE-999",
+        },
+        {
             "ts": iso(now - timedelta(minutes=90)),
             "agent_id": "codex-2",
             "event": "status",
@@ -126,6 +134,13 @@ def dashboard_env(tmp_path, monkeypatch):
             "agent_id": "codex-observer",
             "event": "status",
             "summary": "retired persona",
+        },
+        {
+            "ts": iso(now - timedelta(hours=30)),
+            "agent_id": "codex-6",
+            "event": "alert",
+            "summary": "expired high severity",
+            "severity": "high",
         },
     ]
     events_path.write_text("\n".join(json.dumps(item) for item in events), encoding="utf-8")
@@ -247,6 +262,12 @@ def test_json_report(tmp_path, dashboard_env, capsys):
     assert heartbeat_meta["agent_window_minutes"] == coord_dashboard.DEFAULT_AGENT_WINDOW_MINUTES
     automation_plans = {item["plan_id"] for item in heartbeat_meta["automation_plans"]}
     assert "2025-09-19-heartbeat-docs-codex3" in automation_plans
+    digest = data["severity_digest"]
+    assert len(digest) == 1
+    assert digest[0]["agent_id"] == "codex-5"
+    assert digest[0]["task_id"] == "QUEUE-999"
+    digest_meta = data["severity_digest_meta"]
+    assert digest_meta["severities"] == list(coord_dashboard.SEVERITY_DIGEST_LEVELS)
     dirty = data["dirty_handoffs"]
     assert dirty, "expected dirty handoff summary"
     dirty_entry = next(entry for entry in dirty if entry["agent_id"] == "codex-2")
@@ -284,5 +305,7 @@ def test_markdown_default_output(tmp_path, dashboard_env):
     assert "2025-09-19-heartbeat-docs-codex3" in content
     assert "## Dirty Handoffs" in content
     assert "codex-2" in content
+    assert "## Severity Digest" in content
+    assert "QUEUE-999" in content
     assert "## Planner Queue Warnings" in content
     assert "PLAN-002" in content

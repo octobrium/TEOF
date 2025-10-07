@@ -3,11 +3,11 @@
   "plan_id": "2025-09-27-relay-case-run",
   "created": "2025-09-27T19:56:00Z",
   "actor": "codex-5",
-  "summary": "[Blocked 2025-10-07] Execute Relay Insight Sprint case study run with receipts (waiting on backlog restock and autonomy guard realignment)",
+  "summary": "Completed Relay Insight sprint case run with receipts anchored after backlog guard realignment",
   "layer": "L6",
   "systemic_scale": 6,
-  "status": "blocked",
-  "stage": "blocked",
+  "status": "done",
+  "stage": "done",
   "steps": [
     {
       "id": "S1",
@@ -22,26 +22,34 @@
     {
       "id": "S2",
       "title": "Run sprint with guardrails",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Execute conductor (non-dry-run), collect command log, diff/test receipts.",
-      "receipts": []
+      "status": "done",
+      "stage": "done",
+      "notes": "Live sprint executed 2025-10-03 after backlog restock; receipts cover command log, tests, diffs, and conductor run.",
+      "receipts": [
+        "_report/usage/case-study/relay-insight/conductor-run-20251003T191500Z.json",
+        "_report/usage/case-study/relay-insight/command-log-20251003T191500Z.json",
+        "_report/usage/case-study/relay-insight/tests-20251003T191310Z.json",
+        "_report/usage/case-study/relay-insight/diffs-20251003T191620Z.json"
+      ]
     },
     {
       "id": "S3",
       "title": "Summarise outputs for case study",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Write run summary + metrics under `_report/usage/case-study/relay-insight/summary.json` and update `docs/impact/relay-insight-case-study.md`.",
+      "status": "done",
+      "stage": "done",
+      "notes": "Case-study summary refreshed with receipts + public brief; ledger entry logged alongside summary.json.",
       "receipts": [
-        "docs/impact/relay-insight-case-study.md"
+        "_report/usage/case-study/relay-insight/summary.json",
+        "docs/impact/relay-insight-case-study.md",
+        "docs/impact/relay-insight-public.md",
+        "docs/vision/impact-ledger.md"
       ]
     }
   ],
   "checkpoint": {
     "description": "Relay sprint run completed with receipts ready for case study publication",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -57,6 +65,16 @@
       "ref": "2025-10-05-backlog-health"
     }
   ],
-  "receipts": [],
+  "receipts": [
+    "_report/usage/case-study/relay-insight/command-log-20251003T191500Z.json",
+    "_report/usage/case-study/relay-insight/conductor-dry-run-20250927T195724Z.json",
+    "_report/usage/case-study/relay-insight/conductor-run-20251003T191500Z.json",
+    "_report/usage/case-study/relay-insight/diffs-20251003T191620Z.json",
+    "_report/usage/case-study/relay-insight/summary.json",
+    "_report/usage/case-study/relay-insight/tests-20251003T191310Z.json",
+    "docs/impact/relay-insight-case-study.md",
+    "docs/impact/relay-insight-public.md",
+    "docs/vision/impact-ledger.md"
+  ],
   "ocers_target": "Evidence\u2191 Outreach\u2191"
 }

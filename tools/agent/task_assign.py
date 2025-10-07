@@ -98,10 +98,10 @@ def append_message(
     branch: str | None,
     note: str | None,
     manifest_agent: str | None,
-) -> None:
+) -> Path:
     meta: Dict[str, Any] = {"assignee": engineer}
     if plan_id:
-        meta.setdefault("plan", plan_id)
+        meta["plan_id"] = plan_id
     temp_manifest_path: Path | None = None
     original_manifest_path = bus_message.MANIFEST_PATH
     try:
@@ -113,7 +113,7 @@ def append_message(
                 tmp_file.close()
             temp_manifest_path = Path(tmp_file.name)
             bus_message.MANIFEST_PATH = temp_manifest_path
-        bus_message.log_message(
+        message_path = bus_message.log_message(
             task_id=task_id,
             msg_type="assignment",
             summary=f"Assigned to {engineer}",
@@ -130,6 +130,7 @@ def append_message(
                 temp_manifest_path.unlink()
             except FileNotFoundError:
                 pass
+    return message_path
 
 
 def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
@@ -218,7 +219,15 @@ def main(argv: list[str] | None = None) -> int:
     manifest_agent = manifest.get("agent_id") if isinstance(manifest, dict) else None
     manager = args.manager or manifest_agent or "manager"
     assignment_path = write_assignment(args.task, args.engineer, manager, args.plan, args.branch, args.note)
-    append_message(args.task, manager, args.engineer, args.plan, args.branch, args.note, manifest_agent)
+    message_path = append_message(
+        args.task,
+        manager,
+        args.engineer,
+        args.plan,
+        args.branch,
+        args.note,
+        manifest_agent,
+    )
     update_tasks(args.task, args.engineer, args.plan, args.branch, manager)
 
     if args.auto_claim:
@@ -255,6 +264,11 @@ def main(argv: list[str] | None = None) -> int:
         },
     )
     print(f"Recorded assignment → {display_path}")
+    try:
+        display_message_path = message_path.relative_to(ROOT)
+    except ValueError:
+        display_message_path = message_path
+    print(f"Logged bus message → {display_message_path}")
     if scaffold_message:
         print(scaffold_message)
     return 0

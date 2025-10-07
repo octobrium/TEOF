@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Optional
 
@@ -338,3 +339,47 @@ def test_session_boot_can_skip_manager_report_tail(monkeypatch, tmp_path):
     assert exit_code == 0
     tail_path = tmp_path / "_report" / "session" / "codex-3" / "manager-report-tail.txt"
     assert not tail_path.exists()
+
+
+def test_session_boot_auto_agent_selects_free_slot(monkeypatch, tmp_path):
+    events_path, _ = _setup_env(monkeypatch, tmp_path, agent_id="codex-3")
+
+    events = [
+        {"ts": "2025-10-07T11:50:00Z", "agent_id": "codex-1", "event": "handshake"},
+        {"ts": "2025-10-07T10:00:00Z", "agent_id": "codex-2", "event": "handshake"},
+    ]
+    events_path.write_text("\n".join(json.dumps(item) for item in events) + "\n", encoding="utf-8")
+
+    claim_payload = {
+        "agent_id": "codex-1",
+        "status": "active",
+        "task_id": "PLAN-TEST",
+    }
+    (session_boot.CLAIMS_DIR / "PLAN-TEST.json").write_text(json.dumps(claim_payload), encoding="utf-8")
+
+    class FixedDatetime(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            current = datetime(2025, 10, 7, 12, 0, tzinfo=timezone.utc)
+            if tz is None:
+                return current.replace(tzinfo=None)
+            return current.astimezone(tz)
+
+    monkeypatch.setattr(session_boot, "datetime", FixedDatetime)
+    monkeypatch.setattr(session_boot, "_get_current_branch", lambda: "main")
+
+    sync = FakeSync()
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+
+    exit_code = session_boot.main([
+        "--auto-agent",
+        "--no-dashboard",
+        "--no-manager-report-tail",
+    ])
+
+    assert exit_code == 0
+    manifest_data = json.loads(session_boot.MANIFEST_PATH.read_text(encoding="utf-8"))
+    assert manifest_data["agent_id"] == "codex-2"
+    payloads = [json.loads(line) for line in events_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    assert payloads[-1]["agent_id"] == "codex-2"
+    assert payloads[-1]["event"] == "handshake"
