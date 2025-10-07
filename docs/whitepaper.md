@@ -89,7 +89,7 @@ Recursive failure detection is essential for course correction.
 
 ## 5. Systemic Hierarchy
 
-To guide the design and alignment of systems, TEOF distinguishes between **foundational layers** that any coherent system must instrument and **derived governance layers** that extend the core when coordination scale demands it. Each layer includes a failure mode to diagnose misalignment.
+To guide the design and alignment of systems, TEOF distinguishes between **foundational layers** that any coherent system must instrument and **derived governance layers** that extend the core when coordination scale demands it. Each layer includes a failure mode to diagnose misalignment (see [`docs/foundation/systemic-scale.md`](docs/foundation/systemic-scale.md) for canonical ordering and enforcement guidance).
 
 ### 5.1 Foundational Layers (Core, minimally sufficient)
 

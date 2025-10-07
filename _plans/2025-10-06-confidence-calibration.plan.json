@@ -2,7 +2,7 @@
   "plan_id": "2025-10-06-confidence-calibration",
   "created": "2025-10-06T21:01:18Z",
   "actor": "codex-4",
-  "status": "in_progress",
+  "status": "done",
   "summary": "Introduce confidence reporting metrics for agents to detect overconfidence drift.",
   "links": [
     {
@@ -16,7 +16,9 @@
   ],
   "receipts": [
     "docs/automation/confidence-metrics.md",
-    "tools/agent/session_boot.py"
+    "tools/agent/session_boot.py",
+    "tools/agent/confidence_watch.py",
+    "tests/test_confidence_watch.py"
   ],
   "steps": [
     {
@@ -40,20 +42,23 @@
     {
       "id": "step-3",
       "title": "Aggregate & alert",
-      "status": "queued",
+      "status": "done",
       "notes": "Create dashboards/alerts for overconfidence patterns",
-      "receipts": []
+      "receipts": [
+        "tools/agent/confidence_watch.py",
+        "tests/test_confidence_watch.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Confidence metrics logged with automated checks",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied"
   },
   "version": 0,
   "priority": 3,
   "layer": "L5",
   "systemic_scale": 5,
   "impact_score": 3,
-  "ocers_target": "Observation↑ Self-repair↑"
+  "ocers_target": "Observation\u2191 Self-repair\u2191"
 }

@@ -8,7 +8,7 @@
   "layer": "L5",
   "systemic_scale": 5,
   "impact_score": 4,
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -21,21 +21,32 @@
     {
       "id": "S2",
       "title": "Build guard CLI + receipts",
-      "status": "queued",
-      "receipts": []
+      "status": "done",
+      "receipts": [
+        "tools/agent/backlog_health.py",
+        "tests/test_backlog_health.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Surface high-yield backlog view in docs/automation",
-      "status": "queued",
-      "receipts": []
+      "status": "done",
+      "receipts": [
+        "docs/automation/backlog-health.md",
+        "docs/automation.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Backlog autopopulation guard raises receipt when pending items < threshold",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied"
   },
-  "ocers_target": "Observation↑ Self-repair↑",
-  "receipts": []
+  "ocers_target": "Observation\u2191 Self-repair\u2191",
+  "receipts": [
+    "tools/agent/backlog_health.py",
+    "tests/test_backlog_health.py",
+    "docs/automation/backlog-health.md",
+    "docs/automation.md"
+  ]
 }

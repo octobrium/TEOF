@@ -1,0 +1,72 @@
+[
+  {
+    "axis": "S1",
+    "name": "Unity",
+    "description": "Stable reference frame for observation",
+    "failure_mode": "fragmentation",
+    "depends_on": []
+  },
+  {
+    "axis": "S2",
+    "name": "Energy",
+    "description": "Healthy internal exchange / capacity",
+    "failure_mode": "stasis",
+    "depends_on": ["S1"]
+  },
+  {
+    "axis": "S3",
+    "name": "Propagation",
+    "description": "Signal routing across nodes",
+    "failure_mode": "isolation",
+    "depends_on": ["S1", "S2"]
+  },
+  {
+    "axis": "S4",
+    "name": "Defense",
+    "description": "Guard against external threat",
+    "failure_mode": "degradation",
+    "depends_on": ["S1", "S2", "S3"]
+  },
+  {
+    "axis": "S5",
+    "name": "Intelligence",
+    "description": "Recursive refinement",
+    "failure_mode": "rigidity",
+    "depends_on": ["S1", "S2", "S3", "S4"]
+  },
+  {
+    "axis": "S6",
+    "name": "Truth",
+    "description": "Alignment with invariants",
+    "failure_mode": "delusion",
+    "depends_on": ["S1", "S2", "S3", "S4", "S5"]
+  },
+  {
+    "axis": "S7",
+    "name": "Power",
+    "description": "Capacity to effect change",
+    "failure_mode": "impotence",
+    "depends_on": ["S1", "S2", "S3", "S4", "S5", "S6"]
+  },
+  {
+    "axis": "S8",
+    "name": "Ethics",
+    "description": "Use of power coherently",
+    "failure_mode": "destruction",
+    "depends_on": ["S1", "S2", "S3", "S4", "S5", "S6", "S7"]
+  },
+  {
+    "axis": "S9",
+    "name": "Freedom",
+    "description": "Adaptive range within coherence",
+    "failure_mode": "brittleness",
+    "depends_on": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"]
+  },
+  {
+    "axis": "S10",
+    "name": "Meaning",
+    "description": "Integration into purpose",
+    "failure_mode": "nihilism",
+    "depends_on": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9"]
+  }
+]

@@ -3,11 +3,11 @@
   "plan_id": "2025-09-27-data-ingestion",
   "created": "2025-09-27T20:20:00Z",
   "actor": "codex-5",
-  "summary": "Automate market/macro data ingestion for relay case studies",
+  "summary": "[Cancelled 2025-10-07] Automate market/macro data ingestion for relay case studies",
   "layer": "L6",
   "systemic_scale": 6,
-  "status": "queued",
-  "stage": "queued",
+  "status": "blocked",
+  "stage": "blocked",
   "steps": [
     {
       "id": "S1",
@@ -50,5 +50,5 @@
     }
   ],
   "receipts": [],
-  "ocers_target": "Observation↑ Evidence↑"
+  "ocers_target": "Observation\u2191 Evidence\u2191"
 }

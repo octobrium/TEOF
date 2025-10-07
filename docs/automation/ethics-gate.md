@@ -14,6 +14,13 @@ until provenance (consent, human review, safeguards) is present.
 - If the guard keyword is missing, the gate raises a violation and the
   automation loop should refuse to execute until receipts are attached.
 
+### Coherence vs. Ethics
+
+- Coherence guards (frontier, critic, TMS) answer “does the plan make structural sense?”
+- The ethics gate answers “should this plan be allowed to act with the current receipts?”
+- A task can be coherent yet still violate ethics if provenance is missing. Treat missing receipts as an ethics defect, not a coherence bug, and escalate through this gate before automation proceeds.
+- Before escalating, confirm higher systemic axes (Unity → Power) remain satisfied or actively defended (see [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement)). Ethics does not outrank Defense/Truth; it inherits them.
+
 Receipts produced by this gate live under `docs/receipts/ethics/`:
 
 ```
@@ -44,6 +51,8 @@ teof ethics --out docs/receipts/ethics/<UTC>/ethics.json [--emit-bus]
   `_bus/claims/ETHICS-<id>.json` so manual review can be scheduled.
 - Automation should invoke this gate before running L6 actions; if violations
   exist, stop and address them.
+- When frontier/critic/TMS highlight missing receipts, funnel the follow-up
+  through this gate so the ethics escalation is explicit and auditable.
 
 Future work: integrate with autonomy conductor to enforce guardrails inline
 and attach additional risk metadata.

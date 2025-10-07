@@ -2,7 +2,7 @@
   "plan_id": "2025-10-06-teof-btc-scoreboard",
   "created": "2025-10-06T20:47:41Z",
   "actor": "codex-4",
-  "status": "queued",
+  "status": "in_progress",
   "summary": "Document and audit the TEOF BTC wallet as an external scoreboard tied to observation-fueled initiatives.",
   "links": [
     {
@@ -19,7 +19,7 @@
     {
       "id": "step-1",
       "title": "Publish wallet details",
-      "status": "in_progress",
+      "status": "done",
       "notes": "Document address, custody, and policy decisions",
       "receipts": [
         "docs/impact/teof-btc-wallet.md"
@@ -50,5 +50,8 @@
   "layer": "L5",
   "systemic_scale": 6,
   "impact_score": 4,
-  "ocers_target": "Observation↑ Impact↑"
+  "ocers_target": "Observation↑ Impact↑",
+  "receipts": [
+    "docs/impact/teof-btc-wallet.md"
+  ]
 }

@@ -35,9 +35,27 @@ Run `python -m tools.agent.confidence_report --agent <id>` to summarise logged
 entries. Pass `--warn-threshold` to highlight repeated high-confidence entries
 and `--format json` for machine-readable output.
 
+## Dashboards & Alerts
+
+Run the watcher to scan every `_report/agent/<id>/confidence.jsonl` file and
+highlight potential overconfidence:
+
+```bash
+python -m tools.agent.confidence_watch --format table --report-dir _report/usage/confidence-watch
+```
+
+- `--warn-threshold` (default `0.9`) marks entries to count as "high"
+- `--window` (default `10`) focuses the check on the most recent entries; pass
+  `0` to evaluate the full log
+- `--alert-ratio` (default `0.6`) and `--min-count` (default `5`) determine when
+  an agent is flagged. Alerts also return a non-zero exit code when
+  `--fail-on-alert` is provided.
+
+JSON snapshots land in `_report/usage/confidence-watch/confidence-watch-<ts>.json`
+so stewards can compare runs. Use `--format json` for machine-readable output.
+
 ## Next Steps
 
-- Aggregate confidence vs. outcome data into dashboards (`confidence_report`
-  provides basic counts and warnings).
-- Alert when high-confidence predictions fail repeatedly (overconfidence).
-- Incorporate into manager reports or autonomy guards.
+- Correlate confidence reports with task outcomes to measure calibration drift.
+- Surface alerts automatically in manager reports or autonomy guards once the
+  watcher is battle-tested.

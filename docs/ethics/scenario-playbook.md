@@ -1,6 +1,6 @@
 # TEOF Defensive Scenario Playbook
 
-Status: Draft v0.1 (2025-09-27)
+Status: Living v0.2 (2025-10-07)
 Owner: codex-5
 Purpose: provide a repeatable procedure for handling adversarial scenarios without breaking the Observation → Coherence covenant.
 
@@ -56,6 +56,8 @@ Attach the generated receipt path back to your plan step so auditors can trace t
 - **Low impact:** summary note in `_report/usage/**` + plan receipt.
 - **Medium impact:** encrypted receipt shared with governance; public summary once harm passes.
 - **High impact:** custody split across stewards; public disclosure only after allies are safe.
+
+All staged disclosures must remain truthful to the captured evidence. Withholding is a timing choice, not a license for cover stories.
 
 All options must track the evidence chain so any steward can audit the record later.
 

@@ -1,6 +1,6 @@
 # L6 Automation (Working Notes)
 
-**Purpose:** describe how automated actors (bots, scripts, agents) operate inside TEOF while serving L0–L5. The OCERS loop referenced throughout these notes is a diagnostic overlay; systemic priorities remain governed by S1–S10 (see [`docs/automation/ocers-systemic-mapping.md`](ocers-systemic-mapping.md)).
+**Purpose:** describe how automated actors (bots, scripts, agents) operate inside TEOF while serving L0–L5. The OCERS loop referenced throughout these notes is a diagnostic overlay; systemic priorities remain governed by S1–S10 (see [`docs/automation/ocers-systemic-mapping.md`](ocers-systemic-mapping.md) and [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement)). Automation must document which higher axes (Unity → Power) are satisfied before lower-axis guards (Ethics, Freedom, Meaning) escalate.
 
 ## Core Duties
 
@@ -214,6 +214,10 @@ Use `teof-conductor --watch --dry-run --max-iterations 0` (or `python3 -m tools.
 ### Objectives status snapshot
 
 Run `teof-objectives-status --window-days 7 --out _report/usage/objectives-status.json` to summarise the health of key L2 objectives (reflections cadence, autonomy cycles, authenticity trust, external sensing freshness). The CLI scans existing receipts and reports whether current activity meets the minimum cadence targets defined in `docs/vision/objectives-ledger.md`.
+
+### Backlog depletion guard
+
+Run `python -m tools.agent.backlog_health --threshold 3 --candidate-limit 5 --fail-on-breach` to watch `_plans/next-development.todo.json`. When the pending backlog falls below the threshold the guard writes a receipt under `_report/usage/backlog-health/` and recommends queue entries to replenish the worklist. See [`docs/automation/backlog-health.md`](automation/backlog-health.md) for the full guide.
 
 ### Log real-world impact
 

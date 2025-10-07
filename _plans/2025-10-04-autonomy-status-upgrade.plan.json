@@ -3,8 +3,8 @@
   "plan_id": "2025-10-04-autonomy-status-upgrade",
   "created": "2025-10-04T20:48:30Z",
   "actor": "codex-4",
-  "summary": "Extend autonomy_status CLI with readiness signals",
-  "status": "queued",
+  "summary": "[Cancelled 2025-10-07] Extend autonomy_status CLI with readiness signals",
+  "status": "blocked",
   "steps": [
     {
       "id": "S1",
@@ -35,7 +35,7 @@
   },
   "links": [],
   "receipts": [],
-  "ocers_target": "Observation↑ Reproducibility↑",
+  "ocers_target": "Observation\u2191 Reproducibility\u2191",
   "layer": "L6",
   "systemic_scale": 5
 }

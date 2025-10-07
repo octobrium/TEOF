@@ -21,6 +21,14 @@ canonical TEOF principles (`governance/core/L1 - principles/canonical-teof.md`).
 | S10| Meaning      | Integration into purpose; failure: nihilism        |
 
 See [`docs/whitepaper.md`](../whitepaper.md) §5 for the canonical definitions.
+Machine-readable index: [`governance/systemic-order.json`](../../governance/systemic-order.json).
+
+**Hierarchy enforcement**
+
+- The axes must be satisfied in order: Unity → Energy → Propagation → Defense → Intelligence → Truth → Power → Ethics → Freedom → Meaning.  
+- Lower axes may request attention, but they cannot overrule higher axes. If a lower axis (e.g., Ethics) conflicts with a higher prerequisite (e.g., Defense), resolve the higher axis first, then reapply the lower guard.  
+- Ethics (S8) operates only once S1–S7 are stable or actively being defended. Meaning (S10) is expressed only after Freedom (S9) is intact.  
+- When automation or policy encounters tension between axes, follow the order above and record receipts that show how higher-axis obligations were preserved.
 
 ## Shorthand
 

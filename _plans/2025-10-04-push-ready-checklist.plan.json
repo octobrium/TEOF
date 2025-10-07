@@ -43,6 +43,11 @@
     "status": "pending"
   },
   "links": [],
-  "receipts": [],
+  "receipts": [
+    "tools/agent/push_ready.py",
+    "tools/agent/assignment_locator.py",
+    "tests/test_push_ready.py",
+    "tests/test_assignment_locator.py"
+  ],
   "ocers_target": "Coherence\u2191 Reproducibility\u2191"
 }

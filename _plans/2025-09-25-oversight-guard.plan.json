@@ -8,46 +8,63 @@
   "layer": "L5",
   "systemic_scale": 5,
   "impact_score": 90,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Identify oversight scenarios",
-      "status": "queued",
+      "status": "done",
       "notes": "Document cases where instructions or ideas slip without receipts (e.g., new ideas not backlogged, commands run without plan).",
-      "receipts": []
+      "receipts": [
+        "docs/automation/ethics-gate.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Design guardrail mechanism",
-      "status": "queued",
+      "status": "done",
       "notes": "Implement automation or workflow hooks that alert when actions lack plans/receipts (planner CLI lint, CI check, or teof doctor).",
-      "receipts": []
+      "receipts": [
+        "tools/planner/backlog_summary.py",
+        "tests/test_backlog_summary.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Implement guard and tests",
-      "status": "queued",
+      "status": "done",
       "notes": "Build the guard, add unit tests, and integrate into CI or tooling.",
-      "receipts": []
+      "receipts": [
+        "tools/planner/missing_receipts.py",
+        "tests/test_missing_receipts.py"
+      ]
     },
     {
       "id": "S4",
       "title": "Document process update",
-      "status": "queued",
+      "status": "done",
       "notes": "Update docs/workflow with the new safeguard so humans/agents know the expectation.",
-      "receipts": []
+      "receipts": [
+        "docs/workflow.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Guardrail detects and blocks unlogged actions; evidence shows compliance",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied"
   },
-  "receipts": [],
+  "receipts": [
+    "tools/planner/backlog_summary.py",
+    "tools/planner/missing_receipts.py",
+    "tests/test_backlog_summary.py",
+    "tests/test_missing_receipts.py",
+    "docs/workflow.md",
+    "docs/automation/ethics-gate.md"
+  ],
   "dictionary_alignments": {
     "layer": "docs/workflow.md#layer-hierarchy",
-    "systemic_scale": "docs/foundation/systemic-scale.md (S1–S10)"
+    "systemic_scale": "docs/foundation/systemic-scale.md (S1\u2013S10)"
   },
-  "ocers_target": "Safety↑ Evidence↑"
+  "ocers_target": "Safety\u2191 Evidence\u2191"
 }

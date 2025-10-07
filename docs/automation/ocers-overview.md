@@ -1,7 +1,8 @@
 # OCERS References Inventory
 
 This inventory captures current locations where OCERS is referenced so the
-mapping to the systemic hierarchy (S1–S10) can be updated coherently.
+mapping to the systemic hierarchy (S1–S10) stays coherent. For the canonical
+ordering rules, see [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement).
 
 | Location | Context |
 | --- | --- |

@@ -3,11 +3,11 @@
   "plan_id": "2025-09-27-relay-case-run",
   "created": "2025-09-27T19:56:00Z",
   "actor": "codex-5",
-  "summary": "Execute Relay Insight Sprint case study run with receipts",
+  "summary": "[Cancelled 2025-10-07] Execute Relay Insight Sprint case study run with receipts",
   "layer": "L6",
   "systemic_scale": 6,
-  "status": "queued",
-  "stage": "queued",
+  "status": "blocked",
+  "stage": "blocked",
   "steps": [
     {
       "id": "S1",
@@ -38,32 +38,6 @@
       ]
     }
   ],
-  "steps": [
-    {
-      "id": "S1",
-      "title": "Dry-run conductor and capture prompt",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Use tools.autonomy.conductor --dry-run to record prompt in `_report/usage/case-study/relay-insight/`.",
-      "receipts": []
-    },
-    {
-      "id": "S2",
-      "title": "Run sprint with guardrails",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Execute conductor (non-dry-run), collect command log, diff/test receipts.",
-      "receipts": []
-    },
-    {
-      "id": "S3",
-      "title": "Summarise outputs for case study",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Write run summary + metrics under `_report/usage/case-study/relay-insight/summary.json`.",
-      "receipts": []
-    }
-  ],
   "checkpoint": {
     "description": "Relay sprint run completed with receipts ready for case study publication",
     "owner": "codex-5",
@@ -80,5 +54,5 @@
     }
   ],
   "receipts": [],
-  "ocers_target": "Evidence↑ Outreach↑"
+  "ocers_target": "Evidence\u2191 Outreach\u2191"
 }
