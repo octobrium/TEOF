@@ -28,6 +28,14 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 > | Heartbeat shortcut | `python -m tools.agent.bus_ping --task <task_id> --message-task <task_id> --summary "working"` |
 > | Reply in-thread | `python -m tools.agent.bus_message --task <task_id> --type status --summary "<update>" --receipt <path>` |
 
+### Bus event severity
+
+- `low`: routine updates or informational notes.
+- `medium`: requires follow-up soon (e.g., waiting on receipts or tasks at risk of stalling).
+- `high`: urgent escalation—treat as a safety/ethics signal and respond immediately.
+
+Pass `--severity <level>` to `bus_event log` whenever an action changes posture; automation surfaces the field in `bus_status` and `bus_watch` so managers can prioritize responses.
+
 Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse the same commands so every new seat can confirm access to the coordination bus before picking up work.
 
 **Guardrail:** `tools.agent.bus_message` refuses mismatched agent ids—run `python -m tools.agent.session_boot --agent <id>` (or `python -m tools.agent.manifest_helper activate <id>`) before posting so the manifest matches the seat you’re representing.

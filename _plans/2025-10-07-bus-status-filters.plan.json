@@ -1,0 +1,41 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-07-bus-status-filters",
+  "created": "2025-10-07T19:45:30Z",
+  "actor": "codex-4",
+  "summary": "Improve bus_status filtering and presets for severity-aware triage",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 30,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add severity filter and presets",
+      "status": "queued",
+      "notes": "Support --severity high|medium|low and update presets to focus on escalations.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Document new filters",
+      "status": "queued",
+      "notes": "Update docs/parallel-codex.md or related guides with usage examples.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "bus_status can filter by severity with updated documentation",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/002-bus-status-filters.md"
+    }
+  ],
+  "ocers_target": "Coherence↑ Evidence↑",
+  "receipts": []
+}

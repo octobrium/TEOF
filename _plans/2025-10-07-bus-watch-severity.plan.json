@@ -1,0 +1,41 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-07-bus-watch-severity",
+  "created": "2025-10-07T19:45:00Z",
+  "actor": "codex-4",
+  "summary": "Surface bus_event severity in bus_watch stream output",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 35,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update bus_watch formatter to show severity",
+      "status": "queued",
+      "notes": "Display severity alongside event summary and ensure follow mode highlights high alerts.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Add tests for severity streaming",
+      "status": "queued",
+      "notes": "Expand tests/test_agent_bus_watch.py to cover severity output and filtering.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "bus_watch output includes severity with regression coverage",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/001-agent-bus-watch.md"
+    }
+  ],
+  "ocers_target": "Coherence↑ Evidence↑",
+  "receipts": []
+}

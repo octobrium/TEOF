@@ -8,34 +8,40 @@
   "layer": "L5",
   "systemic_scale": 3,
   "impact_score": 45,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Design severity taxonomy and defaults",
-      "status": "queued",
+      "status": "done",
       "notes": "Align on low/medium/high semantics and ensure they mirror ethics escalation thresholds.",
-      "receipts": []
+      "receipts": [
+        "docs/parallel-codex.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Implement CLI/API changes with validation",
-      "status": "queued",
+      "status": "done",
       "notes": "Extend bus_event to accept --severity, validate values, and persist in the JSON payload.",
-      "receipts": []
+      "receipts": [
+        "tools/agent/bus_status.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Document usage and add regression coverage",
-      "status": "queued",
+      "status": "done",
       "notes": "Update docs/workflow and tests so severity metadata is exercised in CI and autonomy scenarios.",
-      "receipts": []
+      "receipts": [
+        "tests/test_agent_bus_status.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Bus events emit validated severity metadata consumed by automation",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -43,6 +49,10 @@
       "ref": "queue/007-bus-event-severity.md"
     }
   ],
-  "ocers_target": "Coherence↑ Evidence↑ Safety↑",
-  "receipts": []
+  "ocers_target": "Coherence\u2191 Evidence\u2191 Safety\u2191",
+  "receipts": [
+    "docs/parallel-codex.md",
+    "tests/test_agent_bus_status.py",
+    "tools/agent/bus_status.py"
+  ]
 }

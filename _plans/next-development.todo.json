@@ -9,6 +9,28 @@
   },
   "items": [
     {
+      "id": "ND-042",
+      "title": "Surface severity in bus_watch",
+      "status": "pending",
+      "plan_suggestion": "2025-10-07-bus-watch-severity",
+      "priority": "medium",
+      "layer": "L5",
+      "systemic_scale": 3,
+      "ocers_target": "Coherence\u2191 Evidence\u2191",
+      "source": "queue/001-agent-bus-watch.md"
+    },
+    {
+      "id": "ND-043",
+      "title": "Add severity filters to bus_status presets",
+      "status": "pending",
+      "plan_suggestion": "2025-10-07-bus-status-filters",
+      "priority": "medium",
+      "layer": "L5",
+      "systemic_scale": 3,
+      "ocers_target": "Coherence\u2191 Evidence\u2191",
+      "source": "queue/002-bus-status-filters.md"
+    },
+    {
       "id": "ND-038",
       "title": "Enforce anchors append-only policy",
       "status": "done",
@@ -29,14 +51,19 @@
     {
       "id": "ND-040",
       "title": "Add severity metadata to bus_event",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-07-bus-event-severity",
       "notes": "Allow automation to distinguish low/medium/high events with validated CLI plumbing and docs.",
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
       "ocers_target": "Coherence\u2191 Evidence\u2191 Safety\u2191",
-      "source": "queue/007-bus-event-severity.md"
+      "source": "queue/007-bus-event-severity.md",
+      "completed_at": "2025-10-07T19:40:27Z",
+      "receipts": [
+        "docs/parallel-codex.md",
+        "tools/agent/bus_status.py"
+      ]
     },
     {
       "id": "ND-041",

@@ -348,9 +348,11 @@ def summarize(
         for entry in filtered_events:
             task = entry.get("task_id", "-")
             summary = entry.get("summary", "")
+            severity = entry.get("severity")
+            severity_note = f" [sev={severity}]" if severity else ""
             print(
                 f"  - {entry.get('ts')} :: {entry.get('agent_id')} :: {entry.get('event')}"
-                f" :: task={task} :: {summary}"
+                f" :: task={task}{severity_note} :: {summary}"
             )
     else:
         msg = "No events matching filters." if event_filters else "No events recorded."
@@ -394,9 +396,11 @@ def _print_summary(
     if filtered_events:
         print(f"- events ({len(filtered_events)}):")
         for entry in filtered_events:
+            severity = entry.get("severity")
+            severity_note = f" [sev={severity}]" if severity else ""
             print(
                 f"  * {entry.get('ts')} :: {entry.get('agent_id')} :: {entry.get('event')}"
-                f" :: {entry.get('summary', '')}"
+                f"{severity_note} :: {entry.get('summary', '')}"
             )
     else:
         print("- events: none")

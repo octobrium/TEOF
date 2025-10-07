@@ -56,6 +56,7 @@ def _setup_bus(tmp_path, monkeypatch):
             "task_id": "QUEUE-010",
             "summary": "manager heartbeat",
             "shift": "mid",
+            "severity": "medium",
         },
         {"ts": iso(2), "agent_id": "codex-2", "event": "complete", "task_id": "QUEUE-011", "summary": "complete"},
     ]
@@ -101,6 +102,7 @@ def test_bus_status_filters_by_agent(tmp_path, monkeypatch, capsys):
     assert "codex-1" in out
     assert "codex-2" not in out
     assert ":: codex-1 ::" in out
+    assert "sev=medium" in out
 
 
 def test_bus_status_active_only(tmp_path, monkeypatch, capsys):
@@ -130,6 +132,7 @@ def test_bus_status_json_output(tmp_path, monkeypatch, capsys):
     assert payload["claims"][0]["agent_id"] == "codex-1"
     assert len(payload["events"]) == 1
     assert payload["events"][0]["agent_id"] == "codex-1"
+    assert payload["events"][0]["severity"] == "medium"
     assert payload["filters"]["since"] is None
     manager_status = payload["manager_status"]
     assert manager_status["active"][0]["agent_id"] == "codex-1"
