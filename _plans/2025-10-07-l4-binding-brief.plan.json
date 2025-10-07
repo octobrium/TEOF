@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-07-l4-binding-brief",
+  "created": "2025-10-07T07:05:30Z",
+  "actor": "codex-5",
+  "summary": "Link governance bindings to concrete receipts in a concise L4 brief",
+  "priority": 2,
+  "layer": "L4",
+  "systemic_scale": 6,
+  "impact_score": 55,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Map existing L4 bindings to enforcement receipts",
+      "status": "queued",
+      "notes": "Collect current bindings, the enforcing tests/guards, and gaps that still rely on manual review.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Draft concise explainer with traceable references",
+      "status": "queued",
+      "notes": "Write the brief that ties each binding to tests, docs, or automation receipts so reviewers can audit quickly.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Publish brief and integrate into governance workflow",
+      "status": "queued",
+      "notes": "Attach the brief to governance/systemic-order docs and ensure planner/manager tooling links to it.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "L4 binding explainer published with links to enforcing receipts",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/034-l4-binding-brief.md"
+    }
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "receipts": []
+}

@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-07-bus-event-severity",
+  "created": "2025-10-07T07:06:00Z",
+  "actor": "codex-4",
+  "summary": "Add severity tagging to bus_event for clearer coordination alerts",
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 45,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design severity taxonomy and defaults",
+      "status": "queued",
+      "notes": "Align on low/medium/high semantics and ensure they mirror ethics escalation thresholds.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement CLI/API changes with validation",
+      "status": "queued",
+      "notes": "Extend bus_event to accept --severity, validate values, and persist in the JSON payload.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document usage and add regression coverage",
+      "status": "queued",
+      "notes": "Update docs/workflow and tests so severity metadata is exercised in CI and autonomy scenarios.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Bus events emit validated severity metadata consumed by automation",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/007-bus-event-severity.md"
+    }
+  ],
+  "ocers_target": "Coherence↑ Evidence↑ Safety↑",
+  "receipts": []
+}

@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-07-anchors-policy-guard",
+  "created": "2025-10-07T07:05:00Z",
+  "actor": "codex-5",
+  "summary": "Require anchors.json events to append with prev_content_hash guards",
+  "priority": 1,
+  "layer": "L1",
+  "systemic_scale": 6,
+  "impact_score": 70,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit anchors append workflow and capture current failure modes",
+      "status": "queued",
+      "notes": "Review recent anchors events, confirm expected prev_content_hash semantics, and record gaps in docs/architecture.md.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement append-only guard with prev_content_hash enforcement",
+      "status": "queued",
+      "notes": "Add validation ensuring anchors.json changes append at the tail and include correct prev_content_hash; cover with tests.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document guard behavior and recovery steps",
+      "status": "queued",
+      "notes": "Update governance/anchors docs and session playbooks so operators know how to satisfy the guard and repair violations.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Anchors automation rejects reorder attempts and docs show append-only policy with receipts",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/000-welcome.md"
+    }
+  ],
+  "ocers_target": "Evidence↑ Safety↑ Coherence↑",
+  "receipts": []
+}

@@ -1,13 +1,61 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-10-05T04:35:47Z",
+  "updated": "2025-10-07T07:03:40Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
     "require_no_attention_feeds": true
   },
   "items": [
+    {
+      "id": "ND-038",
+      "title": "Enforce anchors append-only policy",
+      "status": "pending",
+      "plan_suggestion": "2025-10-07-anchors-policy-guard",
+      "notes": "Guard anchors.json with prev_content_hash enforcement and document append-only expectations.",
+      "priority": "high",
+      "layer": "L1",
+      "systemic_scale": 6,
+      "ocers_target": "Evidence\u2191 Safety\u2191 Coherence\u2191",
+      "source": "queue/000-welcome.md"
+    },
+    {
+      "id": "ND-039",
+      "title": "Publish L4 binding explainer",
+      "status": "pending",
+      "plan_suggestion": "2025-10-07-l4-binding-brief",
+      "notes": "Create the concise reference that links governance bindings to the enforcing tests and receipts.",
+      "priority": "high",
+      "layer": "L4",
+      "systemic_scale": 6,
+      "ocers_target": "Coherence\u2191 Reproducibility\u2191",
+      "source": "queue/034-l4-binding-brief.md"
+    },
+    {
+      "id": "ND-040",
+      "title": "Add severity metadata to bus_event",
+      "status": "pending",
+      "plan_suggestion": "2025-10-07-bus-event-severity",
+      "notes": "Allow automation to distinguish low/medium/high events with validated CLI plumbing and docs.",
+      "priority": "medium",
+      "layer": "L5",
+      "systemic_scale": 3,
+      "ocers_target": "Coherence\u2191 Evidence\u2191 Safety\u2191",
+      "source": "queue/007-bus-event-severity.md"
+    },
+    {
+      "id": "ND-041",
+      "title": "Integrate macro hygiene objectives",
+      "status": "pending",
+      "plan_suggestion": "2025-10-07-macro-hygiene-objectives",
+      "notes": "Track macro hygiene commitments with receipts and surface them in autonomy status reporting.",
+      "priority": "medium",
+      "layer": "L2",
+      "systemic_scale": 5,
+      "ocers_target": "Coherence\u2191 Reproducibility\u2191",
+      "source": "queue/036-macro-hygiene-objective.md"
+    },
     {
       "id": "ND-001",
       "title": "Auto-escalate authenticity alerts into steward-specific tasks",
@@ -334,7 +382,7 @@
       "status": "done",
       "layer": "L5",
       "priority": "medium",
-      "notes": "Implement commitment guard lint and update TTΔ docs",
+      "notes": "Implement commitment guard lint and update TT\u0394 docs",
       "plan_suggestion": "2025-10-05-commitment-guard",
       "receipts": [
         "_plans/2025-10-05-commitment-guard.plan.json",
@@ -347,7 +395,7 @@
     },
     {
       "id": "ND-025",
-      "title": "TTΔ trend reporting",
+      "title": "TT\u0394 trend reporting",
       "status": "done",
       "layer": "L5",
       "priority": "medium",

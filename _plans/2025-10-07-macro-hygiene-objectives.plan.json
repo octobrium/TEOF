@@ -1,0 +1,48 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-07-macro-hygiene-objectives",
+  "created": "2025-10-07T07:06:30Z",
+  "actor": "codex-4",
+  "summary": "Track macro hygiene objectives and wire them into automation cadence",
+  "priority": 3,
+  "layer": "L2",
+  "systemic_scale": 5,
+  "impact_score": 40,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Compile governance-driven hygiene objectives",
+      "status": "queued",
+      "notes": "Pull targets from docs/maintenance/macro-hygiene.md and confirm owners + cadence expectations.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Instrument receipts and dashboards for macro hygiene",
+      "status": "queued",
+      "notes": "Add metrics/receipts to track progress (e.g., CI integration, capsule cadence) and surface in autonomy status.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document workflow updates for macro hygiene",
+      "status": "queued",
+      "notes": "Update docs/maintenance and workflow so teams know how to maintain the objectives ledger.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Macro hygiene objectives are measurable with receipts and integrated into autonomy reports",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/036-macro-hygiene-objective.md"
+    }
+  ],
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "receipts": []
+}
