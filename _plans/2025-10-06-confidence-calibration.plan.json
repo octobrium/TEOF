@@ -1,0 +1,59 @@
+{
+  "plan_id": "2025-10-06-confidence-calibration",
+  "created": "2025-10-06T21:01:18Z",
+  "actor": "codex-4",
+  "status": "in_progress",
+  "summary": "Introduce confidence reporting metrics for agents to detect overconfidence drift.",
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/automation.md"
+    },
+    {
+      "type": "plan",
+      "ref": "_plans/2025-10-05-ocers-scan-automation.plan.json"
+    }
+  ],
+  "receipts": [
+    "docs/automation/confidence-metrics.md",
+    "tools/agent/session_boot.py"
+  ],
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Define confidence schema",
+      "status": "done",
+      "notes": "Specify fields and thresholds for confidence logging",
+      "receipts": [
+        "docs/automation/confidence-metrics.md"
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "Instrument workflows",
+      "status": "done",
+      "notes": "Add confidence capture to session_boot or manager_report flows",
+      "receipts": [
+        "tools/agent/session_boot.py"
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "Aggregate & alert",
+      "status": "queued",
+      "notes": "Create dashboards/alerts for overconfidence patterns",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Confidence metrics logged with automated checks",
+    "owner": "codex-4",
+    "status": "pending"
+  },
+  "version": 0,
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 3,
+  "ocers_target": "Observation↑ Self-repair↑"
+}

@@ -27,6 +27,7 @@ CLAIMS_DIR = ROOT / "_bus" / "claims"
 MANAGER_REPORT_LOG = ROOT / "_bus" / "messages" / "manager-report.jsonl"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 SESSION_GUARD_DIR = ROOT / "_report" / "agent"
+CONFIDENCE_ROOT = ROOT / "_report" / "agent"
 
 from tools.agent import bus_status, session_sync, coord_dashboard
 
@@ -68,6 +69,22 @@ def _record_dirty_event(agent_id: str, receipt_path: Path) -> None:
         "receipts": [str(_relative_to_root(receipt_path))],
     }
     _append_event(payload)
+
+
+def _record_confidence(agent_id: str, confidence: float, note: str | None = None) -> Path:
+    log_dir = CONFIDENCE_ROOT / agent_id
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_path = log_dir / "confidence.jsonl"
+    payload: dict[str, Any] = {
+        "ts": _iso_now(),
+        "agent": agent_id,
+        "confidence": confidence,
+    }
+    if note:
+        payload["note"] = note
+    with log_path.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(payload, sort_keys=True) + "\n")
+    return log_path
 
 
 def _iso_now() -> str:
@@ -326,6 +343,15 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Allow running even if the current git branch does not match agent/<id> conventions",
     )
+    parser.add_argument(
+        "--confidence",
+        type=float,
+        help="Optional subjective confidence (0.0-1.0) to log alongside the session",
+    )
+    parser.add_argument(
+        "--confidence-note",
+        help="Optional note associated with --confidence",
+    )
     return parser
 
 
@@ -336,6 +362,11 @@ def main(argv: list[str] | None = None) -> int:
     agent_id = args.agent or _default_agent()
     if not agent_id:
         parser.error("Agent id missing; provide --agent or populate AGENT_MANIFEST.json")
+
+    if args.confidence is not None and not 0.0 <= args.confidence <= 1.0:
+        parser.error("--confidence must be between 0.0 and 1.0")
+    if args.confidence_note and args.confidence is None:
+        parser.error("--confidence-note requires --confidence")
 
     printed_messages: list[str] = []
 
@@ -409,6 +440,13 @@ def main(argv: list[str] | None = None) -> int:
     printed_messages.append(
         "Tip: keep the manager-report feed open with `python -m tools.agent.bus_watch --task manager-report --follow --limit 20`"
     )
+
+    if args.confidence is not None:
+        confidence_path = _record_confidence(agent_id, args.confidence, args.confidence_note)
+        rel_conf_path = _relative_to_root(confidence_path)
+        printed_messages.append(
+            f"Confidence logged ({args.confidence:.2f}) → {rel_conf_path}"
+        )
 
     status_output = ""
     if args.with_status:
