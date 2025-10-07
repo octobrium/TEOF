@@ -31,8 +31,13 @@ arguments. When provided, the report is appended automatically as part of the
 session receipts. Agents may also log additional entries manually if confidence
 shifts during a session.
 
+Run `python -m tools.agent.confidence_report --agent <id>` to summarise logged
+entries. Pass `--warn-threshold` to highlight repeated high-confidence entries
+and `--format json` for machine-readable output.
+
 ## Next Steps
 
-- Aggregate confidence vs. outcome data into dashboards.
+- Aggregate confidence vs. outcome data into dashboards (`confidence_report`
+  provides basic counts and warnings).
 - Alert when high-confidence predictions fail repeatedly (overconfidence).
 - Incorporate into manager reports or autonomy guards.
