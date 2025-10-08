@@ -106,7 +106,7 @@ def test_receipt_and_plan(temp_repo: Path, tmp_path: Path) -> None:
     assert payload["conflicts"]
     assert payload["receipt_sha256"]
 
-    plan_path = tms._emit_plan(conflicts[0], out_path)
+    plan_path = tms.emit_plan(conflicts[0], out_path)
     assert plan_path.exists()
     plan = json.loads(plan_path.read_text(encoding="utf-8"))
     assert plan["plan_id"].startswith("TMS-fact-plan")

@@ -1,33 +1,102 @@
 #!/usr/bin/env python3
-import json, pathlib, importlib
+"""Minimal OCERS ensemble scorer with typed runners and safety checks."""
+from __future__ import annotations
 
-def load_text(path):
-    return pathlib.Path(path).read_text(encoding="utf-8", errors="ignore")
+import importlib
+import json
+from pathlib import Path
+from typing import Callable, Dict, Iterable, Mapping, MutableMapping, Sequence
 
-def run_heuristic(text):
+_PILLARS: tuple[str, ...] = ("O", "C", "E", "R", "S")
+RunnerResult = Dict[str, float]
+Runner = Callable[[str], RunnerResult]
+
+
+def load_text(path: str | Path) -> str:
+    return Path(path).read_text(encoding="utf-8", errors="ignore")
+
+
+def _ensure_scores(payload: Mapping[str, float], *, name: str) -> RunnerResult:
+    result = {pillar: float(payload[pillar]) for pillar in _PILLARS}
+    result["name"] = name  # type: ignore[assignment]
+    return result  # type: ignore[return-value]
+
+
+def run_heuristic(text: str) -> RunnerResult:
     mod = importlib.import_module("extensions.validator.teof_ocers_min")
     t = mod.norm_text(text)
-    O = mod.score_observation(t); C = mod.score_coherence(t)
-    E = mod.score_ethics(t); R = mod.score_repro(t); S = mod.score_selfrepair(t)
-    return {"O":O,"C":C,"E":E,"R":R,"S":S,"name":"H"}
+    return _ensure_scores(
+        {
+            "O": mod.score_observation(t),
+            "C": mod.score_coherence(t),
+            "E": mod.score_ethics(t),
+            "R": mod.score_repro(t),
+            "S": mod.score_selfrepair(t),
+        },
+        name="H",
+    )
 
-RUNNERS = {"H": run_heuristic}
 
-def ensemble(scores, weights=None):
-    if weights is None:
-        weights = {s["name"]: 1.0 for s in scores}
-    out = {}
-    for k in ["O","C","E","R","S"]:
-        num = sum(s[k] * weights.get(s["name"], 1.0) for s in scores)
-        den = sum(weights.get(s["name"], 1.0) for s in scores)
-        out[k] = round(num / den, 2)
-    out["total"] = round(sum(out[k] for k in ["O","C","E","R","S"]), 2)
-    return out
+_RUNNERS: Dict[str, Runner] = {"H": run_heuristic}
 
-def score_file(inp, which=("H",), weights=None):
+
+def register_runner(tag: str, runner: Runner, *, overwrite: bool = False) -> None:
+    if not overwrite and tag in _RUNNERS:
+        raise ValueError(f"runner '{tag}' already registered")
+    _RUNNERS[tag] = runner
+
+
+def available_runners() -> Sequence[str]:
+    return tuple(sorted(_RUNNERS))
+
+
+def _resolve_runner(tag: str) -> Runner:
+    try:
+        return _RUNNERS[tag]
+    except KeyError as exc:  # pragma: no cover - defensive path
+        raise KeyError(f"unknown runner '{tag}'") from exc
+
+
+def ensemble(scores: Sequence[RunnerResult], weights: Mapping[str, float] | None = None) -> Dict[str, float]:
+    if not scores:
+        return {pillar: 0.0 for pillar in (*_PILLARS, "total")}
+
+    weight_map: MutableMapping[str, float] = {name: float(value) for name, value in (weights or {}).items()}
+    totals: Dict[str, float] = {pillar: 0.0 for pillar in _PILLARS}
+    weight_sums: Dict[str, float] = {name: 0.0 for name in _RUNNERS}
+
+    for score in scores:
+        name = str(score.get("name"))
+        weight = weight_map.get(name, 1.0)
+        weight_sums[name] = weight_sums.get(name, 0.0) + weight
+        for pillar in _PILLARS:
+            totals[pillar] += float(score[pillar]) * weight
+
+    averaged: Dict[str, float] = {}
+    for pillar in _PILLARS:
+        denominator = sum(weight_sums.values()) or 1.0
+        averaged[pillar] = round(totals[pillar] / denominator, 2)
+    averaged["total"] = round(sum(averaged[pillar] for pillar in _PILLARS), 2)
+    return averaged
+
+
+def score_file(inp: str | Path, which: Sequence[str] = ("H",), weights: Mapping[str, float] | None = None) -> Dict[str, object]:
     text = load_text(inp)
-    parts = []
+    parts: list[RunnerResult] = []
     for tag in which:
-        parts.append(RUNNERS[tag](text))
+        runner = _resolve_runner(tag)
+        result = dict(runner(text))
+        result.setdefault("name", tag)
+        parts.append(result)
     agg = ensemble(parts, weights)
     return {"by_scorer": parts, "ensemble": agg}
+
+
+__all__ = [
+    "available_runners",
+    "ensemble",
+    "load_text",
+    "register_runner",
+    "run_heuristic",
+    "score_file",
+]

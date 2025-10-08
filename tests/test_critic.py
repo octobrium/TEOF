@@ -79,7 +79,7 @@ def test_receipt_and_emit_bus(temp_repo: Path, tmp_path: Path) -> None:
     assert payload["anomalies"]
     assert payload["receipt_sha256"]
 
-    claim_path = critic._emit_bus_claim(anomalies[0], out_path)
+    claim_path = critic.emit_bus_claim(anomalies[0], out_path)
     assert claim_path.exists()
     claim = json.loads(claim_path.read_text(encoding="utf-8"))
     assert claim["receipt"].endswith("critic.json")

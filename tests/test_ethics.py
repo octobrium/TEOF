@@ -64,7 +64,7 @@ def test_receipt_and_bus_emission(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
     assert payload["violations"]
     assert payload["receipt_sha256"]
 
-    claim_path = ethics_gate._emit_bus_claim(violations[0], receipt_path)
+    claim_path = ethics_gate.emit_bus_claim(violations[0], receipt_path)
     claim = json.loads(claim_path.read_text(encoding="utf-8"))
     assert claim["receipt"].endswith("receipt.json")
 

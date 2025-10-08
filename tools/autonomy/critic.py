@@ -118,7 +118,7 @@ def write_receipt(anomalies: Sequence[dict[str, Any]], out_path: Path) -> Path:
     return write_receipt_payload(out_path, payload)
 
 
-def _emit_bus_claim(anomaly: dict[str, Any], receipt_path: Path) -> Path:
+def emit_bus_claim(anomaly: dict[str, Any], receipt_path: Path) -> Path:
     CLAIMS_DIR.mkdir(parents=True, exist_ok=True)
     task = anomaly.get("suggested_task") or {}
     task_id = str(task.get("task_id") or f"REPAIR-{anomaly.get('id')}")
@@ -137,6 +137,10 @@ def _emit_bus_claim(anomaly: dict[str, Any], receipt_path: Path) -> Path:
     }
     claim_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     return claim_path
+
+
+# Backwards compatibility: retain the private alias until downstream callers migrate.
+_emit_bus_claim = emit_bus_claim
 
 
 def render_table(anomalies: Sequence[dict[str, Any]]) -> str:
@@ -187,7 +191,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.emit_bus and receipt_path is not None:
         emitted = []
         for anomaly in anomalies:
-            claim_path = _emit_bus_claim(anomaly, receipt_path)
+            claim_path = emit_bus_claim(anomaly, receipt_path)
             emitted.append(claim_path.relative_to(ROOT).as_posix())
         if emitted:
             print("emitted bus claims:")

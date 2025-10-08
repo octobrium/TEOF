@@ -156,7 +156,7 @@ def write_receipt(conflicts: Sequence[dict[str, Any]], out_path: Path) -> Path:
     return write_receipt_payload(out_path, payload)
 
 
-def _emit_plan(conflict: dict[str, Any], receipt_path: Path) -> Path:
+def emit_plan(conflict: dict[str, Any], receipt_path: Path) -> Path:
     skeleton = {
         "version": 0,
         "plan_id": conflict.get("suggested_plan", {}).get("plan_id"),
@@ -176,6 +176,9 @@ def _emit_plan(conflict: dict[str, Any], receipt_path: Path) -> Path:
         return plan_path
     plan_path.write_text(json.dumps(skeleton, indent=2) + "\n", encoding="utf-8")
     return plan_path
+
+
+_emit_plan = emit_plan
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -206,7 +209,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 2
         emitted = []
         for conflict in conflicts:
-            plan_path = _emit_plan(conflict, receipt_path)
+            plan_path = emit_plan(conflict, receipt_path)
             emitted.append(plan_path.relative_to(ROOT).as_posix())
         if emitted:
             print("emitted plans:")

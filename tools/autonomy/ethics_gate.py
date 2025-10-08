@@ -134,7 +134,7 @@ def write_receipt(violations: Sequence[dict[str, Any]], out_path: Path) -> Path:
     return write_receipt_payload(out_path, payload)
 
 
-def _emit_bus_claim(violation: dict[str, Any], receipt_path: Path) -> Path:
+def emit_bus_claim(violation: dict[str, Any], receipt_path: Path) -> Path:
     CLAIMS_DIR.mkdir(parents=True, exist_ok=True)
     identifier = str(violation.get("id") or violation.get("title") or "item")
     task_id = f"ETHICS-{identifier}".replace(" ", "-")
@@ -152,6 +152,9 @@ def _emit_bus_claim(violation: dict[str, Any], receipt_path: Path) -> Path:
     }
     claim_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     return claim_path
+
+
+_emit_bus_claim = emit_bus_claim
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -182,7 +185,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 2
         emitted = []
         for violation in violations:
-            claim_path = _emit_bus_claim(violation, receipt_path)
+            claim_path = emit_bus_claim(violation, receipt_path)
             emitted.append(claim_path.relative_to(ROOT).as_posix())
         if emitted:
             print("emitted bus claims:")

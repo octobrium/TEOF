@@ -89,6 +89,7 @@ This keeps Observation → Ethics → Self-repair coherent while giving companie
 - Prototypes start in `experimental/` with a short promotion plan in the PR.
 - Kernel code **MUST NOT** import from `experimental/` or `archive/` (the import policy guard enforces this).
 - If a new top-level seems required, open a 1‑page TEP in `rfcs/` (purpose, contract, alternatives, rollback).
+- Continuously benchmark high-reliability ecosystems (SRE playbooks, regulated automation, audited release trains) and adapt the proven guardrails so TEOF’s workflow evolves with the wider industry.
 
 ### Layer hierarchy (L0–L6)
 
