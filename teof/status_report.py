@@ -11,6 +11,8 @@ try:  # Python 3.11+
 except ModuleNotFoundError:  # pragma: no cover - fallback for older runtimes
     import tomli as tomllib  # type: ignore
 
+from tools.maintenance import capability_inventory
+
 
 ROOT = Path(__file__).resolve().parents[1]
 ISO_FMT = "%Y-%m-%dT%H:%M:%S%zZ"
@@ -332,6 +334,46 @@ def gather_objective_lines(root: Path, objectives: Iterable[Objective]) -> list[
     return lines
 
 
+def _capability_summary(root: Path, *, stale_days: float = 30.0) -> list[str]:
+    try:
+        inventory = capability_inventory.generate_inventory(stale_days=stale_days)
+    except Exception:  # pragma: no cover - defensive guard
+        return ["- Capability inventory unavailable"]
+
+    now = dt.datetime.now(dt.timezone.utc)
+    threshold = dt.timedelta(days=stale_days)
+
+    stale_entries = []
+    missing_tests = []
+    for usage in inventory:
+        if not usage.tests:
+            missing_tests.append(usage)
+        last = usage.last_receipt
+        if last is None or now - last > threshold:
+            stale_entries.append(usage)
+
+    lines = [
+        "- Commands: "
+        + f"{len(inventory)} | missing tests: {len(missing_tests)} | stale>{int(stale_days)}d: {len(stale_entries)}"
+    ]
+
+    if missing_tests:
+        lines.append(
+            "- Missing tests: "
+            + ", ".join(sorted(usage.name for usage in missing_tests[:5]))
+            + (" …" if len(missing_tests) > 5 else "")
+        )
+
+    if stale_entries:
+        lines.append("- Stale commands (limit 5):")
+        for usage in sorted(stale_entries[:5], key=lambda item: item.name):
+            last = usage.last_receipt.isoformat() if usage.last_receipt else "never"
+            lines.append(f"  - {usage.name}: last_receipt={last}")
+        if len(stale_entries) > 5:
+            lines.append(f"  - (+{len(stale_entries) - 5} more)")
+    return lines
+
+
 def generate_status(root: Path | None = None, *, log: bool = True) -> str:
     root = root or ROOT
     timestamp = _now_iso()
@@ -388,6 +430,10 @@ def generate_status(root: Path | None = None, *, log: bool = True) -> str:
         lines.append(
             "- Warning: sustained autonomy growth detected across recent runs; prune receipts or reassess scope."
         )
+    lines.append("")
+    lines.append("## CLI Capability Health")
+    for entry in _capability_summary(root):
+        lines.append(entry)
     lines.append("")
     lines.append("## Auto Objectives (detected)")
     for entry in gather_objective_lines(root, OBJECTIVES):

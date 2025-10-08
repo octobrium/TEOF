@@ -36,3 +36,5 @@ def register_commands(subparsers: "argparse._SubParsersAction[object]") -> None:
 
 
 __all__ = ["register_commands"]
+COMMAND_MODULES = _COMMAND_MODULES
+__all__.append("COMMAND_MODULES")

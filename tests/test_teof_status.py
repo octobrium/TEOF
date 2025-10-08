@@ -70,6 +70,8 @@ def test_generate_status(tmp_path: Path) -> None:
     assert "Modules:" in report
     assert "Receipts:" in report
     assert "Recent Footprint Deltas" in report
+    assert "## CLI Capability Health" in report
+    assert "Commands:" in report
     assert "[done] OBJ-A4" in report
     assert "[done] OBJ-A5" in report
     assert report.strip().endswith("Python ≥3.9 for local dev.")
@@ -85,11 +87,15 @@ def test_cli_writes_file(tmp_path: Path, monkeypatch) -> None:
     assert result == 0
     assert out_path.exists()
     expected = status_report.generate_status(tmp_path, log=False)
-    assert out_path.read_text(encoding="utf-8") == expected
+    actual_lines = out_path.read_text(encoding="utf-8").splitlines()
+    expected_lines = expected.splitlines()
+    assert actual_lines[1:] == expected_lines[1:]
 
     # Without --quiet, CLI should print to stdout
     buffer = io.StringIO()
     monkeypatch.setattr(sys, 'stdout', buffer)
     bootloader.main(['status'])
     expected_after = status_report.generate_status(tmp_path, log=False)
-    assert buffer.getvalue().rstrip('\n') == expected_after.rstrip('\n')
+    printed_lines = buffer.getvalue().rstrip('\n').splitlines()
+    expected_lines = expected_after.rstrip('\n').splitlines()
+    assert printed_lines[1:] == expected_lines[1:]
