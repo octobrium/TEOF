@@ -1,74 +1,119 @@
 {
-  "build": [
-    {
-      "path": "_report/usage/onboarding/build-20250927T193756Z.json",
-      "generated_at": "2025-09-27T19:37:56Z",
-      "artifacts": [
-        "dist/teof-0.1.0a2-py3-none-any.whl",
-        "dist/teof-0.1.0a2.tar.gz"
-      ]
-    },
-    {
-      "path": "_report/usage/onboarding/build-20250927T195254Z.json",
-      "generated_at": "2025-09-27T19:52:54Z",
-      "artifacts": [
-        "dist/teof-0.1.0a2-py3-none-any.whl",
-        "dist/teof-0.1.0a2.tar.gz"
-      ]
-    },
-    {
-      "path": "_report/usage/onboarding/build-20250927T213100Z.json",
-      "generated_at": "2025-09-27T21:31:00Z",
-      "artifacts": [
-        "dist/teof-0.1.0a2-py3-none-any.whl",
-        "dist/teof-0.1.0a2.tar.gz"
-      ]
-    },
-    {
-      "path": "_report/usage/onboarding/build-20251003T190822Z.json",
-      "generated_at": "2025-10-03T19:18:17Z",
-      "artifacts": [
-        "dist/teof-0.1.0a2-py3-none-any.whl",
-        "dist/teof-0.1.0a2.tar.gz"
-      ]
-    },
-    {
-      "path": "_report/usage/onboarding/build-20251004T000258Z.json",
-      "generated_at": "2025-10-04T00:02:58Z",
-      "artifacts": [
-        "dist/teof-0.1.0a2-py3-none-any.whl",
-        "dist/teof-0.1.0a2.tar.gz"
-      ]
-    }
-  ],
-  "quickstart": [
-    {
-      "path": "_report/usage/onboarding/quickstart-20250927T193806Z.json",
-      "generated_at": "2025-09-27T19:38:06Z",
-      "install_source": "wheel",
-      "latest_target": "artifacts/ocers_out/20250927T001720Z",
-      "run_target": "artifacts/ocers_out/20250927T001720Z"
-    },
-    {
-      "path": "_report/usage/onboarding/quickstart-20250927T213103Z.json",
-      "generated_at": "2025-09-27T21:31:03Z",
-      "install_source": "wheel",
-      "latest_target": "artifacts/ocers_out/20250927T210030Z",
-      "run_target": "artifacts/ocers_out/20250927T210030Z"
-    },
-    {
-      "path": "_report/usage/onboarding/quickstart-20251003T190832Z.json",
-      "generated_at": "2025-10-03T19:18:25Z",
-      "install_source": "wheel",
-      "latest_target": "artifacts/ocers_out/20251003T191825Z",
-      "run_target": "artifacts/ocers_out/20251003T191825Z"
-    },
-    {
-      "path": "_report/usage/onboarding/quickstart-20251004T000310Z.json",
-      "generated_at": "2025-10-04T00:03:10Z",
-      "install_source": "wheel",
-      "latest_target": "artifacts/ocers_out/20251003T234322Z",
-      "run_target": "artifacts/ocers_out/20251003T234322Z"
-    }
-  ]
+    "build": [
+        {
+            "path": "_report/usage/onboarding/build-20250927T193756Z.json",
+            "generated_at": "2025-09-27T19:37:56Z",
+            "artifacts": [
+                "dist/teof-0.1.0a2-py3-none-any.whl",
+                "dist/teof-0.1.0a2.tar.gz"
+            ]
+        },
+        {
+            "path": "_report/usage/onboarding/build-20250927T195254Z.json",
+            "generated_at": "2025-09-27T19:52:54Z",
+            "artifacts": [
+                "dist/teof-0.1.0a2-py3-none-any.whl",
+                "dist/teof-0.1.0a2.tar.gz"
+            ]
+        },
+        {
+            "path": "_report/usage/onboarding/build-20250927T213100Z.json",
+            "generated_at": "2025-09-27T21:31:00Z",
+            "artifacts": [
+                "dist/teof-0.1.0a2-py3-none-any.whl",
+                "dist/teof-0.1.0a2.tar.gz"
+            ]
+        },
+        {
+            "path": "_report/usage/onboarding/build-20251003T190822Z.json",
+            "generated_at": "2025-10-03T19:18:17Z",
+            "artifacts": [
+                "dist/teof-0.1.0a2-py3-none-any.whl",
+                "dist/teof-0.1.0a2.tar.gz"
+            ]
+        },
+        {
+            "path": "_report/usage/onboarding/build-20251004T000258Z.json",
+            "generated_at": "2025-10-04T00:02:58Z",
+            "artifacts": [
+                "dist/teof-0.1.0a2-py3-none-any.whl",
+                "dist/teof-0.1.0a2.tar.gz"
+            ]
+        },
+        {
+            "path": "_report/usage/onboarding/build-20251005T040335Z.json",
+            "generated_at": "2025-10-05T04:03:35Z",
+            "artifacts": [
+                "dist/teof-0.1.0a2-py3-none-any.whl",
+                "dist/teof-0.1.0a2.tar.gz"
+            ]
+        },
+        {
+            "path": "_report/usage/onboarding/build-20251008T162124Z.json",
+            "generated_at": "2025-10-08T16:21:24Z",
+            "artifacts": [
+                "dist/teof-0.1.0a2-py3-none-any.whl",
+                "dist/teof-0.1.0a2.tar.gz"
+            ]
+        },
+        {
+            "path": "_report/usage/onboarding/build-20251008T163533Z.json",
+            "generated_at": "2025-10-08T16:35:33Z",
+            "artifacts": [
+                "dist/teof-0.1.0a2-py3-none-any.whl",
+                "dist/teof-0.1.0a2.tar.gz"
+            ]
+        }
+    ],
+    "quickstart": [
+        {
+            "path": "_report/usage/onboarding/quickstart-20250927T193806Z.json",
+            "generated_at": "2025-09-27T19:38:06Z",
+            "install_source": "wheel",
+            "latest_target": "artifacts/ocers_out/20250927T001720Z",
+            "run_target": "artifacts/ocers_out/20250927T001720Z"
+        },
+        {
+            "path": "_report/usage/onboarding/quickstart-20250927T213103Z.json",
+            "generated_at": "2025-09-27T21:31:03Z",
+            "install_source": "wheel",
+            "latest_target": "artifacts/ocers_out/20250927T210030Z",
+            "run_target": "artifacts/ocers_out/20250927T210030Z"
+        },
+        {
+            "path": "_report/usage/onboarding/quickstart-20251003T190832Z.json",
+            "generated_at": "2025-10-03T19:18:25Z",
+            "install_source": "wheel",
+            "latest_target": "artifacts/ocers_out/20251003T191825Z",
+            "run_target": "artifacts/ocers_out/20251003T191825Z"
+        },
+        {
+            "path": "_report/usage/onboarding/quickstart-20251004T000310Z.json",
+            "generated_at": "2025-10-04T00:03:10Z",
+            "install_source": "wheel",
+            "latest_target": "artifacts/ocers_out/20251003T234322Z",
+            "run_target": "artifacts/ocers_out/20251003T234322Z"
+        },
+        {
+            "path": "_report/usage/onboarding/quickstart-20251005T040338Z.json",
+            "generated_at": "2025-10-05T04:03:38Z",
+            "install_source": "wheel",
+            "latest_target": "artifacts/ocers_out/20251005T040245Z",
+            "run_target": "artifacts/ocers_out/20251005T040338Z"
+        },
+        {
+            "path": "_report/usage/onboarding/quickstart-20251008T162126Z.json",
+            "generated_at": "2025-10-08T16:21:26Z",
+            "install_source": "wheel",
+            "latest_target": "artifacts/ocers_out/20251008T005206Z",
+            "run_target": "artifacts/ocers_out/20251008T162126Z"
+        },
+        {
+            "path": "_report/usage/onboarding/quickstart-20251008T163536Z.json",
+            "generated_at": "2025-10-08T16:35:36Z",
+            "install_source": "wheel",
+            "latest_target": "artifacts/ocers_out/20251008T163536Z",
+            "run_target": "artifacts/ocers_out/20251008T163536Z"
+        }
+    ]
 }
