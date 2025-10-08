@@ -91,7 +91,7 @@ def build_prompt(question: str, *, path: Path = DEFAULT_FAQ_PATH) -> str:
         Cite these references when responding:
         {sources_block}
 
-        Always log receipts for actions under `_report/` so future observers can verify the outcome.
+        Log receipts for actions under `_report/` so future observers can verify the outcome.
         """
     ).strip()
     return prompt

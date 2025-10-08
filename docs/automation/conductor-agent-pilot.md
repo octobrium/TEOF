@@ -23,7 +23,7 @@ Each pilot must honour L3 properties (P1–P6). Preflight checklist:
 - **Goal:** consume conductor receipts and send prompts to the OpenAI API (or
   another hosted model), capturing the response as a new receipt.
 - **Safeguards:**
-  - Mask secrets with `.env`; never commit API keys.
+  - Mask secrets with `.env`; do not commit API keys.
   - Record the full exchange under `_report/usage/autonomy-conductor/api-relay/`
     with referenced objective (P1) and diff/test verification (P6).
   - Enforce guardrail diff/test caps before applying commands.

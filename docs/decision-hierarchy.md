@@ -43,7 +43,7 @@ Maintaining this pattern lets humans and agents “zoom” between levels quickl
 We prioritise work that compounds across five recurring themes:
 
 - **Fractals:** repeat the OCERS contract at every layer. The directive-pointer guard is a good example—helper, docs, CI, and tests all enforce the same mirror. Upcoming consensus automation must follow the same pattern (docs → plan → guard → receipts).
-- **Hierarchies:** never skip levels. Capture the observation and principle before implementing properties/automation. The decision tree above is the living checklist; use it before approving new guards or release flows.
+- **Hierarchies:** do not skip levels. Capture the observation and principle before implementing properties/automation. The decision tree above is the living checklist; use it before approving new guards or release flows.
 - **Compounding:** favour changes that permanently raise the floor (stable receipts, automated checks). Track these in `_plans/` so compounded improvements are auditable.
 - **Acceleration:** only accelerate after the pattern holds. Automate consensus CI once the receipts and docs exist so humans can move faster without sacrificing oversight.
 - **Evolution:** log deltas (`memory/log.jsonl`, `_report/.../summary-latest.json`) and revisit the bindings matrix when the hierarchy shifts. Every guard should feed back into governance when it exposes new information.

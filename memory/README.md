@@ -50,7 +50,7 @@ Early memory usage relied on the lightweight `tools/memory/log-entry.py` script.
 Those entries contain a simpler shape (`actor`, `ref`, `signatures`, and
 `artifacts`). They remain valid and continue to pass append-only enforcement, but
 new automation should prefer the canonical surface above. When ingesting the log,
-always treat optional fields defensively so the history can be replayed across
+treat optional fields defensively so the history can be replayed across
 both eras.
 
 ## Appending entries

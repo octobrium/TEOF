@@ -64,5 +64,5 @@ needed for a productive first session and shows where to deepen later.
 - `docs/quick-links.md` for the canonical quick link manifest used by automation
   (`python -m tools.agent.doc_links`).
 
-Keep this page updated as the tooling surface evolves so newcomers always have a
+Keep this page updated as the tooling surface evolves so newcomers have a
 single entry point.

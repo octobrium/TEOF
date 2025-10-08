@@ -68,7 +68,7 @@ mindmap
       Apps & interfaces (separate repos)
       SDKs • UIs • bots • hosted services
       Photosynthesize usage/attention → nutrients (data/revenue)
-      Feed roots & branches; never required for core
+      Feed roots & branches; not required for core
     Fruit
       Distributable value users take/share
       Shareable receipts (carry bundle_hash)

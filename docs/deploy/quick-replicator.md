@@ -46,7 +46,7 @@ pytest -q
 
 ## 4. Share receipts (optional)
 
-To advertise availability without exposing internal data, append a short note to a Git-ignored scratch file (e.g. `_report/teof-replica-smoke.txt`) and share it out-of-band. Never publish private keys, secrets, or sensitive logs.
+To advertise availability without exposing internal data, append a short note to a Git-ignored scratch file (e.g. `_report/teof-replica-smoke.txt`) and share it out-of-band. Do not publish private keys, secrets, or sensitive logs.
 
 ## 5. Staying in sync
 

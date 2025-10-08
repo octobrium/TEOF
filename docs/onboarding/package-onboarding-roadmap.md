@@ -5,7 +5,7 @@
   new users.
 - Deliver a 10-minute quickstart that installs dependencies, runs `teof brief`,
   and surfaces receipts under `_report/usage/onboarding/`.
-- Automate a guard that reruns the quickstart in CI so it never drifts.
+- Automate a guard that reruns the quickstart in CI so it stays aligned.
 
 ## Current State
 - `pyproject.toml` publishes the `teof` package (editable install assumed).

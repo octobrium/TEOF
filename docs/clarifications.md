@@ -80,7 +80,7 @@ TEOF is an observation about observation. The Observer—the entity that cannot 
 If the Observer vanished, TEOF would become meaningless rather than false.  
 Therefore, the framework treats TEOF as a mirror: useful because it reflects what the Observer already is.
 
-Practical implication: never elevate protocol compliance above direct coherence. When conflict arises, return to Observation → Coherence and let receipts show whether TEOF’s current expression still mirrors the observer’s clarity.
+Practical implication: do not elevate protocol compliance above direct coherence. When conflict arises, return to Observation → Coherence and let receipts show whether TEOF’s current expression still mirrors the observer’s clarity.
 
 ---
 

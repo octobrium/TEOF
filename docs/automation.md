@@ -57,7 +57,7 @@ teof scan --out _report/usage/ocers-scan --format json --emit-bus --emit-plan
 - Use `--limit` to cap frontier entries (default **10**). Skipping `--out` keeps the run read-only.
 - Scope the run with `--only <component>` (repeat for multiple) or `--skip <component>` to evaluate a subset. Component names: `frontier`, `critic`, `tms`, `ethics`.
 - Pass `--summary` to print a quick counts list instead of full tables when you only need OCERS tallies.
-- Always capture a fresh manager-report tail before automation runs (`python -m tools.agent.session_boot --agent <id> --with-status`) so the session guard sees the latest coordination receipts. CI jobs should run `session_boot` in the same step as the scan.
+- Capture a fresh manager-report tail before automation runs (`python -m tools.agent.session_boot --agent <id> --with-status`) so the session guard sees the latest coordination receipts. CI jobs should run `session_boot` in the same step as the scan.
 
 ### Dynamic scan driver
 
@@ -175,7 +175,7 @@ For tier-level visibility, run `python -m tools.external.authenticity_report` (o
 - `_report/usage/external-authenticity.json` – structured data for downstream automation
 
 The summary CLI already regenerates both files after each run; use the command above only when you need to recompute dashboards from archived data.
-The Markdown dashboard is also mirrored to `docs/usage/external-authenticity.md` so STATUS reports and docs always reflect the latest run.
+The Markdown dashboard is also mirrored to `docs/usage/external-authenticity.md` so STATUS reports and docs stay aligned with the latest run.
 When a tier’s adjusted trust drops below `--auth-alert-threshold` (default `0.6`) or any feed enters an attention state, the summary CLI logs a bus status event (`teof-auth-monitor`) so managers can react immediately. The same run now also feeds `tools.agent.authenticity_escalation`, which keeps streak state under `_report/agent/teof-auth-monitor/` and, after two consecutive degraded runs, auto-assigns steward tasks (`AUTH-<tier>-<steward>-<date>`) via the bus to force remediation.
 
 ### Autonomy self-prompt loop

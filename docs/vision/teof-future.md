@@ -58,7 +58,7 @@ At maturity TEOF should:
 
 1. **Continuously harvest truth** – contradictions trigger repair loops;
    facts carry confidence and provenance.
-2. **Balance expansion vs defence** – propagation (S3) never outruns
+2. **Balance expansion vs defence** – propagation (S3) should not outrun
    defence (S4) and truth (S6); risk is budgeted.
 3. **Self-budget ethics** – high-risk nodes require S8 guardrails before
    L6 automation operates.

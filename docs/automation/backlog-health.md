@@ -25,7 +25,7 @@ Receipts land under `_report/usage/backlog-health/` and include:
 - `replenishment_candidates`: queue entries (path, coordinate, OCERS target) to
   convert into the next plan.
 
-Run the guard after scans or autonomy batches so agents always see the next
+Run the guard after scans or autonomy batches so agents see the next
 prioritized work without guessing.
 
 `python -m tools.agent.batch_refinement` now invokes this guard automatically.

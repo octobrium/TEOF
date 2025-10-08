@@ -49,7 +49,7 @@ TEOF is built on seven principles that define observation’s role in reality, t
 TEOF grounds implementation decisions in a reusable loop: **Observation → Coherence → Ethics → Reproducibility → Self-repair (OCERS)**.
 
 - **Observation** captures raw signals and receipts, honouring the primacy noted above.
-- **Coherence** reconciles those observations with higher-layer principles so plans never drift from the constitution.
+- **Coherence** reconciles those observations with higher-layer principles so plans remain anchored to the constitution.
 - **Ethics** evaluates leverage: power is legitimate only when it preserves the ability to observe.
 - **Reproducibility** requires every pathway to be replayable—deterministic commands, hashes, and receipts that make truth auditable.
 - **Self-repair** closes the loop; contradictions trigger new observation plans instead of silent decay.
@@ -196,7 +196,7 @@ Purpose of classification:
 - **Preserves coherence** even if governance layers are temporarily corrupted.
 
 Operational safeguard:  
-Recursive alignment checks must always propagate from foundational layers upward, never the reverse.
+Recursive alignment checks should propagate from foundational layers upward, not the reverse.
 
 ---
 

@@ -20,9 +20,9 @@ The helper relocates entire plan files and per-task receipt directories. Active 
 
 ## Testing / CI Hooks
 - Unit coverage: `pytest tests/test_prune_artifacts.py` (also safe for smoke tests).
-- Integrations can invoke the module with `--root <tmpdir>`; the helper never touches files outside the provided root.
+- Integrations can invoke the module with `--root <tmpdir>`; the helper does not touch files outside the provided root.
 
 ## Safety Notes
 - Moves are reversible: copy or move items back from `_apoptosis/<stamp>/`.
-- The script never deletes; empty directories left behind remain for future runs.
-- Always review dry-run output before applying in multi-agent sessions.
+- The script does not delete; empty directories left behind remain for future runs.
+- Review dry-run output before applying in multi-agent sessions.

@@ -76,7 +76,7 @@ Optional but recommended: prepare a README or spec describing feed scope, retent
 ## Maintaining the registry
 
 - Track active feeds in [`docs/adoption/external-feed-registry.md`](external-feed-registry.md). Each row lists the feed steward, governing plan, signing key, latest receipt, and the summary snapshot used for health checks.
-- After every signed adapter run, refresh `_report/usage/external-summary.json` (e.g., `python -m tools.external.adapter ... --refresh-summary`) so the registry updates automatically and the `latest_receipt` / `summary` columns always point at fresh evidence.
+- After every signed adapter run, refresh `_report/usage/external-summary.json` (e.g., `python -m tools.external.adapter ... --refresh-summary`) so the registry updates automatically and the `latest_receipt` / `summary` columns point at fresh evidence.
 - Prefer the helper CLI (`python -m tools.external.registry_update --feed-id <id> --steward "<owner>" --plan-path <plan> --key-path <pubkey> --latest-receipt <receipt> --summary-path <summary>`) to patch the registry immediately after summaries finish; it resolves relative links and replaces existing rows in-place.
 - Keep steward/plan/key defaults in `docs/adoption/external-feed-registry.config.json` so `teof-external-summary` can invoke the helper automatically after each run (`python -m tools.external.summary --registry-config docs/adoption/external-feed-registry.config.json`).
 - Maintain steward capability profiles in [`docs/adoption/steward-profiles.md`](steward-profiles.md) and reference them from the registry config so summaries can surface trust baselines and obligations alongside receipt health.

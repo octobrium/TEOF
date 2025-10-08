@@ -31,7 +31,7 @@ python -m tools.consensus.receipts \
 The command writes `_report/consensus/latest-ledger.jsonl` for later review and continues printing to stdout.
 
 ## Notes
-- The CLI is read-only; it never mutates the ledger.
+- The CLI is read-only; it does not mutate the ledger.
 - Rows are returned in their original order. Use `--limit` for a quick tail.
 - Additional consensus helpers will build on this module for schema validation and dashboards.
 - Receipts default to `_report/consensus/<decision>-<timestamp>.jsonl`; override with `--output <name>` if you need deterministic filenames.
