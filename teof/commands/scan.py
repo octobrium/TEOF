@@ -4,14 +4,15 @@ import datetime as dt
 import json
 from argparse import Namespace
 from pathlib import Path
-from typing import Dict, List
+from functools import partial
+from typing import Callable, Dict, List
 
 from tools.autonomy import critic as critic_mod
 from tools.autonomy import ethics_gate as ethics_mod
 from tools.autonomy import frontier as frontier_mod
 from tools.autonomy import tms as tms_mod
 
-from ._utils import DEFAULT_ROOT, module_root, relpath
+from ._utils import DEFAULT_ROOT, relpath
 SCAN_COMPONENTS = ("frontier", "critic", "tms", "ethics")
 
 
@@ -23,17 +24,19 @@ def _scan_root() -> Path:
     return DEFAULT_ROOT
 
 
-def _rel(path: Path) -> str:
-    return relpath(path, _scan_root())
+def _rel(base: Path) -> Callable[[Path], str]:
+    return partial(relpath, base=base)
 
 
 def run(args: Namespace) -> int:
     limit = max(0, getattr(args, "limit", 10))
     fmt = getattr(args, "format", "table")
     summary_only = bool(getattr(args, "summary", False)) and fmt == "table"
+    base_root = _scan_root()
+    rel = _rel(base_root)
     out_dir = getattr(args, "out", None)
     if out_dir is not None and not out_dir.is_absolute():
-        out_dir = _scan_root() / out_dir
+        out_dir = base_root / out_dir
 
     if args.emit_bus and out_dir is None:
         print("::error:: --emit-bus requires --out for provenance")
@@ -91,14 +94,14 @@ def run(args: Namespace) -> int:
             emitted = []
             for anomaly in critic_anomalies:
                 claim_path = critic_mod.emit_bus_claim(anomaly, critic_receipt)
-                emitted.append(_rel(claim_path))
+                emitted.append(rel(claim_path))
             if emitted:
                 bus_emitted["critic"] = emitted
         if ethics_receipt is not None and "ethics" in selected:
             emitted = []
             for violation in ethics_violations:
                 claim_path = ethics_mod.emit_bus_claim(violation, ethics_receipt)
-                emitted.append(_rel(claim_path))
+                emitted.append(rel(claim_path))
             if emitted:
                 bus_emitted["ethics"] = emitted
 
@@ -107,7 +110,7 @@ def run(args: Namespace) -> int:
         if tms_receipt is not None:
             for conflict in tms_conflicts:
                 plan_path = tms_mod.emit_plan(conflict, tms_receipt)
-                plans_emitted.append(_rel(plan_path))
+                plans_emitted.append(rel(plan_path))
 
     counts = {
         "frontier": len(frontier_entries) if "frontier" in selected else 0,
@@ -130,7 +133,7 @@ def run(args: Namespace) -> int:
         if "ethics" in selected:
             payload["ethics"] = ethics_violations
         if receipts:
-            payload["receipts"] = {name: _rel(path) for name, path in receipts.items()}
+            payload["receipts"] = {name: rel(path) for name, path in receipts.items()}
         if bus_emitted:
             payload["emitted_bus"] = bus_emitted
         if plans_emitted:
