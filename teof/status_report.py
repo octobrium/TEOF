@@ -12,6 +12,7 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for older runtimes
     import tomli as tomllib  # type: ignore
 
 from tools.maintenance import capability_inventory
+from tools.maintenance import automation_inventory
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -374,6 +375,39 @@ def _capability_summary(root: Path, *, stale_days: float = 30.0) -> list[str]:
     return lines
 
 
+def _automation_summary(root: Path, *, stale_days: float = 30.0) -> list[str]:
+    try:
+        entries = automation_inventory.generate_inventory(stale_days=stale_days)
+    except Exception:  # pragma: no cover - defensive guard
+        return ["- Automation inventory unavailable"]
+
+    threshold = dt.timedelta(days=stale_days)
+    missing_receipts = [entry for entry in entries if not entry.receipts]
+    stale_receipts = [entry for entry in entries if entry.is_stale(threshold)]
+    missing_tests = [entry for entry in entries if not entry.tests]
+
+    lines = [
+        "- Modules: "
+        + f"{len(entries)} | missing receipts: {len(missing_receipts)} | stale>{int(stale_days)}d: {len(stale_receipts)} | missing tests: {len(missing_tests)}"
+    ]
+
+    def _list_entries(label: str, items: list[automation_inventory.AutomationEntry]) -> None:
+        if not items:
+            return
+        lines.append(label)
+        for entry in sorted(items, key=lambda e: e.module)[:5]:
+            last = entry.last_receipt.isoformat() if entry.last_receipt else "never"
+            lines.append(f"  - {entry.module}: last_receipt={last}")
+        if len(items) > 5:
+            lines.append(f"  - (+{len(items) - 5} more)")
+
+    _list_entries("- Stale receipts (limit 5):", stale_receipts)
+    if not stale_receipts:
+        _list_entries("- Missing receipts (limit 5):", missing_receipts)
+    _list_entries("- No direct tests detected (limit 5):", missing_tests)
+    return lines
+
+
 def generate_status(root: Path | None = None, *, log: bool = True) -> str:
     root = root or ROOT
     timestamp = _now_iso()
@@ -433,6 +467,10 @@ def generate_status(root: Path | None = None, *, log: bool = True) -> str:
     lines.append("")
     lines.append("## CLI Capability Health")
     for entry in _capability_summary(root):
+        lines.append(entry)
+    lines.append("")
+    lines.append("## Automation Health")
+    for entry in _automation_summary(root):
         lines.append(entry)
     lines.append("")
     lines.append("## Auto Objectives (detected)")

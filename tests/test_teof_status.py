@@ -7,6 +7,8 @@ from pathlib import Path
 
 import teof.bootloader as bootloader
 from teof import status_report
+from tools.maintenance import capability_inventory
+from tools.maintenance import automation_inventory
 
 
 def _setup_repo(root: Path) -> None:
@@ -59,8 +61,33 @@ teof brief
     (auth / "external-authenticity.md").write_text("# Dashboard\n", encoding="utf-8")
 
 
-def test_generate_status(tmp_path: Path) -> None:
+def test_generate_status(tmp_path: Path, monkeypatch) -> None:
     _setup_repo(tmp_path)
+    cap_entry = capability_inventory.CommandUsage(
+        name="brief",
+        module_path=tmp_path / "teof" / "commands" / "brief.py",
+        tests=[tmp_path / "tests" / "test_brief.py"],
+        receipt_paths=[],
+        last_receipt=None,
+    )
+    auto_entry = automation_inventory.AutomationEntry(
+        module="tools.autonomy.frontier",
+        path=tmp_path / "tools" / "autonomy" / "frontier.py",
+        tests=[tmp_path / "tests" / "test_frontier.py"],
+        receipts=[],
+        last_receipt=None,
+    )
+
+    monkeypatch.setattr(
+        capability_inventory,
+        "generate_inventory",
+        lambda stale_days=30.0: [cap_entry],
+    )
+    monkeypatch.setattr(
+        automation_inventory,
+        "generate_inventory",
+        lambda stale_days=30.0: [auto_entry],
+    )
     report = status_report.generate_status(tmp_path)
     assert "# TEOF Status" in report
     assert "Package: teof 9.9.9" in report
@@ -72,6 +99,8 @@ def test_generate_status(tmp_path: Path) -> None:
     assert "Recent Footprint Deltas" in report
     assert "## CLI Capability Health" in report
     assert "Commands:" in report
+    assert "## Automation Health" in report
+    assert "Modules:" in report
     assert "[done] OBJ-A4" in report
     assert "[done] OBJ-A5" in report
     assert report.strip().endswith("Python ≥3.9 for local dev.")
@@ -79,6 +108,30 @@ def test_generate_status(tmp_path: Path) -> None:
 
 def test_cli_writes_file(tmp_path: Path, monkeypatch) -> None:
     _setup_repo(tmp_path)
+    cap_entry = capability_inventory.CommandUsage(
+        name="brief",
+        module_path=tmp_path / "teof" / "commands" / "brief.py",
+        tests=[tmp_path / "tests" / "test_brief.py"],
+        receipt_paths=[],
+        last_receipt=None,
+    )
+    auto_entry = automation_inventory.AutomationEntry(
+        module="tools.autonomy.frontier",
+        path=tmp_path / "tools" / "autonomy" / "frontier.py",
+        tests=[tmp_path / "tests" / "test_frontier.py"],
+        receipts=[],
+        last_receipt=None,
+    )
+    monkeypatch.setattr(
+        capability_inventory,
+        "generate_inventory",
+        lambda stale_days=30.0: [cap_entry],
+    )
+    monkeypatch.setattr(
+        automation_inventory,
+        "generate_inventory",
+        lambda stale_days=30.0: [auto_entry],
+    )
     # Ensure CLI looks at tmp_path
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(status_report, "ROOT", tmp_path)
