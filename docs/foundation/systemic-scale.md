@@ -1,9 +1,11 @@
 # Systemic Hierarchy (Unity → Meaning)
 
-Notation: **S#** labels the systemic axis from the TEOF whitepaper (Unity → Meaning).
-Each systemic axis combines with a **Layer label L0–L6** (Observation → Automation,
-see `docs/workflow.md#layer-hierarchy`) to form a complete coordinate for plans,
-memory entries, and artifacts (e.g., `S6:L4` = Truth at the architecture layer).
+Notation: **S#** labels the systemic axis distilled from observation itself (Unity → Meaning).
+These priorities emerge immediately after L0 Observation and are codified at L1 as
+Principle P4 “Order of Emergence.” Each systemic axis then combines with a **Layer
+label L0–L6** (Observation → Automation, see `docs/workflow.md#layer-hierarchy`) to
+form a complete coordinate for plans, memory entries, and artifacts (e.g.,
+`S6:L4` = Truth satisfied at the architecture layer).
 The axis order is mandated by Principle P4 (“Order of Emergence”) in the
 canonical TEOF principles (`governance/core/L1 - principles/canonical-teof.md`).
 

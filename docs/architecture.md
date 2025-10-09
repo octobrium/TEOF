@@ -75,7 +75,13 @@ Avoid by default. If truly needed, add a 1-page TEP in `rfcs/` (purpose, contrac
 
 ## Fractal governance pattern
 
-TEOF’s hierarchy (L0 Observation → L6 Automation) is intentionally recursive. Every layer carries the same OCERS contract: local actions must expose Observation, align with Coherence/Ethics, prove Reproducibility, and leave behind Self-repair breadcrumbs.
+Observation (L0) only sanctions a mechanism while it respects the canonical
+principles (L1) and the Unity → Meaning order captured in Principle P4. The OCERS
+loop—Observation → Coherence → Ethics → Reproducibility → Self-repair—remains the
+operational bridge that enforces those obligations across every layer. Each
+layer expresses the loop through its own tooling (receipts, properties,
+guardrails, automation); if an implementation stops serving the properties (L3)
+or drifts from the higher-order constraints, it must be replaced.
 
 - **Mirror the pattern at every scale.** When you ship a helper CLI or CI guard, document how it satisfies the upstream layer and leaves receipts the next layer can consume. A coordination tweak should produce manager-report visibility just as a governance anchor exposes hashes.
 - **Promote rules downward.** Once a principle lands at L3/L4, add the corresponding workflow guard (L5) and automation check (L6). Example: the bus claim guard lives in `tools.agent.bus_message` *and* in `_plans/…` receipts so CI enforces the same rule humans agree to.

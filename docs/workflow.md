@@ -103,7 +103,11 @@ This keeps Observation → Ethics → Self-repair coherent while giving companie
 | L5    | Workflow     | Human/agent procedures that maintain the architecture |
 | L6    | Automation   | Executable systems that uphold the workflow    |
 
-Use these layer labels together with the systemic axis (`docs/foundation/systemic-scale.md`) when tagging plans, memory entries, and artifacts.
+L1 Principles (P1–P7) apply to every downstream layer, and the systemic axis
+(`docs/foundation/systemic-scale.md`) supplies the Unity → Meaning order the
+architecture must respect. Tag every plan, receipt, or artifact with both
+coordinates (e.g., `S6:L4`) so systemic priorities and structural layers stay in
+view.
 
 ---
 
