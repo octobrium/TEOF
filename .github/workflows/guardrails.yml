@@ -28,6 +28,8 @@ jobs:
         run: scripts/policy_checks.sh
       - name: Fractal conformance check
         run: scripts/ci/check_fractal_conformance.py
+      - name: Capability inventory guard
+        run: python3 scripts/ci/check_capability_inventory.py
       - name: Quickstart smoke test
         run: scripts/ci/quickstart_smoke.sh
       - name: Upload consensus artifacts

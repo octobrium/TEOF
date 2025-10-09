@@ -9,6 +9,7 @@ Role: Canonical
 
 ### Unity
 **Serves:** P5 Substrate & Observer Neutrality, P4 Order of Emergence  
+**Supports Objectives:** 3, 5, 6, 13  
 - **Portable Seed & ABI:** Minimal text-first Seed Capsule + stable ABI, ensuring portability across platforms.  
   **Known Frameworks:** POSIX compliance, OpenAPI schemas, OCI image format for reproducible seeds.  
   **Gates:** CI matrix builds must succeed on Linux, macOS, Windows.
@@ -17,6 +18,7 @@ Role: Canonical
 
 ### Energy
 **Serves:** P2 Coherence Before Complexity, P6 Proportional Mechanism, P7 Clarity-Weighted Action  
+**Supports Objectives:** 3, 9, 10, 16  
 - **Resource Telemetry & Budgeting:** Collect compute/memory/network usage, set growth budgets.  
   **Known Mechanisms:** Prometheus/Grafana stack, GitHub Actions usage limits.  
 - **Plugin ABI & Contracts:** Swappable modules with contract tests; ensures extensibility.  
@@ -27,6 +29,7 @@ Role: Canonical
 
 ### Propagation
 **Serves:** P4 Order of Emergence, P7 Clarity-Weighted Action  
+**Supports Objectives:** 4, 7, 8, 14, 15  
 - **Lifecycle State Machine:** Explicit allowed transitions (seed → adapt → unify → stabilize).  
 - **Capsule Packaging & Mirrors:** Distributable bundles (Git tags + GitHub Releases).  
 - **Diversity Quotas:** Ingest adapters must hit entropy floor (e.g. N news sources, M dissent sources).
@@ -35,6 +38,7 @@ Role: Canonical
 
 ### Defense
 **Serves:** P1 Observation Bounds Reasoning, P3 Truth via Recursion, P6 Proportional Mechanism  
+**Supports Objectives:** 4, 8, 10, 11, 12  
 - **Provenance Ledger:** Append-only receipts (jsonl) with content hashes.  
 - **Content-Hashed Merkle DAG:** Guarantees no silent rewrite.  
 - **Auto-Audit Loop:** GitHub Action running nightly drift checks.  
@@ -45,6 +49,7 @@ Role: Canonical
 
 ### Intelligence / Truth
 **Serves:** P1 Observation Bounds Reasoning, P3 Truth via Recursion, P7 Clarity-Weighted Action  
+**Supports Objectives:** 9, 11, 12, 14  
 - **Decision Confidence Headers:** Risk-tiered PR templates requiring evidence strength.  
 - **Contrast Budget:** Reserve cycles for adversarial tests and fuzzing.  
 - **Canary + Shadow + A/B Testing:** Validate changes incrementally before wide release.  
