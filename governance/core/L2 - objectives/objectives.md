@@ -10,7 +10,7 @@ Construct a framework for intelligence that can seed, propagate, and improve its
 ## Tier 1 – Foundations (Unity, Energy, Propagation)
 
 1. **Maximize Observation** *(serves P1, S1)*  
-Continuously expand the depth, breadth, and resolution of what can be observed — without erasing contrast or unpredictability that give observation meaning.
+Continuously unify and expand the depth, breadth, and resolution of observation — maintaining a single traceable record while adding perspectives that preserve contrast and meaning.
 
 2. **Coherence with Observation** *(serves P2, S2)*  
 Prefer designs that increase clarity, reach, and reliability of observation over those that merely optimize internal metrics.
