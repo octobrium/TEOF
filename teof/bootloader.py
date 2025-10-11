@@ -22,6 +22,7 @@ from teof.commands import frontier as cmd_frontier_mod
 from teof.commands import critic as cmd_critic_mod
 from teof.commands import tms as cmd_tms_mod
 from teof.commands import ethics as cmd_ethics_mod
+from teof.commands import ideas as cmd_ideas_mod
 from teof import reflections_report, status_report, tasks_report  # backward-compatible exports
 from tools.autonomy import critic as critic_mod  # noqa: F401  (tests rely on these attributes)
 from tools.autonomy import ethics_gate as ethics_mod  # noqa: F401
@@ -90,6 +91,10 @@ def cmd_tms(args: argparse.Namespace) -> int:
 
 def cmd_ethics(args: argparse.Namespace) -> int:
     return cmd_ethics_mod.run(args)
+
+
+def cmd_ideas(args: argparse.Namespace) -> int:
+    return cmd_ideas_mod.run(args)
 
 
 if __name__ == "__main__":

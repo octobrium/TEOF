@@ -10,6 +10,11 @@ from ._utils import module_root
 
 
 def run(args: Namespace) -> int:
+    if args.window <= 0:
+        raise SystemExit("--window must be positive")
+    if args.days is not None and args.days < 0:
+        raise SystemExit("--days must be non-negative")
+
     argv: List[str] = ["--window", str(args.window), "--format", args.format]
     base_root = module_root(ttd_trend_mod)
     if args.input is not None:

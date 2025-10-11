@@ -4,6 +4,8 @@ import json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
+import pytest
+
 from teof import bootloader
 from tools.impact import ttd_trend
 
@@ -159,3 +161,31 @@ def test_bootloader_ttd_trend(tmp_path: Path, monkeypatch, capsys) -> None:
     assert rc == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["entry_count"] == 1
+
+
+def test_ttd_trend_main_rejects_nonpositive_window() -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        ttd_trend.main(["--window", "0"])
+    assert excinfo.value.code == "--window must be positive"
+
+
+def test_ttd_trend_main_rejects_negative_days() -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        ttd_trend.main(["--days", "-1"])
+    assert excinfo.value.code == "--days must be non-negative"
+
+
+def test_bootloader_ttd_trend_validates_arguments(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(ttd_trend, "ROOT", tmp_path)
+    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
+    parser = bootloader.build_parser()
+
+    args_window = parser.parse_args(["ttd-trend", "--window", "0"])
+    with pytest.raises(SystemExit) as excinfo_window:
+        bootloader.cmd_ttd_trend(args_window)
+    assert excinfo_window.value.code == "--window must be positive"
+
+    args_days = parser.parse_args(["ttd-trend", "--days", "-1"])
+    with pytest.raises(SystemExit) as excinfo_days:
+        bootloader.cmd_ttd_trend(args_days)
+    assert excinfo_days.value.code == "--days must be non-negative"

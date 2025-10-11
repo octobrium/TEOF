@@ -11,6 +11,9 @@ from teof import reflections_report
 def run(args: Namespace) -> int:
     reflections = reflections_report.collect_reflections(root=reflections_report.ROOT)
 
+    if args.limit is not None and args.limit < 0:
+        raise SystemExit("--limit must be non-negative")
+
     since = None
     if args.days is not None:
         if args.days < 0:

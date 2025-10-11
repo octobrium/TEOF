@@ -93,3 +93,22 @@ def test_cmd_reflections_outputs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch
     payload = json.loads(capsys.readouterr().out)
     assert payload["summary"]["total"] == 2
     assert payload["reflections"][0]["title"] == "Latest"
+
+
+def test_reflections_limit_negative_errors(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    _write_reflection(
+        tmp_path,
+        captured_at="2025-10-05T12:00:00Z",
+        title="Latest",
+        layers=["L4"],
+        tags=["workflow"],
+    )
+
+    monkeypatch.setattr(reflections_report, "ROOT", tmp_path)
+    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
+
+    parser = bootloader.build_parser()
+    args = parser.parse_args(["reflections", "--limit", "-1"])
+    with pytest.raises(SystemExit) as excinfo:
+        bootloader.cmd_reflections(args)
+    assert excinfo.value.code == "--limit must be non-negative"

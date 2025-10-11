@@ -298,6 +298,11 @@ def render_table(series: Sequence[TrendSeries], statuses: Mapping[str, str | Non
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
+    if args.window <= 0:
+        raise SystemExit("--window must be positive")
+    if args.days is not None and args.days < 0:
+        raise SystemExit("--days must be non-negative")
+
     entries = load_entries(args.input)
     filtered = filter_entries(entries, window=args.window, days=args.days)
     series = numeric_series(filtered)

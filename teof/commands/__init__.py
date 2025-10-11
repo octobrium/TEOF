@@ -14,6 +14,7 @@ _COMMAND_MODULES: tuple[str, ...] = (
     "critic",
     "tms",
     "ethics",
+    "ideas",
 )
 
 

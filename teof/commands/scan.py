@@ -170,7 +170,7 @@ def run(args: Namespace) -> int:
     if receipts:
         print("\nReceipts:")
         for name, path in receipts.items():
-            print(f"- {name}: {_rel(path)}")
+            print(f"- {name}: {rel(path)}")
 
     if bus_emitted:
         print("\nBus claims:")

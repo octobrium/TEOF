@@ -1,0 +1,43 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-11-decentralized-node",
+  "created": "2025-10-11T19:59:30Z",
+  "actor": "Octo",
+  "summary": "Package decentralized TEOF node workflows",
+  "ocers_target": "Coherence↑ Reproducibility↑",
+  "priority": 1,
+  "layer": "L5",
+  "systemic_scale": 4,
+  "impact_score": 4,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define autonomous node workflows",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Build packaging + bootstrap",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document governance + incentives",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}

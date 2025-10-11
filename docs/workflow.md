@@ -55,12 +55,14 @@ Review cadence: Monthly sweep
 - No new top-level folders unless justified via a 1‑page TEP.
 
 ## Backlog discipline
-- **Capture ideas immediately.** The moment an actionable idea lands, record it as a plan via `python -m tools.planner.cli new ...` (or equivalent) within the same session. No idea should live only in a transcript.
+- **Capture ideas immediately.** The moment an actionable concept appears, log it in `docs/ideas/` (`teof ideas mark <slug> --status draft`) so its layer/systemic intent is recorded. Promote to a plan only after triage confirms scope and ownership.
 - **Store ranking metadata.** Every plan must include:
   - `priority` (0 = highest, increasing numbers for later work)
   - `layer` (L0–L6 from the constitutional stack)
   - `systemic_scale` (1–10, see [`docs/foundation/systemic-scale.md`](docs/foundation/systemic-scale.md))
   - `impact_score` (relative leverage)
+- **Promote ideas with receipts.** When a plan is opened, run `teof ideas promote <id> --plan-id <plan>` so the originating idea links to `_plans/<plan_id>.plan.json` and downstream receipts reference the same coordinates.
+- **Update assignments and claims.** Once a plan exists, create or refresh the bus claim (`python -m tools.agent.bus_claim claim --task <task> --plan <plan_id>`) so coordination surfaces know who owns the promoted idea; release or reassign via `tools.agent.task_sync` as work progresses.
 - **Optional shorthand.** When talking out loud, you can abbreviate the coordinate (e.g. `S6:L4` for Truth/Architecture), but keep the explicit numeric fields in plans and memory so automation can parse them.
 - **Use the planner CLI** to enforce the schema; `planner list` sorts by these fields so the highest leverage work stays obvious. `planner new --queue-ref queue/<id>.md` auto-populates OCERS/layer/systemic from the queue entry and fails fast when metadata drifts. Run `python3 -m tools.planner.queue_scan --fail-on-warning` before consensus to emit a receipt if mismatches remain.
 - Run `python -m tools.planner.backlog_summary` for a quick status snapshot (counts + top pending plans by priority).

@@ -119,6 +119,30 @@ def test_scan_table_output(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caps
     assert "violations: 1" in output
 
 
+def test_scan_text_mode_receipts_and_emissions(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    _setup_scan_environment(tmp_path, monkeypatch)
+    _install_scan_stubs(monkeypatch)
+
+    exit_code = bootloader.main(["scan", "--out", "receipts", "--emit-bus", "--emit-plan"])
+    assert exit_code == 0
+
+    output = capsys.readouterr().out
+    assert "Receipts:" in output
+    assert "- frontier: receipts/frontier.json" in output
+    assert "- critic: receipts/critic.json" in output
+    assert "- tms: receipts/tms.json" in output
+    assert "- ethics: receipts/ethics.json" in output
+    assert "Bus claims:" in output
+    assert "- critic: _bus/claims/REPAIR-ND-1.json" in output
+    assert "- ethics: _bus/claims/ETHICS-TASK-9.json" in output
+    assert "Plans:" in output
+    assert "- _plans/TMS-fact-1.plan.json" in output
+
+
 def test_scan_json_with_receipts_and_emission(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
