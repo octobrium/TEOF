@@ -12,7 +12,11 @@ from typing import Dict, Iterable, List, Sequence
 from teof.commands import COMMAND_MODULES as _COMMAND_MODULES
 
 ROOT = Path(__file__).resolve().parents[2]
-REPORT_ROOT = ROOT / "_report"
+RECEIPT_ROOTS = [
+    ROOT / "_report",
+    ROOT / "docs" / "usage",
+    ROOT / "artifacts",
+]
 TESTS_ROOT = ROOT / "tests"
 COMMAND_ROOT = ROOT / "teof" / "commands"
 
@@ -62,20 +66,21 @@ def _collect_tests(commands: Sequence[str]) -> Dict[str, List[Path]]:
 
 
 def _iter_receipt_matches(name: str) -> Iterable[Path]:
-    if not REPORT_ROOT.exists():
-        return []
     needle = f"{name}".lower()
-    for path in REPORT_ROOT.rglob("*"):
-        if not path.is_file():
+    for root in RECEIPT_ROOTS:
+        if not root.exists():
             continue
-        if path.suffix.lower() not in _TEXT_EXTENSIONS:
-            continue
-        try:
-            text = path.read_text(encoding="utf-8")
-        except (OSError, UnicodeDecodeError):
-            continue
-        if needle in text.lower():
-            yield path
+        for path in root.rglob("*"):
+            if not path.is_file():
+                continue
+            if path.suffix.lower() not in _TEXT_EXTENSIONS:
+                continue
+            try:
+                text = path.read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError):
+                continue
+            if needle in text.lower():
+                yield path
 
 
 def generate_inventory(root: Path | None = None, *, stale_days: float | None = 30.0) -> List[CommandUsage]:
