@@ -1,0 +1,54 @@
+{
+  "command": "ttd_trend",
+  "generated_at": "2025-10-11T20:08:29Z",
+  "input": "/Users/evan/Documents/GitHub/TEOF/memory/impact/ttd.jsonl",
+  "entry_count": 1,
+  "window": 14,
+  "days": null,
+  "metrics": {
+    "observation.capacity": {
+      "field": "plan_to_first_receipt_median",
+      "latest": 2237.5,
+      "delta": null,
+      "slope_per_entry": null,
+      "trend": null,
+      "sparkline": "#",
+      "sample_size": 1
+    },
+    "recursion.depth": {
+      "field": "open_ratio",
+      "latest": 0.05555555555555555,
+      "delta": null,
+      "slope_per_entry": null,
+      "trend": null,
+      "sparkline": "#",
+      "sample_size": 1
+    },
+    "sustainability.signal": {
+      "field": "quickstart_age_hours",
+      "latest": 0.9724802875,
+      "delta": null,
+      "slope_per_entry": null,
+      "trend": null,
+      "sparkline": "#",
+      "sample_size": 1
+    },
+    "optional.safe": {
+      "field": "overall_trust",
+      "latest": 0.765,
+      "delta": null,
+      "slope_per_entry": null,
+      "trend": null,
+      "sparkline": "#",
+      "sample_size": 1
+    }
+  },
+  "statuses": {
+    "integrity.gap": "attention",
+    "sustainability.signal": "attention"
+  },
+  "alerts": [
+    "integrity.gap: Integrity gap readiness requires attention",
+    "sustainability.signal: Sustainability readiness requires attention"
+  ]
+}
