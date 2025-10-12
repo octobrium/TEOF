@@ -5,7 +5,7 @@
 - [TEOF Status (2025-08-26T02:21:24+00:00Z)](./status.md)
 - [TEOF Repo Architecture (v1.5, minimal)](./architecture.md)
 - [TEOF Clarifications & Responses](./clarifications.md)
-- [Anthology — Hyper-Organism (Conceptual)](./anthology/hyper-organism.md)
+- [Observations — Hyper-Organism (Conceptual)](./observations/hyper-organism.md)
 - [Promotion Policy (experimental → extensions)](./promotion-policy.md)
 - [Quickstart](./quickstart.md)
 - [TEOF Seed (Conceptual v1.0)](./seed.md)
