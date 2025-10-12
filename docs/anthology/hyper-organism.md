@@ -1,7 +1,8 @@
+++ 
 <!-- markdownlint-disable MD013 -->
-Status: Non-normative
-Purpose: Goals, desired properties, North Star
-Source of truth for mechanics: Architecture.md
+Status: Non-normative  
+Purpose: Goals, desired properties, North Star  
+Source of truth for mechanics: `docs/architecture.md`  
 Change process: PR + 1 maintainer
 
 
