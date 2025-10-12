@@ -3,7 +3,7 @@
 
 ## Repo Map
 
-- [Concept](docs/concept.md)
+- [Observations — Hyper-Organism](docs/observations/hyper-organism.md)
 - [Seed](docs/seed.md)
 - [Architecture](docs/architecture.md)
 - [Specs](docs/specs/)

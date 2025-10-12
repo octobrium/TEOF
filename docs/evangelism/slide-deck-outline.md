@@ -7,7 +7,7 @@ Use this scaffold with your preferred presentation tool. Each slide cites live r
    - Evidence: authenticity snapshot with trust >= 0.76 (`_report/usage/autonomy-conductor/conductor-20250927T195724Z.json`).
 2. **TEOF Kernel**
    - Layers L0–L6 overview.
-   - Anchor: `docs/architecture.md` and `docs/concept.md` graphics.
+   - Anchor: `docs/architecture.md` and `docs/observations/hyper-organism.md` graphics.
 3. **Guardrails in Action**
    - Show conductor prompt diff/test contract.
    - Evidence: `_report/usage/autonomy-conductor/conductor-20250927T195724Z.json` guardrails block.
