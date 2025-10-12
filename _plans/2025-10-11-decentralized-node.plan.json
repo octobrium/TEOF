@@ -4,7 +4,7 @@
   "created": "2025-10-11T19:59:30Z",
   "actor": "Octo",
   "summary": "Package decentralized TEOF node workflows",
-  "ocers_target": "Coherence↑ Reproducibility↑",
+  "ocers_target": "Coherence\u2191 Reproducibility\u2191",
   "priority": 1,
   "layer": "L5",
   "systemic_scale": 4,
@@ -14,9 +14,11 @@
     {
       "id": "S1",
       "title": "Define autonomous node workflows",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Workflow draft committed; receipts logged under docs/usage/autonomous-node-workflow.json.",
+      "receipts": [
+        "docs/usage/autonomous-node-workflow.json"
+      ]
     },
     {
       "id": "S2",
@@ -39,5 +41,7 @@
     "status": "pending"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "docs/usage/autonomous-node-workflow.json"
+  ]
 }

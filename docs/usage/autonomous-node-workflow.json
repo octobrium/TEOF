@@ -1,0 +1,9 @@
+{
+  "generated_at": "2025-10-12T19:32:07Z",
+  "command": "custom",
+  "artifact": "docs/observations/autonomous-node-workflow.md",
+  "sha256": "37464eccc81dcbcf3fddc1c10d07d4a0aa3fd36d1725d8f3b9fafc0e28b72781",
+  "plan_id": "2025-10-11-decentralized-node",
+  "step_id": "S1",
+  "notes": "Drafted autonomous node workflow covering bootstrap, work loops, receipts, promotion gate."
+}
