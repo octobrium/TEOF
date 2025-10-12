@@ -1,0 +1,29 @@
+{
+  "generated_at": "2025-10-12T19:37:01Z",
+  "git_commit": "2b7f93e",
+  "state_snapshot": {
+    "log_entries": 73,
+    "facts": 1
+  },
+  "anomalies": [
+    {
+      "type": "missing_receipts",
+      "id": "ND-041",
+      "title": "Integrate macro hygiene objectives",
+      "coord": {
+        "layer": "L2",
+        "systemic_scale": 5
+      },
+      "details": {
+        "status": "pending"
+      },
+      "suggested_task": {
+        "task_id": "REPAIR-ND-041",
+        "summary": "Add receipts for backlog item ND-041",
+        "layer": "L2",
+        "systemic_scale": 5
+      }
+    }
+  ],
+  "receipt_sha256": "ff0c9523502e8a76cc85491d79a88bd3d4f911553276ed7771983fc11c6c1172"
+}

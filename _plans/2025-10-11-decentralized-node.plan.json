@@ -23,9 +23,11 @@
     {
       "id": "S2",
       "title": "Build packaging + bootstrap",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Autonomous node runner implemented (tools.autonomy.node_runner) and receipts captured.",
+      "receipts": [
+        "docs/usage/autonomous-node/20251012T193658Z/summary.json"
+      ]
     },
     {
       "id": "S3",
@@ -42,6 +44,7 @@
   },
   "links": [],
   "receipts": [
-    "docs/usage/autonomous-node-workflow.json"
+    "docs/usage/autonomous-node-workflow.json",
+    "docs/usage/autonomous-node/20251012T193658Z/summary.json"
   ]
 }

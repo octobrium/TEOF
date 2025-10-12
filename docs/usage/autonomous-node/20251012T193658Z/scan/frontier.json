@@ -1,0 +1,100 @@
+{
+  "generated_at": "2025-10-12T19:37:01Z",
+  "git_commit": "2b7f93e",
+  "parameters": {
+    "limit": 5
+  },
+  "state_snapshot": {
+    "log_entries": 73,
+    "facts": 1
+  },
+  "entries": [
+    {
+      "coord": {
+        "layer": "L2",
+        "systemic_scale": 5
+      },
+      "source": "backlog",
+      "id": "ND-041",
+      "title": "Integrate macro hygiene objectives",
+      "status": "pending",
+      "priority": "medium",
+      "plan_id": "2025-10-07-macro-hygiene-objectives",
+      "receipts": [],
+      "components": {
+        "impact": 2.0,
+        "dependency_weight": 1.1,
+        "confidence_gap": 1.0,
+        "cohesion_gain": 1.15,
+        "effort": 1.0
+      },
+      "score": 2.53
+    },
+    {
+      "coord": {
+        "layer": "L5",
+        "systemic_scale": 9
+      },
+      "source": "task",
+      "id": "AUTH-UNASSIGNED-codex-5-20251004",
+      "title": "AUTH-UNASSIGNED-codex-5-20251004",
+      "status": "open",
+      "priority": "medium",
+      "plan_id": null,
+      "receipts": [],
+      "components": {
+        "impact": 2.0,
+        "dependency_weight": 1.0,
+        "confidence_gap": 1.0,
+        "cohesion_gain": 1.2200000000000002,
+        "effort": 1.0
+      },
+      "score": 2.4400000000000004
+    },
+    {
+      "coord": {
+        "layer": "L5",
+        "systemic_scale": 9
+      },
+      "source": "task",
+      "id": "AUTH-PRIMARY_TRUTH-codex-5-20251004",
+      "title": "AUTH-PRIMARY_TRUTH-codex-5-20251004",
+      "status": "open",
+      "priority": "medium",
+      "plan_id": null,
+      "receipts": [],
+      "components": {
+        "impact": 2.0,
+        "dependency_weight": 1.0,
+        "confidence_gap": 1.0,
+        "cohesion_gain": 1.2200000000000002,
+        "effort": 1.0
+      },
+      "score": 2.4400000000000004
+    },
+    {
+      "coord": {
+        "layer": "L5",
+        "systemic_scale": 9
+      },
+      "source": "state",
+      "id": "memory-cli-added",
+      "title": "Memory diagnostics CLI (doctor/timeline/diff) available",
+      "status": "fact",
+      "priority": null,
+      "plan_id": null,
+      "receipts": [
+        "20250926T182203Z-e62901"
+      ],
+      "components": {
+        "impact": 1.4,
+        "dependency_weight": 1.1,
+        "confidence_gap": 0.19999999999999996,
+        "cohesion_gain": 1.2200000000000002,
+        "effort": 1.0
+      },
+      "score": 0.37576
+    }
+  ],
+  "receipt_sha256": "4c05cc7e901ce89c2dedc458722f6d87987312259cdbdd64641e2690a8ec4aea"
+}
