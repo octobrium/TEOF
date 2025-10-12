@@ -1,12 +1,15 @@
 +++
 id = "infinite-scaling-ledger"
 title = "Infinite Scaling Ledger for TEOF"
-status = "draft"
+status = "promoted"
 layers = ["L4", "L5", "L6"]
 systemic = [4, 5, 6]
 created = "2025-10-11T20:12:00Z"
-updated = "2025-10-11T20:12:00Z"
+updated = "2025-10-12T19:29:23Z"
+notes = ["Opened plan 2025-10-12-infinite-ledger"]
+plan_id = "2025-10-12-infinite-ledger"
 +++
+
 # Infinite Scaling Ledger for TEOF
 
 Design an append-only, hash-linked receipt protocol so TEOF nodes can contribute compute without congestion, similar to Bitcoin’s block chain. Each node would:

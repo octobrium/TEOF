@@ -1,0 +1,43 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-12-infinite-ledger",
+  "created": "2025-10-12T19:29:18Z",
+  "actor": "Octo",
+  "summary": "Prototype hash-linked receipt ledger",
+  "ocers_target": "Observation↑ Coherence↑",
+  "priority": 1,
+  "layer": "L4",
+  "systemic_scale": 5,
+  "impact_score": 5,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design receipt hash-chain schema",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement validator + CI guard",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Plan receipt mirror + anchoring",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
