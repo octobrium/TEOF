@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://teof.dev/schema/systemic-receipt.json",
+  "title": "TEOF Systemic Receipt Envelope",
+  "description": "Signature-friendly receipt envelope linking artifacts to systemic metadata.",
+  "type": "object",
+  "required": ["artifact", "hash_sha256", "issued_at", "systemic"],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$",
+      "description": "Optional semantic version for the envelope schema."
+    },
+    "artifact": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Canonical URI (filesystem, object storage, etc.) pointing to the artifact."
+    },
+    "hash_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "Hex-encoded SHA-256 hash of the artifact."
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when the receipt was generated."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Optional expiration timestamp if the artifact is volatile."
+    },
+    "systemic": {
+      "type": "object",
+      "$ref": "https://teof.dev/schema/systemic-metadata.json",
+      "description": "Embedded systemic metadata describing alignment targets."
+    },
+    "meta": {
+      "type": "object",
+      "description": "Optional free-form metadata (e.g., build id, environment).",
+      "additionalProperties": true
+    },
+    "signature": {
+      "type": "string",
+      "description": "Optional base64url-encoded Ed25519 signature covering the JSON body (with `signature` omitted)."
+    },
+    "public_key_id": {
+      "type": "string",
+      "description": "Identifier for the Ed25519 public key used to verify the signature."
+    },
+    "signature_algorithm": {
+      "type": "string",
+      "enum": ["ed25519"],
+      "description": "Signature algorithm used; default is `ed25519`."
+    }
+  }
+}

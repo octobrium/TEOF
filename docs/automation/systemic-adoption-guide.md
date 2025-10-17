@@ -58,7 +58,8 @@ All artifacts should emit:
 - Embedded metadata blocks in pull requests (e.g., GitHub check summaries).
 - API responses for downstream audit systems.
 
-See `tools/planner/systemic_targets.py` for canonical parsing logic that you can port to other languages.
+See `tools/planner/systemic_targets.py` for canonical parsing logic that you can port to other languages.  
+Refer to `docs/automation/systemic-schema.md` for a field-by-field explanation and validation workflow.
 
 ---
 

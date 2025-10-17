@@ -1,0 +1,75 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-17-systemic-interoperability",
+  "created": "2025-10-17T03:58:00Z",
+  "actor": "codex-5",
+  "summary": "Define interoperable systemic metadata schemas and reference adapters",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Publish neutral systemic metadata schemas",
+      "status": "done",
+      "notes": "Added schemas/systemic/metadata.schema.json and receipt.schema.json capturing S/L lattice fields.",
+      "receipts": [
+        "schemas/systemic/metadata.schema.json",
+        "schemas/systemic/receipt.schema.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Author adoption documentation and samples",
+      "status": "done",
+      "notes": "Documented schema usage (docs/automation/systemic-schema.md), updated adoption guide, and published sample receipt payload.",
+      "receipts": [
+        "docs/automation/systemic-schema.md",
+        "docs/automation/systemic-adoption-guide.md",
+        "docs/examples/systemic/receipt.sample.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Provide reference validation/adapters",
+      "status": "done",
+      "notes": "Shipped tools/external/validate_systemic.py with tests/test_systemic_schema.py for receipt validation.",
+      "receipts": [
+        "tools/external/validate_systemic.py",
+        "tests/test_systemic_schema.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "External teams can validate systemic envelopes without cloning this repo",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/automation/systemic-adoption-guide.md"
+    }
+  ],
+  "receipts": [
+    "schemas/systemic/metadata.schema.json",
+    "schemas/systemic/receipt.schema.json",
+    "docs/automation/systemic-schema.md",
+    "docs/examples/systemic/receipt.sample.json",
+    "tools/external/validate_systemic.py"
+  ],
+  "layer": "L4",
+  "systemic_scale": 6,
+  "systemic_targets": [
+    "S1",
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4",
+    "L5"
+  ],
+  "priority": {
+    "value": "high",
+    "reason": "Interoperability unlocks external adoption and cross-org alignment."
+  }
+}

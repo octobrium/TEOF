@@ -44,13 +44,13 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `quickstart-reference` | Quick Reference | Curated list of canonical doc anchors and automation commands. | [docs/reference/quick-reference.md#foundations](docs/reference/quick-reference.md#foundations) |
 | `quickstart-agents-bootstrap` | Agent Bootstrap | One-minute agent bootstrap snippet with install + teof brief. | [docs/agents.md#bootstrap-one-minute](docs/agents.md#bootstrap-one-minute) |
 | `quickstart-readme` | Quickstart (README) | Root README snippet: install locally then run `teof brief`. | [README.md#quickstart](README.md#quickstart) |
-| `quickstart-smoke` | Quickstart Smoke | Install locally then run `teof brief` to produce OCERS receipts under artifacts/systemic_out/ | [docs/quickstart.md#quickstart](docs/quickstart.md#quickstart) |
+| `quickstart-smoke` | Quickstart Smoke | Install locally then run `teof brief` to produce systemic receipts under artifacts/systemic_out/ | [docs/quickstart.md#quickstart](docs/quickstart.md#quickstart) |
 | `reconciliation-pipeline` | Reconciliation Pipeline | Run hello/diff/fetch/merge via `python -m tools.reconcile_pipeline` (supports --fail-on-diff). | [docs/cli.md#reconciliation-pipeline](docs/cli.md#reconciliation-pipeline) |
 | `workflow-architecture` | Architecture Gate | Explains the governance gate that blocks edits without a plan and receipts. | [docs/workflow.md#architecture-gate-before-writing-code](docs/workflow.md#architecture-gate-before-writing-code) |
 | `workflow-receipts` | DNA Recursion (Receipts) | Details the receipts-first mandate used by manager directives and CI guards. | [docs/workflow.md#dna-recursion-self-improvement-of-the-rules](docs/workflow.md#dna-recursion-self-improvement-of-the-rules) |
 | `ci-guardrails` | CI Guardrail Guarantees | One-screen summary mapping invariants to the scripts that enforce them. | [docs/ci-guarantees.md#ci-guardrail-guarantees](docs/ci-guarantees.md#ci-guardrail-guarantees) |
 | `evangelism-kit` | Narrative & Evangelism Kit | Story arcs, assets, and cadence backed by receipts. | [docs/evangelism/readme.md#narrative--evangelism-kit](docs/evangelism/readme.md#narrative--evangelism-kit) |
-| `systemic-adoption-guide` | Systemic Adoption Guide | Neutral playbook for emitting systemic metadata, receipts, and governance mappings outside this repo. | [docs/automation/systemic-adoption-guide.md](docs/automation/systemic-adoption-guide.md) |
+| `systemic-adoption-guide` | Systemic Adoption Guide | Neutral playbook for emitting systemic metadata, receipts, and governance mappings outside this repo. | [docs/automation/systemic-adoption-guide.md#systemic-adoption-guide](docs/automation/systemic-adoption-guide.md#systemic-adoption-guide) |
 | `receipts-dashboard` | Receipt Dashboard | Aggregate pass/fail view for attest receipts. | [docs/receipts/index.md#receipt-dashboard](docs/receipts/index.md#receipt-dashboard) |
 | `evangelism-log-event` | Evangelism Event Logger | CLI helper to log outreach receipts. | [docs/evangelism/readme.md#logging-outreach](docs/evangelism/readme.md#logging-outreach) |
 _Last updated: 2025-10-17

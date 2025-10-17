@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "s3://acme-observatory/systemic_out/20251017T031500Z/brief.json",
+  "hash_sha256": "5c8e4a5a2ccd5a90c2d842c7cdbe86cf2bc83f9836ae13f60c79f1b0c6a79531",
+  "issued_at": "2025-10-17T03:15:12Z",
+  "systemic": {
+    "schema_version": "1.0.0",
+    "systemic_targets": ["S6", "S4", "S1"],
+    "layer_targets": ["L4", "L5"],
+    "systemic_scale": 6,
+    "layer": "L4",
+    "summary": "Quickstart brief receipts for ledger API guardrail rollout",
+    "receipts": [
+      "s3://acme-observatory/systemic_out/20251017T031500Z/score.txt"
+    ],
+    "references": [
+      "plan-2025-10-12-ledger-guard"
+    ],
+    "created_at": "2025-10-17T03:14:05Z",
+    "updated_at": "2025-10-17T03:15:12Z"
+  },
+  "meta": {
+    "build_id": "ledger-guard-342",
+    "environment": "production"
+  },
+  "signature_algorithm": "ed25519",
+  "public_key_id": "acme-ledger-2025",
+  "signature": "fQ8RKdc7O1UOzfe0Y0M0XbQn1tact4p9q6Z5m0A6S76YHXgN9aMlmXEV8bR5nVr8sPI6M0CbPN7txF4D5B0fCQ"
+}

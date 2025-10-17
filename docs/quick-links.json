@@ -261,7 +261,7 @@
     {
       "id": "quickstart-smoke",
       "title": "Quickstart Smoke",
-      "summary": "Install locally then run `teof brief` to produce OCERS receipts under artifacts/systemic_out/",
+      "summary": "Install locally then run `teof brief` to produce systemic receipts under artifacts/systemic_out/",
       "path": "docs/quickstart.md",
       "anchor": "#quickstart",
       "category": "quickstart"
@@ -311,7 +311,7 @@
       "title": "Systemic Adoption Guide",
       "summary": "Neutral playbook for emitting systemic metadata, receipts, and governance mappings outside this repo.",
       "path": "docs/automation/systemic-adoption-guide.md",
-      "anchor": "",
+      "anchor": "#systemic-adoption-guide",
       "category": "adoption"
     },
     {

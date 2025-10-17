@@ -153,13 +153,20 @@
     {
       "id": "ND-049",
       "title": "Define interoperability schema & adapters",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-17-systemic-interoperability",
-      "notes": "Publish language-agnostic receipt schemas and reference adapters so non-Python stacks can emit systemic targets, receipts, and anchors.",
+      "notes": "Published JSON Schemas, documentation, sample payload, and validation CLI for neutral systemic adoption.",
       "priority": "high",
       "layer": "L4",
       "systemic_scale": 6,
-      "source": "docs/automation/systemic-residual-audit.md"
+      "source": "docs/automation/systemic-residual-audit.md",
+      "completed_at": "2025-10-17T04:01:00Z",
+      "receipts": [
+        "schemas/systemic/metadata.schema.json",
+        "schemas/systemic/receipt.schema.json",
+        "docs/automation/systemic-schema.md",
+        "tools/external/validate_systemic.py"
+      ]
     },
     {
       "id": "ND-050",

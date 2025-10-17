@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://teof.dev/schema/systemic-metadata.json",
+  "title": "TEOF Systemic Metadata",
+  "description": "Minimal metadata required to express systemic alignment targets and layers.",
+  "type": "object",
+  "required": ["systemic_targets", "layer_targets", "systemic_scale", "layer"],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "description": "Optional semantic version for the metadata schema.",
+      "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"
+    },
+    "systemic_targets": {
+      "type": "array",
+      "description": "Sorted list of systemic axes advanced by this artifact (S1–S10).",
+      "items": {
+        "type": "string",
+        "pattern": "^S(10|[1-9])$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "layer_targets": {
+      "type": "array",
+      "description": "Ordered list of governance layers touched (L0–L6). Primary layer should appear first.",
+      "items": {
+        "type": "string",
+        "pattern": "^L[0-6]$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "systemic_scale": {
+      "type": "integer",
+      "description": "Highest systemic axis (1–10) that must be satisfied before deployment.",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "layer": {
+      "type": "string",
+      "description": "Primary operating layer (L0–L6).",
+      "pattern": "^L[0-6]$"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Optional human-readable summary or objective line.",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "receipts": {
+      "type": "array",
+      "description": "Optional list of receipt URIs associated with the artifact.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "references": {
+      "type": "array",
+      "description": "Optional list of related plan IDs or governance artifacts.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp when the metadata was generated."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp when the metadata was last updated."
+    }
+  }
+}
