@@ -19,7 +19,7 @@
       "id": "S2",
       "title": "Draft queue entries 030-033",
       "status": "done",
-      "notes": "Author queue/030-*.md entries with OCERS framing and receipt expectations.",
+      "notes": "Author queue/030-*.md entries with retired observation loop framing and receipt expectations.",
       "receipts": [
         "_report/agent/codex-1/backlog-refresh/handoff-20250918T192900Z.txt",
         "queue/030-consensus-ledger-cli.md",

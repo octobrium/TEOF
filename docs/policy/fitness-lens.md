@@ -23,7 +23,7 @@ If it doesn’t clearly hit ≥1 of these with evidence → **optional by defaul
 - If receipts show no material benefit by sunset, **prune**.
 
 ## Quick checklist (copy into PRs)
-- [ ] States the **one OCERS trait** this improves and how.
+- [ ] States the **one systemic trait** this improves and how.
 - [ ] **Receipts**: before/after or sample failure this catches.
 - [ ] **Optional by default**, unless justified as invariant.
 - [ ] **Sunset condition** defined (e.g., “remove unless it prevents ≥3 defects in 60 days”).

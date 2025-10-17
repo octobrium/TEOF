@@ -1,11 +1,6 @@
 {
-  "ocers": {
-    "observation": "Old price presented as current",
-    "coherence": "",
-    "evidence": "",
-    "result": "fail",
-    "scope": "VDP"
-  },
+  "expected_verdict": "fail",
+  "rationale": "Old price presented as current without stale flag.",
   "observations": [
     {
       "label": "IBIT",

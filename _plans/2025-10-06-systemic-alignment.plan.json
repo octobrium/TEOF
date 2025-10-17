@@ -1,9 +1,9 @@
 {
-  "plan_id": "2025-10-06-ocers-systemic-alignment",
+  "plan_id": "2025-10-06-systemic-alignment",
   "created": "2025-10-06T20:17:09Z",
   "actor": "codex-4",
   "status": "done",
-  "summary": "Document OCERS as a subordinate diagnostic overlay mapped to systemic hierarchy S1–S10.",
+  "summary": "Document the retired observation loop as a subordinate diagnostic overlay mapped to systemic hierarchy S1–S10.",
   "links": [
     {
       "type": "doc",
@@ -15,28 +15,28 @@
     }
   ],
   "receipts": [
-    "docs/automation/ocers-overview.md",
-    "docs/automation/ocers-systemic-mapping.md",
+    "docs/automation/legacy-loop-overview.md",
+    "docs/automation/legacy-loop-systemic-mapping.md",
     "README.md",
     "docs/automation.md"
   ],
   "steps": [
     {
       "id": "step-1",
-      "title": "Inventory OCERS references",
+      "title": "Inventory retired loop references",
       "status": "done",
-      "notes": "Inventory OCERS references across docs/tools.",
+      "notes": "Inventory retired observation loop references across docs/tools.",
       "receipts": [
-        "docs/automation/ocers-overview.md"
+        "docs/automation/legacy-loop-overview.md"
       ]
     },
     {
       "id": "step-2",
-      "title": "Draft OCERS↔S mapping",
+      "title": "Draft retired loop ↔ S mapping",
       "status": "done",
-      "notes": "Draft mapping of OCERS phases to S axes.",
+      "notes": "Draft mapping of retired loop phases to S axes.",
       "receipts": [
-        "docs/automation/ocers-systemic-mapping.md"
+        "docs/automation/legacy-loop-systemic-mapping.md"
       ]
     },
     {
@@ -51,12 +51,12 @@
     }
   ],
   "checkpoint": {
-    "description": "OCERS overlay documented as subordinate to S1–S10 with receipts",
+    "description": "Retired loop overlay documented as subordinate to S1–S10 with receipts",
     "owner": "codex-4",
     "status": "satisfied",
     "receipts": [
-      "docs/automation/ocers-overview.md",
-      "docs/automation/ocers-systemic-mapping.md",
+      "docs/automation/legacy-loop-overview.md",
+      "docs/automation/legacy-loop-systemic-mapping.md",
       "README.md",
       "docs/automation.md"
     ]

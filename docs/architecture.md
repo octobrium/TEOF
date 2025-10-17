@@ -9,7 +9,7 @@ Compatibility: SemVer; deprecations get one minor window
 ## Allowed top-level
 
 These roots stay stable so every layer (L0 → L6) can find the right surface. The
-layer column calls out the dominant OCERS tier(s); higher layers may reference
+layer column calls out the dominant systemic axes; higher layers may reference
 lower ones but must not bypass their contracts.
 
 | Path | Layer(s) | Contract | Detail |
@@ -76,16 +76,16 @@ Avoid by default. If truly needed, add a 1-page TEP in `rfcs/` (purpose, contrac
 ## Fractal governance pattern
 
 Observation (L0) only sanctions a mechanism while it respects the canonical
-principles (L1) and the Unity → Meaning order captured in Principle P4. The OCERS
-loop—Observation → Coherence → Ethics → Reproducibility → Self-repair—remains the
-operational bridge that enforces those obligations across every layer. Each
-layer expresses the loop through its own tooling (receipts, properties,
-guardrails, automation); if an implementation stops serving the properties (L3)
-or drifts from the higher-order constraints, it must be replaced.
+principles (L1) and the Unity → Meaning order captured in Principle P4. The
+systemic lattice (Unity → Meaning) remains the operational bridge that enforces
+those obligations across every layer. Each layer expresses that lattice through
+its own tooling (receipts, properties, guardrails, automation); if an
+implementation stops serving the properties (L3) or drifts from the higher-order
+constraints, it must be replaced.
 
 - **Mirror the pattern at every scale.** When you ship a helper CLI or CI guard, document how it satisfies the upstream layer and leaves receipts the next layer can consume. A coordination tweak should produce manager-report visibility just as a governance anchor exposes hashes.
 - **Promote rules downward.** Once a principle lands at L3/L4, add the corresponding workflow guard (L5) and automation check (L6). Example: the bus claim guard lives in `tools.agent.bus_message` *and* in `_plans/…` receipts so CI enforces the same rule humans agree to.
-- **Escalate gaps upward.** If a lower layer cannot satisfy an OCERS trait, flag it in the bindings matrix or memory log and loop with governance before adding exceptions. Missing receipts at L6 are just as blocking as an undefined property at L3.
+- **Escalate gaps upward.** If a lower layer cannot satisfy a systemic axis, flag it in the bindings matrix or memory log and loop with governance before adding exceptions. Missing receipts at L6 are just as blocking as an undefined property at L3.
 - **Consensus-to-capsule bridge.** Before capsule releases, consensus decisions (QUEUE-030..033) must carry receipts that automation verifies (`scripts/ci/consensus_smoke.sh`, `scripts/ci/check_consensus_receipts.py`). Capsule cadence guardrails read `_report/consensus/summary-latest.json` and `_report/capsule/summary-latest.json`; workflow docs and plans must link both so reviewers can zoom in/out without losing context.
 - **Emergent principle ledger.** Record new cross-layer patterns in `governance/core/emergent-principles.jsonl`. Each entry must list the observation, the principle(s) it solidified, and links to the doc/plan/receipt strata it affects so future work can stack on that sediment instead of guessing.
 - **Canonical anchors, not doc sprawl.** Keep guidance discoverable via `docs/quick-links.*`, `docs/decision-hierarchy.md`, and the emergent ledger; consolidate duplicate surfaces into those anchors instead of creating parallel docs that erode pattern recognition and slow agents.

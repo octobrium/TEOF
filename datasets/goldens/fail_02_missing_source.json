@@ -1,11 +1,6 @@
 {
-  "ocers": {
-    "observation": "Price missing source",
-    "coherence": "",
-    "evidence": "",
-    "result": "fail",
-    "scope": "VDP"
-  },
+  "expected_verdict": "fail",
+  "rationale": "Price lacks a source citation.",
   "observations": [
     {
       "label": "MSTR",

@@ -7,7 +7,7 @@ runs:
 - Planner status (`_report/planner/validate/summary-latest.json`).
 - Objectives status (`tools.autonomy.objectives_status`).
 - Frontier preview, critic alerts, TMS conflicts, ethics violations.
-- Fractal conformance status (queue/plan/memory OCERS + coordinate coverage).
+- Fractal conformance status (queue/plan/memory retired observation loop + coordinate coverage).
 
 Running the CLI writes a receipt under `_report/usage/autonomy-preflight/`:
 

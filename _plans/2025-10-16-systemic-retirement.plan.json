@@ -1,9 +1,9 @@
 {
   "version": 0,
-  "plan_id": "2025-10-16-ocers-retirement",
+  "plan_id": "2025-10-16-systemic-retirement",
   "created": "2025-10-16T22:30:00Z",
   "actor": "codex-5",
-  "summary": "Retire OCERS terminology and migrate to explicit Systemic/Layer coordinates",
+  "summary": "Retire retired observation loop terminology and migrate to explicit Systemic/Layer coordinates",
   "priority": 4,
   "layer": "L4",
   "systemic_scale": 6,
@@ -18,20 +18,20 @@
   "steps": [
     {
       "id": "S1",
-      "title": "Catalogue OCERS references",
+      "title": "Catalogue retired observation loop references",
       "status": "done",
-      "notes": "Produce inventory of all docs/code/tests referencing OCERS to scope migration.",
+      "notes": "Produce inventory of all docs/code/tests referencing retired observation loop to scope migration.",
       "receipts": [
-        "docs/automation/ocers-retirement-inventory.md"
+        "docs/automation/legacy-loop-retirement-inventory.md"
       ]
     },
     {
       "id": "S2",
       "title": "Design replacement schema",
       "status": "done",
-      "notes": "Define how each OCERS label maps to explicit S#/L# metadata, update planner/CI interfaces.",
+      "notes": "Define how each retired observation loop label maps to explicit S#/L# metadata, update planner/CI interfaces.",
       "receipts": [
-        "docs/automation/ocers-retirement-schema.md"
+        "docs/automation/legacy-loop-retirement-schema.md"
       ]
     },
     {
@@ -40,7 +40,7 @@
       "status": "done",
       "notes": "Converted plans/queue/tooling to systemic/layer-only metadata, updated validators/tests, and documented rollout.",
       "receipts": [
-        "docs/automation/ocers-retirement-progress.md",
+        "docs/automation/legacy-loop-retirement-progress.md",
         "docs/automation/systemic-overview.md",
         "docs/automation/systemic-residual-audit.md"
       ]
@@ -54,12 +54,12 @@
     }
   ],
   "checkpoint": {
-    "description": "Repo expresses alignment metadata solely via systemic/layer coordinates, OCERS references removed or shimed.",
+    "description": "Repo expresses alignment metadata solely via systemic/layer coordinates, retired observation loop references removed or shimed.",
     "owner": "codex-5",
     "status": "satisfied",
     "receipts": [
       "docs/automation/systemic-overview.md",
-      "artifacts/ocers_retirement/ocers_residual_audit.md"
+      "artifacts/systemic_retirement/residual_audit.md"
     ]
   },
   "links": [
@@ -69,9 +69,9 @@
     }
   ],
   "receipts": [
-    "docs/automation/ocers-retirement-inventory.md",
-    "docs/automation/ocers-retirement-schema.md",
-    "docs/automation/ocers-retirement-progress.md"
+    "docs/automation/legacy-loop-retirement-inventory.md",
+    "docs/automation/legacy-loop-retirement-schema.md",
+    "docs/automation/legacy-loop-retirement-progress.md"
   ],
-  "notes": "Proposal includes comprehensive approach, sequencing, and resource model for OCERS deprecation."
+  "notes": "Proposal includes comprehensive approach, sequencing, and resource model for retired observation loop deprecation."
 }

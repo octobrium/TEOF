@@ -101,13 +101,13 @@ def test_validate_plan_validates_systemic_range(tmp_path: Path) -> None:
     assert any("systemic_scale" in err for err in result.errors)
 
 
-def test_validate_plan_rejects_legacy_ocers_field(tmp_path: Path) -> None:
+def test_validate_plan_rejects_legacy_target_field(tmp_path: Path) -> None:
     payload = base_payload()
-    payload["ocers_target"] = "Observation↑"
+    payload["legacy_loop_target"] = "Observation↑"
     path = write_plan(tmp_path, payload)
     result = validate_plan(path)
     assert not result.ok
-    assert any("ocers_target" in err for err in result.errors)
+    assert any("legacy_loop_target" in err for err in result.errors)
 
 
 def test_validate_plan_strict_requires_receipt_presence(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

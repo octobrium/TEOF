@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Document consensus CI contract",
       "status": "done",
-      "notes": "Explain in docs/architecture.md and docs/workflow.md how consensus receipts gate releases; describe OCERS links.",
+      "notes": "Explain in docs/architecture.md and docs/workflow.md how consensus receipts gate releases; describe retired observation loop links.",
       "receipts": [
         "_report/agent/codex-2/consensus-ci/notes.md",
         "docs/architecture.md",

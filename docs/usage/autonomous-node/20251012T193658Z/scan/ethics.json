@@ -349,30 +349,30 @@
     {
       "type": "backlog",
       "id": "ND-036",
-      "title": "OCERS scan automation",
+      "title": "retired observation loop scan automation",
       "coord": {
         "layer": "L5",
         "systemic_scale": 9
       },
       "reason": "missing_guard_receipt",
       "receipts": [
-        "_plans/2025-10-05-ocers-scan-automation.plan.json",
+        "_plans/2025-10-05-systemic-scan-automation.plan.json",
         ".github/workflows/teof-ci.yml"
       ]
     },
     {
       "type": "backlog",
       "id": "ND-037",
-      "title": "OCERS/systemic mapping",
+      "title": "retired observation loop/systemic mapping",
       "coord": {
         "layer": "L5",
         "systemic_scale": 9
       },
       "reason": "missing_guard_receipt",
       "receipts": [
-        "_plans/2025-10-06-ocers-systemic-alignment.plan.json",
-        "docs/automation/ocers-overview.md",
-        "docs/automation/ocers-systemic-mapping.md",
+        "_plans/2025-10-06-systemic-alignment.plan.json",
+        "docs/automation/legacy-loop-overview.md",
+        "docs/automation/legacy-loop-systemic-mapping.md",
         "README.md",
         "docs/automation.md"
       ]

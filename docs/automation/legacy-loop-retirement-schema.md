@@ -1,7 +1,7 @@
-# OCERS Retirement – Replacement Schema Draft
+# retired observation loop Retirement – Replacement Schema Draft
 
-Generated on 2025-10-16 by codex-2 for plan `2025-10-16-ocers-retirement` (step **S2**).
-This document specifies how we will replace OCERS terminology with explicit
+Generated on 2025-10-16 by codex-2 for plan `2025-10-16-systemic-retirement` (step **S2**).
+This document specifies how we will replace retired observation loop terminology with explicit
 Systemic/Layer coordinates across documentation, metadata, and automation.
 
 ## 1. Coordinate Principles
@@ -10,14 +10,14 @@ Systemic/Layer coordinates across documentation, metadata, and automation.
 - **Layer axis (L0–L6)** captures *how* the work is performed
   (Observation → Automation).
 - Every artifact MUST expose the pair `(systemic_targets, layer_targets)` so
-  humans and automation can triangulate intent without translating OCERS.
-- When legacy OCERS vectors appear, map them using the tables below and record
-  both the systemic priority and the layer of execution. Mixed OCERS phases
+  humans and automation can triangulate intent without translating retired observation loop.
+- When legacy retired observation loop vectors appear, map them using the tables below and record
+  both the systemic priority and the layer of execution. Mixed retired observation loop phases
   often compress into a single systemic target; decompose as needed.
 
-## 2. OCERS → Systemic/Layer Mapping
+## 2. retired observation loop → Systemic/Layer Mapping
 
-| OCERS Phase      | Primary Systemic Axes | Typical Layer Focus | Migration Notes |
+| retired observation loop Phase      | Primary Systemic Axes | Typical Layer Focus | Migration Notes |
 | ---              | ---                   | ---                 | --- |
 | Observation      | S1 Unity, S2 Energy   | L0–L2               | Already present in `Observation trigger` fields; ensure receipts cite S1/S2 explicitly. |
 | Coherence        | S3 Propagation, S6 Truth | L3–L5            | Use `systemic_targets: ["S3", "S6"]` and record exact layer (e.g., `L4`). |
@@ -25,14 +25,14 @@ Systemic/Layer coordinates across documentation, metadata, and automation.
 | Reproducibility  | S5 Intelligence, S6 Truth | L3–L6          | Replace “Reproducibility↑” with `systemic_targets: ["S5","S6"]`; automation receipts stay under L6. |
 | Self-repair      | S4 Defense, S10 Meaning | L5–L6           | Encode escalation flows as `S4` guards that evolve into `S10` once recovery succeeds. |
 
-When an OCERS phrase implied multiple axes (e.g., “Coherence↑ Safety↑”), split
+When an retired observation loop phrase implied multiple axes (e.g., “Coherence↑ Safety↑”), split
 it into `systemic_targets` with priority ordering. Use the ordering rule from
 `docs/foundation/systemic-scale.md`—higher axes MUST appear first if all are
 being targeted simultaneously.
 
 ## 3. Metadata Specification
 
-To retire `ocers_target` fields, introduce the following replacements.
+To retire `legacy_loop_target` fields, introduce the following replacements.
 
 ### 3.1 Plans (`_plans/*.plan.json`)
 
@@ -50,7 +50,7 @@ To retire `ocers_target` fields, introduce the following replacements.
   to the existing `layer` value if omitted.
 - `systemic_scale`: single primary axis expressing the checkpoint (integer `1–10`,
   kept for backwards compatibility with existing receipts).
-- **Removal:** delete `ocers_target` once the new fields are populated. *(Completed in experimental branch on 2025-10-16; the planner CLI no longer accepts `--ocers-target` and validators reject the field.)*
+- **Removal:** delete `legacy_loop_target` once the new fields are populated. *(Completed in experimental branch on 2025-10-16; the planner CLI no longer accepts `--legacy-loop-target` and validators reject the field.)*
 - **Validation:** extend `tools/planner/cli.py` and `tools/planner/validate.py`
   to require that every plan with `systemic_targets` also includes matching
   `layer_targets`. Fallback for legacy plans: emit warnings until step S3 flips
@@ -58,7 +58,7 @@ To retire `ocers_target` fields, introduce the following replacements.
 
 ### 3.2 Queue Entries (`queue/*.md`)
 
-Replace the `OCERS Target` block with:
+Replace the `retired observation loop Target` block with:
 
 ```
 Systemic Targets: S3 Propagation, S6 Truth
@@ -71,16 +71,16 @@ Layer Targets: L5 Workflow
 
 ### 3.3 Automation & CLI
 
-| Surface | OCERS usage today | Replacement design |
+| Surface | retired observation loop usage today | Replacement design |
 | --- | --- | --- |
-| `teof scan` summary (`docs/automation.md`) | Displays OCERS tallies | Replace table with per-axis counters (`S#`) and per-layer saturation; add `--legacy-ocers` flag to keep backwards compatibility until S3 completes. |
-| `extensions/validator` receipts | Accept `OCERS` enums | Add schema fields `systemic_targets`/`layer_targets`; validator should reject OCERS keys once migration finalizes. |
-| `scripts/ci/check_queue_template.py` | Checks for `OCERS Target` header | Update template to enforce the new headers and ensure comma-separated tokens parse. |
+| `teof scan` summary (`docs/automation.md`) | Displays retired observation loop tallies | Replace table with per-axis counters (`S#`) and per-layer saturation; add `--legacy-loop` flag to keep backwards compatibility until S3 completes. |
+| `extensions/validator` receipts | Accept `retired observation loop` enums | Add schema fields `systemic_targets`/`layer_targets`; validator should reject retired observation loop keys once migration finalizes. |
+| `scripts/ci/check_queue_template.py` | Checks for `retired observation loop Target` header | Update template to enforce the new headers and ensure comma-separated tokens parse. |
 
 ### 3.4 Reporting (`_report/**`)
 
 - Update report generators to summarise work by `systemic_targets` and `layer_targets`.
-- Historical OCERS references inside archived runs remain untouched; mark them
+- Historical retired observation loop references inside archived runs remain untouched; mark them
   as legacy in inventory notes to avoid over-migration.
 
 ## 4. Execution Roadmap (Step S3 Preview)
@@ -91,11 +91,11 @@ Layer Targets: L5 Workflow
 3. **Automation surfaces** – change CLI output, tests, and dashboards to report
    by systemic/layer axes.
 4. **Cleanup** – once tooling accepts the new fields everywhere, remove the
-   `--legacy-ocers` shims.
+   `--legacy-loop` shims.
 
 ## 5. Receipts & Next Actions
 
 - This schema is the receipt for plan step `S2` (“Design replacement schema”).
 - Implementation details now feed step `S3` (“Implement and validate migration”).
-- Update `_plans/2025-10-16-ocers-retirement.plan.json` to mark `S2` as `done`
-  with `docs/automation/ocers-retirement-schema.md` listed as the supporting evidence.
+- Update `_plans/2025-10-16-systemic-retirement.plan.json` to mark `S2` as `done`
+  with `docs/automation/legacy-loop-retirement-schema.md` listed as the supporting evidence.

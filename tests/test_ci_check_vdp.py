@@ -27,7 +27,7 @@ def _prepare_module(tmp_path: Path) -> None:
 def test_check_vdp_main_success(tmp_path):
     _prepare_module(tmp_path)
     pass_payload = {
-        "ocers": {"result": "pass"},
+        "expected_verdict": "pass",
         "observations": [
             {
                 "label": "BTC",
@@ -40,7 +40,7 @@ def test_check_vdp_main_success(tmp_path):
         ],
     }
     fail_payload = {
-        "ocers": {"result": "fail"},
+        "expected_verdict": "fail",
         "observations": [
             {
                 "label": "NVDA",
@@ -63,7 +63,7 @@ def test_check_vdp_main_success(tmp_path):
 def test_check_vdp_flags_repo_violations(tmp_path):
     _prepare_module(tmp_path)
     pass_payload = {
-        "ocers": {"result": "pass"},
+        "expected_verdict": "pass",
         "observations": [
             {
                 "label": "BTC",

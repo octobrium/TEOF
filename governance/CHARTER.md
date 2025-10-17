@@ -3,7 +3,7 @@
 **Purpose.** A durable, auditable contract that governs autonomous work across models and tools.
 
 **Principles.**
-- Verifiable-first: receipts (OCERS) + reproducibility always.
+- Verifiable-first: receipts (retired observation loop) + reproducibility always.
 - Least privilege: narrow allowlists, budgets, diff caps, required checks.
 - Determinism > cleverness: prefer small, reversible changes.
 - Human override: maintainers can pause or revert at any time.

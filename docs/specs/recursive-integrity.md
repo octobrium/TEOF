@@ -76,7 +76,7 @@ The first six questions are mandatory for every PR. Items 7–10 apply to govern
 | Receipt review | Manager | `_report/usage/manager-report.md` + attachments |
 | External mirror | Infra | Sync `capsule/`, `docs/`, `governance/` to cold storage; verify hash match |
 
-Deviation requires a logged crisis plan with OCERS vector `Observation` or higher.
+Deviation requires a logged crisis plan with retired observation loop vector `Observation` or higher.
 
 ---
 

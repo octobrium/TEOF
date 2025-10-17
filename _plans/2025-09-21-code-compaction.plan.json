@@ -77,7 +77,7 @@
       "title": "Document compaction impact"
     }
   ],
-  "summary": "Compact shared code without changing OCERS outcomes",
+  "summary": "Compact shared code without changing retired observation loop outcomes",
   "version": 0,
   "systemic_scale": 2,
   "layer": "L4",

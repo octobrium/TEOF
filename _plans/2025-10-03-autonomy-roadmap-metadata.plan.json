@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Annotate autonomy roadmap plans",
       "status": "done",
-      "notes": "Add OCERS metadata to autonomy conductor, autonomy roadmap, decision loop, and selfprompt pilot plans.",
+      "notes": "Add systemic metadata to autonomy conductor, autonomy roadmap, decision loop, and selfprompt pilot plans.",
       "receipts": [
         "_plans/2025-09-23-autonomy-conductor.plan.json",
         "_plans/2025-09-23-autonomy-roadmap.plan.json",
@@ -42,7 +42,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Autonomy roadmap and hygiene plans carry OCERS metadata and backlog shrinks",
+    "description": "Autonomy roadmap and hygiene plans carry systemic metadata and backlog shrinks",
     "owner": "codex-4",
     "status": "satisfied"
   },

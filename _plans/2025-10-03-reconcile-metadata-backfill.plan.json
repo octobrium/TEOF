@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Annotate reconcile plan cluster",
       "status": "done",
-      "notes": "Add OCERS metadata to reconcile-ci/merge/pipeline umbrella plans.",
+      "notes": "Add systemic metadata to reconcile-ci/merge/pipeline umbrella plans.",
       "receipts": [
         "_plans/2025-09-17-reconcile-ci.plan.json",
         "_plans/2025-09-17-reconcile-merge.plan.json",
@@ -43,7 +43,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Reconcile + bus automation plans carry OCERS metadata and drop out of advisory backlog",
+    "description": "Reconcile + bus automation plans carry systemic metadata and drop out of advisory backlog",
     "owner": "codex-4",
     "status": "satisfied"
   },

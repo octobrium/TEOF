@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Annotate authenticity automation plans",
       "status": "done",
-      "notes": "Add OCERS metadata to authenticity chronicle, steward alerts, and autonomy auto-proceed plans.",
+      "notes": "Add systemic metadata to authenticity chronicle, steward alerts, and autonomy auto-proceed plans.",
       "receipts": [
         "_plans/2025-09-23-authenticity-chronicle.plan.json",
         "_plans/2025-09-23-authenticity-steward-alerts.plan.json",
@@ -38,7 +38,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Authenticity/governance status plans have OCERS metadata and drop from advisory backlog",
+    "description": "Authenticity/governance status plans have systemic metadata and drop from advisory backlog",
     "owner": "codex-4",
     "status": "satisfied"
   },

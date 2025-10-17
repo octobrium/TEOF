@@ -9,7 +9,7 @@
 
 ## Scene 2 — Install & Brief (0:30–1:10)
 - Command line: `python3 -m pip install -e .` then `teof brief`.
-- Show `artifacts/systemic_out/latest/brief.json` opening with OCERS scores.
+- Show `artifacts/systemic_out/latest/brief.json` opening with systemic scores.
 - Narration: "First run prints receipts so audit starts at minute one."
 
 ## Scene 3 — Conductor Prompt (1:10–1:50)

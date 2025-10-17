@@ -2,7 +2,7 @@
 # Systemic Residual Audit
 
 **Status:** Checklist  
-**Purpose:** Ensure no legacy OCERS artifacts remain after the systemic migration.
+**Purpose:** Ensure no legacy retired observation loop artifacts remain after the systemic migration.
 
 Run this audit monthly (or after large merges) to guarantee the codebase, docs, and
 receipts stay aligned with the systemic lattice.
@@ -11,13 +11,13 @@ receipts stay aligned with the systemic lattice.
 
 ## 1. Automated checks
 
-1. `rg -n "ocers" --glob '!_apoptosis/**'` – only historical docs within `_apoptosis/`
+1. `rg -n "legacy loop" --glob '!_apoptosis/**'` – only historical docs within `_apoptosis/`
    or explicit migration notes should match.
 2. `pytest tests/test_systemic_eval.py tests/test_systemic_rules.py` – confirms the
    systemic heuristic and rule helpers are intact.
 3. `python3 tools/planner/validate.py --strict` – rejects plans missing systemic metadata.
 4. `scripts/ci/quickstart_smoke.sh` – produces `artifacts/systemic_out/<stamp>/` receipts.
-5. `scripts/ci/check_queue_template.py` – warns if queue templates reference OCERS fields.
+5. `scripts/ci/check_queue_template.py` – warns if queue templates reference retired observation loop fields.
 
 Record command outputs under `_report/usage/` when running a formal audit.
 
@@ -27,8 +27,8 @@ Record command outputs under `_report/usage/` when running a formal audit.
 
 | Target | Check | Notes |
 |--------|-------|-------|
-| `docs/automation.md` | Mentions `systemic` tooling throughout | No references to `ocers_out` |
-| `_plans/**/*.plan.json` | Contains `systemic_targets`, `layer_targets`, `systemic_scale` | No `ocers_target` keys |
+| `docs/automation.md` | Mentions `systemic` tooling throughout | No references to `legacy_loop_out` |
+| `_plans/**/*.plan.json` | Contains `systemic_targets`, `layer_targets`, `systemic_scale` | No `legacy_loop_target` keys |
 | `queue/*.md` | Declares `Systemic Targets:` / `Layer Targets:` headings | |
 | `extensions/validator/` | Only `systemic_*` modules present | |
 | `tools/planner/*.py` | Rely on `systemic_targets` helpers | |
@@ -41,7 +41,7 @@ Flag anomalies in `_plans/next-development.todo.json` so the planner surface car
 
 ## 3. Capsule and governance artifacts
 
-1. Review `capsule/v*/hashes.json` and confirm no `ocers` paths linger.
+1. Review `capsule/v*/hashes.json` and confirm no `legacy loop` paths linger.
 2. Scan `governance/anchors.json` for new `migration` or `dna-change` events;
    add one if systemic rules are materially updated.
 3. Update `CHANGELOG.md` under “Docs/DNA” when systemic rules shift.
@@ -63,7 +63,7 @@ and scope them with migration deadlines.
 
 ## 5. Escalation
 
-- If the audit uncovers non-trivial OCERS dependencies, open a plan (`S6`,`S4`, layer `L4`)
+- If the audit uncovers non-trivial retired observation loop dependencies, open a plan (`S6`,`S4`, layer `L4`)
   to resolve them.
 - When rules or tooling change, capture receipts in `_report/usage/` and update the
   inventory/progress docs.
@@ -77,7 +77,7 @@ and scope them with migration deadlines.
 date: 2025-10-17
 auditor: codex-4
 commands:
-  - rg -n "ocers" ...
+  - rg -n "legacy loop" ...
   - pytest tests/test_systemic_eval.py tests/test_systemic_rules.py
   - python3 tools/planner/validate.py --strict
   - scripts/ci/quickstart_smoke.sh

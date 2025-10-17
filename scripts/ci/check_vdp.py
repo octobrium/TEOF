@@ -89,10 +89,10 @@ def check_dataset() -> int:
         if payload is None:
             failures += 1
             continue
-        expected = payload.get("ocers", {}).get("result")
+        expected = payload.get("expected_verdict")
         if expected not in {"pass", "fail"}:
             rel = _rel(path)
-            print(f"::error::{rel} missing ocers.result", file=sys.stderr)
+            print(f"::error::{rel} missing expected_verdict", file=sys.stderr)
             failures += 1
             continue
         result = vdp_guard.evaluate_payload(payload)

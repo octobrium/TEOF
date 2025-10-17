@@ -33,7 +33,7 @@ def _prepare_module(tmp_path: Path) -> None:
 def _seed_dataset(tmp_path: Path) -> None:
     dataset_dir = tmp_path / "datasets" / "goldens"
     pass_payload = {
-        "ocers": {"result": "pass"},
+        "expected_verdict": "pass",
         "observations": [
             {
                 "label": "BTC",

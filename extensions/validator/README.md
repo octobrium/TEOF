@@ -1,60 +1,26 @@
-# TEOF OCERS Validator (v0.1, minimal)
+# TEOF Systemic Validators (minimal)
 
-Purpose: verify that an output conforms to the OCERS shape and is deterministic under three temp=0 runs (if provided). This is an **extension** of TEOF, not part of the immutable core.
+This package bundles lightweight validators that operate on systemic metadata.
+The primary entry point, `teof_systemic_min.py`, evaluates readiness records
+against the Unity → Meaning lattice and emits machine-readable receipts.
 
-## What it checks (core)
-- OCERS presence with required non-empty fields: `O, C, E, R, S`
-- Accepts JSON form:
-  ```json
-  {"O": "...", "C": "...", "E": "...", "R": "...", "S": "..."}
-  ```
-- Accepts headed text form:
-  ```
-  O: ...
-  C: ...
-  E: ...
-  R: ...
-  S: ...
-  ```
-- Optional field: `OpenQuestions`
+## `teof_systemic_min.py`
 
-## What it does NOT do (by design, v0.1)
-- No doctrinal validation (no axiom quoting checks)
-- No semantic alignment scoring
-- No model calls (SAMPLE mode only, out of the box)
+- Accepts a plaintext summary and scores structural signals (`structure`,
+  `alignment`, `verification`, `risk`, `recovery`).
+- Produces deterministic JSON with the original filename, SHA-256 hash, and a
+  verdict derived from total systemic coverage.
+- Designed for repository-local use: `python3 extensions/validator/teof_systemic_min.py <input.txt> <outdir>`.
 
-## Quick start
-```bash
-chmod +x validator/teof-validate.sh
+The module exposes helpers (`systemic_rules.py`) that other tools can reuse when
+they need simple heuristics for systemic completeness.
 
-# SAMPLE mode uses bundled examples, no API calls
-MODE=SAMPLE ./validator/teof-validate.sh "Test prompt" local-sample runner-abc $(git rev-parse --short HEAD)
-```
+## Extending
 
-**Expected output (SAMPLE mode):**
-```
-OCERS-VALIDATOR v0.1 | verdict=PASS | commit=<sha> | model=local-sample | runner=runner-abc | ocers_json=1 | out_sha256=<...> | utc=<...>
-determinism=OK
-```
-Exit code: `0`
+- Keep new validators deterministic and receipt-friendly.
+- Each addition must document how it maps to systemic axes and layers so other
+  automation can rely on the output.
+- When replacing a legacy workflow, park the retired assets under `archive/`
+  instead of expanding this package; the kernel remains minimal by design.
 
-## Direct Python usage
-```bash
-python3 validator/teof_validator.py \
-  --input validator/sample_outputs/ocers_ok.json \
-  --runmeta validator/sample_outputs/runmeta.json \
-  --commit $(git rev-parse --short HEAD) \
-  --receipt-json validator/receipt.json
-```
-
-### Exit codes
-- `0` = PASS
-- `1` = FAIL (shape/parse)
-- `3` = internal error
-
-### Optional flags (non-blocking)
-- `--receipt-json <path>`: write a machine-readable result
-- `--schema <path>`: (reserved for future) custom schema path
-
-## Determinism check (harness)
-The shell harness runs three outputs and compares them. In `SAMPLE` mode, it copies the same file thrice (deterministic). In a future `MODEL` mode, integrators can plug a real model call at temp=0 (shortest-valid).
+See `docs/automation/systemic-overview.md` for the broader metadata contract.

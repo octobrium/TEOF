@@ -1,11 +1,6 @@
 {
-  "ocers": {
-    "observation": "Two BTC sources disagree; citations present.",
-    "coherence": "ok",
-    "evidence": "multiple sources cited",
-    "result": "pass",
-    "scope": "VDP"
-  },
+  "expected_verdict": "pass",
+  "rationale": "Two BTC sources disagree but both cite valid sources.",
   "observations": [
     {
       "label": "BTC A",

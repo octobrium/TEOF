@@ -2,7 +2,7 @@
 
 This directory holds human-readable proposals (drafts or adopted). Each file should include:
 
-- Metadata block (`title`, `batch`, `item`, `generated`, OCERS rationale)
+- Metadata block (`title`, `batch`, `item`, `generated`, retired observation loop rationale)
 - Problem statement / motivation
 - Proposed actions / acceptance criteria
 - Sunset / fallback

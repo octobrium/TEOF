@@ -30,6 +30,7 @@ Machine-readable index: [`governance/systemic-order.json`](../../governance/syst
 - The axes must be satisfied in order: Unity → Energy → Propagation → Defense → Intelligence → Truth → Power → Ethics → Freedom → Meaning.  
 - Lower axes may request attention, but they cannot overrule higher axes. If a lower axis (e.g., Ethics) conflicts with a higher prerequisite (e.g., Defense), resolve the higher axis first, then reapply the lower guard.  
 - Ethics (S8) operates only once S1–S7 are stable or actively being defended. Meaning (S10) is expressed only after Freedom (S9) is intact.  
+- Any ethical narrative must cite receipts that prove the upstream invariants; when Ethics (S8) is presented as a substitute for Truth (S6), treat it as evidence that S6 has already drifted and re-establish the higher axis before acting.  
 - When automation or policy encounters tension between axes, follow the order above and record receipts that show how higher-axis obligations were preserved.
 
 ## Shorthand

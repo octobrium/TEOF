@@ -99,7 +99,7 @@ Review cadence: Monthly sweep
   If critical/immutable files changed: put them under `capsule/<version>/`, run `bash scripts/freeze.sh`, and ensure CI verify passes (hashes, anchors, no junk files).
 
 - [ ] **Evidence/goldens**  
-  If validator/evaluator logic or reasoning rules changed: update `docs/examples/**/expected/` goldens and include a brief rationale. OCERS/OGS commands must run and produce artifacts.
+  If validator/evaluator logic or reasoning rules changed: update `docs/examples/**/expected/` goldens and include a brief rationale. retired observation loop/OGS commands must run and produce artifacts.
 
 - [ ] **Minimal surface**  
   Provide the smallest runnable demo or doc snippet (CLI invocation + output path) that shows the change; else **N/A**.
@@ -136,5 +136,5 @@ Review cadence: Monthly sweep
 > **Placement note:** this file lives **outside** the capsule to avoid baseline churn. After it stabilizes (several cycles without edits), move it into `capsule/current/` and re‑freeze hashes.
 
 ## Fitness Lens (tools & CI)
-- **Preflight is invariants-only.** Tools that don’t measurably improve OCERS remain **opt-in**.
+- **Preflight is invariants-only.** Tools that don’t measurably improve retired observation loop remain **opt-in**.
 - Use `docs/policy/fitness-lens.md` to justify any blocking check with receipts + sunset.

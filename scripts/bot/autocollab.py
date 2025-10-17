@@ -100,7 +100,7 @@ def generate_alignment_stub(text: str) -> Dict[str, object]:
         "total": round(total, 2),
         "verdict": readiness,
         "diagnostics": diagnostics,
-        "summary": "Systemic alignment stub (legacy OCERS heuristic retired)",
+        "summary": "Systemic alignment stub (legacy loop heuristic retired)",
     }
 
 

@@ -1,11 +1,6 @@
 {
-  "ocers": {
-    "observation": "Non-volatile observation bypasses VDP hard checks",
-    "coherence": "ok",
-    "evidence": "contextual data only",
-    "result": "pass",
-    "scope": "VDP"
-  },
+  "expected_verdict": "pass",
+  "rationale": "Non-volatile observation bypasses VDP hard checks.",
   "observations": [
     {
       "label": "Context note",

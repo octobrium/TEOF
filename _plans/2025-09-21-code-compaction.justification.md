@@ -1,7 +1,7 @@
 # 2025-09-21-code-compaction — Justification
 
 ## Objective
-Shrink the OCERS/tooling footprint by eliminating duplicate logic and dead code while preserving deterministic behaviour.
+Shrink the retired observation loop/tooling footprint by eliminating duplicate logic and dead code while preserving deterministic behaviour.
 
 ## Success Criteria
 - Inventory of compaction candidates committed (shared heuristics, redundant scripts, oversized docs).

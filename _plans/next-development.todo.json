@@ -559,30 +559,30 @@
     },
     {
       "id": "ND-036",
-      "title": "OCERS scan automation",
+      "title": "retired observation loop scan automation",
       "status": "done",
       "layer": "L5",
       "priority": "high",
-      "notes": "Automate session_boot step before OCERS scans so guards see manager-report tail receipts.",
-      "plan_suggestion": "2025-10-05-ocers-scan-automation",
+      "notes": "Automate session_boot step before retired observation loop scans so guards see manager-report tail receipts.",
+      "plan_suggestion": "2025-10-05-systemic-scan-automation",
       "receipts": [
-        "_plans/2025-10-05-ocers-scan-automation.plan.json",
+        "_plans/2025-10-05-systemic-scan-automation.plan.json",
         ".github/workflows/teof-ci.yml"
       ],
       "completed_at": "2025-10-06T17:32:00Z"
     },
     {
       "id": "ND-037",
-      "title": "OCERS/systemic mapping",
+      "title": "retired observation loop/systemic mapping",
       "status": "done",
       "layer": "L5",
       "priority": "medium",
-      "notes": "Execute plan 2025-10-06-ocers-systemic-alignment; document OCERS as diagnostic overlay and update stress tests.",
-      "plan_suggestion": "2025-10-06-ocers-systemic-alignment",
+      "notes": "Execute plan 2025-10-06-systemic-alignment; document retired observation loop as diagnostic overlay and update stress tests.",
+      "plan_suggestion": "2025-10-06-systemic-alignment",
       "receipts": [
-        "_plans/2025-10-06-ocers-systemic-alignment.plan.json",
-        "docs/automation/ocers-overview.md",
-        "docs/automation/ocers-systemic-mapping.md",
+        "_plans/2025-10-06-systemic-alignment.plan.json",
+        "docs/automation/legacy-loop-overview.md",
+        "docs/automation/legacy-loop-systemic-mapping.md",
         "README.md",
         "docs/automation.md"
       ],

@@ -9,7 +9,7 @@ Status: draft
 TEOF agents can issue **retro advisories** when fresh receipts reveal that
 existing artefacts (docs, code, tests) no longer reflect observed truth. The
 protocol translates those advisories into standard queue items and plans, so the
-existing OCERS ladder, planner receipts, and governance anchors continue to hold.
+existing retired observation loop ladder, planner receipts, and governance anchors continue to hold.
 
 ## Artefacts
 
@@ -23,11 +23,11 @@ existing OCERS ladder, planner receipts, and governance anchors continue to hold
 ## Flow (preview)
 
 1. A tool (e.g. `tools.fractal.advisory`) emits `retro_advisory.json` linking to
-   the receipts that highlight the drift. Advisories map to OCERS traits and S/L
+   the receipts that highlight the drift. Advisories map to systemic traits and S/L
    coordinates so they slot into the fractal view.
 2. CI validates the advisory schema, posts a `queue/BF-*.md` entry, and
    scaffolds an `_plans/*-backfill.plan.json` with `class=Backfill`.
-3. Agent submits work as a normal plan: OCERS receipts, semantic patch (optional
+3. Agent submits work as a normal plan: systemic receipts, semantic patch (optional
    but encouraged), and references to supersession events.
 4. On merge, governance appends a `supersede` event to
    `governance/anchors.json`, and the old artefact receives a short errata note

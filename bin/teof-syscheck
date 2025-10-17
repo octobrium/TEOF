@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+python3 <<'PY'
+import json
+import shutil
+import subprocess
+import sys
+
+MIN_VERSION = (3, 9)
+issues: list[str] = []
+
+version_info = sys.version_info
+version_str = f"{version_info.major}.{version_info.minor}.{version_info.micro}"
+if (version_info.major, version_info.minor) < MIN_VERSION:
+    issues.append(f"Python {MIN_VERSION[0]}.{MIN_VERSION[1]}+ required (found {version_str})")
+
+python_cli = shutil.which("python3")
+if python_cli is None:
+    issues.append("python3 executable not found on PATH")
+
+try:
+    completed = subprocess.run(
+        [sys.executable, "-m", "pip", "--version"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=True,
+        text=True,
+    )
+    pip_cli = completed.stdout.strip()
+except Exception:
+    pip_cli = None
+    issues.append("pip inaccessible via 'python3 -m pip --version'")
+
+pytest_cli = shutil.which("pytest")
+if pytest_cli is None:
+    issues.append("pytest not found on PATH")
+
+output = {
+    "python_version": version_str,
+    "python_path": python_cli or sys.executable,
+    "pip_path": pip_cli,
+    "pytest_path": pytest_cli,
+    "issues": issues,
+}
+
+print(json.dumps(output, indent=2))
+
+if issues:
+    raise SystemExit(1)
+PY
+
+echo ""
+echo "Environment looks ready for onboarding. Next: run bin/teof-up."

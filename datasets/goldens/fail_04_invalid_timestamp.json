@@ -1,11 +1,6 @@
 {
-  "ocers": {
-    "observation": "Invalid timestamp should fail",
-    "coherence": "",
-    "evidence": "",
-    "result": "fail",
-    "scope": "VDP"
-  },
+  "expected_verdict": "fail",
+  "rationale": "Timestamp cannot be parsed.",
   "observations": [
     {
       "label": "NVDA",

@@ -26,7 +26,7 @@ This enables regulation, pruning, and emergent intelligence at the network level
 - **Receipt Mesh Tooling** — `tools/network/receipt_sync.py` aggregates node receipts, writes consolidated ledgers under `docs/examples/decentralized/receipt-sync/`, and flags conflicts for steward review before canon adoption.
 
 ## Open Questions (Conceptual)
-- What constitutes network-scale coherence signals (beyond node OCERS)?
+- What constitutes network-scale coherence signals (beyond node retired observation loop)?
 - How to avoid over-connection and noise collapse while preserving adaptability?
 - What forms of “organ systems” (specialized sub-networks) are desirable, and how are they recognized conceptually?
 - How should speciation and recombination be declared at the network level?

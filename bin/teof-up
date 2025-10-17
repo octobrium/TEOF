@@ -23,6 +23,12 @@ if [[ -n "$LATEST_RECEIPT" ]]; then
   printf '\nReceipts: %s\n' "$REL_RECEIPT"
 fi
 
-printf '\nNext steps:\n'
-printf '  • Review docs/status.md for the current snapshot.\n'
-printf '  • Check docs/usage/chronicle.md for the latest authenticity pulse.\n'
+printf '\nNext steps (mirror docs/onboarding/README.md):\n'
+printf '  0. (If not already) run bin/teof-syscheck to confirm tooling\n'
+printf '  1. Read docs/architecture.md\n'
+printf '  2. Read docs/workflow.md (Operator ladder sections)\n'
+printf '  3. Seat AGENT_MANIFEST.json per docs/agents.md#files-to-know\n'
+printf '  4. Inspect %s\n' "${LATEST_RECEIPT:-_report/usage/onboarding/quickstart-<timestamp>.json}"
+printf '  5. Run python -m tools.agent.session_boot --agent <id> --focus <role> --with-status\n'
+printf '  6. Scaffold a plan via teof-plan new … --scaffold and capture receipts\n'
+printf '  7. Choose work from _plans/next-development.todo.json and seed the bus claim\n'

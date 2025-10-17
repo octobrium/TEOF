@@ -21,7 +21,7 @@
     },
     {
       "id": "S2",
-      "title": "Annotate legacy plans with OCERS, layer, systemic scale",
+      "title": "Annotate legacy plans with retired observation loop, layer, systemic scale",
       "status": "done",
       "notes": "Helper tooling not needed; metadata guard already covers legacy plans.",
       "receipts": []

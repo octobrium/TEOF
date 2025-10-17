@@ -92,7 +92,7 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
     assert data["systemic_targets"] == ["S1", "S2", "S5"]
     assert data["layer_targets"] == ["L5"]
     assert data["impact_score"] == 90
-    assert "ocers_target" not in data
+    assert "legacy_loop_target" not in data
 
     result = validate_plan(plan_path, strict=True)
     assert result.ok, result.errors
@@ -301,7 +301,7 @@ def test_cli_new_queue_ref_conflict_raises(planner_root: Path) -> None:
         )
 
 
-def test_cli_new_accepts_systemic_targets_without_ocers(planner_root: Path) -> None:
+def test_cli_new_accepts_systemic_targets_without_legacy_field(planner_root: Path) -> None:
     plan_dir = planner_root / "_plans"
     args = [
         "new",
@@ -331,7 +331,7 @@ def test_cli_new_accepts_systemic_targets_without_ocers(planner_root: Path) -> N
     assert data["systemic_targets"] == ["S6", "S8"]
     assert data["systemic_scale"] == 8
     assert data["layer_targets"] == ["L4"]
-    assert "ocers_target" not in data
+    assert "legacy_loop_target" not in data
     result = validate_plan(plan_path, strict=True)
     assert result.ok
 

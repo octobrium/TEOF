@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BROOT = ROOT/"_report"/"autocollab"
 OUT   = ROOT/"docs"/"proposals"
 
-MIN_SCORE = int(float(os.getenv("MIN_SCORE", "7")))     # OCERS total >= 7/10
+MIN_SCORE = int(float(os.getenv("MIN_SCORE", "7")))     # systemic total >= 7/10
 MAX_RISK  = float(os.getenv("MAX_RISK", "0.40"))        # critic risk_score <= 0.40 (~low)
 MAX_ITEMS = int(os.getenv("MAX_ITEMS", "3"))            # promote at most N
 REQUIRE_ACCEPTED = os.getenv("REQUIRE_ACCEPTED", "1") == "1"
@@ -53,7 +53,7 @@ def write_draft(batch_ts:str, itmeta:dict, idx:int):
         f"title: Auto-imported proposal (batch {batch_ts}, item {idx:02d})",
         f"batch: {batch_ts}",
         f"item: {idx:02d}",
-        f"ocers_total: {itmeta['total']}",
+        f"systemic_total: {itmeta['total']}",
         f"risk_score: {itmeta['risk']}",
         f"generated: {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}",
         f"note: docs-only draft; no invariants touched",

@@ -26,8 +26,8 @@ def summary_repo(tmp_path, monkeypatch):
                     {
                         "plan_id": "PLAN-XYZ",
                         "queue_ref": "queue/030-test.md",
-                        "issue": "ocers_mismatch",
-                        "message": "PLAN-XYZ ocers mismatch",
+                        "issue": "systemic_targets_mismatch",
+                        "message": "PLAN-XYZ systemic targets mismatch",
                     }
                 ],
             }

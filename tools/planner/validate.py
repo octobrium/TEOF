@@ -419,8 +419,8 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
     else:
         errors.append("layer_targets must be list when provided")
 
-    if "ocers_target" in data:
-        errors.append("ocers_target is deprecated; use systemic_targets/layer_targets")
+    if "legacy_loop_target" in data:
+        errors.append("legacy_loop_target is deprecated; use systemic_targets/layer_targets")
 
     if errors:
         return None, errors

@@ -1,13 +1,13 @@
 {
-  "plan_id": "2025-10-05-ocers-scan-automation",
+  "plan_id": "2025-10-05-systemic-scan-automation",
   "created": "2025-10-06T17:23:43Z",
   "actor": "codex-4",
   "status": "done",
-  "summary": "Automate session_boot integration before OCERS scans to keep guards satisfied.",
+  "summary": "Automate session_boot integration before systemic scan jobs to keep guards satisfied.",
   "links": [
     {
       "type": "doc",
-      "ref": "docs/automation.md#ocers-scan-bundle"
+      "ref": "docs/automation.md#systemic-scan-bundle"
     }
   ],
   "receipts": [
@@ -39,7 +39,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Session_boot automated ahead of OCERS scan in CI",
+    "description": "Session_boot automated ahead of systemic scan in CI",
     "owner": "codex-4",
     "status": "satisfied"
   },

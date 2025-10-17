@@ -3,7 +3,7 @@
   "plan_id": "2025-09-19-kernel-slimdown",
   "created": "2025-09-19T00:00:00Z",
   "actor": "codex-2",
-  "summary": "Slim OCERS kernel and tighten deterministic guards",
+  "summary": "Slim retired observation loop kernel and tighten deterministic guards",
   "status": "done",
   "steps": [
     {
@@ -19,7 +19,7 @@
       "id": "S2",
       "title": "Refactor heuristics into canonical location",
       "status": "done",
-      "notes": "Validator/evaluator now share ocers_rules helpers; local duplicates removed.",
+      "notes": "Validator/evaluator now share systemic_rules helpers; local duplicates removed.",
       "receipts": [
         "_report/agent/codex-2/kernel-slimdown/heuristic-refactor.md"
       ]
@@ -28,7 +28,7 @@
       "id": "S3",
       "title": "Update deterministic tests and goldens",
       "status": "done",
-      "notes": "Added ocers_rules unit tests and captured runner receipt for deterministic coverage.",
+      "notes": "Added systemic_rules unit tests and captured runner receipt for deterministic coverage.",
       "receipts": [
         "_report/agent/codex-2/kernel-slimdown/deterministic-coverage.md",
         "_report/runner/20250918T221405Z-20155a7c.json"

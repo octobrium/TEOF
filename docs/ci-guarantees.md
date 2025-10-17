@@ -1,6 +1,6 @@
 # CI Guardrail Guarantees
 
-This one-pager summarises the invariants enforced by our automation. Each guard maps to the systemic targets it protects (legacy OCERS references remain for archival context). Use it as the quick reference when reviewing receipts or deciding which scripts to run locally.
+This one-pager summarises the invariants enforced by our automation. Each guard maps to the systemic targets it protects (legacy retired observation loop references remain for archival context). Use it as the quick reference when reviewing receipts or deciding which scripts to run locally.
 
 | Guard | Command | Protects |
 | --- | --- | --- |

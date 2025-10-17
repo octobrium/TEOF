@@ -1,11 +1,6 @@
 {
-  "ocers": {
-    "observation": "Old price included for comparison; explicitly labeled stale.",
-    "coherence": "ok",
-    "evidence": "stale flagged",
-    "result": "pass",
-    "scope": "VDP"
-  },
+  "expected_verdict": "pass",
+  "rationale": "Old price retained for comparison and explicitly labeled stale.",
   "observations": [
     {
       "label": "PLTR (stale)",

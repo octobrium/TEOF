@@ -381,7 +381,7 @@
       "assigned_by": "codex-1",
       "branch": "agent/codex-2/apoptosis-007",
       "id": "APOP-007",
-      "notes": "Compact shared code without changing OCERS behaviour.",
+      "notes": "Compact shared code without changing systemic behaviour.",
       "plan_id": "2025-09-21-code-compaction",
       "priority": "high",
       "receipts": [],

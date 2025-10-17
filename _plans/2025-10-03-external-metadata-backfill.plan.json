@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Annotate operator session plans",
       "status": "done",
-      "notes": "Add OCERS metadata to session-brief-operator and VDP pilot plans.",
+      "notes": "Add systemic metadata to session-brief-operator and VDP pilot plans.",
       "receipts": [
         "_plans/2025-09-21-session-brief-operator.plan.json",
         "_plans/2025-09-21-vdp-pilot-case-study.plan.json"
@@ -29,7 +29,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Operator/external adoption plans carry OCERS metadata and advisories drop",
+    "description": "Operator/external adoption plans carry systemic metadata and advisories drop",
     "owner": "codex-4",
     "status": "satisfied"
   },

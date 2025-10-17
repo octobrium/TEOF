@@ -75,6 +75,14 @@
       "category": "governance"
     },
     {
+      "id": "layer-guard-index",
+      "title": "Layer → Guard Index",
+      "summary": "Fast mapping from architectural layers to the enforcement scripts/tests that protect them.",
+      "path": "docs/reference/layer-guard-index.md",
+      "anchor": "#layer-guard-index-teof",
+      "category": "workflow"
+    },
+    {
       "id": "proposal-inbox",
       "title": "Proposal Inbox",
       "summary": "Canonical drop zone for draft improvements awaiting review.",

@@ -18,8 +18,8 @@ def test_golden_dataset_matches_verdicts():
 
     for path in files:
         payload = _load(path)
-        expected = payload.get("ocers", {}).get("result")
-        assert expected in {"pass", "fail"}, f"{path} missing ocers.result"
+        expected = payload.get("expected_verdict")
+        assert expected in {"pass", "fail"}, f"{path} missing expected_verdict"
         result = vdp_guard.evaluate_payload(payload)
         if expected == "pass":
             assert result["verdict"] == "pass"

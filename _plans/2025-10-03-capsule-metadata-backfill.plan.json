@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Update capsule guard plans",
       "status": "done",
-      "notes": "Add OCERS metadata to capsule-symlink-policy, capsule-version-guard, ci-guarantees, consent-exit.",
+      "notes": "Add systemic metadata to capsule-symlink-policy, capsule-version-guard, ci-guarantees, consent-exit.",
       "receipts": [
         "_plans/2025-09-20-capsule-symlink-policy.plan.json",
         "_plans/2025-09-20-capsule-version-guard.plan.json",
@@ -43,7 +43,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Capsule guard + readiness plans carry OCERS metadata and drop from advisory backlog",
+    "description": "Capsule guard + readiness plans carry systemic metadata and drop from advisory backlog",
     "owner": "codex-4",
     "status": "satisfied"
   },

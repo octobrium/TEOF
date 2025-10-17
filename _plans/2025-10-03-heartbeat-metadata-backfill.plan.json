@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Annotate heartbeat follow-up plans",
       "status": "done",
-      "notes": "Add OCERS metadata to heartbeat followup/integration/kernel-slimdown/manager heartbeat auto plans.",
+      "notes": "Add systemic metadata to heartbeat followup/integration/kernel-slimdown/manager heartbeat auto plans.",
       "receipts": [
         "_plans/2025-09-19-heartbeat-followup.plan.json",
         "_plans/2025-09-19-heartbeat-integration-codex4.plan.json",
@@ -43,7 +43,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Heartbeat and bus guardrail plans carry OCERS metadata and drop from advisory backlog",
+    "description": "Heartbeat and bus guardrail plans carry systemic metadata and drop from advisory backlog",
     "owner": "codex-4",
     "status": "satisfied"
   },

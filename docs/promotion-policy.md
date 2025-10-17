@@ -8,7 +8,7 @@ This policy governs code that aspires to become canonical (packaged and exported
 
 ## Criteria (ALL required)
 1. **Determinism** — Same inputs → identical outputs across 3 clean runs. Document reproduction commands.
-2. **Spec alignment** — Matches current OCERS/OGS shapes. If rules changed, update goldens in `docs/examples/**/expected/` and include a 1–2 sentence rationale.
+2. **Spec alignment** — Matches current retired observation loop/OGS shapes. If rules changed, update goldens in `docs/examples/**/expected/` and include a 1–2 sentence rationale.
 3. **CI coverage** — Examples in `docs/examples/**` exercise the behavior. Regressions fail CI (shape now; exact match when ready).
 4. **Minimal surface** — Clear `main()` (or console entrypoint); minimal dependencies; no hidden state.
 5. **Provenance** — Append an event in `governance/anchors.json` with `prev_content_hash` for any promoted logic.

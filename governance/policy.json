@@ -13,7 +13,7 @@
   "deletes_allowed": false,
   "labels": ["bot:autocollab"],
   "required_checks": ["teof/fitness","guardrails/verify"],
-  "receipt_schema": "OCERS",
+  "receipt_schema": "retired observation loop",
   "budgets": {
     "llm_max_tokens": 16000,
     "llm_expected_output_tokens": 800,

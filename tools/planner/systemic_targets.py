@@ -8,7 +8,7 @@ AXIS_RANGE = range(1, 11)
 AXIS_TOKENS = tuple(f"S{idx}" for idx in AXIS_RANGE)
 AXIS_ORDER_INDEX = {token: pos for pos, token in enumerate(AXIS_TOKENS)}
 
-OCERS_AXIS_MAP = {
+LEGACY_LOOP_AXIS_MAP = {
     "observation": ("S1", "S2"),
     "coherence": ("S3", "S6"),
     "ethics": ("S4", "S6", "S8"),
@@ -74,13 +74,13 @@ def parse_axis_tokens(text: str | None) -> List[str]:
     return sort_axes(token for token in parsed if token)
 
 
-def ocers_to_axes(text: str | None) -> List[str]:
+def legacy_loop_to_axes(text: str | None) -> List[str]:
     if not text:
         return []
     lowered = text.lower()
     lowered = lowered.replace("↑", " ")
     axes: List[str] = []
-    for key, values in OCERS_AXIS_MAP.items():
+    for key, values in LEGACY_LOOP_AXIS_MAP.items():
         if key in lowered:
             axes.extend(values)
     return sort_axes(axes)

@@ -46,7 +46,7 @@ mindmap
         Policy-gated promotion
     Trunk
       Stable core: protocol/spec
-      OCERS schema & receipt contract
+      retired observation loop schema & receipt contract
       CLI surface (teof/)
       Properties
         Small, stable API; clear deprecations

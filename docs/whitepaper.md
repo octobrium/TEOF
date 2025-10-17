@@ -44,19 +44,22 @@ TEOF is built on seven principles that define observation’s role in reality, t
 
 ---
 
-> **Historical note:** Sections referencing the OCERS loop remain for archival context. Current implementations use explicit systemic targets (`docs/automation/systemic-overview.md`).
+### 2.1 Systemic Operating Loop
 
-### 2.1 OCERS Operating Loop
+TEOF now grounds implementation decisions in the systemic lattice that joins the
+Unity → Meaning hierarchy (S1–S10) with the layer stack (L0–L6). Every plan,
+automation, or governance change must prove how it preserves:
 
-TEOF grounds implementation decisions in a reusable loop: **Observation → Coherence → Ethics → Reproducibility → Self-repair (OCERS)**.
+- **Observation integrity (S1–S6):** capture receipts, defend the aperture, and
+  keep truth auditable.
+- **Governance stewardship (S7–S10):** wield power responsibly, encode ethics,
+  leave optionality, and maintain shared meaning.
 
-- **Observation** captures raw signals and receipts, honouring the primacy noted above.
-- **Coherence** reconciles those observations with higher-layer principles so plans remain anchored to the constitution.
-- **Ethics** evaluates leverage: power is legitimate only when it preserves the ability to observe.
-- **Reproducibility** requires every pathway to be replayable—deterministic commands, hashes, and receipts that make truth auditable.
-- **Self-repair** closes the loop; contradictions trigger new observation plans instead of silent decay.
-
-OCERS is the operational bridge between the philosophical core and the layered architecture (L0–L6). Each plan, automation, or governance change records the layers and systemic scale it touches alongside the OCERS vector it advances.
+The lattice is enforced by receipts and tests at the layer they operate within,
+so an L5 workflow guard always cites its upstream S/L obligations and exposes
+artifacts the next layer can rely on. When tension appears, higher systemic axes
+win; lower layers must document how they will re-align once the prerequisite is
+stable.
 
 ---
 
@@ -160,7 +163,7 @@ TEOF’s principles apply across domains:
    zones and needs.
 
 2. **Plan & Guard (L3–L5)**  
-   Response teams draft plans annotated with systemic coordinates and OCERS
+   Response teams draft plans annotated with systemic coordinates and lattice
    targets. Planner validators enforce receipts and metadata so every action is
    auditable and traceable back to principles.
 

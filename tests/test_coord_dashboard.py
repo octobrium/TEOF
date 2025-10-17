@@ -203,8 +203,8 @@ def dashboard_env(tmp_path, monkeypatch):
                     {
                         "plan_id": "PLAN-002",
                         "queue_ref": "queue/999-sync.md",
-                        "issue": "ocers_mismatch",
-                        "message": "PLAN-002 ocers mismatch with queue/999-sync.md",
+                        "issue": "systemic_targets_mismatch",
+                        "message": "PLAN-002 systemic targets mismatch with queue/999-sync.md",
                     }
                 ],
             },
@@ -275,7 +275,7 @@ def test_json_report(tmp_path, dashboard_env, capsys):
     assert "docs/b.txt" in ";".join(dirty_entry.get("status_preview", []))
     assert any("Dirty handoff pending for codex-2" in alert for alert in data["alerts"])
     warnings = data["planner_queue_warnings"]
-    assert warnings and warnings[0]["issue"] == "ocers_mismatch"
+    assert warnings and warnings[0]["issue"] == "systemic_targets_mismatch"
     assert any("Queue warning" in alert for alert in data["alerts"])
     captured = capsys.readouterr().out
     assert "Output written" in captured

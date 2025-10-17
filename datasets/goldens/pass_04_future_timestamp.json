@@ -1,11 +1,6 @@
 {
-  "ocers": {
-    "observation": "Future-dated quote stays compliant",
-    "coherence": "ok",
-    "evidence": "timestamp in future allowed",
-    "result": "pass",
-    "scope": "VDP"
-  },
+  "expected_verdict": "pass",
+  "rationale": "Future-dated quote is acceptable and not stale.",
   "observations": [
     {
       "label": "MSTR",

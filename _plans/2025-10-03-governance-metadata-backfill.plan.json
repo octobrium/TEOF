@@ -3,14 +3,14 @@
   "plan_id": "2025-10-03-governance-metadata-backfill",
   "created": "2025-10-03T03:06:30Z",
   "actor": "codex-4",
-  "summary": "Annotate governance and heartbeat plans with OCERS metadata",
+  "summary": "Annotate governance and heartbeat plans with systemic metadata",
   "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Update governance bridge cluster",
       "status": "done",
-      "notes": "Backfill OCERS metadata on codex4-consensus-context, governance-bridge, idle-pickup, l4-bindings, manifest-helper plans.",
+      "notes": "Backfill systemic metadata on codex4-consensus-context, governance-bridge, idle-pickup, l4-bindings, manifest-helper plans.",
       "receipts": [
         "_plans/2025-09-18-codex4-consensus-context.plan.json",
         "_plans/2025-09-18-governance-bridge.plan.json",
@@ -43,7 +43,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Governance and heartbeat plans carry OCERS metadata and fall out of advisory backlog",
+    "description": "Governance and heartbeat plans carry systemic metadata and fall out of advisory backlog",
     "owner": "codex-4",
     "status": "satisfied"
   },

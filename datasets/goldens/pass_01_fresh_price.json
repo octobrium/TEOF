@@ -1,11 +1,6 @@
 {
-  "ocers": {
-    "observation": "Fresh price with valid timestamp and source",
-    "coherence": "ok",
-    "evidence": "timestamp + source valid",
-    "result": "pass",
-    "scope": "VDP"
-  },
+  "expected_verdict": "pass",
+  "rationale": "Fresh price with valid timestamp and source",
   "observations": [
     {
       "label": "BTC",

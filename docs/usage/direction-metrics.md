@@ -23,9 +23,9 @@ Running `python -m tools.agent.manager_report` now appends every TTΔ snapshot t
 1. **Collect signals** – Run `python -m tools.agent.manager_report` (or your preferred manager script) to refresh `_report/usage/manager-report.md`.
 2. **Update dashboard** – Append the six scalar values to the weekly section in `manager-report`. Include links into `artifacts/` or `_report/usage/` for evidence.
 3. **Trend tracking** – Optionally export the set into `memory/impact/ttd.jsonl` (append-only) for historical plots.
-4. **Escalation rule** – Any metric below target triggers a plan with OCERS vector ≥ Coherence and a bus broadcast describing the gap.
+4. **Escalation rule** – Any metric below target triggers a plan with retired observation loop vector ≥ Coherence and a bus broadcast describing the gap.
 
-### Relationship to OCERS
+### Relationship to retired observation loop
 
 - **Observation** → OC, IG
 - **Coherence** → CS, RD

@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Survey existing signals",
       "status": "done",
-      "notes": "Existing signals: OCERS artifacts, runner receipts, reconcile summaries, memory entries.",
+      "notes": "Existing signals: retired observation loop artifacts, runner receipts, reconcile summaries, memory entries.",
       "receipts": []
     },
     {

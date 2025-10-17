@@ -7,10 +7,10 @@
     "L5"
   ],
   "summary": "Reaffirmed that coherence checks verify structural consistency while ethics gates prevent power being applied without provenance; our memory-state receipts guard is an ethics safeguard, not a coherence fix.",
-  "signals": "Reviewer feedback questioned whether missing receipts break coherence or ethics, prompting a review of OCERS invariants and the memory guard's role.",
+  "signals": "Reviewer feedback questioned whether missing receipts break coherence or ethics, prompting a review of systemic invariants and the memory guard's role.",
   "actions": "Document the distinction in upcoming governance notes and ensure future TMS/critic features escalate under ethics before automation.",
   "tags": [
-    "ocers",
+    "legacy_loop",
     "ethics",
     "memory"
   ],

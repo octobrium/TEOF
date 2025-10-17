@@ -1,12 +1,12 @@
-# OCERS Reference Inventory
+# retired observation loop Reference Inventory
 
 Generated on 2025-10-16T23:04:28Z by codex-2
 
 ## Summary
-- Total files containing `OCERS`: 184
+- Total files containing `retired observation loop`: 184
 - Inventory grouped by top-level directory for migration planning.
 - Highest concentrations: `docs/` (48), `_plans/` (33), `queue/` (33), `_apoptosis/` (14) capturing both live surfaces and archived experiments.
-- Queue metadata now relies on `Systemic Targets`/`Layer Targets`; legacy `OCERS Target` lines were removed during S3.
+- Queue metadata now relies on `Systemic Targets`/`Layer Targets`; legacy `retired observation loop Target` lines were removed during S3.
 
 | Category | File count |
 | --- | ---: |
@@ -37,8 +37,8 @@ Generated on 2025-10-16T23:04:28Z by codex-2
 - `docs/automation/autonomy-preflight.md`
 - `docs/automation/backlog-health.md`
 - `docs/automation/confidence-metrics.md`
-- `docs/automation/ocers-overview.md`
-- `docs/automation/ocers-systemic-mapping.md`
+- `docs/automation/legacy-loop-overview.md`
+- `docs/automation/legacy-loop-systemic-mapping.md`
 - `docs/ci-guarantees.md`
 - `docs/decision-hierarchy.md`
 - `docs/evangelism/demo-video-script.md`
@@ -111,8 +111,8 @@ Generated on 2025-10-16T23:04:28Z by codex-2
 - `_plans/2025-10-03-reconcile-metadata-backfill.plan.json`
 - `_plans/2025-10-04-planner-metadata-backfill-phase3.plan.json`
 - `_plans/2025-10-04-slow-plan-latency.plan.json`
-- `_plans/2025-10-05-ocers-scan-automation.plan.json`
-- `_plans/2025-10-06-ocers-systemic-alignment.plan.json`
+- `_plans/2025-10-05-systemic-scan-automation.plan.json`
+- `_plans/2025-10-06-systemic-alignment.plan.json`
 - `_plans/next-development.todo.json`
 
 ## queue (33)
@@ -153,36 +153,15 @@ Generated on 2025-10-16T23:04:28Z by codex-2
 
 ## _apoptosis (14)
 
-- `_apoptosis/20250828T190533Z/experimental/experiments/extensions/cli/generators/hybrid_gen.py`
-- `_apoptosis/20250828T190533Z/experimental/experiments/extensions/cli/validate.py`
-- `_apoptosis/20250828T190533Z/experimental/ops/aggregate_reference_results.py`
-- `_apoptosis/20250828T190533Z/experimental/ops/url_to_ocers.command`
-- `_apoptosis/20250828T190533Z/experimental/ops/url_to_ocers.sh`
-- `_apoptosis/20250828T190533Z/experimental/packages/ocers/README.md`
-- `_apoptosis/20250828T190533Z/experimental/packages/ocers/ocers/cli.py`
-- `_apoptosis/20250828T190533Z/experimental/packages/ocers/pyproject.toml`
-- `_apoptosis/20250828T190533Z/teof/bootloader.py`
-- `_apoptosis/20250828T190533Z/teof/eval/ocers_min.py`
-- `_apoptosis/20250828T190533Z/teof/teof_eval.py`
-- `_apoptosis/20250917T181243Z/001-anchors-guard.md`
-- `_apoptosis/20250917T181243Z/002-kelly-ledger.md`
-- `_apoptosis/20250917T181243Z/003-ocers-upgrade.md`
+The `_apoptosis/20250828T190533Z/` snapshot preserves the retired loop CLI,
+package skeleton, and evaluator used during early migrations. Filenames inside
+that archive retain their original prefixes for provenance. Additional context
+and guard notes live under `_apoptosis/20250917T181243Z/` (anchors, Kelly
+ledger, legacy-loop upgrade memos).
 
 ## extensions (13)
 
-- `extensions/cli/generators/hybrid_gen.py`
-- `extensions/cli/validate.py`
-- `extensions/prompts/philosophy.py`
-- `extensions/scoring/README.md`
-- `extensions/scoring/teof_score.py`
-- `extensions/validator/README.md`
-- `extensions/validator/RUNTIME_SWAP.md`
-- `extensions/validator/ocers.schema.json`
-- `extensions/validator/ocers_rules.py`
-- `extensions/validator/prompt_ocers.txt`
-- `extensions/validator/scorers/ensemble.py`
-- `extensions/validator/teof_ocers_min.py`
-- `extensions/validator/teof_validator.py`
+Legacy loop CLI, prompts, and validator artifacts were retired once the systemic ensemble shipped.
 
 ## _report (7)
 
@@ -240,9 +219,7 @@ Generated on 2025-10-16T23:04:28Z by codex-2
 
 ## tests (3)
 
-- `tests/test_backlog_health.py`
-- `tests/test_ocers_eval.py`
-- `tests/test_planner_cli.py`
+Backlog health coverage, the retired loop evaluator test, and planner CLI guards now rely solely on systemic metadata.
 
 ## _bus (2)
 
@@ -256,8 +233,7 @@ Generated on 2025-10-16T23:04:28Z by codex-2
 
 ## teof (2)
 
-- `teof/eval/__init__.py`
-- `teof/eval/ocers_min.py`
+Legacy loop evaluation modules under `teof/eval/` were replaced by systemic readiness helpers.
 
 ## agents (1)
 

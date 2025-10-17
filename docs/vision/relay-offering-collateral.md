@@ -7,7 +7,7 @@
   guardrails, and deliver a cite-backed brief you can defend in boardrooms.
 - **Proof points:**
   - Deterministic prompts + receipts (`docs/automation/autonomy-conductor.md`).
-  - OCERS scoring + objective ledger snapshots (`teof-objectives-status`).
+  - retired observation loop scoring + objective ledger snapshots (`teof-objectives-status`).
   - Guarded API relay with human-in-the-loop approval (`docs/vision/relay-offering.md`).
 - **Call-to-action:** "Book a pilot sprint" → embeds intake form (see below).
 
@@ -45,7 +45,7 @@
 ## Sample Brief Outline
 1. **Executive Summary** — 3 bullets answering the focus question(s).
 2. **Signals Table** — key observations with timestamps and sources, aligned to
-   OCERS traits.
+   systemic traits.
 3. **Opportunity / Risk Matrix** — what to do, what to avoid, guardrail notes.
 4. **Command Log Appendix** — condensed relay/conductor transcripts with links to
    `_report/usage/` receipts.

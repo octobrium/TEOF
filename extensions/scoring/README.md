@@ -1,8 +1,7 @@
 ## Systemic Scoring Ensemble
 
-The OCERS-specific scorer (`teof_score.py`) has been retired along with the OCERS
-validators. The scoring surface is now the systemic readiness ensemble exposed
-through `extensions.validator.scorers.ensemble`.
+Legacy loop-specific scorers have been retired. The scoring surface is now the
+systemic readiness ensemble exposed through `extensions.validator.scorers.ensemble`.
 
 ### Quick reference
 
@@ -20,6 +19,6 @@ python3 -m extensions.validator.scorers.ensemble docs/examples/brief/inputs/001_
 ```
 
 See `docs/automation/systemic-overview.md` for the migration notes and how the
-systemic axes replace the legacy OCERS fields. The ensemble module accepts
+systemic axes replace earlier observation loops. The ensemble module accepts
 additional runners via `register_runner()` if downstream tooling wants to add
-more signals.*** End Patch
+more signals.

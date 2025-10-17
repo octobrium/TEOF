@@ -8,7 +8,7 @@
 - Objectives ledger ties work to shared goals (`docs/vision/objectives-ledger.md`).
 
 ## What You Get
-- **Deterministic bootstrap:** `teof brief` generates reproducible OCERS receipts (`artifacts/systemic_out/latest/brief.json`).
+- **Deterministic bootstrap:** `teof brief` generates reproducible systemic receipts (`artifacts/systemic_out/latest/brief.json`).
 - **Guarded autonomy loop:** Conductor prompts encode diff caps, test lists, and receipt paths (`tools/autonomy/conductor.py`).
 - **Governance spine:** Anchors and promotion policy keep history append-only (`governance/anchors.json`).
 

@@ -11,7 +11,7 @@
   segments.
 
 ## Signals Table
-| Source | Timestamp (UTC) | Signal | OCERS Trait |
+| Source | Timestamp (UTC) | Signal | retired observation loop Trait |
 | --- | --- | --- | --- |
 | `_report/external/sample/20250922T221000Z.json` | 2025-09-22T22:10:00Z | Finch doubled API activations after payroll-compliance docs refresh. | Observation |
 | `docs/vision/power-levers.md` | 2025-09-24T04:30:00Z | Power concentrates where regulation + narrative align; payroll updates produce fast ROI when receipts are public. | Coherence |

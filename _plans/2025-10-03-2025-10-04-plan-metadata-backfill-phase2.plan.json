@@ -3,7 +3,7 @@
   "plan_id": "2025-10-03-2025-10-04-plan-metadata-backfill-phase2",
   "created": "2025-10-03T04:33:16Z",
   "actor": "codex-1",
-  "summary": "Backfill OCERS metadata for late September plans",
+  "summary": "Backfill systemic metadata for late September plans",
   "priority": 3,
   "layer": "L5",
   "systemic_scale": 5,
@@ -12,16 +12,16 @@
   "steps": [
     {
       "id": "S1",
-      "title": "Confirm plans missing OCERS metadata",
+      "title": "Confirm plans missing systemic metadata",
       "status": "done",
-      "notes": "Identified 16 plans missing OCERS metadata",
+      "notes": "Identified 16 plans missing systemic metadata",
       "receipts": []
     },
     {
       "id": "S2",
       "title": "Annotate plan files",
       "status": "done",
-      "notes": "Annotated 16 plans with OCERS targets and coordinates",
+      "notes": "Annotated 16 plans with systemic targets and coordinates",
       "receipts": []
     },
     {

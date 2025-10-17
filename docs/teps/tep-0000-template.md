@@ -16,8 +16,8 @@ Components & flows (read/write/score), error handling/rollback.
 ## 4) Plan (Minimal Steps)
 Smallest shippable steps that can merge independently.
 
-## 5) Tests & Validation (OCERS)
-Goldens to add/update; expected OCERS characteristics; where `teof brief` should show the change.
+## 5) Tests & Validation (retired observation loop)
+Goldens to add/update; expected retired observation loop characteristics; where `teof brief` should show the change.
 
 ## 6) Capsule / Governance
 Target capsule version (if relevant). Anchors note if governance semantics change.
@@ -28,7 +28,7 @@ Target capsule version (if relevant). Anchors note if governance semantics chang
 - Goldens/CI updates
 
 ## 8) Fitness Gate (if adding tools/CI/deps)
-- OCERS trait improved: ______
+- systemic trait improved: ______
 - Evidence / receipts: ______
 - Friction / config footprint: ______
 - Rollout plan (optional by default?): ______

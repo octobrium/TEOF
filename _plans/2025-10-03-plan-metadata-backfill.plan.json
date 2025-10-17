@@ -3,14 +3,14 @@
   "plan_id": "2025-10-03-plan-metadata-backfill",
   "created": "2025-10-03T02:46:30Z",
   "actor": "codex-4",
-  "summary": "Backfill OCERS metadata on high-priority plans",
+  "summary": "Backfill systemic metadata on high-priority plans",
   "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Update bus instrumentation plans",
       "status": "done",
-      "notes": "Add OCERS, layer, and systemic scale to agent-bus-watch and codex1-support plans.",
+      "notes": "Add retired observation loop, layer, and systemic scale to agent-bus-watch and codex1-support plans.",
       "receipts": [
         "_plans/2025-09-17-agent-bus-watch.plan.json",
         "_plans/2025-09-17-codex1-support.plan.json"
@@ -20,7 +20,7 @@
       "id": "S2",
       "title": "Backfill anchors guard metadata",
       "status": "done",
-      "notes": "Annotate anchors guard plans with OCERS target and systemic scale to satisfy advisory requirements.",
+      "notes": "Annotate anchors guard plans with retired observation loop target and systemic scale to satisfy advisory requirements.",
       "receipts": [
         "_plans/2025-09-17-anchors-append-guard.plan.json",
         "_plans/2025-09-17-anchors-guard.plan.json"
@@ -39,7 +39,7 @@
     }
   ],
   "checkpoint": {
-    "description": "High-priority 2025-09-17 plans carry OCERS metadata and no longer appear in advisory backlog",
+    "description": "High-priority 2025-09-17 plans carry systemic metadata and no longer appear in advisory backlog",
     "owner": "codex-4",
     "status": "satisfied"
   },

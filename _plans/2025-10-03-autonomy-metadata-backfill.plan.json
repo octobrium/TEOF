@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Annotate automation/batch plans",
       "status": "done",
-      "notes": "Add OCERS metadata to autonomy batch runner, metrics, status CLI/receipt, hygiene thresholds, batch refinement set.",
+      "notes": "Add systemic metadata to autonomy batch runner, metrics, status CLI/receipt, hygiene thresholds, batch refinement set.",
       "receipts": [
         "_plans/2025-09-21-autonomy-batch-runner.plan.json",
         "_plans/2025-09-21-autonomy-metrics.plan.json",
@@ -42,7 +42,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Autonomy batch + capsule sync plans carry OCERS metadata and drop from advisory backlog",
+    "description": "Autonomy batch + capsule sync plans carry systemic metadata and drop from advisory backlog",
     "owner": "codex-4",
     "status": "satisfied"
   },

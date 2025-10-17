@@ -22,7 +22,7 @@ Key flags:
 Receipts land under `_report/usage/backlog-health/` and include:
 - `pending_count` and `pending_items` snapshot with priority metadata.
 - `pending_threshold_breached` boolean.
-- `replenishment_candidates`: queue entries (path, coordinate, OCERS target) to
+- `replenishment_candidates`: queue entries (path, coordinate, retired observation loop target) to
   convert into the next plan.
 
 Run the guard after scans or autonomy batches so agents see the next

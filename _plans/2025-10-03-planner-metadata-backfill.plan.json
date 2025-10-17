@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Update metrics plans",
       "status": "done",
-      "notes": "Add OCERS metadata to metrics JSON/logging plans and meaning-memory context.",
+      "notes": "Add systemic metadata to metrics JSON/logging plans and meaning-memory context.",
       "receipts": [
         "_plans/2025-09-17-meaning-memory.plan.json",
         "_plans/2025-09-17-metrics-jsonl.plan.json",
@@ -21,7 +21,7 @@
       "id": "S2",
       "title": "Annotate planner bootstrap plans",
       "status": "done",
-      "notes": "Backfill OCERS metadata across planner CLI/eval/insight/show/v0.2/validator upgrade plans.",
+      "notes": "Backfill systemic metadata across planner CLI/eval/insight/show/v0.2/validator upgrade plans.",
       "receipts": [
         "_plans/2025-09-17-planner-cli-bootstrap.plan.json",
         "_plans/2025-09-17-planner-eval-bootstrap.plan.json",
@@ -43,7 +43,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Planner + metrics plans carry OCERS metadata and no longer appear in advisory backlog",
+    "description": "Planner + metrics plans carry systemic metadata and no longer appear in advisory backlog",
     "owner": "codex-4",
     "status": "satisfied"
   },

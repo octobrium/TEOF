@@ -1,11 +1,6 @@
 {
-  "ocers": {
-    "observation": "Price missing timestamp",
-    "coherence": "",
-    "evidence": "",
-    "result": "fail",
-    "scope": "VDP"
-  },
+  "expected_verdict": "fail",
+  "rationale": "Price missing timestamp metadata.",
   "observations": [
     {
       "label": "PLTR",

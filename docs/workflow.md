@@ -14,7 +14,9 @@ Review cadence: Monthly sweep
 - Advance TEOF with minimal surface area and deterministic, auditable outputs.
 - Follow the repo DNA, not ad-hoc preferences.
 
-**Read these first (in order)**
+**Read these first (in order)**  
+Use `docs/onboarding/README.md` as the orchestrator—automation and humans will
+check that the sequence below is followed:
 1) `docs/architecture.md` — where things go  
 2) `docs/workflow.md` — priority ladder & release (this file)  
 3) `docs/promotion-policy.md`  

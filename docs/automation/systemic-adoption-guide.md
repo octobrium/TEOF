@@ -111,7 +111,7 @@ Steps:
 1. Inventory existing policies and assign candidate S/L tokens.  
 2. Document conflicts or gaps (e.g., a policy referencing “integrity” may span S4/S6).  
 3. Decide whether to promote, adapt, or retire rules to maintain minimalism.  
-4. Capture the final mapping in an internal guide (fork `docs/automation/ocers-systemic-mapping.md` as a template).  
+4. Capture the final mapping in an internal guide (fork `docs/automation/legacy-loop-systemic-mapping.md` as a template).  
 5. Append governance events when the constitutional layers change.
 
 ---
@@ -123,7 +123,7 @@ Steps:
 - **Quickstart smoke:** Recreate `scripts/ci/quickstart_smoke.sh` tailored to your environment to ensure canonical artifacts still build.  
 - **Soft policies:** Use warnings for cultural adoption (e.g., referencing systemic targets in PR descriptions) before enforcing hard gates.
 
-When migrating from OCERS-era terminology, supply a temporary `--legacy-ocers` flag in your tools to ease the transition while retraining teams.
+When migrating from retired observation loop-era terminology, supply a temporary `--legacy-loop` flag in your tools to ease the transition while retraining teams.
 
 ---
 

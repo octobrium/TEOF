@@ -62,7 +62,7 @@ Every artifact declares:
 - `layer_targets`: the layers it operates within (e.g. L4 Architecture, L5 Workflow).
 - `systemic_scale`: the highest axis it must satisfy before proceeding.
 
-This explicit coordinate replaces the legacy OCERS overlay while preserving the same intent—evidence, coherence, guardrails, reproducibility, and recovery all map onto the S/L lattice. See [`docs/foundation/systemic-scale.md`](docs/foundation/systemic-scale.md) and [`governance/systemic-order.json`](governance/systemic-order.json) for canonical definitions, plus [`docs/automation/systemic-overview.md`](docs/automation/systemic-overview.md) for migration guidance.
+This explicit coordinate replaced earlier observation loops while preserving the same intent—evidence, coherence, guardrails, reproducibility, and recovery all map onto the S/L lattice. See [`docs/foundation/systemic-scale.md`](docs/foundation/systemic-scale.md) and [`governance/systemic-order.json`](governance/systemic-order.json) for canonical definitions, plus [`docs/automation/systemic-overview.md`](docs/automation/systemic-overview.md) for migration guidance.
 
 ---
 
