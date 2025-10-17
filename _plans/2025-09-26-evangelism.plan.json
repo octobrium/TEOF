@@ -56,8 +56,7 @@
     "docs/evangelism/distribution-cadence.md",
     "docs/evangelism/narrative-arcs.md",
     "docs/evangelism/one-pager.md",
-    "docs/evangelism/slide-deck-outline.md",
-    "tools/evangelism/log_event.py"
+    "docs/evangelism/slide-deck-outline.md"
   ],
   "layer": "L5",
   "systemic_scale": 5,

@@ -16,8 +16,8 @@ Components & flows (read/write/score), error handling/rollback.
 ## 4) Plan (Minimal Steps)
 Smallest shippable steps that can merge independently.
 
-## 5) Tests & Validation (retired observation loop)
-Goldens to add/update; expected retired observation loop characteristics; where `teof brief` should show the change.
+## 5) Tests & Validation (Systemic Alignment)
+Goldens to add/update; expected systemic characteristics; where `teof brief` should show the change.
 
 ## 6) Capsule / Governance
 Target capsule version (if relevant). Anchors note if governance semantics change.

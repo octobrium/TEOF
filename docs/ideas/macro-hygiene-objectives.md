@@ -11,7 +11,7 @@ updated = "2025-10-05T00:00:00Z"
 # Macro Hygiene Objectives Integration
 
 ## Summary
-Track macro hygiene commitments with durable receipts and surface their status across autonomy dashboards. Ensure the retired observation loop view stays trustworthy as macro hygiene objectives evolve.
+Track macro hygiene commitments with durable receipts and surface their status across autonomy dashboards. Ensure the systemic view stays trustworthy as macro hygiene objectives evolve.
 
 ## Context
 - ND-041 remains the top-ranked backlog item for weaving macro hygiene checks into autonomy reporting.

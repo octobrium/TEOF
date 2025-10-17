@@ -50,7 +50,7 @@ The current four-agent loop is shipping the following to unlock larger swarms:
 4. **Dashboard sharding** – `coord_dashboard` gains paginated dirty-hand-off and heartbeat slices so dozens of simultaneous agents remain legible.
 5. **Consensus automation** – release events and manager reports emit machine-readable receipts that future bots can promote directly into governance decisions.
 
-Each initiative is tracked under `_plans/2025-10-03-session-guard-upgrade.plan.json` and follow-on plans queued in `queue/`. They explicitly advance retired observation loop: Observation (better receipts), Coherence (consistent manifests), Ethics (guarded power), Reproducibility (automated checks), and Self-repair (auto escalation).
+Each initiative is tracked under `_plans/2025-10-03-session-guard-upgrade.plan.json` and follow-on plans queued in `queue/`. They explicitly advance the systemic ladder: S1 Observation (better receipts), S6 Coherence (consistent manifests), S8 Ethics (guarded power), S5 Reproducibility (automated checks), and S4 Defense / S10 Meaning for self-repair (auto escalation).
 
 ## Maturity Signals
 

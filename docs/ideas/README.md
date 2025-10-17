@@ -57,7 +57,7 @@ The repo-local CLI exposes `teof ideas` helpers:
 - `teof ideas promote <id> [--plan-id <plan>] [--layer ...] [--systemic ...]` — set status to `promoted` and optionally link to a plan.
 - `teof ideas evaluate [--status triage] [--limit 5] [--show-reasons]` — heuristic pre-filter recommending which ideas deserve promotion attention.
 
-All commands update timestamps automatically and enforce the allowed status values. Combine `--layer` and `--systemic` to keep the retired observation loop mapping explicit before escalation into `_plans/`.
+All commands update timestamps automatically and enforce the allowed status values. Combine `--layer` and `--systemic` to keep the systemic mapping explicit before escalation into `_plans/`.
 
 ## Promotion checklist
 Before running `teof ideas promote`:

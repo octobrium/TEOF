@@ -45,7 +45,7 @@ Emergency recursion is not an exception—it is this ladder executed at high spe
 Use the helper to capture scenario responses in `_report/usage/governance/`:
 
 ```bash
-python3 -m tools.ethics.log_scenario "Countered propaganda with receipts" \
+python3 -m tools.receipts.log_event ethics "Countered propaganda with receipts" \
     --scenario disinformation \
     --impact high \
     --actions "Collected forgeries" "Alerted governance" \

@@ -23,7 +23,7 @@
 2. Decision loop runs proposal/critique via `teof-decision-cycle`; outputs
    stored under `_report/usage/decision-loop/`.
 3. Human review (Codex operator) approves commands, runs tasks via agent relay,
-   logs results (`teof-impact-log`).
+   logs results (`python3 -m tools.receipts.log_event impact …`).
 4. Deliverables sent; reflection + impact entry appended.
 
 ## Success Metrics

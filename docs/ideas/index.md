@@ -11,4 +11,4 @@ Use this checklist to shepherd an idea from observation to a backlogged plan.
 7. **Execution** — Work proceeds in the plan; update the idea with status `in_progress` only if major research continues outside the plan. Otherwise leave it `promoted`.
 8. **Closure** — When the plan finishes, either archive (`teof ideas mark --status archived`) or append receipts explaining why the idea remains open for future extensions.
 
-This path keeps retired observation loop coordinates attached from the moment an idea surfaces, and ensures every promoted concept has receipts tying it to plans, claims, and downstream automation.
+This path keeps systemic coordinates attached from the moment an idea surfaces, and ensures every promoted concept has receipts tying it to plans, claims, and downstream automation.

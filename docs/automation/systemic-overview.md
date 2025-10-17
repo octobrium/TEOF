@@ -2,7 +2,7 @@
 # Systemic Metadata Overview
 
 **Status:** Living  
-**Purpose:** Document the systemic axis (S1–S10) and layer (L0–L6) metadata that replaced legacy retired observation loop fields across TEOF.
+**Purpose:** Document the systemic axis (S1–S10) and layer (L0–L6) metadata that replaced legacy loop fields across TEOF.
 
 TEOF now encodes alignment intent explicitly through **systemic targets** and **layer targets**.  
 This note explains the lattice, how the codebase consumes it, and how to keep automation,
@@ -12,7 +12,7 @@ plans, and docs coherent with the constitution.
 
 ## 1. Why systemic targets?
 
-retired observation loop (Observation → Coherence → Ethics → Reproducibility → Self-repair) served as
+The legacy loop (Observation → Coherence → Ethics → Reproducibility → Self-repair) served as
 an interim guardrail for receipts. It bundled multiple concerns into a single label,
 making automated validation brittle and unclear.
 
@@ -90,7 +90,7 @@ Automation enforces these fields via:
 
 ## 5. Migration checklist (legacy → systemic)
 
-Use this when auditing residual retired observation loop references:
+Use this when auditing residual legacy loop references:
 
 1. Replace `legacy_loop_target` fields with `systemic_targets`/`layer_targets`.
 2. Update CLI scripts to call `teof_systemic_min` (alias `teof-validate`).
@@ -105,8 +105,8 @@ See `docs/automation/legacy-loop-retirement-inventory.md` for a complete audit t
 ## 6. Backwards compatibility
 
 - `teof/eval/__init__.py` re-exports `evaluate` from the systemic heuristic so external tooling that imported `teof.eval` continues to function.
-- CI now warns on retired observation loop-specific paths (e.g., `artifacts/legacy_loop_out`).
-- Legacy docs retain references with explicit archival notes; avoid new retired observation loop mentions unless documenting history.
+- CI now warns on legacy loop-specific paths (e.g., `artifacts/legacy_loop_out`).
+- Legacy docs retain references with explicit archival notes; avoid new legacy loop mentions unless documenting history.
 
 ---
 

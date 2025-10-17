@@ -40,7 +40,7 @@ Preliminary cleanup candidates:
 
 - **`AGENT_MANIFEST.*` duplicates** – keep `AGENT_MANIFEST.json` as active manifest, move variants into `docs/examples/agents/` (or merge into a single commented template) to reduce top-level clutter.
 - **`_apoptosis/` (1.8 MB)** – contains legacy apoptosis run logs; confirm with automation owners whether these can relocate to `artifacts/` or be pruned after archiving latest summary.
-- **`artifacts/` (5.9 MB)** – retains historical retired observation loop outputs; evaluate keeping only `latest/` and relocating dated snapshots to release tags.
+- **`artifacts/` (5.9 MB)** – retains historical legacy loop outputs; evaluate keeping only `latest/` and relocating dated snapshots to release tags.
 - **`_report/` (6.7 MB)** – largest footprint; propose rotation policy (retain last N runs) for directories like `_report/usage/external-summary.json` and `_report/usage/chronicle/` now that canonical ledgers exist.
 - **`queue/` + `agents/tasks/tasks.json`** – confirm if legacy queue fixtures are still referenced; otherwise consolidate into `_plans/` or documentation.
 - **`binary scripts` under `bin/`** – audit for redundancy with Python entrypoints (`teof bootloader`, `tools/…`).

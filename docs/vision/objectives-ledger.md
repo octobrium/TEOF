@@ -35,7 +35,7 @@ L0 observations and L1 principles.
   supporting autonomy runs or reflections.
 - **Signals:** `memory/log.jsonl`, `_report/usage/chronicle/` entries.
  - **Ledger:** `docs/vision/impact-ledger.md` + `memory/impact/log.jsonl`
-   (`teof-impact-log`).
+   (`python3 -m tools.receipts.log_event impact …`).
  - **Status Tool:** `teof-objectives-status` (counts impact log entries and
    verifies ledger summaries).
 

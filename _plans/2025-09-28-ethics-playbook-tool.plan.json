@@ -21,9 +21,9 @@
     },
     {
       "id": "S2",
-      "title": "Implement tools.ethics.log_scenario module",
+      "title": "Implement tools.receipts.log_event ethics preset",
       "status": "done",
-      "notes": "CLI logging module implemented",
+      "notes": "CLI logging preset implemented via tools.receipts.log_event ethics mode",
       "receipts": []
     },
     {

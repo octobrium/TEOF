@@ -2,7 +2,7 @@
 # Systemic Residual Audit
 
 **Status:** Checklist  
-**Purpose:** Ensure no legacy retired observation loop artifacts remain after the systemic migration.
+**Purpose:** Ensure no legacy loop artifacts remain after the systemic migration.
 
 Run this audit monthly (or after large merges) to guarantee the codebase, docs, and
 receipts stay aligned with the systemic lattice.
@@ -17,7 +17,7 @@ receipts stay aligned with the systemic lattice.
    systemic heuristic and rule helpers are intact.
 3. `python3 tools/planner/validate.py --strict` – rejects plans missing systemic metadata.
 4. `scripts/ci/quickstart_smoke.sh` – produces `artifacts/systemic_out/<stamp>/` receipts.
-5. `scripts/ci/check_queue_template.py` – warns if queue templates reference retired observation loop fields.
+5. `scripts/ci/check_queue_template.py` – warns if queue templates reference legacy loop fields.
 
 Record command outputs under `_report/usage/` when running a formal audit.
 
@@ -63,7 +63,7 @@ and scope them with migration deadlines.
 
 ## 5. Escalation
 
-- If the audit uncovers non-trivial retired observation loop dependencies, open a plan (`S6`,`S4`, layer `L4`)
+- If the audit uncovers non-trivial legacy loop dependencies, open a plan (`S6`,`S4`, layer `L4`)
   to resolve them.
 - When rules or tooling change, capture receipts in `_report/usage/` and update the
   inventory/progress docs.

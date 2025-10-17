@@ -1,11 +1,11 @@
-# retired observation loop ↔ Systemic Hierarchy Mapping (Draft)
+# legacy loop ↔ Systemic Hierarchy Mapping (Draft)
 
-The retired observation loop loop is a diagnostic overlay. Each phase maps to one or more systemic
+The legacy loop is a diagnostic overlay. Each phase maps to one or more systemic
 axes (S1–S10). Machine-readable ordering lives in
 [`governance/systemic-order.json`](../../governance/systemic-order.json); this
 draft mapping will evolve as governance refines the relationship.
 
-| retired observation loop Phase | Primary Systemic Axes | Notes |
+| legacy loop Phase | Primary Systemic Axes | Notes |
 | --- | --- | --- |
 | Observation | S1 Unity, S2 Energy | Establish shared reference frames and capture raw signals. |
 | Coherence | S3 Propagation, S6 Truth | Keep signals consistent across nodes and aligned with invariants. |
@@ -15,7 +15,7 @@ draft mapping will evolve as governance refines the relationship.
 
 **Hierarchy discipline**
 
-- retired observation loop phases must respect the S1–S10 order (see [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement)). If a phase maps to lower axes (e.g., Ethics → S8), first ensure higher prerequisites are stable or actively defended.  
+- legacy loop phases must respect the S1–S10 order (see [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement)). If a phase maps to lower axes (e.g., Ethics → S8), first ensure higher prerequisites are stable or actively defended.  
 - When multiple phases compete (e.g., Ethics vs. Self-repair), trace each to its systemic axes and resolve the highest axis first.  
 - Automation pipelines should log which prerequisite axes were satisfied before a lower-axis guard escalated.
 

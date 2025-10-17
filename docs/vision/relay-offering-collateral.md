@@ -7,7 +7,7 @@
   guardrails, and deliver a cite-backed brief you can defend in boardrooms.
 - **Proof points:**
   - Deterministic prompts + receipts (`docs/automation/autonomy-conductor.md`).
-  - retired observation loop scoring + objective ledger snapshots (`teof-objectives-status`).
+  - Systemic scoring + objective ledger snapshots (`teof-objectives-status`).
   - Guarded API relay with human-in-the-loop approval (`docs/vision/relay-offering.md`).
 - **Call-to-action:** "Book a pilot sprint" → embeds intake form (see below).
 

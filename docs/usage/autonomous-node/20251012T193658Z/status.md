@@ -23,11 +23,11 @@
 - Stale receipts (limit 5):
   - tools.autonomy.audit_guidelines: last_receipt=never
   - tools.autonomy.ethics_gate: last_receipt=never
-  - tools.autonomy.impact_log: last_receipt=never
-  - tools.autonomy.node_runner: last_receipt=never
+  - tools.receipts.log_event (impact preset): last_receipt=never
+  - tools.autonomy.node_runner: retired after 2025-10-18
 - No direct tests detected (limit 5):
   - tools.autonomy.audit_guidelines: last_receipt=never
-  - tools.autonomy.node_runner: last_receipt=never
+  - tools.autonomy.node_runner: retired after 2025-10-18
 
 ## Auto Objectives (detected)
 - [done] OBJ-A4 — Update docs/quickstart.md with editable install and CLI — Confirmed Quickstart snippet includes editable install + brief run

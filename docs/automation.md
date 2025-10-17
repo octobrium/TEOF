@@ -221,7 +221,7 @@ Run `python -m tools.agent.backlog_health --threshold 3 --candidate-limit 5 --fa
 
 ### Log real-world impact
 
-Use `teof-impact-log --title "Outcome" --value 100 --description "..." --receipt <path>` to append structured impact entries under `memory/impact/log.jsonl`. Promote notable items into the impact ledger so Objective O4 stays tied to receipts and measurable value.
+Use `python3 -m tools.receipts.log_event impact --title "Outcome" --value 100 --description "..." --receipt <path>` to append structured impact entries under `memory/impact/log.jsonl`. Promote notable items into the impact ledger so Objective O4 stays tied to receipts and measurable value.
 
 ### External feed adoption playbook
 

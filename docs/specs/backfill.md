@@ -9,7 +9,7 @@ Status: draft
 TEOF agents can issue **retro advisories** when fresh receipts reveal that
 existing artefacts (docs, code, tests) no longer reflect observed truth. The
 protocol translates those advisories into standard queue items and plans, so the
-existing retired observation loop ladder, planner receipts, and governance anchors continue to hold.
+existing systemic ladder, planner receipts, and governance anchors continue to hold.
 
 ## Artefacts
 
@@ -39,10 +39,9 @@ existing retired observation loop ladder, planner receipts, and governance ancho
   coverage falls below the ratchet baseline.
 - `python3 -m tools.fractal.advisory` writes `advisories/latest.json` so CI can
   open queue backfill items.
-- `python3 -m tools.backfill.spatch <file>` validates a semantic patch before it
-  rides along with a backfill plan or PR.
-- `python3 -m tools.backfill.emit_queue --apply` converts advisories into queue
-  stubs (`queue/BF-*.md`) so existing planner/CI flows pick them up.
+- `python3 -m tools.fractal.backfill_plans --apply` enriches plan metadata from
+  queue coordinates; legacy `tools.backfill/*` helpers have been retired to
+  keep the flow single-source.
 
 Until automation lands, these schemas document the contract so humans can start
 experimenting with the workflow using manual advisories and backfill plans.

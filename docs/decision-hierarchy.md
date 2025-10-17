@@ -52,8 +52,8 @@ Document what *worked* and *what still needs refinement* in each decision journa
 
 ## Fractal conformance receipts
 
-- Run `python3 -m tools.fractal.conformance --pretty --out _report/fractal/conformance/latest.json` to capture a receipt of retired observation loop + coordinate coverage across queue items, plans, and memory.
+- Run `python3 -m tools.fractal.conformance --pretty --out _report/fractal/conformance/latest.json` to capture a receipt of systemic + coordinate coverage across queue items, plans, and memory.
 - Treat missing systemic targets or `S#:L#` coordinates as blockers before promoting automation; `--strict` exits non-zero when gaps exist, making it safe to plug into CI or local preflight.
 - Link the emitted `_report/fractal/conformance/latest.json` in decision journals so reviewers can inspect the organism’s health from leaves to trunk.
 - Baseline allowances live in `docs/fractal/baseline.json`; lower the numbers as you backfill metadata so CI ratchets toward full coverage.
-- Use `python3 tools/fractal/backfill_plans.py --apply` when plans link to queue items but lack retired observation loop or coordinates; the helper mirrors queue metadata into the plan documents.
+- Use `python3 tools/fractal/backfill_plans.py --apply` when plans link to queue items but lack systemic metadata; the helper mirrors queue coordinates into the plan documents.

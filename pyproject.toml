@@ -16,18 +16,7 @@ dependencies = [
 [project.scripts]
 teof = "teof.bootloader:main"
 teof-validate = "extensions.validator.teof_systemic_min:main"
-teof-ensemble = "extensions.validator.scorers.ensemble_cli:main"
 teof-plan = "tools.planner.cli:main"
-teof-external-adapter = "tools.external.adapter:main"
-teof-external-summary = "tools.external.summary:main"
-teof-external-keygen = "tools.external.keys:main"
-teof-autonomy-loop = "tools.autonomy.auto_loop:main"
-teof-conductor = "tools.autonomy.conductor:main"
-teof-reflection-intake = "tools.autonomy.reflection_intake:main"
-teof-objectives-status = "tools.autonomy.objectives_status:main"
-teof-impact-log = "tools.autonomy.impact_log:main"
-teof-decision-intake = "tools.autonomy.decision_intake:main"
-teof-scan-driver = "tools.autonomy.scan_driver:main"
 
 [tool.setuptools]
 include-package-data = true

@@ -23,7 +23,7 @@ while honouring L0–L3 guardrails and logging impact.
 - Apply approved commands/tests or hand off to human executor.
 - Immediately capture a reflection (`teof-reflection-intake`) so learning feeds
   back into L0/L2.
-- Log the outcome/value via `teof-impact-log`, linking to the decision receipts.
+- Log the outcome/value via `python3 -m tools.receipts.log_event impact …`, linking to the decision receipts.
 
 ## 4. Governance Hooks
 - Preflight: consent & authenticity checks before any unattended action.

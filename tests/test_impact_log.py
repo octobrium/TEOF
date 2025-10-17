@@ -5,12 +5,12 @@ from pathlib import Path
 
 import pytest
 
-from tools.autonomy import impact_log
+from tools.receipts import log_event
 
 
 def test_write_entry_appends(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     log_path = tmp_path / "memory" / "impact" / "log.jsonl"
-    monkeypatch.setattr(impact_log, "IMPACT_LOG", log_path)
+    monkeypatch.setattr(log_event, "IMPACT_LOG_PATH", log_path)
 
     entry = {
         "recorded_at": "2025-09-23T00:00:00Z",
@@ -22,7 +22,7 @@ def test_write_entry_appends(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) ->
         "notes": "",
     }
 
-    impact_log.write_entry(entry, dry_run=False)
+    log_event.write_impact_entry(entry, dry_run=False)
 
     lines = log_path.read_text(encoding="utf-8").splitlines()
     assert len(lines) == 1
@@ -32,16 +32,18 @@ def test_write_entry_appends(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) ->
 
 
 def test_main_dry_run(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
-    args = [
-        "--title",
-        "Dry run",
-        "--value",
-        "0",
-        "--description",
-        "Preview",
-        "--dry-run",
-    ]
-    rc = impact_log.main(args)
+    rc = log_event.main(
+        [
+            "impact",
+            "--title",
+            "Dry run",
+            "--value",
+            "0",
+            "--description",
+            "Preview",
+            "--dry-run",
+        ]
+    )
     assert rc == 0
     output = capsys.readouterr().out
     assert "Dry run" in output

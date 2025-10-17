@@ -21,4 +21,4 @@ Recent receipts logged 2025-09-29 → 2025-10-03 illustrate the pattern below.
 
 Update the table after each touch, attach actual receipts, and broadcast a `bus_event` so the manager dashboard mirrors progress.
 
-Use `python3 -m tools.evangelism.log_event` to capture each touch; receipts are linked above.
+Use `python3 -m tools.receipts.log_event evangelism` to capture each touch; receipts are linked above.

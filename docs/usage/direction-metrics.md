@@ -23,15 +23,15 @@ Running `python -m tools.agent.manager_report` now appends every TTΔ snapshot t
 1. **Collect signals** – Run `python -m tools.agent.manager_report` (or your preferred manager script) to refresh `_report/usage/manager-report.md`.
 2. **Update dashboard** – Append the six scalar values to the weekly section in `manager-report`. Include links into `artifacts/` or `_report/usage/` for evidence.
 3. **Trend tracking** – Optionally export the set into `memory/impact/ttd.jsonl` (append-only) for historical plots.
-4. **Escalation rule** – Any metric below target triggers a plan with retired observation loop vector ≥ Coherence and a bus broadcast describing the gap.
+4. **Escalation rule** – Any metric below target triggers a plan targeting systemic axis ≥ `S6 Coherence` plus a bus broadcast describing the gap.
 
-### Relationship to retired observation loop
+### Mapping to systemic axes
 
-- **Observation** → OC, IG
-- **Coherence** → CS, RD
-- **Ethics** → IG, SO
-- **Reproducibility** → CS, SC
-- **Self-repair** → RD, SC
+- **S1 Observation** → OC, IG
+- **S6 Coherence** → CS, RD
+- **S8 Ethics** → IG, SO
+- **S5 Reproducibility** → CS, SC
+- **S4 Defense / S10 Meaning (Self-repair)** → RD, SC
 
 When all six metrics trend up while IG trends down, TTΔ is positive and the system is aligned with the North Star (expanding observation, reducing incoherence, preserving options).
 

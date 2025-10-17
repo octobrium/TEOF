@@ -15,8 +15,8 @@ Receipts:
 Notes: <Context, lessons learned>
 ```
 
-Record raw entries with `teof-impact-log --title ...` (writes to
-`memory/impact/log.jsonl`); summarize key wins here for storytelling.
+Record raw entries with `python3 -m tools.receipts.log_event impact --title ...`
+(writes to `memory/impact/log.jsonl`); summarize key wins here for storytelling.
 
 ## Example Entries
 

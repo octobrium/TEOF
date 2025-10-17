@@ -11,7 +11,7 @@
   segments.
 
 ## Signals Table
-| Source | Timestamp (UTC) | Signal | retired observation loop Trait |
+| Source | Timestamp (UTC) | Signal | Systemic Trait |
 | --- | --- | --- | --- |
 | `_report/external/sample/20250922T221000Z.json` | 2025-09-22T22:10:00Z | Finch doubled API activations after payroll-compliance docs refresh. | Observation |
 | `docs/vision/power-levers.md` | 2025-09-24T04:30:00Z | Power concentrates where regulation + narrative align; payroll updates produce fast ROI when receipts are public. | Coherence |
@@ -34,5 +34,5 @@
 1. Convert this excerpt into a Notion deliverable with linked receipts.
 2. Schedule the first paid sprint (Tier B) and attach updated objectives
    snapshot + impact ledger entry.
-3. Run `teof-impact-log --title "Relay sprint client #1" ...` once the pilot is
+3. Run `python3 -m tools.receipts.log_event impact --title "Relay sprint client #1" ...` once the pilot is
    delivered.

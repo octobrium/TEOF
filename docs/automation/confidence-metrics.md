@@ -14,7 +14,7 @@ this shape:
   "ts": "2025-10-06T20:35:00Z",
   "agent": "codex-4",
   "confidence": 0.72,
-  "note": "retired observation loop scan expected to pass"
+  "note": "legacy loop scan expected to pass"
 }
 ```
 
@@ -56,7 +56,7 @@ so stewards can compare runs. Use `--format json` for machine-readable output.
 
 `python -m tools.agent.batch_refinement` runs the watcher automatically and fails
 the batch when alerts fire (unless `--allow-confidence-alerts` is provided). This
-keeps overconfidence escalations inline with the retired observation loop Truth → Ethics contract
+keeps overconfidence escalations inline with the systemic Truth → Ethics contract
 before automation publishes heartbeats.
 
 ## Next Steps

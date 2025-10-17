@@ -1,22 +1,9 @@
-# Autonomous Node Runner
+# Autonomous Node (retired helper)
 
-Run the local workflow autonomously (no human approvals) with:
+The former `tools.autonomy.node_runner` and `scripts/run-autonomous-node.sh` wrapper
+have been retired to tighten the automation surface. Existing artifacts under this
+directory remain as historical receipts of the experiment.
 
-```bash
-scripts/run-autonomous-node.sh 10
-```
-
-This executes:
-- `teof status --out … --quiet`
-- `teof scan --format json --out …`
-- `teof ideas evaluate --format json`
-
-Receipts land under `docs/usage/autonomous-node/<UTCSTAMP>/` with a `summary.json` capturing hashes for status, scan payload, and idea ranking.
-
-Schedule via cron/systemd to “mine” continuously. Example cron entry:
-
-```
-*/30 * * * * cd /path/to/TEOF && scripts/run-autonomous-node.sh 5 >/tmp/teof-node.log 2>&1
-```
-
-Each run is sandboxed to the repo workspace; extend tooling once incentives are in place.
+For ongoing automation, prefer the guarded autonomy loop (`python -m tools.autonomy.auto_loop`)
+or compose bespoke runs from the supported CLI (`teof status`, `teof scan`, `teof ideas evaluate`)
+capturing receipts per workflow policy.

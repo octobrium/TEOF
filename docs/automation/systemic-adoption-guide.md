@@ -123,7 +123,7 @@ Steps:
 - **Quickstart smoke:** Recreate `scripts/ci/quickstart_smoke.sh` tailored to your environment to ensure canonical artifacts still build.  
 - **Soft policies:** Use warnings for cultural adoption (e.g., referencing systemic targets in PR descriptions) before enforcing hard gates.
 
-When migrating from retired observation loop-era terminology, supply a temporary `--legacy-loop` flag in your tools to ease the transition while retraining teams.
+When migrating from legacy loop-era terminology, supply a temporary `--legacy-loop` flag in your tools to ease the transition while retraining teams.
 
 ---
 

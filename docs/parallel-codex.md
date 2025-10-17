@@ -123,6 +123,11 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse t
 - If an agent crashes mid-task, another agent may set `status=paused` with notes, then reclaim after confirming state.
 - Event log is append-only; if corruption occurs, restore from history before merging further PRs.
 
+## Idle Seats & Collision Checks
+
+- Before editing, review active claims with `python -m tools.agent.bus_status --active-only` (or the manager preset) so you do not collide with teammates; coordinate in `manager-report` when a plan is already owned.
+- When standing by, contribute observable output: log reflections via `python -m tools.memory.cli note --summary "..." --tags standby` or prep future work with `teof-plan new <slug> --summary "..." --scaffold` so the session leaves receipts even while the primary task is blocked.
+
 ## Recommended Labels & Metadata
 
 - GitHub Issues: `codex::docs`, `codex::tests`, `codex::refactor` to signal preferred agent.
