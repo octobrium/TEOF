@@ -50,6 +50,7 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `workflow-receipts` | DNA Recursion (Receipts) | Details the receipts-first mandate used by manager directives and CI guards. | [docs/workflow.md#dna-recursion-self-improvement-of-the-rules](docs/workflow.md#dna-recursion-self-improvement-of-the-rules) |
 | `ci-guardrails` | CI Guardrail Guarantees | One-screen summary mapping invariants to the scripts that enforce them. | [docs/ci-guarantees.md#ci-guardrail-guarantees](docs/ci-guarantees.md#ci-guardrail-guarantees) |
 | `evangelism-kit` | Narrative & Evangelism Kit | Story arcs, assets, and cadence backed by receipts. | [docs/evangelism/readme.md#narrative--evangelism-kit](docs/evangelism/readme.md#narrative--evangelism-kit) |
+| `systemic-adoption-guide` | Systemic Adoption Guide | Neutral playbook for emitting systemic metadata, receipts, and governance mappings outside this repo. | [docs/automation/systemic-adoption-guide.md](docs/automation/systemic-adoption-guide.md) |
 | `receipts-dashboard` | Receipt Dashboard | Aggregate pass/fail view for attest receipts. | [docs/receipts/index.md#receipt-dashboard](docs/receipts/index.md#receipt-dashboard) |
 | `evangelism-log-event` | Evangelism Event Logger | CLI helper to log outreach receipts. | [docs/evangelism/readme.md#logging-outreach](docs/evangelism/readme.md#logging-outreach) |
-_Last updated: 2025-10-05
+_Last updated: 2025-10-17

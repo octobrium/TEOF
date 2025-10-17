@@ -12,6 +12,7 @@
 - [Alignment Protocol](docs/alignment-protocol.md)
 - [Plans](./_plans/README.md)
 - [Automation](docs/automation.md)
+- [Systemic Adoption Guide](docs/automation/systemic-adoption-guide.md)
 - [Agent Onboarding](.github/AGENT_ONBOARDING.md)
 - [Onboarding Landing](docs/onboarding/README.md)
 - [Quick Reference](docs/reference/quick-reference.md)

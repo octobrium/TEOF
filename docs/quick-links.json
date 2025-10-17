@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "updated": "2025-10-05",
+  "updated": "2025-10-17",
   "links": [
     {
       "id": "agents-claim-seeding",
@@ -304,6 +304,14 @@
       "summary": "Story arcs, assets, and cadence with receipts for public outreach.",
       "path": "docs/evangelism/readme.md",
       "anchor": "#narrative--evangelism-kit",
+      "category": "adoption"
+    },
+    {
+      "id": "systemic-adoption-guide",
+      "title": "Systemic Adoption Guide",
+      "summary": "Neutral playbook for emitting systemic metadata, receipts, and governance mappings outside this repo.",
+      "path": "docs/automation/systemic-adoption-guide.md",
+      "anchor": "",
       "category": "adoption"
     },
     {

@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-10-07T20:55:00Z",
+  "updated": "2025-10-17T03:49:00Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -127,6 +127,50 @@
       "layer": "L2",
       "systemic_scale": 5,
       "source": "queue/036-macro-hygiene-objective.md"
+    },
+    {
+      "id": "ND-047",
+      "title": "Publish systemic adoption kit for external teams",
+      "status": "pending",
+      "plan_suggestion": "2025-10-17-systemic-adoption-guide",
+      "notes": "Draft migration playbooks, comparative mappings, and outreach artifacts so external orgs can align with the S/L lattice without adopting the repo wholesale.",
+      "priority": "high",
+      "layer": "L5",
+      "systemic_scale": 6,
+      "source": "docs/automation/systemic-overview.md"
+    },
+    {
+      "id": "ND-048",
+      "title": "Complete decentralized propagation pilot",
+      "status": "pending",
+      "plan_suggestion": "2025-09-22-decentralized-propagation-pilot",
+      "notes": "Deliver cross-node receipts exchange, reconciliation tooling, and conflict resolution receipts to prove TEOF works across distributed, semi-trusted peers.",
+      "priority": "high",
+      "layer": "L3",
+      "systemic_scale": 7,
+      "source": "docs/proposals/20250922t190055z__decentralized-propagation-pilot__draft.md"
+    },
+    {
+      "id": "ND-049",
+      "title": "Define interoperability schema & adapters",
+      "status": "pending",
+      "plan_suggestion": "2025-10-17-systemic-interoperability",
+      "notes": "Publish language-agnostic receipt schemas and reference adapters so non-Python stacks can emit systemic targets, receipts, and anchors.",
+      "priority": "high",
+      "layer": "L4",
+      "systemic_scale": 6,
+      "source": "docs/automation/systemic-residual-audit.md"
+    },
+    {
+      "id": "ND-050",
+      "title": "Map external governance frameworks to systemic lattice",
+      "status": "pending",
+      "plan_suggestion": "2025-10-17-systemic-alignment-matrix",
+      "notes": "Document translation patterns so alternative ethics/compliance models can express themselves via systemic_targets/layer_targets without losing their intent.",
+      "priority": "medium",
+      "layer": "L1",
+      "systemic_scale": 7,
+      "source": "docs/automation/systemic-overview.md"
     },
     {
       "id": "ND-001",
