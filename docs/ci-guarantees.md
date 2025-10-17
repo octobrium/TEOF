@@ -1,6 +1,6 @@
 # CI Guardrail Guarantees
 
-This one-pager summarises the invariants enforced by our automation. Each guard maps to an OCERS trait it protects. Use it as the quick reference when reviewing receipts or deciding which scripts to run locally.
+This one-pager summarises the invariants enforced by our automation. Each guard maps to the systemic targets it protects (legacy OCERS references remain for archival context). Use it as the quick reference when reviewing receipts or deciding which scripts to run locally.
 
 | Guard | Command | Protects |
 | --- | --- | --- |
@@ -21,7 +21,7 @@ This one-pager summarises the invariants enforced by our automation. Each guard 
 ## Adding new guards
 When you extend the suite:
 
-1. State the OCERS trait it protects.
+1. State the systemic targets it protects (S#).
 2. Add the command to this table (and `docs/quick-links.json`).
 3. Wire it into CI + preflight so contributors exercise it locally.
 

@@ -44,7 +44,16 @@
     "docs/automation.md",
     "docs/workflow.md"
   ],
-  "ocers_target": "Observation↑ Self-repair↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S5",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

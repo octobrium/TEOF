@@ -42,7 +42,15 @@
     "docs/examples/decentralized/receipt-sync/conflicts.json",
     "docs/examples/decentralized/receipt-sync/ledger.json"
   ],
-  "ocers_target": "Coherence↑ Outreach↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

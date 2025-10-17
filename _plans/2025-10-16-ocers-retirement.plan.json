@@ -1,0 +1,77 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-16-ocers-retirement",
+  "created": "2025-10-16T22:30:00Z",
+  "actor": "codex-5",
+  "summary": "Retire OCERS terminology and migrate to explicit Systemic/Layer coordinates",
+  "priority": 4,
+  "layer": "L4",
+  "systemic_scale": 6,
+  "systemic_targets": [
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4"
+  ],
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Catalogue OCERS references",
+      "status": "done",
+      "notes": "Produce inventory of all docs/code/tests referencing OCERS to scope migration.",
+      "receipts": [
+        "docs/automation/ocers-retirement-inventory.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design replacement schema",
+      "status": "done",
+      "notes": "Define how each OCERS label maps to explicit S#/L# metadata, update planner/CI interfaces.",
+      "receipts": [
+        "docs/automation/ocers-retirement-schema.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Implement and validate migration",
+      "status": "done",
+      "notes": "Converted plans/queue/tooling to systemic/layer-only metadata, updated validators/tests, and documented rollout.",
+      "receipts": [
+        "docs/automation/ocers-retirement-progress.md",
+        "docs/automation/systemic-overview.md",
+        "docs/automation/systemic-residual-audit.md"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Coordinate multi-agent execution (optional)",
+      "status": "queued",
+      "notes": "Engage multi-agent pairing: Tooling specialist (Codex) handles planner/CI/test updates; Documentation specialist (Reflections) rewrites whitepaper/automation/RFC surfaces. Capture handoff protocol and receipts for each role.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Repo expresses alignment metadata solely via systemic/layer coordinates, OCERS references removed or shimed.",
+    "owner": "codex-5",
+    "status": "satisfied",
+    "receipts": [
+      "docs/automation/systemic-overview.md",
+      "artifacts/ocers_retirement/ocers_residual_audit.md"
+    ]
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/000-observation.md"
+    }
+  ],
+  "receipts": [
+    "docs/automation/ocers-retirement-inventory.md",
+    "docs/automation/ocers-retirement-schema.md",
+    "docs/automation/ocers-retirement-progress.md"
+  ],
+  "notes": "Proposal includes comprehensive approach, sequencing, and resource model for OCERS deprecation."
+}

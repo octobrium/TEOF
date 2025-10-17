@@ -8,9 +8,9 @@
     "targets",
     "claim",
     "evidence",
-    "expected_gain",
     "layer",
-    "ocers_target"
+    "systemic_targets",
+    "layer_targets"
   ],
   "properties": {
     "id": {"type": "string", "pattern": "^ADV-[0-9A-Za-z_-]+$"},
@@ -18,13 +18,15 @@
     "source_receipt": {"type": "string"},
     "layer": {"type": "string", "pattern": "^L[0-6]$"},
     "systemic_scale": {"type": "integer", "minimum": 1, "maximum": 10},
-    "ocers_target": {
-      "type": "object",
-      "required": ["trait", "direction"],
-      "properties": {
-        "trait": {"type": "string", "enum": ["Observation", "Coherence", "Ethics", "Reproducibility", "Self-repair"]},
-        "direction": {"type": "string", "enum": ["up", "down"]}
-      }
+    "systemic_targets": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^S(10|[1-9])$"},
+      "minItems": 1
+    },
+    "layer_targets": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^L[0-6]$"},
+      "minItems": 1
     },
     "targets": {
       "type": "array",
@@ -43,23 +45,6 @@
         },
         "metrics": {"type": "object"},
         "notes": {"type": "string"}
-      }
-    },
-    "expected_gain": {
-      "type": "object",
-      "required": ["ocers_delta"],
-      "properties": {
-        "ocers_delta": {
-          "type": "object",
-          "properties": {
-            "Observation": {"type": "number"},
-            "Coherence": {"type": "number"},
-            "Ethics": {"type": "number"},
-            "Reproducibility": {"type": "number"},
-            "Self-repair": {"type": "number"}
-          }
-        },
-        "coverage_delta": {"type": "number"}
       }
     },
     "severity": {

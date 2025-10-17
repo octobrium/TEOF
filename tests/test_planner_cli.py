@@ -9,11 +9,11 @@ from tools.planner import validate as planner_validate
 from tools.planner.validate import validate_plan
 
 
-DEFAULT_OCERS = "Observation↑ Coherence↑"
+DEFAULT_SYSTEMIC = "S1,S2"
 
 
-def with_ocers(args: list[str]) -> list[str]:
-    return [*args, "--ocers-target", DEFAULT_OCERS]
+def with_systemic(args: list[str]) -> list[str]:
+    return [*args, "--systemic-target", DEFAULT_SYSTEMIC]
 
 
 def read_plan(path: Path) -> dict:
@@ -22,8 +22,8 @@ def read_plan(path: Path) -> dict:
 
 def run_cli(argv: list[str]) -> int:
     args = list(argv)
-    if args and args[0] == "new" and "--ocers-target" not in args:
-        args += ["--ocers-target", DEFAULT_OCERS]
+    if args and args[0] == "new" and "--systemic-target" not in args:
+        args += ["--systemic-target", DEFAULT_SYSTEMIC]
     return planner_cli.main(args)
 
 
@@ -47,7 +47,7 @@ def planner_root(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
     plan_dir = planner_root / "_plans"
     exit_code = run_cli(
-        with_ocers([
+        with_systemic([
             "new",
             "example-slug",
             "--summary",
@@ -89,8 +89,10 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
     assert data["priority"] == 0
     assert data["layer"] == "L5"
     assert data["systemic_scale"] == 5
+    assert data["systemic_targets"] == ["S1", "S2", "S5"]
+    assert data["layer_targets"] == ["L5"]
     assert data["impact_score"] == 90
-    assert data["ocers_target"] == DEFAULT_OCERS
+    assert "ocers_target" not in data
 
     result = validate_plan(plan_path, strict=True)
     assert result.ok, result.errors
@@ -196,12 +198,26 @@ def test_cli_status_updates_plan(planner_root: Path) -> None:
         run_cli(["status", str(plan_path), "in_progress"])
 
 
-def _write_queue_entry(root: Path, slug: str, *, ocers: str, coordinate: str) -> str:
+def _write_queue_entry(
+    root: Path,
+    slug: str,
+    *,
+    systemic: str,
+    coordinate: str,
+    layer: str,
+) -> str:
     queue_dir = root / "queue"
     queue_dir.mkdir(parents=True, exist_ok=True)
     filename = f"{slug}.md"
     (queue_dir / filename).write_text(
-        f"OCERS Target: {ocers}\nCoordinate: {coordinate}\n",
+        "\n".join(
+            [
+                f"Coordinate: {coordinate}",
+                f"Systemic Targets: {systemic}",
+                f"Layer Targets: {layer}",
+            ]
+        )
+        + "\n",
         encoding="utf-8",
     )
     return f"queue/{filename}"
@@ -211,8 +227,9 @@ def test_cli_new_queue_ref_autofills_metadata(planner_root: Path) -> None:
     queue_ref = _write_queue_entry(
         planner_root,
         "030-auto",
-        ocers="Observation↑ Coherence↑",
+        systemic="S1 Unity, S2 Energy, S3 Propagation, S6 Truth",
         coordinate="S5:L5",
+        layer="L5 Workflow",
     )
     plan_dir = planner_root / "_plans"
     args = [
@@ -238,9 +255,10 @@ def test_cli_new_queue_ref_autofills_metadata(planner_root: Path) -> None:
     assert exit_code == 0
     plan_path = plan_dir / "2025-10-03-auto.plan.json"
     data = read_plan(plan_path)
-    assert data["ocers_target"] == "Observation↑ Coherence↑"
     assert data["layer"] == "L5"
     assert data["systemic_scale"] == 5
+    assert data["systemic_targets"] == ["S1", "S2", "S3", "S5", "S6"]
+    assert data["layer_targets"] == ["L5"]
     assert data["links"] == [{"type": "queue", "ref": queue_ref}]
     result = validate_plan(plan_path, strict=True)
     assert result.ok
@@ -250,8 +268,9 @@ def test_cli_new_queue_ref_conflict_raises(planner_root: Path) -> None:
     queue_ref = _write_queue_entry(
         planner_root,
         "031-conflict",
-        ocers="Observation↑ Coherence↑",
+        systemic="S1 Unity, S3 Propagation",
         coordinate="S5:L5",
+        layer="L5 Workflow",
     )
     plan_dir = planner_root / "_plans"
     with pytest.raises(SystemExit):
@@ -280,6 +299,41 @@ def test_cli_new_queue_ref_conflict_raises(planner_root: Path) -> None:
                 "2025-10-03T00:00:00Z",
             ]
         )
+
+
+def test_cli_new_accepts_systemic_targets_without_ocers(planner_root: Path) -> None:
+    plan_dir = planner_root / "_plans"
+    args = [
+        "new",
+        "systemic-only",
+        "--summary",
+        "Systemic-only plan",
+        "--actor",
+        "tester",
+        "--priority",
+        "0",
+        "--layer",
+        "L4",
+        "--systemic-target",
+        "S6,S8",
+        "--impact-score",
+        "55",
+        "--plan-dir",
+        str(plan_dir),
+        "--timestamp",
+        "2025-10-04T00:00:00Z",
+        "--allow-unclaimed",
+    ]
+    exit_code = planner_cli.main(args)
+    assert exit_code == 0
+    plan_path = plan_dir / "2025-10-04-systemic-only.plan.json"
+    data = read_plan(plan_path)
+    assert data["systemic_targets"] == ["S6", "S8"]
+    assert data["systemic_scale"] == 8
+    assert data["layer_targets"] == ["L4"]
+    assert "ocers_target" not in data
+    result = validate_plan(plan_path, strict=True)
+    assert result.ok
 
 
 def _write_warning_summary(root: Path, *, warnings: list[dict]) -> None:
@@ -325,8 +379,8 @@ def test_cli_warnings_table_output(planner_root: Path, capsys: pytest.CaptureFix
             {
                 "plan_id": "PLAN-XYZ",
                 "queue_ref": "queue/030-test.md",
-                "issue": "ocers_mismatch",
-                "message": "PLAN-XYZ ocers mismatch",
+                "issue": "systemic_targets_mismatch",
+                "message": "PLAN-XYZ systemic mismatch",
             }
         ],
     )
@@ -344,8 +398,8 @@ def test_cli_warnings_fail_on_warning(planner_root: Path) -> None:
             {
                 "plan_id": "PLAN-XYZ",
                 "queue_ref": "queue/030-test.md",
-                "issue": "ocers_mismatch",
-                "message": "PLAN-XYZ ocers mismatch",
+                "issue": "systemic_targets_mismatch",
+                "message": "PLAN-XYZ systemic mismatch",
             }
         ],
     )
@@ -393,7 +447,7 @@ def test_cli_list_reports_queue_warnings(planner_root: Path, capsys: pytest.Capt
             {
                 "plan_id": "2025-10-03-queue-list",
                 "queue_ref": "queue/030-test.md",
-                "issue": "ocers_mismatch",
+                "issue": "systemic_targets_mismatch",
                 "message": "metadata mismatch",
             }
         ],

@@ -59,7 +59,14 @@
     "scripts/ci/check_readability.py",
     "tools/maintenance/readability_guard.py"
   ],
-  "ocers_target": "Coherence↑ Reproducibility↑",
   "systemic_scale": 5,
-  "layer": "L2"
+  "layer": "L2",
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L2"
+  ]
 }

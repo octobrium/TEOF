@@ -43,6 +43,13 @@
       "ref": "queue/036-macro-hygiene-objective.md"
     }
   ],
-  "ocers_target": "Coherence↑ Reproducibility↑",
-  "receipts": []
+  "receipts": [],
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L2"
+  ]
 }

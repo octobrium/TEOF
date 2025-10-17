@@ -22,7 +22,8 @@ def base_payload(plan_id: str = "2025-09-17-sample") -> dict:
         "status": "queued",
         "layer": "L5",
         "systemic_scale": 5,
-        "ocers_target": "Observation↑ Evidence↑",
+        "systemic_targets": ["S1", "S2", "S3", "S6"],
+        "layer_targets": ["L5"],
         "steps": [
             {
                 "id": "S1",
@@ -100,9 +101,9 @@ def test_validate_plan_validates_systemic_range(tmp_path: Path) -> None:
     assert any("systemic_scale" in err for err in result.errors)
 
 
-def test_validate_plan_requires_ocers_direction(tmp_path: Path) -> None:
+def test_validate_plan_rejects_legacy_ocers_field(tmp_path: Path) -> None:
     payload = base_payload()
-    payload["ocers_target"] = "Observation"
+    payload["ocers_target"] = "Observation↑"
     path = write_plan(tmp_path, payload)
     result = validate_plan(path)
     assert not result.ok
@@ -202,8 +203,8 @@ def test_queue_warning_mismatch_detected(tmp_path: Path) -> None:
 
     entry = fractal_conformance.QueueEntry(
         path="queue/030-consensus-ledger-cli.md",
-        ocers_target="Observation↑ Coherence↑",
         coordinates=["S6:L5"],
+        systemic_targets=["S6"],
         issues=[],
     )
     original_index = planner_validate._QUEUE_INDEX
@@ -217,7 +218,7 @@ def test_queue_warning_mismatch_detected(tmp_path: Path) -> None:
             planner_validate._QUEUE_INDEX,
         )
         assert warnings, "expected queue mismatch warnings"
-        assert any(warning.get("issue") == "ocers_mismatch" for warning in warnings)
+        assert any(warning.get("issue") == "systemic_mismatch" for warning in warnings)
     finally:
         planner_validate._QUEUE_INDEX = original_index
 

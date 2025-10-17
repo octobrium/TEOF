@@ -56,4 +56,4 @@
 - `_report/usage/objectives-status.json` (latest snapshot).
 - `docs/vision/relay-offering-dry-run.md` (process walk-through).
 - `docs/vision/relay-offering-sample-brief.md` (client-facing example).
-- Sample `artifacts/ocers_out/` run demonstrating determinism.
+- Sample `artifacts/systemic_out/` run demonstrating determinism.

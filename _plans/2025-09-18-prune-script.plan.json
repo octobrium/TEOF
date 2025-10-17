@@ -43,7 +43,15 @@
     "_report/agent/codex-3/prune-script/notes.md",
     "_report/agent/codex-3/prune-script/pytest.json"
   ],
-  "ocers_target": "Self-repair↑ Reproducibility↑",
   "systemic_scale": 5,
-  "layer": "L6"
+  "layer": "L6",
+  "systemic_targets": [
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L6"
+  ]
 }

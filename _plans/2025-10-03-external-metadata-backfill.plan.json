@@ -47,7 +47,15 @@
     "_plans/2025-09-22-external-feed-demo.plan.json",
     "_report/autonomy/backlog-synth/summary-20251003T032400Z.md"
   ],
-  "ocers_target": "Coherence↑ Outreach↑",
   "systemic_scale": 5,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

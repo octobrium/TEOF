@@ -10,7 +10,7 @@ pip install -e .
 
 ## `teof brief`
 
-Run the bundled "brief" example through the ensemble scorer and emit artifacts under `artifacts/ocers_out/<timestamp>/`:
+Run the bundled "brief" example through the ensemble scorer and emit artifacts under `artifacts/systemic_out/<timestamp>/`:
 
 ```bash
 python -m teof.cli brief

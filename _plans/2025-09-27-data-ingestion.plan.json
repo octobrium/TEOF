@@ -54,5 +54,12 @@
     }
   ],
   "receipts": [],
-  "ocers_target": "Observation\u2191 Evidence\u2191"
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6"
+  ]
 }

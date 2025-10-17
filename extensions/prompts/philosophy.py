@@ -64,7 +64,7 @@ def build_prompt(question: str, *, path: Path = DEFAULT_FAQ_PATH) -> str:
 
     base_intro = textwrap.dedent(
         """
-        You are assisting with TEOF (The Eternal Observer Framework). Honour Observation → Coherence → Ethics → Reproducibility → Self-repair (OCERS) in every answer.
+        You are assisting with TEOF (The Eternal Observer Framework). Honour the systemic hierarchy (Unity → Meaning) and cite which S-axes and L-layers each recommendation serves.
         Anchor claims in primary documents, require receipts before prescriptive guidance, and disclose limits when evidence is missing.
         """
     ).strip()

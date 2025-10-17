@@ -52,7 +52,16 @@
     "_report/agent/codex-3/maintenance-pruning/inventory.json",
     "_report/agent/codex-3/maintenance-pruning/summary.json"
   ],
-  "ocers_target": "Observation↑ Self-repair↑",
   "systemic_scale": 5,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S5",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

@@ -44,7 +44,16 @@
     "_report/planner/validate/summary-20250922T021548Z.json",
     "_report/usage/external-summary.json"
   ],
-  "ocers_target": "Observation↑ Outreach↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S5",
+    "S7"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

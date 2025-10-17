@@ -61,7 +61,14 @@
     "_report/agent/codex-3/l4-bindings/diff-review.json",
     "_report/agent/codex-3/l4-bindings/notes.md"
   ],
-  "ocers_target": "Clarity↑ Coherence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

@@ -49,10 +49,16 @@
       "ref": "queue/005-bus-message-cli.md"
     }
   ],
-  "ocers_target": "Coherence\u2191 Evidence\u2191",
   "receipts": [
     "docs/agents.md",
     "docs/parallel-codex.md",
     "tools/agent/bus_message.py"
+  ],
+  "systemic_targets": [
+    "S3",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }

@@ -40,26 +40,21 @@ def _load_coordinates(raw: Iterable[str]) -> tuple[Optional[int], Optional[str]]
 
 def _base_advisory(path: str, source_receipt: str, claim: str, systemic: Optional[int], layer: Optional[str]) -> dict:
     advisory_id = f"ADV-{uuid.uuid4().hex[:8]}"
-    ocers_trait = "Self-repair"
-    direction = "up"
+    axis_token = f"S{systemic}" if systemic else "S6"
+    layer_token = layer or "L5"
     payload = {
         "id": advisory_id,
         "created": _now_iso(),
         "source_receipt": source_receipt,
-        "layer": layer or "L5",
+        "layer": layer_token,
         "systemic_scale": systemic,
-        "ocers_target": {
-            "trait": ocers_trait,
-            "direction": direction,
-        },
+        "systemic_targets": [axis_token],
+        "layer_targets": [layer_token],
         "targets": [path],
         "claim": claim,
         "evidence": {
             "receipts": [source_receipt],
             "notes": "Generated from fractal conformance gap"
-        },
-        "expected_gain": {
-            "ocers_delta": {ocers_trait: 0.01}
         },
         "severity": "medium",
     }

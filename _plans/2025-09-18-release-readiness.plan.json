@@ -49,7 +49,14 @@
     "docs/maintenance/release-readiness.md",
     "_bus/messages/manager-report.jsonl"
   ],
-  "ocers_target": "Reproducibility↑ Coherence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

@@ -4,7 +4,6 @@
   "created": "2025-10-11T19:59:30Z",
   "actor": "Octo",
   "summary": "Package decentralized TEOF node workflows",
-  "ocers_target": "Coherence\u2191 Reproducibility\u2191",
   "priority": 1,
   "layer": "L5",
   "systemic_scale": 4,
@@ -46,5 +45,14 @@
   "receipts": [
     "docs/usage/autonomous-node-workflow.json",
     "docs/usage/autonomous-node/20251012T193658Z/summary.json"
+  ],
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }

@@ -50,7 +50,16 @@
     "_report/agent/codex-1/backlog-refresh/handoff-20250918T192900Z.txt",
     "_report/agent/codex-1/backlog-refresh/summary-20250918T192800Z.txt"
   ],
-  "ocers_target": "Self-repair↑ Coherence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

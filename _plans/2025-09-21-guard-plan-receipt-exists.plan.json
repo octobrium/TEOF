@@ -39,7 +39,14 @@
   "receipts": [
     "_report/usage/plan-receipts-check.json"
   ],
-  "ocers_target": "Coherence↑ Evidence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

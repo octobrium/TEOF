@@ -1,4 +1,4 @@
-"""Generate a fractal conformance report for OCERS + coordinate coverage."""
+"""Generate a fractal conformance report for systemic/layer coverage."""
 from __future__ import annotations
 
 import argparse
@@ -9,12 +9,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
+from tools.planner.systemic_targets import ensure_axes, parse_axis_tokens
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 QUEUE_DIR = REPO_ROOT / "queue"
 PLANS_DIR = REPO_ROOT / "_plans"
 MEMORY_LOG = REPO_ROOT / "memory" / "log.jsonl"
 
-OCERS_LINE_RE = re.compile(r"^OCERS\s*Target\s*:\s*(.+)$", re.IGNORECASE)
+SYSTEMIC_LINE_RE = re.compile(r"^Systemic\s*Targets\s*:\s*(.+)$", re.IGNORECASE)
 COORD_LINE_RE = re.compile(r"^Coordinate\s*:\s*(.+)$", re.IGNORECASE)
 SYSTEMIC_TOKEN_RE = re.compile(r"S(\d{1,2})")
 LAYER_TOKEN_RE = re.compile(r"L(\d)")
@@ -23,15 +25,15 @@ LAYER_TOKEN_RE = re.compile(r"L(\d)")
 @dataclass
 class QueueEntry:
     path: str
-    ocers_target: Optional[str]
     coordinates: List[str]
+    systemic_targets: List[str]
     issues: List[str]
 
     def as_dict(self) -> Dict[str, object]:
         return {
             "path": self.path,
-            "ocers_target": self.ocers_target,
             "coordinates": self.coordinates,
+            "systemic_targets": self.systemic_targets,
             "issues": self.issues,
         }
 
@@ -40,9 +42,10 @@ class QueueEntry:
 class PlanEntry:
     path: str
     plan_id: str
-    ocers_target: Optional[str]
     layer: Optional[str]
     systemic_scale: Optional[int]
+    systemic_targets: List[str]
+    layer_targets: List[str]
     inferred_coordinate: Optional[str]
     issues: List[str]
     referenced_queue: List[str]
@@ -51,9 +54,10 @@ class PlanEntry:
         return {
             "path": self.path,
             "plan_id": self.plan_id,
-            "ocers_target": self.ocers_target,
             "layer": self.layer,
             "systemic_scale": self.systemic_scale,
+            "systemic_targets": self.systemic_targets,
+            "layer_targets": self.layer_targets,
             "inferred_coordinate": self.inferred_coordinate,
             "referenced_queue": self.referenced_queue,
             "issues": self.issues,
@@ -84,13 +88,17 @@ def _read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
 
-def _extract_ocers(text: str) -> Optional[str]:
+def _extract_systemic_targets(text: str) -> List[str]:
     for line in text.splitlines():
-        match = OCERS_LINE_RE.match(line.strip())
+        match = SYSTEMIC_LINE_RE.match(line.strip())
         if match:
-            value = match.group(1).strip().rstrip(".")
-            return value or None
-    return None
+            tokens = parse_axis_tokens(match.group(1))
+            if tokens:
+                try:
+                    return ensure_axes(tokens)
+                except ValueError:
+                    return tokens
+    return []
 
 
 def _extract_coordinates(text: str) -> List[str]:
@@ -118,15 +126,26 @@ def gather_queue_entries() -> Dict[str, QueueEntry]:
         return entries
     for path in sorted(QUEUE_DIR.glob("*.md")):
         text = _read_text(path)
-        ocers = _extract_ocers(text)
         coords = _extract_coordinates(text)
+        systemic_targets = _extract_systemic_targets(text)
+        if not systemic_targets and coords:
+            derived_axes = []
+            for coord in coords:
+                match = SYSTEMIC_TOKEN_RE.search(coord)
+                if match:
+                    derived_axes.append(f"S{match.group(1)}")
+            if derived_axes:
+                try:
+                    systemic_targets = ensure_axes(derived_axes)
+                except ValueError:
+                    systemic_targets = derived_axes
         issues: List[str] = []
-        if not ocers:
-            issues.append("missing_ocers_target")
         if not coords:
             issues.append("missing_coordinate")
+        if not systemic_targets:
+            issues.append("missing_systemic_targets")
         rel_path = path.relative_to(REPO_ROOT).as_posix()
-        entries[rel_path] = QueueEntry(rel_path, ocers, coords, issues)
+        entries[rel_path] = QueueEntry(rel_path, coords, systemic_targets, issues)
     return entries
 
 
@@ -141,35 +160,59 @@ def gather_plan_entries(queue_index: Dict[str, QueueEntry]) -> List[PlanEntry]:
         return entries
     for path in sorted(PLANS_DIR.glob("*.plan.json")):
         data = _load_json(path)
-        ocers = data.get("ocers_target")
         referenced_queue = [
             item.get("ref")
             for item in data.get("links", [])
             if isinstance(item, dict) and item.get("type") == "queue"
         ]
-        for ref in referenced_queue:
-            if not ocers and ref in queue_index:
-                ocers = queue_index[ref].ocers_target
         layer = data.get("layer")
         systemic_scale = data.get("systemic_scale")
+        raw_targets = data.get("systemic_targets")
+        systemic_targets: List[str] = []
+        if isinstance(raw_targets, list):
+            tokens = [token for token in raw_targets if isinstance(token, str)]
+            if tokens:
+                try:
+                    systemic_targets = ensure_axes(tokens)
+                except ValueError:
+                    systemic_targets = tokens
+        if not systemic_targets:
+            for ref in referenced_queue:
+                entry = queue_index.get(ref)
+                if entry and entry.systemic_targets:
+                    systemic_targets = entry.systemic_targets
+                    break
+        raw_layer_targets = data.get("layer_targets")
+        layer_targets: List[str] = []
+        if isinstance(raw_layer_targets, list):
+            layer_targets = [
+                str(token).strip().upper()
+                for token in raw_layer_targets
+                if isinstance(token, str) and token.strip().upper().startswith("L")
+            ]
+        if not layer_targets and layer:
+            layer_targets = [layer]
         inferred_coordinate: Optional[str] = None
         if isinstance(systemic_scale, int) and layer:
             inferred_coordinate = f"S{systemic_scale}:L{layer}"
         issues: List[str] = []
-        if not ocers:
-            issues.append("missing_ocers_target")
         if not layer:
             issues.append("missing_layer")
         if systemic_scale is None:
             issues.append("missing_systemic_scale")
+        if not systemic_targets:
+            issues.append("missing_systemic_targets")
+        if not layer_targets:
+            issues.append("missing_layer_targets")
         rel_path = path.relative_to(REPO_ROOT).as_posix()
         entries.append(
             PlanEntry(
                 path=rel_path,
                 plan_id=str(data.get("plan_id", "")),
-                ocers_target=ocers,
                 layer=layer,
                 systemic_scale=systemic_scale if isinstance(systemic_scale, int) else None,
+                systemic_targets=systemic_targets,
+                layer_targets=layer_targets,
                 inferred_coordinate=inferred_coordinate,
                 referenced_queue=referenced_queue,
                 issues=issues,
@@ -275,7 +318,7 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
     parser.add_argument(
         "--strict",
         action="store_true",
-        help="Exit non-zero when any artifact is missing OCERS or coordinate metadata",
+        help="Exit non-zero when any artifact is missing systemic or coordinate metadata",
     )
     args = parser.parse_args(list(argv) if argv is not None else None)
 

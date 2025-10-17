@@ -48,7 +48,15 @@
     }
   ],
   "receipts": [],
-  "ocers_target": "Observation\u2191 Reproducibility\u2191",
   "layer": "L6",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6"
+  ]
 }

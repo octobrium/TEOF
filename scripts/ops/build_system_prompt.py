@@ -49,7 +49,7 @@ content.append("""
 ## Required behavior
 - Only modify files that match policy.allow_globs; do not rename or delete files.
 - Keep total changed lines ≤ policy.diff_limit.
-- Include an OCERS receipt with model, inputs (hash), and diff hash.
+- Include a systemic alignment receipt with model, inputs (hash), and diff hash.
 - Label PRs with policy.labels and ensure required checks pass.
 - Fail closed on ambiguity; ask for human review via PR comment rather than guessing.
 """)

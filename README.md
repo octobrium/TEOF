@@ -52,9 +52,16 @@ Each layer must **obey and serve the layer(s) above it**:
 Downstream layers are invalid if they contradict upstream layers.  
 This ordering is enforced during review and is part of TEOF’s living constitution.
 
-### OCERS Guiding Loop
+### Systemic Coordinates
 
-Across every layer we measure work against the OCERS loop—**Observation → Coherence → Ethics → Reproducibility → Self-repair**. Observation is the irreducible foundation (whitepaper §2); Coherence keeps signals consistent with higher layers; Ethics preserves the lattice when systems gain leverage; Reproducibility guarantees anyone can replay the proof; Self-repair ensures contradictions trigger plans and receipts instead of accumulating debt. OCERS is a diagnostic overlay subordinate to the systemic hierarchy (S1–S10); see [`docs/automation/ocers-systemic-mapping.md`](docs/automation/ocers-systemic-mapping.md) for the current mapping, [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](docs/foundation/systemic-scale.md#hierarchy-enforcement) for the canonical order, and [`governance/systemic-order.json`](governance/systemic-order.json) for a machine-readable index. Every plan, receipt, or automation should state how it advances OCERS and which layer/systemic window it serves.
+Work is now tracked directly against the systemic axes (S1–S10) and layer hierarchy (L0–L6).  
+Every artifact declares:
+
+- `systemic_targets`: the primary systemic axes it advances (e.g. S1 Unity, S4 Defense, S6 Truth).
+- `layer_targets`: the layers it operates within (e.g. L4 Architecture, L5 Workflow).
+- `systemic_scale`: the highest axis it must satisfy before proceeding.
+
+This explicit coordinate replaces the legacy OCERS overlay while preserving the same intent—evidence, coherence, guardrails, reproducibility, and recovery all map onto the S/L lattice. See [`docs/foundation/systemic-scale.md`](docs/foundation/systemic-scale.md) and [`governance/systemic-order.json`](governance/systemic-order.json) for canonical definitions, plus [`docs/automation/systemic-overview.md`](docs/automation/systemic-overview.md) for migration guidance.
 
 ---
 
@@ -79,12 +86,12 @@ Run this smoke test on a fresh checkout:
 ```bash
 python3 -m pip install -e .
 teof brief
-ls artifacts/ocers_out/latest
-cat artifacts/ocers_out/latest/brief.json
+ls artifacts/systemic_out/latest
+cat artifacts/systemic_out/latest/brief.json
 ```
 
 - Install exposes the teof console script.
-- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
+- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/systemic_out/<UTC>.
 - teof reflections surfaces the latest `memory/reflections/` entries, layer coverage, and tags (add `--format json` for automation).
 
 If you prefer an end-to-end bootstrap, run `bin/teof-up` to install dependencies, refresh quickstart receipts, and print the next docs to read. Additional CLI entrypoints live in [`docs/quickstart.md`](docs/quickstart.md), and automation guardrails remain catalogued under [`docs/automation/autonomy-preflight.md`](docs/automation/autonomy-preflight.md).

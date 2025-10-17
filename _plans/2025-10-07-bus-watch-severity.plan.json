@@ -40,9 +40,15 @@
       "ref": "queue/001-agent-bus-watch.md"
     }
   ],
-  "ocers_target": "Coherence\u2191 Evidence\u2191",
   "receipts": [
     "tools/agent/bus_watch.py",
     "tests/test_agent_bus_watch.py"
+  ],
+  "systemic_targets": [
+    "S3",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }

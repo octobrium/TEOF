@@ -1,10 +1,12 @@
-"""Backfill missing OCERS targets and coordinates in plan files."""
+"""Backfill missing systemic targets and coordinates in plan files."""
 from __future__ import annotations
 
 import argparse
 import json
 from pathlib import Path
 from typing import Dict, Iterable, Optional
+
+from tools.planner.systemic_targets import ensure_axes
 
 from tools.fractal import conformance
 
@@ -50,13 +52,21 @@ def backfill_plan(path: Path, queue_index: Dict[str, conformance.QueueEntry]) ->
 
     changed = False
 
-    if queue_entry and queue_entry.ocers_target and not data.get("ocers_target"):
-        data["ocers_target"] = queue_entry.ocers_target
-        changed = True
-
     coord_source: Optional[str] = None
+    coord_layers: list[str] = []
     if queue_entry and queue_entry.coordinates:
         coord_source = queue_entry.coordinates[0]
+        for coord in queue_entry.coordinates:
+            _, layer_hint = _parse_coordinate(coord)
+            if layer_hint and layer_hint not in coord_layers:
+                coord_layers.append(layer_hint)
+
+    if queue_entry and queue_entry.systemic_targets and not data.get("systemic_targets"):
+        try:
+            data["systemic_targets"] = ensure_axes(queue_entry.systemic_targets)
+        except ValueError:
+            data["systemic_targets"] = queue_entry.systemic_targets
+        changed = True
 
     if coord_source:
         systemic_scale, layer = _parse_coordinate(coord_source)
@@ -65,6 +75,18 @@ def backfill_plan(path: Path, queue_index: Dict[str, conformance.QueueEntry]) ->
             changed = True
         if layer and not data.get("layer"):
             data["layer"] = layer
+            changed = True
+
+    if not data.get("layer_targets"):
+        layer_targets: list[str] = []
+        layer_value = data.get("layer")
+        if isinstance(layer_value, str):
+            layer_targets.append(layer_value)
+        for hint in coord_layers:
+            if hint not in layer_targets:
+                layer_targets.append(hint)
+        if layer_targets:
+            data["layer_targets"] = layer_targets
             changed = True
 
     if changed:
@@ -108,7 +130,7 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
         else:
             # Dry run: simulate and report potential change
             snapshot = json.loads(path.read_text(encoding="utf-8"))
-            if snapshot.get("ocers_target") and snapshot.get("layer") and snapshot.get("systemic_scale") is not None:
+            if snapshot.get("layer") and snapshot.get("systemic_scale") is not None and snapshot.get("systemic_targets"):
                 continue
             queue_entry = None
             links = snapshot.get("links") or []
@@ -119,12 +141,12 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
                         queue_entry = queue_index[ref]
                         break
             missing = []
-            if not snapshot.get("ocers_target"):
-                missing.append("ocers_target")
             if not snapshot.get("layer"):
                 missing.append("layer")
             if snapshot.get("systemic_scale") is None:
                 missing.append("systemic_scale")
+            if not snapshot.get("systemic_targets"):
+                missing.append("systemic_targets")
             if missing:
                 hint = f"via {queue_entry.path}" if queue_entry else "no queue ref"
                 print(f"would update {path} (missing {', '.join(missing)}; {hint})")

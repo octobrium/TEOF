@@ -56,7 +56,15 @@
     "tools/agent/session_brief.py",
     "governance/anchors.json"
   ],
-  "ocers_target": "Coherence↑ Safety↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

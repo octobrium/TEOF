@@ -14,12 +14,12 @@ Run this smoke test on a fresh checkout:
 ```bash
 python3 -m pip install -e .
 teof brief
-ls artifacts/ocers_out/latest
-cat artifacts/ocers_out/latest/brief.json
+ls artifacts/systemic_out/latest
+cat artifacts/systemic_out/latest/brief.json
 ```
 
 - Install exposes the teof console script.
-- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
+- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/systemic_out/<UTC>.
 
 Need quick references? `python -m tools.agent.doc_links list --category quickstart` points to [`docs/quickstart.md#quickstart`](../docs/quickstart.md#quickstart).
 

@@ -23,7 +23,7 @@ pip install -e .
 python -m teof.cli brief
 
 # Inspect the latest outputs
-ls artifacts/ocers_out/latest
+ls artifacts/systemic_out/latest
 ```
 
 The run writes:

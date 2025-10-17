@@ -17,4 +17,4 @@ fi
 
 python3 tools/receipts/main.py check
 python3 tools/planner/validate.py --strict
-pytest tests/test_agent_bus_status.py tests/test_ocers_rules.py tests/test_brief.py tests/test_ocers_eval.py
+pytest tests/test_agent_bus_status.py tests/test_systemic_rules.py tests/test_brief.py tests/test_systemic_eval.py

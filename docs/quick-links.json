@@ -261,7 +261,7 @@
     {
       "id": "quickstart-smoke",
       "title": "Quickstart Smoke",
-      "summary": "Install locally then run `teof brief` to produce OCERS receipts under artifacts/ocers_out/",
+      "summary": "Install locally then run `teof brief` to produce OCERS receipts under artifacts/systemic_out/",
       "path": "docs/quickstart.md",
       "anchor": "#quickstart",
       "category": "quickstart"

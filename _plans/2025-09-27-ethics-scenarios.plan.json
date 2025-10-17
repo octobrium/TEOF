@@ -58,5 +58,14 @@
     "docs/ethics/scenario-playbook.md",
     "memory/reflections/reflection-20250928T015205Z.json"
   ],
-  "ocers_target": "Ethics↑ Coherence↑"
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S6",
+    "S7",
+    "S8"
+  ],
+  "layer_targets": [
+    "L1"
+  ]
 }

@@ -63,5 +63,13 @@
     "tools/autonomy/auto_loop.py",
     "tools/autonomy/backlog_synth.py"
   ],
-  "ocers_target": "Self-repair\u2191 Reproducibility\u2191"
+  "systemic_targets": [
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

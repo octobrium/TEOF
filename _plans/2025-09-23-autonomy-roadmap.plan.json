@@ -61,7 +61,16 @@
   ],
   "updated": "2025-09-23T20:54:00Z",
   "completed": "2025-09-23T20:54:00Z",
-  "ocers_target": "Coherence↑ Self-repair↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

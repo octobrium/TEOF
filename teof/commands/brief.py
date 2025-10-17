@@ -10,7 +10,7 @@ from extensions.validator.scorers.ensemble import score_file
 
 ROOT = Path(__file__).resolve().parents[2]
 EXAMPLES_DIR = ROOT / "docs" / "examples" / "brief" / "inputs"
-ARTIFACT_ROOT = ROOT / "artifacts" / "ocers_out"
+ARTIFACT_ROOT = ROOT / "artifacts" / "systemic_out"
 
 
 def _write_brief_outputs(output_dir: Path) -> list[dict[str, object]]:

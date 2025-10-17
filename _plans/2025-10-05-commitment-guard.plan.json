@@ -17,25 +17,36 @@
       "id": "sg-commit-1",
       "title": "Ship commitment_guard CLI + tests",
       "status": "done",
-      "receipts": ["tools/autonomy/commitment_guard.py", "tests/test_commitment_guard.py"]
+      "receipts": [
+        "tools/autonomy/commitment_guard.py",
+        "tests/test_commitment_guard.py"
+      ]
     },
     {
       "id": "sg-commit-2",
       "title": "Document expectation in TTΔ guidance and clarifications",
       "status": "done",
-      "receipts": ["docs/usage/direction-metrics.md", "docs/clarifications.md"]
+      "receipts": [
+        "docs/usage/direction-metrics.md",
+        "docs/clarifications.md"
+      ]
     },
     {
       "id": "sg-commit-3",
       "title": "Integrate commitment guard into manager report",
       "status": "done",
-      "receipts": ["tools/agent/manager_report.py"]
+      "receipts": [
+        "tools/agent/manager_report.py"
+      ]
     },
     {
       "id": "sg-commit-4",
       "title": "Ensure scan-driver policy drives guard execution",
       "status": "done",
-      "receipts": ["docs/automation/scan-policy.json", "tools/autonomy/scan_driver.py"]
+      "receipts": [
+        "docs/automation/scan-policy.json",
+        "tools/autonomy/scan_driver.py"
+      ]
     },
     {
       "id": "sg-commit-5",
@@ -51,5 +62,15 @@
     "owner": "codex-manager",
     "description": "Confirm no unbacked commitments detected for 7 consecutive days"
   },
-  "ocers_target": "Observation ↑ Coherence ↑ Ethics"
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S6",
+    "S8"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

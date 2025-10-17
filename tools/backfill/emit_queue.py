@@ -36,14 +36,18 @@ def _queue_filename(advisory_id: str, target: str) -> Path:
 
 def build_queue_entry(advisory: dict, source_receipt: str) -> str:
     target = advisory.get("targets", ["unknown"])[0]
-    ocers = advisory.get("ocers_target", {}).get("trait", "Self-repair")
     coord = _coord_from_advisory(advisory)
     claim = advisory.get("claim", "")
+    systemic = advisory.get("systemic_scale")
+    systemic_line = f"Systemic Targets: S{systemic}" if systemic else "Systemic Targets: S6"
+    layer = advisory.get("layer", "L5")
+    layer_line = f"Layer Targets: {layer}"
     lines = [
         f"# Task: Backfill {target}",
         f"Goal: Resolve advisory {advisory['id']} (see {source_receipt}).",
-        f"OCERS Target: {ocers}↑",
         f"Coordinate: {coord}",
+        systemic_line,
+        layer_line,
         f"Notes: {claim}",
         f"Advisory: {advisory['id']}",
         f"Receipts: {source_receipt}",

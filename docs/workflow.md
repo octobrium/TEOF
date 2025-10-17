@@ -64,7 +64,7 @@ Review cadence: Monthly sweep
 - **Promote ideas with receipts.** When a plan is opened, run `teof ideas promote <id> --plan-id <plan>` so the originating idea links to `_plans/<plan_id>.plan.json` and downstream receipts reference the same coordinates.
 - **Update assignments and claims.** Once a plan exists, create or refresh the bus claim (`python -m tools.agent.bus_claim claim --task <task> --plan <plan_id>`) so coordination surfaces know who owns the promoted idea; release or reassign via `tools.agent.task_sync` as work progresses.
 - **Optional shorthand.** When talking out loud, you can abbreviate the coordinate (e.g. `S6:L4` for Truth/Architecture), but keep the explicit numeric fields in plans and memory so automation can parse them.
-- **Use the planner CLI** to enforce the schema; `planner list` sorts by these fields so the highest leverage work stays obvious. `planner new --queue-ref queue/<id>.md` auto-populates OCERS/layer/systemic from the queue entry and fails fast when metadata drifts. Run `python3 -m tools.planner.queue_scan --fail-on-warning` before consensus to emit a receipt if mismatches remain.
+- **Use the planner CLI** to enforce the schema; `planner list` sorts by these fields so the highest leverage work stays obvious. `planner new --queue-ref queue/<id>.md` auto-populates systemic/layer coordinates from the queue entry and fails fast when metadata drifts. Run `python3 -m tools.planner.queue_scan --fail-on-warning` before consensus to emit a receipt if mismatches remain.
 - Run `python -m tools.planner.backlog_summary` for a quick status snapshot (counts + top pending plans by priority).
 - Use `python -m tools.planner.missing_receipts` to list queued/in-progress plans that still lack top-level receipts.
 - **Log the run** (`teof memory doctor`, `teof memory timeline`) so future sessions understand why the plan exists and where it ranks.
@@ -75,12 +75,12 @@ Review cadence: Monthly sweep
 
 TEOF can sit at a platform’s highest policy layer when three strands stay intact:
 
-- **Observable value:** OCERS + VDP receipts make volatile claims auditable (timestamp + source) and batch refinement proves automation runs the same playbook as humans. Market it as “fewer incidents, faster attestations.”
+- **Observable value:** systemic coordinates + VDP receipts make volatile claims auditable (timestamp + source) and batch refinement proves automation runs the same playbook as humans. Market it as “fewer incidents, faster attestations.”
 - **Shared governance:** keep the constitution append-only (`governance/anchors.json`) and invite the host’s stewards into Meta‑TEP + anchors flow so rule changes are transparent, receipt-backed, and reversible.
 - **Clear rollout:**
   1. **Pilot** a high-risk surface (e.g., volatile data output) with `scripts/ci/check_vdp.py`, attach plan receipts, and publish the audit bundle.
   2. **Harden** proof: sign receipts, mirror `_report/**` into tamper-evident storage, and script escalations when automation must pause for humans.
-  3. **Integrate** platform safety: map existing redlines (content policy, privacy) to OCERS objectives, encode matching guards, and prove coverage via `_plans/*` + anchors events before elevating TEOF to the top layer.
+  3. **Integrate** platform safety: map existing redlines (content policy, privacy) to their systemic axes, encode matching guards, and prove coverage via `_plans/*` + anchors events before elevating TEOF to the top layer.
 
 This keeps Observation → Ethics → Self-repair coherent while giving companies the confidence levers—deterministic audits, shared stewardship, incremental adoption—to promote TEOF without diluting the constitution.
 
@@ -161,7 +161,7 @@ view.
   If critical/immutable files changed: put them under `capsule/<version>/`, run `bash scripts/freeze.sh`, and ensure CI verify passes (hashes, anchors, no junk files).
 
 - [ ] **Evidence/goldens**  
-  If validator/evaluator logic or reasoning rules changed: update `docs/examples/**/expected/` goldens and include a brief rationale. OCERS/OGS commands must run and produce artifacts.
+  If validator/evaluator logic or reasoning rules changed: update `docs/examples/**/expected/` goldens and include a brief rationale. Systemic readiness commands must run and produce artifacts.
 
 - [ ] **Minimal surface**  
   Provide the smallest runnable demo or doc snippet (CLI invocation + output path) that shows the change; else **N/A**.
@@ -232,5 +232,5 @@ Use this lane when trusted automation can land several low-risk refinements with
 These rules let trusted automation keep shipping routine improvements while giving humans a single artifact (the operator preset receipt) to audit the batch.
 
 ## Fitness Lens (tools & CI)
-- **Preflight is invariants-only.** Tools that don’t measurably improve OCERS remain **opt-in**.
+- **Preflight is invariants-only.** Tools that don’t measurably improve systemic coverage remain **opt-in**.
 - Use `docs/policy/fitness-lens.md` to justify any blocking check with receipts + sunset.

@@ -68,7 +68,16 @@
   ],
   "summary": "Publish docs quick-link manifest + helper CLI",
   "version": 0,
-  "ocers_target": "Reproducibility↑ Self-repair↑",
   "systemic_scale": 2,
-  "layer": "L4"
+  "layer": "L4",
+  "systemic_targets": [
+    "S2",
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L4"
+  ]
 }

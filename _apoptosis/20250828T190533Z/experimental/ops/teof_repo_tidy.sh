@@ -184,7 +184,7 @@ build/
 .venv/
 __pycache__/
 *.pyc
-artifacts/ocers_out/
+artifacts/systemic_out/
 EOF
   info "updated .gitignore with standard ignores"
 fi

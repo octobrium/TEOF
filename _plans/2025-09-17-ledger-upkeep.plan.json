@@ -39,7 +39,13 @@
   "receipts": [
     "_report/runner/20250917T170313Z-c5a82a16.json"
   ],
-  "ocers_target": "Reproducibility↑ Evidence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

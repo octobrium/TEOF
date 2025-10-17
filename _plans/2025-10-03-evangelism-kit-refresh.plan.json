@@ -55,7 +55,15 @@
     "docs/evangelism/distribution-cadence.md",
     "_report/usage/evangelism/cadence-20251003T022920Z.json"
   ],
-  "ocers_target": "Clarity↑ Outreach↑",
   "systemic_scale": 4,
-  "layer": "L2"
+  "layer": "L2",
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L2"
+  ]
 }

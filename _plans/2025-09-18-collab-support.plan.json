@@ -52,7 +52,14 @@
   "receipts": [
     "_report/agent/codex-3/collab-support/docs.json"
   ],
-  "ocers_target": "Coherence↑ Evidence↑ Safety↑",
   "systemic_scale": 3,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

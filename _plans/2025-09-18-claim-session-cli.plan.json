@@ -55,7 +55,15 @@
     "_plans/2025-09-18-claim-session-cli.justification.md",
     "_report/agent/codex-4/claim-session-cli/pytest.txt"
   ],
-  "ocers_target": "Observation↑ Evidence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

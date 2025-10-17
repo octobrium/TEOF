@@ -50,7 +50,16 @@
     "docs/usage/chronicle.md",
     "_report/usage/chronicle/20250922T220545Z.json"
   ],
-  "ocers_target": "Observation↑ Safety↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

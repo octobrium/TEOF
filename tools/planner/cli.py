@@ -13,6 +13,12 @@ from pathlib import Path
 from typing import Any, Iterable, List
 
 from tools.planner import queue_warnings
+from tools.planner.systemic_targets import (
+    derive_layer_targets,
+    ensure_axes,
+    highest_axis_value,
+    parse_axis_tokens,
+)
 from tools.planner.validate import PLAN_STATUS, STEP_STATUS, strict_checks, validate_plan
 from tools.receipts.scaffold import scaffold_plan, format_created, ScaffoldError
 
@@ -33,12 +39,25 @@ class PlannerCliError(RuntimeError):
     """Raised when a planner CLI command cannot complete."""
 
 
-def _load_queue_entry(ref: str) -> tuple[str | None, list[str]]:
+def _parse_layer_tokens(text: str) -> list[str]:
+    tokens = re.split(r"[,\s/|]+", text)
+    layers: list[str] = []
+    for token in tokens:
+        cleaned = token.strip().upper()
+        if cleaned.startswith("L") and len(cleaned) >= 2 and cleaned[1].isdigit():
+            value = cleaned[:2]
+            if value not in layers:
+                layers.append(value)
+    return layers
+
+
+def _load_queue_entry(ref: str) -> tuple[list[str], list[str], list[str]]:
     path = ROOT / ref
     if not path.exists():
         raise PlannerCliError(f"queue reference not found: {ref}")
-    ocers_target: str | None = None
     coordinates: list[str] = []
+    systemic_targets: list[str] = []
+    layer_targets: list[str] = []
     try:
         content = path.read_text(encoding="utf-8")
     except OSError as exc:
@@ -46,14 +65,17 @@ def _load_queue_entry(ref: str) -> tuple[str | None, list[str]]:
     for raw_line in content.splitlines():
         line = raw_line.strip()
         lowered = line.lower()
-        if lowered.startswith("ocers target:"):
-            value = line.split(":", 1)[1].strip().rstrip(".")
-            ocers_target = value or None
-        elif lowered.startswith("coordinate:"):
+        if lowered.startswith("coordinate:"):
             value = line.split(":", 1)[1].strip()
             if value:
                 coordinates.append(value)
-    return ocers_target, coordinates
+        elif lowered.startswith("systemic targets:"):
+            value = line.split(":", 1)[1].strip()
+            systemic_targets = parse_axis_tokens(value)
+        elif lowered.startswith("layer targets:"):
+            value = line.split(":", 1)[1].strip()
+            layer_targets = _parse_layer_tokens(value)
+    return coordinates, systemic_targets, layer_targets
 
 
 def _parse_coordinate_token(token: str) -> tuple[int | None, str | None]:
@@ -77,26 +99,20 @@ def _parse_coordinate_token(token: str) -> tuple[int | None, str | None]:
 
 def _resolve_queue_metadata(
     queue_refs: list[str],
-    ocers_target: str | None,
     layer: str | None,
     systemic_scale: int | None,
-) -> tuple[str | None, str | None, int | None, list[dict[str, str]]]:
+) -> tuple[str | None, int | None, list[dict[str, str]], list[str], list[str]]:
     if not queue_refs:
-        return ocers_target, layer, systemic_scale, []
+        return layer, systemic_scale, [], [], []
     links: list[dict[str, str]] = []
+    systemic_tokens: list[str] = []
+    layer_hints: list[str] = []
+    queue_layer_targets: list[str] = []
     for raw_ref in queue_refs:
         ref = Path(raw_ref).as_posix()
-        ocers_from_queue, coordinates = _load_queue_entry(ref)
+        coordinates, systemic_from_queue, layer_targets_queue = _load_queue_entry(ref)
 
         links.append({"type": "queue", "ref": ref})
-
-        if ocers_from_queue:
-            if ocers_target is None:
-                ocers_target = ocers_from_queue
-            elif ocers_from_queue != ocers_target:
-                raise PlannerCliError(
-                    f"queue {ref} expects ocers_target '{ocers_from_queue}' but got '{ocers_target}'"
-                )
 
         coordinate_pairs = [_parse_coordinate_token(coord) for coord in coordinates]
         systemic_candidates = [value for value, _ in coordinate_pairs if value is not None]
@@ -109,6 +125,10 @@ def _resolve_queue_metadata(
                 raise PlannerCliError(
                     f"queue {ref} expects systemic_scale in {systemic_candidates} but got {systemic_scale}"
                 )
+        if systemic_from_queue:
+            for axis in systemic_from_queue:
+                if axis not in systemic_tokens:
+                    systemic_tokens.append(axis)
 
         if layer_candidates:
             if layer is None:
@@ -117,8 +137,15 @@ def _resolve_queue_metadata(
                 raise PlannerCliError(
                     f"queue {ref} expects layer in {layer_candidates} but got {layer}"
                 )
+            for candidate in layer_candidates:
+                if candidate and candidate not in layer_hints:
+                    layer_hints.append(candidate)
+        if layer_targets_queue:
+            for target in layer_targets_queue:
+                if target not in queue_layer_targets:
+                    queue_layer_targets.append(target)
 
-    return ocers_target, layer, systemic_scale, links
+    return layer, systemic_scale, links, systemic_tokens, layer_hints + queue_layer_targets
 
 
 def _render_warning_table(warnings: list[dict[str, Any]]) -> str:
@@ -326,26 +353,62 @@ def cmd_new(args: argparse.Namespace) -> int:
     steps = _parse_steps(args.step, summary=summary)
 
     priority = _ensure_priority(getattr(args, "priority", None))
-    ocers_target = (getattr(args, "ocers_target", None) or "").strip() or None
+    systemic_arg_tokens: list[str] = []
+    for token in getattr(args, "systemic_target", []):
+        systemic_arg_tokens.extend(parse_axis_tokens(token))
+    provided_systemic_targets: list[str] = []
+    if systemic_arg_tokens:
+        try:
+            provided_systemic_targets = ensure_axes(systemic_arg_tokens)
+        except ValueError as exc:
+            raise PlannerCliError(str(exc)) from exc
     layer_arg = getattr(args, "layer", None)
     layer = layer_arg.upper() if layer_arg else None
     systemic_scale = getattr(args, "systemic_scale", None)
     impact_score = _ensure_impact_score(getattr(args, "impact_score", None))
     queue_refs: list[str] = [ref for ref in getattr(args, "queue_ref", []) if ref]
-    ocers_target, layer, systemic_scale, queue_links = _resolve_queue_metadata(
+    (
+        layer,
+        systemic_scale,
+        queue_links,
+        queue_systemic_targets,
+        queue_layer_hints,
+    ) = _resolve_queue_metadata(
         queue_refs,
-        ocers_target,
         layer,
         systemic_scale,
     )
 
-    if not ocers_target:
-        raise PlannerCliError("--ocers-target is required (provide manually or via --queue-ref)")
+    systemic_targets: list[str] = []
+    if provided_systemic_targets:
+        systemic_targets = provided_systemic_targets
+    elif queue_systemic_targets:
+        systemic_targets = queue_systemic_targets
+    elif systemic_scale is not None:
+        systemic_targets = [f"S{systemic_scale}"]
+    if not systemic_targets:
+        raise PlannerCliError(
+            "unable to derive systemic targets; provide --systemic-target or reference a queue entry with them"
+        )
+    try:
+        systemic_targets = ensure_axes(systemic_targets)
+    except ValueError as exc:
+        raise PlannerCliError(str(exc)) from exc
+
     if layer is None or layer not in LAYER_CHOICES:
         raise PlannerCliError(f"layer must be one of {', '.join(LAYER_CHOICES)} (provide manually or via --queue-ref)")
+    layer_targets = derive_layer_targets(layer, queue_layer_hints)
+
+    axis_highest = highest_axis_value(systemic_targets)
     if systemic_scale is None:
-        raise PlannerCliError("--systemic-scale is required (provide manually or via --queue-ref)")
+        if axis_highest is None:
+            raise PlannerCliError("--systemic-scale is required (unable to infer from systemic targets)")
+        systemic_scale = axis_highest
     systemic_scale = _ensure_systemic_scale(systemic_scale)
+    scale_token = f"S{systemic_scale}"
+    if scale_token not in systemic_targets:
+        systemic_targets.append(scale_token)
+        systemic_targets = ensure_axes(systemic_targets)
 
     payload = {
         "version": 0,
@@ -353,7 +416,8 @@ def cmd_new(args: argparse.Namespace) -> int:
         "created": f"{timestamp:%Y-%m-%dT%H:%M:%SZ}",
         "actor": actor,
         "summary": summary,
-        "ocers_target": ocers_target,
+        "systemic_targets": systemic_targets,
+        "layer_targets": layer_targets,
         "priority": priority,
         "layer": layer,
         "systemic_scale": systemic_scale,
@@ -754,8 +818,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     new.add_argument("--priority", type=int, required=True, help="Numeric priority (0 = highest)")
     new.add_argument(
-        "--ocers-target",
-        help="OCERS focus for the plan (e.g. Observation↑ Coherence↑)",
+        "--systemic-target",
+        action="append",
+        default=[],
+        help="Systemic axis tokens (e.g. S1,S2). May be repeated; comma-separated values supported.",
     )
     new.add_argument("--layer", choices=LAYER_CHOICES, help="Layer label (L0–L6)")
     new.add_argument(

@@ -73,7 +73,15 @@
     "_plans/2025-09-18-consensus-ledger-cli.justification.md",
     "_report/agent/codex-4/queue-030/pytest-consensus-ledger-cli.txt"
   ],
-  "ocers_target": "Observation↑ Coherence↑",
   "systemic_scale": 6,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

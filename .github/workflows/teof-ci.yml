@@ -317,18 +317,18 @@ jobs:
       - name: Build brief (direct, no make)
         run: |
           set -euo pipefail
-          mkdir -p artifacts/ocers_out
+          mkdir -p artifacts/systemic_out
           OUT_ROOT="$GITHUB_WORKSPACE/artifacts" python -m teof.cli brief
-          test -f artifacts/ocers_out/latest/brief.json
-          test -f artifacts/ocers_out/latest/score.txt
-          ls -l artifacts/ocers_out/latest/
+          test -f artifacts/systemic_out/latest/brief.json
+          test -f artifacts/systemic_out/latest/score.txt
+          ls -l artifacts/systemic_out/latest/
 
       - name: Upload brief artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ocers_out
-          path: artifacts/ocers_out/latest/
+          path: artifacts/systemic_out/latest/
           if-no-files-found: warn
           retention-days: 7
 

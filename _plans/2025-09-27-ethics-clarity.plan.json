@@ -51,5 +51,15 @@
     "docs/foundation/alignment-protocol/tap.md",
     "docs/workflow.md"
   ],
-  "ocers_target": "Ethics↑ Observation↑"
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S5",
+    "S6",
+    "S8"
+  ],
+  "layer_targets": [
+    "L1"
+  ]
 }

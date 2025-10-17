@@ -22,7 +22,7 @@ Windows (PowerShell):
 **What this does**
 - Creates an isolated Python venv if missing.
 - Runs the TEOF CLI to generate a brief:
-  - writes to `artifacts/ocers_out/<timestamp>/`
+  - writes to `artifacts/systemic_out/<timestamp>/`
   - updates/creates the `latest` symlink
 - Appends a SHA-256 anchor for that run to `governance/anchors.json`.
 

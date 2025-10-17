@@ -52,5 +52,14 @@
     "tests/test_philosophy_prompt.py",
     "tools/prompts/philosophy.py"
   ],
-  "ocers_target": "Coherence\u2191 Ethics\u2191"
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S6",
+    "S8",
+    "S9"
+  ],
+  "layer_targets": [
+    "L2"
+  ]
 }

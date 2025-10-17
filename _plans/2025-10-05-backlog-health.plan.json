@@ -42,11 +42,20 @@
     "owner": "codex-4",
     "status": "satisfied"
   },
-  "ocers_target": "Observation\u2191 Self-repair\u2191",
   "receipts": [
     "tools/agent/backlog_health.py",
     "tests/test_backlog_health.py",
     "docs/automation/backlog-health.md",
     "docs/automation.md"
+  ],
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S5",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }

@@ -66,7 +66,14 @@
     "_report/agent/codex-4/queue-039/pytest-capsule-cadence.log",
     "_report/capsule/summary-latest.json"
   ],
-  "ocers_target": "Coherence↑ Reproducibility↑",
   "systemic_scale": 6,
-  "layer": "L4"
+  "layer": "L4",
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4"
+  ]
 }

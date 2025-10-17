@@ -15,7 +15,7 @@
 | --- | --- | --- | --- |
 | `_report/external/sample/20250922T221000Z.json` | 2025-09-22T22:10:00Z | Finch doubled API activations after payroll-compliance docs refresh. | Observation |
 | `docs/vision/power-levers.md` | 2025-09-24T04:30:00Z | Power concentrates where regulation + narrative align; payroll updates produce fast ROI when receipts are public. | Coherence |
-| `artifacts/ocers_out/latest/brief.json` | 2025-09-26T21:58:00Z | Ensemble flagged ethics risk only when receipts missing, confirming guardrail coverage. | Ethics |
+| `artifacts/systemic_out/latest/brief.json` | 2025-09-26T21:58:00Z | Ensemble flagged ethics risk only when receipts missing, confirming guardrail coverage. | Ethics |
 
 ## Opportunity / Risk Matrix
 - **Do:** ship compliance checklist template + embed diff/test guardrails in the

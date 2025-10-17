@@ -61,5 +61,11 @@
     "tools/receipts/main.py",
     "tools/receipts/status.py"
   ],
-  "ocers_target": "Reproducibility↑ Clarity↑"
+  "systemic_targets": [
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

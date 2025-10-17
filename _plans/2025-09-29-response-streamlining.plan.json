@@ -49,5 +49,14 @@
     "tools/reference/lookup.py",
     "docs/workflow.md"
   ],
-  "ocers_target": "Coherence↑ Self-repair↑"
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

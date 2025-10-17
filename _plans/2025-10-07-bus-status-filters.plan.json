@@ -41,10 +41,16 @@
       "ref": "queue/002-bus-status-filters.md"
     }
   ],
-  "ocers_target": "Coherence\u2191 Evidence\u2191",
   "receipts": [
     "tools/agent/bus_status.py",
     "tests/test_agent_bus_status.py",
     "docs/parallel-codex.md"
+  ],
+  "systemic_targets": [
+    "S3",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }

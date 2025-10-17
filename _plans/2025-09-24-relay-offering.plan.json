@@ -64,7 +64,15 @@
     "docs/vision/relay-offering-collateral.md",
     "docs/vision/relay-offering-dry-run.md"
   ],
-  "ocers_target": "Outreach↑ Coherence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

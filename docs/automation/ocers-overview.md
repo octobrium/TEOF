@@ -1,27 +1,19 @@
-# OCERS References Inventory
+# Systemic Migration Inventory
 
-This inventory captures current locations where OCERS is referenced so the
-mapping to the systemic hierarchy (S1–S10) stays coherent. For the canonical
-ordering rules, see [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement).
+This inventory tracks remaining OCERS references so they can be converted to
+explicit systemic/layer language. For the canonical ordering rules, see
+[`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement).
 
 | Location | Context |
 | --- | --- |
-| `README.md#framework-ordering` | Describes the OCERS loop alongside the layer hierarchy. |
-| `docs/workflow.md` | Mentions OCERS receipts, planner metadata, and automation alignment. |
-| `docs/decision-hierarchy.md` | Frames decision gates using OCERS traits. |
-| `docs/automation.md` | Multiple sections emphasise OCERS coverage for automation guards. |
-| `docs/automation/autonomy-preflight.md` | Uses OCERS metrics in preflight dashboards. |
-| `docs/policy/fitness-lens.md` | Requires proposals to state OCERS traits. |
-| `docs/policy/dev-accelerator.md` | Describes OCERS deltas for acceleration experiments. |
-| `docs/examples/brief/config/brief.json` | OCERS scoring targets for the brief ensemble. |
-| `docs/vision/*` (relay offering, impact) | Reference OCERS traits when describing offerings. |
-| `_plans/` metadata | Plans include `ocers_target` fields; numerous backfill plans reference OCERS. |
-| `tools/fractal/*` | Scripts validate OCERS metadata and conformance. |
-| `tools/planner/cli.py` | CLI arguments capture OCERS targets/co-ordinates. |
-| `tests/test_planner_cli.py` | Verifies OCERS metadata handling. |
-| `docs/automation/confidence-metrics.md` | Example note references OCERS scans. |
-| `_report/agent/*` receipts | Many receipts (fractal, conformance) include OCERS context. |
+| `README.md#framework-ordering` | Introduces systemic targets; historical OCERS wording pending rewrite. |
+| `docs/workflow.md` | References systemic receipts; scattered OCERS language remains. |
+| `docs/automation/*.md` | Multiple sections still describe OCERS-based guardrails. |
+| `docs/policy/*.md` | Templates ask for OCERS traits; needs systemic replacements. |
+| `docs/vision/*` | Legacy OCERS framing for offerings; mark as historical context. |
+| `_apoptosis/**` | Archived experiments; keep as-is with legacy labels. |
+| `_report/agent/*` | Historical receipts mentioning OCERS (do not alter). |
 
-This list serves as step 1 for plan `2025-10-06-ocers-systemic-alignment`. Future
-updates will map each reference to its systemic coordinate and adjust the docs
-accordingly.
+Use this list to methodically convert remaining surfaces to systemic/layer
+coordinates. Archived references should be annotated as historical rather than
+edited.

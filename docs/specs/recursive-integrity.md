@@ -10,7 +10,7 @@
 A system declares compliance when every release, plan, and automation path can be reproduced from:
 - the canonical capsule (`capsule/v*/` + `governance/anchors.json`),
 - append-only governance events,
-- deterministic OCERS receipts under `artifacts/`, and
+- deterministic systemic receipts under `artifacts/`, and
 - CI guardrails that enforce policy, coherence, and receipts.
 
 The spec assumes Python ≥3.9 and no hidden network dependencies.
@@ -23,7 +23,7 @@ The spec assumes Python ≥3.9 and no hidden network dependencies.
 | --- | --- | --- |
 | **Origin Signature** | `capsule/v1.6/capsule.txt`, `governance/anchors.json`, TAP key `bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c` | `scripts/ci/check_hashes.sh` + anchor audit proves the capsule lineage. |
 | **Append-only Governance** | `governance/anchors.json` & `governance/keys/` | `scripts/ci/check_append_only.sh origin/main` blocks retroactive edits. |
-| **Deterministic Bootloader** | `teof/bootloader.py`, quickstart receipts | `scripts/ci/quickstart_smoke.sh` installs editable package and verifies `artifacts/ocers_out/latest/brief.json`. |
+| **Deterministic Bootloader** | `teof/bootloader.py`, quickstart receipts | `scripts/ci/quickstart_smoke.sh` installs editable package and verifies `artifacts/systemic_out/latest/brief.json`. |
 | **Policy Surface** | `scripts/ci/policy_checks.sh`, `.github/workflows/guardrails.yml` | Prevents kernel imports from `experimental/`, `archive/`, `legacy`. |
 | **Consensus Receipts** | `artifacts/consensus/ci-*.jsonl` | Guardrail uploads ensure agreement between scorer, planner, and receipts. |
 
@@ -38,10 +38,10 @@ Additional mirrors **must** keep byte-identical copies of `capsule.txt`, `hashes
    - `_report/usage/**/*` summarises runs for managers.
 2. **Cohere** – Run CI guardrails locally (`just guardrails` or `scripts/ci/…`) before pushing.
 3. **Ethics** – `scripts/policy_checks.sh` enforces the canonical covenant: high-leverage modules cannot depend on unreviewed experiments.
-4. **Reproduce** – `teof brief` regenerates receipts; compare with previous `artifacts/ocers_out/<STAMP>/` using `scripts/ci/check_consensus_receipts.py`.
+4. **Reproduce** – `teof brief` regenerates receipts; compare with previous `artifacts/systemic_out/<STAMP>/` using `scripts/ci/check_consensus_receipts.py`.
 5. **Self-repair** – On contradiction, open a plan under `_plans/` and log the delta on `_bus/events/events.jsonl`.
 
-This loop operationalises the OCERS cycle described in the whitepaper (§2.1).
+This loop operationalises the systemic readiness cycle described in the whitepaper (§2.1).
 
 ---
 
@@ -50,7 +50,7 @@ This loop operationalises the OCERS cycle described in the whitepaper (§2.1).
 Use the checklist across layers and agents. Failure on any item requires receipts and a recovery plan.
 
 1. **Unity** – Does the work point to a single capsule + anchor? (`capsule/current` symlink)  
-2. **Energy** – Are transformations logged with receipts timestamps? (`artifacts/ocers_out/`)  
+2. **Energy** – Are transformations logged with receipts timestamps? (`artifacts/systemic_out/`)  
 3. **Propagation** – Can another host replay the change from hashes + receipts?  
 4. **Defense** – Did guardrails run and pass? (CI badge, local run log)  
 5. **Intelligence** – Were contradictions resolved via `_plans/` or `_bus/` updates?  
@@ -83,4 +83,3 @@ Deviation requires a logged crisis plan with OCERS vector `Observation` or highe
 - TAP Protocol (§Final Affirmation, `docs/foundation/alignment-protocol/tap.md`)  
 - Guardrails workflow (`.github/workflows/guardrails.yml`)  
 - Consensus tooling (`scripts/ci/consensus_smoke.sh`, `scripts/ci/check_consensus_receipts.py`)
-

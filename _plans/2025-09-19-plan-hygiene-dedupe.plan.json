@@ -56,7 +56,16 @@
   ],
   "summary": "Teach plan_hygiene to detect duplicate receipts",
   "version": 0,
-  "ocers_target": "Self-repair↑ Coherence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

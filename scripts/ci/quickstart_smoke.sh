@@ -9,7 +9,7 @@ python3 -m pip install -e .
 
 teof brief
 
-ARTIFACT="artifacts/ocers_out/latest/brief.json"
+ARTIFACT="artifacts/systemic_out/latest/brief.json"
 if [ ! -f "$ARTIFACT" ]; then
   echo "::error::quickstart smoke missing receipt $ARTIFACT"
   exit 1

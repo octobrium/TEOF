@@ -39,7 +39,14 @@
   "receipts": [
     "_report/runner/20250917T201639Z-40f275bd.json"
   ],
-  "ocers_target": "Coherence↑ Clarity↑",
   "systemic_scale": 5,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

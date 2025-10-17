@@ -58,7 +58,15 @@
     "_report/usage/repo-anatomy/summary-20251003T221257Z.json",
     "queue/048-repo-anatomy-dashboard.md"
   ],
-  "ocers_target": "Observation\u2191 Clarity\u2191",
   "layer": "L5",
-  "systemic_scale": 4
+  "systemic_scale": 4,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

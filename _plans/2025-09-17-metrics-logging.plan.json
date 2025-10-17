@@ -50,7 +50,13 @@
     "_report/runner/20250917T220422Z-0b250c8e.json",
     "_report/agent/codex-1/metrics-logging/verification.md"
   ],
-  "ocers_target": "Evidence↑ Reproducibility↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

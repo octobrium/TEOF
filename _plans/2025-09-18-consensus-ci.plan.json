@@ -57,7 +57,13 @@
     "_plans/2025-09-18-consensus-ci.justification.md",
     "_report/agent/codex-4/queue-038/consensus-ci-smoke.log"
   ],
-  "ocers_target": "Evidence↑ Safety↑",
   "systemic_scale": 6,
-  "layer": "L6"
+  "layer": "L6",
+  "systemic_targets": [
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6"
+  ]
 }

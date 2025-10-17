@@ -51,7 +51,15 @@
     "tests/test_autonomy_advisory_report.py",
     "_report/autonomy/backlog-synth/summary-20251003T024300Z.md"
   ],
-  "ocers_target": "Clarity↑ Self-repair↑",
   "systemic_scale": 5,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

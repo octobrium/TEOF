@@ -46,7 +46,15 @@
     "tests/test_memory_tools.py",
     "docs/ci-guarantees.md"
   ],
-  "ocers_target": "Observation↑ Reproducibility↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

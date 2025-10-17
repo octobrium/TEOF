@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Minimal OCERS ensemble scorer with typed runners and safety checks."""
+"""Minimal systemic readiness ensemble scorer with typed runners and safety checks."""
 from __future__ import annotations
 
 import importlib
@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Callable, Dict, Iterable, Mapping, MutableMapping, Sequence
 
-_PILLARS: tuple[str, ...] = ("O", "C", "E", "R", "S")
+_PILLARS: tuple[str, ...] = ("structure", "alignment", "verification", "risk", "recovery")
 RunnerResult = Dict[str, float]
 Runner = Callable[[str], RunnerResult]
 
@@ -17,24 +17,17 @@ def load_text(path: str | Path) -> str:
 
 
 def _ensure_scores(payload: Mapping[str, float], *, name: str) -> RunnerResult:
-    result = {pillar: float(payload[pillar]) for pillar in _PILLARS}
+    result: RunnerResult = {pillar: float(payload[pillar]) for pillar in _PILLARS}
     result["name"] = name  # type: ignore[assignment]
-    return result  # type: ignore[return-value]
+    return result
 
 
 def run_heuristic(text: str) -> RunnerResult:
-    mod = importlib.import_module("extensions.validator.teof_ocers_min")
-    t = mod.norm_text(text)
-    return _ensure_scores(
-        {
-            "O": mod.score_observation(t),
-            "C": mod.score_coherence(t),
-            "E": mod.score_ethics(t),
-            "R": mod.score_repro(t),
-            "S": mod.score_selfrepair(t),
-        },
-        name="H",
-    )
+    mod = importlib.import_module("extensions.validator.teof_systemic_min")
+    result = mod.evaluate_cli(text)
+    scores = result.get("scores", {})
+    payload = {pillar: float(scores.get(pillar, 0)) for pillar in _PILLARS}
+    return _ensure_scores(payload, name="H")
 
 
 _RUNNERS: Dict[str, Runner] = {"H": run_heuristic}

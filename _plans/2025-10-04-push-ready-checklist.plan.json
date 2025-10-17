@@ -49,5 +49,12 @@
     "tests/test_push_ready.py",
     "tests/test_assignment_locator.py"
   ],
-  "ocers_target": "Coherence\u2191 Reproducibility\u2191"
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

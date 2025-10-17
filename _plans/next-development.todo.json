@@ -16,7 +16,6 @@
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
-      "ocers_target": "Coherence\u2191 Safety\u2191",
       "source": "queue/001-agent-bus-watch.md",
       "completed_at": "2025-10-07T20:55:00Z",
       "receipts": [
@@ -32,7 +31,6 @@
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
-      "ocers_target": "Coherence\u2191 Evidence\u2191",
       "source": "queue/005-bus-message-cli.md",
       "completed_at": "2025-10-07T20:17:37Z",
       "receipts": [
@@ -48,7 +46,6 @@
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
-      "ocers_target": "Coherence\u2191 Evidence\u2191",
       "source": "queue/006-task-assign-bus-message.md",
       "completed_at": "2025-10-07T21:55:00Z",
       "receipts": [
@@ -65,7 +62,6 @@
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
-      "ocers_target": "Coherence\u2191 Evidence\u2191",
       "source": "queue/001-agent-bus-watch.md",
       "completed_at": "2025-10-07T19:46:45Z",
       "receipts": [
@@ -81,7 +77,6 @@
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
-      "ocers_target": "Coherence\u2191 Evidence\u2191",
       "source": "queue/002-bus-status-filters.md",
       "completed_at": "2025-10-07T19:59:55Z",
       "receipts": [
@@ -98,7 +93,6 @@
       "priority": "high",
       "layer": "L1",
       "systemic_scale": 6,
-      "ocers_target": "Evidence\u2191 Safety\u2191 Coherence\u2191",
       "source": "queue/000-welcome.md",
       "completed_at": "2025-10-07T18:36:47Z",
       "receipts": [
@@ -116,7 +110,6 @@
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 3,
-      "ocers_target": "Coherence\u2191 Evidence\u2191 Safety\u2191",
       "source": "queue/007-bus-event-severity.md",
       "completed_at": "2025-10-07T19:40:27Z",
       "receipts": [
@@ -133,7 +126,6 @@
       "priority": "medium",
       "layer": "L2",
       "systemic_scale": 5,
-      "ocers_target": "Coherence\u2191 Reproducibility\u2191",
       "source": "queue/036-macro-hygiene-objective.md"
     },
     {
@@ -462,7 +454,7 @@
       "status": "done",
       "layer": "L5",
       "priority": "medium",
-      "notes": "Implement commitment guard lint and update TT\u0394 docs",
+      "notes": "Implement commitment guard lint and update TTΔ docs",
       "plan_suggestion": "2025-10-05-commitment-guard",
       "receipts": [
         "_plans/2025-10-05-commitment-guard.plan.json",
@@ -475,7 +467,7 @@
     },
     {
       "id": "ND-025",
-      "title": "TT\u0394 trend reporting",
+      "title": "TTΔ trend reporting",
       "status": "done",
       "layer": "L5",
       "priority": "medium",

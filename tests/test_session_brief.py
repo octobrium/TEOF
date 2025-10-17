@@ -99,7 +99,7 @@ def test_session_brief_operator_preset(tmp_path: Path, monkeypatch: pytest.Monke
     planner_dir = repo_root / "_report" / "planner" / "validate"
     agent_reports = repo_root / "_report" / "agent"
     usage_dir = repo_root / "_report" / "usage"
-    quickstart_dir = repo_root / "artifacts" / "ocers_out" / "latest"
+    quickstart_dir = repo_root / "artifacts" / "systemic_out" / "latest"
 
     monkeypatch.setattr(session_brief, "ROOT", repo_root)
     monkeypatch.setattr(session_brief, "CLAIMS_DIR", claims_dir)
@@ -202,7 +202,7 @@ def test_session_brief_operator_preset_flags_failures(tmp_path: Path, monkeypatc
     planner_dir = repo_root / "_report" / "planner" / "validate"
     agent_reports = repo_root / "_report" / "agent"
     usage_dir = repo_root / "_report" / "usage"
-    quickstart_dir = repo_root / "artifacts" / "ocers_out" / "latest"
+    quickstart_dir = repo_root / "artifacts" / "systemic_out" / "latest"
 
     monkeypatch.setattr(session_brief, "ROOT", repo_root)
     monkeypatch.setattr(session_brief, "CLAIMS_DIR", claims_dir)

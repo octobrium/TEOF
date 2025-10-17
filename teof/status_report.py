@@ -77,11 +77,11 @@ def _package_line(root: Path) -> str:
 
 
 def _cli_line() -> str:
-    return "CLI: `teof brief` → writes `artifacts/ocers_out/<UTCSTAMP>/` and updates `artifacts/ocers_out/latest/`"
+    return "CLI: `teof brief` → writes `artifacts/systemic_out/<UTCSTAMP>/` and updates `artifacts/systemic_out/latest/`"
 
 
 def _artifacts_line(root: Path) -> str:
-    latest = root / "artifacts" / "ocers_out" / "latest"
+    latest = root / "artifacts" / "systemic_out" / "latest"
     ready = latest.is_dir() or latest.is_symlink()
     brief = latest / "brief.json"
     score = latest / "score.txt"

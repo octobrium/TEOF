@@ -58,6 +58,6 @@ python3 -m tools.maintenance.plan_hygiene
 python3 scripts/ci/check_plans.py
 python3 tools/planner/validate.py --strict --output _report/planner/validate/summary-latest.json
 python3 tools/agent/bus_status.py --json --limit 5 >/dev/null
-pytest tests/test_agent_bus_status.py tests/test_ocers_rules.py tests/test_brief.py tests/test_ocers_eval.py
+pytest tests/test_agent_bus_status.py tests/test_systemic_rules.py tests/test_brief.py tests/test_systemic_eval.py
 
 echo "Preflight complete: receipts, plans, planner validation, bus status, targeted tests verified."

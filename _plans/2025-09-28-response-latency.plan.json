@@ -49,5 +49,14 @@
     "_report/usage/governance/response-latency-causes-20250928T182137Z.json",
     "_report/usage/governance/response-latency-improvements-20250928T182244Z.json"
   ],
-  "ocers_target": "Observation↑ Self-repair↑"
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S5",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

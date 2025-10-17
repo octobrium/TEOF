@@ -68,7 +68,8 @@ def _parse_queue_entry(path: Path) -> dict[str, Any] | None:
         return None
     title: str | None = None
     coordinate: str | None = None
-    ocers: str | None = None
+    systemic_targets: str | None = None
+    layer_targets: str | None = None
     with path.open("r", encoding="utf-8") as fh:
         for raw_line in islice(fh, 0, 32):
             line = raw_line.strip()
@@ -82,9 +83,11 @@ def _parse_queue_entry(path: Path) -> dict[str, Any] | None:
                     title = heading
             elif line.lower().startswith("coordinate:") and coordinate is None:
                 coordinate = line.split(":", 1)[1].strip()
-            elif line.lower().startswith("ocers target:") and ocers is None:
-                ocers = line.split(":", 1)[1].strip()
-            if title and coordinate and ocers:
+            elif line.lower().startswith("systemic targets:") and systemic_targets is None:
+                systemic_targets = line.split(":", 1)[1].strip()
+            elif line.lower().startswith("layer targets:") and layer_targets is None:
+                layer_targets = line.split(":", 1)[1].strip()
+            if title and coordinate and systemic_targets and layer_targets:
                 break
 
     return {
@@ -92,7 +95,8 @@ def _parse_queue_entry(path: Path) -> dict[str, Any] | None:
         "slug": slug or path.stem,
         "title": title or path.stem,
         "coordinate": coordinate,
-        "ocers_target": ocers,
+        "systemic_targets": systemic_targets,
+        "layer_targets": layer_targets,
         "path": _rel_to_root(path),
     }
 

@@ -14,6 +14,10 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from tools.fractal import conformance as fractal_conformance
+from tools.planner.systemic_targets import (
+    normalize_axis,
+    sort_axes,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 PLANS_DIR = ROOT / "_plans"
@@ -30,6 +34,16 @@ PlanDict = Dict[str, Any]
 DEFAULT_SUMMARY_DIR = ROOT / "_report" / "planner" / "validate"
 
 _QUEUE_INDEX: Dict[str, fractal_conformance.QueueEntry] | None = None
+
+
+def _dedupe_preserve(items: Iterable[str]) -> List[str]:
+    seen: set[str] = set()
+    ordered: List[str] = []
+    for item in items:
+        if item not in seen:
+            seen.add(item)
+            ordered.append(item)
+    return ordered
 
 
 def _get_queue_index() -> Dict[str, fractal_conformance.QueueEntry]:
@@ -71,9 +85,13 @@ def _detect_queue_warnings(
 ) -> List[Dict[str, Any]]:
     warnings: List[Dict[str, Any]] = []
     plan_id = plan.get("plan_id") or str(plan.get("path"))
-    plan_ocers = plan.get("ocers_target")
     plan_layer = plan.get("layer")
     plan_systemic = plan.get("systemic_scale")
+    plan_systemic_targets = [
+        token
+        for token in plan.get("systemic_targets") or []
+        if isinstance(token, str) and token.strip().upper().startswith("S")
+    ]
     links = plan.get("links") or []
     for link in links:
         if not isinstance(link, dict) or link.get("type") != "queue":
@@ -92,21 +110,6 @@ def _detect_queue_warnings(
                 }
             )
             continue
-
-        if entry.ocers_target and plan_ocers and entry.ocers_target != plan_ocers:
-            warnings.append(
-                {
-                    "plan_id": plan_id,
-                    "queue_ref": ref,
-                    "issue": "ocers_mismatch",
-                    "expected": entry.ocers_target,
-                    "actual": plan_ocers,
-                    "message": (
-                        f"{plan_id}: ocers_target '{plan_ocers}' differs from queue "
-                        f"'{entry.ocers_target}' ({ref})"
-                    ),
-                }
-            )
 
         coordinate_pairs = _extract_coordinate_pairs(entry)
         systemic_candidates = [pair[0] for pair in coordinate_pairs if pair[0] is not None]
@@ -143,6 +146,40 @@ def _detect_queue_warnings(
                     ),
                 }
             )
+
+        if entry.systemic_targets:
+            normalized_plan_targets = {token.strip().upper() for token in plan_systemic_targets}
+            expected_targets = {token.strip().upper() for token in entry.systemic_targets}
+            if not normalized_plan_targets:
+                warnings.append(
+                    {
+                        "plan_id": plan_id,
+                        "queue_ref": ref,
+                        "issue": "missing_systemic_targets",
+                        "expected": sorted(expected_targets),
+                        "message": (
+                            f"{plan_id}: queue {ref} declares systemic targets "
+                            f"{sorted(expected_targets)} but plan lacks systemic_targets"
+                        ),
+                    }
+                )
+            else:
+                missing = sorted(expected_targets - normalized_plan_targets)
+                if missing:
+                    warnings.append(
+                        {
+                            "plan_id": plan_id,
+                            "queue_ref": ref,
+                            "issue": "systemic_targets_mismatch",
+                            "expected": sorted(expected_targets),
+                            "actual": sorted(normalized_plan_targets),
+                            "missing": missing,
+                            "message": (
+                                f"{plan_id}: systemic_targets mismatch for queue {ref}; "
+                                f"expected {sorted(expected_targets)}, got {sorted(normalized_plan_targets)}"
+                            ),
+                        }
+                    )
 
     return warnings
 
@@ -341,14 +378,49 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
     else:
         systemic_scale = raw_systemic_scale
 
-    raw_ocers = data.get("ocers_target")
-    ocers_target = None
-    if not isinstance(raw_ocers, str) or not raw_ocers.strip():
-        errors.append("ocers_target must be non-empty string")
-    elif "↑" not in raw_ocers:
-        errors.append("ocers_target must include direction marker '↑'")
+    raw_systemic_targets = data.get("systemic_targets")
+    systemic_targets: List[str] = []
+    if isinstance(raw_systemic_targets, list):
+        if not raw_systemic_targets:
+            errors.append("systemic_targets must include at least one axis")
+        else:
+            for idx, token in enumerate(raw_systemic_targets):
+                if not isinstance(token, str):
+                    errors.append(f"systemic_targets[{idx}] must be string")
+                    continue
+                normalized = normalize_axis(token)
+                if not normalized:
+                    errors.append(f"systemic_targets[{idx}] must be S1-S10 token")
+                    continue
+                systemic_targets.append(normalized)
+            systemic_targets = sort_axes(systemic_targets)
     else:
-        ocers_target = raw_ocers.strip()
+        errors.append("systemic_targets must be list of S# tokens")
+
+    raw_layer_targets = data.get("layer_targets")
+    layer_targets: List[str] = []
+    if raw_layer_targets is None:
+        if layer:
+            layer_targets = [layer]
+    elif isinstance(raw_layer_targets, list):
+        collected: List[str] = []
+        for idx, token in enumerate(raw_layer_targets):
+            if not isinstance(token, str):
+                errors.append(f"layer_targets[{idx}] must be string")
+                continue
+            normalized = token.strip().upper()
+            if normalized not in VALID_LAYERS:
+                errors.append(f"layer_targets[{idx}] must be one of L0-L6")
+                continue
+            collected.append(normalized)
+        if layer:
+            collected.insert(0, layer)
+        layer_targets = _dedupe_preserve(collected)
+    else:
+        errors.append("layer_targets must be list when provided")
+
+    if "ocers_target" in data:
+        errors.append("ocers_target is deprecated; use systemic_targets/layer_targets")
 
     if errors:
         return None, errors
@@ -368,7 +440,8 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
             "path": path,
             "layer": layer,
             "systemic_scale": systemic_scale,
-            "ocers_target": ocers_target,
+            "systemic_targets": systemic_targets,
+            "layer_targets": layer_targets,
         },
         [],
     )

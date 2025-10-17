@@ -55,14 +55,14 @@ build/
 .venv/
 __pycache__/
 *.pyc
-artifacts/ocers_out/
+artifacts/systemic_out/
 .teof_reorg_backup_*
 legacy/ops/_local/
 _report/usage/autonomy-footprint.jsonl
 
 # reports runtime outputs
 artifacts/reports/
-artifacts/ocers_out/
+artifacts/systemic_out/
 ._*
 # hook test Sun Aug 24 17:06:22 PDT 2025
 # test change Sun Aug 24 17:29:48 PDT 2025

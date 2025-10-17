@@ -52,7 +52,16 @@
     "_report/manager/coordination-dashboard-2025-09-19T22:02:06Z.json",
     "_bus/messages/PLAN-2025-09-19-retire-codex-observer.jsonl"
   ],
-  "ocers_target": "Self-repair↑ Coherence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

@@ -37,7 +37,13 @@
   "receipts": [
     "_report/runner/20250917T184606Z-081c2de3.json"
   ],
-  "ocers_target": "Clarity↑ Evidence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

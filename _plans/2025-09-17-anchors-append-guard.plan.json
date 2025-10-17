@@ -44,7 +44,15 @@
   "receipts": [
     "_report/agent/codex-2/anchors-append-guard/pytest.json"
   ],
-  "ocers_target": "Reproducibility↑ Self-repair↑",
   "systemic_scale": 5,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

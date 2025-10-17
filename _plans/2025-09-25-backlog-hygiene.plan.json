@@ -76,5 +76,14 @@
     "priority": "docs/workflow.md#backlog-discipline",
     "impact_score": "docs/workflow.md#backlog-discipline"
   },
-  "ocers_target": "Self-repair↑ Coherence↑"
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

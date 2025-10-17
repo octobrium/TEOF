@@ -40,7 +40,14 @@
     "_report/planner/20250917T080220Z-714227ed.json",
     "_report/planner/20250917T151044Z-714227ed.json"
   ],
-  "ocers_target": "Coherence↑ Evidence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

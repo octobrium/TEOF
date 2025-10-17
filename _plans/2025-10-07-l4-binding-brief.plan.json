@@ -43,6 +43,13 @@
       "ref": "queue/034-l4-binding-brief.md"
     }
   ],
-  "ocers_target": "Coherence\u2191 Reproducibility\u2191",
-  "receipts": []
+  "receipts": [],
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4"
+  ]
 }

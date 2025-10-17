@@ -43,5 +43,12 @@
   },
   "links": [],
   "receipts": [],
-  "ocers_target": "Ethics↑ Clarity↑"
+  "systemic_targets": [
+    "S4",
+    "S6",
+    "S8"
+  ],
+  "layer_targets": [
+    "L1"
+  ]
 }

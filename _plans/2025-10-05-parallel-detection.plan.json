@@ -8,8 +8,14 @@
   "layer": "L6",
   "systemic_scale": 10,
   "links": [
-    {"type": "doc", "ref": "docs/parallel-codex.md"},
-    {"type": "doc", "ref": "docs/automation/autonomy-consent.json"}
+    {
+      "type": "doc",
+      "ref": "docs/parallel-codex.md"
+    },
+    {
+      "type": "doc",
+      "ref": "docs/automation/autonomy-consent.json"
+    }
   ],
   "receipts": [
     "tools/agent/parallel_guard.py",
@@ -27,7 +33,9 @@
       "id": "pd-1",
       "title": "Design heuristics",
       "status": "done",
-      "receipts": ["memory/reflections/reflection-20251005T183505Z.json"]
+      "receipts": [
+        "memory/reflections/reflection-20251005T183505Z.json"
+      ]
     },
     {
       "id": "pd-2",
@@ -58,7 +66,10 @@
       "id": "pd-4",
       "title": "Document operator expectations",
       "status": "done",
-      "receipts": ["docs/parallel-codex.md", "docs/automation.md"]
+      "receipts": [
+        "docs/parallel-codex.md",
+        "docs/automation.md"
+      ]
     }
   ],
   "checkpoint": {
@@ -69,5 +80,15 @@
       "memory/reflections/reflection-20251005T183505Z.json"
     ]
   },
-  "ocers_target": "Observation ↑ Coherence ↑ Self-repair"
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L6"
+  ]
 }

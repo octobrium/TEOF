@@ -1,1 +1,9 @@
-Today the White House is announcing an Executive Order establishing new guidelines for artificial intelligence. These guidelines will require companies to disclose training data sources, implement bias testing, and publish model accountability reports. While AI offers opportunity, it also carries risk. The government will continue to study potential harms, and agencies will have the authority to pause systems that threaten national security or critical infrastructure.
+# Task: White House AI Executive Order Summary
+Goal: Capture key directives from the Executive Order and note required follow-up for policy teams.
+Systemic Targets: S1 Unity, S4 Defense, S6 Truth
+Layer Targets: L5 Workflow
+Coordinate: S4:L5
+Sunset: Replace once implementing regulations are published or within 60 days (whichever arrives first).
+Fallback: Manual policy review and rollback to prior AI governance memo.
+Acceptance: Publish accountability report citing training data disclosures, bias testing requirements, and pause authority for critical infrastructure threats.
+Notes: The White House announced new AI guidelines requiring companies to disclose training data sources, run bias tests, and publish accountability reports. Agencies may pause systems that threaten national security or critical infrastructure while further risks are assessed.

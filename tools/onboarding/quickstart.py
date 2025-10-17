@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 CACHE_DIR = ROOT / ".cache"
 DEFAULT_VENV = CACHE_DIR / "onboarding-venv"
 REPORT_DIR = ROOT / "_report" / "usage" / "onboarding"
-ARTIFACTS_DIR = ROOT / "artifacts" / "ocers_out"
+ARTIFACTS_DIR = ROOT / "artifacts" / "systemic_out"
 
 
 def _relative(path: Path) -> str:

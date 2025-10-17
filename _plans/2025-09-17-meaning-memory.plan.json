@@ -42,7 +42,13 @@
     "_report/runner/20250917T190302Z-11960046.json",
     "_report/runner/20250917T190232Z-daabde71.json"
   ],
-  "ocers_target": "Clarity↑ Evidence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

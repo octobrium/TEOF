@@ -52,12 +52,12 @@ Run this smoke test on a fresh checkout:
 ```bash
 python3 -m pip install -e .
 teof brief
-ls artifacts/ocers_out/latest
-cat artifacts/ocers_out/latest/brief.json
+ls artifacts/systemic_out/latest
+cat artifacts/systemic_out/latest/brief.json
 ```
 
 - Install exposes the teof console script.
-- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/ocers_out/<UTC>.
+- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/systemic_out/<UTC>.
 
 
 
@@ -89,7 +89,7 @@ cat artifacts/ocers_out/latest/brief.json
 - **Read:** `governance/CHARTER.md`, `governance/policy.json`, optional `governance/objectives.yaml`.
 - **Propose:** a unified diff within `allow_globs`, `diff_limit`, no renames/deletes.
 - **Label:** PR with `bot:autocollab`.
-- **Prove:** include an **OCERS receipt** (inputs, model, commit base, hash of diff) in PR body.
+- **Prove:** include a **systemic receipt** (inputs, model, commit base, hash of diff) in PR body.
 - **Pass:** required checks (`teof/fitness`, `guardrails/verify`) must be green.
 
 ## System prompt (canonical)
@@ -107,7 +107,7 @@ Agents may fetch and use that as their **system** message.
 
 ## Fitness (Stage F)
 Before recommending any new tool/process:
-1) Map to **one OCERS trait**.
+1) Map to **primary systemic targets**.
 2) Demand **receipts** (observable failure it would catch) or keep **optional**.
 3) Prefer **editor/git-level** hygiene over new runtimes.
 4) Propose a **sunset** and **fallback**.

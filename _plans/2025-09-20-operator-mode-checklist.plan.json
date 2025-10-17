@@ -43,7 +43,16 @@
   "receipts": [
     "_report/agent/codex-2/2025-09-20-operator-mode-checklist/summary.json"
   ],
-  "ocers_target": "Coherence↑ Observation↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

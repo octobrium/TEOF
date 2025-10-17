@@ -46,7 +46,16 @@
     "_report/agent/codex-1/governance-bridge/analysis-20250918T193600Z.md",
     "_report/agent/codex-1/governance-bridge/summary-20250918T193800Z.txt"
   ],
-  "ocers_target": "Coherence↑ Observation↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

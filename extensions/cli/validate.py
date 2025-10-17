@@ -1,42 +1,43 @@
 #!/usr/bin/env python3
-import argparse, pathlib
-from extensions.validator import teof_ocers_min as val
+import argparse
+import datetime
+import hashlib
+import json
+import pathlib
 
-def main():
-    p = argparse.ArgumentParser(description="TEOF OCERS validate a single text file.")
-    p.add_argument("input", help="Path to input .txt")
-    p.add_argument("outdir", help="Directory for outputs")
-    args = p.parse_args()
+from extensions.validator import teof_systemic_min as val
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Systemic readiness validator for a single text file.")
+    parser.add_argument("input", help="Path to input .txt")
+    parser.add_argument("outdir", help="Directory for outputs")
+    args = parser.parse_args(argv)
 
     inpath = pathlib.Path(args.input).resolve()
     outdir = pathlib.Path(args.outdir).resolve()
     outdir.mkdir(parents=True, exist_ok=True)
 
     raw = val.read_text(str(inpath))
-    t = val.norm_text(raw)
-    O = val.score_observation(t); C = val.score_coherence(t)
-    E = val.score_ethics(t); R = val.score_repro(t); S = val.score_selfrepair(t)
-    total = O+C+E+R+S
-    verdict = "PASS" if total >= 18 and min(O,C,E,R,S) >= 3 else "NEEDS WORK"
+    result = val.evaluate_cli(raw)
 
-    import json, hashlib, datetime
+    scores = result["scores"]
+    total = result["total"]
+    verdict = result["verdict"]
+
     out_json = {
-        "stamp": datetime.datetime.utcnow().isoformat()+"Z",
+        "stamp": datetime.datetime.utcnow().isoformat() + "Z",
         "input_file": inpath.name,
-        "hash_sha256": hashlib.sha256(raw.encode("utf-8","ignore")).hexdigest(),
-        "ocers": {"O":O,"C":C,"E":E,"R":R,"S":S,"total":total,"verdict":verdict},
-        "notes": {
-            "O": val.justify("O",O),
-            "C": val.justify("C",C),
-            "E": val.justify("E",E),
-            "R": val.justify("R",R),
-            "S": val.justify("S",S),
-        }
+        "hash_sha256": hashlib.sha256(raw.encode("utf-8", "ignore")).hexdigest(),
+        "systemic": {**scores, "total": total, "verdict": verdict},
+        "signals": result["signals"],
     }
     base = inpath.stem
-    with open(outdir/f"{base}.json","w",encoding="utf-8") as f:
+    with open(outdir / f"{base}.json", "w", encoding="utf-8") as f:
         json.dump(out_json, f, ensure_ascii=False, indent=2)
-    print(f"[OCERS] {base}: total={total}/25 {verdict} (O={O} C={C} E={E} R={R} S={S})")
+    print(f"[systemic] {base}: total={total}/10 {verdict} {scores}")
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

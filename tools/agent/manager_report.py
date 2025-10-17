@@ -226,7 +226,7 @@ def collect_direction_metrics(
         "readiness_status": readiness.get("status"),
     }
 
-    quickstart = base / "artifacts" / "ocers_out" / "latest" / "brief.json"
+    quickstart = base / "artifacts" / "systemic_out" / "latest" / "brief.json"
     quickstart_age_hours: float | None = None
     if quickstart.exists():
         mtime = datetime.fromtimestamp(quickstart.stat().st_mtime, timezone.utc)

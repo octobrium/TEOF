@@ -55,7 +55,16 @@
     "tools/agent/heartbeat.py",
     "tests/test_agent_heartbeat.py"
   ],
-  "ocers_target": "Observation↑ Coherence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

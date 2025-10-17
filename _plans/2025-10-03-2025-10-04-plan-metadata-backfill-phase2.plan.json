@@ -45,5 +45,13 @@
     "_report/agent/codex-1/2025-10-03-2025-10-04-plan-metadata-backfill-phase2/fractal-conformance-20251003T0436Z.json",
     "_report/agent/codex-1/2025-10-03-2025-10-04-plan-metadata-backfill-phase2/planner-validate-20251003T0437Z.json"
   ],
-  "ocers_target": "Reproducibility↑ Self-repair↑"
+  "systemic_targets": [
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

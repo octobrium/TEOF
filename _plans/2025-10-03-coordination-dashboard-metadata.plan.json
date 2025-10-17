@@ -65,5 +65,14 @@
     "tools/planner/queue_warnings.py",
     "tools/planner/validate.py"
   ],
-  "ocers_target": "Coherence\u2191 Observation\u2191"
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

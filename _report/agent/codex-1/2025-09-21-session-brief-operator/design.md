@@ -11,7 +11,7 @@
 - Checks to implement initially:
   1. Manager-report tail receipt exists at `_report/session/<agent>/manager-report-tail.txt`.
   2. Plans validate (`python3 tools/planner/validate.py --strict`). Optionally capture summary path when present.
-  3. Quickstart receipts present (`artifacts/ocers_out/latest/brief.json`) or mark warn when missing.
+  3. Quickstart receipts present (`artifacts/systemic_out/latest/brief.json`) or mark warn when missing.
   4. Claim seed exists for active plan (scan `_bus/claims/**`).
   5. Task sync receipts in `_report/agent/<id>/task_sync/` (warn when missing).
   6. Meta-TEP pointer: if `docs/proposals/` has open draft referencing manager-report entry, report status.

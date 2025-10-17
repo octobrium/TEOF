@@ -69,7 +69,15 @@
     "_report/agent/codex-1/2025-09-21-receipts-latency/actions.json",
     "_report/agent/codex-1/2025-09-21-receipts-latency/summary.json"
   ],
-  "ocers_target": "Observation↑ Throughput↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S5"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

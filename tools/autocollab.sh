@@ -2,7 +2,7 @@
 set -euo pipefail
 echo "🤝  Autocollab (dry-run) — queue → _report/autocollab/<ts>"
 scripts/bot/autocollab.py
-echo "📦  See _report/autocollab for proposals + OCERS stub scores"
+echo "📦  See _report/autocollab for proposals + systemic alignment snapshots"
 
 if [ -x "tools/ledger.sh" ]; then
   echo "📈  Updating ledger with latest batch..."

@@ -49,7 +49,15 @@
     "scripts/ci/quickstart_smoke.sh",
     "tests/test_quickstart_snippet_guard.py"
   ],
-  "ocers_target": "Reproducibility↑ Observation↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

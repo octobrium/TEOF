@@ -8,7 +8,6 @@
   "created": "2025-09-22T22:31:00Z",
   "layer": "L5",
   "links": [],
-  "ocers_target": "Self-repair\u2191 Reproducibility\u2191",
   "plan_id": "2025-09-23-repo-hygiene",
   "receipts": [
     "docs/maintenance/repo-hygiene-20250922.md",
@@ -47,5 +46,14 @@
   ],
   "summary": "[Closed 2025-10-07] Consolidate automation surface and trim unused artifacts",
   "systemic_scale": 5,
-  "version": 0
+  "version": 0,
+  "systemic_targets": [
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

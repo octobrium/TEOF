@@ -59,7 +59,15 @@
     "docs/evangelism/slide-deck-outline.md",
     "tools/evangelism/log_event.py"
   ],
-  "ocers_target": "Outreach↑ Clarity↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

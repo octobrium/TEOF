@@ -14,7 +14,7 @@
       "id": "S1",
       "title": "Inventory pre-September plans still missing metadata",
       "status": "done",
-      "notes": "Surveyed all plan artifacts; no missing layer/systemic_scale/ocers_target fields found.",
+      "notes": "Surveyed all plan artifacts; no missing layer/systemic_scale/systemic_targets fields found.",
       "receipts": [
         "_report/usage/plan-metadata-backfill-phase3-survey.json"
       ]
@@ -45,5 +45,13 @@
   "receipts": [
     "_report/usage/plan-metadata-backfill-phase3-survey.json"
   ],
-  "ocers_target": "Reproducibility\u2191 Self-repair\u2191"
+  "systemic_targets": [
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

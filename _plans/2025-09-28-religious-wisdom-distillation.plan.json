@@ -46,5 +46,12 @@
     "_report/usage/governance/religious-wisdom-metrics-20250928T180515Z.json",
     "_report/usage/governance/religious-wisdom-review-20250928T180613Z.json"
   ],
-  "ocers_target": "Ethics↑ Clarity↑"
+  "systemic_targets": [
+    "S4",
+    "S6",
+    "S8"
+  ],
+  "layer_targets": [
+    "L1"
+  ]
 }

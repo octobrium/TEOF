@@ -7,7 +7,6 @@
   "status": "done",
   "layer": "L5",
   "systemic_scale": 4,
-  "ocers_target": "Observation↑ Self-repair↑",
   "steps": [
     {
       "id": "S1",
@@ -51,5 +50,14 @@
     "tests/test_dirty_autoresolver.py",
     "docs/parallel-codex.md",
     "_bus/messages/manager-report.jsonl"
+  ],
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }

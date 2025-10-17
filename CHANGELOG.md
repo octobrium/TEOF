@@ -47,7 +47,7 @@ Versioning: SemVer (0.y until first stable)
 - PR Objective-line guard and Minimal v1 workflow.
 
 ### Fixed
-- Unified brief outputs to `artifacts/ocers_out`; deterministic evaluator stub and fetchers fallback so `make brief` is stable.
+- Unified brief outputs to `artifacts/systemic_out`; deterministic evaluator stub and fetchers fallback so `make brief` is stable.
 
 ### Governance
 - `governance/anchors.json` set to `policy: "append-only"`, `immutable_scope` synced to baseline; `releases` entry for `v1.5`.

@@ -52,7 +52,6 @@
       "ref": "queue/000-welcome.md"
     }
   ],
-  "ocers_target": "Evidence\u2191 Safety\u2191 Coherence\u2191",
   "receipts": [
     "docs/architecture.md",
     "docs/receipts/anchors/2025-10-07-append-audit.md",
@@ -60,5 +59,13 @@
     "scripts/ci/check_anchors_guard.py",
     "tests/test_anchors_guard.py",
     "tools/governance/anchors_audit.py"
+  ],
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L1"
   ]
 }

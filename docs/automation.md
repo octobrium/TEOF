@@ -1,6 +1,6 @@
 # L6 Automation (Working Notes)
 
-**Purpose:** describe how automated actors (bots, scripts, agents) operate inside TEOF while serving L0–L5. The OCERS loop referenced throughout these notes is a diagnostic overlay; systemic priorities remain governed by S1–S10 (see [`docs/automation/ocers-systemic-mapping.md`](ocers-systemic-mapping.md) and [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement)). Automation must document which higher axes (Unity → Power) are satisfied before lower-axis guards (Ethics, Freedom, Meaning) escalate.
+**Purpose:** describe how automated actors (bots, scripts, agents) operate inside TEOF while serving L0–L5. Automation now documents explicit systemic targets (S1–S10) and layer coordinates (L0–L6); see [`docs/automation/systemic-overview.md`](systemic-overview.md) and [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement)). Automation must record which higher axes (Unity → Power) are satisfied before lower-axis guards (Ethics, Freedom, Meaning) escalate.
 
 ## Core Duties
 
@@ -43,9 +43,9 @@ Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the
 - `--warn-plan-latency <seconds>` (default **259200s**, 3 days) annotates slow plans with `severity="warn"` in `slow_plan_alerts`.
 - `--fail-plan-latency <seconds>` (default **604800s**, 7 days) raises a non-zero exit and records `severity="fail"` when breached.
 
-### OCERS scan bundle
+### Systemic scan bundle
 
-`teof scan` runs the frontier, critic, TMS, and ethics guardrails together so humans get a single OCERS snapshot.
+`teof scan` runs the frontier, critic, TMS, and ethics guardrails together so humans get a single systemic readiness snapshot.
 
 ```bash
 teof scan --out _report/usage/ocers-scan --format json --emit-bus --emit-plan
@@ -56,7 +56,7 @@ teof scan --out _report/usage/ocers-scan --format json --emit-bus --emit-plan
 - `--emit-bus` seeds repair claims for critic/ethics findings when receipts are captured; `--emit-plan` adds TMS plan skeletons that inherit the receipt path.
 - Use `--limit` to cap frontier entries (default **10**). Skipping `--out` keeps the run read-only.
 - Scope the run with `--only <component>` (repeat for multiple) or `--skip <component>` to evaluate a subset. Component names: `frontier`, `critic`, `tms`, `ethics`.
-- Pass `--summary` to print a quick counts list instead of full tables when you only need OCERS tallies.
+- Pass `--summary` to print a quick counts list instead of full tables when you only need systemic readiness tallies.
 - Capture a fresh manager-report tail before automation runs (`python -m tools.agent.session_boot --agent <id> --with-status`) so the session guard sees the latest coordination receipts. CI jobs should run `session_boot` in the same step as the scan.
 
 ### Dynamic scan driver
@@ -108,7 +108,7 @@ Run `python -m tools.agent.autonomy_latency --warn-threshold 259200 --fail-thres
 **Objective.** Treat a volatile market brief as the pilot lane for pushing TEOF toward platform-level adoption.
 
 - **Commands run:**
-  - `teof brief` → `artifacts/ocers_out/20250921T214419Z/brief.json` (fresh ensemble receipts).
+  - `teof brief` → `artifacts/systemic_out/20250921T214419Z/brief.json` (fresh ensemble receipts).
   - `python3 scripts/ci/check_vdp.py` → `_report/case-studies/vdp_guard_check.txt` (no violations).
   - `pytest tests/test_vdp_guard.py tests/test_ci_check_vdp.py` → `_report/case-studies/vdp_guard_pytest.txt` (7 tests, all green).
 - **Receipts referenced:** plan `2025-09-21-vdp-pilot-case-study` (S2), plus the CI outputs above. All receipts are tracked in git via `_report/case-studies/` to keep audit hooks stable.

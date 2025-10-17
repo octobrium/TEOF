@@ -122,7 +122,7 @@ def collect_auto_objectives() -> List[Dict[str, Any]]:
         tasks.append({
             "id": "OBJ-A1",
             "title": "Generate brief artifacts",
-            "how": "Run `teof brief` once to create artifacts/ocers_out/latest/{brief.json,score.txt}",
+            "how": "Run `teof brief` once to create artifacts/systemic_out/latest/{brief.json,score.txt}",
             "status": "todo",
             "priority": 1
         })
@@ -232,7 +232,7 @@ STATUS_TEMPLATE = """# TEOF Status ({now})
 ## Snapshot
 - Capsule: {capsule}
 - Package: teof {pkg}
-- CLI: `teof brief` → writes `artifacts/ocers_out/<UTCSTAMP>/` and updates `artifacts/ocers_out/latest/`
+- CLI: `teof brief` → writes `artifacts/systemic_out/<UTCSTAMP>/` and updates `artifacts/systemic_out/latest/`
 - Artifacts latest: {latest_path} (ready: {latest_ok})
 
 ## Auto Objectives (detected)

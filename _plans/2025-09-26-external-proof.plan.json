@@ -84,7 +84,14 @@
     "docs/vision/impact-ledger.md",
     "memory/impact/log.jsonl"
   ],
-  "ocers_target": "Evidence↑ Outreach↑",
   "layer": "L5",
-  "systemic_scale": 6
+  "systemic_scale": 6,
+  "systemic_targets": [
+    "S3",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

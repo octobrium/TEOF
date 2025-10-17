@@ -52,7 +52,16 @@
     "_report/agent/codex-4/2025-09-19-heartbeat-integration-codex4/coord-dashboard.json",
     "_report/agent/codex-4/2025-09-19-heartbeat-integration-codex4/bus-status-manager.txt"
   ],
-  "ocers_target": "Coherence↑ Observation↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

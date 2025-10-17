@@ -38,7 +38,7 @@ if [ -d ".githooks" ] && command -v git >/dev/null 2>&1; then
 fi
 
 # Ensure artifacts root exists (used by brief)
-mkdir -p artifacts/ocers_out
+mkdir -p artifacts/systemic_out
 
 echo "🐍 bootstrap: python3 version $(python3 --version 2>/dev/null | awk '{print $2}')"
 echo "✅ bootstrap: OK"

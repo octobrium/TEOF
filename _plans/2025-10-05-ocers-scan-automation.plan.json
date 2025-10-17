@@ -48,5 +48,14 @@
   "layer": "L5",
   "systemic_scale": 5,
   "impact_score": 4,
-  "ocers_target": "Observation↑ Self-repair↑"
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S5",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

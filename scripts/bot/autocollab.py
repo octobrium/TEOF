@@ -2,7 +2,7 @@
 """Autocollab dry-run scaffold.
 
 Copies queue items into a timestamped batch folder, mirrors the task text as a
-placeholder proposal, and scores it with the OCERS v0.2 heuristic. Emits
+placeholder proposal, and generates a systemic alignment heuristic. Emits
 `score.json`, a lightweight `risk.json`, and an `accepted.json` stub so
 downstream tooling has consistent signals.
 """
@@ -18,8 +18,6 @@ from typing import Dict, List
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-
-from teof.eval import evaluate as ocers_evaluate  # type: ignore  # local import
 
 QUEUE = ROOT / "queue"
 REPORT = ROOT / "_report" / "autocollab"
@@ -67,7 +65,7 @@ def infer_risk(score: Dict[str, object]) -> Dict[str, object]:
     return {
         "risk_score": risk_score,
         "penalties": penalties,
-        "ocers_total": total,
+        "alignment_total": total,
     }
 
 
@@ -82,6 +80,28 @@ def infer_acceptance(score: Dict[str, object]) -> Dict[str, object]:
     accepted = bool(total >= 9 and verdict == "ready" and has_checks and resilient)
     reason = "meets heuristic thresholds" if accepted else "needs stronger safeguards"
     return {"accepted": accepted, "reason": reason, "scored_at": ts()}
+
+
+def generate_alignment_stub(text: str) -> Dict[str, object]:
+    """Generate a placeholder systemic alignment score for queue items."""
+    word_count = len(text.split())
+    readiness = "ready" if word_count > 120 else "review"
+    total = min(12.5, max(4.0, word_count / 20.0))
+    lowered = text.lower()
+    diagnostics = {
+        "signals": {
+            "acceptance_has_paths": "path" in lowered or "procedure" in lowered,
+            "acceptance_has_metrics": "metric" in lowered or "kpi" in lowered,
+            "fallback_mentions_manual": "manual" in lowered or "human" in lowered,
+            "sunset_mentions_trigger": "sunset" in lowered or "trigger" in lowered,
+        }
+    }
+    return {
+        "total": round(total, 2),
+        "verdict": readiness,
+        "diagnostics": diagnostics,
+        "summary": "Systemic alignment stub (legacy OCERS heuristic retired)",
+    }
 
 
 def main() -> None:
@@ -102,7 +122,7 @@ def main() -> None:
         (item_dir / "task.md").write_text(text, encoding="utf-8")
         (item_dir / "proposal.md").write_text(text, encoding="utf-8")
 
-        score = ocers_evaluate(text)
+        score = generate_alignment_stub(text)
         (item_dir / "score.json").write_text(json.dumps(score, indent=2), encoding="utf-8")
         (item_dir / "risk.json").write_text(json.dumps(infer_risk(score), indent=2), encoding="utf-8")
         (item_dir / "accepted.json").write_text(json.dumps(infer_acceptance(score), indent=2), encoding="utf-8")

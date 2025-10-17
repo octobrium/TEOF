@@ -61,7 +61,16 @@
     "tools/autonomy/backlog_synth.py",
     "_report/autonomy/backlog-synth/synth-20251003T023654Z.json"
   ],
-  "ocers_target": "Self-repair↑ Throughput↑",
   "systemic_scale": 5,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

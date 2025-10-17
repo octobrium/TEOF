@@ -40,9 +40,16 @@
       "ref": "2025-09-23-autonomy-roadmap"
     }
   ],
-  "ocers_target": "Coherence↑ Safety↑",
   "receipts": [
     "tools/agent/coord_dashboard.py",
     "tests/test_coord_dashboard.py"
+  ],
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }

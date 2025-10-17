@@ -41,10 +41,16 @@
       "ref": "queue/006-task-assign-bus-message.md"
     }
   ],
-  "ocers_target": "Coherence↑ Evidence↑",
   "receipts": [
     "tools/agent/task_assign.py",
     "tests/test_agent_task_assign.py",
     "docs/parallel-codex.md"
+  ],
+  "systemic_targets": [
+    "S3",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }

@@ -58,7 +58,16 @@
   ],
   "completed": "2025-09-24T23:54:33Z",
   "updated": "2025-09-24T23:54:33Z",
-  "ocers_target": "Coherence↑ Observation↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

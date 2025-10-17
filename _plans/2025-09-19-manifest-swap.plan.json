@@ -59,7 +59,16 @@
   ],
   "summary": "Add session swap helper for manifest + branch hygiene",
   "version": 0,
-  "ocers_target": "Reproducibility↑ Self-repair↑",
   "systemic_scale": 3,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

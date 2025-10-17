@@ -34,8 +34,8 @@ What happens:
 
 After the run you'll find:
 - A clean virtualenv at `.cache/onboarding-venv/`.
-- `artifacts/ocers_out/<timestamp>/` populated by `teof brief` (symlinked by
-  `artifacts/ocers_out/latest`).
+- `artifacts/systemic_out/<timestamp>/` populated by `teof brief` (symlinked by
+  `artifacts/systemic_out/latest`).
 - Receipts summarising the build and quickstart under `_report/usage/onboarding/`.
 
 > Tip: rerun `python3 -m tools.onboarding.quickstart --editable` if you want to

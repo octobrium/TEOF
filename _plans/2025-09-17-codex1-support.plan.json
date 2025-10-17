@@ -46,7 +46,14 @@
       "ref": "_bus/events/events.jsonl"
     }
   ],
-  "ocers_target": "Coherence↑ Evidence↑",
   "systemic_scale": 5,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

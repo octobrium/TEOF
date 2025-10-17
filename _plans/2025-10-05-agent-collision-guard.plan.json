@@ -4,7 +4,6 @@
   "created": "2025-10-05T17:41:10Z",
   "actor": "codex-4",
   "summary": "Enforce session boot + agent identity before bus usage",
-  "ocers_target": "Coherence↑ Self-repair↑",
   "priority": 3,
   "layer": "L5",
   "systemic_scale": 5,
@@ -55,5 +54,15 @@
     "tools/agent/session_guard.py",
     "tests/test_session_guard.py",
     "_bus/messages/manager-report.jsonl"
+  ],
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }

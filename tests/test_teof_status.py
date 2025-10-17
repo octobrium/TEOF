@@ -29,7 +29,7 @@ version = "9.9.9"
         current.unlink()
     current.symlink_to("v9.9")
     # artifacts
-    latest = root / "artifacts" / "ocers_out" / "latest"
+    latest = root / "artifacts" / "systemic_out" / "latest"
     latest.mkdir(parents=True, exist_ok=True)
     (latest / "brief.json").write_text(json.dumps({"ok": True}), encoding="utf-8")
     (latest / "score.txt").write_text("ensemble_count=1\n", encoding="utf-8")

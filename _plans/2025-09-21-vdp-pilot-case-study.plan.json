@@ -10,7 +10,7 @@
       "id": "S1",
       "title": "Select-scenario",
       "status": "done",
-      "notes": "cmd> head -n 20 docs/automation.md\\ncmd> ls artifacts/ocers_out",
+      "notes": "cmd> head -n 20 docs/automation.md\\ncmd> ls artifacts/systemic_out",
       "receipts": []
     },
     {
@@ -50,7 +50,13 @@
     "_report/case-studies/vdp_guard_pytest.json",
     "_report/planner/validate/summary-20250921T214456Z.json"
   ],
-  "ocers_target": "Clarity↑ Evidence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

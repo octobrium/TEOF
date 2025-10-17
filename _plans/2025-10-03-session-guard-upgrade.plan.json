@@ -7,7 +7,6 @@
   "status": "done",
   "layer": "L5",
   "systemic_scale": 4,
-  "ocers_target": "Observation↑ Coherence↑",
   "steps": [
     {
       "id": "S1",
@@ -50,5 +49,15 @@
     "_report/agent/codex-2/session-guard/pytest.json",
     "docs/parallel-codex.md",
     "_bus/messages/manager-report.jsonl"
+  ],
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }

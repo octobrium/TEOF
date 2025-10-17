@@ -16,7 +16,7 @@ SESSION_DIR = ROOT / "_report" / "session"
 PLANNER_VALIDATE_DIR = ROOT / "_report" / "planner" / "validate"
 SESSION_BRIEF_DIR = ROOT / "_report" / "agent"
 USAGE_REPORT_DIR = ROOT / "_report" / "usage"
-QUICKSTART_LATEST = ROOT / "artifacts" / "ocers_out" / "latest"
+QUICKSTART_LATEST = ROOT / "artifacts" / "systemic_out" / "latest"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 TERMINAL_CLAIM_STATUSES = {"done", "released", "closed", "cancelled", "abandoned"}
@@ -185,7 +185,7 @@ def _check_quickstart_receipts() -> dict:
             "id": "quickstart_receipts",
             "title": "Quickstart receipts present",
             "status": "pass",
-            "detail": "Found artifacts/ocers_out/latest/brief.json",
+            "detail": "Found artifacts/systemic_out/latest/brief.json",
             "paths": [_relative(brief_path)],
         }
     return {

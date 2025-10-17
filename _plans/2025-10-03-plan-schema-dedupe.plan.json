@@ -50,7 +50,15 @@
     "_report/usage/plan-lint/duplicate-keys-20251003T044138Z.json",
     "_report/usage/plan-lint/duplicate-keys-20251007T224750Z.json"
   ],
-  "ocers_target": "Self-repair\u2191 Reproducibility\u2191",
   "layer": "L6",
-  "systemic_scale": 6
+  "systemic_scale": 6,
+  "systemic_targets": [
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L6"
+  ]
 }

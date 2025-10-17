@@ -73,10 +73,10 @@ jobs:
         run: |
           set -e
           teof brief || true
-          if [[ -L artifacts/ocers_out/latest ]]; then
-            LATEST="artifacts/ocers_out/$(readlink artifacts/ocers_out/latest)"
+          if [[ -L artifacts/systemic_out/latest ]]; then
+            LATEST="artifacts/systemic_out/$(readlink artifacts/systemic_out/latest)"
           else
-            LATEST="$(ls -1dt artifacts/ocers_out/*/ 2>/dev/null | head -1 || true)"
+            LATEST="$(ls -1dt artifacts/systemic_out/*/ 2>/dev/null | head -1 || true)"
             LATEST="${LATEST%/}"
           fi
           echo "LATEST_DIR=$LATEST" >> $GITHUB_ENV

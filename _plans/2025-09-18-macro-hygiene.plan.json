@@ -52,7 +52,14 @@
   "receipts": [
     "_report/agent/codex-2/macro-hygiene/notes.md"
   ],
-  "ocers_target": "Coherence↑ Reproducibility↑",
   "systemic_scale": 5,
-  "layer": "L2"
+  "layer": "L2",
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L2"
+  ]
 }

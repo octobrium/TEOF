@@ -46,7 +46,14 @@
     "docs/quick-links.md",
     "docs/quick-links.json"
   ],
-  "ocers_target": "Clarity↑ Coherence↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

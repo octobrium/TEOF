@@ -18,7 +18,6 @@
       "type": "plan"
     }
   ],
-  "ocers_target": "Observation\u2191 Impact\u2191",
   "plan_id": "2025-10-06-teof-btc-scoreboard",
   "priority": 3,
   "receipts": [
@@ -53,5 +52,14 @@
   ],
   "summary": "Document and audit the TEOF BTC wallet as an external scoreboard tied to observation-fueled initiatives.",
   "systemic_scale": 6,
-  "version": 0
+  "version": 0,
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

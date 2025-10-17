@@ -44,6 +44,8 @@ TEOF is built on seven principles that define observation’s role in reality, t
 
 ---
 
+> **Historical note:** Sections referencing the OCERS loop remain for archival context. Current implementations use explicit systemic targets (`docs/automation/systemic-overview.md`).
+
 ### 2.1 OCERS Operating Loop
 
 TEOF grounds implementation decisions in a reusable loop: **Observation → Coherence → Ethics → Reproducibility → Self-repair (OCERS)**.

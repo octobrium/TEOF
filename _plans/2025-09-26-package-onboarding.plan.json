@@ -61,7 +61,13 @@
     "_report/usage/onboarding/summary.json",
     "docs/onboarding/package-onboarding-roadmap.md"
   ],
-  "ocers_target": "Reproducibility↑ Clarity↑",
   "layer": "L5",
-  "systemic_scale": 5
+  "systemic_scale": 5,
+  "systemic_targets": [
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

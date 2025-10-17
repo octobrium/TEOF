@@ -56,5 +56,14 @@
     "_report/agent/codex-2/receipts-hygiene-upgrade/design.md",
     "docs/automation.md"
   ],
-  "ocers_target": "Observation\u2191 Self-repair\u2191"
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

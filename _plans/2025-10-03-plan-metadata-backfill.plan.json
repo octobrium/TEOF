@@ -56,7 +56,16 @@
     "_plans/2025-09-17-codex1-support.plan.json",
     "_report/autonomy/backlog-synth/summary-20251003T024600Z.md"
   ],
-  "ocers_target": "Self-repair↑ Coherence↑",
   "systemic_scale": 5,
-  "layer": "L5"
+  "layer": "L5",
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S10"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
 }

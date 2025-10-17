@@ -4,7 +4,6 @@
   "created": "2025-10-12T19:29:18Z",
   "actor": "Octo",
   "summary": "Prototype hash-linked receipt ledger",
-  "ocers_target": "Observation↑ Coherence↑",
   "priority": 1,
   "layer": "L4",
   "systemic_scale": 5,
@@ -39,5 +38,15 @@
     "status": "pending"
   },
   "links": [],
-  "receipts": []
+  "receipts": [],
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4"
+  ]
 }

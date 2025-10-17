@@ -59,7 +59,14 @@
     "scripts/ci/check_capsule_cadence.py",
     "tests/test_ci_check_capsule_cadence.py"
   ],
-  "ocers_target": "Coherence↑ Reproducibility↑",
   "systemic_scale": 6,
-  "layer": "L4"
+  "layer": "L4",
+  "systemic_targets": [
+    "S3",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4"
+  ]
 }

@@ -76,5 +76,12 @@
     "docs/impact/relay-insight-public.md",
     "docs/vision/impact-ledger.md"
   ],
-  "ocers_target": "Evidence\u2191 Outreach\u2191"
+  "systemic_targets": [
+    "S3",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L6"
+  ]
 }

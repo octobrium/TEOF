@@ -15,14 +15,16 @@ def queue_dir(tmp_path: Path) -> Path:
     (directory / "005-sample-task.md").write_text(
         """# Task: Sample backlog item
 Coordinate: S3:L5
-OCERS Target: Observation↑ Coherence↑
+Systemic Targets: S3 Propagation, S6 Truth
+Layer Targets: L5 Workflow
 """,
         encoding="utf-8",
     )
     (directory / "010-followup.md").write_text(
         """# Task: Secondary task
 Coordinate: S2:L4
-OCERS Target: Observation↑ Ethics↑
+Systemic Targets: S2 Energy, S4 Defense
+Layer Targets: L4 Architecture
 """,
         encoding="utf-8",
     )

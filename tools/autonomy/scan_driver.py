@@ -1,8 +1,8 @@
 """Dynamic coordinator for `teof scan` runs.
 
-Chooses which OCERS guards to execute based on policy-defined inputs,
-delegates to :mod:`teof.bootloader`, and records history so future runs can
-skip redundant checks.
+Chooses which systemic alignment guards to execute based on policy-defined
+inputs, delegates to :mod:`teof.bootloader`, and records history so future runs
+can skip redundant checks.
 """
 from __future__ import annotations
 

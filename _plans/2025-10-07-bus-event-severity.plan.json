@@ -49,10 +49,17 @@
       "ref": "queue/007-bus-event-severity.md"
     }
   ],
-  "ocers_target": "Coherence\u2191 Evidence\u2191 Safety\u2191",
   "receipts": [
     "docs/parallel-codex.md",
     "tests/test_agent_bus_status.py",
     "tools/agent/bus_status.py"
+  ],
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
   ]
 }
