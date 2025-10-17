@@ -1,6 +1,9 @@
 <!-- markdownlint-disable MD013 -->
 # Recursive Integrity Spec v0.1
 
+status: Draft
+summary: Defines the systemic verification loop that keeps TEOF releases reproducible and auditable.
+
 **Purpose.** Codify the verification layer that keeps TEOF provable across hosts. The spec distils the legacy "Systems of Alignment & Verification" blueprint into actionable checks that match the current repo’s tooling.
 
 ---
