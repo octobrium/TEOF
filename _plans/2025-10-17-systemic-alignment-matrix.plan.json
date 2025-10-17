@@ -1,0 +1,60 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-17-systemic-alignment-matrix",
+  "created": "2025-10-17T04:12:00Z",
+  "actor": "codex-5",
+  "summary": "Map external governance frameworks to systemic lattice",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Draft initial alignment matrix",
+      "status": "done",
+      "notes": "Created docs/automation/systemic-alignment-matrix.md with framework-to-systemic mapping guidance.",
+      "receipts": [
+        "docs/automation/systemic-alignment-matrix.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Integrate references across adoption docs",
+      "status": "done",
+      "notes": "Linked the matrix from the systemic adoption guide to keep workflows coherent.",
+      "receipts": [
+        "docs/automation/systemic-adoption-guide.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Operators can translate external controls into systemic metadata",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/automation/systemic-alignment-matrix.md"
+    }
+  ],
+  "receipts": [
+    "docs/automation/systemic-alignment-matrix.md",
+    "docs/automation/systemic-adoption-guide.md"
+  ],
+  "layer": "L1",
+  "systemic_scale": 7,
+  "systemic_targets": [
+    "S1",
+    "S6",
+    "S7",
+    "S8"
+  ],
+  "layer_targets": [
+    "L1",
+    "L2",
+    "L4"
+  ],
+  "priority": {
+    "value": "medium",
+    "reason": "Provides a bridge between existing compliance frameworks and TEOF’s constitutional lattice."
+  }
+}

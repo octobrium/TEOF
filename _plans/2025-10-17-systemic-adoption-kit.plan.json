@@ -1,0 +1,61 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-17-systemic-adoption-kit",
+  "created": "2025-10-17T04:05:00Z",
+  "actor": "codex-5",
+  "summary": "Document external adoption kit for systemic lattice",
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Author systemic adoption guide",
+      "status": "done",
+      "notes": "Created docs/automation/systemic-adoption-guide.md outlining phased adoption for external teams.",
+      "receipts": [
+        "docs/automation/systemic-adoption-guide.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Expose adoption guide in canonical surfaces",
+      "status": "done",
+      "notes": "Linked guide from README and quick-links to make it discoverable for operators.",
+      "receipts": [
+        "README.md",
+        "docs/quick-links.md",
+        "docs/quick-links.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "External teams can find an adoption playbook without repo spelunking",
+    "owner": "codex-5",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/automation/systemic-adoption-guide.md"
+    }
+  ],
+  "receipts": [
+    "docs/automation/systemic-adoption-guide.md",
+    "README.md",
+    "docs/quick-links.md",
+    "docs/quick-links.json"
+  ],
+  "layer": "L5",
+  "systemic_scale": 6,
+  "systemic_targets": [
+    "S1",
+    "S3",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": {
+    "value": "high",
+    "reason": "Improves adoption by making systemic guidance first-class."
+  }
+}

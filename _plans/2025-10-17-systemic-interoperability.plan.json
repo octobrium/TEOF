@@ -24,7 +24,9 @@
       "receipts": [
         "docs/automation/systemic-schema.md",
         "docs/automation/systemic-adoption-guide.md",
-        "docs/examples/systemic/receipt.sample.json"
+        "docs/examples/systemic/receipt.sample.json",
+        "docs/examples/systemic/receipt.signed.json",
+        "docs/examples/systemic/keys/sample-ledger-2025.pub"
       ]
     },
     {
@@ -54,6 +56,8 @@
     "schemas/systemic/receipt.schema.json",
     "docs/automation/systemic-schema.md",
     "docs/examples/systemic/receipt.sample.json",
+    "docs/examples/systemic/receipt.signed.json",
+    "docs/examples/systemic/keys/sample-ledger-2025.pub",
     "tools/external/validate_systemic.py"
   ],
   "layer": "L4",

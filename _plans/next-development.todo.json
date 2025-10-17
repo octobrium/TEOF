@@ -131,24 +131,35 @@
     {
       "id": "ND-047",
       "title": "Publish systemic adoption kit for external teams",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-17-systemic-adoption-guide",
-      "notes": "Draft migration playbooks, comparative mappings, and outreach artifacts so external orgs can align with the S/L lattice without adopting the repo wholesale.",
+      "notes": "Published systemic adoption guide, linked from README and quick-links for external teams.",
       "priority": "high",
       "layer": "L5",
       "systemic_scale": 6,
-      "source": "docs/automation/systemic-overview.md"
+      "source": "docs/automation/systemic-overview.md",
+      "completed_at": "2025-10-17T04:06:00Z",
+      "receipts": [
+        "docs/automation/systemic-adoption-guide.md",
+        "README.md",
+        "docs/quick-links.md"
+      ]
     },
     {
       "id": "ND-048",
       "title": "Complete decentralized propagation pilot",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-09-22-decentralized-propagation-pilot",
-      "notes": "Deliver cross-node receipts exchange, reconciliation tooling, and conflict resolution receipts to prove TEOF works across distributed, semi-trusted peers.",
+      "notes": "Produced synthetic cross-node receipts under _report/network/20251017T041500Z and published decentralized propagation guide.",
       "priority": "high",
       "layer": "L3",
       "systemic_scale": 7,
-      "source": "docs/proposals/20250922t190055z__decentralized-propagation-pilot__draft.md"
+      "source": "docs/proposals/20250922t190055z__decentralized-propagation-pilot__draft.md",
+      "completed_at": "2025-10-17T04:15:00Z",
+      "receipts": [
+        "docs/examples/decentralized/receipt-sync/summary.md",
+        "docs/automation/decentralized-propagation.md"
+      ]
     },
     {
       "id": "ND-049",
@@ -171,13 +182,17 @@
     {
       "id": "ND-050",
       "title": "Map external governance frameworks to systemic lattice",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-17-systemic-alignment-matrix",
-      "notes": "Document translation patterns so alternative ethics/compliance models can express themselves via systemic_targets/layer_targets without losing their intent.",
+      "notes": "Documented translation matrix for SOC2, ISO27001, NIST, EU AI and linked it from adoption guide.",
       "priority": "medium",
       "layer": "L1",
       "systemic_scale": 7,
-      "source": "docs/automation/systemic-overview.md"
+      "source": "docs/automation/systemic-overview.md",
+      "completed_at": "2025-10-17T04:13:00Z",
+      "receipts": [
+        "docs/automation/systemic-alignment-matrix.md"
+      ]
     },
     {
       "id": "ND-001",

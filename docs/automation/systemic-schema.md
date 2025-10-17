@@ -15,6 +15,7 @@ Use this reference when integrating TEOF’s S/L lattice into external tooling, 
 | Systemic metadata | `schemas/systemic/metadata.schema.json` | Minimal fields describing systemic_targets, layer_targets, systemic_scale, and primary layer. |
 | Receipt envelope | `schemas/systemic/receipt.schema.json` | Signature-friendly wrapper that embeds systemic metadata alongside artifact hashes. |
 | Sample payload | `docs/examples/systemic/receipt.sample.json` | End-to-end example with optional signature fields. |
+| Signed sample | `docs/examples/systemic/receipt.signed.json` | Same payload signed with key `sample-ledger-2025` (public key under `docs/examples/systemic/keys/`). |
 
 Schemas follow JSON Schema draft 2020-12. They intentionally allow additional properties so organizations can extend the envelope without breaking validation.
 
@@ -72,6 +73,19 @@ Optional fields include `schema_version`, `expires_at`, `meta`, and signature fi
 
 4. **Verify signature (optional)**  
    Receipts may include an Ed25519 signature covering the JSON with the `signature` field omitted during signing. Use a compatible library (PyNaCl, libsodium bindings, WebCrypto) and supply the registered public key.
+
+### CLI verification helper
+
+Use `tools.external.validate_systemic` to lint envelopes and optionally check signatures:
+
+```bash
+python3 -m tools.external.validate_systemic \
+  docs/examples/systemic/receipt.signed.json \
+  --verify-signature \
+  --keys-dir docs/examples/systemic/keys
+```
+
+The command validates structural fields and ensures the Ed25519 signature matches the payload with the `signature`/`public_key_id` fields removed. Additional key directories can be supplied with repeated `--keys-dir` flags.
 
 ---
 

@@ -19,7 +19,8 @@
       "status": "done",
       "notes": "Added tools/network/receipt_sync.py with tests (tests/test_receipt_sync.py); aggregates multi-node receipts + conflict report (CMD-4, CMD-5)",
       "receipts": [
-        "docs/examples/decentralized/receipt-sync/ledger.json"
+        "docs/examples/decentralized/receipt-sync/ledger.json",
+        "docs/examples/decentralized/receipt-sync/conflicts.json"
       ]
     },
     {
@@ -28,7 +29,7 @@
       "status": "done",
       "notes": "Documented synthetic evaluation + risk considerations in proposal draft; aggregator logs conflicts for review (CMD-1, CMD-7)",
       "receipts": [
-        "docs/examples/decentralized/receipt-sync/conflicts.json"
+        "docs/examples/decentralized/receipt-sync/summary.md"
       ]
     }
   ],
@@ -37,10 +38,16 @@
     "owner": "codex-5",
     "status": "satisfied"
   },
-  "links": [],
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/automation/decentralized-propagation.md"
+    }
+  ],
   "receipts": [
+    "docs/examples/decentralized/receipt-sync/ledger.json",
     "docs/examples/decentralized/receipt-sync/conflicts.json",
-    "docs/examples/decentralized/receipt-sync/ledger.json"
+    "docs/examples/decentralized/receipt-sync/summary.md"
   ],
   "layer": "L5",
   "systemic_scale": 5,

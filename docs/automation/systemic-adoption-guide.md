@@ -59,7 +59,7 @@ All artifacts should emit:
 - API responses for downstream audit systems.
 
 See `tools/planner/systemic_targets.py` for canonical parsing logic that you can port to other languages.  
-Refer to `docs/automation/systemic-schema.md` for a field-by-field explanation and validation workflow.
+Refer to `docs/automation/systemic-schema.md` for a field-by-field explanation and validation workflow, and `docs/automation/systemic-alignment-matrix.md` for mapping external frameworks onto the systemic lattice.
 
 ---
 
@@ -83,6 +83,16 @@ You can start with a simple JSON envelope:
   "public_key_id": "team-a-signed"
 }
 ```
+
+- To validate a signed envelope, run:
+
+```bash
+python3 -m tools.external.validate_systemic \
+  docs/examples/systemic/receipt.signed.json \
+  --verify-signature \
+  --keys-dir docs/examples/systemic/keys
+```
+Replace the path and key directory with your own receipts once deployed.
 
 ---
 

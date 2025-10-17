@@ -315,6 +315,22 @@
       "category": "adoption"
     },
     {
+      "id": "systemic-alignment-matrix",
+      "title": "Systemic Alignment Matrix",
+      "summary": "Translate existing compliance or safety frameworks into systemic targets and layers.",
+      "path": "docs/automation/systemic-alignment-matrix.md",
+      "anchor": "#systemic-alignment-matrix-external-framework-mapping",
+      "category": "adoption"
+    },
+    {
+      "id": "decentralized-propagation",
+      "title": "Decentralized Propagation Pilot",
+      "summary": "Reconcile receipts across independent nodes and escalate conflicts.",
+      "path": "docs/automation/decentralized-propagation.md",
+      "anchor": "#decentralized-propagation-pilot",
+      "category": "coordination"
+    },
+    {
       "id": "receipts-dashboard",
       "title": "Receipt Dashboard",
       "summary": "Aggregate pass/fail view of attestation receipts.",

@@ -6,8 +6,17 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Iterable, List
+from typing import Iterable, List, Sequence
 import re
+import base64
+
+try:
+    from nacl import signing
+except ImportError:  # pragma: no cover
+    signing = None
+
+
+ROOT = Path(__file__).resolve().parents[2]
 
 
 SYSTEMIC_PATTERN = re.compile(r"^S(10|[1-9])$")
@@ -81,24 +90,96 @@ def _validate_receipt(payload: dict, *, origin: Path) -> List[str]:
     return errors
 
 
-def validate_file(path: Path) -> List[str]:
+def _load_verify_key(key_id: str, key_dirs: Sequence[Path]) -> signing.VerifyKey | None:
+    if signing is None:
+        return None
+    for directory in key_dirs:
+        candidate = directory / f"{key_id}.pub"
+        if candidate.exists():
+            raw = candidate.read_text(encoding="utf-8").strip()
+            try:
+                key_bytes = base64.urlsafe_b64decode(raw)
+                return signing.VerifyKey(key_bytes)
+            except Exception:
+                return None
+    return None
+
+
+def _verify_signature_payload(payload: dict, *, origin: Path, key_dirs: Sequence[Path]) -> List[str]:
+    errors: List[str] = []
+    signature = payload.get("signature")
+    key_id = payload.get("public_key_id")
+    if not signature or not key_id:
+        errors.append(f"{origin}: missing signature/public_key_id")
+        return errors
+    if signing is None:
+        errors.append(f"{origin}: PyNaCl not available for signature verification")
+        return errors
+    verify_key = _load_verify_key(str(key_id), key_dirs)
+    if verify_key is None:
+        locations = ",".join(str(p) for p in key_dirs) or "<none>"
+        errors.append(f"{origin}: public key '{key_id}' not found in {locations}")
+        return errors
+    body = {
+        k: payload[k]
+        for k in payload
+        if k not in {"signature", "public_key_id", "signature_algorithm"}
+    }
+    try:
+        sig_bytes = base64.urlsafe_b64decode(signature)
+        verify_key.verify(
+            json.dumps(body, ensure_ascii=False, separators=(",", ":"), sort_keys=True).encode("utf-8"),
+            sig_bytes,
+        )
+    except Exception as exc:  # pragma: no cover - signature failure path
+        errors.append(f"{origin}: invalid signature ({exc})")
+    return errors
+
+
+def validate_file(path: Path, *, verify_signature: bool = False, key_dirs: Sequence[Path] | None = None) -> List[str]:
     payload = _load_json(path)
-    return _validate_receipt(payload, origin=path)
+    errors = _validate_receipt(payload, origin=path)
+    if verify_signature:
+        dirs = list(key_dirs or [])
+        errors.extend(_verify_signature_payload(payload, origin=path, key_dirs=dirs))
+    return errors
 
 
 def main(argv: Iterable[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("receipts", nargs="+", type=Path, help="Path(s) to systemic receipt JSON files.")
+    parser.add_argument(
+        "--verify-signature",
+        action="store_true",
+        help="Verify Ed25519 signatures using provided keys.",
+    )
+    parser.add_argument(
+        "--keys-dir",
+        action="append",
+        type=Path,
+        help="Directory containing <key_id>.pub files (repeatable). Defaults to governance/keys when verify is enabled.",
+    )
     args = parser.parse_args(list(argv) if argv is not None else None)
 
     all_errors: List[str] = []
+    key_dirs: List[Path] = []
+    if args.verify_signature:
+        if args.keys_dir:
+            key_dirs.extend([d.expanduser().resolve() for d in args.keys_dir])
+        else:
+            key_dirs.append((ROOT / "governance" / "keys").resolve())
+
     for receipt_path in args.receipts:
         receipt_path = receipt_path.expanduser().resolve()
         if not receipt_path.exists():
             all_errors.append(f"{receipt_path}: file not found")
             continue
         try:
-            errors = validate_file(receipt_path)
+            errors = validate_file(
+                receipt_path,
+                verify_signature=args.verify_signature,
+                key_dirs=key_dirs,
+            )
         except ValueError as exc:
             all_errors.append(str(exc))
             continue

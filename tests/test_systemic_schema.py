@@ -10,6 +10,8 @@ from tools.external import validate_systemic
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_DIR = ROOT / "schemas" / "systemic"
 EXAMPLE_PATH = ROOT / "docs" / "examples" / "systemic" / "receipt.sample.json"
+SIGNED_PATH = ROOT / "docs" / "examples" / "systemic" / "receipt.signed.json"
+KEY_DIR = ROOT / "docs" / "examples" / "systemic" / "keys"
 
 
 def _load(path: Path) -> dict:
@@ -64,3 +66,21 @@ def test_validate_systemic_receipt_detects_missing_fields(tmp_path: Path) -> Non
     broken.write_text(json.dumps(payload), encoding="utf-8")
     errors = validate_systemic.validate_file(broken)
     assert any("hash_sha256" in err for err in errors)
+
+
+def test_validate_signed_receipt_ok() -> None:
+    errors = validate_systemic.validate_file(
+        SIGNED_PATH,
+        verify_signature=True,
+        key_dirs=[KEY_DIR],
+    )
+    assert errors == []
+
+
+def test_validate_signed_receipt_missing_key(tmp_path: Path) -> None:
+    errors = validate_systemic.validate_file(
+        SIGNED_PATH,
+        verify_signature=True,
+        key_dirs=[tmp_path],
+    )
+    assert any("public key" in err for err in errors)
