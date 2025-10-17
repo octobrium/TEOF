@@ -2,7 +2,7 @@ rules:
   - name: doc-truth-upgrade
     scope: doc
     when:
-      ocers_truth_delta: ">=0.05"
+      systemic_truth_delta: ">=0.05"
       evidence: benchmark
     action:
       supersede: true
@@ -24,6 +24,6 @@ rules:
       supersede: true
       notes: "Replace with stable variant; tag original as retired."
 tie_breaks:
-  - metric: ocers_truth
-  - metric: ocers_observation
+  - metric: systemic_truth
+  - metric: systemic_unity
   - metric: defense

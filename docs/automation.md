@@ -48,11 +48,11 @@ Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the
 `teof scan` runs the frontier, critic, TMS, and ethics guardrails together so humans get a single systemic readiness snapshot.
 
 ```bash
-teof scan --out _report/usage/ocers-scan --format json --emit-bus --emit-plan
+teof scan --out _report/usage/systemic-scan --format json --emit-bus --emit-plan
 ```
 
 - Writes `frontier.json`, `critic.json`, `tms.json`, and `ethics.json` into the chosen directory with matching `receipt_sha256` fields.
-- Summaries land on stdout (table by default, JSON when `--format json` is set) with counts for each subsystem.
+- Summaries land on stdout (table by default, JSON when `--format json` is set) with per-axis counts for each subsystem.
 - `--emit-bus` seeds repair claims for critic/ethics findings when receipts are captured; `--emit-plan` adds TMS plan skeletons that inherit the receipt path.
 - Use `--limit` to cap frontier entries (default **10**). Skipping `--out` keeps the run read-only.
 - Scope the run with `--only <component>` (repeat for multiple) or `--skip <component>` to evaluate a subset. Component names: `frontier`, `critic`, `tms`, `ethics`.
