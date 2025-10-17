@@ -1,0 +1,68 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-17-decentralized-live-run",
+  "created": "2025-10-17T04:28:00Z",
+  "actor": "codex-5",
+  "summary": "Execute a signed, multi-steward reconciliation pilot",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Collect steward node snapshots and keys",
+      "status": "queued",
+      "notes": "Coordinate with active stewards to export repo/capsule snapshots, register their Ed25519 public keys under governance/keys/, and capture plan metadata referencing systemic targets.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Capture signed systemic receipts per node",
+      "status": "queued",
+      "notes": "Ensure each steward emits signed systemic receipts (systemic metadata + signature) using the shared schema before reconciliation.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Run receipt_sync with signature enforcement",
+      "status": "queued",
+      "notes": "Invoke tools.network.receipt_sync with --verify-signatures/--require-signatures against live snapshots; store outputs under _report/network/<timestamp>/.",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Publish results and resolve conflicts",
+      "status": "queued",
+      "notes": "Attach ledger/conflicts/summary artifacts to this plan, log findings in manager-report, and escalate conflicts (S4/S6) via follow-up plans if any mismatches emerge.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Signed, multi-steward reconciliation completes with actionable outputs",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "doc",
+      "ref": "docs/automation/decentralized-propagation.md"
+    }
+  ],
+  "receipts": [],
+  "layer": "L3",
+  "systemic_scale": 7,
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L3",
+    "L4",
+    "L5",
+    "L6"
+  ],
+  "priority": {
+    "value": "high",
+    "reason": "Validates decentralized operation across live stewards with signed evidence."
+  }
+}

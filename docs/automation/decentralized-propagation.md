@@ -4,7 +4,7 @@
 **Status:** Reference  
 **Purpose:** Document how to reconcile receipts across independent TEOF nodes and promote decentralized operation.
 
-This guide complements `2025-09-22-decentralized-propagation-pilot` and the systemic adoption kit. It explains how to run the receipt sync tooling, interpret outputs, and escalate conflicts.
+This guide complements `2025-09-22-decentralized-propagation-pilot` and tracks the follow-on live exercise in `2025-10-17-decentralized-live-run`. It explains how to run the receipt sync tooling, interpret outputs, and escalate conflicts.
 
 ---
 

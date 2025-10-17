@@ -195,6 +195,17 @@
       ]
     },
     {
+      "id": "ND-051",
+      "title": "Run live decentralized reconciliation with signatures",
+      "status": "pending",
+      "plan_suggestion": "2025-10-17-decentralized-live-run",
+      "notes": "Execute receipt_sync against steward snapshots with --verify-signatures/--require-signatures and publish the resulting ledger/conflict receipts under _report/network/.",
+      "priority": "high",
+      "layer": "L3",
+      "systemic_scale": 7,
+      "source": "docs/automation/decentralized-propagation.md"
+    },
+    {
       "id": "ND-001",
       "title": "Auto-escalate authenticity alerts into steward-specific tasks",
       "status": "done",
