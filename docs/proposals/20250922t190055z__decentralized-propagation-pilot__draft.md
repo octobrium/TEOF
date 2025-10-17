@@ -2,7 +2,8 @@
 title: Decentralized propagation pilot (cross-node receipts)
 batch: 20250922T190055Z
 item: 01
-ocers_target: Observation↑ Coherence↑ Self-repair↑
+systemic_targets: ["S3", "S4", "S6"]
+layer_targets: ["L3", "L4", "L5"]
 risk_score: 0.3
 generated: 20250922T190055Z
 note: Draft pilot plan to validate TEOF as a permissionless receipt network before codifying new properties.
@@ -47,10 +48,10 @@ Without a pilot, promoting decentralized traits into canonical properties would 
 - `_report/network/latest` contains the consolidated ledger and conflict report from a dry-run using synthetic node inputs.
 - Risks + mitigations captured in `docs/proposals/…` or `_report/network/summary.md` for future governance consideration.
 
-### OCERS Rationale
-- **Observation↑** — multiplies verifiable receipts and exposes network state.
-- **Coherence↑** — ensures independent nodes resolve to a shared truth.
-- **Self-repair↑** — reconciliation logs highlight drift and trigger fixes.
+### Systemic Rationale
+- **S3 Propagation** — multiplies verifiable receipts and exposes network state.
+- **S4 Defense** — ensures independent nodes resolve to a shared truth.
+- **S6 Truth / L4 Architecture** — reconciliation logs highlight drift and trigger fixes while informing governance promotion.
 
 ### Sunset / Fallback
 - If the pilot fails to reconcile nodes deterministically, document blockers and keep decentralized propagation in `docs/specs/` only. Revisit after tooling or governance updates address identified gaps.
@@ -68,4 +69,3 @@ Draft — awaiting steward assignment and pilot execution.
   - **Receipt withholding** — nodes may omit critical `_report` files; aggregator should compute coverage ratios and warn on missing expected artifacts.
   - **Stale anchors** — reconciliation must respect governance anchors; pilot should include hash verification against `capsule/*/hashes.json`.
 - Recommendation: run the pilot with at least one intentionally divergent node to exercise conflict reporting before proposing L3 promotion.
-

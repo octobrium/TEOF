@@ -2,7 +2,8 @@
 title: Soften refinement acknowledgement checkpoints
 batch: 20250921T094900Z
 item: 01
-ocers_target: Observation↑ Autonomy↑
+systemic_targets: ["S5", "S6"]
+layer_targets: ["L5", "L6"]
 risk_score: 0.4
 generated: 20250921T09:49:00Z
 status: adopted
@@ -31,12 +32,12 @@ Implementation idea:
 - Require batched acknowledgements but still pause before each guard change.
 
 ## Risks
-- Missing early warning if automation drifts: mitigated by receipts hygiene summary and alerts when missing receipts spike.
-- Harder to audit: mitigated by bundling plan receipts and the hygiene summary JSON.
+- Missing early warning if automation drifts: mitigated by receipts hygiene summary and alerts when missing receipts spike (protects S4 Defense).
+- Harder to audit: mitigated by bundling plan receipts and the hygiene summary JSON (preserves S6 Truth).
 
 ## Impact
-- Faster iteration on low-risk guardrail and hygiene updates.
-- Encourages deeper automation (e.g., nightly hygiene schedules) without human babysitting.
+- Faster iteration on low-risk guardrail and hygiene updates while respecting S5 Intelligence.
+- Encourages deeper automation (e.g., nightly hygiene schedules) without human babysitting by leaning on L6 Automation receipts.
 
 ## Request
 Gather feedback on the proposal and, if accepted, update `docs/workflow.md` and related DNA docs to capture the new batch acknowledgement policy.
