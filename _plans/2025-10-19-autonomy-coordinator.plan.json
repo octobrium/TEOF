@@ -1,0 +1,57 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-19-autonomy-coordinator",
+  "created": "2025-10-19T13:03:36Z",
+  "actor": "Octo",
+  "summary": "Build autonomous coordinator layer for task assignment",
+  "systemic_targets": [
+    "S1",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 7,
+  "impact_score": 5,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Design-orchestration-architecture",
+      "status": "done",
+      "notes": "Design doc: _report/agent/Octo/2025-10-19-autonomy-coordinator/design.md",
+      "receipts": []
+    },
+    {
+      "id": "step-2",
+      "title": "Prototype-manager-agent",
+      "status": "done",
+      "notes": "Manifest builder: _report/agent/codex-4/manifests/manifest-20251019T130854Z.json",
+      "receipts": []
+    },
+    {
+      "id": "step-3",
+      "title": "Worker-agent-contract",
+      "status": "done",
+      "notes": "Worker harness: tools/autonomy/coordinator_worker.py & docs/automation.md#coordinator-worker-harness",
+      "receipts": []
+    },
+    {
+      "id": "step-4",
+      "title": "Guardrail-integration",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}

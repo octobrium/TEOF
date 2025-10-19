@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-10-19T13:04:03Z",
+  "branch": "agent/codex-4/autonomy-coordinator",
+  "engineer": "codex-4",
+  "manager": "codex-4",
+  "note": "Build autonomous coordinator layer for TEOF agents.",
+  "plan_id": "2025-10-19-autonomy-coordinator",
+  "task_id": "AUTO-COORD"
+}

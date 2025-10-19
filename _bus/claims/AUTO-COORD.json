@@ -1,0 +1,8 @@
+{
+  "agent_id": "codex-4",
+  "branch": "agent/codex-4/autonomy-coordinator",
+  "claimed_at": "2025-10-19T13:04:03Z",
+  "plan_id": "2025-10-19-autonomy-coordinator",
+  "status": "active",
+  "task_id": "AUTO-COORD"
+}

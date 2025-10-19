@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "generated_at": "2025-10-19T13:08:54Z",
+  "manager_agent": "codex-4",
+  "plan": {
+    "id": "2025-10-19-autonomy-coordinator",
+    "summary": "Build autonomous coordinator layer for task assignment",
+    "systemic_targets": [
+      "S1",
+      "S6",
+      "S7"
+    ],
+    "layer_targets": [
+      "L5"
+    ],
+    "priority": 2,
+    "impact_score": 5
+  },
+  "step": {
+    "id": "step-2",
+    "title": "Prototype-manager-agent",
+    "status": "in_progress",
+    "notes": "Prototype manager CLI"
+  },
+  "commands": [
+    {
+      "label": "pre_status",
+      "description": "Capture current repository status snapshot",
+      "cmd": [
+        "python3",
+        "-m",
+        "teof.cli",
+        "foreman",
+        "--say",
+        "show the status"
+      ]
+    },
+    {
+      "label": "alignment_scan",
+      "description": "Run alignment scan summary before/after edits",
+      "cmd": [
+        "python3",
+        "-m",
+        "teof.cli",
+        "foreman",
+        "--say",
+        "run the alignment scan"
+      ]
+    },
+    {
+      "label": "tasks_snapshot",
+      "description": "List active tasks to monitor claim distribution",
+      "cmd": [
+        "python3",
+        "-m",
+        "teof.cli",
+        "foreman",
+        "--say",
+        "list today’s tasks"
+      ]
+    }
+  ],
+  "expected_receipts": [
+    {
+      "description": "Worker run summary",
+      "path": "_report/agent/codex-4/2025-10-19-autonomy-coordinator/runs/<timestamp>.json"
+    },
+    {
+      "description": "Plan step update",
+      "path": "_plans/2025-10-19-autonomy-coordinator.plan.json"
+    },
+    {
+      "description": "Scan history entry",
+      "path": "_report/usage/scan-history.jsonl"
+    },
+    {
+      "description": "Manager review note",
+      "path": "_bus/messages/2025-10-19-autonomy-coordinator-step-2.jsonl"
+    }
+  ],
+  "guardrails": {
+    "require_session_boot": true,
+    "run_scan_before": true,
+    "run_scan_after": true,
+    "ensure_plan_update": true
+  },
+  "receipt_sha256": "035aa1c200db05674bf34f8d1167daac34e22088ebf90be6c70fbdbcc9354f30"
+}

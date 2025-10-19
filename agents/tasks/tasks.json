@@ -573,6 +573,16 @@
         "_report/usage/ttd-trend/summary-20251005T214512Z.json",
         "docs/usage/direction-metrics.md"
       ]
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": "agent/codex-4/autonomy-coordinator",
+      "id": "AUTO-COORD",
+      "plan_id": "2025-10-19-autonomy-coordinator",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "AUTO-COORD"
     }
   ],
   "version": 1
