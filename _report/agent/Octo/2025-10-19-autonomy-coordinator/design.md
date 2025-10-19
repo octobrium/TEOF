@@ -39,6 +39,7 @@
 - Enforce `session_boot` freshness before any bus event; workers run with `--sync-allow-dirty` only when receipts capture that state.
 - Leverage systemic evaluator for plan manifests (ensure objectives remain truth-aligned).
 - Coordinator cross-checks new receipts via checksum helper (`write_receipt_payload`) to keep ledger append-only.
+- Guard loop materialised in `tools/autonomy/coordinator_guard.py`, which generates manifests, evaluates systemic readiness, triggers scans, and records state in `_report/agent/<manager>/autonomy-coordinator/state.json` while logging status to the bus.
 
 ## Risks / Mitigations
 - **Runaway automation:** include “circuit breaker” flag in coordinator state. If scans return high-severity issues, pause new assignments.

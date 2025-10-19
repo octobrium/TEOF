@@ -16,7 +16,7 @@
   "layer": "L5",
   "systemic_scale": 7,
   "impact_score": 5,
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "step-1",
@@ -42,8 +42,8 @@
     {
       "id": "step-4",
       "title": "Guardrail-integration",
-      "status": "in_progress",
-      "notes": "Design guardrail integration",
+      "status": "done",
+      "notes": "Guardrail loop: tools/autonomy/coordinator_guard.py (state: _report/agent/codex-4/autonomy-coordinator/state.json)",
       "receipts": []
     }
   ],

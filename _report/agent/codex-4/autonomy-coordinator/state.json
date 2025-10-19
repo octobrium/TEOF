@@ -1,12 +1,48 @@
 {
   "version": 1,
-  "generated_at": "2025-10-19T13:30:00Z",
+  "generated_at": "2025-10-19T13:29:42Z",
   "manager_agent": "codex-4",
-  "notes": "Placeholder guardrail state; to be replaced when coordinator loop records live runs.",
-  "last_scan": null,
-  "last_systemic_check": null,
+  "plan_id": "2025-10-19-autonomy-coordinator",
+  "step_id": "step-4",
+  "manifest_path": "_report/agent/codex-4/manifests/manifest-20251019T132942Z.json",
+  "systemic": {
+    "text": "# Task: Build autonomous coordinator layer for task assignment\nSystemic Targets: S1, S6, S7\nLayer Targets: L5\nGoal: Execute Guardrail-integration under coordinator guardrails.\nCoordinate: S7:L5\nSunset: Pause automation if guardrail checks fail twice in succession.\nFallback: Manual operator reviews receipts and reruns guard.\nAcceptance: Design guardrail integration\n",
+    "scores": {
+      "structure": 2,
+      "alignment": 2,
+      "verification": 1,
+      "risk": 2,
+      "recovery": 2
+    },
+    "total": 9,
+    "verdict": "ready"
+  },
+  "pre_scan": {
+    "label": "pre",
+    "triggered": true,
+    "changed_paths": [
+      "_bus/events/events.jsonl",
+      "_report/agent/codex-4/autonomy-coordinator/state.json",
+      "tests/test_coordinator_guard.py",
+      "tools/autonomy/coordinator_guard.py"
+    ],
+    "exit_code": 0,
+    "status": "ok"
+  },
+  "post_scan": {
+    "label": "post",
+    "status": "skipped",
+    "triggered": false,
+    "changed_paths": [],
+    "exit_code": null
+  },
+  "worker": {
+    "executed": false,
+    "exit_code": null
+  },
   "circuit_breaker": {
     "active": false,
     "reason": null
-  }
+  },
+  "receipt_sha256": "e6ae9946748c7351621b87f363a9f07bf56188703711c38084c8131898790295"
 }

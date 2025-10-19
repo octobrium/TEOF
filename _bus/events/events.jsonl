@@ -276,3 +276,4 @@
 {"agent_id": "codex-4", "event": "observation", "receipts": ["_report/session/codex-4/dirty-handoff/dirty-20251019T124827Z.txt"], "summary": "Dirty working tree detected during session_boot", "ts": "2025-10-19T12:48:27Z"}
 {"agent_id": "codex-4", "branch_prefix": "agent/codex-4/", "event": "handshake", "meta": {"focus": "manager"}, "summary": "Session handshake", "ts": "2025-10-19T13:02:46Z"}
 {"agent_id": "codex-4", "event": "note", "summary": "Observation-first convergence likely under competitive pressure; not guaranteed when power suppresses competition.", "task_id": "manager-report", "ts": "2025-10-19T13:02:53Z"}
+{"agent_id": "codex-4", "event": "status", "severity": "high", "summary": "Coordinator guard 2025-10-19-autonomy-coordinator:step-4 manifest=manifest-20251019T132857Z.json systemic=review circuit=ON", "task_id": "manager-report", "ts": "2025-10-19T13:28:57Z"}
