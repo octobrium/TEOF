@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-10-17T03:49:00Z",
+  "updated": "2025-10-19T21:28:14Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -120,13 +120,26 @@
     {
       "id": "ND-041",
       "title": "Integrate macro hygiene objectives",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-07-macro-hygiene-objectives",
       "notes": "Track macro hygiene commitments with receipts and surface them in autonomy status reporting.",
       "priority": "medium",
       "layer": "L2",
       "systemic_scale": 5,
-      "source": "queue/036-macro-hygiene-objective.md"
+      "source": "queue/036-macro-hygiene-objective.md",
+      "completed_at": "2025-10-19T21:28:14Z",
+      "receipts": [
+        "_report/usage/macro-hygiene-status.json",
+        "docs/maintenance/macro-hygiene.objectives.json",
+        "docs/maintenance/macro-hygiene.md",
+        "docs/quick-links.json",
+        "docs/quick-links.md",
+        "docs/vision/objectives-ledger.md",
+        "tools/agent/autonomy_status.py",
+        "tools/autonomy/macro_hygiene.py",
+        "tests/test_autonomy_status.py",
+        "tests/test_macro_hygiene.py"
+      ]
     },
     {
       "id": "ND-047",

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-19T09:17:23Z",
+  "generated_at": "2025-10-19T21:28:05Z",
   "objectives": [
     {
       "id": "MH-ENV",
@@ -16,33 +16,39 @@
           "kind": "plan_done",
           "path": "_plans/2025-09-18-manifest-helper-codex3.plan.json",
           "ok": true,
-          "detail": "status=done"
+          "detail": "status=done",
+          "optional": false
         },
         {
           "kind": "plan_done",
           "path": "_plans/2025-09-19-manifest-swap.plan.json",
           "ok": true,
-          "detail": "status=done"
+          "detail": "status=done",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "tools/agent/manifest_helper.py",
           "ok": true,
-          "detail": "exists (mtime=2025-09-19T22:10:18.007269+00:00)"
+          "detail": "exists (mtime=2025-09-19T22:10:18.007269+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "tests/test_manifest_helper.py",
           "ok": true,
-          "detail": "exists (mtime=2025-09-19T22:10:58.999451+00:00)"
+          "detail": "exists (mtime=2025-09-19T22:10:58.999451+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": ".github/AGENT_ONBOARDING.md",
           "ok": true,
-          "detail": "exists (mtime=2025-10-17T03:31:41.242013+00:00)"
+          "detail": "exists (mtime=2025-10-17T03:31:41.242013+00:00)",
+          "optional": false
         }
       ],
+      "optional_failures": [],
       "signals": [
         "docs/agents.md",
         "docs/parallel-codex.md"
@@ -63,63 +69,74 @@
           "kind": "plan_done",
           "path": "_plans/2025-09-18-prune-script.plan.json",
           "ok": true,
-          "detail": "status=done"
+          "detail": "status=done",
+          "optional": false
         },
         {
           "kind": "plan_done",
           "path": "_plans/2025-09-18-manager-heartbeat.plan.json",
           "ok": true,
-          "detail": "status=done"
+          "detail": "status=done",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "tools/autonomy/actions/hygiene.py",
           "ok": true,
-          "detail": "exists (mtime=2025-09-23T06:02:32.542352+00:00)"
+          "detail": "exists (mtime=2025-09-23T06:02:32.542352+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "scripts/ci/check_consensus_receipts.py",
           "ok": true,
-          "detail": "exists (mtime=2025-09-20T18:46:40.014884+00:00)"
+          "detail": "exists (mtime=2025-09-20T18:46:40.014884+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "scripts/ci/consensus_smoke.sh",
           "ok": true,
-          "detail": "exists (mtime=2025-09-18T20:31:35.775544+00:00)"
+          "detail": "exists (mtime=2025-09-18T20:31:35.775544+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "scripts/ci/check_capsule_cadence.py",
           "ok": true,
-          "detail": "exists (mtime=2025-09-20T18:55:36.078814+00:00)"
+          "detail": "exists (mtime=2025-09-20T18:55:36.078814+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": ".github/workflows/guardrails.yml",
           "ok": true,
-          "detail": "exists (mtime=2025-10-16T23:01:59.131673+00:00)"
+          "detail": "exists (mtime=2025-10-16T23:01:59.131673+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "tests/test_ci_check_consensus_receipts.py",
           "ok": true,
-          "detail": "exists (mtime=2025-09-20T18:47:03.056164+00:00)"
+          "detail": "exists (mtime=2025-09-20T18:47:03.056164+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "tests/test_ci_check_capsule_cadence.py",
           "ok": true,
-          "detail": "exists (mtime=2025-09-20T18:55:50.314234+00:00)"
+          "detail": "exists (mtime=2025-09-20T18:55:50.314234+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "tests/test_agent_bus_status.py",
           "ok": true,
-          "detail": "exists (mtime=2025-10-07T21:26:16.647428+00:00)"
+          "detail": "exists (mtime=2025-10-07T21:26:16.647428+00:00)",
+          "optional": false
         }
       ],
+      "optional_failures": [],
       "signals": [
         "docs/ci-guarantees.md",
         "governance/core/L4 - architecture/bindings.yml"
@@ -139,33 +156,39 @@
           "kind": "plan_done",
           "path": "_plans/2025-09-21-capsule-cadence-automation.plan.json",
           "ok": true,
-          "detail": "status=done"
+          "detail": "status=done",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "_report/capsule/summary-latest.json",
           "ok": true,
-          "detail": "exists (mtime=2025-10-03T00:09:58.339195+00:00)"
+          "detail": "exists (mtime=2025-10-03T00:09:58.339195+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "docs/maintenance/capsule-cadence.md",
           "ok": true,
-          "detail": "exists (mtime=2025-10-04T22:20:21.419221+00:00)"
+          "detail": "exists (mtime=2025-10-04T22:20:21.419221+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "tools/capsule/cadence.py",
           "ok": true,
-          "detail": "exists (mtime=2025-10-03T00:09:50.101133+00:00)"
+          "detail": "exists (mtime=2025-10-03T00:09:50.101133+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "governance/core/emergent-principles.jsonl",
           "ok": true,
-          "detail": "exists (mtime=2025-10-17T18:19:47.518464+00:00)"
+          "detail": "exists (mtime=2025-10-17T18:19:47.518464+00:00)",
+          "optional": false
         }
       ],
+      "optional_failures": [],
       "signals": [
         "docs/architecture.md",
         "docs/quick-links.md"
@@ -185,33 +208,39 @@
           "kind": "plan_done",
           "path": "_plans/2025-09-23-autonomy-auto-proceed.plan.json",
           "ok": true,
-          "detail": "status=done"
+          "detail": "status=done",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "docs/automation/autonomy-consent.json",
           "ok": true,
-          "detail": "exists (mtime=2025-10-05T18:43:28.513920+00:00)"
+          "detail": "exists (mtime=2025-10-05T18:43:28.513920+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "docs/automation.md",
           "ok": true,
-          "detail": "exists (mtime=2025-10-17T18:43:22.091737+00:00)"
+          "detail": "exists (mtime=2025-10-19T21:22:47.614703+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "tools/autonomy/next_step.py",
           "ok": true,
-          "detail": "exists (mtime=2025-10-16T00:21:23.181198+00:00)"
+          "detail": "exists (mtime=2025-10-16T00:21:23.181198+00:00)",
+          "optional": false
         },
         {
           "kind": "path_exists",
           "path": "tests/test_autonomy_next_step.py",
           "ok": true,
-          "detail": "exists (mtime=2025-10-16T00:21:23.178720+00:00)"
+          "detail": "exists (mtime=2025-10-16T00:21:23.178720+00:00)",
+          "optional": false
         }
       ],
+      "optional_failures": [],
       "signals": [
         "_report/usage/autonomy-audit",
         "_report/usage/autonomy-actions",
@@ -225,5 +254,5 @@
     "total": 4
   },
   "status": "ready",
-  "receipt_sha256": "0bebe6b225b9b57f46c9d1163d1d6f7f3c4ea9021d97ab11e258b06c62464978"
+  "receipt_sha256": "c262368c8456fa5bcba6999de243c7d7d305d6335f814a89f74f807d015ef2f7"
 }
