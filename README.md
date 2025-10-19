@@ -3,6 +3,12 @@
 
 TEOF is a minimal, substrate-neutral alignment framework grounded in observation as the irreducible act. It gives humans and artificial agents a deterministic, auditable path from raw awareness to coordinated action while keeping every evolution coherent, reversible, and truth-aligned. The “alignment trail” (described in [`docs/workflow.md`](docs/workflow.md#alignment-trail) and expanded in [`docs/foundation/alignment-trail.md`](docs/foundation/alignment-trail.md)) captures that journey end to end.
 
+**Adoption snapshot**
+- **Why it exists:** Observation precedes every claim; TEOF is the lightweight constitution that keeps systems honest about that fact.
+- **Core surfaces:** [`docs/architecture.md`](docs/architecture.md), [`docs/workflow.md`](docs/workflow.md), and [`docs/foundation/alignment-trail.md`](docs/foundation/alignment-trail.md) cover placement, operations, and philosophy.
+- **First run:** `bin/teof-up` installs the package, runs the smoke pipeline, and writes `_report/usage/onboarding/quickstart-*.json`.
+- **Operating loop:** Plans live in `_plans/`, receipts under `_report/`, automation in `tools/`, and the coordination bus under `_bus/`.
+
 > **Start here**
 > - Repo map: [`docs/architecture.md`](docs/architecture.md)  
 > - Promotion rules: [`docs/promotion-policy.md`](docs/promotion-policy.md)  
