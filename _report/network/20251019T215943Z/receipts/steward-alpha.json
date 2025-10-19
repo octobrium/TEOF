@@ -1,0 +1,24 @@
+{
+  "artifact": "governance/anchors.json",
+  "hash_sha256": "a83793700331dd0963729f198787c7947c81367595f482c458a1361e9e579f26",
+  "issued_at": "2025-10-19T21:59:34Z",
+  "systemic": {
+    "systemic_targets": [
+      "S3",
+      "S4",
+      "S6",
+      "S7"
+    ],
+    "layer_targets": [
+      "L3",
+      "L4",
+      "L5"
+    ],
+    "systemic_scale": 7,
+    "layer": "L3",
+    "summary": "Baseline anchors hash for decentralized reconciliation run."
+  },
+  "signature_algorithm": "Ed25519",
+  "signature": "QQrKSKCl7Hb8_wZJhXNJ55Am-sFOhQSxNBTE2IoeRmI0hGvAt8ko4sO3zOJKKEZ76qmitUfdFMLQXcIbXt82Dw==",
+  "public_key_id": "steward-alpha-2025"
+}

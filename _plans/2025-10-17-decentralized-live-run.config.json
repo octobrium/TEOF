@@ -1,0 +1,16 @@
+{
+  "nodes": {
+    "steward-alpha": "artifacts/decentralized/live-run/node-alpha",
+    "steward-beta": "artifacts/decentralized/live-run/node-beta"
+  },
+  "include": [
+    "_report/external/**/*.json"
+  ],
+  "expect": [
+    "_report/external/systemic/*.json"
+  ],
+  "verify_anchor": true,
+  "verify_capsule": true,
+  "verify_signatures": true,
+  "require_signatures": true
+}

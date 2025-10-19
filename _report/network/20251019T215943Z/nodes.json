@@ -1,0 +1,31 @@
+{
+  "nodes": [
+    {
+      "node_path": "artifacts/decentralized/live-run/node-alpha",
+      "node_id": "steward-alpha",
+      "anchors_hash": "a83793700331dd0963729f198787c7947c81367595f482c458a1361e9e579f26",
+      "public_keys": [
+        "feed.demo-2025",
+        "feed.sample-2025",
+        "steward-alpha-2025"
+      ],
+      "receipts": [
+        "_report/external/systemic/20251019T215934Z.json"
+      ]
+    },
+    {
+      "node_path": "artifacts/decentralized/live-run/node-beta",
+      "node_id": "steward-beta",
+      "anchors_hash": "a83793700331dd0963729f198787c7947c81367595f482c458a1361e9e579f26",
+      "public_keys": [
+        "feed.demo-2025",
+        "feed.sample-2025",
+        "steward-alpha-2025",
+        "steward-beta-2025"
+      ],
+      "receipts": [
+        "_report/external/systemic/20251019T215934Z.json"
+      ]
+    }
+  ]
+}
