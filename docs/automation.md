@@ -132,6 +132,8 @@ Use `python -m tools.agent.batch_report [--limit N] [--json]` to list recent bat
 
 `python -m tools.agent.autonomy_status [--limit N] [--json]` combines the latest receipts hygiene summary with recent batch logs, highlighting missing receipts, slow plans, and recent batch outcomes in one place. Each run also writes `_report/usage/autonomy-status.json` (unless `--no-write` is supplied) with averaged runtime metrics from recent batch runs.
 
+`python -m tools.agent.receipt_brief --plan <id> [--backlog <id>] [--write]` renders plan/backlog proofs-of-work as readable briefs. Use `--write` to emit Markdown under `_report/usage/receipt-briefs/` and `--receipt <path>` to capture a JSON receipt for downstream automation.
+
 - **Receipt example:** see `_plans/2025-09-21-autonomy-status-receipt.plan.json` and `_report/usage/autonomy-status.json` (attached 2025-09-22) for a live artifact. It includes top-slow plans, warn/fail counts, and links to batch logs.
 - **Adoption KPI:** IRL deployments should track how often the status is generated (target: daily or per batch) and ensure warn/fail counts are triaged via the coordination bus.
 

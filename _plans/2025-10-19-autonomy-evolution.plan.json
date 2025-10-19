@@ -28,8 +28,8 @@
     {
       "id": "step-2",
       "title": "Manager-orchestration-service",
-      "status": "queued",
-      "notes": "(CMD-__)",
+      "status": "in_progress",
+      "notes": "Design manager service that supervises coordinator seats",
       "receipts": []
     },
     {
