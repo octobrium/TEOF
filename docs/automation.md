@@ -86,6 +86,18 @@ teof-scan-driver --summary --emit-bus
 
 `python -m tools.autonomy.coordinator_worker <manifest.json>` validates a manifest and runs through the recorded command list. By default it prints the sequence (dry-run); add `--execute` to run the commands, enforce a fresh session via the guard, and emit a run receipt under `_report/agent/<agent>/<plan>/runs/run-<UTC>.json`. Use `--allow-stale-session` only when you have a companion receipt documenting the override. This harness is the foundation for fully autonomous worker agents that keep receipts in sync with the coordinator manager outputs.
 
+### Coordinator guardrail loop
+
+Planned orchestration will pin guardrails around every coordinator run:
+
+- `session_boot` freshness enforced before any manager or worker action (`session_guard` hook stays in place).
+- `tools.autonomy.scan_trigger` pre/post each work order to surface drift only when inputs change.
+- `extensions.validator.teof_systemic_min` applied to manifests and resulting plan diffs to make sure assignments stay truth-aligned.
+- Circuit breaker receipts (`_report/agent/<manager>/state.json`) that pause automation when scans or systemic checks fail.
+- Bus notes summarising guard outcomes so humans can monitor without crawling logs.
+
+Once the loop is wired, automation can dispatch workers without human hand-offs while keeping observation, guardrails, and reversibility intact.
+
 ### Commitment guard
 
 Use `python -m tools.autonomy.commitment_guard` to scan `_bus/messages/**/*.jsonl` and `_report/usage/reflection-intake/*.md` for phrases such as “next time” or “mental note”. Any matches indicate a promise that must be captured as a plan, TODO, or receipt.

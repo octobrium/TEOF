@@ -49,6 +49,10 @@
 - Step-1: formalize orchestrator interfaces + manifest schema (worker input/output contract).
 - Step-2: build manager prototype CLI/module that reads backlog, claims tasks, and dispatches manifests.
 - Step-3: implement worker harness (probably wrapper around `foreman` + plan CLI) with dry-run support.
-- Step-4: wire guardrails (scan trigger, systemic checks) and produce regression tests for orchestrator decisions.
+- Step-4: wire guardrails (scan trigger, systemic checks) and produce regression tests for orchestrator decisions. Guard design calls for:
+  - Mandating scan trigger before/after each manifest execution.
+  - Running systemic evaluator against generated manifests/plan deltas.
+  - Circuit breaker receipts when scan/systemic checks fail.
+  - Bus event summarising guard status per job.
 
 All new automation must cite L5 (workflow) while guarding S1/S6/S7. Receipts tied to this plan live under `_report/agent/codex-4/autonomy-coordinator/`.

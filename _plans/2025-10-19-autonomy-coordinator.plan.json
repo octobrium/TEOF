@@ -42,8 +42,8 @@
     {
       "id": "step-4",
       "title": "Guardrail-integration",
-      "status": "queued",
-      "notes": "(CMD-__)",
+      "status": "in_progress",
+      "notes": "Design guardrail integration",
       "receipts": []
     }
   ],
