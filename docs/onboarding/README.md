@@ -5,8 +5,6 @@ the steps in order; each one leaves receipts so the next layer can trust you’v
 anchored properly. Automation mirrors this sequence (see `bin/teof-up`) and
 prints the next waypoint after every receipt lands.
 
-> **Adoption note:** If you are evaluating TEOF for a larger organisation, start with the README “Adoption snapshot” plus [`docs/architecture.md`](../architecture.md), [`docs/workflow.md`](../workflow.md), and [`docs/foundation/alignment-trail.md`](../foundation/alignment-trail.md). Those three surfaces explain the contract, operating cadence, and philosophical basis without forcing a full doc tour.
-
 ## Canonical First Hour
 0. **Run the environment check (`bin/teof-syscheck`)**  
    Confirm Python, pip, and pytest are available before bootstrapping. Resolve
