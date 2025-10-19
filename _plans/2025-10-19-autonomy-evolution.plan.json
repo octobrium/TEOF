@@ -1,0 +1,50 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-19-autonomy-evolution",
+  "created": "2025-10-19T21:40:43Z",
+  "actor": "Octo",
+  "summary": "Automate backlog curation, orchestration, and auditing",
+  "systemic_targets": [
+    "S1",
+    "S6",
+    "S7"
+  ],
+  "layer_targets": [
+    "L3"
+  ],
+  "priority": 1,
+  "layer": "L3",
+  "systemic_scale": 6,
+  "impact_score": 5,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Autonomous-backlog-steward",
+      "status": "in_progress",
+      "notes": "Design steward agent requirements",
+      "receipts": []
+    },
+    {
+      "id": "step-2",
+      "title": "Manager-orchestration-service",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "step-3",
+      "title": "Autonomous-audit-loop",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}

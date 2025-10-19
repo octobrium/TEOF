@@ -255,6 +255,10 @@ Run `teof-objectives-status --window-days 7 --out _report/usage/objectives-statu
 
 Run `python -m tools.agent.backlog_health --threshold 3 --candidate-limit 5 --fail-on-breach` to watch `_plans/next-development.todo.json`. When the pending backlog falls below the threshold the guard writes a receipt under `_report/usage/backlog-health/` and recommends queue entries to replenish the worklist. See [`docs/automation/backlog-health.md`](automation/backlog-health.md) for the full guide.
 
+### Backlog steward
+
+`python -m tools.autonomy.backlog_steward --apply` inspects `_plans/next-development.todo.json`, compares each item with its referenced plan, and marks entries as `done` when the plan (and its receipts) reach completion. It assembles the supporting receipts automatically, updates the backlog timestamp, and writes a receipt under `_report/usage/backlog-steward/`. Run without `--apply` to preview changes.
+
 ### Log real-world impact
 
 Use `python3 -m tools.receipts.log_event impact --title "Outcome" --value 100 --description "..." --receipt <path>` to append structured impact entries under `memory/impact/log.jsonl`. Promote notable items into the impact ledger so Objective O4 stays tied to receipts and measurable value.
