@@ -153,12 +153,31 @@ def scan_lane(*, root: Path | None = None, warning_hours: float = 24.0) -> dict:
             "receipts_count": plan.receipts_count,
         }
 
+    def _recommendations() -> list[str]:
+        recs: list[str] = []
+        for plan in plans:
+            actions: list[str] = []
+            if plan.expired:
+                actions.append("expired: either promote or retire")
+            elif plan.near_expiry:
+                actions.append("expiring soon")
+            if plan.receipts_count == 0:
+                actions.append("no receipts captured")
+            if plan.status == "done" and plan.receipts_count > 0:
+                actions.append("consider migrating receipts to canonical lane")
+            if not actions:
+                continue
+            summary_bits = "; ".join(actions)
+            recs.append(f"{plan.plan_id}: {summary_bits}")
+        return recs
+
     return {
         "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "root": str(root),
         "warning_hours": warning_hours,
         "counts": counts,
         "plans": [_plan_dict(plan) for plan in plans],
+        "recommendations": _recommendations(),
         "errors": errors,
     }
 
@@ -217,6 +236,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help=f"Write JSON summary receipt to {DEFAULT_RECEIPT_PATH.relative_to(ROOT)}",
     )
+    parser.add_argument(
+        "--suggest",
+        action="store_true",
+        help="Print recommended follow-up actions for the current lane state",
+    )
     return parser
 
 
@@ -238,6 +262,10 @@ def main(argv: Iterable[str] | None = None) -> int:
         print(json.dumps(summary, ensure_ascii=False, indent=2))
     else:
         print(_render_table(summary))
+    if args.suggest and summary.get("recommendations"):
+        print("\nRecommendations:")
+        for line in summary["recommendations"]:
+            print(f"- {line}")
     return 0
 
 

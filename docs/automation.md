@@ -78,6 +78,10 @@ teof-scan-driver --summary --emit-bus
 
 `python -m tools.autonomy.scan_trigger` checks `git status --porcelain` and runs the scan driver only when watched paths change (defaults: `_plans/`, `_report/`). Use `--dry-run` to report without executing, `--no-summary` to request full scan output, or repeat `--watch <prefix>` to monitor more directories. Ideal for git hooks or CI steps where you want evidence-driven triggers instead of blind schedules; each run prints whether a scan executed and why.
 
+### Coordinator manifest builder
+
+`python -m tools.autonomy.coordinator_manager --plan <plan_id> --step <step_id>` generates a manifest summarising the work package a downstream agent should execute. The manifest captures plan metadata, recommended guard commands (status/scan/tasks foreman calls), and the receipts the worker is expected to emit. Output defaults to `_report/agent/<agent>/manifests/manifest-<UTC>.json`; pass `--out` to control the path, `--commands-json` to supply bespoke command lists, or `--agent-id` when drafting manifests for another seat. Use this before dispatching autonomous workers so assignments stay auditable and consistent with the alignment trail.
+
 ### Commitment guard
 
 Use `python -m tools.autonomy.commitment_guard` to scan `_bus/messages/**/*.jsonl` and `_report/usage/reflection-intake/*.md` for phrases such as “next time” or “mental note”. Any matches indicate a promise that must be captured as a plan, TODO, or receipt.

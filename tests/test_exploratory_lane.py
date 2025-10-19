@@ -30,22 +30,32 @@ def test_scan_lane_counts(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> No
     receipts_dir.mkdir(parents=True, exist_ok=True)
     (receipts_dir / "note.md").write_text("draft\n", encoding="utf-8")
 
+    _write_plan(
+        plan_dir / "2025-10-17-expired.plan.json",
+        {
+            "plan_id": "2025-10-17-expired",
+            "status": "queued",
+            "exploratory": {"expires_at": "2025-10-18T00:00:00Z", "horizon_hours": 48},
+        },
+    )
+
     monkeypatch.setattr(exploratory_lane, "_now", lambda: datetime(2025, 10, 19, 0, 0, tzinfo=timezone.utc))
 
     summary = exploratory_lane.scan_lane(root=root, warning_hours=36.0)
-    assert summary["counts"]["total"] == 1
-    assert summary["counts"]["expired"] == 0
+    assert summary["counts"]["total"] == 2
+    assert summary["counts"]["expired"] == 1
     assert summary["counts"]["expiring"] == 1
-    assert summary["counts"]["receipts_missing"] == 0
-    assert summary["plans"][0]["receipts_count"] == 1
-    assert summary["plans"][0]["expires_at"] == expires_at
+    assert summary["counts"]["receipts_missing"] == 1
+    recommendations = summary["recommendations"]
+    assert any("2025-10-17-expired" in item and "expired" in item for item in recommendations)
 
 
 def test_cli_outputs_table(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
     root = tmp_path
     plan_dir = root / "_plans" / "exploratory"
+    plan_path = plan_dir / "2025-10-18-sandbox.plan.json"
     _write_plan(
-        plan_dir / "2025-10-18-sandbox.plan.json",
+        plan_path,
         {
             "plan_id": "2025-10-18-sandbox",
             "status": "queued",
@@ -60,16 +70,13 @@ def test_cli_outputs_table(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caps
         root / "_report" / "usage" / "exploratory-latest.json",
     )
     exit_code = exploratory_lane.main(
-        [
-            "--format",
-            "table",
-            "--receipt",
-        ]
+        ["--format", "table", "--receipt", "--suggest"]
     )
     assert exit_code == 0
     output = capsys.readouterr().out
     assert "plan_id" in output
     assert "2025-10-18-sandbox" in output
+    assert "Recommendations:" in output
     receipt_path = root / "_report" / "usage" / "exploratory-latest.json"
     assert receipt_path.exists()
     payload = json.loads(receipt_path.read_text(encoding="utf-8"))
