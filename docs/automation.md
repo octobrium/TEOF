@@ -110,6 +110,10 @@ Once the loop is wired, automation can dispatch workers without human hand-offs 
 
 For a long-running seat, start `python -m tools.autonomy.coordinator_service --interval 60 --log`. It refreshes the session, invokes the loop once per interval, records a receipt for each iteration, and stops automatically on guard failures so humans can inspect the receipts. Combine this with `systemd`, launchd, or a tmux session to keep plug-and-play agents online with minimal babysitting.
 
+### Manager service
+
+`python -m tools.autonomy.manager_service --workers codex-4 codex-5 --interval 120 --allow-worker-stale --log` rotates through multiple worker seats, invoking the coordinator loop for each and writing receipts under `_report/agent/<manager>/autonomy-coordinator/manager/`. It halts if any worker run exits non-zero so guardians can investigate the failing guardrail.
+
 ### Commitment guard
 
 Use `python -m tools.autonomy.commitment_guard` to scan `_bus/messages/**/*.jsonl` and `_report/usage/reflection-intake/*.md` for phrases such as “next time” or “mental note”. Any matches indicate a promise that must be captured as a plan, TODO, or receipt.

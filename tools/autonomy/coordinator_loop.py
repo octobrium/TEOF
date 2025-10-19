@@ -58,6 +58,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--iterations", type=int, default=1, help="How many items to process (default: 1)")
     parser.add_argument("--sleep", type=float, default=0.0, help="Sleep seconds between iterations")
     parser.add_argument("--dry-run", action="store_true", help="Only print selections without running orchestrator")
+    parser.add_argument(
+        "--allow-worker-stale",
+        action="store_true",
+        help="Allow worker session_override when dispatching (passes through to orchestrator)",
+    )
     return parser.parse_args(argv)
 
 
@@ -84,6 +89,8 @@ def _run_once(args: argparse.Namespace) -> int:
         orchestrator_args.extend(["--manager-agent", args.manager_agent])
     if args.worker_agent:
         orchestrator_args.extend(["--worker-agent", args.worker_agent])
+    if args.allow_worker_stale:
+        orchestrator_args.append("--allow-worker-stale")
     orchestrator_args.append("--execute")
     return coordinator_orchestrator.main(orchestrator_args)
 

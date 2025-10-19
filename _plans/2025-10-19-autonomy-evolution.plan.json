@@ -28,8 +28,8 @@
     {
       "id": "step-2",
       "title": "Manager-orchestration-service",
-      "status": "in_progress",
-      "notes": "Design manager service that supervises coordinator seats",
+      "status": "done",
+      "notes": "Manager service: tools/autonomy/manager_service.py (+ tests/test_manager_service.py)",
       "receipts": []
     },
     {
