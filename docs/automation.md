@@ -102,6 +102,10 @@ Once the loop is wired, automation can dispatch workers without human hand-offs 
 
 `python -m tools.autonomy.coordinator_orchestrator --plan <plan_id> --step <step_id>` claims an optional task, runs the guard loop with `--execute`, and handles session freshness automatically. Pass `--task-id`/`--branch` when you want the orchestrator to file the bus claim before execution, `--worker-agent` to dispatch a different worker seat, or `--dry-run` to review planned actions. This is the entrypoint future autonomous manager agents will call to keep the coordinator pipeline fully automated.
 
+### Coordinator loop
+
+`python -m tools.autonomy.coordinator_loop` loads `_plans/next-development.todo.json`, finds the first pending item with a viable plan step, and hands it to the orchestrator. Use `--iterations N` or `--sleep SECONDS` for watch-mode, `--dry-run` to preview selections, and `--manager-agent/--worker-agent` to pin seats. This is the minimal heartbeat for plug-and-play donors: point a worker at the repo, run the loop, and TEOF coordinates the rest.
+
 ### Commitment guard
 
 Use `python -m tools.autonomy.commitment_guard` to scan `_bus/messages/**/*.jsonl` and `_report/usage/reflection-intake/*.md` for phrases such as “next time” or “mental note”. Any matches indicate a promise that must be captured as a plan, TODO, or receipt.
