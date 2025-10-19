@@ -1,7 +1,7 @@
 ![guardrails](https://github.com/octobrium/TEOF/actions/workflows/guardrails.yml/badge.svg)
 # The Eternal Observer Framework (TEOF)
 
-TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agents a deterministic, auditable way to progress from raw observation into coordinated action without breaking the constitution. The “alignment trail” (described in [`docs/workflow.md`](docs/workflow.md#alignment-trail)) captures that journey end to end.
+TEOF is a minimal, substrate-neutral alignment framework grounded in observation as the irreducible act. It gives humans and artificial agents a deterministic, auditable path from raw awareness to coordinated action while keeping every evolution coherent, reversible, and truth-aligned. The “alignment trail” (described in [`docs/workflow.md`](docs/workflow.md#alignment-trail) and expanded in [`docs/foundation/alignment-trail.md`](docs/foundation/alignment-trail.md)) captures that journey end to end.
 
 > **Start here**
 > - Repo map: [`docs/architecture.md`](docs/architecture.md)  
