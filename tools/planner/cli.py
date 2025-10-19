@@ -8,7 +8,7 @@ import re
 import subprocess
 import sys
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Iterable, List
 
@@ -24,6 +24,7 @@ from tools.receipts.scaffold import scaffold_plan, format_created, ScaffoldError
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_PLAN_DIR = ROOT / "_plans"
+EXPLORATORY_DEFAULT_EXPIRY_HOURS = 72
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 SLUG_NORMALIZER = re.compile(r"[^a-z0-9-]+")
 PLAN_ID_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -329,6 +330,7 @@ def cmd_new(args: argparse.Namespace) -> int:
     if not slug:
         raise PlannerCliError("slug must contain at least one alphanumeric character")
 
+    is_exploratory = bool(getattr(args, "exploratory", False))
     timestamp = _parse_timestamp(args.timestamp)
     plan_id = f"{timestamp:%Y-%m-%d}-{slug}"
     if not PLAN_ID_PATTERN.match(plan_id):
@@ -336,9 +338,17 @@ def cmd_new(args: argparse.Namespace) -> int:
             "plan_id derived from slug is invalid; ensure slug uses lowercase letters, numbers, or hyphens"
         )
 
-    _enforce_claim_guard(plan_id, getattr(args, "allow_unclaimed", False))
+    if not is_exploratory:
+        _enforce_claim_guard(plan_id, getattr(args, "allow_unclaimed", False))
 
-    plan_dir = Path(args.plan_dir).resolve()
+    provided_plan_dir = Path(args.plan_dir).resolve()
+    if (
+        is_exploratory
+        and provided_plan_dir == DEFAULT_PLAN_DIR.resolve()
+    ):
+        plan_dir = provided_plan_dir / "exploratory"
+    else:
+        plan_dir = provided_plan_dir
     plan_path = plan_dir / f"{plan_id}.plan.json"
     if plan_path.exists() and not args.force:
         raise PlannerCliError(f"plan already exists: {plan_path}")
@@ -352,7 +362,11 @@ def cmd_new(args: argparse.Namespace) -> int:
     checkpoint_desc = args.checkpoint or "Define verification + receipts"
     steps = _parse_steps(args.step, summary=summary)
 
-    priority = _ensure_priority(getattr(args, "priority", None))
+    priority_arg = getattr(args, "priority", None)
+    if is_exploratory and priority_arg is None:
+        priority = 9
+    else:
+        priority = _ensure_priority(priority_arg)
     systemic_arg_tokens: list[str] = []
     for token in getattr(args, "systemic_target", []):
         systemic_arg_tokens.extend(parse_axis_tokens(token))
@@ -364,8 +378,14 @@ def cmd_new(args: argparse.Namespace) -> int:
             raise PlannerCliError(str(exc)) from exc
     layer_arg = getattr(args, "layer", None)
     layer = layer_arg.upper() if layer_arg else None
+    if is_exploratory and layer is None:
+        layer = "L5"
     systemic_scale = getattr(args, "systemic_scale", None)
-    impact_score = _ensure_impact_score(getattr(args, "impact_score", None))
+    impact_arg = getattr(args, "impact_score", None)
+    if is_exploratory and impact_arg is None:
+        impact_score = 10
+    else:
+        impact_score = _ensure_impact_score(impact_arg)
     queue_refs: list[str] = [ref for ref in getattr(args, "queue_ref", []) if ref]
     (
         layer,
@@ -386,6 +406,8 @@ def cmd_new(args: argparse.Namespace) -> int:
         systemic_targets = queue_systemic_targets
     elif systemic_scale is not None:
         systemic_targets = [f"S{systemic_scale}"]
+    elif is_exploratory:
+        systemic_targets = ["S4"]
     if not systemic_targets:
         raise PlannerCliError(
             "unable to derive systemic targets; provide --systemic-target or reference a queue entry with them"
@@ -402,8 +424,12 @@ def cmd_new(args: argparse.Namespace) -> int:
     axis_highest = highest_axis_value(systemic_targets)
     if systemic_scale is None:
         if axis_highest is None:
-            raise PlannerCliError("--systemic-scale is required (unable to infer from systemic targets)")
-        systemic_scale = axis_highest
+            if is_exploratory:
+                systemic_scale = 4
+            else:
+                raise PlannerCliError("--systemic-scale is required (unable to infer from systemic targets)")
+        else:
+            systemic_scale = axis_highest
     systemic_scale = _ensure_systemic_scale(systemic_scale)
     scale_token = f"S{systemic_scale}"
     if scale_token not in systemic_targets:
@@ -432,6 +458,16 @@ def cmd_new(args: argparse.Namespace) -> int:
         "links": queue_links,
         "receipts": [],
     }
+
+    if is_exploratory:
+        expiry_hours_arg = getattr(args, "expiry_hours", None)
+        expiry_hours = expiry_hours_arg if isinstance(expiry_hours_arg, int) and expiry_hours_arg > 0 else EXPLORATORY_DEFAULT_EXPIRY_HOURS
+        expires_at = timestamp + timedelta(hours=expiry_hours)
+        payload["lane"] = "exploratory"
+        payload["exploratory"] = {
+            "expires_at": f"{expires_at:%Y-%m-%dT%H:%M:%SZ}",
+            "horizon_hours": expiry_hours,
+        }
 
     _write_plan(plan_path, payload)
     try:
@@ -816,7 +852,7 @@ def build_parser() -> argparse.ArgumentParser:
         default=[],
         help="Add a step in format ID:Title (may be repeated)",
     )
-    new.add_argument("--priority", type=int, required=True, help="Numeric priority (0 = highest)")
+    new.add_argument("--priority", type=int, help="Numeric priority (0 = highest)")
     new.add_argument(
         "--systemic-target",
         action="append",
@@ -830,7 +866,7 @@ def build_parser() -> argparse.ArgumentParser:
         choices=SYSTEMIC_SCALE_CHOICES,
         help="Systemic axis (S1–S10)",
     )
-    new.add_argument("--impact-score", type=int, required=True, help="Relative impact score (>=0)")
+    new.add_argument("--impact-score", type=int, help="Relative impact score (>=0)")
     new.add_argument(
         "--queue-ref",
         action="append",
@@ -857,6 +893,16 @@ def build_parser() -> argparse.ArgumentParser:
         dest="scaffold",
         action="store_false",
         help="Skip scaffold generation (default)",
+    )
+    new.add_argument(
+        "--exploratory",
+        action="store_true",
+        help="Create the plan inside the exploratory sandbox lane with relaxed metadata defaults",
+    )
+    new.add_argument(
+        "--expiry-hours",
+        type=int,
+        help="Override exploratory auto-expiry horizon in hours (default 72)",
     )
     new.set_defaults(func=cmd_new, scaffold=False, allow_unclaimed=False)
 

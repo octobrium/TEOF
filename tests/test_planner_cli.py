@@ -159,6 +159,40 @@ def test_cli_new_rejects_duplicate_steps(planner_root: Path) -> None:
         )
 
 
+def test_cli_new_exploratory_defaults(planner_root: Path) -> None:
+    exit_code = planner_cli.main(
+        [
+            "new",
+            "sandbox-spike",
+            "--summary",
+            "Prototype sandbox idea",
+            "--actor",
+            "tester",
+            "--timestamp",
+            "2025-10-19T00:00:00Z",
+            "--exploratory",
+        ]
+    )
+    assert exit_code == 0
+
+    plan_path = planner_root / "_plans" / "exploratory" / "2025-10-19-sandbox-spike.plan.json"
+    assert plan_path.exists()
+    data = read_plan(plan_path)
+    assert data["lane"] == "exploratory"
+    assert data["priority"] == 9
+    assert data["impact_score"] == 10
+    assert data["layer"] == "L5"
+    assert data["systemic_scale"] == 4
+    assert data["systemic_targets"] == ["S4"]
+    assert data["exploratory"]["horizon_hours"] == 72
+    assert data["exploratory"]["expires_at"] == "2025-10-22T00:00:00Z"
+    assert data["status"] == "queued"
+    assert data["steps"][0]["notes"] == "(CMD-__)"
+    assert data["checkpoint"]["status"] == "pending"
+    result = validate_plan(plan_path, strict=False)
+    assert result.ok, result.errors
+
+
 def test_cli_status_updates_plan(planner_root: Path) -> None:
     plan_dir = planner_root / "_plans"
     plan_path = plan_dir / "2025-09-17-status-test.plan.json"

@@ -93,6 +93,7 @@ def test_generate_status(tmp_path: Path, monkeypatch) -> None:
     assert "Package: teof 9.9.9" in report
     assert "Artifacts latest" in report
     assert "Authenticity dashboard" in report
+    assert "Exploratory lane" in report
     assert "## Autonomy Footprint" in report
     assert "Modules:" in report
     assert "Receipts:" in report

@@ -13,7 +13,7 @@ except ModuleNotFoundError:  # pragma: no cover - fallback for older runtimes
 
 from tools.maintenance import capability_inventory
 from tools.maintenance import automation_inventory
-
+from tools.planner.exploratory_lane import scan_lane as scan_exploratory_lane
 
 ROOT = Path(__file__).resolve().parents[1]
 ISO_FMT = "%Y-%m-%dT%H:%M:%S%zZ"
@@ -98,6 +98,45 @@ def _authenticity_line(root: Path) -> str:
         return f"Authenticity dashboard: `{rel}` (auto-refreshes with each summary run)"
     rel = _relative(auth_md, root)
     return f"Authenticity dashboard: `{rel}` (missing — run `teof-external-summary`)"
+
+
+def _parse_expires_at(raw: object) -> dt.datetime | None:
+    if not isinstance(raw, str) or not raw:
+        return None
+    try:
+        stamp = dt.datetime.strptime(raw, "%Y-%m-%dT%H:%M:%SZ")
+    except ValueError:
+        return None
+    return stamp.replace(tzinfo=dt.timezone.utc)
+
+
+def _exploratory_lane_line(root: Path) -> str:
+    try:
+        summary = scan_exploratory_lane(root=root)
+    except Exception:  # pragma: no cover - defensive guard
+        return "Exploratory lane: status unavailable (scan error)"
+
+    counts = summary.get("counts", {})
+    total = counts.get("total", 0)
+    if total == 0:
+        return "Exploratory lane: (inactive — use `teof-plan new <slug> --exploratory` to bootstrap)"
+
+    active = counts.get("active", 0)
+    expired = counts.get("expired", 0)
+    expiring = counts.get("expiring", 0)
+    missing = counts.get("receipts_missing", 0)
+    receipts_total = sum(plan.get("receipts_count", 0) for plan in summary.get("plans", []))
+    warning_hours = summary.get("warning_hours")
+    warning_label = f"{warning_hours:.0f}h" if isinstance(warning_hours, (int, float)) else "threshold"
+    parts = [
+        f"Exploratory lane: plans={total}",
+        f"(active={active}, expired={expired}, expiring<={warning_label}={expiring})",
+        f"receipts={receipts_total} (missing={missing})",
+    ]
+    errors = summary.get("errors")
+    if errors:
+        parts.append(f"errors={len(errors)}")
+    return " | ".join(parts)
 
 
 def _count_autonomy_metrics(root: Path) -> tuple[int, int, int]:
@@ -321,6 +360,7 @@ def gather_snapshot_lines(root: Path) -> list[str]:
         _cli_line(),
         _artifacts_line(root),
         _authenticity_line(root),
+        _exploratory_lane_line(root),
     ]
 
 
