@@ -16,12 +16,14 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     assignments_dir = root / "_bus" / "assignments"
     claims_dir = root / "_bus" / "claims"
     usage_dir = root / "_report" / "usage"
+    network_dir = root / "_report" / "network"
 
     events_dir.mkdir(parents=True)
     messages_dir.mkdir(parents=True)
     assignments_dir.mkdir(parents=True)
     claims_dir.mkdir(parents=True)
     usage_dir.mkdir(parents=True)
+    network_dir.mkdir(parents=True)
     (root / "agents").mkdir()
     (root / "_report" / "manager").mkdir(parents=True)
 
@@ -34,6 +36,7 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(manager_report, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(manager_report, "MESSAGES_DIR", messages_dir)
     monkeypatch.setattr(manager_report, "REPORT_DIR", root / "_report" / "manager")
+    monkeypatch.setattr(manager_report, "NETWORK_REPORT_DIR", network_dir)
     monkeypatch.setattr(manager_report, "TASKS_FILE", tasks_path)
     ttd_path = root / "memory" / "impact" / "ttd.jsonl"
     monkeypatch.setattr(manager_report, "TTD_LOG", ttd_path)
@@ -107,6 +110,19 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     }
     (summary_dir / "summary-latest.json").write_text(
         json.dumps(summary_payload, indent=2),
+        encoding="utf-8",
+    )
+
+    reconciliation_run = network_dir / "20250101T000000Z"
+    reconciliation_run.mkdir(parents=True, exist_ok=True)
+    (reconciliation_run / "summary.md").write_text(
+        "# Receipt sync summary\n"
+        "Generated at: 20250101T000000Z\n"
+        "Nodes: 2\n"
+        "Artifacts scanned: 1\n"
+        "Conflicts detected: 0\n"
+        "Canonical coverage:\n"
+        "- _report/external/systemic/sample.json canonical abcd backed by 2 envelopes (alpha, beta)\n",
         encoding="utf-8",
     )
 
@@ -227,6 +243,18 @@ def test_manager_report_includes_metrics(repo: Path):
     content = report_path.read_text(encoding="utf-8")
     assert "Reconciliation Metrics" in content
     assert "Differences: 2" in content
+    assert "Decentralized Reconciliation" in content
+    assert "- Canonical coverage:" in content
+
+
+def test_manager_report_includes_network_summary(repo: Path):
+    rc = manager_report.main(["--manager", "codex-manager"])
+    assert rc == 0
+    report_path = sorted((repo / "_report" / "manager").glob("manager-report-*.md"))[-1]
+    content = report_path.read_text(encoding="utf-8")
+    assert "Decentralized Reconciliation" in content
+    assert "- Canonical coverage:" in content
+    assert "alpha, beta" in content
 
 
 def test_manager_report_includes_plan_validation_issues(repo: Path):

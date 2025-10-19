@@ -15,6 +15,7 @@ from tools import reconcile_metrics_summary as metrics_summary
 from tools.autonomy import commitment_guard
 from tools.impact import ttd_trend as ttd_trend_mod
 from tools.planner import queue_warnings as planner_queue_warnings
+from tools.agent import receipt_brief
 from tools.planner.validate import validate_plan
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -22,6 +23,7 @@ ASSIGN_DIR = ROOT / "_bus" / "assignments"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 MESSAGES_DIR = ROOT / "_bus" / "messages"
 REPORT_DIR = ROOT / "_report" / "manager"
+NETWORK_REPORT_DIR = ROOT / "_report" / "network"
 TTD_LOG = ROOT / "memory" / "impact" / "ttd.jsonl"
 TASKS_FILE = ROOT / "agents" / "tasks" / "tasks.json"
 AUTH_JSON = ROOT / "_report" / "usage" / "external-authenticity.json"
@@ -49,6 +51,25 @@ def load_tasks() -> list[dict[str, Any]]:
     return []
 
 
+def _task_briefs(task: dict[str, Any]) -> list[tuple[str, str]]:
+    briefs: list[tuple[str, str]] = []
+    plan_id = task.get("plan_id")
+    if isinstance(plan_id, str):
+        try:
+            summary_line = receipt_brief.generate_plan_brief(plan_id).splitlines()[0]
+            briefs.append(("Plan", summary_line))
+        except (FileNotFoundError, KeyError, ValueError):
+            pass
+    task_id = task.get("id")
+    if isinstance(task_id, str) and task_id.startswith("ND-"):
+        try:
+            summary_line = receipt_brief.generate_backlog_brief(task_id).splitlines()[0]
+            briefs.append(("Backlog", summary_line))
+        except (FileNotFoundError, KeyError, ValueError):
+            pass
+    return briefs
+
+
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         return []
@@ -64,6 +85,51 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
         if isinstance(obj, dict):
             entries.append(obj)
     return entries
+
+
+def load_network_summary() -> list[str]:
+    """Return bullet lines summarising the latest decentralized reconciliation run."""
+    summary_path: Path | None = None
+    latest = NETWORK_REPORT_DIR / "latest" / "summary.md"
+    if latest.exists():
+        summary_path = latest
+    else:
+        candidates = sorted(
+            (path for path in NETWORK_REPORT_DIR.iterdir() if path.is_dir()),
+            reverse=True,
+        )
+        for candidate in candidates:
+            candidate_summary = candidate / "summary.md"
+            if candidate_summary.exists():
+                summary_path = candidate_summary
+                break
+    if summary_path is None:
+        return []
+    raw_lines = summary_path.read_text(encoding="utf-8").splitlines()
+    bullets: list[str] = []
+    generated_line = next((line for line in raw_lines if line.startswith("Generated at:")), None)
+    if generated_line:
+        bullets.append(f"- {generated_line}")
+    nodes_line = next((line for line in raw_lines if line.startswith("Nodes:")), None)
+    if nodes_line:
+        bullets.append(f"- {nodes_line}")
+    conflicts_line = next((line for line in raw_lines if line.startswith("Conflicts detected:")), None)
+    if conflicts_line:
+        bullets.append(f"- {conflicts_line}")
+    canonical_lines: list[str] = []
+    capture = False
+    for line in raw_lines:
+        if line.strip() == "Canonical coverage:":
+            capture = True
+            continue
+        if capture:
+            if not line.startswith("- "):
+                break
+            canonical_lines.append(f"  {line}")
+    if canonical_lines:
+        bullets.append("- Canonical coverage:")
+        bullets.extend(canonical_lines)
+    return bullets
 
 
 def _percentile(values: list[float], pct: float) -> float | None:
@@ -331,6 +397,8 @@ def write_report(
         if task.get("receipts"):
             receipt_list = ', '.join(task.get("receipts", []))
             lines.append(f"- Receipts: {receipt_list}")
+        for label, brief_line in _task_briefs(task):
+            lines.append(f"- {label} brief: {brief_line}")
         assignment = assignments.get(task_id)
         if assignment:
             lines.append(f"- Assigned to `{assignment.get('engineer')}` at {assignment.get('assigned_at')} (note: {assignment.get('note')})")
@@ -390,6 +458,12 @@ def write_report(
         files_scanned = metrics.get("files_scanned")
         if files_scanned is not None:
             lines.append(f"- Metrics files scanned: {files_scanned}")
+        lines.append("")
+
+    network_summary = load_network_summary()
+    if network_summary:
+        lines.append("## Decentralized Reconciliation")
+        lines.extend(network_summary)
         lines.append("")
 
     if direction_metrics:

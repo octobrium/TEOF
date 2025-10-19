@@ -22,6 +22,7 @@ except ImportError:  # pragma: no cover - signature verification optional
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUT_ROOT = ROOT / "_report" / "network"
+SIGNATURE_FIELDS = {"signature", "public_key_id", "signature_algorithm"}
 
 
 @dataclass
@@ -35,6 +36,8 @@ class ReceiptEntry:
     node_id: str
     relative_path: str
     hash_sha256: str
+    canonical_hash: str | None
+    canonical_size: int | None
     size: int
     modified: str
     payload: dict
@@ -84,11 +87,25 @@ def _collect_receipts(
             continue
         data = path.read_bytes()
         payload = json.loads(data.decode("utf-8"))  # ensure valid JSON for Observation
+        canonical_hash: str | None = None
+        canonical_size: int | None = None
+        if isinstance(payload, dict):
+            canonical_payload = {k: payload[k] for k in payload if k not in SIGNATURE_FIELDS}
+            canonical_bytes = json.dumps(
+                canonical_payload,
+                ensure_ascii=False,
+                separators=(",", ":"),
+                sort_keys=True,
+            ).encode("utf-8")
+            canonical_hash = _hash_bytes(canonical_bytes)
+            canonical_size = len(canonical_bytes)
         entries.append(
             ReceiptEntry(
                 node_id=config.node_id,
                 relative_path=rel,
                 hash_sha256=_hash_bytes(data),
+                canonical_hash=canonical_hash,
+                canonical_size=canonical_size,
                 size=path.stat().st_size,
                 modified=dt.datetime.utcfromtimestamp(path.stat().st_mtime).strftime(  # type: ignore[attr-defined]
                     "%Y-%m-%dT%H:%M:%SZ"
@@ -104,21 +121,35 @@ def _aggregate(entries: Iterable[ReceiptEntry]) -> Mapping[str, Dict[str, Dict[s
     artifacts: Dict[str, Dict[str, Dict[str, object]]] = {}
     for entry in entries:
         variants = artifacts.setdefault(entry.relative_path, {})
+        variant_key = entry.canonical_hash or entry.hash_sha256
         variant = variants.setdefault(
-            entry.hash_sha256,
+            variant_key,
             {
-                "hash": entry.hash_sha256,
-                "size": entry.size,
+                "hash": variant_key,
+                "size": entry.canonical_size if entry.canonical_size is not None else entry.size,
                 "modified": entry.modified,
                 "nodes": [],
+                "envelopes": [],
             },
         )
         variant_nodes: List[str] = variant["nodes"]  # type: ignore[assignment]
         if entry.node_id not in variant_nodes:
             variant_nodes.append(entry.node_id)
+        envelopes: List[Dict[str, object]] = variant["envelopes"]  # type: ignore[assignment]
+        envelopes.append(
+            {
+                "node": entry.node_id,
+                "hash": entry.hash_sha256,
+                "size": entry.size,
+                "modified": entry.modified,
+            }
+        )
     for variant_map in artifacts.values():
         for variant in variant_map.values():
             variant["nodes"] = sorted(variant["nodes"])  # type: ignore[assignment]
+            envelopes = variant.get("envelopes", [])
+            if isinstance(envelopes, list):
+                variant["envelopes"] = sorted(envelopes, key=lambda item: item.get("node", ""))  # type: ignore[assignment]
     return artifacts
 
 
@@ -293,6 +324,20 @@ def _write_outputs(
             )
     else:
         summary_lines.append("Conflicts detected: 0\n")
+    canonical_highlights: List[str] = []
+    for artifact in ledger.get("artifacts", []):
+        path = artifact.get("path")
+        for variant in artifact.get("variants", []):
+            envelopes = variant.get("envelopes")
+            if not isinstance(envelopes, list) or len(envelopes) <= 1:
+                continue
+            nodes = ", ".join(env.get("node", "?") for env in envelopes)
+            canonical_highlights.append(
+                f"- {path} canonical {variant.get('hash')} backed by {len(envelopes)} envelopes ({nodes})\n"
+            )
+    if canonical_highlights:
+        summary_lines.append("Canonical coverage:\n")
+        summary_lines.extend(canonical_highlights)
     (out_dir / "summary.md").write_text("".join(summary_lines), encoding="utf-8")
 
 

@@ -95,6 +95,10 @@ def test_sync_receipts_detects_conflicts(tmp_path: Path) -> None:
     assert conflicts[0]["path"] == rel_path
     nodes = sorted({node for variant in conflicts[0]["variants"] for node in variant["nodes"]})
     assert nodes == ["node-a", "node-b"]
+    for variant in conflicts[0]["variants"]:
+        assert "envelopes" in variant
+        for envelope in variant["envelopes"]:
+            assert envelope["node"] in {"node-a", "node-b"}
 
     # Coverage report should note that both nodes satisfied expectations
     coverage = {item["node_id"]: item for item in ledger["coverage"]}
@@ -171,6 +175,47 @@ def test_signature_verification(tmp_path: Path) -> None:
     )
     missing_check = json.loads((missing_dir / "ledger.json").read_text(encoding="utf-8"))["checks"]["signature"]
     assert missing_check["status"] in {"missing", "error"}
+
+
+def test_signature_envelopes_do_not_trigger_conflicts(tmp_path: Path) -> None:
+    node_a = _make_node(tmp_path, "sig-a")
+    node_b = _make_node(tmp_path, "sig-b")
+    rel_path = "_report/usage/systemic-summary.json"
+
+    canonical_body = {
+        "run_id": "20251019T000000Z",
+        "systemic_targets": ["S3", "S4"],
+    }
+    payload_a = dict(canonical_body)
+    payload_a.update({"signature": "AAA", "public_key_id": "sig-a-key"})
+    payload_b = dict(canonical_body)
+    payload_b.update({"signature": "BBB", "public_key_id": "sig-b-key", "signature_algorithm": "ed25519"})
+
+    _write_receipt(node_a, rel_path, payload_a)
+    _write_receipt(node_b, rel_path, payload_b)
+
+    out_dir = tmp_path / "signed-out"
+    receipt_sync.sync_receipts(
+        [
+            receipt_sync.NodeConfig(node_id="sig-a", root=node_a),
+            receipt_sync.NodeConfig(node_id="sig-b", root=node_b),
+        ],
+        out_dir=out_dir,
+        create_latest_symlink=False,
+    )
+
+    conflicts = json.loads((out_dir / "conflicts.json").read_text(encoding="utf-8"))
+    assert conflicts == []
+
+    ledger = json.loads((out_dir / "ledger.json").read_text(encoding="utf-8"))
+    artifact = next(item for item in ledger["artifacts"] if item["path"] == rel_path)
+    variants = artifact["variants"]
+    assert len(variants) == 1
+    envelopes = variants[0].get("envelopes", [])
+    assert isinstance(envelopes, list) and {env["node"] for env in envelopes} == {"sig-a", "sig-b"}
+    summary = (out_dir / "summary.md").read_text(encoding="utf-8")
+    assert "Canonical coverage:" in summary
+    assert "sig-a, sig-b" in summary
 
 
 def test_config_file(tmp_path: Path) -> None:

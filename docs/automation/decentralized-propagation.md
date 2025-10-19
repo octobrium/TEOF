@@ -43,6 +43,7 @@ Tracked goldens live in `docs/examples/decentralized/receipt-sync/` (ledger, con
 2. **Prepare config** — Clone `docs/examples/decentralized/receipt-sync/config.sample.json` and list node IDs + absolute paths. Add `expect` patterns for receipts you require (e.g., `_report/usage/external-summary.json`).
 3. **Run receipt sync** — Execute `tools/network.receipt_sync` with `--verify-anchor`/`--verify-capsule` (or set in config). Add `--verify-signatures` / `--require-signatures` once receipts are wrapped in external envelopes.
 4. **Review summary** — Check `summary.md` for conflict counts and coverage gaps. Use `conflicts.json` to inspect differing hashes. A zero-conflict run indicates successful convergence.
+   - `receipt_sync` now compares canonical payloads (signature/public_key metadata stripped) so matching receipts signed by different stewards converge without spurious conflicts; envelope differences remain visible under each artifact’s `envelopes` list in `ledger.json`.
 5. **Log receipts** — Commit or archive the outputs under `_report/network/<run>` and link them to the relevant plan step before promoting decentralized properties.
 6. **Escalate conflicts** — If conflicts persist, open or update a plan: highlight systemic axes involved (typically `S4`/`S6`), capture remediation actions, and broadcast via manager-report.
 
