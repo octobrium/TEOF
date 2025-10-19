@@ -106,6 +106,10 @@ Once the loop is wired, automation can dispatch workers without human hand-offs 
 
 `python -m tools.autonomy.coordinator_loop` loads `_plans/next-development.todo.json`, finds the first pending item with a viable plan step, and hands it to the orchestrator. Use `--iterations N` or `--sleep SECONDS` for watch-mode, `--dry-run` to preview selections, and `--manager-agent/--worker-agent` to pin seats. This is the minimal heartbeat for plug-and-play donors: point a worker at the repo, run the loop, and TEOF coordinates the rest.
 
+### Coordinator service
+
+For a long-running seat, start `python -m tools.autonomy.coordinator_service --interval 60 --log`. It refreshes the session, invokes the loop once per interval, records a receipt for each iteration, and stops automatically on guard failures so humans can inspect the receipts. Combine this with `systemd`, launchd, or a tmux session to keep plug-and-play agents online with minimal babysitting.
+
 ### Commitment guard
 
 Use `python -m tools.autonomy.commitment_guard` to scan `_bus/messages/**/*.jsonl` and `_report/usage/reflection-intake/*.md` for phrases such as “next time” or “mental note”. Any matches indicate a promise that must be captured as a plan, TODO, or receipt.
