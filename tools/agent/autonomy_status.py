@@ -5,7 +5,10 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Mapping, Optional
+
+from tools.autonomy import macro_hygiene
+from tools.autonomy.shared import write_receipt_payload
 
 ROOT = Path(__file__).resolve().parents[2]
 HYGIENE_SUMMARY = ROOT / "_report" / "usage" / "receipts-hygiene-summary.json"
@@ -41,7 +44,11 @@ def load_batch_logs(limit: int | None = None) -> List[Dict[str, Any]]:
     return entries
 
 
-def summarise(hygiene: Dict[str, Any] | None, logs: List[Dict[str, Any]]) -> Dict[str, Any]:
+def summarise(
+    hygiene: Dict[str, Any] | None,
+    logs: List[Dict[str, Any]],
+    macro: Optional[Mapping[str, Any]] = None,
+) -> Dict[str, Any]:
     metrics = hygiene.get("metrics", {}) if isinstance(hygiene, dict) else {}
     slow_plan_alerts = hygiene.get("slow_plan_alerts") if isinstance(hygiene, dict) else None
     missing = metrics.get("plans_missing_receipts")
@@ -105,7 +112,7 @@ def summarise(hygiene: Dict[str, Any] | None, logs: List[Dict[str, Any]]) -> Dic
         "attention": readiness_attention,
     }
 
-    return {
+    summary = {
         "hygiene": {
             "generated_at": hygiene.get("generated_at") if hygiene else None,
             "plans_total": metrics.get("plans_total"),
@@ -127,6 +134,22 @@ def summarise(hygiene: Dict[str, Any] | None, logs: List[Dict[str, Any]]) -> Dic
         "top_slow_plans": top_slow,
         "readiness": readiness,
     }
+    if macro is not None:
+        summary["macro_hygiene"] = macro
+    return summary
+
+
+def load_macro_hygiene(*, write_receipt: bool) -> Optional[Mapping[str, Any]]:
+    try:
+        status = macro_hygiene.compute_status()
+    except Exception:
+        return None
+    if write_receipt:
+        try:
+            write_receipt_payload(macro_hygiene.DEFAULT_RECEIPT, status)
+        except Exception:
+            pass
+    return status
 
 
 def print_human(summary: Dict[str, Any]) -> None:
@@ -210,7 +233,8 @@ def main(argv: List[str] | None = None) -> int:
 
     hygiene = load_hygiene()
     logs = load_batch_logs(limit=args.limit)
-    summary = summarise(hygiene, logs)
+    macro = load_macro_hygiene(write_receipt=not args.no_write)
+    summary = summarise(hygiene, logs, macro=macro)
 
     default_write = not args.no_write
     target_path = None

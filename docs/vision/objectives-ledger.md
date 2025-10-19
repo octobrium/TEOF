@@ -45,7 +45,8 @@ L0 observations and L1 principles.
 - **Metric:** zero unattended runs bypassing consent or failing authenticity
   thresholds; all incidents produce remediation receipts.
 - **Signals:** `_report/usage/external-authenticity.*`, `_report/usage/autonomy-status.json`.
- - **Status Tool:** `teof-objectives-status` (O5 summary).
+- **Status Tool:** `teof-objectives-status` (O5 summary).
+- **Macro hygiene:** `python -m tools.autonomy.macro_hygiene` verifies L2 hygiene objectives and emits `_report/usage/macro-hygiene-status.json`.
 
 ## O6 — Cooperative Cadence
 - **Outcome:** multiple neurons (humans/LLMs) contribute within the same weeks,

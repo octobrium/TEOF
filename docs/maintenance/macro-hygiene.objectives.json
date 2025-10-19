@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "updated": "2025-10-18T00:00:00Z",
+  "objectives": [
+    {
+      "id": "MH-ENV",
+      "title": "Stabilize environment hygiene",
+      "description": "Provide manifest and branch swap helpers so sessions remain clean between operators.",
+      "owners": ["codex-2", "codex-3"],
+      "cadence": "per session",
+      "checks": [
+        {"kind": "plan_done", "path": "_plans/2025-09-18-manifest-helper-codex3.plan.json"},
+        {"kind": "plan_done", "path": "_plans/2025-09-19-manifest-swap.plan.json"},
+        {"kind": "path_exists", "path": "tools/agent/manifest_helper.py"},
+        {"kind": "path_exists", "path": "tests/test_manifest_helper.py"},
+        {"kind": "path_exists", "path": ".github/AGENT_ONBOARDING.md"}
+      ],
+      "signals": [
+        "docs/agents.md",
+        "docs/parallel-codex.md"
+      ]
+    },
+    {
+      "id": "MH-CI",
+      "title": "Integrate macro hygiene helpers into CI",
+      "description": "Ensure prune helpers, consensus tooling, and manager heartbeat checks run in guardrails.",
+      "owners": ["codex-2", "codex-3"],
+      "cadence": "per release",
+      "checks": [
+        {"kind": "plan_done", "path": "_plans/2025-09-18-prune-script.plan.json"},
+        {"kind": "plan_done", "path": "_plans/2025-09-18-manager-heartbeat.plan.json"},
+        {"kind": "path_exists", "path": "tools/autonomy/actions/hygiene.py"},
+        {"kind": "path_exists", "path": "scripts/ci/check_consensus_receipts.py"},
+        {"kind": "path_exists", "path": "scripts/ci/consensus_smoke.sh"},
+        {"kind": "path_exists", "path": "scripts/ci/check_capsule_cadence.py"},
+        {"kind": "path_exists", "path": ".github/workflows/guardrails.yml"},
+        {"kind": "path_exists", "path": "tests/test_ci_check_consensus_receipts.py"},
+        {"kind": "path_exists", "path": "tests/test_ci_check_capsule_cadence.py"},
+        {"kind": "path_exists", "path": "tests/test_agent_bus_status.py"}
+      ],
+      "signals": [
+        "docs/ci-guarantees.md",
+        "governance/core/L4 - architecture/bindings.yml"
+      ]
+    },
+    {
+      "id": "MH-CADENCE",
+      "title": "Align capsule cadence",
+      "description": "Wire capsule cadence to consensus receipts and keep the cadence summary fresh.",
+      "owners": ["codex-2"],
+      "cadence": "weekly",
+      "checks": [
+        {"kind": "plan_done", "path": "_plans/2025-09-21-capsule-cadence-automation.plan.json"},
+        {"kind": "path_exists", "path": "_report/capsule/summary-latest.json"},
+        {"kind": "path_exists", "path": "docs/maintenance/capsule-cadence.md"},
+        {"kind": "path_exists", "path": "tools/capsule/cadence.py"},
+        {"kind": "path_exists", "path": "governance/core/emergent-principles.jsonl"}
+      ],
+      "signals": [
+        "docs/architecture.md",
+        "docs/quick-links.md"
+      ]
+    },
+    {
+      "id": "MH-AUTO",
+      "title": "Clarify auto-progression triggers",
+      "description": "Document when agents may proceed without renewed approval and back it with receipts.",
+      "owners": ["codex-5"],
+      "cadence": "per unattended run",
+      "checks": [
+        {"kind": "plan_done", "path": "_plans/2025-09-23-autonomy-auto-proceed.plan.json"},
+        {"kind": "path_exists", "path": "docs/automation/autonomy-consent.json"},
+        {"kind": "path_exists", "path": "docs/automation.md"},
+        {"kind": "path_exists", "path": "tools/autonomy/next_step.py"},
+        {"kind": "path_exists", "path": "tests/test_autonomy_next_step.py"}
+      ],
+      "signals": [
+        "_report/usage/autonomy-audit",
+        "_report/usage/autonomy-actions",
+        "_report/usage/autonomy-status.json"
+      ]
+    }
+  ]
+}

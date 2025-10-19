@@ -25,6 +25,7 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `consensus-ledger` | Consensus Ledger Usage | Entry point for `tools.consensus.ledger` commands and receipt capture. | [docs/consensus/readme.md#usage](docs/consensus/readme.md#usage) |
 | `consensus-ci-summary` | Consensus CI Guard | Stable receipts + CI check ensuring QUEUE-030..033 stay covered. | [_report/consensus/summary-latest.json](_report/consensus/summary-latest.json) |
 | `capsule-cadence-summary` | Capsule Cadence Guard | Release checklist tied to consensus receipts and capsule hashes. | [_report/capsule/summary-latest.json](_report/capsule/summary-latest.json) |
+| `macro-hygiene-status` | Macro Hygiene Objectives | Structured ledger + CLI receipts for macro hygiene commitments. | [_report/usage/macro-hygiene-status.json](_report/usage/macro-hygiene-status.json) |
 | `receipts-index` | Receipts Index CLI | Build a JSONL ledger of plans, receipts, and manager messages before handoff. | [docs/automation.md#receipts-index](docs/automation.md#receipts-index) |
 | `receipts-latency` | Receipts Latency Metrics | Compute deltas between reflections and receipts using the ledger. | [docs/automation.md#receipts-latency](docs/automation.md#receipts-latency) |
 | `reflections-overview` | Reflections Overview | Summarise reflection cadence, layer coverage, and tags via `teof reflections`. | [docs/automation.md#reflections-overview](docs/automation.md#reflections-overview) |

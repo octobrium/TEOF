@@ -123,6 +123,14 @@
       "category": "maintenance"
     },
     {
+      "id": "macro-hygiene-status",
+      "title": "Macro Hygiene Objectives",
+      "summary": "Structured ledger + CLI receipts that verify macro hygiene commitments.",
+      "path": "_report/usage/macro-hygiene-status.json",
+      "anchor": "#",
+      "category": "maintenance"
+    },
+    {
       "id": "receipts-index",
       "title": "Receipts Index CLI",
       "summary": "Build a JSONL ledger of plans, receipts, and manager messages before handoff.",

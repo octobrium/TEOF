@@ -8,34 +8,47 @@
   "layer": "L2",
   "systemic_scale": 5,
   "impact_score": 40,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Compile governance-driven hygiene objectives",
-      "status": "queued",
+      "status": "done",
       "notes": "Pull targets from docs/maintenance/macro-hygiene.md and confirm owners + cadence expectations.",
-      "receipts": []
+      "receipts": [
+        "docs/maintenance/macro-hygiene.objectives.json",
+        "docs/maintenance/macro-hygiene.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Instrument receipts and dashboards for macro hygiene",
-      "status": "queued",
+      "status": "done",
       "notes": "Add metrics/receipts to track progress (e.g., CI integration, capsule cadence) and surface in autonomy status.",
-      "receipts": []
+      "receipts": [
+        "_report/usage/macro-hygiene-status.json",
+        "tools/autonomy/macro_hygiene.py",
+        "tools/agent/autonomy_status.py",
+        "tests/test_macro_hygiene.py",
+        "tests/test_autonomy_status.py"
+      ]
     },
     {
       "id": "S3",
       "title": "Document workflow updates for macro hygiene",
-      "status": "queued",
+      "status": "done",
       "notes": "Update docs/maintenance and workflow so teams know how to maintain the objectives ledger.",
-      "receipts": []
+      "receipts": [
+        "docs/quick-links.md",
+        "docs/quick-links.json",
+        "docs/vision/objectives-ledger.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Macro hygiene objectives are measurable with receipts and integrated into autonomy reports",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -43,7 +56,18 @@
       "ref": "queue/036-macro-hygiene-objective.md"
     }
   ],
-  "receipts": [],
+  "receipts": [
+    "_report/usage/macro-hygiene-status.json",
+    "docs/maintenance/macro-hygiene.objectives.json",
+    "docs/maintenance/macro-hygiene.md",
+    "docs/quick-links.json",
+    "docs/quick-links.md",
+    "docs/vision/objectives-ledger.md",
+    "tools/agent/autonomy_status.py",
+    "tools/autonomy/macro_hygiene.py",
+    "tests/test_autonomy_status.py",
+    "tests/test_macro_hygiene.py"
+  ],
   "systemic_targets": [
     "S3",
     "S5",
