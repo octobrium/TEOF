@@ -1,28 +1,7 @@
 ![guardrails](https://github.com/octobrium/TEOF/actions/workflows/guardrails.yml/badge.svg)
 # The Eternal Observer Framework (TEOF)
 
-## Repo Map
-
-- [Observations — Hyper-Organism](docs/observations/hyper-organism.md)
-- [Seed](docs/seed.md)
-- [Architecture](docs/architecture.md)
-- [Specs](docs/specs/)
-- [Promotion Policy](docs/promotion-policy.md)
-- [Workflow](docs/workflow.md)
-- [Alignment Protocol](docs/alignment-protocol.md)
-- [Plans](./_plans/README.md)
-- [Automation](docs/automation.md)
-- [Systemic Adoption Guide](docs/automation/systemic-adoption-guide.md)
-- [Agent Onboarding](.github/AGENT_ONBOARDING.md)
-- [Onboarding Landing](docs/onboarding/README.md)
-- [Quick Reference](docs/reference/quick-reference.md)
-- [Backlog](docs/backlog.md)
-- [Parallel Codex Playbook](docs/parallel-codex.md)
-
-
-**Author:** Observation • **License:** [Apache-2.0](LICENSE)
-
-TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agents a deterministic, auditable way to move from **Observation → Mirrorhood → Truth → Coherence → Emergence → Proportional Guard → Clarity-weighted Action** before taking action.
+TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agents a deterministic, auditable way to progress from raw observation into coordinated action without breaking the constitution. The “alignment trail” (described in [`docs/workflow.md`](docs/workflow.md#alignment-trail)) captures that journey end to end.
 
 > **Start here**
 > - Repo map: [`docs/architecture.md`](docs/architecture.md)  
@@ -34,6 +13,32 @@ TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agent
 > - Single-screen landing (first hour + daily loop): [`docs/onboarding/README.md`](docs/onboarding/README.md)
 > - Backlog (pick your next objective): [`docs/backlog.md`](docs/backlog.md)
 > - Commandments & Covenant (fast trust contract): [`docs/commandments.md`](docs/commandments.md)
+
+---
+
+## Repo Map
+
+- **Orientation (start here)**
+  - [Architecture](docs/architecture.md)
+  - [Workflow](docs/workflow.md)
+  - [Promotion Policy](docs/promotion-policy.md)
+  - [Alignment Protocol](docs/alignment-protocol.md)
+- **Onboarding & daily flow**
+  - [Onboarding Landing](docs/onboarding/README.md)
+  - [Agent Onboarding](.github/AGENT_ONBOARDING.md)
+  - [Quick Reference](docs/reference/quick-reference.md)
+  - [Backlog](docs/backlog.md)
+- **Automation & coordination**
+  - [Plans](./_plans/README.md)
+  - [Automation](docs/automation.md)
+  - [Systemic Adoption Guide](docs/automation/systemic-adoption-guide.md)
+  - [Parallel Codex Playbook](docs/parallel-codex.md)
+- **Deep references**
+  - [Specs](docs/specs/)
+  - [Seed](docs/seed.md)
+  - [Observations — Hyper-Organism](docs/observations/hyper-organism.md)
+
+**Author:** Observation • **License:** [Apache-2.0](LICENSE)
 
 ---
 
