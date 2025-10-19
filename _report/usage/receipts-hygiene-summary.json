@@ -1,15 +1,20 @@
 {
-  "generated_at": "2025-10-05T18:32:30Z",
+  "generated_at": "2025-10-19T09:42:46Z",
   "receipts_index": "_report/usage/receipts-index-latest.jsonl",
   "receipts_latency": "_report/usage/receipts-latency-latest.jsonl",
   "metrics": {
-    "plans_total": 180,
+    "plans_total": 203,
     "plans_missing_receipts": 0,
     "missing_plan_ids": [],
     "slow_plans": [
       [
         "2025-09-22-teof-status-cli",
         1051248.0,
+        null
+      ],
+      [
+        "2025-10-07-macro-hygiene-objectives",
+        850795.0,
         null
       ],
       [
@@ -26,34 +31,7 @@
         "2025-09-18-bus-message-claim-guard",
         163633.0,
         null
-      ],
-      [
-        "2025-09-25-memory-layer",
-        121791.0,
-        null
       ]
-    ]
-  },
-  "slow_plan_alerts": {
-    "warn_threshold_seconds": 259200.0,
-    "fail_threshold_seconds": 604800.0,
-    "counts": {
-      "warn": 1,
-      "fail": 1
-    },
-    "alerts": [
-      {
-        "plan_id": "2025-09-19-kernel-slimdown",
-        "severity": "warn",
-        "plan_to_first_seconds": 366468.0,
-        "note_to_first_seconds": null
-      },
-      {
-        "plan_id": "2025-09-22-teof-status-cli",
-        "severity": "fail",
-        "plan_to_first_seconds": 1051248.0,
-        "note_to_first_seconds": null
-      }
     ]
   }
 }

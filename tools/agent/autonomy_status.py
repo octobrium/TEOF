@@ -84,7 +84,15 @@ def summarise(
                 "plan_ids": metrics.get("missing_plan_ids") or [],
             }
         )
-    if slow_plans:
+    slow_plan_attention = False
+    alert_counts = (slow_plan_alerts or {}).get("counts") or {}
+    if alert_counts.get("fail"):
+        readiness_attention.append({"kind": "slow_plan_fail", "count": alert_counts["fail"]})
+        slow_plan_attention = True
+    elif alert_counts.get("warn"):
+        readiness_attention.append({"kind": "slow_plan_warn", "count": alert_counts["warn"]})
+        slow_plan_attention = True
+    if slow_plan_attention:
         readiness_attention.append(
             {
                 "kind": "slow_plans",
@@ -92,15 +100,12 @@ def summarise(
                 "plan_ids": [entry[0] for entry in slow_plans],
             }
         )
-    alert_counts = (slow_plan_alerts or {}).get("counts") or {}
-    if alert_counts.get("fail"):
-        readiness_attention.append({"kind": "slow_plan_fail", "count": alert_counts["fail"]})
-    elif alert_counts.get("warn"):
-        readiness_attention.append({"kind": "slow_plan_warn", "count": alert_counts["warn"]})
-    if failed_batches:
-        readiness_attention.append({"kind": "batch_failures", "count": len(failed_batches)})
-    if warn_batches:
-        readiness_attention.append({"kind": "batch_warnings", "count": len(warn_batches)})
+    if latest_log:
+        latest_summary = latest_log.get("operator_preset", {}).get("summary")
+        if latest_summary == "fail":
+            readiness_attention.append({"kind": "batch_failures", "count": len(failed_batches)})
+        elif latest_summary == "warn":
+            readiness_attention.append({"kind": "batch_warnings", "count": len(warn_batches)})
 
     readiness = {
         "status": "ready" if not readiness_attention else "attention",
