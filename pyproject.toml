@@ -17,6 +17,7 @@ dependencies = [
 teof = "teof.bootloader:main"
 teof-validate = "extensions.validator.teof_systemic_min:main"
 teof-plan = "tools.planner.cli:main"
+teof-scan-driver = "tools.autonomy.scan_driver:main"
 
 [tool.setuptools]
 include-package-data = true
