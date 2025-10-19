@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       min_score:
-        description: "Minimum OCERS total"
+        description: "Minimum systemic readiness total"
         default: "7"
       max_risk:
         description: "Maximum critic risk score"

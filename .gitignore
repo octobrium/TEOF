@@ -44,7 +44,7 @@ ocers_out/
 dist/
 build/
 
-# --- OCERS generated reports ---
+# Legacy OCERS outputs (retired heuristics)
 ocers_reports/*.ensemble.json
 artifacts/
 *.pyc
@@ -98,6 +98,9 @@ _report/
 !_report/network/
 !_report/network/**/*.json
 !_report/network/**/*.md
+!_report/impact/
+!_report/impact/**/*.json
+!_report/impact/**/*.md
 !_bus/
 !_bus/README.md
 !_bus/claims/

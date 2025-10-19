@@ -1,0 +1,7 @@
+# Task: Harden incident intake
+Goal: Document and track triggers for high-risk queue escalations.
+Systemic Targets: S4 Defense
+Acceptance: Error rate <= 0.02 and tools/doctor.sh enforces the new guard.
+Sunset: If incidents exceed 3 within 14 days, escalate to full audit with receipts.
+Fallback: Rerun automation pipeline to rebuild receipts before resuming work.
+Notes: See docs/automation/systemic-overview.md for current rubric.

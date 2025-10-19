@@ -21,7 +21,9 @@
   "plan_id": "2025-10-06-teof-btc-scoreboard",
   "priority": 3,
   "receipts": [
-    "docs/impact/teof-btc-wallet.md"
+    "docs/impact/teof-btc-wallet.md",
+    "docs/impact/btc-ledger.md",
+    "_report/impact/btc-ledger/2025-10-07-ledger.json"
   ],
   "stage": "in_progress",
   "status": "in_progress",
@@ -38,15 +40,20 @@
     {
       "id": "step-2",
       "notes": "Define how receipts tie donations to specific observation-driven actions",
-      "receipts": [],
-      "status": "queued",
+      "receipts": [
+        "docs/impact/btc-ledger.md"
+      ],
+      "status": "done",
       "title": "Link contributions to observation"
     },
     {
       "id": "step-3",
       "notes": "Set up automated dashboards/receipts so the scoreboard stays observable",
-      "receipts": [],
-      "status": "queued",
+      "receipts": [
+        "_report/impact/btc-ledger/2025-10-07-ledger.json",
+        "_report/impact/btc-ledger/proof/README.md"
+      ],
+      "status": "in_progress",
       "title": "Audit trail"
     }
   ],

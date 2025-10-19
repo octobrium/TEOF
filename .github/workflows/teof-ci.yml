@@ -124,7 +124,7 @@ jobs:
         shell: bash
         run: pytest tests/test_consensus_ledger_cli.py tests/test_consensus_receipts.py tests/test_consensus_dashboard.py
 
-      - name: Capture manager-report tail for OCERS guard
+      - name: Capture manager-report tail for alignment guard
         shell: bash
         run: |
           set -euo pipefail
@@ -134,7 +134,7 @@ jobs:
             --with-status \
             --sync-allow-dirty
 
-      - name: Dynamic OCERS scan (summary)
+      - name: Dynamic alignment scan (summary)
         shell: bash
         run: |
           set -euo pipefail
@@ -327,7 +327,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ocers_out
+          name: systemic_brief
           path: artifacts/systemic_out/latest/
           if-no-files-found: warn
           retention-days: 7

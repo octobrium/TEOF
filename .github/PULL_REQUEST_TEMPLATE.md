@@ -20,7 +20,7 @@ Closes #<issue-number>
 - Sunset condition:
 - Fallback plan:
 
-## Receipts (OCERS + Risk)
-- OCERS delta (expected): O=?, C=?, E=?, R=?, S=? (0–2 each; brief justification)
+## Receipts (Alignment Trail + Risk)
+- Trail delta (expected): Obs=?, Mir=?, Truth=?, Coh=?, Emergence=?, Proportion=?, Clarity=? (0–2 each; brief rationale)
 - Risk: low | med | high (and why)
 - Test: offline/deterministic steps to verify

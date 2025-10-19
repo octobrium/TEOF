@@ -74,6 +74,10 @@ teof-scan-driver --summary --emit-bus
 - Repeat `--force <component>` to include guards even when inputs are unchanged; use `--skip <component>` to suppress a guard for the current iteration.
 - `--dry-run` prints the planned command and still records the decision in history so operators can rehearse policies without executing guards.
 
+### Reactive scan trigger
+
+`python -m tools.autonomy.scan_trigger` checks `git status --porcelain` and runs the scan driver only when watched paths change (defaults: `_plans/`, `_report/`). Use `--dry-run` to report without executing, `--no-summary` to request full scan output, or repeat `--watch <prefix>` to monitor more directories. Ideal for git hooks or CI steps where you want evidence-driven triggers instead of blind schedules; each run prints whether a scan executed and why.
+
 ### Commitment guard
 
 Use `python -m tools.autonomy.commitment_guard` to scan `_bus/messages/**/*.jsonl` and `_report/usage/reflection-intake/*.md` for phrases such as “next time” or “mental note”. Any matches indicate a promise that must be captured as a plan, TODO, or receipt.
