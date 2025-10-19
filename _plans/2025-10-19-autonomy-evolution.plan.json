@@ -21,8 +21,8 @@
     {
       "id": "step-1",
       "title": "Autonomous-backlog-steward",
-      "status": "in_progress",
-      "notes": "Design steward agent requirements",
+      "status": "done",
+      "notes": "Automation added: tools/autonomy/backlog_steward.py (+ tests/test_backlog_steward.py)",
       "receipts": []
     },
     {
