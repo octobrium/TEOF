@@ -19,6 +19,7 @@ This index mirrors `docs/quick-links.json` and powers `python -m tools.agent.doc
 | `comm-mainline` | Communication Quickstart | Shows how to claim, broadcast, and monitor the coordination bus (manager-report) on day one. | [.github/AGENT_ONBOARDING.md#communication-quickstart-manager-report-hub](.github/AGENT_ONBOARDING.md#communication-quickstart-manager-report-hub) |
 | `comm-directive-pointer` | Directive Pointer Helper | Run `tools.agent.directive_pointer` so BUS-COORD directives automatically mirror into manager-report. | [docs/agents.md#idle-cadence](docs/agents.md#idle-cadence) |
 | `decision-hierarchy` | Decision Hierarchy | Map governance objectives before downstream work becomes decidable. | [docs/decision-hierarchy.md](docs/decision-hierarchy.md) |
+| `alignment-trail` | Alignment Trail | Observe the L0→L7 derivation and the canonical anchors it references. | [docs/foundation/alignment-trail.md](docs/foundation/alignment-trail.md) |
 | `layer-guard-index` | Layer → Guard Index | Fast mapping from architectural layers to enforcement scripts/tests. | [docs/reference/layer-guard-index.md](docs/reference/layer-guard-index.md) |
 | `proposal-inbox` | Proposal Inbox | Canonical drop zone for draft improvements awaiting review. | [docs/proposals/readme.md#proposal-inbox-docsproposals](docs/proposals/readme.md#proposal-inbox-docsproposals) |
 | `emergent-principles-ledger` | Emergent Principles Ledger | Append lessons to reuse patterns before automating. | [governance/core/emergent-principles.jsonl](governance/core/emergent-principles.jsonl) |

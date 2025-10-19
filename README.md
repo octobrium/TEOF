@@ -23,6 +23,7 @@ TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agent
   - [Workflow](docs/workflow.md)
   - [Promotion Policy](docs/promotion-policy.md)
   - [Alignment Protocol](docs/alignment-protocol.md)
+  - [Alignment Trail](docs/foundation/alignment-trail.md)
 - **Onboarding & daily flow**
   - [Onboarding Landing](docs/onboarding/README.md)
   - [Agent Onboarding](.github/AGENT_ONBOARDING.md)

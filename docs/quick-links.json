@@ -75,6 +75,13 @@
       "category": "governance"
     },
     {
+      "id": "alignment-trail",
+      "title": "Alignment Trail",
+      "summary": "See the Observation → Action derivation and its canonical anchors.",
+      "path": "docs/foundation/alignment-trail.md",
+      "category": "governance"
+    },
+    {
       "id": "layer-guard-index",
       "title": "Layer → Guard Index",
       "summary": "Fast mapping from architectural layers to the enforcement scripts/tests that protect them.",
