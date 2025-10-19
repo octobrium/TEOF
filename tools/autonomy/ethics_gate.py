@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any, Sequence
 
+from tools.autonomy.receipt_utils import resolve_item_receipts
 from tools.autonomy.shared import (
     git_commit,
     load_backlog_items,
@@ -39,13 +40,6 @@ def _is_high_risk(item: dict[str, Any], layer: str, systemic_scale: int) -> bool
     return False
 
 
-def _extract_receipts(item: dict[str, Any]) -> list[str]:
-    receipts = item.get("receipts")
-    if not isinstance(receipts, list):
-        return []
-    return [r for r in receipts if isinstance(r, str)]
-
-
 def detect_violations() -> list[dict[str, Any]]:
     violations: list[dict[str, Any]] = []
     backlog_items = load_backlog_items(BACKLOG_PATH)
@@ -55,7 +49,7 @@ def detect_violations() -> list[dict[str, Any]]:
             scale = normalise_scale(item.get("systemic_scale"), layer)
             if not _is_high_risk(item, layer, scale):
                 continue
-            receipts = _extract_receipts(item)
+            receipts = resolve_item_receipts(item)
             if _passes_guard(receipts):
                 continue
             violations.append(
@@ -76,7 +70,7 @@ def detect_violations() -> list[dict[str, Any]]:
             scale = normalise_scale(task.get("systemic_scale"), layer)
             if not _is_high_risk(task, layer, scale):
                 continue
-            receipts = _extract_receipts(task)
+            receipts = resolve_item_receipts(task)
             if _passes_guard(receipts):
                 continue
             violations.append(

@@ -9,6 +9,7 @@ from typing import Any, Dict, List, Mapping, Optional
 
 from tools.autonomy import macro_hygiene
 from tools.autonomy.shared import write_receipt_payload
+from tools.agent import receipt_brief
 
 ROOT = Path(__file__).resolve().parents[2]
 HYGIENE_SUMMARY = ROOT / "_report" / "usage" / "receipts-hygiene-summary.json"
@@ -117,6 +118,25 @@ def summarise(
         "attention": readiness_attention,
     }
 
+    plan_briefs: Dict[str, str] = {}
+    candidate_plans: set[str] = set()
+    for plan_id in metrics.get("missing_plan_ids") or []:
+        if isinstance(plan_id, str):
+            candidate_plans.add(plan_id)
+    for entry in slow_plans:
+        if isinstance(entry, (list, tuple)) and entry:
+            plan_id = entry[0]
+            if isinstance(plan_id, str):
+                candidate_plans.add(plan_id)
+    for plan_id in sorted(candidate_plans):
+        try:
+            brief_text = receipt_brief.generate_plan_brief(plan_id)
+        except (FileNotFoundError, KeyError, ValueError):
+            continue
+        lines = brief_text.splitlines()
+        if lines:
+            plan_briefs[plan_id] = lines[0]
+
     summary = {
         "hygiene": {
             "generated_at": hygiene.get("generated_at") if hygiene else None,
@@ -141,6 +161,8 @@ def summarise(
     }
     if macro is not None:
         summary["macro_hygiene"] = macro
+    if plan_briefs:
+        summary["plan_briefs"] = plan_briefs
     return summary
 
 
@@ -212,6 +234,12 @@ def print_human(summary: Dict[str, Any]) -> None:
                     print(f"    - Batch failures in last runs ({count})")
                 elif kind == "batch_warnings":
                     print(f"    - Batch warnings in last runs ({count})")
+
+    plan_briefs = summary.get("plan_briefs") or {}
+    if plan_briefs:
+        print("Plan briefs:")
+        for plan_id, brief in plan_briefs.items():
+            print(f"  - {plan_id}: {brief}")
 
     print(f"  Batch logs: total={batch['entries']} warn={batch['warn_count']} fail={batch['fail_count']}")
     print(

@@ -52,6 +52,11 @@ def test_autonomy_status_summary(tmp_path: Path, monkeypatch: pytest.MonkeyPatch
         "load_macro_hygiene",
         lambda *, write_receipt: macro_payload,
     )
+    monkeypatch.setattr(
+        autonomy_status.receipt_brief,
+        "generate_plan_brief",
+        lambda plan_id: f"{plan_id} brief text",
+    )
 
     summary = autonomy_status.summarise(
         autonomy_status.load_hygiene(),
@@ -61,6 +66,10 @@ def test_autonomy_status_summary(tmp_path: Path, monkeypatch: pytest.MonkeyPatch
     assert summary["hygiene"]["plans_missing_receipts"] == 1
     assert summary["batch_logs"]["warn_count"] == 1
     assert summary["macro_hygiene"] == macro_payload
+    assert summary["plan_briefs"] == {
+        "plan-a": "plan-a brief text",
+        "plan-b": "plan-b brief text",
+    }
 
     exit_code = autonomy_status.main(["--json", "--limit", "1"])
     assert exit_code == 0

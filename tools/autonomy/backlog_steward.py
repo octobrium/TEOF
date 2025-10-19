@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence
 
+from tools.autonomy.receipt_utils import collect_plan_receipts, compute_receipt_digest
 from tools.autonomy.shared import load_json, write_receipt_payload
 
 
@@ -27,20 +28,6 @@ def _utc_now() -> str:
 
 def _ensure_path(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-
-
-def _collect_receipts(plan: Dict[str, Any]) -> List[str]:
-    receipts: List[str] = []
-    for entry in plan.get("receipts", []) or []:
-        if isinstance(entry, str) and entry not in receipts:
-            receipts.append(entry)
-    for step in plan.get("steps", []) or []:
-        if not isinstance(step, dict):
-            continue
-        for entry in step.get("receipts", []) or []:
-            if isinstance(entry, str) and entry not in receipts:
-                receipts.append(entry)
-    return receipts
 
 
 def _load_plan(plans_dir: Path, plan_id: str) -> Dict[str, Any] | None:
@@ -60,26 +47,42 @@ def _plan_completed(plan: Dict[str, Any]) -> bool:
     return bool(steps) and all(isinstance(step, dict) and step.get("status") == "done" for step in steps)
 
 
-def _update_backlog_item(item: Dict[str, Any], plan: Dict[str, Any]) -> Dict[str, Any] | None:
+def _update_backlog_item(
+    item: Dict[str, Any],
+    plan_id: str,
+    plan: Dict[str, Any],
+    *,
+    plans_dir: Path,
+) -> Dict[str, Any] | None:
     if not _plan_completed(plan):
         return None
     new_item = dict(item)
     current_status = str(new_item.get("status", ""))
-    receipts = _collect_receipts(plan)
+    receipts = collect_plan_receipts(plan_id, plans_dir=plans_dir)
     changed = False
 
     if current_status.lower() != "done":
         new_item["status"] = "done"
         changed = True
 
-    new_receipts = receipts or new_item.get("receipts") or []
-    if new_receipts and new_receipts != new_item.get("receipts"):
-        new_item["receipts"] = new_receipts
+    if new_item.get("receipts") is not None:
+        new_item.pop("receipts")
         changed = True
 
-    timestamp = _utc_now()
-    if new_item.get("completed_at") != timestamp:
-        new_item["completed_at"] = timestamp
+    ref_payload = {
+        "kind": "plan",
+        "plan_id": plan_id,
+        "count": len(receipts),
+        "digest": compute_receipt_digest(receipts) if receipts else None,
+    }
+    if ref_payload["digest"] is None:
+        ref_payload.pop("digest")
+    if new_item.get("receipts_ref") != ref_payload:
+        new_item["receipts_ref"] = ref_payload
+        changed = True
+
+    if not new_item.get("completed_at"):
+        new_item["completed_at"] = _utc_now()
         changed = True
 
     return new_item if changed else None
@@ -132,7 +135,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         plan = _load_plan(plans_dir, plan_id) if isinstance(plan_id, str) else None
         if not plan:
             continue
-        new_item = _update_backlog_item(item, plan)
+        new_item = _update_backlog_item(item, plan_id, plan, plans_dir=plans_dir)
         if new_item is None:
             continue
         updates[item.get("id")] = new_item
@@ -141,7 +144,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "plan_id": plan_id,
             "old_status": item.get("status"),
             "new_status": new_item.get("status"),
-            "receipts": new_item.get("receipts", []),
+            "receipts_ref": new_item.get("receipts_ref"),
         }
         report["actions"].append(action)
 

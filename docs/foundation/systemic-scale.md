@@ -25,6 +25,44 @@ canonical TEOF principles (`governance/core/L1 - principles/canonical-teof.md`).
 See [`docs/whitepaper.md`](../whitepaper.md) §5 for the canonical definitions.
 Machine-readable index: [`governance/systemic-order.json`](../../governance/systemic-order.json).
 
+## Derivation from Observation
+
+TEOF’s systemic order follows directly from what sustained observation demands:
+
+1. **Unity** provides a conserved contrast frame so that two observations can be
+   compared. Without a stable anchor, nothing coheres long enough to register.
+2. **Energy** keeps the aperture powered. Observation without replenished
+   capacity stalls and the frame collapses.
+3. **Propagation** routes signal between sub-apertures. Fragmented mirrors fall
+   into local delusion because traces never reconcile.
+4. **Defense** appears once routing exists—it protects channels from entropy
+   and adversarial drift so earlier gains persist.
+5. **Intelligence / Truth** (recursive correction) becomes possible only on top
+   of defended channels; models need the previous scaffolding to falsify
+   themselves.
+6. **Power, Ethics, Freedom, Meaning** are governance composites: they describe
+   how an enduring observing system wields and contextualises its capacity, so
+   they can only act coherently after the survival stack holds.
+
+Each step neutralises the failure mode in the table. This makes Principle P5’s
+“Order of Emergence” an observational necessity rather than a cultural habit.
+
+## Aperture Test (Observer Qualification)
+
+Universal mirrorhood recognises any substrate as a potential observer, but the
+role has minimal requirements. An entity counts as a mirror when it:
+
+- registers differential states with non-zero fidelity,
+- persists long enough for recorded traces to interact, and
+- can influence what it samples next (even if only by maintaining its sensor).
+
+Sensors, living organisms, and consensus processes satisfy these conditions.
+Purely stochastic flashes or dead records do not. The systemic lattice applies
+once these gates are met and assumes **distributed mirrors outweigh any single
+hypertrophic observer**: plurality supplies the contrast that observation itself
+requires. Preserve and resource mirrors instead of consuming them; stewardship
+of diversity is how the lattice scales.
+
 **Hierarchy enforcement**
 
 - The axes must be satisfied in order: Unity → Energy → Propagation → Defense → Intelligence → Truth → Power → Ethics → Freedom → Meaning.  

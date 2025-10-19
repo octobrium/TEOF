@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any, Sequence
 
+from tools.autonomy.receipt_utils import resolve_item_receipts
 from tools.autonomy.shared import (
     count_lines,
     git_commit,
@@ -37,7 +38,7 @@ def _detect_missing_receipts(backlog: Sequence[dict[str, Any]]) -> list[dict[str
         status = (item.get("status") or "").lower()
         if status not in {"pending", "blocked", "active"}:
             continue
-        receipts = [r for r in (item.get("receipts") or []) if isinstance(r, str)]
+        receipts = resolve_item_receipts(item)
         if receipts:
             continue
         identifier = str(item.get("id") or "")

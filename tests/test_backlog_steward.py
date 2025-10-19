@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from tools.autonomy import backlog_steward as steward
+from tools.autonomy import receipt_utils
 
 
 @pytest.fixture(autouse=True)
@@ -11,6 +12,7 @@ def patch_default_dirs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(steward, "DEFAULT_BACKLOG", tmp_path / "backlog.json")
     monkeypatch.setattr(steward, "DEFAULT_PLANS_DIR", tmp_path / "plans")
     monkeypatch.setattr(steward, "DEFAULT_OUT_DIR", tmp_path / "reports")
+    monkeypatch.setattr(receipt_utils, "DEFAULT_PLANS_DIR", tmp_path / "plans")
 
 
 def _write(path: Path, payload: dict) -> None:
@@ -55,7 +57,12 @@ def test_apply_updates(tmp_path: Path):
     item = updated["items"][0]
     assert item["status"] == "done"
     assert "completed_at" in item
-    assert sorted(item["receipts"]) == ["_report/example.json", "docs/example.md"]
+    assert "receipts" not in item
+    ref = item["receipts_ref"]
+    assert ref["kind"] == "plan"
+    assert ref["plan_id"] == "2025-01-01-example"
+    assert ref["count"] == 2
+    assert "digest" in ref
 
 
 def test_dry_run(tmp_path: Path, capsys):

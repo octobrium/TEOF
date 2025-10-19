@@ -20,3 +20,4 @@ def test_generate_backlog_brief_reports_plan() -> None:
     assert "Backlog ND-041 — Integrate macro hygiene objectives" in brief
     assert "plan: 2025-10-07-macro-hygiene-objectives" in brief
     assert "receipts (" in brief
+    assert "receipts_ref: kind=plan" in brief

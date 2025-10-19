@@ -23,6 +23,11 @@ def iso(ts: datetime) -> str:
 def dashboard_env(tmp_path, monkeypatch):
     now = datetime(2025, 9, 21, 0, 30, tzinfo=timezone.utc)
     monkeypatch.setattr(coord_dashboard, "utcnow", lambda: now)
+    monkeypatch.setattr(
+        coord_dashboard.receipt_brief,
+        "generate_plan_brief",
+        lambda plan_id: f"{plan_id} brief summary",
+    )
 
     plans_dir = tmp_path / coord_dashboard.PLANS_DIRNAME
     plans_dir.mkdir(parents=True)
@@ -241,6 +246,7 @@ def test_json_report(tmp_path, dashboard_env, capsys):
     # PLAN-002 should flag missing receipts
     missing_plan = next(item for item in data["plans"] if item["plan_id"] == "PLAN-002")
     assert missing_plan["missing_receipts"] is True
+    assert missing_plan["brief"] == "PLAN-002 brief summary"
     assert any("PLAN PLAN-002" in alert or "Plan PLAN-002" in alert for alert in data["alerts"])
     unclaimed = {entry["plan_id"] for entry in data["unclaimed_plans"]}
     assert "PLAN-002" in unclaimed
@@ -296,6 +302,8 @@ def test_markdown_default_output(tmp_path, dashboard_env):
     content = expected.read_text(encoding="utf-8")
     assert "# Coordination Dashboard" in content
     assert "PLAN-001" in content
+    assert "## Plan Briefs" in content
+    assert "PLAN-001 brief summary" in content
     assert "- Heartbeat codex-2 is stale" in content
     assert "idle agent available" in content
     assert "## Unclaimed Plans" in content

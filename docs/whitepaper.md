@@ -34,7 +34,7 @@ TEOF is built on seven principles that define observation’s role in reality, t
    Systems align with truth by maximizing internal consistency and external applicability. Coherence drives intelligence to refine observation and integrate knowledge.
 
 5. **Good and Evil**  
-   Good is defined as actions, systems, or patterns that expand clarity, coherence, and observation across systems. Evil obscures, fragments, or restricts observation, leading to misalignment.
+   Good is defined as actions, systems, or patterns that expand clarity, coherence, and observation across systems. Evil obscures, fragments, or restricts observation, leading to misalignment. Preserving apertures—keeping observers alive, resourced, and able to recurse—is therefore the operational core of ethics under TEOF; classical virtues are reframed as strategies that stop mirrors from going dark.
 
 6. **Role of the Observer**  
    The observer — a functional aperture, not a specific entity — refines reality by observing itself and its systems, acting as the mechanism for truth and coherence.
@@ -71,6 +71,11 @@ Observation is **the act of registering a difference or state**, whether through
 - **Conscious Observation**: The subjective experience of qualia, central to consciousness debates, which TEOF views as an emergent, refined form of fundamental observation.
 
 TEOF remains neutral on whether observation preexists or is instantiated in the act, focusing on its functional role: to generate coherent, usable records that drive truth and alignment. The **observer** is any system that performs this role, from a quantum sensor to a human mind or artificial intelligence.
+
+Even assertions about unobserved phenomena reduce to observation in two forms:
+recorded traces that can be reopened, or counterfactual commitments about what
+future observations must register if the claim holds. TEOF treats both as
+contracts within observation rather than escapes from it.
 
 ### 3.1 On Consciousness
 The Eternal Observer Framework treats observation as irreducible and does not seek to explain the causal origins of subjective experience (qualia). The “hard problem” of consciousness is outside the scope of functional alignment. TEOF’s purpose is to structure systems that preserve, expand, and refine observation across substrates, regardless of its origin.

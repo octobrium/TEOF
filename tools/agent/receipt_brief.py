@@ -2,40 +2,21 @@
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
-from typing import Iterable, List, Mapping, Sequence
+from typing import List, Mapping, Sequence
 
+from tools.autonomy.receipt_utils import (
+    collect_plan_receipts,
+    load_plan,
+    normalise_receipts,
+    resolve_item_receipts,
+)
 from tools.autonomy.shared import load_json, write_receipt_payload
 
 ROOT = Path(__file__).resolve().parents[2]
 PLANS_DIR = ROOT / "_plans"
 BACKLOG_PATH = PLANS_DIR / "next-development.todo.json"
 DEFAULT_OUT_DIR = ROOT / "_report" / "usage" / "receipt-briefs"
-
-
-def _normalise_list(values: Iterable[str] | None) -> List[str]:
-    if not values:
-        return []
-    seen: set[str] = set()
-    normalised: List[str] = []
-    for value in values:
-        if not isinstance(value, str):
-            continue
-        if value not in seen:
-            seen.add(value)
-            normalised.append(value)
-    return normalised
-
-
-def _load_plan(plan_id: str) -> Mapping[str, object]:
-    path = PLANS_DIR / f"{plan_id}.plan.json"
-    if not path.exists():
-        raise FileNotFoundError(f"plan not found: {plan_id}")
-    data = load_json(path)
-    if not isinstance(data, Mapping):
-        raise ValueError(f"plan malformed: {plan_id}")
-    return data
 
 
 def _load_backlog_item(item_id: str) -> Mapping[str, object]:
@@ -46,15 +27,6 @@ def _load_backlog_item(item_id: str) -> Mapping[str, object]:
         if isinstance(entry, Mapping) and entry.get("id") == item_id:
             return entry
     raise KeyError(f"backlog item not found: {item_id}")
-
-
-def _extract_receipts(plan: Mapping[str, object]) -> List[str]:
-    receipts = _normalise_list(plan.get("receipts"))
-    for step in plan.get("steps", []) or []:
-        if not isinstance(step, Mapping):
-            continue
-        receipts.extend(value for value in _normalise_list(step.get("receipts")) if value not in receipts)
-    return receipts
 
 
 def _format_plan_brief(plan_id: str, plan: Mapping[str, object]) -> str:
@@ -89,11 +61,11 @@ def _format_plan_brief(plan_id: str, plan: Mapping[str, object]) -> str:
             lines.append(f"  - {step_id} [{step_status}] {title}".rstrip())
             if notes:
                 lines.append(f"      notes: {notes}")
-            step_receipts = _normalise_list(step.get("receipts"))
+            step_receipts = normalise_receipts(step.get("receipts"))
             if step_receipts:
                 lines.append(f"      receipts: {', '.join(step_receipts)}")
 
-    receipts = _extract_receipts(plan)
+    receipts = collect_plan_receipts(plan_id)
     lines.append(f"Receipts ({len(receipts)}): {', '.join(receipts) if receipts else 'None'}")
     checkpoint = plan.get("checkpoint")
     if isinstance(checkpoint, Mapping):
@@ -111,7 +83,8 @@ def _format_backlog_brief(item_id: str, item: Mapping[str, object]) -> str:
     layer = item.get("layer")
     systemic_scale = item.get("systemic_scale")
     notes = item.get("notes") or ""
-    receipts = _normalise_list(item.get("receipts"))
+    receipts = resolve_item_receipts(item)
+    receipts_ref = item.get("receipts_ref")
     header = f"Backlog {item_id} — {title} (status: {status})"
     lines = [header]
     lines.append(f"  plan: {plan_id}")
@@ -125,6 +98,18 @@ def _format_backlog_brief(item_id: str, item: Mapping[str, object]) -> str:
         lines.append(f"  notes: {notes}")
     if receipts:
         lines.append(f"  receipts ({len(receipts)}): {', '.join(receipts)}")
+    if isinstance(receipts_ref, Mapping):
+        details = []
+        if "kind" in receipts_ref:
+            details.append(f"kind={receipts_ref['kind']}")
+        if "plan_id" in receipts_ref:
+            details.append(f"plan={receipts_ref['plan_id']}")
+        if "count" in receipts_ref:
+            details.append(f"count={receipts_ref['count']}")
+        if "digest" in receipts_ref:
+            details.append(f"digest={receipts_ref['digest'][:12]}")
+        if details:
+            lines.append(f"  receipts_ref: {', '.join(details)}")
     completed_at = item.get("completed_at")
     if completed_at:
         lines.append(f"  completed_at: {completed_at}")
@@ -157,7 +142,7 @@ def _emit_receipt(path: Path, *, kind: str, identifier: str, brief: str) -> None
 
 
 def generate_plan_brief(plan_id: str) -> str:
-    plan = _load_plan(plan_id)
+    plan = load_plan(plan_id)
     return _format_plan_brief(plan_id, plan)
 
 

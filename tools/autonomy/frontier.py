@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
+from tools.autonomy.receipt_utils import resolve_item_receipts
 from tools.autonomy.shared import (
     count_lines,
     git_commit,
@@ -116,7 +117,7 @@ def _load_backlog() -> Iterable[Candidate]:
         title = str(item.get("title") or identifier)
         layer = normalise_layer(item.get("layer"))
         systemic_scale = normalise_scale(item.get("systemic_scale"), layer)
-        receipts = [r for r in (item.get("receipts") or []) if isinstance(r, str)]
+        receipts = resolve_item_receipts(item)
         candidates.append(
             Candidate(
                 source="backlog",
@@ -144,7 +145,7 @@ def _load_tasks() -> Iterable[Candidate]:
         title = str(task.get("title") or identifier)
         layer = normalise_layer(task.get("layer"))
         systemic_scale = normalise_scale(task.get("systemic_scale"), layer)
-        receipts = [r for r in (task.get("receipts") or []) if isinstance(r, str)]
+        receipts = resolve_item_receipts(task)
         candidates.append(
             Candidate(
                 source="task",

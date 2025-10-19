@@ -13,6 +13,7 @@ from typing import Any, Iterable, Sequence
 
 from tools.usage.logger import record_usage
 from tools.planner import queue_warnings as planner_queue_warnings
+from tools.agent import receipt_brief
 
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 ROOT = Path(__file__).resolve().parents[2]
@@ -108,6 +109,7 @@ class PlanSummary:
     checkpoint_status: str | None
     missing_receipts: bool
     missing_details: list[str]
+    brief: str | None = None
 
     def to_payload(self) -> dict[str, Any]:
         return {
@@ -120,6 +122,7 @@ class PlanSummary:
             "checkpoint_status": self.checkpoint_status,
             "missing_receipts": self.missing_receipts,
             "missing_details": self.missing_details,
+            "brief": self.brief,
         }
 
 
@@ -200,6 +203,22 @@ def _parse_dirty_receipt(path: Path) -> tuple[str | None, list[str]]:
     return captured_at, preview[:5]
 
 
+def _plan_brief(plan_id: str, plan_path: Path) -> str | None:
+    candidates = [plan_id]
+    stem = plan_path.stem
+    if stem not in candidates:
+        candidates.append(stem)
+    for candidate in candidates:
+        try:
+            brief = receipt_brief.generate_plan_brief(candidate)
+        except (FileNotFoundError, KeyError, ValueError):
+            continue
+        lines = brief.splitlines()
+        if lines:
+            return lines[0]
+    return None
+
+
 def _collect_plan_summary(root: Path) -> list[PlanSummary]:
     summaries: list[PlanSummary] = []
     for path in _iter_plan_paths(root):
@@ -258,6 +277,7 @@ def _collect_plan_summary(root: Path) -> list[PlanSummary]:
         if plan_receipts:
             _validate_receipts(f"{plan_id}:plan", plan_receipts)
         missing_receipts = bool(missing_details)
+        brief = _plan_brief(str(plan_id), path)
         summaries.append(
             PlanSummary(
                 plan_id=str(plan_id),
@@ -269,6 +289,7 @@ def _collect_plan_summary(root: Path) -> list[PlanSummary]:
                 checkpoint_status=checkpoint_status,
                 missing_receipts=missing_receipts,
                 missing_details=sorted(set(missing_details)),
+                brief=brief,
             )
         )
     summaries.sort(key=lambda item: item.plan_id)
@@ -893,6 +914,12 @@ def render_markdown(data: dict[str, Any], *, compact: bool = False) -> str:
                 table_rows,
             )
         )
+        briefs = [plan for plan in plans if plan.get("brief")]
+        if briefs:
+            lines.append("")
+            lines.append("### Plan Briefs")
+            for plan in briefs:
+                lines.append(f"- {plan.get('plan_id', '?')}: {plan.get('brief')}")
     else:
         lines.append("No active plans.")
     lines.append("")
