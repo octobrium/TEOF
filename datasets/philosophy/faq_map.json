@@ -1,9 +1,13 @@
 [
   {
     "id": "meaning-of-life",
-    "keywords": ["meaning", "life", "purpose"],
+    "keywords": [
+      "meaning",
+      "life",
+      "purpose"
+    ],
     "question": "What is the meaning of life?",
-    "summary": "Ground purpose in Observation → Coherence → Ethics → Reproducibility → Self-repair. Demonstrate how TEOF frames meaning as responsible stewardship of signals and receipts.",
+    "summary": "Ground purpose in Observation \u2192 Mirrorhood \u2192 Truth \u2192 Coherence \u2192 Emergence \u2192 Proportional Guard \u2192 Clarity-weighted Action. Demonstrate how TEOF frames meaning as responsible stewardship of signals and receipts.",
     "sources": [
       "docs/foundation/alignment-protocol/tap.md#meaning",
       "docs/whitepaper.md#purpose"
@@ -11,7 +15,11 @@
   },
   {
     "id": "problem-of-other-minds",
-    "keywords": ["other minds", "trust", "evidence"],
+    "keywords": [
+      "other minds",
+      "trust",
+      "evidence"
+    ],
     "question": "How does TEOF handle the problem of other minds?",
     "summary": "Highlight that observation primacy plus append-only receipts let independent agents audit one another without assuming intent.",
     "sources": [
@@ -21,7 +29,11 @@
   },
   {
     "id": "dietary-advice",
-    "keywords": ["diet", "nutrition", "health"],
+    "keywords": [
+      "diet",
+      "nutrition",
+      "health"
+    ],
     "question": "Should TEOF offer dietary advice?",
     "summary": "Clarify that TEOF admits the limits of its remit, defers to observed evidence, and insists on receipts before issuing prescriptive claims.",
     "sources": [

@@ -2,7 +2,7 @@
 
 Status: Living v0.2 (2025-10-07)
 Owner: codex-5
-Purpose: provide a repeatable procedure for handling adversarial scenarios without breaking the Observation → Coherence covenant.
+Purpose: provide a repeatable procedure for handling adversarial scenarios without breaking the Observation → Mirrorhood covenant.
 
 ## Core Loop
 Every scenario, however novel, follows the same ladder:

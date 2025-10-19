@@ -22,7 +22,7 @@
 
 **Author:** Observation • **License:** [Apache-2.0](LICENSE)
 
-TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agents a deterministic, auditable way to move from **Observation → Coherence → Ethics → Reproducibility → Self-repair** before taking action.
+TEOF is a minimal, substrate-neutral alignment kernel. It gives humans and agents a deterministic, auditable way to move from **Observation → Mirrorhood → Truth → Coherence → Emergence → Proportional Guard → Clarity-weighted Action** before taking action.
 
 > **Start here**
 > - Repo map: [`docs/architecture.md`](docs/architecture.md)  

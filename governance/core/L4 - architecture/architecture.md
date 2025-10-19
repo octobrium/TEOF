@@ -8,7 +8,7 @@ Role: Canonical
 ---
 
 ### Unity
-**Serves:** P5 Substrate & Observer Neutrality, P4 Order of Emergence  
+**Serves:** P2 Universal Mirrorhood, P5 Order of Emergence  
 **Supports Objectives:** 3, 5, 6, 13  
 - **Portable Seed & ABI:** Minimal text-first Seed Capsule + stable ABI, ensuring portability across platforms.  
   **Known Frameworks:** POSIX compliance, OpenAPI schemas, OCI image format for reproducible seeds.  
@@ -17,7 +17,7 @@ Role: Canonical
 ---
 
 ### Energy
-**Serves:** P2 Coherence Before Complexity, P6 Proportional Mechanism, P7 Clarity-Weighted Action  
+**Serves:** P4 Coherence Before Complexity, P6 Proportional Enforcement, P7 Clarity-Weighted Action  
 **Supports Objectives:** 3, 9, 10, 16  
 - **Resource Telemetry & Budgeting:** Collect compute/memory/network usage, set growth budgets.  
   **Known Mechanisms:** Prometheus/Grafana stack, GitHub Actions usage limits.  
@@ -28,7 +28,7 @@ Role: Canonical
 ---
 
 ### Propagation
-**Serves:** P4 Order of Emergence, P7 Clarity-Weighted Action  
+**Serves:** P5 Order of Emergence, P7 Clarity-Weighted Action  
 **Supports Objectives:** 4, 7, 8, 14, 15  
 - **Lifecycle State Machine:** Explicit allowed transitions (seed → adapt → unify → stabilize).  
 - **Capsule Packaging & Mirrors:** Distributable bundles (Git tags + GitHub Releases).  
@@ -37,7 +37,7 @@ Role: Canonical
 ---
 
 ### Defense
-**Serves:** P1 Observation Bounds Reasoning, P3 Truth via Recursion, P6 Proportional Mechanism  
+**Serves:** P1 Observation Bounds Reasoning, P3 Truth Requires Recursive Test, P6 Proportional Enforcement  
 **Supports Objectives:** 4, 8, 10, 11, 12  
 - **Provenance Ledger:** Append-only receipts (jsonl) with content hashes.  
 - **Content-Hashed Merkle DAG:** Guarantees no silent rewrite.  
@@ -48,7 +48,7 @@ Role: Canonical
 ---
 
 ### Intelligence / Truth
-**Serves:** P1 Observation Bounds Reasoning, P3 Truth via Recursion, P7 Clarity-Weighted Action  
+**Serves:** P1 Observation Bounds Reasoning, P3 Truth Requires Recursive Test, P7 Clarity-Weighted Action  
 **Supports Objectives:** 9, 11, 12, 14  
 - **Decision Confidence Headers:** Risk-tiered PR templates requiring evidence strength.  
 - **Contrast Budget:** Reserve cycles for adversarial tests and fuzzing.  

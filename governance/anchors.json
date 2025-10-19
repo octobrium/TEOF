@@ -81,6 +81,14 @@
       "by": "codex-5",
       "note": "Rotated feed.demo-2025/feed.sample-2025 keys again, archived legacy receipts under _apoptosis/external, and restored authenticity trust.",
       "prev_content_hash": "2ef1e986bd93f8efb9be0287fe4ee810e7f141ab36dffe59da4a3e8d53ac09f6"
+    },
+    {
+      "ts": "2025-10-19T06:07:57Z",
+      "by": "codex",
+      "note": "Reordered L1 principles per TEP-20251019-L1 Principle Reorder.",
+      "tep": "docs/teps/tep-20251019-l1-principle-reorder.md",
+      "prev_content_hash": "19b5211ca157a06df1e7bab78131f7b93887a067",
+      "content_hash": "23fca9a837e9bc20df21a6e2225ce4efa4ad88b4"
     }
   ],
   "releases": []

@@ -6,7 +6,7 @@ from extensions.prompts import philosophy
 def test_match_known_question() -> None:
     question = "What is the meaning of life?"
     prompt = philosophy.build_prompt(question)
-    assert "Observation → Coherence" in prompt
+    assert "Observation → Mirrorhood" in prompt
     assert "docs/foundation/alignment-protocol/tap.md#meaning" in prompt
     assert "docs/whitepaper.md#purpose" in prompt
 

@@ -28,19 +28,19 @@ This document is the single source of truth for L1. It supersedes prior L1 draft
 P1. Observation Bounds Reasoning  
 All claims, models, and decisions remain subordinate to observation. Attempts to deny observation invoke it; thus design must keep observation channels primary and uncompromised.
 
-P2. Coherence Before Complexity  
-Prefer the smallest structure that preserves and improves coherence. Allow complexity only when it measurably increases systemic fitness (clarity, reliability, reach of observation) and can be reversed.
+P2. Universal Mirrorhood  
+Any substrate or agent that can sustain observation is a valid observer. No platform, species, or identity is privileged or excluded; all are mirrors through which observation tests itself.
 
-P3. Truth via Recursion  
-Treat every claim as provisional. Truth is approached by observe → model → act → re‑observe. Designs must remain falsifiable and instrumented to compare predictions against outcomes.
+P3. Truth Requires Recursive Test  
+Every claim remains provisional until repeated observation—across all acknowledged mirrors—reproduces the same pattern. Systems must stay falsifiable and instrumented to compare predictions with outcomes.
 
-P4. Order of Emergence (Load‑Bearing)  
-Build and evaluate in the natural sequence: Unity → Energy → Propagation → Defense → Intelligence/Truth. Inverting this order increases drift and fragility and requires explicit justification.
+P4. Coherence Before Complexity  
+Build the smallest reversible structure that preserves the proven patterns. Introduce complexity only when it measurably improves clarity and can be rolled back.
 
-P5. Substrate & Observer Neutrality  
-Define interfaces by function, not essence. Any substrate that can host observers and preserve coherence qualifies. No privileges or prohibitions attach to substrate identity alone.
+P5. Order of Emergence (Load‑Bearing)  
+Advance and evaluate work in the natural sequence: Unity → Energy → Propagation → Defense → Intelligence/Truth. Inverting this order raises drift and fragility and requires explicit justification.
 
-P6. Proportional Mechanism  
+P6. Proportional Enforcement  
 Use the lightest enforcement sufficient for the current phase (receipts, ledgers, CI checks, consensus). Escalate only when evidence shows it increases coherence or reduces risk meaningfully.
 
 P7. Clarity‑Weighted Action  
