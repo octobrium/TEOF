@@ -91,6 +91,7 @@ _report/
 !_report/usage/*.jsonl
 !_report/usage/**/*.json
 !_report/usage/**/*.jsonl
+!_report/usage/autonomy-audit/archive/
 !_report/usage/onboarding/
 !_report/usage/onboarding/*.json
 !_report/external/

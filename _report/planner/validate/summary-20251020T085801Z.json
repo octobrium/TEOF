@@ -1,0 +1,1629 @@
+{
+  "generated_at": "2025-10-20T08:58:01Z",
+  "strict": true,
+  "exit_code": 2,
+  "plans": [
+    {
+      "path": "_plans/2025-09-17-agent-bus-awareness.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-agent-bus-awareness",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-agent-bus-watch.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-agent-bus-watch",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-anchors-append-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-anchors-append-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-anchors-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-anchors-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-automation-doc.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-automation-doc",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-codex1-support.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-codex1-support",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-commandment-defaults.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-commandment-defaults",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-commandment-tags.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-commandment-tags",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-commandments-diff.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-commandments-diff",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-commandments.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-commandments",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-convergence-metrics.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-convergence-metrics",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-delta-exchange.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-delta-exchange",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-docs-landing.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-docs-landing",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-handshake-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-handshake-cli",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-handshake-diff.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-handshake-diff",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-layer-update.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-layer-update",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-ledger-upkeep.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-ledger-upkeep",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-meaning-memory.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-meaning-memory",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-metrics-aggregate.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-metrics-aggregate",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-metrics-jsonl.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-metrics-jsonl",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-metrics-logging.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-metrics-logging",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-planner-cli-bootstrap.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-planner-cli-bootstrap",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-planner-eval-bootstrap.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-planner-eval-bootstrap",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-planner-insight-tools.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-planner-insight-tools",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-planner-show-command.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-planner-show-command",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-planner-v0-2.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-planner-v0-2",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-planner-validator-upgrade.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-planner-validator-upgrade",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-queue-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-queue-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-reconcile-ci.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-reconcile-ci",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-reconcile-merge.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-reconcile-merge",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-reconcile-pipeline.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-reconcile-pipeline",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-reconciliation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-reconciliation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-17-runner-ux.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-17-runner-ux",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-agent-bus-status.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-agent-bus-status",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-auto-claim.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-auto-claim",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-backlog-refresh.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-backlog-refresh",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-bus-message-claim-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-bus-message-claim-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-capsule-cadence.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-capsule-cadence",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-capsule-status-ledger.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-capsule-status-ledger",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-claim-seed-docs.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-claim-seed-docs",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-claim-session-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-claim-session-cli",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-codex4-bus-followups.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-codex4-bus-followups",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-codex4-bus-watch-window.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-codex4-bus-watch-window",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-codex4-consensus-context.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-codex4-consensus-context",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-codex4-consensus-draft.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-codex4-consensus-draft",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-collab-support.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-collab-support",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-consensus-cadence.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-consensus-cadence",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-consensus-cadence",
+          "queue_ref": "queue/030-consensus-ledger-cli.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S1",
+            "S2",
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S10",
+            "S3",
+            "S4",
+            "S6"
+          ],
+          "missing": [
+            "S1",
+            "S2"
+          ],
+          "message": "2025-09-18-consensus-cadence: systemic_targets mismatch for queue queue/030-consensus-ledger-cli.md; expected ['S1', 'S2', 'S3', 'S6'], got ['S10', 'S3', 'S4', 'S6']"
+        },
+        {
+          "plan_id": "2025-09-18-consensus-cadence",
+          "queue_ref": "queue/031-consensus-receipts.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S4",
+            "S5",
+            "S6",
+            "S8"
+          ],
+          "actual": [
+            "S10",
+            "S3",
+            "S4",
+            "S6"
+          ],
+          "missing": [
+            "S5",
+            "S8"
+          ],
+          "message": "2025-09-18-consensus-cadence: systemic_targets mismatch for queue queue/031-consensus-receipts.md; expected ['S4', 'S5', 'S6', 'S8'], got ['S10', 'S3', 'S4', 'S6']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-09-18-consensus-ci.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-consensus-ci",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-consensus-dashboard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-consensus-dashboard",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-consensus-dashboard",
+          "queue_ref": "queue/031-consensus-receipts.md",
+          "issue": "layer_mismatch",
+          "expected": [
+            "L5"
+          ],
+          "actual": "L4",
+          "message": "2025-09-18-consensus-dashboard: layer L4 not in queue queue/031-consensus-receipts.md"
+        },
+        {
+          "plan_id": "2025-09-18-consensus-dashboard",
+          "queue_ref": "queue/031-consensus-receipts.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S4",
+            "S5",
+            "S6",
+            "S8"
+          ],
+          "actual": [
+            "S1",
+            "S2",
+            "S6"
+          ],
+          "missing": [
+            "S4",
+            "S5",
+            "S8"
+          ],
+          "message": "2025-09-18-consensus-dashboard: systemic_targets mismatch for queue queue/031-consensus-receipts.md; expected ['S4', 'S5', 'S6', 'S8'], got ['S1', 'S2', 'S6']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-09-18-consensus-ledger-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-consensus-ledger-cli",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-consensus-receipts.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-consensus-receipts",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-governance-bridge.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-governance-bridge",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-idle-pickup.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-idle-pickup",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-l4-bindings.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-l4-bindings",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-macro-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-macro-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-maintenance-pruning.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-maintenance-pruning",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-manager-coordination.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-manager-coordination",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-manager-heartbeat.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-manager-heartbeat",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-manifest-helper-codex3.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-manifest-helper-codex3",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-manifest-helper-codex3",
+          "queue_ref": "queue/037-manifest-helper.md",
+          "issue": "missing_queue_entry",
+          "message": "2025-09-18-manifest-helper-codex3: queue entry 'queue/037-manifest-helper.md' not found"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-09-18-prune-script.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-prune-script",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-18-release-readiness.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-18-release-readiness",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-coordination-dashboard-codex2.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-coordination-dashboard-codex2",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-docs-quicklinks-codex2.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-docs-quicklinks-codex2",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-governance-trim.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-governance-trim",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-heartbeat-auto-codex2.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-heartbeat-auto-codex2",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-heartbeat-docs-codex3.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-heartbeat-docs-codex3",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-heartbeat-followup.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-heartbeat-followup",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-heartbeat-integration-codex4.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-heartbeat-integration-codex4",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-kernel-slimdown.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-kernel-slimdown",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-manager-heartbeat-auto.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-manager-heartbeat-auto",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-manifest-swap.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-manifest-swap",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-plan-hygiene-dedupe.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-plan-hygiene-dedupe",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-plan-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-plan-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-retire-codex-observer.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-retire-codex-observer",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-19-tooling-prune.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-19-tooling-prune",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-bus-guardrails-cleanup.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-bus-guardrails-cleanup",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-20-bus-guardrails-cleanup",
+          "queue_ref": "QUEUE-012-bus-message-claim-guard",
+          "issue": "missing_queue_entry",
+          "message": "2025-09-20-bus-guardrails-cleanup: queue entry 'QUEUE-012-bus-message-claim-guard' not found"
+        },
+        {
+          "plan_id": "2025-09-20-bus-guardrails-cleanup",
+          "queue_ref": "QUEUE-042-coordination-dashboard",
+          "issue": "missing_queue_entry",
+          "message": "2025-09-20-bus-guardrails-cleanup: queue entry 'QUEUE-042-coordination-dashboard' not found"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-09-20-bus-heartbeat-refresh.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-bus-heartbeat-refresh",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-bus-ping-helper.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-bus-ping-helper",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-capsule-symlink-policy.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-capsule-symlink-policy",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-capsule-version-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-capsule-version-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-ci-guarantees.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-ci-guarantees",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-consent-exit.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-consent-exit",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-docs-quicklinks-v2.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-docs-quicklinks-v2",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-manager-directive-pointer.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-manager-directive-pointer",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-memory-tests.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-memory-tests",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-operator-mode-checklist.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-operator-mode-checklist",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-receipt-scaffold-v2.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-receipt-scaffold-v2",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-repo-hygiene-codex4.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-repo-hygiene-codex4",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-session-boot-tail-tests.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-session-boot-tail-tests",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-automation-governance-upgrade",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-autonomy-batch-runner.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-autonomy-batch-runner",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-autonomy-metrics.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-autonomy-metrics",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-autonomy-status-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-autonomy-status-cli",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-autonomy-status-receipt.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-autonomy-status-receipt",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-batch-hygiene-thresholds.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-batch-hygiene-thresholds",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-batch-refinement-log.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-batch-refinement-log",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-batch-refinement-report.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-batch-refinement-report",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-capsule-cadence-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-capsule-cadence-automation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-capsule-version-sync.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-capsule-version-sync",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-ci-vdp-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-ci-vdp-automation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-code-compaction.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-code-compaction",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-consensus-ci-integration.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-consensus-ci-integration",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-21-consensus-ci-integration",
+          "queue_ref": "queue/038-ci-consensus-integration.md",
+          "issue": "layer_mismatch",
+          "expected": [
+            "L6"
+          ],
+          "actual": "L4",
+          "message": "2025-09-21-consensus-ci-integration: layer L4 not in queue queue/038-ci-consensus-integration.md"
+        },
+        {
+          "plan_id": "2025-09-21-consensus-ci-integration",
+          "queue_ref": "queue/038-ci-consensus-integration.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S4",
+            "S6"
+          ],
+          "actual": [
+            "S1",
+            "S2",
+            "S6"
+          ],
+          "missing": [
+            "S4"
+          ],
+          "message": "2025-09-21-consensus-ci-integration: systemic_targets mismatch for queue queue/038-ci-consensus-integration.md; expected ['S4', 'S6'], got ['S1', 'S2', 'S6']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-09-21-coordination-dashboard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-coordination-dashboard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-guard-plan-receipt-exists.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-guard-plan-receipt-exists",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-plan-receipt-guard-docs.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-plan-receipt-guard-docs",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-quickstart-smoke-ci.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-quickstart-smoke-ci",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-readability-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-readability-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-receipts-hygiene-alerts.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-receipts-hygiene-alerts",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-receipts-hygiene-thresholds.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-receipts-hygiene-thresholds",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-receipts-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-receipts-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-receipts-indexer.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-receipts-indexer",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-receipts-latency.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-receipts-latency",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-reduce-handshake.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-reduce-handshake",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-session-brief-operator.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-session-brief-operator",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-session-sync.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-session-sync",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-vdp-pilot-case-study.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-vdp-pilot-case-study",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-22-decentralized-propagation-pilot.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-decentralized-propagation-pilot",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-22-external-adoption-runbook.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-external-adoption-runbook",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-22-external-feed-demo.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-external-feed-demo",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-22-governance-l1-hardening.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-governance-l1-hardening",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-22-teof-status-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-teof-status-cli",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-authenticity-chronicle.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-authenticity-chronicle",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-authenticity-steward-alerts.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-authenticity-steward-alerts",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-autonomy-auto-proceed.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-autonomy-auto-proceed",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-autonomy-conductor.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-autonomy-conductor",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-autonomy-roadmap.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-autonomy-roadmap",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-decision-loop.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-decision-loop",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-repo-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-repo-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-selfprompt-pilot.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-selfprompt-pilot",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-24-relay-offering.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-24-relay-offering",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-25-backlog-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-25-backlog-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-25-memory-layer.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-25-memory-layer",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-25-oversight-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-25-oversight-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-25-teof-anatomy-dashboard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-25-teof-anatomy-dashboard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-26-autonomy-preflight.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-26-autonomy-preflight",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-26-evangelism.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-26-evangelism",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-26-external-proof.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-26-external-proof",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-26-package-onboarding.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-26-package-onboarding",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-27-data-ingestion.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-data-ingestion",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-27-ethics-clarity.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-ethics-clarity",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-27-ethics-scenarios.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-ethics-scenarios",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-27-onboarding-receipts.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-onboarding-receipts",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-27-relay-case-run.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-relay-case-run",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-28-ethics-playbook-tool.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-28-ethics-playbook-tool",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-28-philosophical-alignment.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-28-philosophical-alignment",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-28-religious-wisdom-distillation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-28-religious-wisdom-distillation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-28-response-latency.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-28-response-latency",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-29-autonomous-backlog.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-29-autonomous-backlog",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-29-ethics-seed-prioritization.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-29-ethics-seed-prioritization",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-29-response-streamlining.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-29-response-streamlining",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-02-capsule-summary-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-02-capsule-summary-cli",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-2025-10-04-plan-metadata-backfill-phase2.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-2025-10-04-plan-metadata-backfill-phase2",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-authenticity-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-authenticity-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-autonomous-backlog-synthesis.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-autonomous-backlog-synthesis",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-autonomy-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-autonomy-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-autonomy-roadmap-metadata.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-autonomy-roadmap-metadata",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-backlog-advisory-report.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-backlog-advisory-report",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-capsule-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-capsule-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-coordination-dashboard-metadata.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-coordination-dashboard-metadata",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-dirty-handoff-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-dirty-handoff-automation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-dirty-handoff-autoresolver.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-dirty-handoff-autoresolver",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-evangelism-kit-refresh.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-evangelism-kit-refresh",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-external-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-external-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-governance-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-governance-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-heartbeat-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-heartbeat-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-plan-metadata-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-plan-metadata-automation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-plan-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-plan-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-plan-schema-dedupe.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-plan-schema-dedupe",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-planner-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-planner-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-reconcile-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-reconcile-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-repo-anatomy-dashboard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-repo-anatomy-dashboard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-session-guard-upgrade.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-session-guard-upgrade",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-04-autonomy-status-upgrade.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-04-autonomy-status-upgrade",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-04-planner-metadata-backfill-phase3.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-04-planner-metadata-backfill-phase3",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-04-push-ready-checklist.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-04-push-ready-checklist",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-04-receipts-hygiene-upgrade.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-04-receipts-hygiene-upgrade",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-04-slow-plan-latency.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-04-slow-plan-latency",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-agent-collision-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-agent-collision-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-backlog-health.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-backlog-health",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-commitment-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-commitment-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-parallel-detection.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-parallel-detection",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-systemic-scan-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-systemic-scan-automation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-ttd-trend-integration.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-ttd-trend-integration",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-ttd-trend-reporting.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-ttd-trend-reporting",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-06-confidence-calibration.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-06-confidence-calibration",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-06-systemic-alignment.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-06-systemic-alignment",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-06-teof-btc-scoreboard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-06-teof-btc-scoreboard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-anchors-policy-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-anchors-policy-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-bus-event-severity.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-bus-event-severity",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-bus-message-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-bus-message-cli",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-bus-status-filters.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-bus-status-filters",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-bus-watch-severity.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-bus-watch-severity",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-07-bus-watch-severity",
+          "queue_ref": "queue/001-agent-bus-watch.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S3",
+            "S4",
+            "S6"
+          ],
+          "actual": [
+            "S3",
+            "S6"
+          ],
+          "missing": [
+            "S4"
+          ],
+          "message": "2025-10-07-bus-watch-severity: systemic_targets mismatch for queue queue/001-agent-bus-watch.md; expected ['S3', 'S4', 'S6'], got ['S3', 'S6']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-07-l4-binding-brief.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-l4-binding-brief",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-macro-hygiene-objectives.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-macro-hygiene-objectives",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-manager-severity-digest.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-manager-severity-digest",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-task-assign-bus-message.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-task-assign-bus-message",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-11-decentralized-node.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-11-decentralized-node",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-12-infinite-ledger.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-12-infinite-ledger",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-16-systemic-retirement.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-16-systemic-retirement",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-16-systemic-retirement",
+          "queue_ref": "queue/000-observation.md",
+          "issue": "missing_queue_entry",
+          "message": "2025-10-16-systemic-retirement: queue entry 'queue/000-observation.md' not found"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-17-decentralized-live-run.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-17-decentralized-live-run",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-17-systemic-adoption-kit.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-17-systemic-adoption-kit",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-17-systemic-alignment-matrix.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-17-systemic-alignment-matrix",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-17-systemic-interoperability.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-17-systemic-interoperability",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-19-autonomy-coordinator.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-19-autonomy-coordinator",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-19-autonomy-evolution.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-19-autonomy-evolution",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-20-autonomy-audit-aggregation.plan.json",
+      "ok": false,
+      "errors": [
+        "steps[2].receipts[2] is not tracked by git: '_report/usage/autonomy-audit/archive/20251020T084307Z/'",
+        "steps[2].receipts[3] is not tracked by git: '_report/usage/autonomy-audit/archive/20251020T084958Z/'",
+        "steps[3].receipts[0] duplicates 'tests/test_autonomy_audit_digest.py'"
+      ],
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-20-backlog-compaction.plan.json",
+      "ok": false,
+      "errors": [
+        "receipts[0] is not tracked by git: '_report/planner/validate/summary-20251020T083550Z.json'",
+        "steps[3].receipts[0] is not tracked by git: '_report/planner/validate/summary-20251020T083550Z.json'",
+        "steps[3].receipts[1] is not tracked by git: '_report/planner/validate/summary-20251020T083259Z.json'"
+      ],
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-20-evidence-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-20-evidence-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-20-memory-ledger-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-20-memory-ledger-backfill",
+      "queue_warnings": []
+    }
+  ]
+}

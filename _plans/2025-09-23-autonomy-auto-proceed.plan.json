@@ -37,7 +37,7 @@
       "receipts": [
         "docs/automation.md",
         "_report/health/health-20250922T234214Z.json",
-        "_report/usage/autonomy-audit/audit-2025-09-22T22:15:00Z.json",
+        "_report/usage/autonomy-audit/archive/20251020T084307Z/audit-2025-09-22T22:15:00Z.json",
         "_report/usage/autonomy-actions/hygiene-20250922T232851Z.json"
       ]
     }

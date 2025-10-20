@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-10-20T08:22:51Z",
+  "updated": "2025-10-20T08:45:23Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -199,7 +199,7 @@
     {
       "id": "ND-061",
       "title": "Backlog ledger compaction",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-20-backlog-compaction",
       "notes": "Split _plans/next-development.todo.json into active and archived segments, add rolling prune receipts, and update automation so it stops diffing hundreds of completed entries.",
       "priority": "high",
@@ -214,12 +214,19 @@
         "L5",
         "L4"
       ],
-      "source": "codex-5 assessment 2025-10-20"
+      "source": "codex-5 assessment 2025-10-20",
+      "completed_at": "2025-10-20T08:38:40Z",
+      "receipts_ref": {
+        "kind": "plan",
+        "plan_id": "2025-10-20-backlog-compaction",
+        "count": 1,
+        "digest": "95aac2dfded10dcdd1a4bc97c19a84b5d07d9379a2aba0b5464ce01a15783c63"
+      }
     },
     {
       "id": "ND-062",
       "title": "Autonomy audit receipt aggregation",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-10-20-autonomy-audit-aggregation",
       "notes": "Collapse the hundreds of single-run audit receipts under _report/usage/autonomy-audit into a rolling digest so loops stay observable without slowing git and CI.",
       "priority": "medium",
@@ -234,7 +241,14 @@
         "L6",
         "L5"
       ],
-      "source": "codex-5 assessment 2025-10-20"
+      "source": "codex-5 assessment 2025-10-20",
+      "completed_at": "2025-10-20T08:45:23Z",
+      "receipts_ref": {
+        "kind": "plan",
+        "plan_id": "2025-10-20-autonomy-audit-aggregation",
+        "count": 2,
+        "digest": "0b6ab8abc8d15355d9c08a0ccf3d95185b9bac29fb9245356b2c6b5255a69377"
+      }
     },
     {
       "id": "ND-063",
@@ -459,6 +473,10 @@
     {
       "id": "ND-023",
       "completed_at": "2025-10-04T19:51:59Z"
+    },
+    {
+      "id": "ND-062",
+      "claimed_at": "2025-10-20T08:39:47Z"
     }
   ],
   "archive_ref": {

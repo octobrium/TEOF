@@ -1,0 +1,71 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-20-autonomy-audit-aggregation",
+  "created": "2025-10-20T08:40:00Z",
+  "actor": "codex",
+  "summary": "Aggregate autonomy audit receipts into rolling digests to reduce repo bloat while preserving observability.",
+  "status": "done",
+  "systemic_targets": [
+    "S2",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6",
+    "L5"
+  ],
+  "layer": "L6",
+  "systemic_scale": 5,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Model digest schema + retention expectations",
+      "status": "done",
+      "notes": "Audit current _report/usage/autonomy-audit payloads, propose rolling digest contract, and capture acceptance criteria.",
+      "receipts": [
+        "docs/automation/autonomy-audit-digest.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement aggregation tooling",
+      "status": "done",
+      "notes": "Build script/CLI to roll up audit entries, enforce retention window, and emit compressed summary receipts.",
+      "receipts": [
+        "tools/autonomy/autonomy_audit_digest.py",
+        "tests/test_autonomy_audit_digest.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Wire automation + documentation",
+      "status": "done",
+      "notes": "Integrate aggregator into autonomy loops, update docs/backlog references, and prune existing receipts into digest form.",
+      "receipts": [
+        "docs/automation.md",
+        "_report/usage/autonomy-audit/summary-latest.json",
+        "_report/usage/autonomy-audit/archive/20251020T084307Z/manifest.json",
+        "_report/usage/autonomy-audit/archive/20251020T084958Z/manifest.json"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Validate with targeted tests",
+      "status": "done",
+      "notes": "Add regression coverage and capture receipts proving digest command works and reduces footprint.",
+      "receipts": [
+        "_report/usage/autonomy-audit/pytest-autonomy-digest.xml"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Digest command lands with docs + tests, legacy receipts archived, and backlog entry marked done.",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/usage/autonomy-audit/summary-latest.json",
+    "_report/usage/autonomy-audit/pytest-autonomy-digest.xml"
+  ]
+}

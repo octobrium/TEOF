@@ -1,0 +1,85 @@
+{
+  "generated_at": "2025-10-20T08:50:51Z",
+  "source": "_report/usage/autonomy-audit",
+  "total_runs": 4,
+  "window": {
+    "start": "2025-10-12T23:57:06Z",
+    "end": "2025-10-13T00:05:02Z"
+  },
+  "layers_seen": {
+    "backfill": 4,
+    "connectivity": 4,
+    "recursive-integrity": 4
+  },
+  "gaps_seen": {
+    "backfill": 4,
+    "connectivity": 4,
+    "recursive-integrity": 4
+  },
+  "latest_runs": [
+    {
+      "generated_at": "2025-10-12T23:57:06Z",
+      "layers": [
+        "backfill",
+        "connectivity",
+        "recursive-integrity"
+      ],
+      "gaps": [
+        "backfill",
+        "connectivity",
+        "recursive-integrity"
+      ]
+    },
+    {
+      "generated_at": "2025-10-12T23:59:09Z",
+      "layers": [
+        "backfill",
+        "connectivity",
+        "recursive-integrity"
+      ],
+      "gaps": [
+        "backfill",
+        "connectivity",
+        "recursive-integrity"
+      ]
+    },
+    {
+      "generated_at": "2025-10-13T00:04:34Z",
+      "layers": [
+        "backfill",
+        "connectivity",
+        "recursive-integrity"
+      ],
+      "gaps": [
+        "backfill",
+        "connectivity",
+        "recursive-integrity"
+      ]
+    },
+    {
+      "generated_at": "2025-10-13T00:05:02Z",
+      "layers": [
+        "backfill",
+        "connectivity",
+        "recursive-integrity"
+      ],
+      "gaps": [
+        "backfill",
+        "connectivity",
+        "recursive-integrity"
+      ]
+    }
+  ],
+  "retained": [
+    "_report/usage/autonomy-audit/audit-20251012T235706Z.json",
+    "_report/usage/autonomy-audit/audit-20251012T235909Z.json",
+    "_report/usage/autonomy-audit/audit-20251013T000434Z.json",
+    "_report/usage/autonomy-audit/audit-20251013T000502Z.json"
+  ],
+  "archived": {
+    "stamp": null,
+    "count": 0,
+    "destination": null
+  },
+  "receipt_sha256": "9a8cdfdbe8e5fb99ff5b91804352428410f9771b84b0032c56b62c9a7d13ce75"
+}

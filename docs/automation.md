@@ -267,6 +267,8 @@ Run `python -m tools.agent.backlog_health --threshold 3 --candidate-limit 5 --fa
 
 `python -m tools.autonomy.backlog_steward --apply` inspects `_plans/next-development.todo.json`, compares each item with its referenced plan, and marks entries as `done` when the plan (and its receipts) reach completion. It assembles the supporting receipts automatically, updates the backlog timestamp, and writes a receipt under `_report/usage/backlog-steward/`. Run without `--apply` to preview changes.
 
+`python -m tools.autonomy.autonomy_audit_digest --retain 5` rolls up the high-frequency autonomy audit receipts into `_report/usage/autonomy-audit/summary-latest.json` while archiving older runs under `_report/usage/autonomy-audit/archive/<stamp>/`. Adjust `--retain` (default **5**) or `--window-days` to tune how many fine-grained receipts stay hot; add `--dry-run` to preview without writing the digest.
+
 ### Log real-world impact
 
 Use `python3 -m tools.receipts.log_event impact --title "Outcome" --value 100 --description "..." --receipt <path>` to append structured impact entries under `memory/impact/log.jsonl`. Promote notable items into the impact ledger so Objective O4 stays tied to receipts and measurable value.

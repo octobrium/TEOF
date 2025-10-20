@@ -1,0 +1,71 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-20-backlog-compaction",
+  "created": "2025-10-20T08:22:51Z",
+  "actor": "codex",
+  "summary": "Compact next-development backlog into active + archival ledgers and update automation to understand the split.",
+  "status": "done",
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5",
+    "L4"
+  ],
+  "layer": "L5",
+  "systemic_scale": 4,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Separate active vs archived backlog entries",
+      "status": "done",
+      "receipts": [
+        "_plans/next-development.todo.json",
+        "_plans/next-development.archive.json"
+      ],
+      "notes": "Moved completed backlog items into dedicated archive file and added archive_ref metadata for automation."
+    },
+    {
+      "id": "S2",
+      "title": "Update shared helpers and automation to load archives",
+      "status": "done",
+      "receipts": [
+        "tools/autonomy/shared.py",
+        "tools/autonomy/backlog_steward.py"
+      ],
+      "notes": "Shared helper exposes backlog_archive_path and allows loading archive entries; steward now writes to archive and refreshes metadata."
+    },
+    {
+      "id": "S3",
+      "title": "Refresh downstream surfaces and tests",
+      "status": "done",
+      "receipts": [
+        "tools/impact/case_study.py",
+        "docs/automation.md",
+        "tests/test_backlog_steward.py"
+      ],
+      "notes": "Case-study summary, automation doc, and steward tests updated for archived backlog layout."
+    },
+    {
+      "id": "S4",
+      "title": "Validate plan/doc updates",
+      "status": "done",
+      "receipts": [
+        "_report/planner/validate/summary-20251020T083550Z.json",
+        "_report/planner/validate/summary-20251020T083259Z.json"
+      ],
+      "notes": "Planner validation run captured receipts referencing new backlog structure."
+    }
+  ],
+  "checkpoint": {
+    "description": "Active backlog only carries pending work; archive file houses historical entries with receipts and planner/tests stay green.",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_report/planner/validate/summary-20251020T083550Z.json"
+  ],
+  "links": []
+}

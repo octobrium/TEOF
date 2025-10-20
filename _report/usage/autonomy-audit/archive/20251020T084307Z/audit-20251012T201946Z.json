@@ -1,0 +1,14 @@
+{
+  "generated_at": "2025-10-12T20:19:46Z",
+  "layers": [
+    "backfill",
+    "connectivity",
+    "recursive-integrity"
+  ],
+  "gaps": [
+    "backfill",
+    "connectivity",
+    "recursive-integrity"
+  ],
+  "todo_path": "_plans/next-development.todo.json"
+}
