@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence
 
 from tools.autonomy.receipt_utils import collect_plan_receipts, compute_receipt_digest
-from tools.autonomy.shared import load_json, write_receipt_payload
+from tools.autonomy.shared import backlog_archive_path, load_json, write_receipt_payload
 
 
 DEFAULT_BACKLOG = Path("_plans/next-development.todo.json")
@@ -100,6 +100,70 @@ def _apply_updates(backlog: Dict[str, Any], updates: Dict[str, Dict[str, Any]]) 
     backlog["updated"] = _utc_now()
 
 
+def _archive_completed_items(
+    backlog: Dict[str, Any],
+    backlog_path: Path,
+    completed_ids: Iterable[str],
+) -> list[str]:
+    """Move completed backlog entries into the archive file."""
+
+    targets = {entry for entry in completed_ids if isinstance(entry, str)}
+    if not targets:
+        return []
+
+    items = backlog.get("items")
+    if not isinstance(items, list):
+        return []
+
+    remaining: list[Dict[str, Any]] = []
+    moved: list[Dict[str, Any]] = []
+    for item in items:
+        if not isinstance(item, dict):
+            remaining.append(item)
+            continue
+        item_id = item.get("id")
+        status = str(item.get("status", "")).lower()
+        if item_id in targets and status == "done":
+            moved.append(item)
+        else:
+            remaining.append(item)
+
+    if not moved:
+        return []
+
+    backlog["items"] = remaining
+
+    archive_path = backlog_archive_path(backlog_path)
+    archive_raw = load_json(archive_path)
+    archive = archive_raw if isinstance(archive_raw, Dict) else {}
+    archive_items = archive.get("items")
+    serialised = (
+        [entry for entry in archive_items if isinstance(entry, dict)]
+        if isinstance(archive_items, list)
+        else []
+    )
+    serialised = [entry for entry in serialised if entry.get("id") not in targets]
+    serialised.extend(moved)
+
+    timestamp = _utc_now()
+    archive["version"] = archive.get("version", 0)
+    archive["source"] = backlog_path.as_posix()
+    archive["items"] = serialised
+    archive["count"] = len(serialised)
+    archive["exported_at"] = timestamp
+    archive_path.parent.mkdir(parents=True, exist_ok=True)
+    archive_path.write_text(json.dumps(archive, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    backlog["archive_ref"] = {
+        "path": archive_path.as_posix(),
+        "count": archive["count"],
+        "exported_at": timestamp,
+    }
+    backlog["updated"] = timestamp
+
+    return [item.get("id") for item in moved if isinstance(item.get("id"), str)]
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--backlog", type=Path, default=DEFAULT_BACKLOG, help="Backlog JSON path")
@@ -148,6 +212,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         }
         report["actions"].append(action)
 
+    completed_ids = [
+        item_id
+        for item_id, payload in updates.items()
+        if isinstance(item_id, str) and str(payload.get("status", "")).lower() == "done"
+    ]
+
     if not updates:
         if not args.quiet:
             print("backlog_steward: no updates")
@@ -157,11 +227,14 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if apply_updates:
         _apply_updates(backlog, updates)
+        archived = _archive_completed_items(backlog, backlog_path, completed_ids)
         _ensure_path(backlog_path)
         backlog_path.write_text(json.dumps(backlog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        report["archived_ids"] = archived
         report["applied"] = True
     else:
         report["applied"] = False
+        report["archived_ids"] = completed_ids
 
     out_path = args.out
     if out_path is None:

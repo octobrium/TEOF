@@ -8,6 +8,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Sequence
 
+from tools.autonomy.shared import load_backlog_items
+
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SLUG = "relay-insight"
@@ -140,25 +142,16 @@ def _summarise_text_file(path: Path, root: Path) -> dict[str, object]:
 
 
 def _load_task_statuses(root: Path) -> dict[str, str]:
-    """Return latest task statuses from ``next-development.todo.json`` if present."""
+    """Return latest task statuses from backlog (active + archive)."""
 
     path = root / "_plans" / "next-development.todo.json"
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return {}
-
+    items = load_backlog_items(path, include_archive=True)
     statuses: dict[str, str] = {}
-    items = payload.get("items", [])
-    if isinstance(items, list):
-        for item in items:
-            if not isinstance(item, dict):
-                continue
-            task_id = item.get("id")
-            status = item.get("status")
-            if isinstance(task_id, str) and isinstance(status, str):
-                statuses[task_id] = status
-
+    for item in items:
+        task_id = item.get("id")
+        status = item.get("status")
+        if isinstance(task_id, str) and isinstance(status, str):
+            statuses[task_id] = status
     return statuses
 
 

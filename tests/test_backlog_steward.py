@@ -53,12 +53,20 @@ def test_apply_updates(tmp_path: Path):
     exit_code = steward.main(["--apply", "--quiet"])
     assert exit_code == 0
 
-    updated = json.loads((tmp_path / "backlog.json").read_text(encoding="utf-8"))
-    item = updated["items"][0]
-    assert item["status"] == "done"
-    assert "completed_at" in item
-    assert "receipts" not in item
-    ref = item["receipts_ref"]
+    backlog_path = tmp_path / "backlog.json"
+    updated = json.loads(backlog_path.read_text(encoding="utf-8"))
+    assert updated["items"] == []
+    assert "archive_ref" in updated
+    ref_meta = updated["archive_ref"]
+    assert ref_meta["path"].endswith("backlog.archive.json")
+    archive_path = backlog_path.with_name("backlog.archive.json")
+    archive = json.loads(archive_path.read_text(encoding="utf-8"))
+    assert archive["count"] == 1
+    archived_item = archive["items"][0]
+    assert archived_item["status"] == "done"
+    assert "completed_at" in archived_item
+    assert "receipts" not in archived_item
+    ref = archived_item["receipts_ref"]
     assert ref["kind"] == "plan"
     assert ref["plan_id"] == "2025-01-01-example"
     assert ref["count"] == 2
@@ -96,3 +104,4 @@ def test_dry_run(tmp_path: Path, capsys):
 
     untouched = json.loads((tmp_path / "backlog.json").read_text(encoding="utf-8"))
     assert untouched["items"][0]["status"] == "pending"
+    assert not (tmp_path / "backlog.archive.json").exists()

@@ -83,12 +83,36 @@ def count_lines(path: Path) -> int:
     return count
 
 
-def load_backlog_items(path: Path) -> list[dict[str, Any]]:
-    """Return backlog item dictionaries from *path* (empty list when missing)."""
+def backlog_archive_path(path: Path) -> Path:
+    """Return companion archive path for a backlog file."""
+
+    name = path.name
+    if name.endswith(".todo.json"):
+        archive_name = name.replace(".todo.json", ".archive.json")
+    elif name.endswith(".json"):
+        archive_name = f"{name[:-5]}.archive.json"
+    else:
+        archive_name = f"{name}.archive.json"
+    return path.with_name(archive_name)
+
+
+def load_backlog_items(path: Path, *, include_archive: bool = False) -> list[dict[str, Any]]:
+    """Return backlog items from *path*; optionally include archived entries."""
+
+    def _normalise(payload: Any) -> list[dict[str, Any]]:
+        if not isinstance(payload, dict):
+            return []
+        entries = payload.get("items")
+        return [item for item in entries if isinstance(item, dict)] if isinstance(entries, list) else []
 
     data = load_json(path)
-    items = data.get("items") if isinstance(data, dict) else None
-    return [item for item in items if isinstance(item, dict)] if items else []
+    items = _normalise(data)
+    if not include_archive:
+        return items
+
+    archive = load_json(backlog_archive_path(path))
+    archive_items = _normalise(archive)
+    return items + archive_items
 
 
 def load_task_items(path: Path) -> list[dict[str, Any]]:
@@ -126,6 +150,7 @@ __all__ = [
     "utc_timestamp",
     "git_commit",
     "count_lines",
+    "backlog_archive_path",
     "load_backlog_items",
     "load_task_items",
     "load_state_facts",

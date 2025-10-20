@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-10-19T21:59:43Z",
+  "updated": "2025-10-20T08:22:51Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -9,629 +9,352 @@
   },
   "items": [
     {
-      "id": "ND-046",
-      "title": "Add high-severity digest to manager dashboard",
-      "status": "done",
-      "plan_suggestion": "2025-10-07-manager-severity-digest",
-      "priority": "medium",
-      "layer": "L5",
-      "systemic_scale": 3,
-      "source": "queue/001-agent-bus-watch.md",
-      "completed_at": "2025-10-07T20:55:00Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-07-manager-severity-digest",
-        "count": 2,
-        "digest": "93cfc91d871675f3cc9370ac582309aa70f4123aa7fc3700c6f48973de193144"
-      }
-    },
-    {
-      "id": "ND-044",
-      "title": "Ship bus_message CLI",
-      "status": "done",
-      "plan_suggestion": "2025-10-07-bus-message-cli",
-      "priority": "medium",
-      "layer": "L5",
-      "systemic_scale": 3,
-      "source": "queue/005-bus-message-cli.md",
-      "completed_at": "2025-10-07T20:17:37Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-07-bus-message-cli",
-        "count": 3,
-        "digest": "b01c7a0317b801591b1eb29ad94491af98cab5dcbc1173742e6a810dd8f2d845"
-      }
-    },
-    {
-      "id": "ND-045",
-      "title": "Align task_assign bus messages",
-      "status": "done",
-      "plan_suggestion": "2025-10-07-task-assign-bus-message",
-      "priority": "medium",
-      "layer": "L5",
-      "systemic_scale": 3,
-      "source": "queue/006-task-assign-bus-message.md",
-      "completed_at": "2025-10-07T21:55:00Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-07-task-assign-bus-message",
-        "count": 3,
-        "digest": "abbd1a5e9a0bd8ed12b25c4dabb87b9a7c26eb50c2ffbc65471669c92518bd1d"
-      }
-    },
-    {
-      "id": "ND-042",
-      "title": "Surface severity in bus_watch",
-      "status": "done",
-      "plan_suggestion": "2025-10-07-bus-watch-severity",
-      "priority": "medium",
-      "layer": "L5",
-      "systemic_scale": 3,
-      "source": "queue/001-agent-bus-watch.md",
-      "completed_at": "2025-10-07T19:46:45Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-07-bus-watch-severity",
-        "count": 2,
-        "digest": "fd76fa828bae3d9298a45c23401d52ec57584555b43003451cd55d120d641361"
-      }
-    },
-    {
-      "id": "ND-043",
-      "title": "Add severity filters to bus_status presets",
-      "status": "done",
-      "plan_suggestion": "2025-10-07-bus-status-filters",
-      "priority": "medium",
-      "layer": "L5",
-      "systemic_scale": 3,
-      "source": "queue/002-bus-status-filters.md",
-      "completed_at": "2025-10-07T19:59:55Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-07-bus-status-filters",
-        "count": 3,
-        "digest": "dd3f2f658787e1758282cd53dbde299367966c60e000335246443bcc2110ba49"
-      }
-    },
-    {
-      "id": "ND-038",
-      "title": "Enforce anchors append-only policy",
-      "status": "done",
-      "plan_suggestion": "2025-10-07-anchors-policy-guard",
-      "notes": "Guard anchors.json with prev_content_hash enforcement and document append-only expectations.",
+      "id": "ND-052",
+      "title": "Systemic Health Radar",
+      "status": "pending",
+      "plan_suggestion": "2025-10-19-systemic-health-radar",
+      "notes": "Fuse receipts into a systemic coverage dashboard so unattended agents can detect S-axis gaps before executing automation.",
       "priority": "high",
-      "layer": "L1",
-      "systemic_scale": 6,
-      "source": "queue/000-welcome.md",
-      "completed_at": "2025-10-07T18:36:47Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-07-anchors-policy-guard",
-        "count": 6,
-        "digest": "b015a65ef2ebebfb0efeadde7524676603a56c7ba68741b2c21253d264be05e3"
-      }
-    },
-    {
-      "id": "ND-040",
-      "title": "Add severity metadata to bus_event",
-      "status": "done",
-      "plan_suggestion": "2025-10-07-bus-event-severity",
-      "notes": "Allow automation to distinguish low/medium/high events with validated CLI plumbing and docs.",
-      "priority": "medium",
       "layer": "L5",
-      "systemic_scale": 3,
-      "source": "queue/007-bus-event-severity.md",
-      "completed_at": "2025-10-07T19:40:27Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-07-bus-event-severity",
-        "count": 3,
-        "digest": "f749c6201a924fc8cdc398a30a1a7989c0438787bc69c095c5f715a8cfc734e0"
-      }
+      "systemic_scale": 6,
+      "systemic_targets": [
+        "S1",
+        "S2",
+        "S4",
+        "S6"
+      ],
+      "layer_targets": [
+        "L5",
+        "L4"
+      ],
+      "source": "queue/052-systemic-health-radar.md"
     },
     {
-      "id": "ND-041",
-      "title": "Integrate macro hygiene objectives",
-      "status": "done",
-      "plan_suggestion": "2025-10-07-macro-hygiene-objectives",
-      "notes": "Track macro hygiene commitments with receipts and surface them in autonomy status reporting.",
+      "id": "ND-053",
+      "title": "Observation Receipt Graph",
+      "status": "pending",
+      "plan_suggestion": "2025-10-19-observation-receipt-graph",
+      "notes": "Link plans, bus claims, memory, and receipts into a traversable graph so observation trails stay auditable without manual spelunking.",
+      "priority": "high",
+      "layer": "L4",
+      "systemic_scale": 6,
+      "systemic_targets": [
+        "S1",
+        "S3",
+        "S6"
+      ],
+      "layer_targets": [
+        "L4",
+        "L5"
+      ],
+      "source": "queue/053-observation-receipt-graph.md"
+    },
+    {
+      "id": "ND-054",
+      "title": "Autonomy Stress Harness",
+      "status": "pending",
+      "plan_suggestion": "2025-10-19-autonomy-stress-harness",
+      "notes": "Red-team conductor/auto_loop flows with synthetic trust and receipt failures to prove guardrails halt safely.",
+      "priority": "high",
+      "layer": "L6",
+      "systemic_scale": 4,
+      "systemic_targets": [
+        "S2",
+        "S4",
+        "S6"
+      ],
+      "layer_targets": [
+        "L6",
+        "L5"
+      ],
+      "source": "queue/054-autonomy-stress-harness.md"
+    },
+    {
+      "id": "ND-055",
+      "title": "External Adoption Capsule",
+      "status": "pending",
+      "plan_suggestion": "2025-10-19-external-adoption-capsule",
+      "notes": "Ship a signed quickstart capsule with telemetry hooks so partner nodes join the systemic lattice with reproducible receipts.",
+      "priority": "medium",
+      "layer": "L3",
+      "systemic_scale": 3,
+      "systemic_targets": [
+        "S1",
+        "S2",
+        "S3",
+        "S6"
+      ],
+      "layer_targets": [
+        "L3",
+        "L5"
+      ],
+      "source": "queue/055-external-adoption-capsule.md"
+    },
+    {
+      "id": "ND-056",
+      "title": "Impact Bridge Dashboard",
+      "status": "pending",
+      "plan_suggestion": "2025-10-19-impact-bridge-dashboard",
+      "notes": "Tie impact ledger entries to backlog items and automation receipts so Meaning-level outcomes stay observable.",
       "priority": "medium",
       "layer": "L2",
+      "systemic_scale": 10,
+      "systemic_targets": [
+        "S3",
+        "S6",
+        "S7",
+        "S10"
+      ],
+      "layer_targets": [
+        "L2",
+        "L5"
+      ],
+      "source": "queue/056-impact-bridge.md"
+    },
+    {
+      "id": "ND-068",
+      "title": "Confidence calibration analytics",
+      "status": "pending",
+      "plan_suggestion": "2025-10-20-confidence-calibration",
+      "notes": "Correlate agent confidence receipts with plan outcomes and emit ethics alerts before automation drifts from observation-first guardrails.",
+      "priority": "high",
+      "layer": "L6",
+      "systemic_scale": 8,
+      "systemic_targets": [
+        "S5",
+        "S6",
+        "S8"
+      ],
+      "layer_targets": [
+        "L6",
+        "L5"
+      ],
+      "source": "queue/068-confidence-calibration.md"
+    },
+    {
+      "id": "ND-069",
+      "title": "Decentralized node incentive ledger",
+      "status": "pending",
+      "plan_suggestion": "2025-10-11-decentralized-node",
+      "notes": "Document governance, reputation, and rewards so autonomous nodes expand capacity without violating covenant guardrails.",
+      "priority": "high",
+      "layer": "L2",
+      "systemic_scale": 8,
+      "systemic_targets": [
+        "S2",
+        "S3",
+        "S4",
+        "S7",
+        "S8"
+      ],
+      "layer_targets": [
+        "L2",
+        "L4",
+        "L5"
+      ],
+      "source": "queue/069-node-incentive-ledger.md"
+    },
+    {
+      "id": "ND-070",
+      "title": "Relay offering launch path",
+      "status": "pending",
+      "plan_suggestion": "2025-10-20-relay-offering-launch",
+      "notes": "Ship audited collateral, intake telemetry, and impact logging so the Relay service scales power while staying receipt-backed.",
+      "priority": "medium",
+      "layer": "L3",
+      "systemic_scale": 10,
+      "systemic_targets": [
+        "S3",
+        "S5",
+        "S7",
+        "S10"
+      ],
+      "layer_targets": [
+        "L3",
+        "L5"
+      ],
+      "source": "queue/070-relay-offering-launch.md"
+    },
+    {
+      "id": "ND-071",
+      "title": "Convergence metrics pipeline",
+      "status": "pending",
+      "plan_suggestion": "2025-10-20-convergence-metrics",
+      "notes": "Instrument multi-node convergence metrics (hash alignment, receipt coverage, anchor latency) so propagation drift surfaces immediately.",
+      "priority": "high",
+      "layer": "L6",
+      "systemic_scale": 6,
+      "systemic_targets": [
+        "S3",
+        "S4",
+        "S5",
+        "S6"
+      ],
+      "layer_targets": [
+        "L6",
+        "L5"
+      ],
+      "source": "queue/071-convergence-metrics.md"
+    },
+    {
+      "id": "ND-061",
+      "title": "Backlog ledger compaction",
+      "status": "pending",
+      "plan_suggestion": "2025-10-20-backlog-compaction",
+      "notes": "Split _plans/next-development.todo.json into active and archived segments, add rolling prune receipts, and update automation so it stops diffing hundreds of completed entries.",
+      "priority": "high",
+      "layer": "L5",
+      "systemic_scale": 4,
+      "systemic_targets": [
+        "S1",
+        "S2",
+        "S6"
+      ],
+      "layer_targets": [
+        "L5",
+        "L4"
+      ],
+      "source": "codex-5 assessment 2025-10-20"
+    },
+    {
+      "id": "ND-062",
+      "title": "Autonomy audit receipt aggregation",
+      "status": "pending",
+      "plan_suggestion": "2025-10-20-autonomy-audit-aggregation",
+      "notes": "Collapse the hundreds of single-run audit receipts under _report/usage/autonomy-audit into a rolling digest so loops stay observable without slowing git and CI.",
+      "priority": "medium",
+      "layer": "L6",
       "systemic_scale": 5,
-      "source": "queue/036-macro-hygiene-objective.md",
-      "completed_at": "2025-10-19T21:28:14Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-07-macro-hygiene-objectives",
-        "count": 10,
-        "digest": "a1b53031deb3a947a6b3a073d6753d69fb0a3d9208761ad1ced28a6e4ecdbeba"
-      }
+      "systemic_targets": [
+        "S2",
+        "S4",
+        "S6"
+      ],
+      "layer_targets": [
+        "L6",
+        "L5"
+      ],
+      "source": "codex-5 assessment 2025-10-20"
     },
     {
-      "id": "ND-047",
-      "title": "Publish systemic adoption kit for external teams",
-      "status": "done",
-      "plan_suggestion": "2025-10-17-systemic-adoption-guide",
-      "notes": "Published systemic adoption guide, linked from README and quick-links for external teams.",
-      "priority": "high",
+      "id": "ND-063",
+      "title": "Receipts index streaming",
+      "status": "pending",
+      "plan_suggestion": "2025-10-20-receipts-index-streaming",
+      "notes": "Rebuild the receipts index generator to emit incremental shards instead of a single multi-megabyte JSONL so agents can fetch fresh state quickly and avoid repeated large writes.",
+      "priority": "medium",
+      "layer": "L6",
+      "systemic_scale": 5,
+      "systemic_targets": [
+        "S1",
+        "S4",
+        "S6"
+      ],
+      "layer_targets": [
+        "L6",
+        "L5"
+      ],
+      "source": "codex-5 assessment 2025-10-20"
+    },
+    {
+      "id": "ND-064",
+      "title": "Legacy artifact cold storage",
+      "status": "pending",
+      "plan_suggestion": "2025-10-20-legacy-artifact-prune",
+      "notes": "Move legacy_loop_out bundles into compressed apoptosis snapshots with manifest hashes so the repo stops tracking heavy ensembles while preserving provenance.",
+      "priority": "medium",
+      "layer": "L4",
+      "systemic_scale": 5,
+      "systemic_targets": [
+        "S1",
+        "S3",
+        "S6"
+      ],
+      "layer_targets": [
+        "L4",
+        "L0"
+      ],
+      "source": "codex-5 assessment 2025-10-20"
+    },
+    {
+      "id": "ND-065",
+      "title": "Build artifact hygiene guard",
+      "status": "pending",
+      "plan_suggestion": "2025-10-20-build-artifact-guard",
+      "notes": "Stop tracking dist/ and teof.egg-info outputs by tightening .gitignore and adding a guard that fails when build products leak into commits.",
+      "priority": "medium",
+      "layer": "L4",
+      "systemic_scale": 3,
+      "systemic_targets": [
+        "S2",
+        "S4"
+      ],
+      "layer_targets": [
+        "L4",
+        "L6"
+      ],
+      "source": "codex-5 assessment 2025-10-20"
+    },
+    {
+      "id": "ND-066",
+      "title": "Apoptosis snapshot compression",
+      "status": "pending",
+      "plan_suggestion": "2025-10-20-apoptosis-compression",
+      "notes": "Replace full _report copies under _apoptosis with hashed bundles or tarballs so cold storage remains append-only without duplicating active receipts.",
+      "priority": "medium",
+      "layer": "L0",
+      "systemic_scale": 4,
+      "systemic_targets": [
+        "S2",
+        "S4"
+      ],
+      "layer_targets": [
+        "L0",
+        "L4"
+      ],
+      "source": "codex-5 assessment 2025-10-20"
+    },
+    {
+      "id": "ND-067",
+      "title": "Autonomy module consolidation",
+      "status": "pending",
+      "plan_suggestion": "2025-10-20-autonomy-module-consolidation",
+      "notes": "Collapse overlapping tools.autonomy coordinator modules into focused services with shared primitives to cut invocation latency and receipt duplication.",
+      "priority": "medium",
+      "layer": "L6",
+      "systemic_scale": 4,
+      "systemic_targets": [
+        "S2",
+        "S4",
+        "S6"
+      ],
+      "layer_targets": [
+        "L6",
+        "L4"
+      ],
+      "source": "codex-5 assessment 2025-10-20"
+    },
+    {
+      "id": "ND-057",
+      "title": "Automate evidence_usage + targeted prune cadence",
+      "status": "queued",
+      "plan_suggestion": "2025-10-20-evidence-hygiene",
+      "notes": "Integrate evidence-of-use scan + prune into multi-LLM / compute workflows; emit receipts per run.",
+      "priority": "medium",
+      "layer": "L6",
+      "systemic_scale": 2,
+      "source": "queue/053-observation-receipt-graph.md"
+    },
+    {
+      "id": "ND-058",
+      "title": "Backfill memory ledger for Oct autonomy work",
+      "status": "queued",
+      "plan_suggestion": "2025-10-20-memory-ledger-backfill",
+      "notes": "Log autonomy coordinator/evolution decisions and add guard so multi-LLM sessions emit memory receipts.",
+      "priority": "medium",
       "layer": "L5",
       "systemic_scale": 6,
-      "source": "docs/automation/systemic-overview.md",
-      "completed_at": "2025-10-17T04:06:00Z",
-      "receipts": [
-        "docs/automation/systemic-adoption-guide.md",
-        "README.md",
-        "docs/quick-links.md"
-      ]
-    },
-    {
-      "id": "ND-048",
-      "title": "Complete decentralized propagation pilot",
-      "status": "done",
-      "plan_suggestion": "2025-09-22-decentralized-propagation-pilot",
-      "notes": "Produced synthetic cross-node receipts under _report/network/20251017T041500Z and published decentralized propagation guide.",
-      "priority": "high",
-      "layer": "L3",
-      "systemic_scale": 7,
-      "source": "docs/proposals/20250922t190055z__decentralized-propagation-pilot__draft.md",
-      "completed_at": "2025-10-17T04:15:00Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-22-decentralized-propagation-pilot",
-        "count": 3,
-        "digest": "adfeae56664fa92a0d627db263bbce0d0bc17b3b117860e9a0e8082258176119"
-      }
-    },
-    {
-      "id": "ND-049",
-      "title": "Define interoperability schema & adapters",
-      "status": "done",
-      "plan_suggestion": "2025-10-17-systemic-interoperability",
-      "notes": "Published JSON Schemas, documentation, sample payload, and validation CLI for neutral systemic adoption.",
-      "priority": "high",
-      "layer": "L4",
-      "systemic_scale": 6,
-      "source": "docs/automation/systemic-residual-audit.md",
-      "completed_at": "2025-10-17T04:01:00Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-17-systemic-interoperability",
-        "count": 9,
-        "digest": "1cd285671b490ea4c44334c06512851aa58f2eb3caf83efcff8dc366e88d1af7"
-      }
-    },
-    {
-      "id": "ND-050",
-      "title": "Map external governance frameworks to systemic lattice",
-      "status": "done",
-      "plan_suggestion": "2025-10-17-systemic-alignment-matrix",
-      "notes": "Documented translation matrix for SOC2, ISO27001, NIST, EU AI and linked it from adoption guide.",
-      "priority": "medium",
-      "layer": "L1",
-      "systemic_scale": 7,
-      "source": "docs/automation/systemic-overview.md",
-      "completed_at": "2025-10-17T04:13:00Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-17-systemic-alignment-matrix",
-        "count": 2,
-        "digest": "9312a6eaa4b88362b0d830b43890efb02b8db64920498f9b772c3f70184646c6"
-      }
-    },
-    {
-      "id": "ND-051",
-      "title": "Run live decentralized reconciliation with signatures",
-      "status": "done",
-      "plan_suggestion": "2025-10-17-decentralized-live-run",
-      "notes": "Execute receipt_sync against steward snapshots with --verify-signatures/--require-signatures and publish the resulting ledger/conflict receipts under _report/network/.",
-      "priority": "high",
-      "layer": "L3",
-      "systemic_scale": 7,
-      "source": "docs/automation/decentralized-propagation.md",
-      "receipts": [
-        "_plans/2025-10-17-decentralized-live-run.plan.json",
-        "_plans/2025-10-17-decentralized-live-run.config.json",
-        "_report/network/20251019T215943Z/nodes.json",
-        "_report/network/20251019T215943Z/receipts/steward-alpha.json",
-        "_report/network/20251019T215943Z/receipts/steward-beta.json",
-        "_report/network/20251019T215943Z/ledger.json",
-        "_report/network/20251019T215943Z/conflicts.json",
-        "_report/network/20251019T215943Z/summary.md"
-      ],
-      "completed_at": "2025-10-19T21:59:43Z"
-    },
-    {
-      "id": "ND-001",
-      "title": "Auto-escalate authenticity alerts into steward-specific tasks",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-authenticity-steward-alerts",
-      "notes": "Open task automatically when any tier stays below threshold for 2 consecutive runs.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-authenticity-steward-alerts",
-        "count": 5,
-        "digest": "a3f46baa0904428c0b02713e6941740cd0a39308ce7f6412cb25ecf6362c41b9"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-002",
-      "title": "Chronicle authenticity snapshot",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-authenticity-chronicle",
-      "notes": "Append tier summary to daily Chronicle so leadership sees drift.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-authenticity-chronicle",
-        "count": 8,
-        "digest": "345356040de9de5fe0ea953c0cc06a48e37625fd50ec7da203bf9914927c0c4c"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-003",
-      "title": "Pilot self-prompt loop",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-selfprompt-pilot",
-      "notes": "Run end-to-end automation claim using Chronicle + escalation guardrails; capture receipts for unattended run.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-selfprompt-pilot",
-        "count": 3,
-        "digest": "f2e99bc4cdcae23e28b32b41e80608835204cfdd4f53e6c8e7fc8dd152328f1d"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-004",
-      "title": "Repo hygiene consolidation",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-repo-hygiene",
-      "notes": "Trim unused tooling/data, consolidate automation scripts, and refresh docs to reflect the lean surface.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-repo-hygiene",
-        "count": 2,
-        "digest": "61ba4346cca66ffe3f3682c7776fc91754cb10efda0937cd933d2654a66300eb"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-005",
-      "title": "Autonomy auto-proceed policy",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-autonomy-auto-proceed",
-      "notes": "Codify consent policy for unattended autonomy loop and implement auto-run toggle.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-autonomy-auto-proceed",
-        "count": 7,
-        "digest": "b7c53b156f7c1970b049bde52f1c75d0a1a5721d1ea5f8a0aa5aa7ee0c50edc1"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-006",
-      "title": "Autonomy conductor prototype",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-autonomy-conductor",
-      "notes": "Design a guarded conductor that issues Codex prompts in cycles, enforces repo guardrails, and logs receipts for self-directed refinement experiments.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-autonomy-conductor",
-        "count": 5,
-        "digest": "a8b507f4262358ea79a19ffffd5cfba088f83a61b43c70b1a5390632aa7c1b4a"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-007",
-      "title": "Autonomy hygiene sweep",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-repo-hygiene",
-      "layer": "L6",
-      "notes": "Synthesized by autonomy loop to maintain evergreen hygiene coverage.",
-      "source": "autonomy-loop",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-repo-hygiene",
-        "count": 2,
-        "digest": "61ba4346cca66ffe3f3682c7776fc91754cb10efda0937cd933d2654a66300eb"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-008",
-      "title": "Reflection intake pipeline",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-autonomy-roadmap",
-      "notes": "Build observation-to-backlog flow per autonomy evolution roadmap Pillar 1",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-autonomy-roadmap",
-        "count": 10,
-        "digest": "a4848d979bcd826bf7b75534832ab54e585203e86ad618221982dcb7764d574a"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-009",
-      "title": "External agent pilot",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-autonomy-roadmap",
-      "notes": "Sandbox conductor-driven agent loop with full guardrail receipts (Pillar 2)",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-autonomy-roadmap",
-        "count": 10,
-        "digest": "a4848d979bcd826bf7b75534832ab54e585203e86ad618221982dcb7764d574a"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-010",
-      "title": "Multi-neuron playbook",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-autonomy-roadmap",
-      "notes": "Draft onboarding + governance rhythm for new collaborators (Pillar 3)",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-autonomy-roadmap",
-        "count": 10,
-        "digest": "a4848d979bcd826bf7b75534832ab54e585203e86ad618221982dcb7764d574a"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-011",
-      "title": "Objectives ledger rollout",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-autonomy-roadmap",
-      "notes": "Align automation metrics and onboarding materials to the new L2 objectives ledger.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-autonomy-roadmap",
-        "count": 10,
-        "digest": "a4848d979bcd826bf7b75534832ab54e585203e86ad618221982dcb7764d574a"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-012",
-      "title": "Impact ledger seeding",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-autonomy-roadmap",
-      "notes": "Track first monetizable outcome leveraging TEOF automation.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-autonomy-roadmap",
-        "count": 10,
-        "digest": "a4848d979bcd826bf7b75534832ab54e585203e86ad618221982dcb7764d574a"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-013",
-      "title": "Decision loop architecture",
-      "status": "done",
-      "plan_suggestion": "2025-09-23-decision-loop",
-      "notes": "Design optimal decision intake, critique, and impact logging pipeline.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-23-decision-loop",
-        "count": 8,
-        "digest": "645cd092398873ae27ecb374a62c72af4307e1407d0b3ff63a085434598b8346"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-014",
-      "title": "Relay offering pilot",
-      "status": "done",
-      "plan_suggestion": "2025-09-24-relay-offering",
-      "notes": "Design and market a revenue-positive service built on the API relay loop.",
-      "risk": "high",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-24-relay-offering",
-        "count": 12,
-        "digest": "45845a7026b97d5d027cb1c656f516e45c13304570327c83e673f59dddefbfca"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-015",
-      "title": "Streamlined onboarding path",
-      "status": "done",
-      "plan_suggestion": "2025-09-26-package-onboarding",
-      "layer": "L4",
-      "notes": "Deliver a pip-installable package and 10-minute quickstart with automated verification.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-26-package-onboarding",
-        "count": 11,
-        "digest": "173f6682ccbc1a7e2f3c03b76e6b31bd38bd5927e6e6ccfce911effc6a7babc4"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-016",
-      "title": "Public case study with receipts",
-      "status": "done",
-      "plan_suggestion": "2025-09-26-external-proof",
-      "layer": "L5",
-      "notes": "Run and publish a verifiable external engagement that demonstrates TEOF value.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-26-external-proof",
-        "count": 14,
-        "digest": "fbb84ff3dd8b94191cac2af8c6b88de216b55136d77df3783b280623d3a66f42"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-017",
-      "title": "Automated preflight cadence",
-      "status": "done",
-      "plan_suggestion": "2025-09-26-autonomy-preflight",
-      "layer": "L6",
-      "notes": "Modularise preflight checks and schedule unattended guard runs with bus alerts.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-26-autonomy-preflight",
-        "count": 5,
-        "digest": "1751a6fc18d25eb3dd9ad6971a3e6f01bc369616d09f0af9273c8a97fb274eba"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-018",
-      "title": "Narrative & evangelism kit",
-      "status": "done",
-      "plan_suggestion": "2025-10-03-evangelism-kit-refresh",
-      "layer": "L2",
-      "notes": "Create reusable storytelling assets and launch a distribution rhythm tied to live receipts.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-03-evangelism-kit-refresh",
-        "count": 7,
-        "digest": "34943f228e313371bd39d1653b1faf268565ebdf4e287268a93cf6edde833791"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-019",
-      "title": "Automated data ingestion & summaries",
-      "status": "done",
-      "plan_suggestion": "2025-09-27-data-ingestion",
-      "layer": "L4",
-      "notes": "Wire trusted macro/market data feeds into receipts and produce digestible summaries for case studies.",
-      "receipts": [
-        "_plans/2025-09-27-data-ingestion.plan.json"
-      ]
-    },
-    {
-      "id": "ND-020",
-      "title": "Autonomize backlog synthesis",
-      "status": "done",
-      "plan_suggestion": "2025-09-29-autonomous-backlog",
-      "layer": "L5",
-      "notes": "Integrate retro advisories and conformance receipts into automatic queue generation so unattended agents pick the next task deterministically.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-29-autonomous-backlog",
-        "count": 6,
-        "digest": "ab0486ddb35c7b3808e6ccf0a50dff1ac75c4d15867f3ce3fc8c76fee50bf145"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-021",
-      "title": "Surface planner queue warnings in dashboards",
-      "status": "done",
-      "plan_suggestion": "2025-10-03-coordination-dashboard-metadata",
-      "layer": "L5",
-      "notes": "Route tools.planner.validate queue_warnings into coordination dashboard + manager report so conflicts surface automatically.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-03-coordination-dashboard-metadata",
-        "count": 9,
-        "digest": "db29b66728b4d461c9d11bc967753324dc5b93d3993f632e7059806585d9365a"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-022",
-      "title": "Harden planner CLI metadata enforcement",
-      "status": "done",
-      "plan_suggestion": "2025-10-03-plan-metadata-automation",
-      "layer": "L6",
-      "notes": "Extend planner CLI scaffolds to demand metadata on creation and add pre-consensus receipt scans.",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-03-plan-metadata-automation",
-        "count": 6,
-        "digest": "cdeec88e5cd4b3797ef868383a7ea11169c11bd131bede28fe99a007f16632a4"
-      },
-      "completed_at": "2025-10-19T21:56:14Z"
-    },
-    {
-      "id": "ND-023",
-      "title": "Cleanup slow-plan latency",
-      "status": "done",
-      "plan_suggestion": "2025-09-21-receipts-hygiene",
-      "layer": "L5",
-      "notes": "Review plans flagged in receipts_hygiene slow list and either close or annotate long-running backfills.",
-      "completed_at": "2025-10-04T19:51:59Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-09-21-receipts-hygiene",
-        "count": 9,
-        "digest": "5a177fa5dd7d325a6b022cbe63b7d700e4de6f2be4bc7996a6fc01345769d273"
-      }
-    },
-    {
-      "id": "ND-024",
-      "title": "Automate detection of unbacked commitments",
-      "status": "done",
-      "layer": "L5",
-      "priority": "medium",
-      "notes": "Implement commitment guard lint and update TTΔ docs",
-      "plan_suggestion": "2025-10-05-commitment-guard",
-      "completed_at": "2025-10-05T04:35:38Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-05-commitment-guard",
-        "count": 9,
-        "digest": "5e319e029ec6046c0c371434b32249693a48c30384c46ba09327023863f56869"
-      }
-    },
-    {
-      "id": "ND-025",
-      "title": "TTΔ trend reporting",
-      "status": "done",
-      "layer": "L5",
-      "priority": "medium",
-      "notes": "Build tooling to summarise memory/impact/ttd.jsonl (sparkline, slope, threshold alerts).",
-      "plan_suggestion": "TTD-TREND",
-      "receipts": [
-        "_plans/2025-10-05-ttd-trend-reporting.plan.json",
-        "tools/impact/ttd_trend.py",
-        "_report/usage/ttd-trend/summary-20251005T214512Z.json"
-      ],
-      "completed_at": "2025-10-05T21:45:12Z"
-    },
-    {
-      "id": "ND-036",
-      "title": "retired observation loop scan automation",
-      "status": "done",
-      "layer": "L5",
-      "priority": "high",
-      "notes": "Automate session_boot step before retired observation loop scans so guards see manager-report tail receipts.",
-      "plan_suggestion": "2025-10-05-systemic-scan-automation",
-      "completed_at": "2025-10-06T17:32:00Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-05-systemic-scan-automation",
-        "count": 2,
-        "digest": "fc1a8c9f0340cd3415e30b77805d2fd8aafc9efb0cbc83267ac6d783c079ca56"
-      }
-    },
-    {
-      "id": "ND-037",
-      "title": "retired observation loop/systemic mapping",
-      "status": "done",
-      "layer": "L5",
-      "priority": "medium",
-      "notes": "Execute plan 2025-10-06-systemic-alignment; document retired observation loop as diagnostic overlay and update stress tests.",
-      "plan_suggestion": "2025-10-06-systemic-alignment",
-      "completed_at": "2025-10-07T01:55:00Z",
-      "receipts_ref": {
-        "kind": "plan",
-        "plan_id": "2025-10-06-systemic-alignment",
-        "count": 4,
-        "digest": "aa348b14f488be0b29c736d6b6dd00d709b5a2f657cdcaef736060cc7d471ae9"
-      }
+      "source": "queue/052-systemic-health-radar.md"
     }
   ],
   "history": [
@@ -737,5 +460,10 @@
       "id": "ND-023",
       "completed_at": "2025-10-04T19:51:59Z"
     }
-  ]
+  ],
+  "archive_ref": {
+    "path": "_plans/next-development.archive.json",
+    "count": 40,
+    "exported_at": "2025-10-20T08:22:51Z"
+  }
 }
