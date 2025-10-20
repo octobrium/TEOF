@@ -4,6 +4,16 @@
   "created": "2025-10-20T07:57:30Z",
   "actor": "codex",
   "summary": "Backfill missing memory log entries for October autonomy work",
+  "systemic_targets": [
+    "S1",
+    "S3",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "layer": "L5",
+  "systemic_scale": 5,
   "status": "queued",
   "steps": [
     {

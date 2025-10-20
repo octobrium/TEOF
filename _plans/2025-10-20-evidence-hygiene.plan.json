@@ -4,6 +4,17 @@
   "created": "2025-10-20T07:45:00Z",
   "actor": "codex",
   "summary": "Tighten evidence hygiene before artifact pruning",
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6",
+    "L5"
+  ],
+  "layer": "L6",
+  "systemic_scale": 4,
   "status": "in_progress",
   "steps": [
     {
