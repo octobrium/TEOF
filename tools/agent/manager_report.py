@@ -15,7 +15,7 @@ from tools import reconcile_metrics_summary as metrics_summary
 from tools.autonomy import commitment_guard
 from tools.impact import ttd_trend as ttd_trend_mod
 from tools.planner import queue_warnings as planner_queue_warnings
-from tools.agent import receipt_brief
+from tools.agent import receipt_brief, receipts_index
 from tools.planner.validate import validate_plan
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -85,6 +85,37 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
         if isinstance(obj, dict):
             entries.append(obj)
     return entries
+
+
+def _resolve_receipts_path(ref: str | None) -> Optional[Path]:
+    if not ref:
+        return None
+    candidate = Path(ref)
+    if candidate.is_absolute():
+        return candidate
+    return (ROOT / candidate).resolve()
+
+
+def _load_plan_entries_from_receipts_index(base: Path) -> list[dict[str, Any]]:
+    pointer = base / "_report" / "usage" / "receipts-index-latest.jsonl"
+    entries = load_jsonl(pointer)
+    manifest_path: Optional[Path] = None
+    if entries:
+        for entry in entries:
+            if entry.get("kind") == "receipts_index_manifest":
+                manifest_path = _resolve_receipts_path(entry.get("manifest"))
+                break
+        plan_entries = [entry for entry in entries if entry.get("kind") == "plan"]
+        if manifest_path and manifest_path.exists():
+            payload = receipts_index.load_index_from_manifest(manifest_path)
+            return payload.plans
+        if plan_entries:
+            return plan_entries
+
+    legacy = base / "_report" / "usage" / "receipts-index.jsonl"
+    if legacy.exists():
+        return [entry for entry in load_jsonl(legacy) if entry.get("kind") == "plan"]
+    return []
 
 
 def load_network_summary() -> list[str]:

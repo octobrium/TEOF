@@ -9,7 +9,7 @@ Running `python -m tools.agent.manager_report` now appends every TTΔ snapshot t
 
 | Metric | Definition | Primary Evidence | Target | Recording |
 | --- | --- | --- | --- | --- |
-| **Observation Capacity (OC)** | Relevant signals captured per cost. | `_report/usage/receipts-latency-latest.jsonl`, `_report/usage/receipts-index-latest.jsonl`, `_bus/events/events.jsonl` heartbeats. | Latency p95 ≤ 5 min, no missing heartbeat > 30 min. | Log summary in manager report (`observation.capacity`). |
+| **Observation Capacity (OC)** | Relevant signals captured per cost. | `_report/usage/receipts-latency-latest.jsonl`, `_report/usage/receipts-index/manifest.json`, `_bus/events/events.jsonl` heartbeats. | Latency p95 ≤ 5 min, no missing heartbeat > 30 min. | Log summary in manager report (`observation.capacity`). |
 | **Coherence Score (CS)** | Accuracy of models vs. receipts/tests. | `pytest` pass rate, `scripts/ci/check_consensus_receipts.py`, `artifacts/consensus/ci-dashboard.txt`. | 100 % CI pass; consensus drift = 0. | Record as `coherence.score`. |
 | **Recursion Depth (RD)** | Closed loops from observation → plan → correction. | `_plans/`, `_bus/claims/*.json`, `_report/usage/plan-lint/*.json` and plan hygiene tests. | Every contradiction produces a plan + closure receipt within 48 h. | Track open/closed ratio (`recursion.depth`). |
 | **Integrity Gap (IG)** | Delta between stated policy and behaviour. | Guardrails badge, `scripts/policy_checks.sh`, `governance/anchors.json` append-only audit, capsule hash checks. | Zero unresolved failures; capsule/current symlink correct. | Record last failure timestamp (`integrity.gap`). |

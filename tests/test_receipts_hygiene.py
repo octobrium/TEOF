@@ -47,14 +47,17 @@ def test_receipts_hygiene_runs_index_and_metrics(tmp_path: Path, monkeypatch) ->
     output_dir = repo_root / "_report" / "usage"
     summary = receipts_hygiene.run_hygiene(root=repo_root, output_dir=output_dir, quiet=True)
 
-    index_path = output_dir / "receipts-index-latest.jsonl"
+    index_pointer = output_dir / "receipts-index-latest.jsonl"
+    manifest_path = output_dir / "receipts-index" / "manifest.json"
     latency_path = output_dir / "receipts-latency-latest.jsonl"
     summary_path = output_dir / "receipts-hygiene-summary.json"
-    assert index_path.exists()
+    assert index_pointer.exists()
+    assert manifest_path.exists()
     assert latency_path.exists()
     assert summary_path.exists()
     assert summary["metrics"]["plans_total"] >= 1
     assert "missing_plan_ids" in summary["metrics"]
+    assert summary["receipts_index_manifest"].endswith("manifest.json")
 
 
 def test_receipts_hygiene_cli(tmp_path: Path, monkeypatch, capsys) -> None:

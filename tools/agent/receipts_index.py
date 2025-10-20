@@ -13,6 +13,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
+from tools.autonomy.shared import write_receipt_payload
+
 ROOT = Path(__file__).resolve().parents[2]
 PLANS_DIR = ROOT / "_plans"
 REPORT_DIR = ROOT / "_report"
@@ -27,6 +29,20 @@ class ReceiptReference:
     plan_id: str
     level: str  # "plan" or "step"
     step_id: Optional[str]
+
+
+@dataclass
+class IndexPayload:
+    summary: Dict[str, Any]
+    plans: List[Dict[str, Any]]
+    receipts: List[Dict[str, Any]]
+    manager_messages: List[Dict[str, Any]]
+
+
+@dataclass
+class IndexWriteResult:
+    mode: str  # "stdout" | "file" | "directory"
+    paths: List[Path]
 
 
 def _iso_timestamp(ts: float) -> str:
@@ -258,6 +274,11 @@ def _manager_entries(root: Path, *, tracked: Optional[set[str]]) -> List[Dict[st
 
 
 def build_index(root: Path, *, tracked: Optional[set[str]]) -> List[Dict[str, Any]]:
+    payload = build_index_payload(root, tracked=tracked)
+    return [payload.summary, *payload.plans, *payload.receipts, *payload.manager_messages]
+
+
+def build_index_payload(root: Path, *, tracked: Optional[set[str]]) -> IndexPayload:
     plans, refs = _plan_entries(root, tracked=tracked)
     receipts = _receipt_entries(root, tracked=tracked, refs=refs)
     manager_messages = _manager_entries(root, tracked=tracked)
@@ -272,13 +293,54 @@ def build_index(root: Path, *, tracked: Optional[set[str]]) -> List[Dict[str, An
         },
     }
 
-    return [summary, *plans, *receipts, *manager_messages]
+    return IndexPayload(
+        summary=summary,
+        plans=plans,
+        receipts=receipts,
+        manager_messages=manager_messages,
+    )
 
 
-def write_index(entries: Iterable[Dict[str, Any]], output: Path | None) -> None:
+def _write_chunks(
+    entries: List[Dict[str, Any]],
+    *,
+    base_dir: Path,
+    subdir: str,
+    prefix: str,
+    chunk_size: int,
+) -> List[Path]:
+    target_dir = base_dir / subdir
+    target_dir.mkdir(parents=True, exist_ok=True)
+    if not entries:
+        path = target_dir / f"{prefix}-0001.jsonl"
+        path.write_text("", encoding="utf-8")
+        return [path.relative_to(base_dir)]
+
+    paths: List[Path] = []
+    for index, start in enumerate(range(0, len(entries), chunk_size), start=1):
+        chunk = entries[start : start + chunk_size]
+        path = target_dir / f"{prefix}-{index:04d}.jsonl"
+        with path.open("w", encoding="utf-8") as handle:
+            for entry in chunk:
+                handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        paths.append(path.relative_to(base_dir))
+    return paths
+
+
+def write_index(
+    payload: IndexPayload,
+    output: Path | None,
+    *,
+    chunk_size: int = 500,
+) -> IndexWriteResult:
     if output is None:
         try:
-            for entry in entries:
+            print(json.dumps(payload.summary, ensure_ascii=False))
+            for entry in payload.plans:
+                print(json.dumps(entry, ensure_ascii=False))
+            for entry in payload.receipts:
+                print(json.dumps(entry, ensure_ascii=False))
+            for entry in payload.manager_messages:
                 print(json.dumps(entry, ensure_ascii=False))
         except BrokenPipeError:
             # Downstream consumer (e.g., head) closed early; suppress noisy traceback.
@@ -287,12 +349,96 @@ def write_index(entries: Iterable[Dict[str, Any]], output: Path | None) -> None:
             except Exception:
                 pass
             os._exit(0)
-        return
+        return IndexWriteResult(mode="stdout", paths=[])
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("w", encoding="utf-8") as handle:
-        for entry in entries:
-            handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    if output.suffix:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        with output.open("w", encoding="utf-8") as handle:
+            handle.write(json.dumps(payload.summary, ensure_ascii=False) + "\n")
+            for entry in payload.plans:
+                handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
+            for entry in payload.receipts:
+                handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
+            for entry in payload.manager_messages:
+                handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        return IndexWriteResult(mode="file", paths=[output])
+
+    out_dir = output
+    out_dir.mkdir(parents=True, exist_ok=True)
+    summary_path = out_dir / "summary.json"
+    summary_path.write_text(json.dumps(payload.summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    plans_paths = _write_chunks(payload.plans, base_dir=out_dir, subdir="plans", prefix="plans", chunk_size=chunk_size)
+    receipts_paths = _write_chunks(
+        payload.receipts,
+        base_dir=out_dir,
+        subdir="receipts",
+        prefix="receipts",
+        chunk_size=chunk_size,
+    )
+    manager_paths = _write_chunks(
+        payload.manager_messages,
+        base_dir=out_dir,
+        subdir="manager",
+        prefix="manager",
+        chunk_size=chunk_size,
+    )
+
+    manifest = {
+        "summary": payload.summary,
+        "chunk_size": chunk_size,
+        "paths": {
+            "summary": "summary.json",
+            "plans": [path.as_posix() for path in plans_paths],
+            "receipts": [path.as_posix() for path in receipts_paths],
+            "manager_messages": [path.as_posix() for path in manager_paths],
+        },
+    }
+    manifest_path = out_dir / "manifest.json"
+    write_receipt_payload(manifest_path, manifest)
+
+    absolute_paths = [
+        manifest_path,
+        summary_path,
+        *[out_dir / path for path in plans_paths],
+        *[out_dir / path for path in receipts_paths],
+        *[out_dir / path for path in manager_paths],
+    ]
+    return IndexWriteResult(mode="directory", paths=absolute_paths)
+
+
+def load_index_from_manifest(manifest_path: Path) -> IndexPayload:
+    manifest_dir = manifest_path.parent
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    summary = manifest.get("summary") or {}
+
+    def _read_chunks(rel_paths: Iterable[str]) -> List[Dict[str, Any]]:
+        entries: List[Dict[str, Any]] = []
+        for rel in rel_paths:
+            path = manifest_dir / rel
+            if not path.exists():
+                continue
+            with path.open(encoding="utf-8") as handle:
+                for line in handle:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        entries.append(json.loads(line))
+                    except json.JSONDecodeError:
+                        continue
+        return entries
+
+    paths_section = manifest.get("paths") or {}
+    plans = _read_chunks(paths_section.get("plans") or [])
+    receipts = _read_chunks(paths_section.get("receipts") or [])
+    manager = _read_chunks(paths_section.get("manager_messages") or [])
+    return IndexPayload(
+        summary=summary,
+        plans=plans,
+        receipts=receipts,
+        manager_messages=manager,
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -300,6 +446,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output",
         help="Write JSONL output to this path (relative paths land under _report/usage/)",
+    )
+    parser.add_argument(
+        "--chunk-size",
+        type=int,
+        default=500,
+        help="Number of records per chunk when writing to a directory (default: 500)",
     )
     parser.add_argument(
         "--root",
@@ -324,11 +476,17 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     root = Path(args.root).resolve()
     tracked = _git_tracked_paths(root)
-    entries = build_index(root, tracked=tracked)
+    payload = build_index_payload(root, tracked=tracked)
     output_path = resolve_output(args.output, root=root)
-    write_index(entries, output_path)
-    if output_path is not None:
-        print(f"wrote index to {output_path.relative_to(root) if output_path.is_relative_to(root) else output_path}")
+    result = write_index(payload, output_path, chunk_size=max(1, args.chunk_size))
+    if result.mode == "file":
+        target = result.paths[0]
+        message_path = target.relative_to(root) if target.is_relative_to(root) else target
+        print(f"wrote index to {message_path}")
+    elif result.mode == "directory":
+        manifest = result.paths[0]
+        message_path = manifest.relative_to(root) if manifest.is_relative_to(root) else manifest
+        print(f"wrote index manifest to {message_path}")
     return 0
 
 

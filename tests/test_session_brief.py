@@ -150,7 +150,35 @@ def test_session_brief_operator_preset(tmp_path: Path, monkeypatch: pytest.Monke
     (task_sync_dir / "summary.json").write_text("{}\n", encoding="utf-8")
 
     usage_dir.mkdir(parents=True, exist_ok=True)
-    (usage_dir / "receipts-index-sample.jsonl").write_text("{}\n", encoding="utf-8")
+    index_dir = usage_dir / "receipts-index"
+    index_dir.mkdir(parents=True, exist_ok=True)
+    manifest = {
+        "summary": {
+            "kind": "summary",
+            "generated_at": "2025-09-21T00:00:00Z",
+            "counts": {"plans": 0, "receipts": 0, "manager_messages": 0},
+        },
+        "chunk_size": 500,
+        "paths": {
+            "summary": "summary.json",
+            "plans": [],
+            "receipts": [],
+            "manager_messages": [],
+        },
+    }
+    (index_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (index_dir / "summary.json").write_text(json.dumps(manifest["summary"], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    pointer_path = usage_dir / "receipts-index-latest.jsonl"
+    pointer_path.write_text(
+        json.dumps(manifest["summary"], ensure_ascii=False) + "\n" +
+        json.dumps({
+            "kind": "receipts_index_manifest",
+            "manifest": "_report/usage/receipts-index/manifest.json",
+            "chunk_size": 500,
+        }, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
     (usage_dir / "receipts-hygiene-summary.json").write_text(
         json.dumps(
             {

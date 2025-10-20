@@ -248,6 +248,16 @@ def _check_task_sync(agent_id: Optional[str]) -> dict:
     }
 
 
+def _resolve_manifest_path(manifest_ref: str | None) -> Optional[Path]:
+    if not manifest_ref:
+        return None
+    candidate = Path(manifest_ref)
+    if candidate.is_absolute():
+        return candidate
+    # Interpret relative to repo root
+    return (ROOT / candidate).resolve()
+
+
 def _check_receipts_index() -> dict:
     if not USAGE_REPORT_DIR.exists():
         return {
@@ -257,20 +267,46 @@ def _check_receipts_index() -> dict:
             "detail": "_report/usage/ missing receipts-index ledger; run tools.agent.receipts_index",
             "paths": [_relative(USAGE_REPORT_DIR)],
         }
+
+    pointer = USAGE_REPORT_DIR / "receipts-index-latest.jsonl"
+    manifest_paths: list[Path] = []
+
+    if pointer.exists():
+        for entry in load_jsonl(pointer):
+            if entry.get("kind") == "receipts_index_manifest":
+                manifest_path = _resolve_manifest_path(entry.get("manifest"))
+                if manifest_path and manifest_path.exists():
+                    manifest_paths.append(manifest_path)
+
+    default_manifest = USAGE_REPORT_DIR / "receipts-index" / "manifest.json"
+    if default_manifest.exists():
+        manifest_paths.append(default_manifest)
+
+    if manifest_paths:
+        unique_paths = sorted({path.resolve() for path in manifest_paths})
+        return {
+            "id": "receipts_index",
+            "title": "Receipts index ledger",
+            "status": "pass",
+            "detail": f"Receipts index manifest present ({len(unique_paths)} located)",
+            "paths": [_relative(path) for path in unique_paths],
+        }
+
     matches = sorted(p for p in USAGE_REPORT_DIR.glob("*receipts-index*.jsonl"))
     if matches:
         return {
             "id": "receipts_index",
             "title": "Receipts index ledger",
-            "status": "pass",
-            "detail": f"Found {len(matches)} receipts-index JSONL file(s)",
+            "status": "warn",
+            "detail": "Receipts index pointer exists but manifest is missing; rerun tools.agent.receipts_hygiene",
             "paths": [_relative(matches[-1])],
         }
+
     return {
         "id": "receipts_index",
         "title": "Receipts index ledger",
         "status": "warn",
-        "detail": "No receipts-index JSONL located; run tools.agent.receipts_index",
+        "detail": "No receipts-index ledger located; run tools.agent.receipts_index",
         "paths": [_relative(USAGE_REPORT_DIR)],
     }
 

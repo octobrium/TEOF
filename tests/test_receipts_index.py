@@ -78,25 +78,23 @@ def test_receipts_index_generates_entries(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr(receipts_index, "MANAGER_REPORT", repo_root / "_bus" / "messages" / "manager-report.jsonl")
     monkeypatch.setattr(receipts_index, "DEFAULT_USAGE_DIR", repo_root / "_report" / "usage")
 
-    output_path = repo_root / "_report" / "usage" / "receipts-index.jsonl"
-    exit_code = receipts_index.main(["--root", str(repo_root), "--output", "receipts-index.jsonl"])
+    output_dir = repo_root / "_report" / "usage" / "receipts-index"
+    exit_code = receipts_index.main(["--root", str(repo_root), "--output", "receipts-index"])
     assert exit_code == 0
-    assert output_path.exists()
+    manifest_path = output_dir / "manifest.json"
+    assert manifest_path.exists()
 
-    lines = [json.loads(line) for line in output_path.read_text(encoding="utf-8").splitlines()]
-    kinds = {entry["kind"] for entry in lines}
-    assert {"summary", "plan", "receipt", "manager_message"} <= kinds
+    payload = receipts_index.load_index_from_manifest(manifest_path)
+    assert payload.summary["kind"] == "summary"
+    assert payload.summary["counts"]["plans"] == 1
 
-    plan_entries = [entry for entry in lines if entry["kind"] == "plan"]
-    assert plan_entries and plan_entries[0]["plan_id"] == "2025-09-21-sample"
-    assert plan_entries[0]["missing_receipts"] == []
+    assert payload.plans and payload.plans[0]["plan_id"] == "2025-09-21-sample"
+    assert payload.plans[0]["missing_receipts"] == []
 
-    receipt_entries = [entry for entry in lines if entry["kind"] == "receipt"]
-    matched = [entry for entry in receipt_entries if entry["path"].endswith("plan-level.json")]
+    matched = [entry for entry in payload.receipts if entry["path"].endswith("plan-level.json")]
     assert matched
     assert matched[0]["referenced_by"][0]["plan_id"] == "2025-09-21-sample"
 
-    manager_entries = [entry for entry in lines if entry["kind"] == "manager_message"]
-    assert manager_entries
-    assert manager_entries[0]["missing_receipts"] == []
-    assert manager_entries[0]["plan_id"] == "2025-09-21-sample"
+    assert payload.manager_messages
+    assert payload.manager_messages[0]["missing_receipts"] == []
+    assert payload.manager_messages[0]["plan_id"] == "2025-09-21-sample"

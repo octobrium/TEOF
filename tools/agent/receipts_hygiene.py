@@ -118,7 +118,8 @@ def run_hygiene(
 ) -> Dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    receipts_path = output_dir / "receipts-index-latest.jsonl"
+    receipts_dir = output_dir / "receipts-index"
+    receipts_pointer = output_dir / "receipts-index-latest.jsonl"
     metrics_path = output_dir / "receipts-latency-latest.jsonl"
 
     original_index_attrs = {
@@ -144,16 +145,37 @@ def run_hygiene(
         receipts_metrics.DEFAULT_USAGE_DIR = output_dir
 
         tracked = receipts_index._git_tracked_paths(root)
-        index_entries = receipts_index.build_index(root, tracked=tracked)
+        payload = receipts_index.build_index_payload(root, tracked=tracked)
         metrics_entries = receipts_metrics.build_metrics(root, output=metrics_path)
     finally:
         for key, value in original_index_attrs.items():
             setattr(receipts_index, key, value)
         for key, value in original_metrics_attrs.items():
             setattr(receipts_metrics, key, value)
-    with receipts_path.open("w", encoding="utf-8") as handle:
-        for entry in index_entries:
-            handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
+
+    write_result = receipts_index.write_index(payload, receipts_dir, chunk_size=500)
+    manifest_path = None
+    for path in write_result.paths:
+        if path.name == "manifest.json":
+            manifest_path = path
+            break
+
+    if manifest_path is None:
+        raise SystemExit("::error:: receipts index manifest missing")
+
+    manifest_rel = _relative(manifest_path)
+    pointer_entry = {
+        "kind": "summary",
+        **payload.summary,
+    }
+    manifest_entry = {
+        "kind": "receipts_index_manifest",
+        "manifest": manifest_rel,
+        "chunk_size": 500,
+    }
+    with receipts_pointer.open("w", encoding="utf-8") as handle:
+        handle.write(json.dumps(pointer_entry, ensure_ascii=False) + "\n")
+        handle.write(json.dumps(manifest_entry, ensure_ascii=False) + "\n")
 
     plan_entries = [entry for entry in metrics_entries if entry.get("kind") == "plan_latency"]
 
@@ -164,7 +186,8 @@ def run_hygiene(
 
     summary = {
         "generated_at": datetime.utcnow().replace(tzinfo=timezone.utc).strftime(ISO_FMT),
-        "receipts_index": _relative(receipts_path),
+        "receipts_index_manifest": manifest_rel,
+        "receipts_index_pointer": _relative(receipts_pointer),
         "receipts_latency": _relative(metrics_path),
         "metrics": _summarise_metrics(metrics_entries),
     }
@@ -178,7 +201,7 @@ def run_hygiene(
 
     if not quiet:
         print("Receipts hygiene summary")
-        print(f"  Receipts index: {summary['receipts_index']}")
+        print(f"  Receipts index manifest: {summary['receipts_index_manifest']}")
         print(f"  Receipts latency: {summary['receipts_latency']}")
         print(f"  Plans total: {summary['metrics']['plans_total']}")
         print(f"  Plans missing receipts: {summary['metrics']['plans_missing_receipts']}")
