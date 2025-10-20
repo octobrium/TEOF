@@ -1,0 +1,206 @@
+{
+  "summary": {
+    "generated_at": "2025-10-20T07:51:59Z",
+    "orphan_receipts": 2011,
+    "plans_missing_receipts": 0,
+    "orphan_by_category": {
+      "agent": 185,
+      "autonomy": 4,
+      "capsule": 3,
+      "case-studies": 2,
+      "consensus": 6,
+      "exploratory": 1,
+      "external": 1,
+      "fractal": 3,
+      "guard": 1,
+      "health": 701,
+      "manager": 20,
+      "planner": 414,
+      "readability": 2,
+      "reconciliation": 15,
+      "runner": 4,
+      "runner_test": 224,
+      "session": 17,
+      "systemic_ai": 1,
+      "usage": 407
+    }
+  },
+  "orphans": [
+    {
+      "path": "_report/usage/evidence-usage.json",
+      "category": "usage",
+      "size": 19078,
+      "mtime": "2025-10-20T07:50:19Z",
+      "sha256": "e1d05b10c9a6f119c626cf014e6634b5f3088bb7269edd338017cde6da86aaed"
+    },
+    {
+      "path": "_report/usage/prune-artifacts/20251020T074500Z.log",
+      "category": "usage",
+      "size": 143728,
+      "mtime": "2025-10-20T07:43:53Z",
+      "sha256": "cd6568c95a6dac57802fd5da072b03c1cc3e406a0d53c58c4c786b05d0672403"
+    },
+    {
+      "path": "_report/planner/validate/summary-20251019T223326Z.json",
+      "category": "planner",
+      "size": 44983,
+      "mtime": "2025-10-19T22:33:26Z",
+      "sha256": "705e5ab97c56098c94f9154097e2c8f5650187fb2a521e9976a5636ce020da0f"
+    },
+    {
+      "path": "_report/planner/validate/summary-20251019T223223Z.json",
+      "category": "planner",
+      "size": 44983,
+      "mtime": "2025-10-19T22:32:23Z",
+      "sha256": "ae1a7414fbc9851689f230d037acd4b7e1eec76c50f5d212939c0b81a17d3c1c"
+    },
+    {
+      "path": "_report/planner/validate/summary-20251019T222455Z.json",
+      "category": "planner",
+      "size": 44983,
+      "mtime": "2025-10-19T22:24:55Z",
+      "sha256": "f356ce60b514d9afb8a88195bcd3300360a766dc8a8c7157ff1ae42b2b3aa1e3"
+    },
+    {
+      "path": "_report/planner/validate/summary-20251019T222443Z.json",
+      "category": "planner",
+      "size": 44983,
+      "mtime": "2025-10-19T22:24:43Z",
+      "sha256": "a83bb315c513737b769e939eb185b15a25b38448bfe9f7fb261f886c84b051a1"
+    },
+    {
+      "path": "_report/planner/validate/summary-20251019T222151Z.json",
+      "category": "planner",
+      "size": 46164,
+      "mtime": "2025-10-19T22:21:51Z",
+      "sha256": "42b60fb4da4ec54ff9c242ca337c2e238b3cc24b279914acc479d735a13a5c05"
+    },
+    {
+      "path": "_report/usage/governance-alerts/state.json",
+      "category": "usage",
+      "size": 3622,
+      "mtime": "2025-10-19T21:59:56Z",
+      "sha256": "ecb08dd7e29080f5ad4fb019e6eb70203429e06ffb30bf38ae920587b35c2f0b"
+    },
+    {
+      "path": "_report/usage/backlog-steward/report-2025-10-19T215614Z.json",
+      "category": "usage",
+      "size": 13432,
+      "mtime": "2025-10-19T21:56:14Z",
+      "sha256": "f31ca713f122b49425e98bccee9b80c90ebe4d57d5e1d3245deca6b5e46a9f6a"
+    },
+    {
+      "path": "_report/manager/manager-report-2025-10-19T21:56:00Z.md",
+      "category": "manager",
+      "size": 935,
+      "mtime": "2025-10-19T21:55:59Z",
+      "sha256": "c189f002b4a5233d04c73efcb89293a4235ad6b5d7760a4a5384f9ebb700b8bc"
+    },
+    {
+      "path": "_report/planner/validate/summary-20251019T215517Z.json",
+      "category": "planner",
+      "size": 44983,
+      "mtime": "2025-10-19T21:55:17Z",
+      "sha256": "9530a35d1876450fa4eeed9d3c8d5390c19885aff64a6ff036b972a94960989b"
+    },
+    {
+      "path": "_report/planner/validate/summary-20251019T215501Z.json",
+      "category": "planner",
+      "size": 44983,
+      "mtime": "2025-10-19T21:55:01Z",
+      "sha256": "ac561f33766ffc6a45714216bb3c7e461782c9d00ba65e5c53c4aaeed9a03042"
+    },
+    {
+      "path": "_report/usage/receipt-briefs/plan-2025-10-07-macro-hygiene-objectives.md",
+      "category": "usage",
+      "size": 1552,
+      "mtime": "2025-10-19T21:53:34Z",
+      "sha256": "2c0a3db9b2c3103e1c7b78b3c4e232fe06f2cb87b41dd33356a5831d08dbcb64"
+    },
+    {
+      "path": "_report/usage/receipt-briefs/latest.json",
+      "category": "usage",
+      "size": 2428,
+      "mtime": "2025-10-19T21:53:34Z",
+      "sha256": "953de79092b08d882e68acf041f42a9897027e412c20e1f097587b97f481e499"
+    },
+    {
+      "path": "_report/usage/receipt-briefs/backlog-ND-041.md",
+      "category": "usage",
+      "size": 646,
+      "mtime": "2025-10-19T21:53:34Z",
+      "sha256": "2df9fcbb00dbb088e32ba94484e1bbc1e88658fcc7888e74ec8dca1542749538"
+    },
+    {
+      "path": "_report/planner/validate/summary-20251019T215333Z.json",
+      "category": "planner",
+      "size": 44983,
+      "mtime": "2025-10-19T21:53:33Z",
+      "sha256": "9d3f0eb137c89409eac27b18f8795207606f617b337931d48bda00744ec27c39"
+    },
+    {
+      "path": "_report/planner/validate/summary-20251019T215255Z.json",
+      "category": "planner",
+      "size": 44983,
+      "mtime": "2025-10-19T21:52:55Z",
+      "sha256": "0edfe1c39d3768bb6db434da7014cc1b43b45c2afd13251936f63d540ef8d957"
+    },
+    {
+      "path": "_report/agent/Octo/2025-10-19-autonomy-evolution/design.md",
+      "category": "agent",
+      "size": 1639,
+      "mtime": "2025-10-19T21:41:07Z",
+      "sha256": "0b9fbccf78dacdc80020b93b10e696ecaee688d87e09df9fb6534639f34d337e"
+    },
+    {
+      "path": "_report/agent/Octo/2025-10-19-autonomy-evolution/tests.json",
+      "category": "agent",
+      "size": 106,
+      "mtime": "2025-10-19T21:40:43Z",
+      "sha256": "d84cac8fa10352a86aa825bb36ef2efdadefe3806ced092848e84be54a036808"
+    },
+    {
+      "path": "_report/agent/Octo/2025-10-19-autonomy-evolution/summary.json",
+      "category": "agent",
+      "size": 152,
+      "mtime": "2025-10-19T21:40:43Z",
+      "sha256": "b5743c779c8a6777babf5d6caeefa07fc42a95dc6b65a740601c720bb8ebcf7e"
+    },
+    {
+      "path": "_report/agent/Octo/2025-10-19-autonomy-evolution/notes.md",
+      "category": "agent",
+      "size": 149,
+      "mtime": "2025-10-19T21:40:43Z",
+      "sha256": "f017c4a0f4a8372f30e658ff793f71a6f27622291df132299b0a3c436075472b"
+    },
+    {
+      "path": "_report/agent/Octo/2025-10-19-autonomy-evolution/actions.json",
+      "category": "agent",
+      "size": 108,
+      "mtime": "2025-10-19T21:40:43Z",
+      "sha256": "61a123b5d98a075f184de513c86ec9975cfba25670bd039429ce768276ebedac"
+    },
+    {
+      "path": "_report/session/codex-4/manager-report-tail.txt",
+      "category": "session",
+      "size": 3752,
+      "mtime": "2025-10-19T21:40:34Z",
+      "sha256": "763a43236ed2a12401dee4972151dabce31dd6e83c03b11e04d328ee703646f4"
+    },
+    {
+      "path": "_report/agent/codex-4/session_boot/coordination-dashboard-2025-10-19T21:40:34Z.json",
+      "category": "agent",
+      "size": 77271,
+      "mtime": "2025-10-19T21:40:34Z",
+      "sha256": "b66182ae740ab004c166a463048cb6ffc617cafd1987c8716fd38122da19c804"
+    },
+    {
+      "path": "_report/planner/validate/summary-20251019T213327Z.json",
+      "category": "planner",
+      "size": 44791,
+      "mtime": "2025-10-19T21:33:27Z",
+      "sha256": "f8e098de7e4e8624c5308df8345c838364e1b150be661d54e6dce4089b2a87d2"
+    }
+  ],
+  "plan_failures": []
+}

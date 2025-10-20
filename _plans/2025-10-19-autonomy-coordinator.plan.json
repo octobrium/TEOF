@@ -22,36 +22,51 @@
       "id": "step-1",
       "title": "Design-orchestration-architecture",
       "status": "done",
-      "notes": "Design doc: _report/agent/Octo/2025-10-19-autonomy-coordinator/design.md",
-      "receipts": []
+      "notes": "Design doc captured and tracked under agent receipts for Octo.",
+      "receipts": [
+        "_report/agent/Octo/2025-10-19-autonomy-coordinator/design.md",
+        "_report/agent/Octo/2025-10-19-autonomy-coordinator/notes.md"
+      ]
     },
     {
       "id": "step-2",
       "title": "Prototype-manager-agent",
       "status": "done",
-      "notes": "Manifest builder: _report/agent/codex-4/manifests/manifest-20251019T130854Z.json",
-      "receipts": []
+      "notes": "Coordinator manifest prototype stored with codex-4 manifests.",
+      "receipts": [
+        "_report/agent/codex-4/manifests/manifest-20251019T130854Z.json",
+        "_report/agent/Octo/2025-10-19-autonomy-coordinator/actions.json"
+      ]
     },
     {
       "id": "step-3",
       "title": "Worker-agent-contract",
       "status": "done",
-      "notes": "Worker harness: tools/autonomy/coordinator_worker.py & docs/automation.md#coordinator-worker-harness",
-      "receipts": []
+      "notes": "Worker harness receipts captured alongside tests bundle.",
+      "receipts": [
+        "_report/agent/Octo/2025-10-19-autonomy-coordinator/tests.json",
+        "_report/agent/Octo/2025-10-19-autonomy-coordinator/summary.json"
+      ]
     },
     {
       "id": "step-4",
       "title": "Guardrail-integration",
       "status": "done",
-      "notes": "Guardrail loop: tools/autonomy/coordinator_guard.py (state: _report/agent/codex-4/autonomy-coordinator/state.json)",
-      "receipts": []
+      "notes": "Guardrail state persisted for audit.",
+      "receipts": [
+        "_report/agent/codex-4/autonomy-coordinator/state.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [],
-  "receipts": []
+  "receipts": [
+    "_report/agent/Octo/2025-10-19-autonomy-coordinator/summary.json",
+    "_report/agent/Octo/2025-10-19-autonomy-coordinator/actions.json",
+    "_report/agent/Octo/2025-10-19-autonomy-coordinator/tests.json"
+  ]
 }

@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-20-memory-ledger-backfill",
+  "created": "2025-10-20T07:57:30Z",
+  "actor": "codex",
+  "summary": "Backfill missing memory log entries for October autonomy work",
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit memory gaps since 2025-10-03",
+      "status": "queued",
+      "notes": "Compare recent plans/queue briefs vs memory/log.jsonl to identify missing entries.",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Capture autonomy coordinator/evolution reflections",
+      "status": "queued",
+      "notes": "Emit reflections + append-only log entries covering the Oct 19 autonomy work.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Automate memory guard for multi-LLM sessions",
+      "status": "queued",
+      "notes": "Add evidence-usage hook or CI to warn when new receipts land without matching memory entries.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Memory log reflects all Oct 19 autonomy artifacts and guard prevents future drift",
+    "owner": "codex",
+    "status": "pending"
+  },
+  "receipts": [],
+  "links": []
+}

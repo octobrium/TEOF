@@ -1,0 +1,45 @@
+{
+  "version": 0,
+  "plan_id": "2025-10-20-evidence-hygiene",
+  "created": "2025-10-20T07:45:00Z",
+  "actor": "codex",
+  "summary": "Tighten evidence hygiene before artifact pruning",
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Ship evidence-of-use scanner and tests",
+      "status": "done",
+      "notes": "tools.maintenance.evidence_usage CLI + regression test landed; automation docs updated.",
+      "receipts": [
+        "_report/usage/evidence-usage.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Run prune_artifacts with fresh receipt",
+      "status": "done",
+      "notes": "Pruned stale _report/usage receipts with 10d cutoff; log captured under prune-artifacts.",
+      "receipts": [
+        "_report/usage/prune-artifacts/20251020T074500Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Fold hygiene loop into multi-LLM + compute backlog",
+      "status": "in_progress",
+      "notes": "Backlog ND-057 now queued to integrate cadence with multi-LLM + compute contribution workflows.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Evidence scanner running in CI or automation receipts; prune run gated by proof of safety.",
+    "owner": "codex",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/usage/evidence-usage.json",
+    "_report/usage/prune-artifacts/20251020T074500Z.json"
+  ],
+  "links": []
+}

@@ -1,0 +1,14 @@
+{
+  "run_id": "20251020T074500Z",
+  "cutoff_hours": 240,
+  "moved_count": 979,
+  "targets": [
+    "_report/usage",
+    "_report/planner",
+    "_report/runner",
+    "_report/agent",
+    "_report/manager"
+  ],
+  "apoptosis_path": "_apoptosis/20251020T074500Z",
+  "notes": "See apoptosis snapshot for detailed file list; restored plan-linked receipts before rerun."
+}
