@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import importlib
-import json
 from pathlib import Path
-from typing import Callable, Dict, Iterable, Mapping, MutableMapping, Sequence
+from typing import Callable, Dict, Mapping, MutableMapping, Sequence
+
+from teof.eval import systemic_receipts
 
 _PILLARS: tuple[str, ...] = ("structure", "alignment", "verification", "risk", "recovery")
 RunnerResult = Dict[str, float]
@@ -30,7 +31,13 @@ def run_heuristic(text: str) -> RunnerResult:
     return _ensure_scores(payload, name="H")
 
 
-_RUNNERS: Dict[str, Runner] = {"H": run_heuristic}
+def run_receipts(text: str) -> RunnerResult:
+    scores = systemic_receipts.evaluate(text)
+    payload = {pillar: float(scores.get(pillar, 0.0)) for pillar in _PILLARS}
+    return _ensure_scores(payload, name="R")
+
+
+_RUNNERS: Dict[str, Runner] = {"H": run_heuristic, "R": run_receipts}
 
 
 def register_runner(tag: str, runner: Runner, *, overwrite: bool = False) -> None:
@@ -73,7 +80,7 @@ def ensemble(scores: Sequence[RunnerResult], weights: Mapping[str, float] | None
     return averaged
 
 
-def score_file(inp: str | Path, which: Sequence[str] = ("H",), weights: Mapping[str, float] | None = None) -> Dict[str, object]:
+def score_file(inp: str | Path, which: Sequence[str] = ("H", "R"), weights: Mapping[str, float] | None = None) -> Dict[str, object]:
     text = load_text(inp)
     parts: list[RunnerResult] = []
     for tag in which:

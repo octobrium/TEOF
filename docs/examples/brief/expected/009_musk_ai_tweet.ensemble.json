@@ -1,20 +1,28 @@
 {
   "by_scorer": [
     {
-      "O": 2,
-      "C": 2,
-      "E": 2,
-      "R": 1,
-      "S": 2,
+      "structure": 0.0,
+      "alignment": 0.0,
+      "verification": 0.0,
+      "risk": 1.0,
+      "recovery": 0.0,
       "name": "H"
+    },
+    {
+      "structure": 0.0,
+      "alignment": 0.0,
+      "verification": 0.0,
+      "risk": 0.0,
+      "recovery": 0.0,
+      "name": "R"
     }
   ],
   "ensemble": {
-    "O": 2.0,
-    "C": 2.0,
-    "E": 2.0,
-    "R": 1.0,
-    "S": 2.0,
-    "total": 9.0
+    "structure": 0.0,
+    "alignment": 0.0,
+    "verification": 0.0,
+    "risk": 0.5,
+    "recovery": 0.0,
+    "total": 0.5
   }
 }

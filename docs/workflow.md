@@ -43,6 +43,7 @@ check that the sequence below is followed:
 9) For external feeds, open a plan, register the signing key (anchors entry), build `python -m tools.external.adapter` receipts, and extend `scripts/ci/check_vdp.py` + dashboards before promoting.  
 10) Keep plan receipts audited: run `python3 scripts/ci/check_plan_receipts_exist.py` regularly and log the summary under `_report/usage/` so missing/untracked evidence is caught early.
   - Draft the idea in `docs/proposals/` first (see `docs/proposals/readme.md`) so other seats can review before it graduates to a Meta‑TEP.
+  - Capture lattice health metrics with `python3 -m tools.metrics.plan_lattice --snapshot <yyyymmdd>` and attach the receipt under `_report/health/plan-lattice/` before starting new hygiene passes; when consolidating plans, append a cost entry per `docs/automation/plan-merge-ledger.md` so the `proportion_index` remains evidence-backed.
 11) Before editing, review active claims via `python -m tools.agent.bus_status --active-only` (or the manager preset) so you coordinate with current owners instead of colliding; escalate on the bus when overlaps appear.  
 12) When waiting on another seat, default to logged contributions: capture a reflection (`python -m tools.memory.cli note --summary "..."`) or draft the next plan (`teof-plan new <slug> --summary "..." --scaffold`) so idle windows still produce receipts.
 
@@ -55,6 +56,7 @@ check that the sequence below is followed:
 
 **Reference Helpers**
 - Use `python3 -m tools.reference.lookup <keywords>` to pull citations from `docs/reference/quick-reference.md` without scanning the entire corpus.
+- Mirror drill runbook: `docs/workflow/mirror-drill.md` (exercise Universal Mirrorhood across substrates every 30 days).
 **Non-goals**
 - No new CI rules unless they protect the kernel import boundary.
 - No new top-level folders unless justified via a 1‑page TEP.

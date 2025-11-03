@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Mapping
 
-from tools.autonomy import actions, audit_guidelines, backlog_synth, health_sensors
+from tools.autonomy import actions, backlog_synth
 from tools.autonomy.shared import load_json
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -172,9 +172,9 @@ def _load_policy(path: Path = CONSENT_POLICY_PATH) -> Mapping[str, object]:
 
 
 def _preflight(todo_path: Path) -> Mapping[str, object] | None:
-    health_report = health_sensors.emit_health_report()
+    health_report = backlog_synth.emit_health_report()
     synth = backlog_synth.synthesise(todo_path=todo_path)
-    audit = audit_guidelines.audit_layers(todo_path=todo_path)
+    audit = backlog_synth.audit_layers(todo_path=todo_path)
     return {
         "health_report": str(health_report.relative_to(ROOT)),
         "synth": synth,

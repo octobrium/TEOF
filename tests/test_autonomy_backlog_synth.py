@@ -66,7 +66,7 @@ def temp_repo(tmp_path, monkeypatch):
     monkeypatch.setattr(backlog_synth, "TODO_PATH", todo_path)
     monkeypatch.setattr(backlog_synth, "POLICY_PATH", policy_path)
     monkeypatch.setattr(backlog_synth, "RECEIPT_DIR", repo_root / "_report" / "autonomy" / "backlog-synth")
-    monkeypatch.setattr(backlog_synth.health_sensors, "emit_health_report", lambda: health_path)
+    monkeypatch.setattr(backlog_synth, "emit_health_report", lambda: health_path)
 
     return repo_root, todo_path, policy_path, advisory_path
 

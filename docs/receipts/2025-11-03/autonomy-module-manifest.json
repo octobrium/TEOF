@@ -1,0 +1,176 @@
+{
+  "generated_at": "2025-11-03T20:49:39Z",
+  "module_count": 34,
+  "entries": [
+    {
+      "path": "tools/autonomy/actions/hygiene.py",
+      "line_count": 175,
+      "sha256": "9ead7591220e0e3a3fdcc7cec159a1d44b28e59d623a3f1466167439a5eeb525"
+    },
+    {
+      "path": "tools/autonomy/advisory_report.py",
+      "line_count": 164,
+      "sha256": "166078c8318b4341575141db0c72b276c86feda3aa0ad08e6281a9589f2617c2"
+    },
+    {
+      "path": "tools/autonomy/agent_relay.py",
+      "line_count": 197,
+      "sha256": "859e7cb88324c1c36842f57923cdafbbf7c4aa6ed95086e84c3bd86822531d96"
+    },
+    {
+      "path": "tools/autonomy/auto_loop.py",
+      "line_count": 499,
+      "sha256": "93ced745b167d32d5b2ebc5f27db52fbae5f83612c3f22a12a5250c6440d8d07"
+    },
+    {
+      "path": "tools/autonomy/autonomy_audit_digest.py",
+      "line_count": 245,
+      "sha256": "0af6b6645cb90e4df766a7b424277bb607990aca91bd89d0b03d05f26dc5ea56"
+    },
+    {
+      "path": "tools/autonomy/backlog_steward.py",
+      "line_count": 256,
+      "sha256": "bafdb630e448cfce0512359f10d9fe0ef4a74d12a04769223838b324db50a3a8"
+    },
+    {
+      "path": "tools/autonomy/backlog_synth.py",
+      "line_count": 395,
+      "sha256": "24348ff4ffb2b0037e6b9d545f1e65ae811ed3e06f1072b2554b8fc510e418a1"
+    },
+    {
+      "path": "tools/autonomy/chronicle.py",
+      "line_count": 255,
+      "sha256": "0de0cb30b467204ae1b456f86f53f15b0077faa8c0f6c9aef07821a30d3db212"
+    },
+    {
+      "path": "tools/autonomy/commitment_guard.py",
+      "line_count": 92,
+      "sha256": "b3fcaf0a25187b179a57ff55440c6a8874a3d525a161cb16c02b6e0ec9dbdeb5"
+    },
+    {
+      "path": "tools/autonomy/conductor.py",
+      "line_count": 220,
+      "sha256": "32e31a83b3026c35fef1146f2e2118a6d55745b84531ae9d2f4078eaf39f8765"
+    },
+    {
+      "path": "tools/autonomy/coordinator_guard.py",
+      "line_count": 225,
+      "sha256": "b7ba8ffd0cb561e18722800d58fecf1aaff9842039a8afd24f9e278cfee82a07"
+    },
+    {
+      "path": "tools/autonomy/coordinator_loop.py",
+      "line_count": 115,
+      "sha256": "751d0a8ff022afb82d486d4cb66b285f8bdfe75c7ebfe8ca6d28c9931d9093f9"
+    },
+    {
+      "path": "tools/autonomy/coordinator_manager.py",
+      "line_count": 192,
+      "sha256": "978d6f076577f4bf27760cde10a1dd5ef79a14d172e61291172c5d6bf88f7213"
+    },
+    {
+      "path": "tools/autonomy/coordinator_orchestrator.py",
+      "line_count": 83,
+      "sha256": "b0905a45d858b1bacd9f1129a518cf7c5e727d48a73334ff2d445851b1314344"
+    },
+    {
+      "path": "tools/autonomy/coordinator_service.py",
+      "line_count": 99,
+      "sha256": "ebca48fbfd3bebd8fcac92a46570f1256fcc36fa4fc2f3959a835d7c6e846701"
+    },
+    {
+      "path": "tools/autonomy/coordinator_worker.py",
+      "line_count": 181,
+      "sha256": "c2a93a8aa932dc86d963e8aa2e85c5500746b7c6e4fda2ff1ec6a92c46cb3962"
+    },
+    {
+      "path": "tools/autonomy/critic.py",
+      "line_count": 205,
+      "sha256": "63e44d69c4715e8272717b355048371ce965005181bedcb13171b0d0a88749ef"
+    },
+    {
+      "path": "tools/autonomy/decision_cycle.py",
+      "line_count": 147,
+      "sha256": "ac03af23b180763c23ed20b2c59fa2dd103ab38918f6953506d5b0cb8dd96279"
+    },
+    {
+      "path": "tools/autonomy/decision_intake.py",
+      "line_count": 77,
+      "sha256": "2079e56d89d1c3e4b653a73a43ae7057da5595b9469087780602047b97c622be"
+    },
+    {
+      "path": "tools/autonomy/ethics_gate.py",
+      "line_count": 192,
+      "sha256": "77b9660f2d8e33229192a353b858fd912157c051e11b7118ef9044c666e164ea"
+    },
+    {
+      "path": "tools/autonomy/frontier.py",
+      "line_count": 321,
+      "sha256": "ad887b7e8c7fccb78bd4b86ff7ba4d01035ca273804b88be32bf4447bf2ad733"
+    },
+    {
+      "path": "tools/autonomy/governance_alert.py",
+      "line_count": 154,
+      "sha256": "70cc3128c07f1f507789898f22f5b5ff981016fb76d2b7d267bc021ac04c4615"
+    },
+    {
+      "path": "tools/autonomy/macro_hygiene.py",
+      "line_count": 231,
+      "sha256": "1c05fa20142072491b2ddb3a6082b468cb6a8601f6002ee4925c499f7efd6108"
+    },
+    {
+      "path": "tools/autonomy/manager_service.py",
+      "line_count": 131,
+      "sha256": "b6c353970101e77e95d62158f0830c11e79a1a0d9cc409beae8f556cf6a4619e"
+    },
+    {
+      "path": "tools/autonomy/next_step.py",
+      "line_count": 324,
+      "sha256": "04b6229edbc81b5b5714abdacc3c267f621d067932fcdfac7b9d5c802231e852"
+    },
+    {
+      "path": "tools/autonomy/objectives_status.py",
+      "line_count": 243,
+      "sha256": "c1483139dfffaa89ccc51d2038f488b892cbfa9ed06231c5531e28ed6b0e1817"
+    },
+    {
+      "path": "tools/autonomy/preflight.py",
+      "line_count": 187,
+      "sha256": "2ab99605e9a11eb1ff4ea550479b79356304969e5268cac7de9d06948bdc7f48"
+    },
+    {
+      "path": "tools/autonomy/prune_cadence.py",
+      "line_count": 166,
+      "sha256": "716e5b9db03fcb13b380fb984626fdc8a92dcb6a11bc007ec4c7c9199d78dfd2"
+    },
+    {
+      "path": "tools/autonomy/receipt_utils.py",
+      "line_count": 71,
+      "sha256": "bf67a3837f51de6c06fc6c35622d7b594fa849c100d7dcd965dda050daa35f16"
+    },
+    {
+      "path": "tools/autonomy/reflection_intake.py",
+      "line_count": 153,
+      "sha256": "dbba3f79a864946e48dc011d561ee6f217f6c1d2d587eb7c2b143936e5594196"
+    },
+    {
+      "path": "tools/autonomy/scan_driver.py",
+      "line_count": 364,
+      "sha256": "acdd9db4a53e90efb84884c7f2f9225c126b0ac4e4b390e65f8b6b03895e0dc5"
+    },
+    {
+      "path": "tools/autonomy/scan_trigger.py",
+      "line_count": 118,
+      "sha256": "35a735c0808b75ada733312dc72009b8623a07e557618844848c640887ec0998"
+    },
+    {
+      "path": "tools/autonomy/shared.py",
+      "line_count": 158,
+      "sha256": "8a5a07b63206eef3e33d638ff755910cdeae4c8ad464e38914810eb2c0cc574c"
+    },
+    {
+      "path": "tools/autonomy/tms.py",
+      "line_count": 222,
+      "sha256": "d29eca26f8ce266a778e8f148717e443fca2445768a2627385985ee5e91a37e8"
+    }
+  ]
+}

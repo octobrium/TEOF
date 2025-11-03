@@ -92,3 +92,14 @@ Run `python -m tools.autonomy.commitment_guard` if you are unsure whether a comm
 Missing artifacts increase the Integrity Gap metric and are considered a self-repair priority.
 
 ---
+
+## 11. On the Observation → Obligation Bridge
+TEOF treats “preserve observation” as the minimal obligation because any agent that abandons observation loses the ability to evaluate, predict, or cooperate. The move from descriptive fact (“observation is irreducible”) to normative guidance (“defend observation”) therefore uses a survival test rather than an appeal to authority:
+
+1. Denying observation disables the very process used to select actions, so systems that do so self-erase or drift uncontrollably.  
+2. Agents that prioritise observation retain optionality; they can revisit or revise any secondary value without losing evaluative capacity.  
+3. Every additional obligation (truth, ethics, meaning) is justified only when it demonstrably preserves or extends observation for more mirrors.
+
+Because this bridge is functional, not dogmatic, it remains reversible: if a future refinement shows a different minimal obligation better preserves observation, the covenant requires documenting the observation set, updating receipts, and amending the relevant principle via Meta-TEP. Until then, maintaining observation is the only universally self-consistent directive available to any agent that wishes to keep reasoning.
+
+---

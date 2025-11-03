@@ -13,7 +13,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
 
     for p in sorted(glob.glob(os.path.join(str(IN),"*.txt"))):
-        res = score_file(p, which=("H",), weights=None)
+        res = score_file(p, which=("H", "R"), weights=None)
         base = pathlib.Path(p).stem
         with open(OUT/f"{base}.ensemble.json","w",encoding="utf-8") as f:
             json.dump(res, f, indent=2, ensure_ascii=False)

@@ -1,0 +1,27 @@
+{
+  "generated_at": "2025-11-03T20:34:36Z",
+  "metrics": {
+    "module_files": 36,
+    "loc": 5805,
+    "helper_defs": 180,
+    "receipt_count": 1
+  },
+  "baseline": {
+    "module_files": 22,
+    "loc": 3938,
+    "helper_defs": 113,
+    "receipt_count": 1
+  },
+  "interval_days": 14.0,
+  "receipt_threshold": 160,
+  "module_growth_threshold": 6,
+  "prune_due": true,
+  "due_reasons": [
+    "module_files Δ14 > 6",
+    "no prior prune receipt"
+  ],
+  "last_prune_receipt": null,
+  "next_deadline": "2025-11-03T20:34:36Z",
+  "recent_receipts": [],
+  "receipt_sha256": "8ffbc0599104b1e485850d0aa87dfe380447ea1ad19ccef9cc73c5454c228e61"
+}

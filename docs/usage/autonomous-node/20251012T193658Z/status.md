@@ -21,12 +21,12 @@
 ## Automation Health
 - Modules: 22 | missing receipts: 4 | stale>30d: 4 | missing tests: 2
 - Stale receipts (limit 5):
-  - tools.autonomy.audit_guidelines: last_receipt=never
+  - tools.autonomy.backlog_synth.audit_layers: last_receipt=never
   - tools.autonomy.ethics_gate: last_receipt=never
   - tools.receipts.log_event (impact preset): last_receipt=never
   - tools.autonomy.node_runner: retired after 2025-10-18
 - No direct tests detected (limit 5):
-  - tools.autonomy.audit_guidelines: last_receipt=never
+  - tools.autonomy.backlog_synth.audit_layers: last_receipt=never
   - tools.autonomy.node_runner: retired after 2025-10-18
 
 ## Auto Objectives (detected)

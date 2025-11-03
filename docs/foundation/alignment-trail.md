@@ -51,6 +51,19 @@ These heuristics show up in tooling today:
 - **Proportion index** (force applied ÷ (coherence gain + risk reduction)) — operationalised in proportional guardrails and manager dashboards.
 - **Reversibility score** (recoverable state ÷ affected state) — enforced by proportional action policies and automation receipts.
 
+### Metric primitives (canonical form)
+
+Each metric is captured as a `(value, evidence, window)` tuple in receipts so refinements stay auditable and reversible. Where tooling cannot currently emit the measurement, log `evidence` as the observation set that would support the future calculation. When a better refinement becomes available, supersede the previous receipt without deleting it.
+
+| Metric | Definition | Evidence expectation | Revision rule |
+| --- | --- | --- | --- |
+| `coherence_delta` | `(signal_retained - signal_lost) / max(total_complexity, ε)`; signal terms are measured against the last stable baseline for the same plan or component. | Baseline hash or dataset, diff receipt, rationale for any ε smoothing. | Update when baselines shift; carry forward prior tuple in the receipt history for comparison. |
+| `truth_gain` | `(accuracy_current - accuracy_previous) / observation_window`; accuracy is the fraction of predictions matching receipts across mirrors. | Validator output, mirror count, time/window definition. | Re-run after each recursion; mark the superseded window and keep both tuples. |
+| `proportion_index` | `force_applied / max(coherence_gain + risk_reduction, ε)` where force captures enforcement cost (people hours, automation cycles, privileges escalated). | Cost ledger or plan step, quantified coherence gain, quantified risk delta. | Revise when costs or gains are re-estimated; document trigger for re-estimation. |
+| `reversibility_score` | `recoverable_state / affected_state`; both values reference the scope touched by the action or policy. | Snapshot or rollback receipt demonstrating the recoverable portion. | Replace once a deeper rollback rehearsal or incident provides stronger evidence. |
+
+These forms are deliberately minimal—supporting evidence should scale with impact (P6). Automate capture where possible, but prefer retaining a coarse tuple over fabricating precision; observation of uncertainty is still valid data under P1.
+
 Default enforcement aligns with the trail:
 
 - Reject changes that reduce coherence delta unless they demonstrate superior truth gain with bounded risk.

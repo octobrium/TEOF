@@ -1,0 +1,150 @@
+{
+  "generated_at": "2025-11-03T20:38:15Z",
+  "module_file_count": 36,
+  "per_file": [
+    {
+      "path": "tools/autonomy/actions/hygiene.py",
+      "line_count": 175
+    },
+    {
+      "path": "tools/autonomy/advisory_report.py",
+      "line_count": 164
+    },
+    {
+      "path": "tools/autonomy/agent_relay.py",
+      "line_count": 197
+    },
+    {
+      "path": "tools/autonomy/audit_guidelines.py",
+      "line_count": 74
+    },
+    {
+      "path": "tools/autonomy/auto_loop.py",
+      "line_count": 499
+    },
+    {
+      "path": "tools/autonomy/autonomy_audit_digest.py",
+      "line_count": 245
+    },
+    {
+      "path": "tools/autonomy/backlog_steward.py",
+      "line_count": 256
+    },
+    {
+      "path": "tools/autonomy/backlog_synth.py",
+      "line_count": 294
+    },
+    {
+      "path": "tools/autonomy/chronicle.py",
+      "line_count": 255
+    },
+    {
+      "path": "tools/autonomy/commitment_guard.py",
+      "line_count": 92
+    },
+    {
+      "path": "tools/autonomy/conductor.py",
+      "line_count": 220
+    },
+    {
+      "path": "tools/autonomy/coordinator_guard.py",
+      "line_count": 225
+    },
+    {
+      "path": "tools/autonomy/coordinator_loop.py",
+      "line_count": 115
+    },
+    {
+      "path": "tools/autonomy/coordinator_manager.py",
+      "line_count": 192
+    },
+    {
+      "path": "tools/autonomy/coordinator_orchestrator.py",
+      "line_count": 83
+    },
+    {
+      "path": "tools/autonomy/coordinator_service.py",
+      "line_count": 99
+    },
+    {
+      "path": "tools/autonomy/coordinator_worker.py",
+      "line_count": 181
+    },
+    {
+      "path": "tools/autonomy/critic.py",
+      "line_count": 205
+    },
+    {
+      "path": "tools/autonomy/decision_cycle.py",
+      "line_count": 147
+    },
+    {
+      "path": "tools/autonomy/decision_intake.py",
+      "line_count": 77
+    },
+    {
+      "path": "tools/autonomy/ethics_gate.py",
+      "line_count": 192
+    },
+    {
+      "path": "tools/autonomy/frontier.py",
+      "line_count": 321
+    },
+    {
+      "path": "tools/autonomy/governance_alert.py",
+      "line_count": 154
+    },
+    {
+      "path": "tools/autonomy/health_sensors.py",
+      "line_count": 65
+    },
+    {
+      "path": "tools/autonomy/macro_hygiene.py",
+      "line_count": 231
+    },
+    {
+      "path": "tools/autonomy/manager_service.py",
+      "line_count": 131
+    },
+    {
+      "path": "tools/autonomy/next_step.py",
+      "line_count": 324
+    },
+    {
+      "path": "tools/autonomy/objectives_status.py",
+      "line_count": 243
+    },
+    {
+      "path": "tools/autonomy/preflight.py",
+      "line_count": 187
+    },
+    {
+      "path": "tools/autonomy/prune_cadence.py",
+      "line_count": 166
+    },
+    {
+      "path": "tools/autonomy/receipt_utils.py",
+      "line_count": 71
+    },
+    {
+      "path": "tools/autonomy/reflection_intake.py",
+      "line_count": 153
+    },
+    {
+      "path": "tools/autonomy/scan_driver.py",
+      "line_count": 364
+    },
+    {
+      "path": "tools/autonomy/scan_trigger.py",
+      "line_count": 118
+    },
+    {
+      "path": "tools/autonomy/shared.py",
+      "line_count": 158
+    },
+    {
+      "path": "tools/autonomy/tms.py",
+      "line_count": 222
+    }
+  ]
+}

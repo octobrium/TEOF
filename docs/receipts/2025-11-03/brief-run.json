@@ -1,0 +1,27 @@
+{
+  "generated_at": "20251103T205027Z",
+  "inputs": [
+    "001_whitehouse_ai.txt",
+    "002_fed_speech.txt",
+    "003_tesla_q2.txt",
+    "004_meta_ai.txt",
+    "005_nytimes_climate.txt",
+    "006_reuters_article.txt",
+    "007_nature_ai.txt",
+    "008_thinktank_ai.txt",
+    "009_musk_ai_tweet.txt",
+    "010_crypto_thread.txt"
+  ],
+  "artifacts": [
+    "001_whitehouse_ai.ensemble.json",
+    "002_fed_speech.ensemble.json",
+    "003_tesla_q2.ensemble.json",
+    "004_meta_ai.ensemble.json",
+    "005_nytimes_climate.ensemble.json",
+    "006_reuters_article.ensemble.json",
+    "007_nature_ai.ensemble.json",
+    "008_thinktank_ai.ensemble.json",
+    "009_musk_ai_tweet.ensemble.json",
+    "010_crypto_thread.ensemble.json"
+  ]
+}

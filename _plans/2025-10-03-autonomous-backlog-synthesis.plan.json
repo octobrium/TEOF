@@ -19,10 +19,9 @@
       "id": "S2",
       "title": "Teach synthesiser to ingest advisories and write receipts",
       "status": "done",
-      "notes": "Extend tools.autonomy.backlog_synth to append advisory tasks and emit receipt JSON backed by health sensors.",
+      "notes": "Extend tools.autonomy.backlog_synth to append advisory tasks and emit receipt JSON backed by internal health metrics.",
       "receipts": [
-        "tools/autonomy/backlog_synth.py",
-        "tools/autonomy/health_sensors.py"
+        "tools/autonomy/backlog_synth.py"
       ]
     },
     {

@@ -1,17 +1,21 @@
-"""Synthesize backlog items from health signals and advisories."""
+"""Synthesize backlog items from health signals, audits, and advisories."""
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Iterable, List, Mapping
 
-from tools.autonomy import health_sensors
 from tools.autonomy.shared import load_json
 
 ROOT = Path(__file__).resolve().parents[2]
 TODO_PATH = ROOT / "_plans" / "next-development.todo.json"
 POLICY_PATH = ROOT / "docs" / "automation" / "backlog-policy.json"
+GUIDELINE_DIR = ROOT / "docs" / "specs"
+SUMMARY_PATH = ROOT / "_report" / "usage" / "external-summary.json"
+HYGIENE_GLOB = "_report/usage/autonomy-actions/hygiene-*.json"
+HEALTH_OUTPUT_DIR = ROOT / "_report" / "health"
 RECEIPT_DIR = ROOT / "_report" / "autonomy" / "backlog-synth"
 
 
@@ -138,6 +142,103 @@ def _write_receipt(
     return destination
 
 
+def _utc_now() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+def _iso_now() -> str:
+    return _utc_now().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _authenticity_signal() -> Mapping[str, object]:
+    raw = load_json(SUMMARY_PATH)
+    summary = raw if isinstance(raw, Mapping) else None
+    attention_count = 0
+    if summary and isinstance(summary.get("feeds"), Mapping):
+        for feed in summary["feeds"].values():
+            if isinstance(feed, Mapping) and feed.get("trust", {}).get("status") == "attention":
+                attention_count += 1
+    return {
+        "source": _relative(SUMMARY_PATH),
+        "attention_feeds": attention_count,
+    }
+
+
+def _latest_hygiene() -> Mapping[str, object] | None:
+    reports: List[Path] = sorted(ROOT.glob(HYGIENE_GLOB))
+    if not reports:
+        return None
+    latest = reports[-1]
+    raw = load_json(latest)
+    data = raw if isinstance(raw, Mapping) else None
+    if data is None:
+        return None
+    result = dict(data)
+    result["report_path"] = _relative(latest)
+    return result
+
+
+def emit_health_report() -> Path:
+    HEALTH_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    payload: dict[str, object] = {
+        "generated_at": _iso_now(),
+        "authenticity": _authenticity_signal(),
+        "hygiene": _latest_hygiene(),
+    }
+    destination = HEALTH_OUTPUT_DIR / f"health-{_utc_now().strftime('%Y%m%dT%H%M%SZ')}.json"
+    destination.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return destination
+
+
+def _collect_layers() -> List[str]:
+    layers: List[str] = []
+    for file in GUIDELINE_DIR.glob("*.md"):
+        layers.append(file.stem)
+    return sorted(layers)
+
+
+def _needs_backlog(todo: Mapping[str, object], layer: str) -> bool:
+    for item in todo.get("items", []):
+        if isinstance(item, Mapping) and item.get("layer") == layer and item.get("status") != "done":
+            return False
+    return True
+
+
+def _timestamp_slug(value: object) -> str:
+    if isinstance(value, str):
+        for fmt in ("%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%dT%H:%M:%S.%fZ"):
+            try:
+                ts = datetime.strptime(value, fmt)
+            except ValueError:
+                continue
+            return ts.strftime("%Y%m%dT%H%M%SZ")
+        sanitised = re.sub(r"[^A-Za-z0-9._-]", "_", value).strip("_")
+        return sanitised or "unknown"
+    return "unknown"
+
+
+def audit_layers(todo_path: Path = TODO_PATH) -> Path:
+    raw = load_json(todo_path)
+    todo = raw if isinstance(raw, Mapping) else {}
+    layers = _collect_layers()
+    gaps: List[str] = []
+    for layer in layers:
+        if _needs_backlog(todo, layer):
+            gaps.append(layer)
+    audit_dir = ROOT / "_report" / "usage" / "autonomy-audit"
+    audit_dir.mkdir(parents=True, exist_ok=True)
+    report = {
+        "generated_at": todo.get("updated"),
+        "layers": layers,
+        "gaps": gaps,
+        "todo_path": _relative(todo_path) if todo_path.exists() else None,
+    }
+    slug = _timestamp_slug(todo.get("updated"))
+    path = audit_dir / f"audit-{slug}.json"
+    path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return path
+
+
 def synthesise(todo_path: Path = TODO_PATH, policy_path: Path = POLICY_PATH) -> Mapping[str, object] | None:
     raw_todo = load_json(todo_path)
     todo = raw_todo if isinstance(raw_todo, Mapping) else None
@@ -149,7 +250,7 @@ def synthesise(todo_path: Path = TODO_PATH, policy_path: Path = POLICY_PATH) -> 
         return None
     rules = _ensure_list(policy.get("rules"))
     updated = dict(todo)
-    health_report = health_sensors.emit_health_report()
+    health_report = emit_health_report()
     raw_health = load_json(health_report)
     health: Mapping[str, object] = raw_health if isinstance(raw_health, Mapping) else {}
 
@@ -291,4 +392,4 @@ def synthesise(todo_path: Path = TODO_PATH, policy_path: Path = POLICY_PATH) -> 
     return result
 
 
-__all__ = ["synthesise"]
+__all__ = ["synthesise", "emit_health_report", "audit_layers"]
