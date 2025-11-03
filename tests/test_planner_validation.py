@@ -83,6 +83,23 @@ def test_validate_plan_rejects_duplicate_step_ids(tmp_path: Path) -> None:
     assert any("duplicates" in err for err in result.errors)
 
 
+def test_validate_plan_rejects_duplicate_keys(tmp_path: Path) -> None:
+    path = tmp_path / "duplicate.plan.json"
+    path.write_text(
+        """
+        {
+          "version": 0,
+          "plan_id": "dup",
+          "plan_id": "dup-again"
+        }
+        """,
+        encoding="utf-8",
+    )
+    result = validate_plan(path)
+    assert not result.ok
+    assert any("duplicate key" in err for err in result.errors)
+
+
 def test_validate_plan_requires_metadata(tmp_path: Path) -> None:
     payload = base_payload()
     payload.pop("layer")

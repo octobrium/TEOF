@@ -1,0 +1,87 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-03-plan-hygiene-consolidation",
+  "created": "2025-11-03T21:15:00Z",
+  "actor": "codex",
+  "summary": "Consolidate stale hygiene plans and carry forward remaining work",
+  "status": "done",
+  "updated": "2025-11-03T21:30:00Z",
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 5,
+  "impact_score": 4,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Finalize duplicate-key guardrail",
+      "status": "done",
+      "notes": "Migrate outstanding lint automation from superseded plan `2025-10-03-plan-schema-dedupe`; ship enforcement and doc update.",
+      "receipts": [
+        "tools/planner/validate.py",
+        "tests/test_planner_validation.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Publish push-readiness SOP",
+      "status": "done",
+      "notes": "Capture SOP + pilot results from `2025-10-04-push-ready-checklist` and ensure receipts land in docs/workflow.",
+      "receipts": [
+        "docs/workflow.md",
+        "_report/usage/push-ready/20251103T212800Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Close legacy evidence + autonomy hygiene gaps",
+      "status": "done",
+      "notes": "Port remaining work from `2025-10-06-teof-btc-scoreboard`, `2025-10-19-autonomy-evolution`, and `2025-10-20-evidence-hygiene` into a single backlog entry with fresh receipts.",
+      "receipts": [
+        "queue/073-evidence-autonomy-integration.md",
+        "_report/usage/autonomy-prune/20251103-integrated-backlog.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Stale hygiene plans closed; remaining work tracked with receipts under this plan",
+    "owner": "codex",
+    "status": "satisfied",
+    "notes": "Future automation tracked via queue/073."
+  },
+  "links": [
+    {
+      "type": "supersedes",
+      "ref": "_plans/2025-10-03-plan-schema-dedupe.plan.json"
+    },
+    {
+      "type": "supersedes",
+      "ref": "_plans/2025-10-04-push-ready-checklist.plan.json"
+    },
+    {
+      "type": "supersedes",
+      "ref": "_plans/2025-10-06-teof-btc-scoreboard.plan.json"
+    },
+    {
+      "type": "supersedes",
+      "ref": "_plans/2025-10-19-autonomy-evolution.plan.json"
+    },
+    {
+      "type": "supersedes",
+      "ref": "_plans/2025-10-20-evidence-hygiene.plan.json"
+    }
+  ],
+  "receipts": [
+    "queue/073-evidence-autonomy-integration.md",
+    "_report/usage/autonomy-prune/20251103-integrated-backlog.json"
+  ],
+  "systemic_targets": [
+    "S1",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5",
+    "L6"
+  ]
+}

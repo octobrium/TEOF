@@ -8,13 +8,14 @@
   "layer": "L5",
   "systemic_scale": 5,
   "impact_score": 5,
-  "status": "in_progress",
+  "status": "done",
+  "updated": "2025-11-03T21:18:00Z",
   "steps": [
     {
       "id": "S1",
       "title": "Draft push readiness SOP covering manifests, claims, receipts",
-      "status": "queued",
-      "notes": "Draft SOP capturing manifests/claims/receipts requirements.",
+      "status": "blocked",
+      "notes": "Documentation folded into `2025-11-03-plan-hygiene-consolidation` S2.",
       "receipts": []
     },
     {
@@ -32,15 +33,16 @@
     {
       "id": "S3",
       "title": "Pilot checklist on current branches and document results",
-      "status": "queued",
-      "notes": "Pilot checklist on live branches and log outcomes.",
+      "status": "blocked",
+      "notes": "Pilot captured in consolidation plan S2.",
       "receipts": []
     }
   ],
   "checkpoint": {
     "description": "Push readiness checklist adopted and enforced",
     "owner": "codex-3",
-    "status": "pending"
+    "status": "superseded",
+    "notes": "Checklist automation landed; doc + pilot tracked under consolidation plan."
   },
   "links": [],
   "receipts": [

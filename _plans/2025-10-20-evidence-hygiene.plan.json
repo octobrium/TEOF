@@ -15,7 +15,8 @@
   ],
   "layer": "L6",
   "systemic_scale": 4,
-  "status": "in_progress",
+  "status": "done",
+  "updated": "2025-11-03T21:18:00Z",
   "steps": [
     {
       "id": "S1",
@@ -38,15 +39,16 @@
     {
       "id": "S3",
       "title": "Fold hygiene loop into multi-LLM + compute backlog",
-      "status": "in_progress",
-      "notes": "Backlog ND-057 now queued to integrate cadence with multi-LLM + compute contribution workflows.",
+      "status": "blocked",
+      "notes": "Integrated into `2025-11-03-plan-hygiene-consolidation` S3 and backlog ND-057.",
       "receipts": []
     }
   ],
   "checkpoint": {
     "description": "Evidence scanner running in CI or automation receipts; prune run gated by proof of safety.",
     "owner": "codex",
-    "status": "pending"
+    "status": "superseded",
+    "notes": "Hygiene loop migration tracked in consolidation plan."
   },
   "receipts": [
     "_report/usage/evidence-usage.json",

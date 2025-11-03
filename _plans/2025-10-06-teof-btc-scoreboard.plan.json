@@ -3,7 +3,8 @@
   "checkpoint": {
     "description": "BTC scoreboard documented with transparent receipts",
     "owner": "codex-4",
-    "status": "pending"
+    "status": "superseded",
+    "notes": "Automation carried into queue/073 via consolidation plan."
   },
   "created": "2025-10-06T20:47:41Z",
   "impact_score": 4,
@@ -25,8 +26,9 @@
     "docs/impact/btc-ledger.md",
     "_report/impact/btc-ledger/2025-10-07-ledger.json"
   ],
-  "stage": "in_progress",
-  "status": "in_progress",
+  "stage": "done",
+  "status": "done",
+  "updated": "2025-11-03T21:18:00Z",
   "steps": [
     {
       "id": "step-1",
@@ -48,13 +50,13 @@
     },
     {
       "id": "step-3",
-      "notes": "Set up automated dashboards/receipts so the scoreboard stays observable",
+      "title": "Audit trail",
+      "status": "blocked",
+      "notes": "Set up automated dashboards/receipts so the scoreboard stays observable — transferred to queue/073.",
       "receipts": [
         "_report/impact/btc-ledger/2025-10-07-ledger.json",
         "_report/impact/btc-ledger/proof/README.md"
-      ],
-      "status": "in_progress",
-      "title": "Audit trail"
+      ]
     }
   ],
   "summary": "Document and audit the TEOF BTC wallet as an external scoreboard tied to observation-fueled initiatives.",

@@ -1,0 +1,33 @@
+{
+  "generated": "2025-11-03T21:30:00Z",
+  "source_plans": [
+    "2025-10-06-teof-btc-scoreboard",
+    "2025-10-19-autonomy-evolution",
+    "2025-10-20-evidence-hygiene"
+  ],
+  "consolidation_plan": "2025-11-03-plan-hygiene-consolidation",
+  "outstanding_work": {
+    "btc_scoreboard": {
+      "next_step": "Automate audit trail emission",
+      "required_receipts": [
+        "_report/impact/btc-ledger/audit-latest.json"
+      ],
+      "owner_hint": "impact ops"
+    },
+    "autonomy_audit_loop": {
+      "next_step": "Wire cadence output into autonomy audit loop",
+      "required_receipts": [
+        "_report/usage/autonomy-prune/cadence-latest.json"
+      ],
+      "owner_hint": "autonomy steward"
+    },
+    "evidence_hygiene": {
+      "next_step": "Integrate evidence scanner into multi-LLM backlog",
+      "required_receipts": [
+        "docs/workflow.md",
+        "tools/autonomy/backlog_synth.py"
+      ],
+      "owner_hint": "plan hygiene"
+    }
+  }
+}

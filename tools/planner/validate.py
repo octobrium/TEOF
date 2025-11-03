@@ -36,6 +36,27 @@ DEFAULT_SUMMARY_DIR = ROOT / "_report" / "planner" / "validate"
 _QUEUE_INDEX: Dict[str, fractal_conformance.QueueEntry] | None = None
 
 
+class DuplicateKeyError(ValueError):
+    """Raised when duplicate keys are detected during JSON decoding."""
+
+    def __init__(self, key: str) -> None:
+        super().__init__(f"duplicate key '{key}'")
+        self.key = key
+
+
+def _object_pairs_no_duplicates(pairs: Iterable[tuple[str, Any]]) -> Dict[str, Any]:
+    obj: Dict[str, Any] = {}
+    for key, value in pairs:
+        if key in obj:
+            raise DuplicateKeyError(key)
+        obj[key] = value
+    return obj
+
+
+def _load_json_no_duplicates(text: str) -> Any:
+    return json.loads(text, object_pairs_hook=_object_pairs_no_duplicates)
+
+
 def _dedupe_preserve(items: Iterable[str]) -> List[str]:
     seen: set[str] = set()
     ordered: List[str] = []
@@ -478,11 +499,13 @@ def _check_receipt(path_str: str, context: str, repo_root: Path, errors: List[st
         return
     if target.suffix.lower() == ".json":
         try:
-            json.loads(target.read_text(encoding="utf-8"))
+            _load_json_no_duplicates(target.read_text(encoding="utf-8"))
         except UnicodeDecodeError:
             errors.append(f"{context} must be UTF-8 text: '{path_str}'")
         except json.JSONDecodeError:
             errors.append(f"{context} must be valid JSON: '{path_str}'")
+        except DuplicateKeyError as exc:
+            errors.append(f"{context} contains {exc}")
     tracked = _git_tracked_paths(str(repo_root))
     if tracked is not None:
         normalized = rec_path.as_posix()
@@ -531,9 +554,11 @@ def iter_plan_paths(paths: Iterable[str]) -> List[Path]:
 def validate_plan(path: Path, *, strict: bool = False) -> ValidationResult:
     errors: List[str] = []
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
+        data = _load_json_no_duplicates(path.read_text(encoding="utf-8"))
     except FileNotFoundError:
         return ValidationResult(path, ["file not found"])
+    except DuplicateKeyError as exc:
+        return ValidationResult(path, [f"invalid JSON: {exc}"])
     except json.JSONDecodeError as exc:
         return ValidationResult(path, [f"invalid JSON: {exc}"])
 

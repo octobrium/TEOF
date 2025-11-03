@@ -4,8 +4,9 @@
   "created": "2025-10-03T04:45:00Z",
   "actor": "codex-3",
   "summary": "Guard planner files against duplicate sections",
-  "status": "in_progress",
-  "stage": "in_progress",
+  "status": "done",
+  "stage": "done",
+  "updated": "2025-11-03T21:18:00Z",
   "steps": [
     {
       "id": "S1",
@@ -21,24 +22,25 @@
     {
       "id": "S2",
       "title": "Add planner lint for duplicate keys",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Extend `tools.planner.validate` (or CI guard) to fail when JSON keys repeat within plan documents.",
+      "status": "blocked",
+      "stage": "blocked",
+      "notes": "Transferred to `2025-11-03-plan-hygiene-consolidation` S1 for follow-up.",
       "receipts": []
     },
     {
       "id": "S3",
       "title": "Clean existing plans and document rule",
-      "status": "queued",
-      "stage": "queued",
-      "notes": "Normalize current plans, record diffs, and update docs/workflow.md with the duplicate-key policy.",
+      "status": "blocked",
+      "stage": "blocked",
+      "notes": "Work folded into `2025-11-03-plan-hygiene-consolidation` S1.",
       "receipts": []
     }
   ],
   "checkpoint": {
     "description": "Planner validator blocks duplicate keys; existing plans deduped with receipts",
     "owner": "codex-3",
-    "status": "pending"
+    "status": "superseded",
+    "notes": "Validator migration tracked in consolidation plan."
   },
   "links": [
     {

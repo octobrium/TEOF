@@ -44,6 +44,7 @@ check that the sequence below is followed:
 10) Keep plan receipts audited: run `python3 scripts/ci/check_plan_receipts_exist.py` regularly and log the summary under `_report/usage/` so missing/untracked evidence is caught early.
   - Draft the idea in `docs/proposals/` first (see `docs/proposals/readme.md`) so other seats can review before it graduates to a Meta‑TEP.
   - Capture lattice health metrics with `python3 -m tools.metrics.plan_lattice --snapshot <yyyymmdd>` and attach the receipt under `_report/health/plan-lattice/` before starting new hygiene passes; when consolidating plans, append a cost entry per `docs/automation/plan-merge-ledger.md` so the `proportion_index` remains evidence-backed.
+  - Plan JSON must remain canonical: run `python3 -m tools.planner.validate` (or the CI guard) to ensure keys are unique—duplicate sections now fail fast so hygiene changes stay reversible.
 11) Before editing, review active claims via `python -m tools.agent.bus_status --active-only` (or the manager preset) so you coordinate with current owners instead of colliding; escalate on the bus when overlaps appear.  
 12) When waiting on another seat, default to logged contributions: capture a reflection (`python -m tools.memory.cli note --summary "..."`) or draft the next plan (`teof-plan new <slug> --summary "..." --scaffold`) so idle windows still produce receipts.
 
@@ -60,6 +61,24 @@ check that the sequence below is followed:
 **Non-goals**
 - No new CI rules unless they protect the kernel import boundary.
 - No new top-level folders unless justified via a 1‑page TEP.
+
+### Push Readiness SOP (codex-4 default)
+
+1. **Run the checklist** before publishing or requesting merge:
+   ```bash
+   python3 -m tools.agent.push_ready --require-test tests/<receipt-or-test>.py
+   ```
+   - Add `--require-receipt <path>` for receipts a reviewer must see (e.g., `_report/health/plan-lattice/<date>.json`).
+   - `--allow-branch <name>` covers exceptional branches that should still be eligible.
+2. **Interpret the JSON:** the command emits structured results for audit logs (`ready: true/false`, plus named checks). Capture the output in `_report/usage/push-ready/` alongside the plan executing the work.
+3. **Reconcile failures:**
+   - `git_clean=false` → commit/stash work or explain the deviation in a receipt before continuing.
+   - `branch_match=false` → switch to `main` or an `agent/<id>/...` branch.
+   - `claims_clear=false` → close or hand off active claims in `_bus/claims/`.
+   - `tests_exist=false` / `receipts_exist=false` → add the missing artifacts and re-run.
+4. **Log the run** by attaching both the command output and any follow-up receipts to the active plan so reviewers (and automation) inherit the same proof trail.
+
+This SOP keeps push decisions deterministic, repeatable, and auditable; treat it as a pre-flight step for every merge.
 
 ## Backlog discipline
 - **Capture ideas immediately.** The moment an actionable concept appears, log it in `docs/ideas/` (`teof ideas mark <slug> --status draft`) so its layer/systemic intent is recorded. Promote to a plan only after triage confirms scope and ownership.
