@@ -13,7 +13,7 @@ This guide complements `2025-09-22-decentralized-propagation-pilot` and tracks t
 | Systemic axis | Layer | Rationale |
 | --- | --- | --- |
 | `S3` Propagation | `L3` Properties | Ensure signals flow between nodes without a central coordinator. |
-| `S4` Defense | `L4` Architecture | Detect tampering or drift across governance artifacts. |
+| `S4` Resilience | `L4` Architecture | Detect tampering or drift across governance artifacts. |
 | `S6` Truth | `L5` Workflow | Keep receipts reproducible and comparable across deployments. |
 | `S7` Power | `L5` Workflow | Escalate conflicts only when higher axes are satisfied. |
 

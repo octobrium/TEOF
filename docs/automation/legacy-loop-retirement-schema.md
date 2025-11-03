@@ -21,9 +21,9 @@ Systemic/Layer coordinates across documentation, metadata, and automation.
 | ---              | ---                   | ---                 | --- |
 | Observation      | S1 Unity, S2 Energy   | L0–L2               | Already present in `Observation trigger` fields; ensure receipts cite S1/S2 explicitly. |
 | Coherence        | S3 Propagation, S6 Truth | L3–L5            | Use `systemic_targets: ["S3", "S6"]` and record exact layer (e.g., `L4`). |
-| Ethics           | S4 Defense, S6 Truth, S8 Ethics | L4–L5      | Guardrails MUST list prerequisite axes (`["S4","S6"]`) before `S8`. |
+| Ethics           | S4 Resilience, S6 Truth, S8 Ethics | L4–L5      | Guardrails MUST list prerequisite axes (`["S4","S6"]`) before `S8`. |
 | Reproducibility  | S5 Intelligence, S6 Truth | L3–L6          | Replace “Reproducibility↑” with `systemic_targets: ["S5","S6"]`; automation receipts stay under L6. |
-| Self-repair      | S4 Defense, S10 Meaning | L5–L6           | Encode escalation flows as `S4` guards that evolve into `S10` once recovery succeeds. |
+| Self-repair      | S4 Resilience, S10 Meaning | L5–L6           | Encode escalation flows as `S4` guards that evolve into `S10` once recovery succeeds. |
 
 When an legacy loop phrase implied multiple axes (e.g., “Coherence↑ Safety↑”), split
 it into `systemic_targets` with priority ordering. Use the ordering rule from

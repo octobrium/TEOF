@@ -23,7 +23,7 @@ Layer Targets: L5 Workflow
     (directory / "010-followup.md").write_text(
         """# Task: Secondary task
 Coordinate: S2:L4
-Systemic Targets: S2 Energy, S4 Defense
+Systemic Targets: S2 Energy, S4 Resilience
 Layer Targets: L4 Architecture
 """,
         encoding="utf-8",

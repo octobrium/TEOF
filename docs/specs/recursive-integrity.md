@@ -55,7 +55,7 @@ Use the checklist across layers and agents. Failure on any item requires receipt
 1. **Unity** – Does the work point to a single capsule + anchor? (`capsule/current` symlink)  
 2. **Energy** – Are transformations logged with receipts timestamps? (`artifacts/systemic_out/`)  
 3. **Propagation** – Can another host replay the change from hashes + receipts?  
-4. **Defense** – Did guardrails run and pass? (CI badge, local run log)  
+4. **Resilience** – Did guardrails run and pass? (CI badge, local run log)  
 5. **Intelligence** – Were contradictions resolved via `_plans/` or `_bus/` updates?  
 6. **Truth** – Are assertions backed by consensus or tests? (`tests/**`, `_report/usage/manager-report.md`)  
 7. **Power** – Does new automation respect policy boundaries? (imports, budget caps)  

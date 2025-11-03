@@ -19,7 +19,7 @@ until provenance (consent, human review, safeguards) is present.
 - Coherence guards (frontier, critic, TMS) answer “does the plan make structural sense?”
 - The ethics gate answers “should this plan be allowed to act with the current receipts?”
 - A task can be coherent yet still violate ethics if provenance is missing. Treat missing receipts as an ethics defect, not a coherence bug, and escalate through this gate before automation proceeds.
-- Before escalating, confirm higher systemic axes (Unity → Power) remain satisfied or actively defended (see [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement)). Ethics does not outrank Defense/Truth; it inherits them.
+- Before escalating, confirm higher systemic axes (Unity → Power) remain satisfied or actively defended (see [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](../foundation/systemic-scale.md#hierarchy-enforcement)). Ethics does not outrank Resilience/Truth; it inherits them.
 
 Receipts produced by this gate live under `docs/receipts/ethics/`:
 

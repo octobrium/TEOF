@@ -1,6 +1,6 @@
 # Task: White House AI Executive Order Summary
 Goal: Capture key directives from the Executive Order and note required follow-up for policy teams.
-Systemic Targets: S1 Unity, S4 Defense, S6 Truth
+Systemic Targets: S1 Unity, S4 Resilience, S6 Truth
 Layer Targets: L5 Workflow
 Coordinate: S4:L5
 Sunset: Replace once implementing regulations are published or within 60 days (whichever arrives first).

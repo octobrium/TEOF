@@ -84,7 +84,7 @@ Each layer includes a failure mode to diagnose misalignment.
 1. **Unity**: A stable reference frame for observation; failure: fragmentation.
 2. **Energy**: Capacity for change or action; failure: stasis or entropy.
 3. **Propagation**: Transfer of coherent signals; failure: isolation.
-4. **Defense**: Protection of coherence; failure: degradation.
+4. **Resilience**: Protection of coherence; failure: degradation.
 5. **Intelligence**: Recursive refinement of observation; failure: rigidity or overreaction.
 6. **Truth**: Alignment with invariants; failure: delusion.
 7. **Power**: Capacity to effect change; failure: impotence.
@@ -146,7 +146,7 @@ As a substrate-neutral foundation, TEOF invites observers to refine its principl
 ## 10. Appendix A — Derived Governance Layers
 
 The layers **Power**, **Ethics**, **Freedom**, and **Meaning** are classified as *derived governance layers*.  
-They depend on the stability of the foundational six layers (Unity, Energy, Propagation, Defense, Intelligence, Truth).  
+They depend on the stability of the foundational six layers (Unity, Energy, Propagation, Resilience, Intelligence, Truth).  
 
 Purpose of classification:
 - **Minimizes Core attack surface** by ensuring derived layers cannot override the foundational layers.

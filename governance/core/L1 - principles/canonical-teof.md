@@ -38,7 +38,7 @@ P4. Coherence Before Complexity
 Build the smallest reversible structure that preserves the proven patterns. Introduce complexity only when it measurably improves clarity and can be rolled back.
 
 P5. Order of Emergence (Load‑Bearing)  
-Advance and evaluate work in the natural sequence: Unity → Energy → Propagation → Defense → Intelligence/Truth. Inverting this order raises drift and fragility and requires explicit justification.
+Advance and evaluate work in the natural sequence: Unity → Energy → Propagation → Resilience → Intelligence/Truth. Inverting this order raises drift and fragility and requires explicit justification.
 
 P6. Proportional Enforcement  
 Use the lightest enforcement sufficient for the current phase (receipts, ledgers, CI checks, consensus). Escalate only when evidence shows it increases coherence or reduces risk meaningfully.

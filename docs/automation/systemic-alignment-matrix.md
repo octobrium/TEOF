@@ -12,16 +12,16 @@ Use this matrix when you need to express existing controls or compliance require
 
 | Framework concept | Typical source | Suggested systemic targets | Layer focus | Notes |
 | --- | --- | --- | --- | --- |
-| Reliability & availability SLA | SRE / ITIL | `S1` Unity, `S4` Defense | `L5` Workflow | Keep systems observable and resilient before automation acts. |
-| SOC 2 Security principle | Compliance | `S4` Defense, `S6` Truth, `S8` Ethics | `L1` Principles, `L4` Architecture | Map each control to observable receipts; Ethics governs acceptable risk. |
+| Reliability & availability SLA | SRE / ITIL | `S1` Unity, `S4` Resilience | `L5` Workflow | Keep systems observable and resilient before automation acts. |
+| SOC 2 Security principle | Compliance | `S4` Resilience, `S6` Truth, `S8` Ethics | `L1` Principles, `L4` Architecture | Map each control to observable receipts; Ethics governs acceptable risk. |
 | SOC 2 Availability / Processing integrity | Compliance | `S1` Unity, `S2` Energy, `S3` Propagation | `L3` Properties, `L5` Workflow | Ensure data flows remain coherent and capacity is documented. |
 | ISO 27001 Annex A controls | Governance | Depends on control: security baseline (`S4`), incident response (`S4`/`S6`), supplier management (`S7`/`S8`) | `L1` Principles, `L4` Architecture | Link each Annex control to receipts and assign S tokens accordingly. |
-| NIST SP 800-53 (AI system risk) | Security | `S4` Defense, `S6` Truth, `S8` Ethics | `L1` Principles, `L2` Objectives | Higher axes enforce risk mitigation before automation executes. |
+| NIST SP 800-53 (AI system risk) | Security | `S4` Resilience, `S6` Truth, `S8` Ethics | `L1` Principles, `L2` Objectives | Higher axes enforce risk mitigation before automation executes. |
 | EU AI Act risk classes | Legal | `S6` Truth, `S8` Ethics, `S9` Freedom | `L2` Objectives, `L5` Workflow | Document obligations by class; escalate to governance when S9 Freedom constrained. |
-| Incident response playbook | Ops | `S4` Defense, `S6` Truth | `L5` Workflow, `L6` Automation | Ensure every step produces receipts and automation respects layered approvals. |
+| Incident response playbook | Ops | `S4` Resilience, `S6` Truth | `L5` Workflow, `L6` Automation | Ensure every step produces receipts and automation respects layered approvals. |
 | Fairness/ Bias audits | Responsible AI | `S6` Truth, `S8` Ethics, `S10` Meaning | `L2` Objectives, `L3` Properties | Observations must remain interpretable; connect to S10 narratives for context. |
 
-> **Tip:** Start by tagging existing controls with the **highest** systemic axis they affect. Everything upstream must be satisfied (Unity, Defense, Truth) before lower axes like Ethics or Freedom can assert new constraints.
+> **Tip:** Start by tagging existing controls with the **highest** systemic axis they affect. Everything upstream must be satisfied (Unity, Resilience, Truth) before lower axes like Ethics or Freedom can assert new constraints.
 
 ---
 
@@ -41,7 +41,7 @@ Use this matrix when you need to express existing controls or compliance require
 **Scenario:** An organisation already satisfies SOC 2 Security and wants to express the control “Logical access is restricted to authorised users.”
 
 1. Control category → Security & access management.
-2. Systemic targets → `S4` Defense (prevent unauthorised access), `S6` Truth (audit logs prove enforcement), `S8` Ethics (protect user data). Highest axis: `S8` ⇒ `systemic_scale = 8`.
+2. Systemic targets → `S4` Resilience (prevent unauthorised access), `S6` Truth (audit logs prove enforcement), `S8` Ethics (protect user data). Highest axis: `S8` ⇒ `systemic_scale = 8`.
 3. Layers → Policy defined at `L1` Principles, implemented across `L4` Architecture (IAM) and `L5` Workflow (review cadence). Choose `layer = L4`, `layer_targets = ["L4", "L5"]`.
 4. Receipts → Provide IAM audit reports, approval tickets, periodic reviews.
 5. Metadata snippet:

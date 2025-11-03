@@ -41,6 +41,7 @@ All artifacts should emit:
   "layer_targets": ["L4", "L5"],
   "systemic_scale": 6,
   "layer": "L5",
+  "systemic_scope": "apps/market-analyzer",
   "summary": "Guardrail deployment for ledger API",
   "receipts": [
     "s3://org-audit/ledger/2025-10-17/systemic_out/brief.json"
@@ -51,6 +52,7 @@ All artifacts should emit:
 **Recommendations**
 - Treat `systemic_targets` as sorted, unique tokens. Include the highest axis required to deploy safely.  
 - Keep `layer` as the primary operational layer; `layer_targets` list supporting layers in order of influence.  
+- Use `systemic_scope` to identify the program or business unit when the metadata represents a downstream branch instead of the trunk.  
 - Version your schema (`schema_version: 1`) so clients can evolve without breaking older receipts.
 
 **Export options**
@@ -102,7 +104,7 @@ Use the matrix below to translate familiar frameworks into systemic terms:
 
 | Common framework concept | Systemic axis | Layer default | Notes |
 |--------------------------|---------------|---------------|-------|
-| Incident response SLA | S4 Defense | L5 Workflow | Enforce guardrails before reintroducing workflow changes. |
+| Incident response SLA | S4 Resilience | L5 Workflow | Enforce guardrails before reintroducing workflow changes. |
 | Regulatory compliance (SOX, SOC2) | S6 Truth / S8 Ethics | L1 Principles / L4 Architecture | Map controls to observable proofs, then layer-specific automation. |
 | Safety policy / red team reviews | S8 Ethics | L2 Objectives / L5 Workflow | Escalate only after S1–S6 are satisfied (unity, truth). |
 | Product OKRs | S3 Propagation / S5 Intelligence | L2 Objectives | Link OKRs to receipts and systemic targets to demonstrate alignment. |

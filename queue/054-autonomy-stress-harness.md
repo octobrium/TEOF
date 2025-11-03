@@ -3,7 +3,7 @@ Goal: deliver a deterministic harness that red-teams `tools.autonomy.auto_loop` 
 Status: proposed (2025-10-19T22:20Z)
 Notes: Centers CMD-5 (respect safeties) and CMD-7 (escalate uncertainty) by simulating hazard scenarios inside a sandbox lane with receipts. Provides fixtures + CI target that block promotion when critical failure cases are unhandled.
 Coordinate: S4:L6
-Systemic Targets: S2 Energy, S4 Defense, S6 Truth
+Systemic Targets: S2 Energy, S4 Resilience, S6 Truth
 Layer Targets: L6 Automation, L5 Workflow
 Systemic Scale: 4
 Principle Links: supports L1 principles around defense and reversibility by ensuring automation halts coherently; extends `docs/automation/autonomy-conductor.md`.

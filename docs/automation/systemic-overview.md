@@ -36,7 +36,7 @@ Quick reference:
 | S1   | Unity       | Fragmentation                | Stable frame of reference |
 | S2   | Energy      | Stasis / entropy             | Capacity for change |
 | S3   | Propagation | Isolation                    | Signal flow |
-| S4   | Defense     | Degradation                  | Preserve coherence |
+| S4   | Resilience  | Degradation                  | Preserve coherence |
 | S5   | Intelligence| Rigidity / overreaction      | Recursive refinement |
 | S6   | Truth       | Delusion                     | Disciplined evidence |
 | S7   | Power       | Impotence                    | Directed leverage |
@@ -67,6 +67,7 @@ All plans and queue entries must include:
 - `layer_targets`: list of `L#` tokens (optional if redundant with `layer` field).
 - `systemic_scale`: highest axis number the work must satisfy before deployment.
 - `layer`: primary layer of execution.
+- `systemic_scope` (optional but recommended for branches/programs): human-readable namespace (e.g., `apps/market-analyzer`) signalling that the listed targets apply within that program rather than the trunk.
 
 Automation enforces these fields via:
 
@@ -80,11 +81,12 @@ Automation enforces these fields via:
 
 ## 4. Authoring guidelines
 
-1. **Prefer the smallest set of axes.** If work primarily advances Truth with a defensive guard, prefer `["S6", "S4"]` over long enumerations.
+1. **Prefer the smallest set of axes.** If work primarily advances Truth with a resilience guard, prefer `["S6", "S4"]` over long enumerations.
 2. **Align scale with receipts.** `systemic_scale` must be the highest axis in `systemic_targets`; the planner CLI appends it automatically if missing.
 3. **Document layer transitions.** When work moves between layers (e.g., plan → automation), capture the change in receipts and reference both layers.
 4. **Explain deviations.** If a queue entry lists `S8` but your plan omits it, justify the divergence in the plan summary and update the queue entry if needed.
 5. **Keep docs in sync.** Update relevant walkthroughs (`docs/quickstart.md`, `docs/automation.md`, plan templates) when introducing new axes/layers.
+6. **Declare program scope.** When downstream apps reuse the lattice, set `systemic_scope` (and, if useful, `program_id`) so reviewers know whether `S4` or `S8` obligations are trunk-wide or local to the branch.
 
 ---
 

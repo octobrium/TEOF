@@ -22,8 +22,8 @@
   },
   {
     "axis": "S4",
-    "name": "Defense",
-    "description": "Guard against external threat",
+    "name": "Resilience",
+    "description": "Maintain integrity and recover from disruption",
     "failure_mode": "degradation",
     "depends_on": ["S1", "S2", "S3"]
   },

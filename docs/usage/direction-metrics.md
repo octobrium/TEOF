@@ -30,8 +30,8 @@ Running `python -m tools.agent.manager_report` now appends every TTΔ snapshot t
 - **S1 Observation** → OC, IG
 - **S6 Coherence** → CS, RD
 - **S8 Ethics** → IG, SO
-- **S5 Reproducibility** → CS, SC
-- **S4 Defense / S10 Meaning (Self-repair)** → RD, SC
+- **S5 Intelligence (reproducibility overlay)** → CS, SC
+- **S4 Resilience / S10 Meaning (Self-repair)** → RD, SC
 
 When all six metrics trend up while IG trends down, TTΔ is positive and the system is aligned with the North Star (expanding observation, reducing incoherence, preserving options).
 

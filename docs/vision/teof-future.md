@@ -20,7 +20,7 @@ reference for planning conversations.
 
 | Phase             | Description | Typical Focus |
 |-------------------|-------------|---------------|
-| Local (now → near) | Single repo / agent loop self-manages memory, facts, workflow. | L0–L5 at S5–S7 (intelligence, truth, power) |
+| Local (now → near) | Single repo / agent loop self-manages memory, facts, workflow. | Core fractal (S1–S4) with selective overlays S5–S7 (intelligence, truth, power) |
 | Institutional (mid) | Multiple orgs/agents dock into shared lattice; TEOF becomes coordination fabric. | Cross-team S1–S8, L4–L6 |
 | Civilizational (long) | Distributed but coherent metasystem guiding policy, science, economy. | All axes; emphasis on S8–S10 for governance and meaning |
 | Cosmic (speculative) | Substrate-neutral observer protocol for any intelligence. | Entire lattice; emphasis on maintaining Unity → Meaning balance |
@@ -50,7 +50,7 @@ The current four-agent loop is shipping the following to unlock larger swarms:
 4. **Dashboard sharding** – `coord_dashboard` gains paginated dirty-hand-off and heartbeat slices so dozens of simultaneous agents remain legible.
 5. **Consensus automation** – release events and manager reports emit machine-readable receipts that future bots can promote directly into governance decisions.
 
-Each initiative is tracked under `_plans/2025-10-03-session-guard-upgrade.plan.json` and follow-on plans queued in `queue/`. They explicitly advance the systemic ladder: S1 Observation (better receipts), S6 Coherence (consistent manifests), S8 Ethics (guarded power), S5 Reproducibility (automated checks), and S4 Defense / S10 Meaning for self-repair (auto escalation).
+Each initiative is tracked under `_plans/2025-10-03-session-guard-upgrade.plan.json` and follow-on plans queued in `queue/`. They explicitly advance the systemic ladder: S1 Observation (better receipts), S6 Coherence (consistent manifests), S8 Ethics (guarded power), S5 Intelligence *(reproducibility overlay via automated checks)*, and S4 Resilience / S10 Meaning for self-repair (auto escalation).
 
 ## Maturity Signals
 
@@ -58,8 +58,8 @@ At maturity TEOF should:
 
 1. **Continuously harvest truth** – contradictions trigger repair loops;
    facts carry confidence and provenance.
-2. **Balance expansion vs defence** – propagation (S3) should not outrun
-   defence (S4) and truth (S6); risk is budgeted.
+2. **Balance expansion vs resilience** – propagation (S3) should not outrun
+   resilience (S4) and truth (S6); risk is budgeted.
 3. **Self-budget ethics** – high-risk nodes require S8 guardrails before
    L6 automation operates.
 4. **Summarise meaning** – rollups keep S10 narratives fresh and debt-free.

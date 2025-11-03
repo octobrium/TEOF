@@ -26,4 +26,4 @@ rules:
 tie_breaks:
   - metric: systemic_truth
   - metric: systemic_unity
-  - metric: defense
+  - metric: resilience

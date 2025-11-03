@@ -32,7 +32,7 @@ Canonical source: `governance/core/L1 - principles/canonical-teof.md`
 
 ---
 
-### 4. Defense (Integrity & Drift Control)
+### 4. Resilience (Integrity & Drift Control)
 - **Self-Observation Enables Correction:** Systems capable of monitoring their own processes reduce drift and resist capture.  
 - **Truth Remains Conditional:** Claims that remain open to falsification converge more closely with reality over time.  
 - **Resilience Through Challenge:** Systems that survive stress integrate the lessons of survival and become stronger, more coherent, and harder to disrupt.
@@ -49,4 +49,4 @@ Canonical source: `governance/core/L1 - principles/canonical-teof.md`
 - **Power Follows Effective Observation:** Influence concentrates where observation is effective and actionable.  
 - **Alignment Rewards Survival:** When feedback loops reward behaviors that improve observation, systems remain coherent; when they reward distortion, systems destabilize and collapse.  
 - **Freedom Emerges with Visibility:** Choice becomes more effective when relevant parts of reality are perceived.  
-- **Meaning Emerges from Alignment:** When unity, energy, propagation, defense, and truth cohere, the result is experienced as significant.
+- **Meaning Emerges from Alignment:** When unity, energy, propagation, resilience, and truth cohere, the result is experienced as significant.

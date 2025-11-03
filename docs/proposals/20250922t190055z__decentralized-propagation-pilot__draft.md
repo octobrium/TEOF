@@ -50,7 +50,7 @@ Without a pilot, promoting decentralized traits into canonical properties would 
 
 ### Systemic Rationale
 - **S3 Propagation** — multiplies verifiable receipts and exposes network state.
-- **S4 Defense** — ensures independent nodes resolve to a shared truth.
+- **S4 Resilience** — ensures independent nodes resolve to a shared truth.
 - **S6 Truth / L4 Architecture** — reconciliation logs highlight drift and trigger fixes while informing governance promotion.
 
 ### Sunset / Fallback

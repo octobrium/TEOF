@@ -28,7 +28,7 @@ Give agents a sanctioned path to explore quickly while guaranteeing the results 
 
 ### Systemic Rationale
 - **S1 Unity** — keeps experimental work discoverable across agents through shared scaffolds and receipts.
-- **S4 Defense** — containment + expiry prevent exploratory code from silently mutating core layers.
+- **S4 Resilience** — containment + expiry prevent exploratory code from silently mutating core layers.
 - **S6 Truth** — receipts stay append-only, making promotions auditable even with relaxed iteration steps.
 
 ### Sunset / Fallback

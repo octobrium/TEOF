@@ -9,9 +9,9 @@ draft mapping will evolve as governance refines the relationship.
 | --- | --- | --- |
 | Observation | S1 Unity, S2 Energy | Establish shared reference frames and capture raw signals. |
 | Coherence | S3 Propagation, S6 Truth | Keep signals consistent across nodes and aligned with invariants. |
-| Ethics | S4 Defense, S6 Truth, S8 Ethics | Governs use of power; inherits constraints from Defense/Truth before applying S8 safeguards. |
+| Ethics | S4 Resilience, S6 Truth, S8 Ethics | Governs use of power; inherits constraints from Resilience/Truth before applying S8 safeguards. |
 | Reproducibility | S5 Intelligence, S6 Truth | Ensure processes can be replayed and inspected. |
-| Self-repair | S4 Defense, S10 Meaning | Detect contradictions, protect coherence, and adjust narratives. |
+| Self-repair | S4 Resilience, S10 Meaning | Detect contradictions, protect coherence, and adjust narratives. |
 
 **Hierarchy discipline**
 

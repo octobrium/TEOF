@@ -3,7 +3,7 @@
 Role: Canonical
 
 > This document turns **L3 – Properties** into executable design.  
-> Each blueprint is grouped by **Unity → Energy → Propagation → Defense → Intelligence**, so contributors know what to build first.
+> Each blueprint is grouped by **Unity → Energy → Propagation → Resilience → Intelligence**, so contributors know what to build first.
 
 ---
 
@@ -36,7 +36,7 @@ Role: Canonical
 
 ---
 
-### Defense
+### Resilience
 **Serves:** P1 Observation Bounds Reasoning, P3 Truth Requires Recursive Test, P6 Proportional Enforcement  
 **Supports Objectives:** 4, 8, 10, 11, 12  
 - **Provenance Ledger:** Append-only receipts (jsonl) with content hashes.  

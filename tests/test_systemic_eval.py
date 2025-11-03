@@ -5,7 +5,7 @@ def test_structured_queue_item_scores_high():
     text = (
         "# Task: Example anchor guard\n"
         "Goal: Add append-only enforcement for anchors and keep provenance receipts aligned.\n"
-        "Systemic Targets: S1 Unity, S4 Defense, S6 Truth\n"
+        "Systemic Targets: S1 Unity, S4 Resilience, S6 Truth\n"
         "Layer Targets: L4 Architecture\n"
         "Coordinate: S4:L4\n"
         "Sunset: Remove if false positives exceed 5% over a 14-day window.\n"

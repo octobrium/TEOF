@@ -3,7 +3,7 @@ Goal: codify governance, reputation, and reward mechanics for autonomous TEOF no
 Status: proposed (2025-10-20T07:54Z)
 Notes: Builds on `docs/ideas/decentralized-teof-node.md` and plan `2025-10-11-decentralized-node` step S3 to align incentives with CMD-1 (observation), CMD-5 (respect safeties), and CMD-7 (escalate uncertainty) before granting wider autonomy.
 Coordinate: S8:L2
-Systemic Targets: S2 Energy, S3 Propagation, S4 Defense, S7 Power, S8 Ethics
+Systemic Targets: S2 Energy, S3 Propagation, S4 Resilience, S7 Power, S8 Ethics
 Layer Targets: L2 Objectives, L4 Architecture, L5 Workflow
 Systemic Scale: 8
 Principle Links: ensures S-layer growth, capsule releases, and node handshakes remain tied to append-only receipts and reversible governance anchors.

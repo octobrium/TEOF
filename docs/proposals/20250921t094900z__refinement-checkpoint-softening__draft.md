@@ -32,7 +32,7 @@ Implementation idea:
 - Require batched acknowledgements but still pause before each guard change.
 
 ## Risks
-- Missing early warning if automation drifts: mitigated by receipts hygiene summary and alerts when missing receipts spike (protects S4 Defense).
+- Missing early warning if automation drifts: mitigated by receipts hygiene summary and alerts when missing receipts spike (protects S4 Resilience).
 - Harder to audit: mitigated by bundling plan receipts and the hygiene summary JSON (preserves S6 Truth).
 
 ## Impact

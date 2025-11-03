@@ -31,8 +31,9 @@ Schemas follow JSON Schema draft 2020-12. They intentionally allow additional pr
 | `layer_targets` | array of `L#` tokens | Ordered list of layers touched (primary first). |
 | `systemic_scale` | integer (1–10) | Highest axis that must be satisfied before deployment. |
 | `layer` | `L#` token | Primary operating layer. |
+| `systemic_scope` | string | Optional namespace indicating the branch/program this metadata applies to. |
 
-Optional but recommended: `schema_version`, `summary`, `receipts`, `references`, `created_at`, `updated_at`.
+Optional but recommended: `systemic_scope`, `schema_version`, `summary`, `receipts`, `references`, `created_at`, `updated_at`.
 
 ### receipt envelope
 

@@ -19,10 +19,12 @@ This note unpacks that shorthand, ties every step to the canonical principles, a
 | **L1 – Reciprocity** | Observation and its mirrors co-influence; each act reshapes the next view. | Covered across P3 (testing), P5 (emergence order), P6 (proportion); explicit scenarios in `docs/foundation/alignment-protocol/tap.md`. | Static tableau; no learning or evidence accumulation. |
 | **L2 – Coherence Before Complexity** | Prefer the smallest reversible structure that preserves clarity. | P4 – Coherence Before Complexity | Unchecked drift, irreversible complexity. |
 | **L3 – Truth Through Recursion** | Observe → model → act → re-observe; retain what survives prediction/outcome comparison. | P3 – Truth Requires Recursive Test | Beliefs never converge; no correction mechanism. |
-| **L4 – Order of Emergence** | Build/evaluate in Unity → Energy → Propagation → Defense → Intelligence/Truth. | P5 – Order of Emergence | Premature sophistication; collapse under stress. |
+| **L4 – Order of Emergence** | Build/evaluate in Unity → Energy → Propagation → Resilience → Intelligence/Truth. | P5 – Order of Emergence | Premature sophistication; collapse under stress. |
 | **L5 – Proportional Mechanism** | Apply the lightest enforcement sufficient for coherence; escalate only with evidence. | P6 – Proportional Enforcement | Either over-control (self-blinding) or under-control (collapse). |
 | **L6 – Clarity-Weighted Action** | Scale intervention to evidential clarity; favor reversible, information-gaining moves. | P7 – Clarity-Weighted Action | High-variance failures; irreversible errors. |
 | **L7 – Reflexive Return (Meaning)** | Outcomes feed back into the observer; meaning is observation recognizing what endures. | Treated as derived guidance (see `docs/foundation/alignment-protocol/tap.md`, `governance/core/L1 - principles/principles.md`). | Perpetual motion without a criterion for “having learned.” |
+
+The first four stages (Unity, Energy, Propagation, Resilience) form the **core fractal**: Resilience regenerates Unity so the cycle can replay at greater scale without importing additional governance. Stages L5–L7 are growth overlays—deploy them when a program needs longer-horizon adaptation, proportional control, or meaning narratives, but keep the core healthy first.
 
 ### Dependency Graph
 

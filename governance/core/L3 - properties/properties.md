@@ -3,7 +3,7 @@
 Role: Canonical
 
 TEOF’s properties describe **how** the framework behaves — its intrinsic traits — ensuring alignment with L0 (Observation), L1 (Principles), and the objectives in L2.  
-Properties are organized in the natural order of systemic emergence: **Unity → Energy → Propagation → Defense → Intelligence.**
+Properties are organized in the natural order of systemic emergence: **Unity → Energy → Propagation → Resilience → Intelligence.**
 
 ---
 
@@ -36,7 +36,7 @@ Properties are organized in the natural order of systemic emergence: **Unity →
 
 ---
 
-### 4. Defense
+### 4. Resilience
 10. **Legible Continuity** *(serves P3/P7, Objective 4)* – keeps lineage readable and prevents silent capture. Guardrail: `scripts/ci/check_memory_state.py` rejects changes to `memory/state.json` unless the promotion is linked to a run receipt in `memory/log.jsonl`.  
 11. **Self-Audit & Drift Detection** *(serves P3, Objective 9/12)* – continuously inspects itself for bias, stagnation, or corruption.  
 12. **Outcome Auditing of Distortion** *(serves P3/P7, Objective 12)* – measures whether interventions improve or degrade clarity.

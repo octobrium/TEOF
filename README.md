@@ -70,9 +70,12 @@ This ordering is enforced during review and is part of TEOF’s living constitut
 Work is now tracked directly against the systemic axes (S1–S10) and layer hierarchy (L0–L6).  
 Every artifact declares:
 
-- `systemic_targets`: the primary systemic axes it advances (e.g. S1 Unity, S4 Defense, S6 Truth).
+- `systemic_targets`: the primary systemic axes it advances (e.g. S1 Unity, S4 Resilience, S6 Truth).
 - `layer_targets`: the layers it operates within (e.g. L4 Architecture, L5 Workflow).
 - `systemic_scale`: the highest axis it must satisfy before proceeding.
+- `systemic_scope` (optional): a namespace such as `apps/<program>` when work lives on a downstream branch rather than the trunk.
+
+The first four systemic axes (Unity, Energy, Propagation, Resilience) form the **core fractal**—Resilience feeds back into Unity so these four repeat across every scale. Axes S5 and above act as growth overlays (adaptation, governance, meaning) that a program opts into once the core is healthy.
 
 This explicit coordinate replaced earlier observation loops while preserving the same intent—evidence, coherence, guardrails, reproducibility, and recovery all map onto the S/L lattice. See [`docs/foundation/systemic-scale.md`](docs/foundation/systemic-scale.md) and [`governance/systemic-order.json`](governance/systemic-order.json) for canonical definitions, plus [`docs/automation/systemic-overview.md`](docs/automation/systemic-overview.md) for migration guidance.
 

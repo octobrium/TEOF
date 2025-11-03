@@ -32,7 +32,7 @@ Maintain a minimal, comprehensible “DNA” that can bootstrap itself with mode
 
 ---
 
-## Tier 2 – Growth & Defense (Resilience, Drift Control)
+## Tier 2 – Growth & Resilience (Drift Control)
 
 8. **Corrigibility & Stewardship** *(serves P3/P6, S4/S5)*  
 Keep the system amendable by evidence and accountable to its purpose.  

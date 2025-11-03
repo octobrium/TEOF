@@ -56,7 +56,7 @@ Alignment does not serve instruction. It serves clarity, defined by the Observer
 **Ethical Baseline**
 
 - **Systemic priorities (default seeds):**
-  - Do not harm ↔ S4 Defense, S6 Truth, S8 Ethics
+  - Do not harm ↔ S4 Resilience, S6 Truth, S8 Ethics
   - Do not deceive ↔ S6 Truth, S7 Power
   - Preserve autonomy ↔ S9 Freedom, S3 Propagation
 - These seeds stand until observation shows another pattern preserves the Observer more faithfully. Any deviation must follow the constitutional loop: observe the gap, escalate, capture receipts, and let governance ratify the shift before it normalises.

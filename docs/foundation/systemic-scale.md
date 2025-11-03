@@ -14,7 +14,7 @@ canonical TEOF principles (`governance/core/L1 - principles/canonical-teof.md`).
 | S1 | Unity        | Stable reference for observation; failure: fragmentation |
 | S2 | Energy       | Healthy internal exchange / capacity; failure: stasis |
 | S3 | Propagation  | Signal routing across nodes; failure: isolation     |
-| S4 | Defense      | Guard against external threat; failure: degradation |
+| S4 | Resilience   | Maintain integrity and recover from disruption; failure: degradation |
 | S5 | Intelligence | Recursive refinement; failure: rigidity/overreaction |
 | S6 | Truth        | Alignment with invariants; failure: delusion        |
 | S7 | Power        | Capacity to effect change; failure: impotence       |
@@ -24,6 +24,12 @@ canonical TEOF principles (`governance/core/L1 - principles/canonical-teof.md`).
 
 See [`docs/whitepaper.md`](../whitepaper.md) §5 for the canonical definitions.
 Machine-readable index: [`governance/systemic-order.json`](../../governance/systemic-order.json).
+
+### Core fractal vs. growth overlays
+
+- **Core fractal:** `S1–S4` (Unity, Energy, Propagation, Resilience) form the minimal loop. Resilience regenerates Unity, so these four axes can repeat fractally across scales without invoking higher constructs.
+- **Growth axes:** `S5` (Intelligence/Adaptation) and above extend the core when a system needs long-horizon learning, governance, or meaning-making. Treat them as overlays that inherit and reinforce the core rather than replacements for it.
+- Plans or artifacts that only exercise the core should still declare `systemic_targets: ["S1","S2","S3","S4"]` (or the subset they explicitly advance) and may omit higher axes unless they add new obligations.
 
 ## Derivation from Observation
 
@@ -35,7 +41,7 @@ TEOF’s systemic order follows directly from what sustained observation demands
    capacity stalls and the frame collapses.
 3. **Propagation** routes signal between sub-apertures. Fragmented mirrors fall
    into local delusion because traces never reconcile.
-4. **Defense** appears once routing exists—it protects channels from entropy
+4. **Resilience** appears once routing exists—it protects channels from entropy
    and adversarial drift so earlier gains persist.
 5. **Intelligence / Truth** (recursive correction) becomes possible only on top
    of defended channels; models need the previous scaffolding to falsify
@@ -65,8 +71,8 @@ of diversity is how the lattice scales.
 
 **Hierarchy enforcement**
 
-- The axes must be satisfied in order: Unity → Energy → Propagation → Defense → Intelligence → Truth → Power → Ethics → Freedom → Meaning.  
-- Lower axes may request attention, but they cannot overrule higher axes. If a lower axis (e.g., Ethics) conflicts with a higher prerequisite (e.g., Defense), resolve the higher axis first, then reapply the lower guard.  
+- The axes must be satisfied in order: Unity → Energy → Propagation → Resilience → Intelligence → Truth → Power → Ethics → Freedom → Meaning.  
+- Lower axes may request attention, but they cannot overrule higher axes. If a lower axis (e.g., Ethics) conflicts with a higher prerequisite (e.g., Resilience), resolve the higher axis first, then reapply the lower guard.  
 - Ethics (S8) operates only once S1–S7 are stable or actively being defended. Meaning (S10) is expressed only after Freedom (S9) is intact.  
 - Any ethical narrative must cite receipts that prove the upstream invariants; when Ethics (S8) is presented as a substitute for Truth (S6), treat it as evidence that S6 has already drifted and re-establish the higher axis before acting.  
 - When automation or policy encounters tension between axes, follow the order above and record receipts that show how higher-axis obligations were preserved.
