@@ -3,53 +3,35 @@
 Use this sheet when you need citations fast. Each entry links to the canonical
 source so you can jump straight to the definitive rule or command.
 
-## Foundations
-- **Architecture map:** `docs/architecture.md`
-- **Workflow gate:** `docs/workflow.md#architecture-gate-before-writing-code`
-- **Receipts discipline:** `docs/workflow.md#dna-recursion-self-improvement-of-the-rules`
-- **Commandments:** `docs/commandments.md`
-- **Alignment protocol (TAP):** `docs/foundation/alignment-protocol/tap.md`
+## Canonical Docs
+- `docs/architecture.md` — placement rules and append-only contracts.
+- `docs/workflow.md` — operating ladder, planner discipline, receipts policy.
+- `docs/commandments.md` — fast trust contract.
+- `docs/onboarding/README.md` — first-hour sequence, communication loop, daily rhythm.
+- `docs/reference/receipts-map.md` — canonical receipt lanes.
+- `docs/parallel-codex.md` — coordination policy, manager dashboards, bus usage.
 
-## Coordination & Claims
-- **First session loop:** `.github/AGENT_ONBOARDING.md#communication-quickstart-manager-report-hub`
-- **Suggested ongoing loop:** `docs/parallel-codex.md#suggested-session-loop`
-- **Claim schema:** `_bus/README.md#claim-file-schema-_busclaimstask_idjson`
-- **Event logging:** `docs/parallel-codex.md#coordination-bus`
-- **Manager dashboard:** `docs/parallel-codex.md#coordination-dashboard`
+## Operational References
+- Plans and backlog: `_plans/README.md`, `_plans/next-development.todo.json`.
+- Claims and events: `_bus/README.md`.
+- Agents & manifests: `docs/agents.md`.
+- Memory discipline: `memory/README.md`.
+- Automation receipts: `docs/automation.md` (index, latency, hygiene bundles).
 
-## Plans, Receipts, Memory
-- **Plan schema:** `_plans/README.md#file-format-v0`
-- **Scaffold helpers:** `docs/automation.md#receipts-index`
-- **Receipts hygiene bundle:** `docs/automation.md#receipts-hygiene-bundle`
-- **Memory usage:** `memory/README.md`
-- **Receipts map:** `docs/reference/receipts-map.md`
+## Lookup & Tooling
+- Quick links manifest: `docs/quick-links.md` (drive with `python -m tools.agent.doc_links ...`).
+- Guard index: `docs/reference/layer-guard-index.md`.
+- Keyword lookup: `python -m tools.reference.lookup <keyword>`.
+- Prompt helper: `python -m tools.prompts.philosophy "<question>"` (writes `_report/usage/prompts/`).
 
-## Backlog & Queue
-- **Source of truth:** `docs/backlog.md`
-- **Next Development list:** `_plans/next-development.todo.json`
-- **Claim files:** `_bus/claims/`
-
-## Automation Commands
-| Action | Command | Source |
+## Common Commands
+| Action | Command | Note |
 | --- | --- | --- |
-| Seat manifest | `python -m tools.agent.manifest_helper activate <id>` | `docs/agents.md#files-to-know` |
-| Session boot | `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status` | `.github/AGENT_ONBOARDING.md#communication-quickstart-manager-report-hub` |
-| Claim task | `python -m tools.agent.bus_claim claim --task <task> --plan <plan>` | `docs/parallel-codex.md#coordination-bus` |
-| Emit heartbeat | `python -m tools.agent.bus_event log --event status --task <task> --summary "..."` | `docs/parallel-codex.md#coordination-bus` |
-| Quickstart run | `bin/teof-up` | `docs/onboarding/quickstart.md` |
-| Preflight | `tools/agent/preflight.sh` | `.github/AGENT_ONBOARDING.md#operating-rhythm` |
-| Reference search | `python -m tools.reference.lookup <topic>` | `docs/reference/quick-reference.md` |
+| Seat manifest | `python -m tools.agent.manifest_helper activate <id>` | Validates `AGENT_MANIFEST.json` |
+| Session boot | `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status` | Captures handshake + manager-report tail |
+| Claim work | `python -m tools.agent.bus_claim claim --task <task> --plan <plan>` | Mirrors `_bus/claims/<task>.json` |
+| Quickstart run | `bin/teof-up` | Installs package and emits onboarding receipts |
+| Preflight | `tools/agent/preflight.sh` | Runs receipts check, planner validate, targeted pytest |
+| Plan scaffold | `teof-plan new <slug> --summary "..." --scaffold` | Creates plan + receipt folder |
 
-## Philosophy & Prompts
-- **Meaning & purpose passages:** `docs/foundation/alignment-protocol/tap.md#meaning`, `docs/whitepaper.md#purpose`
-- **Trust / observer framing:** `docs/foundation/alignment-protocol/tap.md#observer`, `docs/workflow.md#observation-primacy`
-- **Prompt helper:** `python -m tools.prompts.philosophy "<question>"` (emits `_report/usage/prompts/` receipts)
-
-## Related Helpers
-- **Onboarding landing:** `docs/onboarding/README.md`
-- **Agent discipline:** `docs/agents.md`
-- **Quick links manifest:** `docs/quick-links.md`
-- **Doc links CLI:** `python -m tools.agent.doc_links list --category onboarding`
-
-Run `python -m tools.reference.lookup` with keywords (for example `lookup quickstart`)
-when you need the matching lines from this sheet inside the terminal.
+Run `python -m tools.agent.doc_links list --category onboarding` or `python -m tools.agent.doc_links show <id>` when you need deeper detail—the entries map directly to the docs above.

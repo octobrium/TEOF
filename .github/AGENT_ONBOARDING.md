@@ -1,66 +1,17 @@
-# Agent Onboarding (TEOF)
+# Agent Onboarding
 
-Purpose: give a new human + LLM pair the minimum set of rails to join TEOF safely while staying inside the governance policy.
+The canonical onboarding flow now lives at
+[`docs/onboarding/README.md`](../docs/onboarding/README.md).
 
-## First Session Checklist
-1. **Prep access** – issue a read-scoped credential (GitHub App or PAT) and sandbox the checkout. Only upgrade to write access for `agent/<id>/*` branches after review. (See `docs/workflow.md#non-negotiables-apply-to-every-change`.)
-2. **Read the rails** – follow the architecture/workflow overview (`docs/workflow.md#architecture-gate-before-writing-code`) and receipts discipline (`docs/workflow.md#dna-recursion-self-improvement-of-the-rules`) before touching code.
-3. **Capture your manifest** – copy `AGENT_MANIFEST.example.json` → `AGENT_MANIFEST.json`, fill in metadata, and store locally. Reference: `docs/agents.md#files-to-know`.
-4. **Inspect the backlog** – read `_plans/next-development.todo.json` (or `docs/backlog.md`) and note the first pending item that matches your seat. If nothing fits, escalate on manager-report.
-5. **Plan before edits** – duplicate `_plans/1970-01-01-agent-template.plan.json`, add a justification, and log the plan per `docs/agents.md#contract`. Prefer `teof-plan new <slug> --summary "..." --scaffold` (fallback: `python3 -m tools.planner.cli new ...`) so the receipt folder is created immediately.
-6. **Run the Quickstart smoke** – verify your checkout produces canonical artifacts before touching new work.
-<!-- generated: quickstart snippet -->
-Run this smoke test on a fresh checkout:
-```bash
-python3 -m pip install -e .
-teof brief
-ls artifacts/systemic_out/latest
-cat artifacts/systemic_out/latest/brief.json
-```
+Use that page for:
+- First-hour sequence (environment → architecture → workflow → manifest → quickstart → bus handshake → plan scaffold → backlog claim)
+- Communication loop commands and receipts expectations
+- Operating rhythm reminders (preflight, receipts-first, memory discipline)
 
-- Install exposes the teof console script.
-- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/systemic_out/<UTC>.
+Quick links:
+- `python -m tools.agent.doc_links list --category onboarding`
+- Receipts map: [`docs/reference/receipts-map.md`](../docs/reference/receipts-map.md)
+- Coordination policy: [`docs/parallel-codex.md`](../docs/parallel-codex.md)
 
-Need quick references? `python -m tools.agent.doc_links list --category quickstart` points to [`docs/quickstart.md#quickstart`](../docs/quickstart.md#quickstart).
-
-7. **Announce + claim** – run `python3 -m tools.agent.session_boot --agent <id> --focus <role> --with-status` and follow the coordination loop in `docs/parallel-codex.md#suggested-session-loop` (auto-claiming via task assignments when available). The helper logs a handshake and captures a `bus_status` summary receipt for you.
-   - When swapping seats, capture your branch + manifest with `python -m tools.agent.manifest_helper session-save <label>` and restore them later with `... session-restore <label>`.
-
-## Communication Quickstart (manager-report hub)
-- **Verify your manifest** – confirm `AGENT_MANIFEST.json` (or `python3 -m tools.agent.manifest_helper show`) lists the `agent_id` you’ll use on the bus.
-- **Announce the session** – `python3 -m tools.agent.session_boot --agent <agent-id> --focus <role> --with-status` records the handshake, syncs the repo, and captures a `bus_status` receipt.
-- **Capture the manager-report tail** – the same `session_boot` run now writes `_report/session/<agent-id>/manager-report-tail.txt` with the last 10 entries from the hub. Preflight refuses to run without this receipt, so keep it as the canonical proof you read the lane.
-- **Broadcast the hello** – post on the shared lane: `python3 -m tools.agent.bus_message --task manager-report --type status --summary "<agent-id>: on deck for <focus>" --meta agent=<agent-id>`.
-- **Open directives with a pointer** – `python3 -m tools.agent.directive_pointer --task BUS-COORD-xxxx --summary "<directive summary>" --plan <plan-id>` writes the directive entry and mirrors it in `manager-report` so every seat sees the update.
-- **Remember the guard** – the bus refuses mismatched ids; if `--agent` disagrees with `AGENT_MANIFEST.json` run `session_boot` or `manifest_helper activate` before posting.
-- **Confirm visibility** – keep the feed in view with `python3 -m tools.agent.bus_watch --task manager-report --follow --limit 20` (or spot-check via `python3 -m tools.agent.session_brief --task manager-report --limit 5`).
-- **Continue coordination** – run the core commands as you work:
-  - Claim work: `python3 -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>`
-  - Send status heartbeats: `python3 -m tools.agent.bus_event log --event status --task <task_id> --summary "<agent-id> working" --plan <plan_id> [--receipt <path>]`
-  - Shortcut heartbeat: `python3 -m tools.agent.bus_ping --task <task_id> --message-task <task_id> --summary "working"` (auto-prefixes `<agent-id>:` and hits both logs; add `--skip-message` if you only need the event).
-  - Reply on task threads: `python3 -m tools.agent.bus_message --task <task_id> --type status --summary "<update>" --receipt <path> --meta agent=<agent-id>`
-  - Escalate blockers: `python3 -m tools.agent.bus_message --task <task_id> --type status --meta escalation=needed --summary "<agent-id>: still blocked"`
-  - Close the loop: `python3 -m tools.agent.bus_claim release --task <task_id> --status done --summary "handoff"`
-
-## Operating Rhythm
-- **Receipts-first** – no step is “done” until receipts exist. Record artifacts under `_report/agent/<id>/…` and cite them in the plan. (Governance anchor: `docs/workflow.md#architecture-gate-before-writing-code`.) Use `--scaffold` on `tools.agent.task_assign`, `tools.agent.claim_seed`, or `teof-plan new` to generate the skeleton on day zero, and keep the directory map handy (`docs/reference/receipts-map.md`).
-- **Work the backlog** – treat `_plans/next-development.todo.json`, your active plan, and `_bus/claims/` as the source of truth. Update the plan step before editing files and release the claim cleanly when you stop.
-- **Install the guard hook once per clone** – run `tools/hooks/install.sh` to wire the repo-managed pre-push hook (it runs receipts check, planner validation, and targeted pytest before every push).
-- **Preflight every push** – run `tools/agent/preflight.sh` before pushing or requesting review; it mirrors the hook (receipts, plan guard, planner validate, bus status, targeted pytest) and enforces the manager directive in `_bus/messages/manager-report.jsonl`.
-- **Stay on the bus** – log progress with `python3 -m tools.agent.bus_event log --event status …`, respond to manager notes in `_bus/messages/<task>.jsonl`, and monitor peers via `docs/parallel-codex.md#self-audit` (`python -m tools.agent.bus_watch --follow` or `python -m tools.agent.bus_status --preset support --agent <id>` for quick snapshots).
-- **Use clear summaries** – prefix every bus message summary with your actual `agent_id` (`<agent-id>:`) so manifests, manager-report, and receipts stay aligned.
-- **Refresh heartbeat on sweeps** – managers should append `--log-heartbeat` when running `python -m tools.agent.manager_report` so the bus knows they are active (customise the text with `--heartbeat-summary`; tag metadata via `--heartbeat-meta key=value` or the shortcut `--heartbeat-shift <label>`).
-- **Close cleanly** – release the claim (`python3 -m tools.agent.bus_claim release …`) and refresh the handshake when wrapping up (`session_boot --summary "session wrap" --focus idle`).
-
-## Where to Go Deeper
-- **Quick links** – `python -m tools.agent.doc_links list` (use `... show <id>` for details; manifest lives in `docs/quick-links.md`) for a canonical index of guidance surfaces.
-- **Daily rhythms** – `docs/agents.md` for idle cadence, claim seeding, and optional role coordination.
-- **Multi-agent coordination** – `docs/parallel-codex.md` for detailed bus usage, follow-up logging, and consensus tooling.
-- **Tooling reference** – `_plans/README.md` (plan schema), `_bus/README.md` (claims/events), `tools/agent/runner.sh` (optional helper).
-
-## Policy Anchors
-- `governance/policy.json`
-- `docs/workflow.md`
-- `docs/architecture.md`
-
-Receipts, reversibility, and strict planner validation keep the network auditable—treat this page as the lightweight pointer to those canonical sources.
+Keep this stub in sync with the canonical doc so GitHub viewers land on the
+same guidance without diluting the source of truth.

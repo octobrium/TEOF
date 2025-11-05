@@ -1,0 +1,53 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-05-doc-consolidation",
+  "created": "2025-11-05T22:41:56Z",
+  "actor": "codex",
+  "summary": "Consolidate pointer docs into canonical surfaces",
+  "systemic_targets": [
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 2,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Inventory pointer docs",
+      "status": "done",
+      "notes": "Indexed onboarding, pointer, quick-reference surfaces",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Merge canonical sources",
+      "status": "done",
+      "notes": "Merged onboarding guidance and simplified quick-reference pointers",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Update references/tests",
+      "status": "done",
+      "notes": "Updated quick-links + onboarding pointers to canonical doc",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Docs consolidated and tests referencing them updated",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "docs/onboarding/README.md",
+    "docs/reference/quick-reference.md",
+    "docs/quick-links.json"
+  ]
+}

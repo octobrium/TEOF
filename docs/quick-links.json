@@ -54,8 +54,8 @@
       "id": "comm-mainline",
       "title": "Communication Quickstart",
       "summary": "Shows how to claim, broadcast, and monitor the coordination bus (manager-report) on day one.",
-      "path": ".github/AGENT_ONBOARDING.md",
-      "anchor": "#communication-quickstart-manager-report-hub",
+      "path": "docs/onboarding/README.md",
+      "anchor": "#session--communication-loop",
       "category": "onboarding"
     },
     {

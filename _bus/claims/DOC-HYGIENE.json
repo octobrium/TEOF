@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-4",
+  "branch": "agent/codex-4/doc-hygiene",
+  "claimed_at": "2025-11-05T22:41:16Z",
+  "notes": "Doc consolidation plan complete",
+  "plan_id": "2025-11-05-doc-consolidation",
+  "released_at": "2025-11-05T22:48:51Z",
+  "status": "done",
+  "task_id": "DOC-HYGIENE"
+}

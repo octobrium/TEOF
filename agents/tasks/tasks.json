@@ -566,13 +566,13 @@
       "id": "ND-025",
       "plan_id": "2025-10-05-ttd-trend-reporting",
       "priority": "medium",
-      "role": "engineer",
-      "status": "done",
-      "title": "ND-025",
       "receipts": [
         "_report/usage/ttd-trend/summary-20251005T214512Z.json",
         "docs/usage/direction-metrics.md"
-      ]
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "ND-025"
     },
     {
       "assigned_by": "codex-4",
@@ -583,6 +583,21 @@
       "role": "engineer",
       "status": "done",
       "title": "AUTO-COORD"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": null,
+      "id": "DOC-HYGIENE",
+      "plan_id": "2025-11-05-doc-consolidation",
+      "priority": "medium",
+      "receipts": [
+        "docs/onboarding/README.md",
+        "docs/reference/quick-reference.md",
+        "docs/quick-links.md"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "DOC-HYGIENE"
     }
   ],
   "version": 1
