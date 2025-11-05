@@ -22,6 +22,7 @@ source so you can jump straight to the definitive rule or command.
 - **Scaffold helpers:** `docs/automation.md#receipts-index`
 - **Receipts hygiene bundle:** `docs/automation.md#receipts-hygiene-bundle`
 - **Memory usage:** `memory/README.md`
+- **Receipts map:** `docs/reference/receipts-map.md`
 
 ## Backlog & Queue
 - **Source of truth:** `docs/backlog.md`

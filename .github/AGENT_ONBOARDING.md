@@ -43,7 +43,7 @@ Need quick references? `python -m tools.agent.doc_links list --category quicksta
   - Close the loop: `python3 -m tools.agent.bus_claim release --task <task_id> --status done --summary "handoff"`
 
 ## Operating Rhythm
-- **Receipts-first** – no step is “done” until receipts exist. Record artifacts under `_report/agent/<id>/…` and cite them in the plan. (Governance anchor: `docs/workflow.md#architecture-gate-before-writing-code`.) Use `--scaffold` on `tools.agent.task_assign`, `tools.agent.claim_seed`, or `teof-plan new` to generate the skeleton on day zero.
+- **Receipts-first** – no step is “done” until receipts exist. Record artifacts under `_report/agent/<id>/…` and cite them in the plan. (Governance anchor: `docs/workflow.md#architecture-gate-before-writing-code`.) Use `--scaffold` on `tools.agent.task_assign`, `tools.agent.claim_seed`, or `teof-plan new` to generate the skeleton on day zero, and keep the directory map handy (`docs/reference/receipts-map.md`).
 - **Work the backlog** – treat `_plans/next-development.todo.json`, your active plan, and `_bus/claims/` as the source of truth. Update the plan step before editing files and release the claim cleanly when you stop.
 - **Install the guard hook once per clone** – run `tools/hooks/install.sh` to wire the repo-managed pre-push hook (it runs receipts check, planner validation, and targeted pytest before every push).
 - **Preflight every push** – run `tools/agent/preflight.sh` before pushing or requesting review; it mirrors the hook (receipts, plan guard, planner validate, bus status, targeted pytest) and enforces the manager directive in `_bus/messages/manager-report.jsonl`.
