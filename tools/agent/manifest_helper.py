@@ -38,10 +38,19 @@ def list_variants() -> list[str]:
     return variants
 
 
+def _resolve_variant_path(name: str) -> Path:
+    candidate = ROOT / name
+    if candidate.exists():
+        return candidate
+    if not name.startswith("AGENT_MANIFEST.") and not name.endswith(".json"):
+        alt = ROOT / f"AGENT_MANIFEST.{name}.json"
+        if alt.exists():
+            return alt
+    raise SystemExit(f"variant {name} not found")
+
+
 def activate_variant(name: str, backup: bool = True) -> Path:
-    target = ROOT / name
-    if not target.exists():
-        raise SystemExit(f"variant {name} not found")
+    target = _resolve_variant_path(name)
     if backup and DEFAULT_MANIFEST.exists():
         _backup_manifest()
     shutil.copy2(target, DEFAULT_MANIFEST)
