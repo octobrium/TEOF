@@ -84,6 +84,22 @@ def consent_policy(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     return tmp_path
 
 
+def test_load_or_initialize_todo_creates_structure(tmp_path: Path) -> None:
+    todo_path = tmp_path / "_plans" / "next-development.todo.json"
+    todo_path.parent.mkdir(parents=True, exist_ok=True)
+    todo = auto_loop._load_or_initialize_todo(todo_path)
+    assert todo["items"] == []
+    assert todo["history"] == []
+
+
+def test_load_or_initialize_todo_invalid_structure(tmp_path: Path) -> None:
+    todo_path = tmp_path / "_plans" / "next-development.todo.json"
+    todo_path.parent.mkdir(parents=True, exist_ok=True)
+    todo_path.write_text(json.dumps({"items": {}}), encoding="utf-8")
+    with pytest.raises(ValueError, match="items"):
+        auto_loop._load_or_initialize_todo(todo_path)
+
+
 def test_run_loop_halts_when_no_pending(consent_policy: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     runs = []
 

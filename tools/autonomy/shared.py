@@ -3,7 +3,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
@@ -131,16 +133,45 @@ def load_state_facts(path: Path) -> list[dict[str, Any]]:
     return [fact for fact in facts if isinstance(fact, dict)] if facts else []
 
 
+def atomic_write_text(path: Path, text: str, *, encoding: str = "utf-8") -> Path:
+    """Write *text* to *path* atomically."""
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor = None
+    temp_path: Path | None = None
+    try:
+        descriptor, temp_name = tempfile.mkstemp(dir=str(path.parent), prefix=f".{path.name}.tmp")
+        temp_path = Path(temp_name)
+        with os.fdopen(descriptor, "w", encoding=encoding) as handle:
+            handle.write(text)
+        os.replace(temp_name, path)
+    except Exception:
+        if temp_path and temp_path.exists():
+            temp_path.unlink(missing_ok=True)
+        if descriptor is not None:
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+        raise
+    return path
+
+
+def atomic_write_json(path: Path, payload: Mapping[str, Any]) -> Path:
+    """Write JSON payload atomically with UTF-8 encoding."""
+
+    text = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    return atomic_write_text(path, text)
+
+
 def write_receipt_payload(out_path: Path, payload: Mapping[str, Any]) -> Path:
     """Persist *payload* as a receipt, appending ``receipt_sha256`` checksum."""
 
-    out_path.parent.mkdir(parents=True, exist_ok=True)
     data = dict(payload)
     base_json = json.dumps(data, ensure_ascii=False, indent=2)
     checksum = hashlib.sha256(base_json.encode("utf-8")).hexdigest()
     data["receipt_sha256"] = checksum
-    out_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    return out_path
+    return atomic_write_json(out_path, data)
 
 
 __all__ = [
@@ -155,4 +186,6 @@ __all__ = [
     "load_task_items",
     "load_state_facts",
     "write_receipt_payload",
+    "atomic_write_json",
+    "atomic_write_text",
 ]

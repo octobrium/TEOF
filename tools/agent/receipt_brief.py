@@ -11,7 +11,7 @@ from tools.autonomy.receipt_utils import (
     normalise_receipts,
     resolve_item_receipts,
 )
-from tools.autonomy.shared import load_json, write_receipt_payload
+from tools.autonomy.shared import load_backlog_items, write_receipt_payload
 
 ROOT = Path(__file__).resolve().parents[2]
 PLANS_DIR = ROOT / "_plans"
@@ -20,10 +20,8 @@ DEFAULT_OUT_DIR = ROOT / "_report" / "usage" / "receipt-briefs"
 
 
 def _load_backlog_item(item_id: str) -> Mapping[str, object]:
-    backlog = load_json(BACKLOG_PATH)
-    if not isinstance(backlog, Mapping):
-        raise ValueError("backlog file malformed")
-    for entry in backlog.get("items", []) or []:
+    entries = load_backlog_items(BACKLOG_PATH, include_archive=True)
+    for entry in entries:
         if isinstance(entry, Mapping) and entry.get("id") == item_id:
             return entry
     raise KeyError(f"backlog item not found: {item_id}")

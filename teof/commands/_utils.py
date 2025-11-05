@@ -4,7 +4,9 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-DEFAULT_ROOT = Path(__file__).resolve().parents[2]
+from teof._paths import repo_root
+
+DEFAULT_ROOT = repo_root(default=Path(__file__).resolve().parents[2])
 
 
 def module_root(module: Any, default: Path = DEFAULT_ROOT) -> Path:

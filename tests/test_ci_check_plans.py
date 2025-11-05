@@ -38,7 +38,7 @@ def write_plan(
                 "status": status,
                 "layer": "L5",
                 "systemic_scale": 5,
-                "systemic_targets": ["S5"],
+                "systemic_targets": ["S4", "S5"],
                 "layer_targets": ["L5"],
                 "steps": [
                     {"id": "S1", "title": "Step", "status": "queued"}

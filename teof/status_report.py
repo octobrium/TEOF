@@ -11,11 +11,12 @@ try:  # Python 3.11+
 except ModuleNotFoundError:  # pragma: no cover - fallback for older runtimes
     import tomli as tomllib  # type: ignore
 
+from teof._paths import repo_root
 from tools.maintenance import capability_inventory
 from tools.maintenance import automation_inventory
 from tools.planner.exploratory_lane import scan_lane as scan_exploratory_lane
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = repo_root(default=Path(__file__).resolve().parents[1])
 ISO_FMT = "%Y-%m-%dT%H:%M:%S%zZ"
 
 

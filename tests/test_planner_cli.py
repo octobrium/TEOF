@@ -89,7 +89,7 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
     assert data["priority"] == 0
     assert data["layer"] == "L5"
     assert data["systemic_scale"] == 5
-    assert data["systemic_targets"] == ["S1", "S2", "S5"]
+    assert data["systemic_targets"] == ["S1", "S2", "S4", "S5"]
     assert data["layer_targets"] == ["L5"]
     assert data["impact_score"] == 90
     assert "legacy_loop_target" not in data
@@ -290,8 +290,8 @@ def test_cli_new_queue_ref_autofills_metadata(planner_root: Path) -> None:
     plan_path = plan_dir / "2025-10-03-auto.plan.json"
     data = read_plan(plan_path)
     assert data["layer"] == "L5"
-    assert data["systemic_scale"] == 5
-    assert data["systemic_targets"] == ["S1", "S2", "S3", "S5", "S6"]
+    assert data["systemic_scale"] == 6
+    assert data["systemic_targets"] == ["S1", "S2", "S3", "S4", "S5", "S6"]
     assert data["layer_targets"] == ["L5"]
     assert data["links"] == [{"type": "queue", "ref": queue_ref}]
     result = validate_plan(plan_path, strict=True)
@@ -362,7 +362,7 @@ def test_cli_new_accepts_systemic_targets_without_legacy_field(planner_root: Pat
     assert exit_code == 0
     plan_path = plan_dir / "2025-10-04-systemic-only.plan.json"
     data = read_plan(plan_path)
-    assert data["systemic_targets"] == ["S6", "S8"]
+    assert data["systemic_targets"] == ["S4", "S6", "S8"]
     assert data["systemic_scale"] == 8
     assert data["layer_targets"] == ["L4"]
     assert "legacy_loop_target" not in data

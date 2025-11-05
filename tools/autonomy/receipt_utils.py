@@ -5,9 +5,10 @@ import hashlib
 from pathlib import Path
 from typing import Iterable, List, Mapping, Sequence
 
+from teof._paths import repo_root
 from tools.autonomy.shared import load_json
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = repo_root(default=Path(__file__).resolve().parents[2])
 DEFAULT_PLANS_DIR = ROOT / "_plans"
 
 

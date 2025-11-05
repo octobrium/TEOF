@@ -21,8 +21,8 @@ def base_payload(plan_id: str = "2025-09-17-sample") -> dict:
         "summary": "Sample plan",
         "status": "queued",
         "layer": "L5",
-        "systemic_scale": 5,
-        "systemic_targets": ["S1", "S2", "S3", "S6"],
+        "systemic_scale": 6,
+        "systemic_targets": ["S1", "S2", "S3", "S4", "S6"],
         "layer_targets": ["L5"],
         "steps": [
             {
@@ -215,6 +215,8 @@ def test_cli_output_summary(tmp_path: Path) -> None:
 
 def test_queue_warning_mismatch_detected(tmp_path: Path) -> None:
     payload = base_payload(plan_id="2025-09-17-queue-mismatch")
+    payload["systemic_targets"] = ["S1", "S2", "S3", "S4"]
+    payload["systemic_scale"] = 4
     payload["links"] = [{"type": "queue", "ref": "queue/030-consensus-ledger-cli.md"}]
     path = write_plan(tmp_path, payload)
 

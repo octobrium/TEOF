@@ -6,7 +6,7 @@ from tools.agent import receipt_brief
 def test_generate_plan_brief_includes_targets(tmp_path: Path) -> None:
     brief = receipt_brief.generate_plan_brief("2025-10-07-macro-hygiene-objectives")
     assert "Plan 2025-10-07-macro-hygiene-objectives — status: done" in brief
-    assert "systemic targets: S3, S5, S6" in brief
+    assert "systemic targets: S3, S4, S5, S6" in brief
     assert "Steps:" in brief
 
     out_path = tmp_path / "brief.md"

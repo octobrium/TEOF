@@ -6,8 +6,11 @@ import json
 from pathlib import Path
 from typing import Any, Sequence
 
+from teof._paths import repo_root
+
 from tools.autonomy.receipt_utils import resolve_item_receipts
 from tools.autonomy.shared import (
+    atomic_write_json,
     count_lines,
     git_commit,
     load_backlog_items,
@@ -18,7 +21,7 @@ from tools.autonomy.shared import (
     write_receipt_payload,
 )
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = repo_root(default=Path(__file__).resolve().parents[2])
 BACKLOG_PATH = ROOT / "_plans" / "next-development.todo.json"
 STATE_PATH = ROOT / "memory" / "state.json"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
@@ -136,8 +139,7 @@ def emit_bus_claim(anomaly: dict[str, Any], receipt_path: Path) -> Path:
         "note": anomaly.get("title"),
         "receipt": str(receipt_path.relative_to(ROOT)),
     }
-    claim_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    return claim_path
+    return atomic_write_json(claim_path, payload)
 
 
 # Backwards compatibility: retain the private alias until downstream callers migrate.

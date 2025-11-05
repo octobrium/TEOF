@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib
+import re
 from pathlib import Path
 from typing import Callable, Dict, Mapping, MutableMapping, Sequence
 
@@ -11,6 +12,7 @@ from teof.eval import systemic_receipts
 _PILLARS: tuple[str, ...] = ("structure", "alignment", "verification", "risk", "recovery")
 RunnerResult = Dict[str, float]
 Runner = Callable[[str], RunnerResult]
+_RUNNER_TAG_RE = re.compile(r"^[A-Z0-9]{1,8}$")
 
 
 def load_text(path: str | Path) -> str:
@@ -41,8 +43,12 @@ _RUNNERS: Dict[str, Runner] = {"H": run_heuristic, "R": run_receipts}
 
 
 def register_runner(tag: str, runner: Runner, *, overwrite: bool = False) -> None:
+    if not isinstance(tag, str) or not _RUNNER_TAG_RE.fullmatch(tag):
+        raise ValueError("runner tag must be 1–8 uppercase alphanumeric characters")
+    if not callable(runner):
+        raise TypeError("runner must be callable")
     if not overwrite and tag in _RUNNERS:
-        raise ValueError(f"runner '{tag}' already registered")
+        raise ValueError(f"runner '{tag}' already registered; pass overwrite=True to replace it")
     _RUNNERS[tag] = runner
 
 
@@ -54,7 +60,8 @@ def _resolve_runner(tag: str) -> Runner:
     try:
         return _RUNNERS[tag]
     except KeyError as exc:  # pragma: no cover - defensive path
-        raise KeyError(f"unknown runner '{tag}'") from exc
+        available = ", ".join(sorted(_RUNNERS)) or "<none>"
+        raise KeyError(f"unknown runner '{tag}'. Available runners: {available}") from exc
 
 
 def ensemble(scores: Sequence[RunnerResult], weights: Mapping[str, float] | None = None) -> Dict[str, float]:
@@ -84,7 +91,10 @@ def score_file(inp: str | Path, which: Sequence[str] = ("H", "R"), weights: Mapp
     text = load_text(inp)
     parts: list[RunnerResult] = []
     for tag in which:
-        runner = _resolve_runner(tag)
+        try:
+            runner = _resolve_runner(tag)
+        except KeyError as exc:
+            raise ValueError(str(exc)) from exc
         result = dict(runner(text))
         result.setdefault("name", tag)
         parts.append(result)

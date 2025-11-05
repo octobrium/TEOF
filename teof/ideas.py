@@ -11,8 +11,9 @@ try:  # Python 3.11+
 except ModuleNotFoundError:  # pragma: no cover - Python <3.11 fallback
     import tomli as tomllib  # type: ignore
 
+from teof._paths import repo_root
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = repo_root(default=Path(__file__).resolve().parents[1])
 IDEA_DIR = ROOT / "docs" / "ideas"
 FRONTMATTER_DELIM = "+++"
 DEFAULT_STATUS = "draft"

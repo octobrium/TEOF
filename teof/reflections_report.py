@@ -8,8 +8,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable, Mapping, Sequence
 
+from teof._paths import repo_root
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = repo_root(default=Path(__file__).resolve().parents[1])
 REFLECTION_RELATIVE = Path("memory") / "reflections"
 REFLECTION_DIR = ROOT / REFLECTION_RELATIVE
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"

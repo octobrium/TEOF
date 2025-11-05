@@ -21,12 +21,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
+from teof._paths import repo_root
 from tools.agent import parallel_guard, session_guard
 from tools.autonomy import backlog_synth, objectives_status
-from tools.autonomy.shared import load_json
+from tools.autonomy.shared import atomic_write_json, load_json
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = repo_root(default=Path(__file__).resolve().parents[2])
 CONSENT_PATH = ROOT / "docs" / "automation" / "autonomy-consent.json"
 LOG_DIR = ROOT / "_report" / "usage" / "autonomy-loop"
 LOG_FILE = LOG_DIR / "auto-loop.log"
@@ -110,27 +111,38 @@ def _iso_now() -> str:
 
 
 def _save_json(path: Path, payload: Mapping[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    atomic_write_json(path, payload)
 
 
-def _ensure_evergreen_task(todo_path: Path | None = None) -> str | None:
-    todo_path = todo_path or TODO_PATH
+def _load_or_initialize_todo(todo_path: Path) -> dict[str, Any]:
     raw = load_json(todo_path)
-    todo = raw if isinstance(raw, dict) else None
-    if not todo:
-        todo = {
+    if raw is None:
+        return {
             "version": 0,
             "owner": "autonomy",
             "updated": _iso_now(),
             "items": [],
             "history": [],
         }
-
-    items = todo.setdefault("items", [])
+    if not isinstance(raw, dict):
+        raise ValueError(f"Invalid TODO payload at {todo_path}: expected object")
+    items = raw.get("items")
     if not isinstance(items, list):
-        items = []
-        todo["items"] = items
+        raise ValueError(f"Invalid TODO payload at {todo_path}: 'items' must be a list")
+    if any(not isinstance(item, dict) for item in items):
+        raise ValueError(f"Invalid TODO payload at {todo_path}: 'items' entries must be objects")
+    history = raw.get("history")
+    if history is None:
+        raw["history"] = []
+    elif not isinstance(history, list):
+        raise ValueError(f"Invalid TODO payload at {todo_path}: 'history' must be a list")
+    return raw
+
+
+def _ensure_evergreen_task(todo_path: Path | None = None) -> str | None:
+    todo_path = todo_path or TODO_PATH
+    todo = _load_or_initialize_todo(todo_path)
+    items = todo["items"]
 
     for item in items:
         if not isinstance(item, dict):

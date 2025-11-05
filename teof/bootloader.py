@@ -24,6 +24,7 @@ from teof.commands import tms as cmd_tms_mod
 from teof.commands import ethics as cmd_ethics_mod
 from teof.commands import ideas as cmd_ideas_mod
 from teof import reflections_report, status_report, tasks_report  # backward-compatible exports
+from teof._paths import repo_root
 from tools.autonomy import critic as critic_mod  # noqa: F401  (tests rely on these attributes)
 from tools.autonomy import ethics_gate as ethics_mod  # noqa: F401
 from tools.autonomy import frontier as frontier_mod  # noqa: F401
@@ -31,7 +32,7 @@ from tools.autonomy import tms as tms_mod  # noqa: F401
 from tools.impact import ttd_trend as ttd_trend_mod  # noqa: F401
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = repo_root(default=Path(__file__).resolve().parents[1])
 SCAN_COMPONENTS = cmd_scan_mod.SCAN_COMPONENTS
 
 

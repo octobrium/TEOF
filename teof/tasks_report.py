@@ -8,7 +8,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
-ROOT = Path(__file__).resolve().parents[1]
+from teof._paths import repo_root
+
+ROOT = repo_root(default=Path(__file__).resolve().parents[1])
 TASKS_RELATIVE = Path("agents") / "tasks" / "tasks.json"
 ASSIGNMENTS_RELATIVE = Path("_bus") / "assignments"
 CLAIMS_RELATIVE = Path("_bus") / "claims"

@@ -126,6 +126,12 @@ def _resolve_queue_metadata(
                 raise PlannerCliError(
                     f"queue {ref} expects systemic_scale in {systemic_candidates} but got {systemic_scale}"
                 )
+            for candidate in systemic_candidates:
+                if candidate is None:
+                    continue
+                token = f"S{candidate}"
+                if token not in systemic_tokens:
+                    systemic_tokens.append(token)
         if systemic_from_queue:
             for axis in systemic_from_queue:
                 if axis not in systemic_tokens:
@@ -380,7 +386,9 @@ def cmd_new(args: argparse.Namespace) -> int:
     layer = layer_arg.upper() if layer_arg else None
     if is_exploratory and layer is None:
         layer = "L5"
-    systemic_scale = getattr(args, "systemic_scale", None)
+    scale_arg = getattr(args, "systemic_scale", None)
+    systemic_scale = scale_arg
+    scale_provided = scale_arg is not None
     impact_arg = getattr(args, "impact_score", None)
     if is_exploratory and impact_arg is None:
         impact_score = 10
@@ -422,19 +430,37 @@ def cmd_new(args: argparse.Namespace) -> int:
     layer_targets = derive_layer_targets(layer, queue_layer_hints)
 
     axis_highest = highest_axis_value(systemic_targets)
-    if systemic_scale is None:
-        if axis_highest is None:
+    if axis_highest is None:
+        if systemic_scale is None:
             if is_exploratory:
                 systemic_scale = 4
             else:
                 raise PlannerCliError("--systemic-scale is required (unable to infer from systemic targets)")
-        else:
+    else:
+        if systemic_scale is None:
             systemic_scale = axis_highest
-    systemic_scale = _ensure_systemic_scale(systemic_scale)
+        elif systemic_scale < axis_highest:
+            if scale_provided:
+                raise PlannerCliError(
+                    f"--systemic-scale must be at least S{axis_highest} to cover systemic targets"
+                )
+            systemic_scale = axis_highest
     scale_token = f"S{systemic_scale}"
     if scale_token not in systemic_targets:
         systemic_targets.append(scale_token)
         systemic_targets = ensure_axes(systemic_targets)
+    axis_highest = highest_axis_value(systemic_targets)
+    if axis_highest and axis_highest > 4 and "S4" not in systemic_targets:
+        systemic_targets.append("S4")
+        systemic_targets = ensure_axes(systemic_targets)
+    axis_highest = highest_axis_value(systemic_targets)
+    if axis_highest is not None and systemic_scale != axis_highest:
+        if scale_provided:
+            raise PlannerCliError(
+                f"--systemic-scale must equal highest systemic targets axis (expected S{axis_highest})"
+            )
+        systemic_scale = axis_highest
+    systemic_scale = _ensure_systemic_scale(systemic_scale)
 
     payload = {
         "version": 0,
