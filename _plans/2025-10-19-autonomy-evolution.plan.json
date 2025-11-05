@@ -6,6 +6,7 @@
   "summary": "Automate backlog curation, orchestration, and auditing",
   "systemic_targets": [
     "S1",
+    "S4",
     "S6",
     "S7"
   ],
@@ -14,7 +15,7 @@
   ],
   "priority": 1,
   "layer": "L3",
-  "systemic_scale": 6,
+  "systemic_scale": 7,
   "impact_score": 5,
   "status": "done",
   "updated": "2025-11-03T21:18:00Z",

@@ -6,7 +6,7 @@
   "summary": "Align task_assign follow-ups with the bus_message CLI",
   "priority": 3,
   "layer": "L5",
-  "systemic_scale": 3,
+  "systemic_scale": 6,
   "impact_score": 25,
   "status": "done",
   "steps": [
@@ -48,6 +48,7 @@
   ],
   "systemic_targets": [
     "S3",
+    "S4",
     "S6"
   ],
   "layer_targets": [

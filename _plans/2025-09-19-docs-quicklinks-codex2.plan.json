@@ -68,7 +68,7 @@
   ],
   "summary": "Publish docs quick-link manifest + helper CLI",
   "version": 0,
-  "systemic_scale": 2,
+  "systemic_scale": 10,
   "layer": "L4",
   "systemic_targets": [
     "S2",

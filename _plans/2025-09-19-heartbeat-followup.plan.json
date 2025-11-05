@@ -43,11 +43,12 @@
     "_report/manager/coordination-dashboard-2025-09-19T22:02:06Z.json"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "systemic_targets": [
     "S1",
     "S2",
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

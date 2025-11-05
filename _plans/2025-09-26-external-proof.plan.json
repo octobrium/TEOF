@@ -85,9 +85,10 @@
     "memory/impact/log.jsonl"
   ],
   "layer": "L5",
-  "systemic_scale": 6,
+  "systemic_scale": 7,
   "systemic_targets": [
     "S3",
+    "S4",
     "S6",
     "S7"
   ],

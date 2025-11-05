@@ -6,7 +6,7 @@
   "summary": "[Blocked 2025-10-08] Hold until backlog health + repo anatomy receipts expose subsystem gaps worth a bespoke dashboard; next receipt: rerun backlog synth under _report/autonomy/backlog-synth/ confirming the gap.",
   "priority": 1,
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "impact_score": 70,
   "status": "blocked",
   "steps": [
@@ -57,11 +57,12 @@
   ],
   "dictionary_alignments": {
     "layer": "docs/workflow.md#layer-hierarchy",
-    "systemic_scale": "docs/foundation/systemic-scale.md (S1–S10)"
+    "systemic_scale": "docs/foundation/systemic-scale.md (S1\u2013S10)"
   },
   "systemic_targets": [
     "S1",
     "S2",
+    "S4",
     "S5",
     "S6"
   ],

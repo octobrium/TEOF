@@ -44,7 +44,7 @@
   "receipts": [
     "_report/agent/codex-2/anchors-append-guard/pytest.json"
   ],
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "layer": "L5",
   "systemic_targets": [
     "S4",

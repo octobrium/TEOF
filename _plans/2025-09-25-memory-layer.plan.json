@@ -70,11 +70,12 @@
   ],
   "dictionary_alignments": {
     "layer": "docs/workflow.md#layer-hierarchy",
-    "systemic_scale": "docs/foundation/systemic-scale.md (S1–S10)"
+    "systemic_scale": "docs/foundation/systemic-scale.md (S1\u2013S10)"
   },
   "systemic_targets": [
     "S1",
     "S2",
+    "S4",
     "S5",
     "S6"
   ],

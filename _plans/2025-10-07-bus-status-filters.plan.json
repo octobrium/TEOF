@@ -6,7 +6,7 @@
   "summary": "Improve bus_status filtering and presets for severity-aware triage",
   "priority": 3,
   "layer": "L5",
-  "systemic_scale": 3,
+  "systemic_scale": 6,
   "impact_score": 30,
   "status": "done",
   "steps": [
@@ -48,6 +48,7 @@
   ],
   "systemic_targets": [
     "S3",
+    "S4",
     "S6"
   ],
   "layer_targets": [

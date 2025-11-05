@@ -64,7 +64,7 @@
     "_plans/2025-09-18-consensus-receipts.justification.md",
     "_report/agent/codex-4/queue-031/pytest-consensus-receipts.txt"
   ],
-  "systemic_scale": 6,
+  "systemic_scale": 8,
   "layer": "L5",
   "systemic_targets": [
     "S4",

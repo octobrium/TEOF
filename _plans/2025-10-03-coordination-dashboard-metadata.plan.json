@@ -6,7 +6,7 @@
   "summary": "Expose planner queue warnings in coordination dashboards",
   "status": "done",
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "steps": [
     {
       "id": "S1",
@@ -69,6 +69,7 @@
     "S1",
     "S2",
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

@@ -52,7 +52,7 @@
       "id": "step-3",
       "title": "Audit trail",
       "status": "blocked",
-      "notes": "Set up automated dashboards/receipts so the scoreboard stays observable — transferred to queue/073.",
+      "notes": "Set up automated dashboards/receipts so the scoreboard stays observable \u2014 transferred to queue/073.",
       "receipts": [
         "_report/impact/btc-ledger/2025-10-07-ledger.json",
         "_report/impact/btc-ledger/proof/README.md"
@@ -60,11 +60,12 @@
     }
   ],
   "summary": "Document and audit the TEOF BTC wallet as an external scoreboard tied to observation-fueled initiatives.",
-  "systemic_scale": 6,
+  "systemic_scale": 7,
   "version": 0,
   "systemic_targets": [
     "S1",
     "S2",
+    "S4",
     "S6",
     "S7"
   ],

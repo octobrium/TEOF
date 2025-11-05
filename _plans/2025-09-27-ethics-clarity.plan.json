@@ -6,7 +6,7 @@
   "summary": "Clarify harm baseline with observation-first escalation",
   "priority": 2,
   "layer": "L1",
-  "systemic_scale": 5,
+  "systemic_scale": 8,
   "impact_score": 3,
   "status": "done",
   "steps": [

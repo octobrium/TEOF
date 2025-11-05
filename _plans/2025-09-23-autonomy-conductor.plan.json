@@ -57,11 +57,12 @@
   "updated": "2025-09-23T06:24:59Z",
   "completed": "2025-09-23T06:08:31Z",
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "systemic_targets": [
     "S1",
     "S2",
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

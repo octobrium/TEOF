@@ -6,7 +6,7 @@
   "summary": "Harden session_boot manifest + branch guardrails",
   "status": "done",
   "layer": "L5",
-  "systemic_scale": 4,
+  "systemic_scale": 6,
   "steps": [
     {
       "id": "S1",

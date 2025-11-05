@@ -57,7 +57,7 @@
   "summary": "Teach plan_hygiene to detect duplicate receipts",
   "version": 0,
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "systemic_targets": [
     "S3",
     "S4",

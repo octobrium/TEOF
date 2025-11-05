@@ -45,11 +45,12 @@
     "_report/usage/external-summary.json"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 7,
   "systemic_targets": [
     "S1",
     "S2",
     "S3",
+    "S4",
     "S5",
     "S7"
   ],

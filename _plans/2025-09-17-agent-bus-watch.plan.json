@@ -44,11 +44,12 @@
   "receipts": [
     "_report/agent/codex-2/agent-bus-watch/pytest.json"
   ],
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "layer": "L5",
   "systemic_targets": [
     "S1",
     "S2",
+    "S4",
     "S5",
     "S6"
   ],

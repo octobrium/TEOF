@@ -64,12 +64,13 @@
   ],
   "summary": "Build session sync helper for automatic git pull",
   "version": 0,
-  "systemic_scale": 3,
+  "systemic_scale": 6,
   "layer": "L5",
   "systemic_targets": [
     "S1",
     "S2",
     "S3",
+    "S4",
     "S6"
   ],
   "layer_targets": [

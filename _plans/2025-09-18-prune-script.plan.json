@@ -43,7 +43,7 @@
     "_report/agent/codex-3/prune-script/notes.md",
     "_report/agent/codex-3/prune-script/pytest.json"
   ],
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "layer": "L6",
   "systemic_targets": [
     "S4",

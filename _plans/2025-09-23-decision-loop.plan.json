@@ -3,7 +3,7 @@
   "plan_id": "2025-09-23-decision-loop",
   "created": "2025-09-23T22:40:00Z",
   "actor": "codex-5",
-  "summary": "Stand up an optimal decision-making loop (intake → critique → impact)",
+  "summary": "Stand up an optimal decision-making loop (intake \u2192 critique \u2192 impact)",
   "status": "done",
   "stage": "done",
   "steps": [
@@ -59,11 +59,12 @@
   "completed": "2025-09-24T23:54:33Z",
   "updated": "2025-09-24T23:54:33Z",
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "systemic_targets": [
     "S1",
     "S2",
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

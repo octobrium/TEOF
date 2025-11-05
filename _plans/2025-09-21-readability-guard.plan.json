@@ -59,10 +59,11 @@
     "scripts/ci/check_readability.py",
     "tools/maintenance/readability_guard.py"
   ],
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "layer": "L2",
   "systemic_targets": [
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

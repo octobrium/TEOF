@@ -6,7 +6,7 @@
   "summary": "Audit slow-plan latency receipts",
   "priority": 5,
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "impact_score": 3,
   "status": "done",
   "steps": [
@@ -23,7 +23,7 @@
       "id": "S2",
       "title": "Capture notes explaining each slow plan",
       "status": "done",
-      "notes": "cmd> python3 -m tools.agent.bus_message --task manager-report --type status --plan 2025-09-17-commandment-tags --summary 'codex-2: slow plan audit – commandment tags' --note 'Latency triggered by systemic metadata backfill touching _plans/2025-09-17-ledger-upkeep.plan.json on 2025-10-03; work finished 2025-09-17.'\ncmd> python3 -m tools.agent.bus_message --task manager-report --type status --plan 2025-09-19-heartbeat-docs-codex3 --summary 'codex-2: slow plan audit – heartbeat docs' --note 'Docs/tests receipts refreshed 2025-10-03 during metadata backfill; automation shipped 2025-09-19 and remains unchanged.'\ncmd> python3 - <<'PY' (serialize slow-plan audit JSON)",
+      "notes": "cmd> python3 -m tools.agent.bus_message --task manager-report --type status --plan 2025-09-17-commandment-tags --summary 'codex-2: slow plan audit \u2013 commandment tags' --note 'Latency triggered by systemic metadata backfill touching _plans/2025-09-17-ledger-upkeep.plan.json on 2025-10-03; work finished 2025-09-17.'\ncmd> python3 -m tools.agent.bus_message --task manager-report --type status --plan 2025-09-19-heartbeat-docs-codex3 --summary 'codex-2: slow plan audit \u2013 heartbeat docs' --note 'Docs/tests receipts refreshed 2025-10-03 during metadata backfill; automation shipped 2025-09-19 and remains unchanged.'\ncmd> python3 - <<'PY' (serialize slow-plan audit JSON)",
       "receipts": [
         "_report/usage/slow-plan-audit-20251004T195601Z.json",
         "_report/usage/slow-plan-latency-notes-20251004.json"

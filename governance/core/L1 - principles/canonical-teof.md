@@ -50,10 +50,11 @@ Scale action to evidence strength. Under uncertainty, bias toward reversible ste
 
 ## Implications for Design & Governance
 - Traceability: Every L2 objective, L3 property, and L4 mechanism should cite which principle(s) it serves.  
-- Sequencing: Plans and reviews evaluate work in the emergence order; failures at lower tiers block higher‑tier work.  
-- Evidence Discipline: Decisions declare expected signals and are re‑audited against outcomes (P3, P7).  
+- Sequencing: Plans and reviews evaluate work in the emergence order; failures at lower tiers block higher-tier work.  
+- Evidence Discipline: Decisions declare expected signals and are re-audited against outcomes (P3, P7).  
 - Minimal Guardrails: CI enforces only what protects observation, sequencing, and reversibility (P1, P4, P6).  
-- Substrate Policy: Contracts and ABIs are written to be substrate‑agnostic; enforcement avoids identity‑based assumptions (P5).
+- Substrate Policy: Contracts and ABIs are written to be substrate-agnostic; enforcement avoids identity-based assumptions (P5).
+- Ethical Interoperability: When S8 arguments reference duties, welfare, or rights, show how the proposed action preserves observation; TEOF integrates classical ethics by routing each claim back to receipts (P1, P7).
 
 ---
 

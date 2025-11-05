@@ -6,7 +6,7 @@
   "summary": "Track macro hygiene objectives and wire them into automation cadence",
   "priority": 3,
   "layer": "L2",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "impact_score": 40,
   "status": "done",
   "steps": [
@@ -70,6 +70,7 @@
   ],
   "systemic_targets": [
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

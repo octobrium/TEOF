@@ -40,8 +40,9 @@
     "_report/runner/20250917T204119Z-279e13b9.json"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "systemic_targets": [
+    "S4",
     "S5",
     "S6"
   ],

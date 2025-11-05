@@ -51,10 +51,11 @@
     "_report/agent/codex-2/bus-message-claim-guard/docs.json",
     "_report/agent/codex-2/bus-message-claim-guard/pytest.json"
   ],
-  "systemic_scale": 3,
+  "systemic_scale": 6,
   "layer": "L5",
   "systemic_targets": [
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

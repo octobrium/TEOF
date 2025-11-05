@@ -59,7 +59,7 @@
   ],
   "summary": "Add session swap helper for manifest + branch hygiene",
   "version": 0,
-  "systemic_scale": 3,
+  "systemic_scale": 10,
   "layer": "L5",
   "systemic_targets": [
     "S3",

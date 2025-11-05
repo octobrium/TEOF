@@ -25,6 +25,9 @@ canonical TEOF principles (`governance/core/L1 - principles/canonical-teof.md`).
 See [`docs/whitepaper.md`](../whitepaper.md) §5 for the canonical definitions.
 Machine-readable index: [`governance/systemic-order.json`](../../governance/systemic-order.json).
 
+**Ethics context**  
+S8 treats “ethics” as the stewardship of power in service of clarity, but this does not discard more familiar lenses (deontic duties, consequentialist welfare, or rights-based justice). Instead, TEOF requires those arguments to cite the observation they protect: a duty is valid when it preserves apertures; a harm calculation is valid when it keeps evidence legible. Adding this note keeps the canon interoperable with existing ethical frameworks while maintaining the constitutional priority on observation receipts.
+
 ### Core fractal vs. growth overlays
 
 - **Core fractal:** `S1–S4` (Unity, Energy, Propagation, Resilience) form the minimal loop. Resilience regenerates Unity, so these four axes can repeat fractally across scales without invoking higher constructs.

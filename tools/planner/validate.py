@@ -443,6 +443,17 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
     if "legacy_loop_target" in data:
         errors.append("legacy_loop_target is deprecated; use systemic_targets/layer_targets")
 
+    if systemic_targets:
+        highest_axis = max(int(token[1:]) for token in systemic_targets)
+        if systemic_scale is not None and systemic_scale != highest_axis:
+            errors.append(
+                f"systemic_scale must equal highest systemic_targets axis (expected S{highest_axis})"
+            )
+        if highest_axis > 4 and "S4" not in systemic_targets:
+            errors.append("systemic_targets must include S4 before declaring S5+ overlays")
+        if systemic_scale is None:
+            systemic_scale = highest_axis
+
     if errors:
         return None, errors
 

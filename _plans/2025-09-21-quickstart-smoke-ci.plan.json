@@ -50,10 +50,11 @@
     "tests/test_quickstart_snippet_guard.py"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "systemic_targets": [
     "S1",
     "S2",
+    "S4",
     "S5",
     "S6"
   ],

@@ -44,7 +44,20 @@ TEOF is built on seven principles that define observation’s role in reality, t
 
 ---
 
-### 2.1 Systemic Operating Loop
+### 2.1 Compatibility with existing scientific practice
+
+“Observation is” is a universal claim: denying observation invokes it, so any coherent system must anchor itself on that axiom. Within TEOF this is the absolute floor—the constitution, receipts, and governance all recurse on the fact that observation cannot be escaped. The clarification here does **not** soften that stance; it simply explains how other schools can coexist atop the same axiom.
+
+Mainstream physics and epistemology routinely posit observer-independent dynamics. TEOF permits those narratives provided they cash out in observation: a laboratory may work with classical or quantum formalisms, but every hypothesis must still reconcile with receipts. This is the same discipline found in participatory realism, radical empiricism, and Bayesian experimental design—traditions that acknowledge differing ontologies while agreeing that evidence trails arbitrate truth.
+
+So long as external models respect that arbiter, they already operate inside the TEOF axiom—even if their authors give different names to the substrate. The framework therefore fits conventional scientific method:
+- ontological commitments (fields, particles, agents) live above L0 and remain contestable;
+- L0–L2 ensure hypotheses stay falsifiable and evidence-linked;
+- additional structure (S5+) is optional overlays once the Unity → Resilience loop holds.
+
+---
+
+### 2.2 Systemic Operating Loop
 
 TEOF now grounds implementation decisions in the systemic lattice that joins the
 Unity → Meaning hierarchy (S1–S10) with the layer stack (L0–L6). Every plan,

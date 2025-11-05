@@ -6,7 +6,7 @@
   "summary": "Enforce session boot + agent identity before bus usage",
   "priority": 3,
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "impact_score": 3,
   "status": "done",
   "steps": [

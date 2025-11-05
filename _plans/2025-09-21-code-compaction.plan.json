@@ -79,7 +79,7 @@
   ],
   "summary": "Compact shared code without changing retired observation loop outcomes",
   "version": 0,
-  "systemic_scale": 2,
+  "systemic_scale": 10,
   "layer": "L4",
   "systemic_targets": [
     "S2",

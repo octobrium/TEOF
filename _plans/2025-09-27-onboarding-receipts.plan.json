@@ -62,6 +62,7 @@
     "tools/receipts/status.py"
   ],
   "systemic_targets": [
+    "S4",
     "S5",
     "S6"
   ],

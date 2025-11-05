@@ -52,7 +52,7 @@
     "_report/agent/codex-3/maintenance-pruning/inventory.json",
     "_report/agent/codex-3/maintenance-pruning/summary.json"
   ],
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "layer": "L5",
   "systemic_targets": [
     "S1",

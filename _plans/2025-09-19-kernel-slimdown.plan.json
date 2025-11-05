@@ -53,7 +53,7 @@
     "_report/runner/20250918T221405Z-20155a7c.json"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "systemic_targets": [
     "S4",
     "S5",

@@ -6,7 +6,7 @@
   "summary": "Automate backlog synthesis from fractal advisories",
   "priority": 2,
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "impact_score": 85,
   "status": "done",
   "steps": [

@@ -46,6 +46,7 @@
   "receipts": [],
   "systemic_targets": [
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

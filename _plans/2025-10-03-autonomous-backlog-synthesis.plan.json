@@ -60,7 +60,7 @@
     "tools/autonomy/backlog_synth.py",
     "_report/autonomy/backlog-synth/synth-20251003T023654Z.json"
   ],
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "layer": "L5",
   "systemic_targets": [
     "S2",

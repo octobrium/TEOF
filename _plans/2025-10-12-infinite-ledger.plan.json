@@ -6,7 +6,7 @@
   "summary": "Prototype hash-linked receipt ledger",
   "priority": 1,
   "layer": "L4",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "impact_score": 5,
   "status": "queued",
   "steps": [
@@ -43,6 +43,7 @@
     "S1",
     "S2",
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

@@ -43,7 +43,7 @@
     "docs/automation.md"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "systemic_targets": [
     "S1",
     "S2",

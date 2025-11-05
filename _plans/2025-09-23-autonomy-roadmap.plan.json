@@ -62,7 +62,7 @@
   "updated": "2025-09-23T20:54:00Z",
   "completed": "2025-09-23T20:54:00Z",
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "systemic_targets": [
     "S3",
     "S4",

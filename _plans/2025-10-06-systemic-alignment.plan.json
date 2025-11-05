@@ -3,7 +3,7 @@
   "created": "2025-10-06T20:17:09Z",
   "actor": "codex-4",
   "status": "done",
-  "summary": "Document the retired observation loop as a subordinate diagnostic overlay mapped to systemic hierarchy S1–S10.",
+  "summary": "Document the retired observation loop as a subordinate diagnostic overlay mapped to systemic hierarchy S1\u2013S10.",
   "links": [
     {
       "type": "doc",
@@ -32,7 +32,7 @@
     },
     {
       "id": "step-2",
-      "title": "Draft retired loop ↔ S mapping",
+      "title": "Draft retired loop \u2194 S mapping",
       "status": "done",
       "notes": "Draft mapping of retired loop phases to S axes.",
       "receipts": [
@@ -51,7 +51,7 @@
     }
   ],
   "checkpoint": {
-    "description": "Retired loop overlay documented as subordinate to S1–S10 with receipts",
+    "description": "Retired loop overlay documented as subordinate to S1\u2013S10 with receipts",
     "owner": "codex-4",
     "status": "satisfied",
     "receipts": [
@@ -64,12 +64,13 @@
   "version": 0,
   "priority": 2,
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "impact_score": 3,
   "systemic_targets": [
     "S1",
     "S2",
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

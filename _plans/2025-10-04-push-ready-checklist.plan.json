@@ -6,7 +6,7 @@
   "summary": "Formalize push readiness checklist and helper tooling",
   "priority": 3,
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "impact_score": 5,
   "status": "done",
   "updated": "2025-11-03T21:18:00Z",
@@ -53,6 +53,7 @@
   ],
   "systemic_targets": [
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

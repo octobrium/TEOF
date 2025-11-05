@@ -6,7 +6,7 @@
   "summary": "Institutionalize idea backlogging and ranking discipline",
   "priority": 0,
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "impact_score": 95,
   "status": "done",
   "steps": [
@@ -71,7 +71,7 @@
     "governance/core/L1 - principles/canonical-teof.md"
   ],
   "dictionary_alignments": {
-    "systemic_scale": "docs/foundation/systemic-scale.md (S1–S10)",
+    "systemic_scale": "docs/foundation/systemic-scale.md (S1\u2013S10)",
     "layer": "docs/workflow.md#layer-hierarchy",
     "priority": "docs/workflow.md#backlog-discipline",
     "impact_score": "docs/workflow.md#backlog-discipline"

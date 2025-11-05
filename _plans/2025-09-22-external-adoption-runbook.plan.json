@@ -45,9 +45,10 @@
     "_report/planner/validate/summary-20250922T044348Z.json"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 7,
   "systemic_targets": [
     "S3",
+    "S4",
     "S5",
     "S6",
     "S7"

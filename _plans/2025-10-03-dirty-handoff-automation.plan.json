@@ -6,7 +6,7 @@
   "summary": "Automate dirty worktree handoff guardrails in session_boot",
   "status": "done",
   "layer": "L5",
-  "systemic_scale": 3,
+  "systemic_scale": 6,
   "steps": [
     {
       "id": "S1",
@@ -60,6 +60,7 @@
     "S1",
     "S2",
     "S3",
+    "S4",
     "S6"
   ],
   "layer_targets": [

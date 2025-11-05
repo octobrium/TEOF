@@ -52,7 +52,7 @@
   "receipts": [
     "_report/agent/codex-3/collab-support/docs.json"
   ],
-  "systemic_scale": 3,
+  "systemic_scale": 6,
   "layer": "L5",
   "systemic_targets": [
     "S3",

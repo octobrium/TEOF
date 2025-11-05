@@ -7,13 +7,14 @@
   "systemic_targets": [
     "S1",
     "S3",
+    "S4",
     "S6"
   ],
   "layer_targets": [
     "L5"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "status": "queued",
   "steps": [
     {

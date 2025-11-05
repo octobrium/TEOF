@@ -6,7 +6,7 @@
   "summary": "Automate governance receipt scaffolds for ethics playbook",
   "priority": 4,
   "layer": "L5",
-  "systemic_scale": 6,
+  "systemic_scale": 8,
   "impact_score": 3,
   "status": "done",
   "steps": [

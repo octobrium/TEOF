@@ -44,10 +44,11 @@
   "receipts": [
     "_report/agent/codex-2/claim-seed-docs/notes.txt"
   ],
-  "systemic_scale": 3,
+  "systemic_scale": 6,
   "layer": "L5",
   "systemic_targets": [
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

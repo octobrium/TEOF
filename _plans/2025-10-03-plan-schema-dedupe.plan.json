@@ -53,7 +53,7 @@
     "_report/usage/plan-lint/duplicate-keys-20251007T224750Z.json"
   ],
   "layer": "L6",
-  "systemic_scale": 6,
+  "systemic_scale": 10,
   "systemic_targets": [
     "S4",
     "S5",

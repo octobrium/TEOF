@@ -6,7 +6,7 @@
   "summary": "Productionize slow-plan latency thresholds and alerts",
   "priority": 3,
   "layer": "L5",
-  "systemic_scale": 6,
+  "systemic_scale": 10,
   "impact_score": 5,
   "status": "done",
   "steps": [

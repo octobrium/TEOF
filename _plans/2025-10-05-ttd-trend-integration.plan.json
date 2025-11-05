@@ -3,7 +3,7 @@
   "created": "2025-10-05T22:45:04Z",
   "actor": "codex-4",
   "status": "done",
-  "summary": "Integrate TTΔ trend reporting into manager report workflow and ensure receipts.",
+  "summary": "Integrate TT\u0394 trend reporting into manager report workflow and ensure receipts.",
   "links": [
     {
       "type": "doc",
@@ -17,7 +17,7 @@
   "steps": [
     {
       "id": "step-1",
-      "title": "Wire manager_report to emit TTΔ trend summary",
+      "title": "Wire manager_report to emit TT\u0394 trend summary",
       "status": "done",
       "receipts": [
         "tools/agent/manager_report.py"
@@ -42,14 +42,14 @@
     }
   ],
   "checkpoint": {
-    "description": "Manager report emits TTΔ summaries automatically",
+    "description": "Manager report emits TT\u0394 summaries automatically",
     "owner": "codex-4",
     "status": "satisfied"
   },
   "version": 0,
   "priority": 2,
   "layer": "L5",
-  "systemic_scale": 4,
+  "systemic_scale": 6,
   "impact_score": 3,
   "systemic_targets": [
     "S1",

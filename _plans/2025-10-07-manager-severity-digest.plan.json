@@ -6,7 +6,7 @@
   "summary": "Add high-severity digest output to manager dashboard",
   "priority": 2,
   "layer": "L5",
-  "systemic_scale": 3,
+  "systemic_scale": 6,
   "impact_score": 35,
   "status": "done",
   "steps": [

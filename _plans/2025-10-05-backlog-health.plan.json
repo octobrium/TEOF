@@ -6,7 +6,7 @@
   "summary": "Auto-generate and prioritize backlog when pending items fall low",
   "priority": 3,
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "impact_score": 4,
   "status": "done",
   "steps": [

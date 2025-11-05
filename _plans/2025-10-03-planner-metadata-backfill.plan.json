@@ -66,7 +66,7 @@
     "_plans/2025-09-17-queue-hygiene.plan.json",
     "_report/autonomy/backlog-synth/summary-20251003T030200Z.md"
   ],
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "layer": "L5",
   "systemic_targets": [
     "S3",

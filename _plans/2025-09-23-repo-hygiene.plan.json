@@ -45,7 +45,7 @@
     }
   ],
   "summary": "[Closed 2025-10-07] Consolidate automation surface and trim unused artifacts",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "version": 0,
   "systemic_targets": [
     "S4",

@@ -60,7 +60,7 @@
     "_report/agent/codex-2/heartbeat-auto/summary-20250920.md"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "systemic_targets": [
     "S3",
     "S4",

@@ -41,9 +41,10 @@
     "docs/automation/systemic-adoption-guide.md"
   ],
   "layer": "L1",
-  "systemic_scale": 7,
+  "systemic_scale": 8,
   "systemic_targets": [
     "S1",
+    "S4",
     "S6",
     "S7",
     "S8"
@@ -55,6 +56,6 @@
   ],
   "priority": {
     "value": "medium",
-    "reason": "Provides a bridge between existing compliance frameworks and TEOF’s constitutional lattice."
+    "reason": "Provides a bridge between existing compliance frameworks and TEOF\u2019s constitutional lattice."
   }
 }

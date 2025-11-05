@@ -6,7 +6,7 @@
   "summary": "Add severity tagging to bus_event for clearer coordination alerts",
   "priority": 2,
   "layer": "L5",
-  "systemic_scale": 3,
+  "systemic_scale": 6,
   "impact_score": 45,
   "status": "done",
   "steps": [

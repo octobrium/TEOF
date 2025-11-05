@@ -36,7 +36,7 @@ objectives:
     receipts:
       - _report/agent/codex-3/prune-script/pytest.json
     coverage: partial
-    notes: "Pruning helper keeps habitats clear; still need automated trigger cadence."
+    notes: "Pruning helper keeps habitats clear; schedule automated trigger cadence and emit capacity receipts (see docs/automation/systemic-metrics.md §2)."
   L2.4:
     title: Functional Continuity
     enforced_by:
@@ -82,7 +82,7 @@ objectives:
     receipts:
       - _report/runner/reconciliation/pipeline/metrics.jsonl
     coverage: partial
-    notes: "Metrics tests cover reconciliation; consensus metrics still TODO."
+    notes: "Metrics tests cover reconciliation; integrate systemic metric collectors + consensus telemetry per docs/automation/systemic-metrics.md."
   L2.13:
     title: Incentives Aligned with Truth-Seeking
     enforced_by:
@@ -123,7 +123,7 @@ properties:
         - scripts/ci/check_plans.py
         - tools/preflight.sh
     coverage: partial
-    notes: "Plan + preflight guard prevent tangled changes; need module boundary tests."
+    notes: "Plan + preflight guard prevent tangled changes; add module boundary contract tests and receipts."
   P5-redundancy-resilience:
     title: Redundancy & Resilience
     enforced_by:
@@ -131,7 +131,7 @@ properties:
         - tests/test_agent_bus_watch.py
         - tests/test_agent_task_assign.py
     coverage: partial
-    notes: "Distributed queue/claim tests ensure redundancy; more failure drills pending."
+    notes: "Distributed queue/claim tests ensure redundancy; automate rollback rehearsal receipts per docs/automation/systemic-metrics.md."
   P11-self-audit-drift-detection:
     title: Self-Audit & Drift Detection
     enforced_by:
@@ -147,10 +147,10 @@ properties:
     enforced_by:
       tests:
         - tests/test_reconcile_pipeline.py
-      receipts:
-        - _report/reconciliation/pipeline/metrics.jsonl
+    receipts:
+      - _report/reconciliation/pipeline/metrics.jsonl
     coverage: partial
-    notes: "Pipeline metrics catch divergence; integrate consensus metrics next."
+    notes: "Pipeline metrics catch divergence; integrate consensus + clarity delta metrics from docs/automation/systemic-metrics.md."
   P13-authenticated-intake:
     title: Authenticated Intake Envelope
     enforced_by:
@@ -162,13 +162,14 @@ properties:
     receipts:
       - _report/external/example-feed/20250101T000000Z.json
     coverage: planned
-    notes: "Adapter + guard spec in docs/automation.md; implement Ed25519 verification and pilot receipts next."
+    notes: "Adapter + guard spec in docs/automation.md; finish Ed25519 verification + publish pilot receipts (planned), then mark coverage active."
 
 meta:
   updated: 2025-09-21T12:20:00Z
   owner: codex-2
   gaps:
-    - L2.5 requires readability guard.
+    - Implement systemic core metrics per docs/automation/systemic-metrics.md and plug them into validator/doctor receipts.
+    - Close L2.5 readability guard loop with wider doc coverage (still partially addressed).
     - L2.6/L2.7/L2.8 coverage still implicit; schedule follow-up once consensus + capsule automation matures.
     - Property list not exhaustive; add cards as new automation boots.
     - External receipt verification pending adapter + signature integration (P13).

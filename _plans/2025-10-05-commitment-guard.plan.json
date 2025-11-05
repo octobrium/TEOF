@@ -3,10 +3,10 @@
   "plan_id": "2025-10-05-commitment-guard",
   "created": "2025-10-05T04:45:00Z",
   "actor": "codex-manager",
-  "summary": "Automate detection of unbacked commitments and integrate into TTΔ/manager report",
+  "summary": "Automate detection of unbacked commitments and integrate into TT\u0394/manager report",
   "status": "done",
   "layer": "L5",
-  "systemic_scale": 4,
+  "systemic_scale": 8,
   "receipts": [
     "tools/autonomy/commitment_guard.py",
     "tools/agent/manager_report.py",
@@ -24,7 +24,7 @@
     },
     {
       "id": "sg-commit-2",
-      "title": "Document expectation in TTΔ guidance and clarifications",
+      "title": "Document expectation in TT\u0394 guidance and clarifications",
       "status": "done",
       "receipts": [
         "docs/usage/direction-metrics.md",

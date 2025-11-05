@@ -73,7 +73,7 @@
     "tools/agent/bus_status.py"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "systemic_targets": [
     "S4",
     "S5",

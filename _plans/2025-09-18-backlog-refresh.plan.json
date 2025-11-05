@@ -51,7 +51,7 @@
     "_report/agent/codex-1/backlog-refresh/summary-20250918T192800Z.txt"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "systemic_targets": [
     "S3",
     "S4",

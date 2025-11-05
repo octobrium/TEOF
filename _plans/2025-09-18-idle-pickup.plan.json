@@ -57,7 +57,7 @@
     "_report/agent/codex-1/idle-pickup/pytest-20250918T203400Z.txt"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 10,
   "systemic_targets": [
     "S3",
     "S4",

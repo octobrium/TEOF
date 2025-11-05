@@ -6,7 +6,7 @@
   "summary": "Package decentralized TEOF node workflows",
   "priority": 1,
   "layer": "L5",
-  "systemic_scale": 4,
+  "systemic_scale": 6,
   "impact_score": 4,
   "status": "queued",
   "steps": [

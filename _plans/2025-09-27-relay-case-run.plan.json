@@ -5,7 +5,7 @@
   "actor": "codex-5",
   "summary": "Completed Relay Insight sprint case run with receipts anchored after backlog guard realignment",
   "layer": "L6",
-  "systemic_scale": 6,
+  "systemic_scale": 7,
   "status": "done",
   "stage": "done",
   "steps": [
@@ -78,6 +78,7 @@
   ],
   "systemic_targets": [
     "S3",
+    "S4",
     "S6",
     "S7"
   ],

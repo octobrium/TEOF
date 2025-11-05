@@ -6,6 +6,7 @@
   "summary": "Build autonomous coordinator layer for task assignment",
   "systemic_targets": [
     "S1",
+    "S4",
     "S6",
     "S7"
   ],

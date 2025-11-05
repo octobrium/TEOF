@@ -44,11 +44,12 @@
     "_report/agent/codex-2/2025-09-20-operator-mode-checklist/summary.json"
   ],
   "layer": "L5",
-  "systemic_scale": 5,
+  "systemic_scale": 6,
   "systemic_targets": [
     "S1",
     "S2",
     "S3",
+    "S4",
     "S5",
     "S6"
   ],

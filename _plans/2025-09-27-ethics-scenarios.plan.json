@@ -6,7 +6,7 @@
   "summary": "Refine TEOF ethics corpus for scenario coverage",
   "priority": 3,
   "layer": "L1",
-  "systemic_scale": 7,
+  "systemic_scale": 8,
   "impact_score": 4,
   "status": "done",
   "steps": [
