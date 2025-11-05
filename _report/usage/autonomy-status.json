@@ -1,13 +1,18 @@
 {
   "hygiene": {
-    "generated_at": "2025-10-05T18:32:30Z",
-    "plans_total": 180,
+    "generated_at": "2025-10-19T09:42:46Z",
+    "plans_total": 203,
     "plans_missing_receipts": 0,
     "missing_plan_ids": [],
     "slow_plans": [
       [
         "2025-09-22-teof-status-cli",
         1051248.0,
+        null
+      ],
+      [
+        "2025-10-07-macro-hygiene-objectives",
+        850795.0,
         null
       ],
       [
@@ -24,117 +29,39 @@
         "2025-09-18-bus-message-claim-guard",
         163633.0,
         null
-      ],
-      [
-        "2025-09-25-memory-layer",
-        121791.0,
-        null
       ]
     ],
-    "slow_plan_alerts": {
-      "warn_threshold_seconds": 259200.0,
-      "fail_threshold_seconds": 604800.0,
-      "counts": {
-        "warn": 1,
-        "fail": 1
-      },
-      "alerts": [
-        {
-          "plan_id": "2025-09-19-kernel-slimdown",
-          "severity": "warn",
-          "plan_to_first_seconds": 366468.0,
-          "note_to_first_seconds": null
-        },
-        {
-          "plan_id": "2025-09-22-teof-status-cli",
-          "severity": "fail",
-          "plan_to_first_seconds": 1051248.0,
-          "note_to_first_seconds": null
-        }
-      ]
-    }
+    "slow_plan_alerts": null
   },
   "batch_logs": {
-    "entries": 5,
-    "latest_summary": "pass",
-    "latest_agent": "codex-5",
-    "latest_generated_at": "20251004T050034Z",
-    "warn_count": 3,
-    "fail_count": 1,
-    "avg_pytest_seconds": 0.1777669895,
-    "avg_hygiene_seconds": 0.29858591675,
-    "entries_detail": [
-      {
-        "generated_at": "20250921T181427Z",
-        "summary": "warn",
-        "agent": "codex-4",
-        "log_path": "_report/usage/batch-refinement/batch-refinement-20250921T181427Z.json"
-      },
-      {
-        "generated_at": "20251004T003038Z",
-        "summary": "fail",
-        "agent": "codex-5",
-        "log_path": "_report/usage/batch-refinement/batch-refinement-20251004T003038Z.json"
-      },
-      {
-        "generated_at": "20251004T003932Z",
-        "summary": "warn",
-        "agent": "codex-5",
-        "log_path": "_report/usage/batch-refinement/batch-refinement-20251004T003932Z.json"
-      },
-      {
-        "generated_at": "20251004T045951Z",
-        "summary": "warn",
-        "agent": "codex-5",
-        "log_path": "_report/usage/batch-refinement/batch-refinement-20251004T045951Z.json"
-      },
-      {
-        "generated_at": "20251004T050034Z",
-        "summary": "pass",
-        "agent": "codex-5",
-        "log_path": "_report/usage/batch-refinement/batch-refinement-20251004T050034Z.json"
-      }
-    ]
+    "entries": 0,
+    "latest_summary": null,
+    "latest_agent": null,
+    "latest_generated_at": null,
+    "warn_count": 0,
+    "fail_count": 0,
+    "avg_pytest_seconds": null,
+    "avg_hygiene_seconds": null
   },
   "top_slow_plans": [
     "2025-09-22-teof-status-cli",
-    "2025-09-19-kernel-slimdown",
-    "2025-09-24-relay-offering"
+    "2025-10-07-macro-hygiene-objectives",
+    "2025-09-19-kernel-slimdown"
   ],
   "readiness": {
-    "status": "attention",
+    "status": "ready",
     "missing_receipts": 0,
     "slow_plan_count": 5,
-    "slow_plan_alert_counts": {
-      "warn": 1,
-      "fail": 1
-    },
-    "batch_warn_count": 3,
-    "batch_fail_count": 1,
-    "attention": [
-      {
-        "kind": "slow_plans",
-        "count": 5,
-        "plan_ids": [
-          "2025-09-22-teof-status-cli",
-          "2025-09-19-kernel-slimdown",
-          "2025-09-24-relay-offering",
-          "2025-09-18-bus-message-claim-guard",
-          "2025-09-25-memory-layer"
-        ]
-      },
-      {
-        "kind": "slow_plan_fail",
-        "count": 1
-      },
-      {
-        "kind": "batch_failures",
-        "count": 1
-      },
-      {
-        "kind": "batch_warnings",
-        "count": 3
-      }
-    ]
+    "slow_plan_alert_counts": {},
+    "batch_warn_count": 0,
+    "batch_fail_count": 0,
+    "attention": []
+  },
+  "plan_briefs": {
+    "2025-09-18-bus-message-claim-guard": "Plan 2025-09-18-bus-message-claim-guard — status: done; layer: L5; systemic scale: 6; systemic targets: S3, S4, S5, S6",
+    "2025-09-19-kernel-slimdown": "Plan 2025-09-19-kernel-slimdown — status: done; layer: L5; systemic scale: 10; systemic targets: S4, S5, S6, S10",
+    "2025-09-22-teof-status-cli": "Plan 2025-09-22-teof-status-cli — status: done; layer: L5; systemic scale: 6; systemic targets: S1, S2, S4, S5, S6",
+    "2025-09-24-relay-offering": "Plan 2025-09-24-relay-offering — status: done; layer: L5; systemic scale: 7; systemic targets: S3, S4, S5, S6, S7",
+    "2025-10-07-macro-hygiene-objectives": "Plan 2025-10-07-macro-hygiene-objectives — status: done; layer: L2; systemic scale: 6; systemic targets: S3, S4, S5, S6"
   }
 }
