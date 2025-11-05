@@ -11,6 +11,7 @@ from tools.autonomy import critic as critic_mod
 from tools.autonomy import ethics_gate as ethics_mod
 from tools.autonomy import frontier as frontier_mod
 from tools.autonomy import tms as tms_mod
+from tools.metrics import ratchet as ratchet_mod
 
 from ._utils import DEFAULT_ROOT, relpath
 SCAN_COMPONENTS = ("frontier", "critic", "tms", "ethics")
@@ -112,12 +113,27 @@ def run(args: Namespace) -> int:
                 plan_path = tms_mod.emit_plan(conflict, tms_receipt)
                 plans_emitted.append(rel(plan_path))
 
-    counts = {
+    counts: Dict[str, int] = {
         "frontier": len(frontier_entries) if "frontier" in selected else 0,
         "critic": len(critic_anomalies) if "critic" in selected else 0,
         "tms": len(tms_conflicts) if "tms" in selected else 0,
         "ethics": len(ethics_violations) if "ethics" in selected else 0,
     }
+
+    ratchet_snapshot: ratchet_mod.RatchetSnapshot | None = None
+    if out_dir is not None:
+        snapshot = ratchet_mod.compute_snapshot(
+            root=base_root,
+            now=dt.datetime.now(dt.timezone.utc),
+            scan_counts=counts,
+            frontier_entries=frontier_entries,
+            critic_anomalies=critic_anomalies,
+            tms_conflicts=tms_conflicts,
+            ethics_violations=ethics_violations,
+        )
+        ratchet_path = ratchet_mod.write_snapshot(snapshot, root=base_root, out_dir=out_dir)
+        receipts["ratchet"] = ratchet_path
+        ratchet_snapshot = snapshot
 
     if fmt == "json":
         payload: dict[str, object] = {
@@ -138,6 +154,8 @@ def run(args: Namespace) -> int:
             payload["emitted_bus"] = bus_emitted
         if plans_emitted:
             payload["emitted_plans"] = plans_emitted
+        if ratchet_snapshot is not None:
+            payload["ratchet"] = ratchet_snapshot.as_dict()
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return 0
 
@@ -182,6 +200,16 @@ def run(args: Namespace) -> int:
         print("\nPlans:")
         for path in plans_emitted:
             print(f"- {path}")
+
+    if ratchet_snapshot is not None:
+        print("\nRatchet:")
+        print(
+            f"- coherence_gain={ratchet_snapshot.coherence_gain} "
+            f"complexity_added={ratchet_snapshot.complexity_added} "
+            f"closure_velocity={ratchet_snapshot.closure_velocity} "
+            f"risk_load={ratchet_snapshot.risk_load} "
+            f"ratchet_index={ratchet_snapshot.ratchet_index}"
+        )
 
     return 0
 

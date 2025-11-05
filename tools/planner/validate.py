@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import json
 import re
 import subprocess
 import sys
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -18,6 +19,7 @@ from tools.planner.systemic_targets import (
     normalize_axis,
     sort_axes,
 )
+from tools.metrics import ratchet as ratchet_mod
 
 ROOT = Path(__file__).resolve().parents[2]
 PLANS_DIR = ROOT / "_plans"
@@ -595,13 +597,22 @@ def _default_summary_path() -> Path:
     return DEFAULT_SUMMARY_DIR / f"summary-{stamp}.json"
 
 
-def _write_summary(results: List[Dict[str, Any]], *, output: Path, strict: bool, exit_code: int) -> None:
+def _write_summary(
+    results: List[Dict[str, Any]],
+    *,
+    output: Path,
+    strict: bool,
+    exit_code: int,
+    metrics: Optional[Dict[str, Any]] = None,
+) -> None:
     payload = {
         "generated_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         "strict": strict,
         "exit_code": exit_code,
         "plans": results,
     }
+    if metrics is not None:
+        payload["ratchet"] = metrics
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
@@ -637,6 +648,20 @@ def main() -> int:
             for err in result.errors:
                 print(f"  - {err}", file=sys.stderr)
 
+    now_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
+    plan_stats = ratchet_mod.collect_plan_stats(ROOT, now=now_utc)
+    claim_stats = ratchet_mod.collect_claim_stats(ROOT)
+    planner_coherence = plan_stats.closed_steps + plan_stats.done_plans + claim_stats.terminal_claims
+    planner_complexity = plan_stats.open_steps + plan_stats.active_plans + claim_stats.active_claims
+    planner_ratchet_index = planner_coherence / max(planner_complexity, 1)
+
+    if args.strict and planner_ratchet_index < 1.0:
+        failures += 1
+        print(
+            f"FAIL planner ratchet threshold: index={planner_ratchet_index:.3f} (< 1.000)",
+            file=sys.stderr,
+        )
+
     exit_code = 0 if failures == 0 else 2
 
     if args.output:
@@ -646,7 +671,20 @@ def main() -> int:
     else:
         output_path = _default_summary_path()
 
-    _write_summary(results, output=output_path, strict=args.strict, exit_code=exit_code)
+    ratchet_metrics = {
+        "plan_stats": dataclasses.asdict(plan_stats),
+        "claim_stats": dataclasses.asdict(claim_stats),
+        "planner_ratchet_index": round(planner_ratchet_index, 3),
+        "ratchet_threshold_met": planner_ratchet_index >= 1.0,
+    }
+
+    _write_summary(
+        results,
+        output=output_path,
+        strict=args.strict,
+        exit_code=exit_code,
+        metrics=ratchet_metrics,
+    )
     rel_out = _relative_to_root(output_path)
     print(f"wrote summary to {rel_out}")
 

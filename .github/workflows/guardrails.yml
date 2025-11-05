@@ -34,6 +34,8 @@ jobs:
         run: PYTHONPATH=. python3 scripts/ci/check_automation_inventory.py
       - name: Quickstart smoke test
         run: scripts/ci/quickstart_smoke.sh
+      - name: Systemic ratchet guard
+        run: PYTHONPATH=. python3 scripts/ci/check_ratchet_velocity.py
       - name: Upload consensus artifacts
         uses: actions/upload-artifact@v4
         with:

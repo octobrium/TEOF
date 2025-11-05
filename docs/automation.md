@@ -56,6 +56,7 @@ teof scan --out _report/usage/systemic-scan --format json --emit-bus --emit-plan
 - Writes `frontier.json`, `critic.json`, `tms.json`, and `ethics.json` into the chosen directory with matching `receipt_sha256` fields.
 - Summaries land on stdout (table by default, JSON when `--format json` is set) with per-axis counts for each subsystem.
 - `--emit-bus` seeds repair claims for critic/ethics findings when receipts are captured; `--emit-plan` adds TMS plan skeletons that inherit the receipt path.
+- Each run now emits `ratchet.json`, capturing `coherence_gain`, `complexity_added`, `closure_velocity`, `risk_load`, and the derived `ratchet_index`. History is stitched together under `_report/usage/systemic-scan/ratchet-history.jsonl`; the CI guard (`scripts/ci/check_ratchet_velocity.py`) fails whenever the latest index < **0.95**, closure velocity drops below **0.20**, or systemic risk grows faster than complexity.
 - Use `--limit` to cap frontier entries (default **10**). Skipping `--out` keeps the run read-only.
 - Scope the run with `--only <component>` (repeat for multiple) or `--skip <component>` to evaluate a subset. Component names: `frontier`, `critic`, `tms`, `ethics`.
 - Pass `--summary` to print a quick counts list instead of full tables when you only need systemic readiness tallies.
