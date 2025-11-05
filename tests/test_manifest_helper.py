@@ -239,3 +239,20 @@ def test_session_save_with_no_heartbeat(tmp_path: Path, monkeypatch) -> None:
     manifest_helper.save_session("quiet", heartbeat_enabled=False)
 
     assert not calls
+
+
+def test_activate_allows_slug_without_prefix(tmp_path: Path, monkeypatch) -> None:
+    root = tmp_path
+    default = root / "AGENT_MANIFEST.json"
+    backup_dir = root / ".manifest_backups"
+    monkeypatch.setattr(manifest_helper, "ROOT", root)
+    monkeypatch.setattr(manifest_helper, "DEFAULT_MANIFEST", default)
+    monkeypatch.setattr(manifest_helper, "BACKUP_DIR", backup_dir)
+
+    _write_manifest(default, "{\"agent_id\": \"claude-coding-1\"}")
+    _write_manifest(root / "AGENT_MANIFEST.codex-4.json", "{\"agent_id\": \"codex-4\"}")
+
+    activated = manifest_helper.activate_variant("codex-4", backup=False)
+
+    assert activated.name == "AGENT_MANIFEST.codex-4.json"
+    assert json.loads(default.read_text(encoding="utf-8"))["agent_id"] == "codex-4"
