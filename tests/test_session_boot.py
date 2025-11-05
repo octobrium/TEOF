@@ -84,6 +84,9 @@ def _setup_env(
     monkeypatch.setattr(session_boot, "MANAGER_REPORT_LOG", manager_log)
     monkeypatch.setattr(session_boot, "SESSION_GUARD_DIR", root / "_report" / "agent")
     monkeypatch.setattr(session_boot, "_get_current_branch", lambda: f"agent/{agent_id}/test")
+    monkeypatch.setattr(session_boot.manifest_helper, "ROOT", root)
+    monkeypatch.setattr(session_boot.manifest_helper, "DEFAULT_MANIFEST", manifest_path)
+    monkeypatch.setattr(session_boot.manifest_helper, "BACKUP_DIR", root / ".manifest_backups")
 
     return events_path, manager_log
 
@@ -175,15 +178,32 @@ def test_session_boot_dirty_receipt(monkeypatch, tmp_path, capsys):
 
 def test_session_boot_manifest_mismatch_blocks(monkeypatch, tmp_path, capsys):
     events_path, _ = _setup_env(monkeypatch, tmp_path, agent_id="codex-3")
-    # Simulate manifest containing codex-3 but request codex-4
     monkeypatch.setattr(session_boot, "_get_current_branch", lambda: "agent/codex-4/test")
-
+    # No variant available → mismatch should still block
     exit_code = session_boot.main(["--agent", "codex-4"])
 
     assert exit_code == 1
     captured = capsys.readouterr().err
     assert "Manifest agent mismatch" in captured
     assert not events_path.exists()
+
+
+def test_session_boot_manifest_mismatch_auto_switch(monkeypatch, tmp_path):
+    events_path, _ = _setup_env(monkeypatch, tmp_path, agent_id="codex-3")
+    variant = session_boot.manifest_helper.ROOT / "AGENT_MANIFEST.codex-4.json"
+    variant.write_text(json.dumps({"agent_id": "codex-4"}), encoding="utf-8")
+    sync = FakeSync()
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", FakeDashboard())
+    monkeypatch.setattr(session_boot, "_get_current_branch", lambda: "agent/codex-4/test")
+
+    exit_code = session_boot.main(["--agent", "codex-4"])
+
+    assert exit_code == 0
+    payloads = [json.loads(line) for line in events_path.read_text(encoding="utf-8").splitlines()]
+    assert payloads[-1]["agent_id"] == "codex-4"
+    manifest_data = json.loads(session_boot.MANIFEST_PATH.read_text(encoding="utf-8"))
+    assert manifest_data["agent_id"] == "codex-4"
 
 
 def test_session_boot_manifest_mismatch_allowed(monkeypatch, tmp_path, capsys):

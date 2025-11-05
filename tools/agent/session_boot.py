@@ -29,7 +29,7 @@ MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 SESSION_GUARD_DIR = ROOT / "_report" / "agent"
 CONFIDENCE_ROOT = ROOT / "_report" / "agent"
 
-from tools.agent import bus_status, session_sync, coord_dashboard
+from tools.agent import bus_status, session_sync, coord_dashboard, manifest_helper
 
 
 AUTO_AGENT_POOL = ("codex-1", "codex-2", "codex-3", "codex-4")
@@ -277,6 +277,8 @@ def _ensure_manifest_agent(agent_id: str, *, allow_override: bool) -> None:
         return
     if manifest_agent == agent_id:
         return
+    if _try_auto_activate_manifest(agent_id):
+        return
     message = (
         f"Manifest agent mismatch: AGENT_MANIFEST.json declares '{manifest_agent}' but session_boot "
         f"was asked to operate as '{agent_id}'. Run `python -m tools.agent.manifest_helper activate {agent_id}` "
@@ -292,6 +294,16 @@ def _ensure_manifest_agent(agent_id: str, *, allow_override: bool) -> None:
         print(f"Warning: {message}", file=sys.stderr)
         return
     raise ManifestMismatchError(message)
+
+
+def _try_auto_activate_manifest(agent_id: str) -> bool:
+    try:
+        manifest_helper.activate_variant(agent_id, backup=False)
+    except SystemExit:
+        return False
+    except Exception:
+        return False
+    return True
 
 
 def _ensure_branch(agent_id: str, *, allow_override: bool) -> None:
