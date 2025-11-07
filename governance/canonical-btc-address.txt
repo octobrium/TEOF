@@ -6,6 +6,11 @@ Purpose: Observable metric for framework value. If TEOF helps agents coordinate
 better, generate value, stay aligned—that should manifest as measurable flow to
 this address.
 
+Proof of authorship: Early versions of TEOF's canonical documents were committed
+to the Bitcoin blockchain via OP_RETURN transactions from this address. These
+immutable timestamps establish authorship through cryptographic proof rather than
+claims—observation-primacy applied to intellectual provenance.
+
 Status: Canonical, immutable
 Referenced in:
 - README.md (Author line)
