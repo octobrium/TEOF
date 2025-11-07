@@ -1,0 +1,66 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-07-tier1-accuracy-launch",
+  "created": "2025-11-07T07:26:44Z",
+  "actor": "Octo",
+  "summary": "Fix Tier 1 accuracy gaps then launch public evaluate flow",
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 1,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 3,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Inventory Tier1 accuracy issues",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Patch docs & CLI to match reality",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Re-run prototype with receipts",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Publish public-facing entry",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "memory",
+      "ref": "memory/reflections/reflection-20251107T070059Z.json"
+    },
+    {
+      "type": "doc",
+      "ref": "docs/proposals/20251105-fresh-evaluation-findings.md"
+    }
+  ],
+  "receipts": []
+}
