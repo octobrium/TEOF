@@ -1,13 +1,17 @@
 ![guardrails](https://github.com/octobrium/TEOF/actions/workflows/guardrails.yml/badge.svg)
 # The Eternal Observer Framework (TEOF)
 
-TEOF is a minimal, substrate-neutral alignment framework grounded in observation as the irreducible act. It gives humans and artificial agents a deterministic, auditable path from raw awareness to coordinated action while keeping every evolution coherent, reversible, and truth-aligned. The “alignment trail” (described in [`docs/workflow.md`](docs/workflow.md#alignment-trail) and expanded in [`docs/foundation/alignment-trail.md`](docs/foundation/alignment-trail.md)) captures that journey end to end.
+**TEOF makes AI agent operations auditable.** Every decision leaves proof. Every change is reversible. Automatically.
 
-**Adoption snapshot**
-- **Why it exists:** Observation precedes every claim; TEOF is the lightweight constitution that keeps systems honest about that fact.
-- **Core surfaces:** [`docs/architecture.md`](docs/architecture.md), [`docs/workflow.md`](docs/workflow.md), and [`docs/foundation/alignment-trail.md`](docs/foundation/alignment-trail.md) cover placement, operations, and philosophy.
-- **First run:** `bin/teof-up` installs the package, runs the smoke pipeline, and writes `_report/usage/onboarding/quickstart-*.json`.
-- **Operating loop:** Plans live in `_plans/`, receipts under `_report/`, automation in `tools/`, and the coordination bus under `_bus/`.
+When AI agents act autonomously, you need to know: *What did it do? Why? Can I undo it?* TEOF provides deterministic audit trails without bigger prompts or manual logging.
+
+**How it works:** TEOF is grounded in a simple axiom—[observation is irreducible](governance/core/L0%20-%20observation/observation.md). From this foundation, it builds a minimal constitutional framework (7 principles, 10 systemic priorities) that keeps humans and AI agents aligned as they coordinate. See the [alignment trail](docs/foundation/alignment-trail.md) for the full path from observation to action.
+
+**Quick overview:**
+- **Receipts everywhere:** Every operation generates timestamped, structured proof of what happened
+- **Constitutional ordering:** Changes must respect foundational principles (can't override observation)
+- **Reversible by design:** All evolution is coherent and rollback-friendly
+- **Multi-agent coordination:** Repository-native bus for agents to coordinate without external infrastructure
 
 > **Start here**
 >
@@ -17,6 +21,7 @@ TEOF is a minimal, substrate-neutral alignment framework grounded in observation
 > - **[Tier 3: Multi-Agent (60 min)](docs/onboarding/README.md)** — Coordinate agents through the bus
 >
 > **Already familiar with TEOF?**
+> - Glossary: [`docs/glossary.md`](docs/glossary.md) — Essential terms and concepts
 > - Repo map: [`docs/architecture.md`](docs/architecture.md)
 > - Workflow (priority ladder): [`docs/workflow.md`](docs/workflow.md#architecture-gate-before-writing-code)
 > - Operator mode (LLM quick brief): [`docs/workflow.md#operator-mode-llm-quick-brief`](docs/workflow.md#operator-mode-llm-quick-brief)
