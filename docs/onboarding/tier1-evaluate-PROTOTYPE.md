@@ -10,7 +10,7 @@ TEOF is an alignment framework that automatically creates audit trails for every
 - **Reversible** — you can always roll back
 - **Auditable** — anyone can verify what happened
 
-Think of it as "Git for decisions" — but deeper: Git tracks file changes, while TEOF records the decision, execution context, and provenance chain that produced those changes.
+Think of it as **Git for decisions, but deeper**: Git tracks *what files changed*. TEOF tracks *why they changed* — the decision, execution context, and provenance chain that produced those changes.
 
 ## See it in action (2 minutes)
 
@@ -30,8 +30,9 @@ This will:
 **Watch for these files being created**:
 ```
 artifacts/systemic_out/20251105T120000Z/
-  ├── brief.json          # Summary with the sample inputs (currently 10) and generated ensembles
-  └── score.txt           # Quick metrics from the run (e.g., ensemble_count=10)
+  ├── brief.json          # Summary with 10 sample inputs and generated ensembles
+  ├── score.txt           # Quick metrics (e.g., ensemble_count=10)
+  └── *.ensemble.json     # 10 ensemble files (one per input document)
 
 _report/usage/onboarding/
   └── quickstart-20251105T120000Z.json    # Execution receipt (what ran, when, how)
@@ -41,8 +42,9 @@ _report/usage/onboarding/
 
 **Those files ARE the point.**
 
-- `brief.json` — shows what happened (analysis processed a batch of sample documents—currently 10—and generated ensembles)
+- `brief.json` — shows what happened (analysis processed 10 sample documents and generated ensembles)
 - `score.txt` — quick metrics to sanity-check the run (e.g., ensemble_count=10)
+- `*.ensemble.json` — 10 individual ensemble files, one per input document
 - `quickstart-*.json` — records the entire execution (what was run, what changed, success/failure)
 
 ### Why this matters
@@ -74,7 +76,7 @@ No extra commands. No manual logging. No "I think I ran this with those settings
 - ✅ **Determinism** (L1): Same inputs → same outputs → same receipts
 - ✅ **Auditability** (L1): Receipts are structured, timestamped, and hash-linked
 
-These aren't features you configure — they're constitutional guarantees (TEOF's foundational rules that every workflow must obey).
+These aren't features you configure — they're **built-in guarantees**. TEOF's foundational rules enforce them automatically in every workflow.
 
 ## Next steps
 

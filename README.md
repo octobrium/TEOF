@@ -10,15 +10,18 @@ TEOF is a minimal, substrate-neutral alignment framework grounded in observation
 - **Operating loop:** Plans live in `_plans/`, receipts under `_report/`, automation in `tools/`, and the coordination bus under `_bus/`.
 
 > **Start here**
-> - Repo map: [`docs/architecture.md`](docs/architecture.md)  
-> - Promotion rules: [`docs/promotion-policy.md`](docs/promotion-policy.md)  
-> - Workflow (priority ladder): [`docs/workflow.md`](docs/workflow.md#architecture-gate-before-writing-code)  
-> - Operator mode (LLM quick brief): [`docs/workflow.md#operator-mode-llm-quick-brief`](docs/workflow.md#operator-mode-llm-quick-brief)  
-> - Quickstart (one command → artifacts): [`docs/quickstart.md`](docs/quickstart.md)
-> - Guided onboarding (pip + receipts): [`docs/onboarding/quickstart.md`](docs/onboarding/quickstart.md)
-> - Single-screen landing (first hour + daily loop): [`docs/onboarding/README.md`](docs/onboarding/README.md)
+>
+> **New to TEOF?**
+> - **[Tier 1: Evaluate (5 min)](docs/onboarding/tier1-evaluate-PROTOTYPE.md)** — Run one command, see automatic audit trails
+> - **[Tier 2: Solo Developer (30 min)](docs/onboarding/tier2-solo-dev-PROTOTYPE.md)** — Build with TEOF's architecture
+> - **[Tier 3: Multi-Agent (60 min)](docs/onboarding/README.md)** — Coordinate agents through the bus
+>
+> **Already familiar with TEOF?**
+> - Repo map: [`docs/architecture.md`](docs/architecture.md)
+> - Workflow (priority ladder): [`docs/workflow.md`](docs/workflow.md#architecture-gate-before-writing-code)
+> - Operator mode (LLM quick brief): [`docs/workflow.md#operator-mode-llm-quick-brief`](docs/workflow.md#operator-mode-llm-quick-brief)
+> - Quick Reference: [`docs/reference/quick-reference.md`](docs/reference/quick-reference.md)
 > - Backlog (pick your next objective): [`docs/backlog.md`](docs/backlog.md)
-> - Commandments & Covenant (fast trust contract): [`docs/commandments.md`](docs/commandments.md)
 
 ---
 
