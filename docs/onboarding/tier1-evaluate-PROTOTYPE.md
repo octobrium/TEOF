@@ -17,25 +17,26 @@ Think of it as **Git for decisions, but deeper**: Git tracks *what files changed
 Run this single command from the repository root:
 
 ```bash
-bin/teof-eval-PROTOTYPE.sh
+python -m teof up --eval
+# Legacy wrapper: bin/teof-eval-PROTOTYPE.sh
 ```
 
-> _Prototype note_: In the full rollout this flow will be available as `bin/teof-up --eval`. The prototype script lets you test the experience today.
+> _Prototype note_: `teof up --eval` is the canonical CLI. The `bin/teof-eval-PROTOTYPE.sh` shim simply invokes it for convenience.
 
 This will:
 1. Install TEOF (takes ~30 seconds)
 2. Run a brief analysis on sample documents
 3. Generate receipts automatically
 
-**Watch for these files being created**:
+**Watch for these files being created** (the script prints the actual UTC timestamp; `artifacts/systemic_out/latest/` always points to that run):
 ```
-artifacts/systemic_out/20251105T120000Z/
+artifacts/systemic_out/latest/          # symlink → artifacts/systemic_out/<UTC stamp>/
   ├── brief.json          # Summary with 10 sample inputs and generated ensembles
   ├── score.txt           # Quick metrics (e.g., ensemble_count=10)
   └── *.ensemble.json     # 10 ensemble files (one per input document)
 
 _report/usage/onboarding/
-  └── quickstart-20251105T120000Z.json    # Execution receipt (what ran, when, how)
+  └── tier1-evaluation-<UTC stamp>.json  # Execution receipt (what ran, when, how)
 ```
 
 ## The Key Insight (1 minute)
@@ -45,7 +46,7 @@ _report/usage/onboarding/
 - `brief.json` — shows what happened (analysis processed 10 sample documents and generated ensembles)
 - `score.txt` — quick metrics to sanity-check the run (e.g., ensemble_count=10)
 - `*.ensemble.json` — 10 individual ensemble files, one per input document
-- `quickstart-*.json` — records the entire execution (what was run, what changed, success/failure)
+- `tier1-evaluation-*.json` — records the entire execution (what was run, what changed, success/failure)
 
 ### Why this matters
 
