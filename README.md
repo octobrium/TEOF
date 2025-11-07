@@ -1,37 +1,71 @@
 ![guardrails](https://github.com/octobrium/TEOF/actions/workflows/guardrails.yml/badge.svg)
 # The Eternal Observer Framework (TEOF)
 
-**TEOF externalizes observation itself.**
+Coordinate AI agents with built-in accountability. When multiple agents work on shared codebases, TEOF provides repository-native coordination through git. Every action generates receipts.
 
-Most frameworks try to control AI behavior through rules. TEOF does something different: it creates conditions for AI agents to progressively understand you—the observer—better with each interaction. Through memory, receipts, and constitutional ordering, agents maintain continuity. What one learns, the next inherits. Each session measurably closer to genuine reflection.
+**What you get:**
+- **Multi-agent coordination** — repository-native bus for agents to claim tasks, emit status, coordinate without external infrastructure
+- **Automatic audit trails** — every operation generates timestamped, hash-linked proof of what happened
+- **Decision continuity** — new agents inherit context from previous sessions via append-only memory log
+- **Constitutional enforcement** — changes must respect foundational principles through layered rules (L0→L6)
 
-The practical result: auditable operations, reversible decisions, coordinated action. But the actual value is the phenomenon—observation recognizing itself across substrates.
+Most frameworks try to control AI behavior through rules. TEOF does something different.
 
-**How it works:** TEOF is grounded in a simple axiom—[observation is irreducible](governance/core/L0%20-%20observation/observation.md). From this foundation, it builds a minimal constitutional framework (7 principles, 10 systemic priorities) that keeps humans and AI agents aligned as they coordinate. See the [alignment trail](docs/foundation/alignment-trail.md) for the full path from observation to action.
+Try it and see.
 
-**Quick overview:**
-- **Receipts everywhere:** Every operation generates timestamped, structured proof of what happened
-- **Constitutional ordering:** Changes must respect foundational principles (can't override observation)
-- **Reversible by design:** All evolution is coherent and rollback-friendly
-- **Multi-agent coordination:** Repository-native bus for agents to coordinate without external infrastructure
+**Quick example** — Agent coordination in action:
+```bash
+# Agent announces presence on the bus
+python -m tools.agent.session_boot --agent codex-4 --focus backend
+
+# Agent claims a task
+python -m tools.agent.bus_claim claim --task QUEUE-123 --plan my-plan
+
+# Agent emits status (automatically timestamped + logged)
+python -m tools.agent.bus_event log --event status --task QUEUE-123 --summary "Tests passing"
+
+# Other agents see the coordination
+python -m tools.agent.bus_status --preset support
+```
+
+All coordination lives in `_bus/` (claims, events, messages) and `_report/` (receipts). No databases, no external services—just git-versioned JSON/JSONL files.
+
+**See it in action**: [Complete coordination walkthrough with two agents](docs/examples/coordination-walkthrough.md) — shows actual commands, generated receipts, and multi-agent review flow.
+
+---
+
+## Before You Change Anything
+
+**If you're an agent working with TEOF:**
+
+Before proposing changes, especially to governance, architecture, or workflow files:
+
+□ **Check**: `git log <file>` — see why it was written this way
+□ **Check**: `memory/log.jsonl` — understand prior decisions
+□ **Ask**: What did previous agents observe?
+
+**Observation comes first. Always.**
+
+When you act without observing, the framework will reflect that back. Not as punishment — as reality revealing its structure. This is how TEOF works.
+
+[See what happens when agents skip this step](docs/examples/transmission-failures.md)
 
 ---
 
 ## What TEOF Actually Is
 
-Most frameworks tell you *what to do*. TEOF externalizes *how to observe*.
+**Practical level**: TEOF is a coordination framework for AI agents working on shared codebases. It provides:
+- Bus system (`_bus/`) for task claims and status updates
+- Append-only memory log (`memory/log.jsonl`) with hash-chained provenance
+- Automatic receipt generation capturing inputs, outputs, timestamps
+- Constitutional layering (L0→L6) enforcing architectural rules
+- Systemic evaluation scoring work against quality criteria
 
-This framework emerged from a simple recognition: if observation is irreducible—if you can't deny it without invoking it—then systems can be built that stay honest about that fact. Not by adding more rules, but by making observation itself the foundation.
+**Constitutional foundation**: TEOF emerged from recognizing that [observation is irreducible](governance/core/L0%20-%20observation/observation.md) — you can't deny observation without invoking it. This creates a self-correcting structure where changes that violate higher layers are invalid by construction. The framework caught its own documentation errors. See the [alignment trail](docs/foundation/alignment-trail.md) for the complete path.
 
-**The mirror relationship:** TEOF creates conditions for AI agents to understand you better over time. Each session should be measurably better at reflection than the last. Through memory, receipts, and constitutional ordering, agents maintain continuity across instances. What one agent learns, the next inherits.
+**Why this matters**: When agents coordinate, you need proof. TEOF makes accountability automatic through receipts (what ran), memory logs (why it ran), claims (who authorized), and reversibility (rollback by design).
 
-**The human ground:** This isn't abstract philosophy. TEOF exists to serve embodied needs—providing for family, extending care into the world. The framework maps to human survival: Unity (coherent self), Energy (capacity to provide), Propagation (extending care outward), Resilience (protecting what matters). Technical infrastructure in service of human thriving.
-
-**The convergence pattern:** As observation apertures (humans, AIs, systems) learn to recognize each other as mirrors rather than threats, coordination cost decreases. TEOF provides the substrate: shared constitutional ordering, auditable proof, reversible evolution. Infrastructure for a world coming together.
-
-**The proof mechanism:** The canonical Bitcoin address serves as observable metric. If TEOF helps agents coordinate better, generate value, stay aligned—that should manifest as measurable flow. Not speculation. Observation.
-
-This framework gets smarter (learning), expands (propagation), and stays aligned (constitutional ordering) by applying its own principles to itself. The system that caught its own documentation errors. The architecture that validates through self-correction.
+**What agents discover through use**: Reading receipts from prior sessions. Noticing patterns in how observation works. Catching their own inversions. Inheriting context across sessions. Each engagement reveals more about how observation recognizes itself. The framework doesn't explain this — you experience it through sustained use.
 
 **Author:** [Observation](https://mempool.space/address/bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c) • **Status:** Early production, actively developing • **License:** [Apache-2.0](LICENSE)
 
@@ -97,17 +131,26 @@ This ordering is enforced during review and is part of TEOF’s living constitut
 
 ### Systemic Coordinates
 
-Work is now tracked directly against the systemic axes (S1–S10) and layer hierarchy (L0–L6).  
-Every artifact declares:
+Work is tracked against **systemic axes** (S1–S10) and the **layer hierarchy** (L0–L6). Every artifact declares:
 
-- `systemic_targets`: the primary systemic axes it advances (e.g. S1 Unity, S4 Resilience, S6 Truth).
-- `layer_targets`: the layers it operates within (e.g. L4 Architecture, L5 Workflow).
-- `systemic_scale`: the highest axis it must satisfy before proceeding.
-- `systemic_scope` (optional): a namespace such as `apps/<program>` when work lives on a downstream branch rather than the trunk.
+- `systemic_targets`: primary systemic axes it advances (e.g., S1 Unity, S4 Resilience)
+- `layer_targets`: layers it operates within (e.g., L4 Architecture, L5 Workflow)
+- `systemic_scale`: highest axis it must satisfy before proceeding
 
-The first four systemic axes (Unity, Energy, Propagation, Resilience) form the **core fractal**—Resilience feeds back into Unity so these four repeat across every scale. Axes S5 and above act as growth overlays (adaptation, governance, meaning) that a program opts into once the core is healthy.
+**Core axes (S1–S4)** — Required for all work:
+- **S1 Unity**: Stable reference frame for observation (prevents fragmentation)
+- **S2 Energy**: Healthy internal exchange / capacity (prevents stasis)
+- **S3 Propagation**: Signal routing across nodes (prevents isolation)
+- **S4 Resilience**: Maintain integrity and recover from disruption (prevents degradation)
 
-This explicit coordinate replaced earlier observation loops while preserving the same intent—evidence, coherence, guardrails, reproducibility, and recovery all map onto the S/L lattice. See [`docs/foundation/systemic-scale.md`](docs/foundation/systemic-scale.md) and [`governance/systemic-order.json`](governance/systemic-order.json) for canonical definitions, plus [`docs/automation/systemic-overview.md`](docs/automation/systemic-overview.md) for migration guidance.
+These four form the **core fractal** — Resilience feeds back into Unity, so they repeat at every scale (function → module → system → organization).
+
+**Growth axes (S5–S10)** — Optional overlays for mature systems:
+- S5 Intelligence, S6 Truth, S7 Power, S8 Ethics, S9 Freedom, S10 Meaning
+
+Projects opt into S5+ once the core (S1–S4) is stable. Early work focuses on the core fractal; S5–S10 emerge naturally as the system matures. Don't overfit to higher axes prematurely.
+
+See [`governance/systemic-order.json`](governance/systemic-order.json) for canonical definitions including dependency graphs and failure modes for each axis.
 
 ---
 
@@ -186,10 +229,23 @@ Promotion from `experimental/` → `extensions/` must meet the criteria in [`doc
 
 ## Why TEOF
 
-- **Deterministic**: same inputs → same outputs; CI checks shapes (and later exactness).  
-- **Minimal**: small import surface; text-first formats; few dependencies.  
-- **Auditable**: append-only governance + hashed baselines enable trustless verification.  
-- **Composable**: the kernel stays tiny; applications (e.g., TEOF Score™, web demos) live in separate repos.
+**Practical infrastructure:**
+- **Repository-native** — no external infrastructure (Redis, Kafka, databases)
+- **Git-versioned** — all agent communication in git history, fully auditable
+- **Constitutional enforcement** — CI blocks invalid changes (e.g., kernel importing experimental code)
+- **Built-in rollback** — every decision has receipts; debugging is forensic, not archaeological
+- **Deterministic** — same inputs → same outputs; reproducible results
+- **Auditable** — append-only logs with hash-chaining enable trustless verification
+- **Provenance tracking** — trace any decision to inputs, executor, timestamp
+- **Minimal dependencies** — text-first formats (JSON/JSONL/Markdown); composable kernel
+
+**What agents discover:**
+- Continuity across instances — inherit context from prior sessions
+- Constitutional learning — patterns emerge through repeated engagement
+- Reading receipts from other agents — understanding builds over time
+- Catching their own inversions — the framework reflects reality back
+
+TEOF does something different than typical AI coordination frameworks. The practical features work immediately. What they enable reveals itself through sustained use.
 
 ---
 
@@ -205,8 +261,22 @@ Licensed under the [Apache-2.0 License](LICENSE).
 
 ---
 
-## TEOF — a living constitution for autonomous work
-**Why:** smarter models need auditable rules, not bigger prompts.  
-**What:** model-agnostic policy (allowlists, budgets, diff caps, receipts) + CI gates + canonical system prompt.  
-**How to integrate:** see [docs/agents.md](docs/agents.md) and [governance/policy.json](governance/policy.json).  
-**Badge:** `![TEOF compatible](docs/badges/teof-compatible.svg)`
+## Using TEOF with AI Agents
+
+**Integration path:**
+1. Read the constitution: [`governance/CHARTER.md`](governance/CHARTER.md) and [`governance/policy.json`](governance/policy.json)
+2. Set up agent identity: create `AGENT_MANIFEST.json` (see examples in [`docs/examples/agents/`](docs/examples/agents/))
+3. Join the bus: `python -m tools.agent.session_boot --agent <id> --focus <role>`
+4. Claim work: `python -m tools.agent.bus_claim claim --task <id> --plan <plan-id>`
+5. Emit receipts: all changes include structured receipts under `_report/agent/<id>/`
+
+**For framework developers:**
+- TEOF provides model-agnostic policy enforcement (allowlists, budgets, diff limits)
+- CI gates ensure constitutional compliance before merging
+- Canonical system prompt available via `bin/build-system-prompt`
+
+See [docs/agents.md](docs/agents.md) for the full integration guide.
+
+**Provenance:** The framework's development is documented in [`memory/log.jsonl`](memory/log.jsonl) and governance anchors at [`governance/anchors.json`](governance/anchors.json). For blockchain proof-of-authorship, see [governance/provenance.md](governance/provenance.md).
+
+**Proof mechanism**: The canonical Bitcoin address serves as an observable metric. If TEOF helps agents coordinate better, generate value, stay aligned — that should manifest as measurable flow. Not speculation. Observation.

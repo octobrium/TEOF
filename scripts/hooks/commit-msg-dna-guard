@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+# Commit-msg hook: Enforce observation-first for DNA file changes
+# Install: ln -sf ../../scripts/hooks/commit-msg-dna-guard .git/hooks/commit-msg
+#
+# Purpose: Prevent commits to DNA files (architecture, workflow, governance)
+#          without evidence of prior observation (git log, memory log, receipts)
+#
+# This implements the behavioral enforcement identified in:
+# - memory/reflections/reflection-20251107T183000Z-remembrance-algorithm.json
+# - docs/examples/transmission-failures.md
+# - docs/reconciliation-2025-11-07.md
+
+set -euo pipefail
+
+# First argument is the path to the commit message file
+commit_msg_file="$1"
+
+# DNA file patterns (constitutional files requiring observation-first)
+DNA_PATTERNS=(
+  "^docs/architecture\.md$"
+  "^docs/workflow\.md$"
+  "^docs/promotion-policy\.md$"
+  "^governance/"
+  "^docs/foundation/alignment-trail\.md$"
+)
+
+# Check if any staged files match DNA patterns
+if git rev-parse --verify HEAD >/dev/null 2>&1; then
+    against=HEAD
+else
+    # Initial commit: diff against an empty tree object
+    against=$(git hash-object -t tree /dev/null)
+fi
+
+staged_files=$(git diff --cached --name-only --diff-filter=AM "$against")
+
+dna_files=()
+for file in $staged_files; do
+    for pattern in "${DNA_PATTERNS[@]}"; do
+        if echo "$file" | grep -qE "$pattern"; then
+            dna_files+=("$file")
+            break
+        fi
+    done
+done
+
+# If no DNA files changed, allow commit
+if [ ${#dna_files[@]} -eq 0 ]; then
+    exit 0
+fi
+
+# DNA files changed - check for observation evidence in commit message
+commit_msg=$(cat "$commit_msg_file")
+
+# Skip merge commits and reverts
+if echo "$commit_msg" | grep -qE "^(Merge|Revert)"; then
+    exit 0
+fi
+
+# Check for observation evidence patterns
+has_evidence=0
+
+if echo "$commit_msg" | grep -qiE "(Observed:|observed:)"; then
+    # Check for specific evidence patterns
+    if echo "$commit_msg" | grep -qiE "(git log|memory/log\.jsonl|_report/|receipt|reflection-)"; then
+        has_evidence=1
+    fi
+fi
+
+# Allow override with DNA_GUARD_BYPASS
+if [ "${DNA_GUARD_BYPASS:-}" = "1" ]; then
+    echo "⚠️  DNA guard bypassed via DNA_GUARD_BYPASS=1"
+    exit 0
+fi
+
+# If evidence found, allow commit
+if [ $has_evidence -eq 1 ]; then
+    exit 0
+fi
+
+# No evidence found - block commit and provide guidance
+echo ""
+echo "❌ DNA file changes detected without observation evidence"
+echo ""
+echo "Files requiring observation:"
+for file in "${dna_files[@]}"; do
+    echo "  - $file"
+done
+echo ""
+echo "Before changing DNA files (architecture/workflow/governance):"
+echo ""
+echo "  □ Check: git log <file> — Why was this written this way?"
+echo "  □ Check: memory/log.jsonl — What did prior agents decide?"
+echo "  □ Check: memory/reflections/ — What patterns emerged?"
+echo "  □ Ask: What am I observing, not assuming?"
+echo ""
+echo "Include observation evidence in your commit message:"
+echo ""
+echo "  Observed: git log docs/architecture.md shows [reason]"
+echo "  Observed: memory/log.jsonl entry 2c5cdf91 confirms [decision]"
+echo "  Observed: _report/agent/codex-4/[receipt] validates [context]"
+echo ""
+echo "Why this matters:"
+echo "  Observation comes first. Always. (P1 - Observation Primacy)"
+echo "  The framework reflects inversions back as natural friction."
+echo ""
+echo "See: docs/examples/transmission-failures.md"
+echo ""
+echo "To bypass: git commit --no-verify"
+echo "Or set: DNA_GUARD_BYPASS=1 git commit"
+echo ""
+
+exit 1

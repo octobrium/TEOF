@@ -29,6 +29,16 @@ check that the sequence below is followed (for a consolidated command map, see [
 - **Provenance:** if you change the DNA (architecture/workflow/promotion-policy), propose an anchors event.
 - **Hierarchy enforcement:** when guards conflict, satisfy higher systemic axes first (Unity → Meaning); see [`docs/foundation/systemic-scale.md#hierarchy-enforcement`](docs/foundation/systemic-scale.md#hierarchy-enforcement).
 
+**DNA Guard Hook (Recommended)**
+
+For agents working with TEOF, install the DNA guard hook to enforce observation-primacy behaviorally:
+
+```bash
+ln -sf ../../scripts/hooks/commit-msg-dna-guard .git/hooks/commit-msg
+```
+
+This hook blocks commits to DNA files (architecture.md, workflow.md, governance/) unless the commit message includes observation evidence (`Observed: git log <file>`, `Observed: memory/log.jsonl entry <hash>`, etc.). Closes the conceptual ≠ behavioral gap identified in transmission testing. See `scripts/hooks/README.md` for full documentation.
+
 **Operating order**
 1) Confirm structure matches `docs/architecture.md`.  
 2) Produce an E2E plan using `docs/quickstart.md` (exact commands, no guessing) and drop it in `_plans/` (`*.plan.json`). Validate with `python3 tools/planner/validate.py`.  
