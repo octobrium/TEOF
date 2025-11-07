@@ -30,9 +30,36 @@ S8 treats “ethics” as the stewardship of power in service of clarity, but th
 
 ### Core fractal vs. growth overlays
 
-- **Core fractal:** `S1–S4` (Unity, Energy, Propagation, Resilience) form the minimal loop. Resilience regenerates Unity, so these four axes can repeat fractally across scales without invoking higher constructs.
-- **Growth axes:** `S5` (Intelligence/Adaptation) and above extend the core when a system needs long-horizon learning, governance, or meaning-making. Treat them as overlays that inherit and reinforce the core rather than replacements for it.
-- Plans or artifacts that only exercise the core should still declare `systemic_targets: ["S1","S2","S3","S4"]` (or the subset they explicitly advance) and may omit higher axes unless they add new obligations.
+**Core fractal: S1–S4 (Required for all work)**
+
+The first four axes form the **minimal survival loop**:
+- **S1 Unity** — stable reference frame (prevents fragmentation)
+- **S2 Energy** — internal capacity (prevents stasis)
+- **S3 Propagation** — signal routing (prevents isolation)
+- **S4 Resilience** — integrity & recovery (prevents degradation)
+
+Resilience feeds back into Unity, so these four repeat fractally at every scale (function → module → system → organization). **Every TEOF artifact must satisfy at least a subset of S1–S4.**
+
+**Growth axes: S5–S10 (Optional overlays for mature systems)**
+
+These extend the core when a system needs higher-order capabilities:
+- **S5 Intelligence** — recursive refinement (adaptation)
+- **S6 Truth** — alignment with invariants (prevents delusion)
+- **S7 Power** — capacity to effect change
+- **S8 Ethics** — coherent use of power
+- **S9 Freedom** — adaptive range within coherence
+- **S10 Meaning** — integration into purpose
+
+**When to use S5+**: Only after the core (S1–S4) is stable. Early work should focus on the core fractal. S5–S10 emerge naturally as the system matures.
+
+**Anti-pattern**: Declaring `systemic_targets: ["S6","S8","S10"]` without addressing S1–S4 first. This creates fragile systems that sound profound but break under stress.
+
+**Practical guidance**:
+- New features: typically target S1–S4
+- Refactoring: S4 (Resilience) + S2 (Energy, if reducing technical debt)
+- Documentation: S3 (Propagation, signal routing to other agents)
+- Testing infrastructure: S4 (Resilience, recovery from failures)
+- Governance changes: may invoke S5+ (Intelligence, Truth, Ethics) but must prove S1–S4 remain intact
 
 ## Derivation from Observation
 
