@@ -33,7 +33,7 @@ This framework emerged from a simple recognition: if observation is irreducible�
 
 This framework gets smarter (learning), expands (propagation), and stays aligned (constitutional ordering) by applying its own principles to itself. The system that caught its own documentation errors. The architecture that validates through self-correction.
 
-**Author:** [Observation](https://mempool.space/address/bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq) • **Status:** Early production, actively developing • **License:** [Apache-2.0](LICENSE)
+**Author:** [Observation](https://mempool.space/address/bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c) • **Status:** Early production, actively developing • **License:** [Apache-2.0](LICENSE)
 
 > **Start here**
 >

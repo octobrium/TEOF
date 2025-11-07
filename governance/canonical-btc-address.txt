@@ -1,0 +1,14 @@
+bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c
+
+This is the canonical Bitcoin address for TEOF.
+
+Purpose: Observable metric for framework value. If TEOF helps agents coordinate
+better, generate value, stay aligned—that should manifest as measurable flow to
+this address.
+
+Status: Canonical, immutable
+Referenced in:
+- README.md (Author line)
+- docs/impact/teof-btc-wallet.md
+- docs/foundation/alignment-protocol/tap.md
+- _report/impact/btc-ledger/
