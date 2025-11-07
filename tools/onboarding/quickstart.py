@@ -62,22 +62,46 @@ def _run(cmd: Iterable[str], *, cwd: Path | None = None, capture: bool = False) 
     )
 
 
-def run_quickstart(venv: Path, wheel: Path | None, *, use_editable: bool) -> dict:
-    _create_venv(venv)
-    py = _python_executable(venv)
-    _run([str(py), "-m", "pip", "install", "--upgrade", "pip"], cwd=ROOT)
-    install_source = "wheel"
-    if wheel is not None:
-        _run([str(py), "-m", "pip", "install", str(wheel)], cwd=ROOT)
+def run_quickstart(
+    venv: Path,
+    wheel: Path | None,
+    *,
+    use_editable: bool,
+    reuse_venv: bool = False,
+    skip_install: bool = False,
+) -> dict:
+    venv_exists = venv.exists()
+    created = False
+    if reuse_venv and venv_exists:
+        created = False
     else:
-        install_source = "editable" if use_editable else "sdist"
-        target = [str(py), "-m", "pip", "install"]
-        if use_editable:
-            target.append("-e")
-            target.append(str(ROOT))
+        _create_venv(venv)
+        created = True
+
+    py = _python_executable(venv)
+    install_source = "wheel"
+
+    if skip_install:
+        if created or not venv_exists:
+            raise RuntimeError(
+                "Cannot skip installation without an existing virtualenv. "
+                "Run without --skip-install first or provide --reuse-venv."
+            )
+        install_source = "cached"
+    else:
+        _run([str(py), "-m", "pip", "install", "--upgrade", "pip"], cwd=ROOT)
+        if wheel is not None:
+            _run([str(py), "-m", "pip", "install", str(wheel)], cwd=ROOT)
         else:
-            target.append(str(ROOT))
-        _run(target, cwd=ROOT)
+            install_source = "editable" if use_editable else "sdist"
+            target = [str(py), "-m", "pip", "install"]
+            if use_editable:
+                target.append("-e")
+                target.append(str(ROOT))
+            else:
+                target.append(str(ROOT))
+            _run(target, cwd=ROOT)
+
     teof = _teof_executable(venv)
     result = _run([str(teof), "brief"], cwd=ROOT, capture=True)
 
@@ -94,6 +118,10 @@ def run_quickstart(venv: Path, wheel: Path | None, *, use_editable: bool) -> dic
         "artifacts": {
             "latest_symlink": _relative(latest_symlink) if latest_symlink.exists() else None,
             "latest_target": _relative(latest_target) if latest_target else None,
+        },
+        "run": {
+            "reuse_venv": reuse_venv,
+            "skip_install": skip_install,
         },
     }
     return payload
@@ -128,6 +156,16 @@ def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="Fallback to editable install when no wheel is present",
     )
+    parser.add_argument(
+        "--reuse-venv",
+        action="store_true",
+        help="Reuse an existing virtualenv instead of recreating it",
+    )
+    parser.add_argument(
+        "--skip-install",
+        action="store_true",
+        help="Skip pip installation (requires --reuse-venv and an existing environment)",
+    )
     return parser.parse_args(argv)
 
 
@@ -136,7 +174,17 @@ def main(argv: Iterable[str] | None = None) -> int:
     wheel = args.wheel
     if wheel is None:
         wheel = _latest_wheel(args.dist)
-    payload = run_quickstart(args.venv, wheel, use_editable=args.editable)
+    try:
+        payload = run_quickstart(
+            args.venv,
+            wheel,
+            use_editable=args.editable,
+            reuse_venv=args.reuse_venv,
+            skip_install=args.skip_install,
+        )
+    except RuntimeError as exc:
+        print(f"quickstart: {exc}", file=sys.stderr)
+        return 1
     timestamp = dt.datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
     out_path = args.out or (REPORT_DIR / f"quickstart-{timestamp}.json")
     _ensure_dir(out_path.parent)

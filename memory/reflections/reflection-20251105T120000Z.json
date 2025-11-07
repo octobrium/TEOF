@@ -1,0 +1,70 @@
+{
+  "captured_at": "2025-11-05T12:00:00Z",
+  "title": "Fresh Claude evaluation reveals critical accuracy issues in Tier 1 prototype",
+  "layers": [
+    "L5",
+    "L6"
+  ],
+  "summary": "Independent evaluation of Tier 1 onboarding prototype found timing/clarity goals met BUT discovered critical accuracy discrepancies: doc claims 3 documents analyzed (actual: 10), promises metadata.json (not created). Reviewer insight: 'Minor discrepancies erode trust in a framework whose core value is verified accuracy.' This meta-failure validates TEOF's own principle—observation must precede claims.",
+  "signals": "Fresh Claude completed Tier 1 in 4-5 minutes (goal: 5), articulated value prop correctly ('automatic audit trails'), understood receipts as differentiator not bureaucracy, saw clear next-step routing. SUCCESS on UX/narrative. FAILURE on factual accuracy: document count wrong, missing promised artifact. Root cause: prototype author guessed at test data instead of verifying, violating TEOF's own observation-first principle.",
+  "actions": "Log this as a meta-lesson about TEOF development process: when documenting a verification framework, unverified claims in onboarding are existential threats not minor bugs. Priority fixes: (1) verify actual brief input count, correct doc; (2) determine if metadata.json exists, remove references or fix path; (3) add visceral failure scenario to strengthen aha moment; (4) explain 'deeper than Git' metaphor; (5) define/replace 'constitutional guarantees' jargon.",
+  "tags": [
+    "onboarding",
+    "prototype-testing",
+    "meta-observation",
+    "S6-truth",
+    "L0-observation",
+    "epistemic-hygiene"
+  ],
+  "plan_suggestion": "tier1-accuracy-fixes",
+  "notes": "The irony is instructive: a framework about deterministic proof shipped onboarding docs with unverified file counts. The fresh evaluator caught this precisely because they understood TEOF's value prop—they expected accuracy and noticed its absence. This validates the Tier 1 narrative (receipts = automatic accountability) while exposing process gaps (prototype skipped verification step). Fix: treat onboarding docs as code requiring receipts/tests, not prose requiring only review. The 'constitutional guarantees' term appearing without definition (line 75) also signals we're front-loading L1/L2 concepts before users have L0 grounding—defer jargon even in 'simple' tier.",
+  "receipt": "memory/reflections/reflection-20251105T120000Z.json",
+  "context": {
+    "evaluation_method": "fresh_claude_session",
+    "evaluator_primed": false,
+    "timing_result": "4-5 minutes (target: 5, PASS)",
+    "value_prop_understanding": "YES - 'automatic audit trails'",
+    "receipts_understanding": "YES - proof not bureaucracy",
+    "next_steps_clarity": "VERY CLEAR - three paths well-delineated",
+    "aha_moment": "MOSTLY YES - intellectual but not visceral",
+    "critical_issues": {
+      "document_count_mismatch": {
+        "claimed": "3 documents",
+        "actual": "10 documents",
+        "location": "docs/onboarding/tier1-evaluate-PROTOTYPE.md",
+        "severity": "HIGH - contradicts core value (verified accuracy)"
+      },
+      "missing_metadata_json": {
+        "promised": "artifacts/systemic_out/<timestamp>/metadata.json",
+        "actual": "not created by teof brief",
+        "severity": "HIGH - broken promise erodes trust"
+      }
+    },
+    "minor_issues": {
+      "vague_metaphor": "'Git for decisions — but deeper' needs one explanatory sentence",
+      "undefined_jargon": "'constitutional guarantees' appears without definition (line 75)",
+      "missing_visceral_scenario": "Aha moment intellectual not visceral; needs failure-state example"
+    },
+    "reviewer_key_insight": "The discrepancies are minor but erode trust in a framework whose core value is verified accuracy — fixing them is critical",
+    "meta_lesson": "When documenting a verification framework, unverified claims in onboarding are existential threats. Observation must precede documentation, even for prototype docs."
+  },
+  "derived_facts": [
+    "Tier 1 UX/narrative structure validated: timing accurate, value prop lands, routing clear",
+    "Tier 1 factual accuracy failed: guessed at test data instead of verifying, violated observation-first principle",
+    "Fresh evaluator correctly prioritized accuracy over polish for a verification framework",
+    "Process gap: onboarding docs need verification receipts just like code does",
+    "Jargon discipline: even 'simple' tier leaked L1/L2 terms before L0 grounding ('constitutional guarantees')",
+    "Visceral > intellectual: aha moment needs concrete failure scenario not abstract benefits"
+  ],
+  "next_actions": [
+    "Run verification: ls docs/examples/brief/inputs/ | wc -l",
+    "Run verification: ls -R artifacts/systemic_out/latest/",
+    "Fix document count with actual data",
+    "Fix metadata.json references (remove or correct path)",
+    "Add visceral failure scenario (suggested: 'agent deleted files, which version?' → 'receipt shows v2.1.3 at 2PM')",
+    "Explain 'deeper than Git' (add: 'Git tracks file changes; TEOF tracks decisions, execution context, provenance chains')",
+    "Replace 'constitutional guarantees' with 'built-in guarantees' or define inline",
+    "Update proposal with testing findings",
+    "Create 'onboarding doc verification SOP' so future tiers avoid same mistake"
+  ]
+}

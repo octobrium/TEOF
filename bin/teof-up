@@ -1,18 +1,62 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+usage() {
+  cat <<'EOF'
+Usage: bin/teof-up [--fast] [--help]
+
+  --fast    Reuse the existing onboarding virtualenv and skip the build step.
+            Run the regular command once before relying on fast mode.
+  --help    Show this help message.
+EOF
+}
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
+
+FAST=0
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --fast)
+      FAST=1
+      shift
+      ;;
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+done
+
+if [[ "$FAST" -eq 1 && ! -d ".cache/onboarding-venv" ]]; then
+  echo "[teof-up] fast mode requires an existing .cache/onboarding-venv. Run without --fast first." >&2
+  exit 1
+fi
 
 section() {
   printf '\n\033[1m[teof-up]\033[0m %s\n' "$1"
 }
 
 section "Building distribution artifacts (tools.onboarding.build)"
-python3 -m tools.onboarding.build
+if [[ "$FAST" -eq 1 ]]; then
+  echo "[teof-up] skipping build in fast mode"
+else
+  python3 -m tools.onboarding.build
+fi
 
-section "Running guarded quickstart (tools.onboarding.quickstart)"
-python3 -m tools.onboarding.quickstart
+if [[ "$FAST" -eq 1 ]]; then
+  section "Running guarded quickstart (reuse existing environment)"
+  python3 -m tools.onboarding.quickstart --reuse-venv --skip-install
+else
+  section "Running guarded quickstart (tools.onboarding.quickstart)"
+  python3 -m tools.onboarding.quickstart
+fi
 
 section "Running quickstart smoke check (scripts/ci/quickstart_smoke.sh)"
 ./scripts/ci/quickstart_smoke.sh

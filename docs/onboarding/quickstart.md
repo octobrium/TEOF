@@ -13,6 +13,9 @@ Run `bin/teof-up` from the repository root to:
 - rerun the quickstart smoke check (`scripts/ci/quickstart_smoke.sh`).
 
 The script captures receipts under `_report/usage/onboarding/` and prints links to the next docs to read.
+After the first successful run you can refresh receipts quickly with
+`bin/teof-up --fast`, which reuses the cached onboarding virtualenv instead of
+rebuilding it.
 
 ## Manual workflow (two commands)
 

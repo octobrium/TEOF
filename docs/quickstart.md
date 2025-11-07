@@ -1,7 +1,9 @@
 # Quickstart
 
 Before running the smoke test, verify your environment with `bin/teof-syscheck`
-or use the orchestrated `bin/teof-up` entrypoint.
+or use the orchestrated `bin/teof-up` entrypoint. Repeat runs can reuse the
+cached onboarding environment with `bin/teof-up --fast` (only after you have
+completed a full run at least once).
 
 <!-- generated: quickstart snippet -->
 Run this smoke test on a fresh checkout:
@@ -16,6 +18,30 @@ cat artifacts/systemic_out/latest/brief.json
 - teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/systemic_out/<UTC>.
 
 > Update the snippet via `python3 tools/snippets/render_quickstart.py` after editing `tools/snippets/quickstart.json`.
+
+> Example quickstart receipt structure (truncated):
+```jsonc
+{
+  "install_source": "wheel",
+  "wheel": "dist/teof-0.1.0a2-py3-none-any.whl",
+  "teof_brief": {
+    "returncode": 0,
+    "stdout": "brief: wrote artifacts/systemic_out/20251003T191825Z\n",
+    "stderr": ""
+  },
+  "artifacts": {
+    "latest_symlink": "artifacts/systemic_out/latest",
+    "latest_target": "artifacts/systemic_out/20251003T191825Z"
+  },
+  "run": {
+    "reuse_venv": false,
+    "skip_install": false
+  },
+  "generated_at": "2025-10-03T19:18:25Z",
+  "python": "3.9.6 (default, Apr 30 2025, 02:07:17) [Clang 17.0.0 (clang-1700.0.13.5)]",
+  "venv": ".cache/onboarding-venv"
+}
+```
 
 ## Extend the run (optional)
 To score your own systemic readiness drafts, point the ensemble CLI at any directory of `.txt` files:

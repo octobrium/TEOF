@@ -112,6 +112,9 @@ cat artifacts/systemic_out/latest/brief.json
 
 If you prefer an end-to-end bootstrap, run `bin/teof-up` to install dependencies, refresh quickstart receipts, and print the next docs to read. Additional CLI entrypoints live in [`docs/quickstart.md`](docs/quickstart.md), and automation guardrails remain catalogued under [`docs/automation/autonomy-preflight.md`](docs/automation/autonomy-preflight.md).
 
+- Re-run the guard path quickly with `bin/teof-up --fast` once the onboarding virtualenv exists; this reuses the cached environment while still emitting fresh receipts.
+- Quickstart receipts live under `_report/usage/onboarding/`. See [`docs/quickstart.md`](docs/quickstart.md#quickstart) for a sample payload.
+
 ## Communication Quickstart
 Coordinate with other TEOF agents through the repository bus:
 

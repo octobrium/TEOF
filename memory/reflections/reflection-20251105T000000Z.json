@@ -1,0 +1,44 @@
+{
+  "captured_at": "2025-11-05T00:00:00Z",
+  "title": "Onboarding process friction analysis",
+  "layers": [
+    "L5",
+    "L6"
+  ],
+  "summary": "Fresh external review of TEOF onboarding reveals high completeness but low approachability: 9 entry point docs, immediate cognitive overload with systemic/layer concepts, unclear audience segmentation (human solo vs multi-agent), and no fast evaluation path. Efficiency 4/10, Effectiveness 7/10.",
+  "signals": "User requested study of onboarding process efficiency and effectiveness. Independent analysis surfaced: (1) documentation fragmentation across 3+ quickstart variants, (2) operator mode requires 4 dense docs before starting, (3) steps 3-7 assume multi-agent coordination even for solo exploration, (4) no tiered path (evaluate → use → coordinate), (5) README 'Start here' section lists 9 links without clear priority.",
+  "actions": "Document findings in memory reflection and proposal. Recommend: (1) create tiered onboarding (5-min eval / solo dev / multi-agent), (2) consolidate three quickstart docs into canonical path, (3) defer systemic axes/layers/governance to Tier 2+, (4) segment human vs agent paths explicitly, (5) reduce README 'Start here' to single primary doc with progressive disclosure.",
+  "tags": [
+    "onboarding",
+    "ux",
+    "documentation",
+    "S5",
+    "adoption"
+  ],
+  "plan_suggestion": "tiered-onboarding-consolidation",
+  "notes": "Framework design (auditability, determinism, receipts) is sound for stated goals. Barrier is not technical quality but presentation: optimizes for completeness over approachability. Fragmented entry points prevent explorers from evaluating value before commitment. Recommend treating onboarding as S3 (Propagation) + S5 (Intelligence/Learning) work rather than pure S6 (Truth/Documentation).",
+  "receipt": "memory/reflections/reflection-20251105T000000Z.json",
+  "context": {
+    "reviewer": "external_fresh_perspective",
+    "review_duration": "~30min deep dive",
+    "files_analyzed": [
+      "README.md",
+      "docs/onboarding/README.md",
+      "docs/onboarding/quickstart.md",
+      "docs/quickstart.md",
+      ".github/AGENT_ONBOARDING.md",
+      "docs/architecture.md",
+      "docs/workflow.md",
+      "docs/agents.md",
+      "tools/onboarding/quickstart.py",
+      "bin/teof-up"
+    ],
+    "specific_issues": {
+      "fragmentation": "README:12-21 lists 9 'Start here' links; 3 separate quickstart/onboarding docs with overlapping content; .github/AGENT_ONBOARDING.md is 17-line stub",
+      "overload": "README introduces 10+ concepts immediately; operator mode (workflow.md:17-23) requires 4 docs before action; heavy jargon without progressive disclosure",
+      "audience_unclear": "docs/onboarding/README.md:23-47 assumes agent manifest, bus handshakes, claims; no human-solo path",
+      "no_fast_path": "No '5-minute quick look' for evaluation; 7-step 'first hour' is demanding; multiple receipt checks create friction",
+      "critical_path_unclear": "Which steps are truly required vs optional? Can solo users skip manifest/bus/claims?"
+    }
+  }
+}

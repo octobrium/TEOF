@@ -93,6 +93,40 @@ Automation enforces these fields via:
 
 ---
 
+### Example: Reading plan metadata
+
+Plan `_plans/2025-09-26-package-onboarding.plan.json` demonstrates how systemic
+fields tie intent to evidence:
+
+```jsonc
+{
+  "summary": "Ship a beginner-friendly install path (pip + quickstart) with receipts",
+  "systemic_targets": ["S4", "S5", "S6"],
+  "layer_targets": ["L5"],
+  "systemic_scale": 6,
+  "layer": "L5",
+  "receipts": [
+    "_report/usage/onboarding/build-20251003T190822Z.json",
+    "_report/usage/onboarding/quickstart-20251003T190832Z.json"
+  ]
+}
+```
+
+- Additional build/quickstart receipts are recorded in the plan; the snippet
+  above highlights the primary artifacts for clarity.
+- `systemic_targets` highlights Resilience (S4), Intelligence (S5), and Truth
+  (S6), showing that the plan keeps the quickstart receipts healthy while
+  updating learning surfaces.
+- `systemic_scale: 6` restates that Truth is the highest axis that must be
+  satisfied before promoting changes downstream.
+- `layer_targets` and `layer` show the work lives in workflow (L5); reviewers
+  can jump straight to the cited receipts to verify the claim.
+
+Use this pattern when reviewing new plans: check that the declared axes match
+the receipts and that the highest axis is reflected in `systemic_scale`.
+
+---
+
 ## 5. Migration checklist (legacy → systemic)
 
 Use this when auditing residual legacy loop references:
