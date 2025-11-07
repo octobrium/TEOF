@@ -21,6 +21,7 @@
 - **Hello packet:** `tools/reconcile_hello.py` – publish hashes + capabilities.
 - **Diff + Fetch:** `tools/reconcile_diff.py`, `tools/reconcile_fetch.py` – reconcile across instances.
 - **Plans:** automation should claim steps via `tools/planner.cli step set …` so provenance is consistent.
+- **Lane helper:** `python -m tools.agent.lane --help` – wraps the standard handshake → claim → broadcast rhythm and writes `_report/agent/<id>/lane/*.json` receipts (see `docs/automation/agent-lane.md`).
 
 ### Receipts index
 
