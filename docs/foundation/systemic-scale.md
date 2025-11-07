@@ -11,15 +11,15 @@ canonical TEOF principles (`governance/core/L1 - principles/canonical-teof.md`).
 
 | S# | Name         | Description                                         |
 |----|--------------|-----------------------------------------------------|
-| S1 | Unity        | Stable reference for observation; failure: fragmentation |
-| S2 | Energy       | Healthy internal exchange / capacity; failure: stasis |
-| S3 | Propagation  | Signal routing across nodes; failure: isolation     |
-| S4 | Resilience   | Maintain integrity and recover from disruption; failure: degradation |
-| S5 | Intelligence | Recursive refinement; failure: rigidity/overreaction |
-| S6 | Truth        | Alignment with invariants; failure: delusion        |
-| S7 | Power        | Capacity to effect change; failure: impotence       |
-| S8 | Ethics       | Use of power coherently; failure: destruction       |
-| S9 | Freedom      | Adaptive range within coherence; failure: brittleness |
+| S1 | Unity        | Stable reference for observation; failure: fragmentation *(L2 objectives: 1)* |
+| S2 | Energy       | Healthy internal exchange / capacity; failure: stasis *(L2 objectives: 2–3, 16)* |
+| S3 | Propagation  | Signal routing across nodes; failure: isolation *(L2 objectives: 3–7)* |
+| S4 | Resilience   | Maintain integrity and recover from disruption; failure: degradation *(L2 objectives: 4, 5, 8, 10, 11)* |
+| S5 | Intelligence | Recursive refinement; failure: rigidity/overreaction *(L2 objectives: 8–10)* |
+| S6 | Truth        | Alignment with invariants; failure: delusion *(L2 objectives: 9, 12, 13)* |
+| S7 | Power        | Capacity to effect change; failure: impotence *(L2 objectives: 12–16)* |
+| S8 | Ethics       | Use of power coherently; failure: destruction *(L2 objectives: 11, 14)* |
+| S9 | Freedom      | Adaptive range within coherence; failure: brittleness *(L2 objectives: 14, 15)* |
 | S10| Meaning      | Integration into purpose; failure: nihilism        |
 
 See [`docs/whitepaper.md`](../whitepaper.md) §5 for the canonical definitions.

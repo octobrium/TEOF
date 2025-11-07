@@ -3,7 +3,8 @@
 This is the canonical starting pane for new observers. Follow the sequence
 below—each step must leave receipts before automation will promote you to the
 next waypoint. Helper CLIs (`bin/teof-up`, `python -m tools.agent.doc_links …`)
-mirror the same path so scripted onboarding stays consistent.
+mirror the same path so scripted onboarding stays consistent. For a single-page
+loop summary (handshake → plan → bus → receipts), see the [`TEOF Operator Atlas`](../operator-atlas.md).
 
 ## Canonical First Hour
 0. **Run the environment check (`bin/teof-syscheck`).**  
@@ -27,7 +28,9 @@ mirror the same path so scripted onboarding stays consistent.
 4. **Execute the quickstart (`docs/quickstart.md`).**  
    Prefer the single command `bin/teof-up`; it installs the package, runs the
    smoke pipeline, and writes `_report/usage/onboarding/quickstart-*.json`.
-   Inspect the receipt before proceeding.
+   Inspect the receipt before proceeding. After a successful full run you can
+   reuse the cached environment with `bin/teof-up --fast` to refresh receipts
+   without rebuilding the wheel.
 
 5. **Handshake on the bus (`docs/parallel-codex.md#suggested-session-loop`).**  
    Run `python3 -m tools.agent.session_boot --agent <id> --focus <role> --with-status`.
@@ -65,6 +68,10 @@ will instruct you to complete it before continuing.
   pre-push hooks enforce receipts, planner validation, and targeted pytest.
 - **Preflight every push** – `tools/agent/preflight.sh` mirrors the hook and
   refuses to run without the latest handshake or plan receipts.
+- **Consolidate onboarding receipts** – run
+  `python -m tools.agent.onboarding_check --agent <id>` after the first plan
+  scaffold to capture status, task snapshot, and a summary JSON under
+  `_report/onboarding/<id>/`.
 - **Backlog discipline** – treat `_plans/next-development.todo.json`, your active
   plan, and `_bus/claims/` as the source of truth. Update plan steps before
   editing files and release the claim cleanly on handoff.
@@ -76,7 +83,7 @@ will instruct you to complete it before continuing.
 | Need | Command | Reference |
 | --- | --- | --- |
 | Seat manifest | `python -m tools.agent.manifest_helper activate <id>` | `docs/agents.md#files-to-know` |
-| Run quickstart | `bin/teof-up` | `docs/onboarding/quickstart.md` |
+| Run quickstart | `bin/teof-up` (reuse with `--fast` after the first run) | `docs/onboarding/quickstart.md` |
 | List onboarding docs | `python -m tools.agent.doc_links list --category onboarding` | `docs/quick-links.md` |
 | Scaffold plan | `teof-plan new <slug> --summary "..." --scaffold` | `_plans/README.md#file-format-v0` |
 | Scaffold plan receipts | `python -m tools.receipts.main scaffold plan --plan-id <id>` | `docs/automation.md#receipts-index` |

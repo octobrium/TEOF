@@ -1,7 +1,9 @@
 # TEOF Quick Reference
 
 Use this sheet when you need citations fast. Each entry links to the canonical
-source so you can jump straight to the definitive rule or command.
+source so you can jump straight to the definitive rule or command. For an end-to-end
+loop summary (handshake → plan → bus → receipts), use the [`TEOF Operator Atlas`](../operator-atlas.md);
+this page stays focused on pointers and lookup helpers.
 
 ## Canonical Docs
 - `docs/architecture.md` — placement rules and append-only contracts.
@@ -25,13 +27,13 @@ source so you can jump straight to the definitive rule or command.
 - Prompt helper: `python -m tools.prompts.philosophy "<question>"` (writes `_report/usage/prompts/`).
 
 ## Common Commands
+For the core workflow commands and their receipts, see the [Operator Atlas command glossary](../operator-atlas.md#6-command-glossary-primary-loop). Use the table below for ancillary helpers.
+
 | Action | Command | Note |
 | --- | --- | --- |
 | Seat manifest | `python -m tools.agent.manifest_helper activate <id>` | Validates `AGENT_MANIFEST.json` |
-| Session boot | `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status` | Captures handshake + manager-report tail |
-| Claim work | `python -m tools.agent.bus_claim claim --task <task> --plan <plan>` | Mirrors `_bus/claims/<task>.json` |
-| Quickstart run | `bin/teof-up` | Installs package and emits onboarding receipts |
+| Quickstart run | `bin/teof-up` | Installs package and emits onboarding receipts (reuse with `--fast` after the first run) |
 | Preflight | `tools/agent/preflight.sh` | Runs receipts check, planner validate, targeted pytest |
-| Plan scaffold | `teof-plan new <slug> --summary "..." --scaffold` | Creates plan + receipt folder |
+| Doc quick links | `python -m tools.agent.doc_links list --category …` | Enumerates curated doc shortcuts |
 
 Run `python -m tools.agent.doc_links list --category onboarding` or `python -m tools.agent.doc_links show <id>` when you need deeper detail—the entries map directly to the docs above.

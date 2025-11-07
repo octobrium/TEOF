@@ -16,7 +16,7 @@ Review cadence: Monthly sweep
 
 **Read these first (in order)**  
 Use `docs/onboarding/README.md` as the orchestrator—automation and humans will
-check that the sequence below is followed:
+check that the sequence below is followed (for a consolidated command map, see [`docs/operator-atlas.md`](docs/operator-atlas.md)):
 1) `docs/architecture.md` — where things go  
 2) `docs/workflow.md` — priority ladder & release (this file)  
 3) `docs/promotion-policy.md`  
