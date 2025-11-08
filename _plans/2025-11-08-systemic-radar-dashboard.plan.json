@@ -22,21 +22,25 @@
       "id": "S1",
       "title": "Integrate CI guard",
       "status": "done",
-      "notes": "CI guard exists (scripts/ci/check_systemic_radar.py); verifying receipts via radar run",
-      "receipts": []
+      "notes": "Preflight now runs systemic radar + guard; workflow docs updated",
+      "receipts": [
+        "_report/usage/systemic-radar/systemic-radar-20251108T222627Z.json"
+      ]
     },
     {
       "id": "S2",
       "title": "Automate docs/reports",
       "status": "done",
-      "notes": "docs/reports/systemic-radar.md already added; automation not yet built",
-      "receipts": []
+      "notes": "tools.autonomy.systemic_radar now supports --markdown updating docs/reports/systemic-radar.md",
+      "receipts": [
+        "_report/usage/systemic-radar/systemic-radar-20251108T220241Z.json"
+      ]
     },
     {
       "id": "S3",
       "title": "Extend radar inputs",
       "status": "queued",
-      "notes": "(CMD-__)",
+      "notes": "Add autonomy status + backlog summary sources",
       "receipts": []
     }
   ],
@@ -45,6 +49,17 @@
     "owner": "Octo",
     "status": "pending"
   },
-  "links": [],
-  "receipts": []
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-054.json"
+    },
+    {
+      "type": "queue",
+      "ref": "queue/052-systemic-health-radar.md"
+    }
+  ],
+  "receipts": [
+    "_report/usage/systemic-radar/systemic-radar-20251108T222627Z.json"
+  ]
 }

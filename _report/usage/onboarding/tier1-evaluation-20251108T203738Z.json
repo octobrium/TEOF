@@ -1,0 +1,19 @@
+{
+  "mode": "tier1-eval-prototype",
+  "generated_at": "2025-11-08T20:37:38Z",
+  "artifact_dir": "artifacts/systemic_out/20251108T203738Z",
+  "document_count": 10,
+  "ensembles": [
+    "001_whitehouse_ai.ensemble.json",
+    "002_fed_speech.ensemble.json",
+    "003_tesla_q2.ensemble.json",
+    "004_meta_ai.ensemble.json",
+    "005_nytimes_climate.ensemble.json",
+    "006_reuters_article.ensemble.json",
+    "007_nature_ai.ensemble.json",
+    "008_thinktank_ai.ensemble.json",
+    "009_musk_ai_tweet.ensemble.json",
+    "010_crypto_thread.ensemble.json"
+  ],
+  "score": "ensemble_count=10"
+}
