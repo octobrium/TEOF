@@ -1,0 +1,9 @@
+{
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/tier2-practice",
+  "claimed_at": "2025-11-08T20:43:22Z",
+  "notes": "Tier2 autonomy bootstrap",
+  "plan_id": "2025-11-08-tier2-practice",
+  "status": "in_progress",
+  "task_id": "QUEUE-200"
+}

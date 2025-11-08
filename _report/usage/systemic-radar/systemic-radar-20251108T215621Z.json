@@ -1,0 +1,67 @@
+{
+  "generated_at": "2025-11-08T21:56:21Z",
+  "version": 0,
+  "axes": [
+    {
+      "axis": "S1",
+      "layer": "L0",
+      "status": "ready",
+      "detail": "41 entries within last 7d (target >= 5)",
+      "receipts": [
+        "memory/log.jsonl"
+      ],
+      "metric": 41,
+      "threshold": 5
+    },
+    {
+      "axis": "S2",
+      "layer": "L6",
+      "status": "attention",
+      "detail": "autonomy_guard_ready=False, pending_followups=0",
+      "receipts": [
+        "_report/usage/autonomy-status.json"
+      ],
+      "metric": null,
+      "threshold": null
+    },
+    {
+      "axis": "S3",
+      "layer": "L5",
+      "status": "breach",
+      "detail": "pending=0, threshold=3, breached=True",
+      "receipts": [
+        "_report/usage/backlog-health/backlog-health-20251005T183259Z.json"
+      ],
+      "metric": 0,
+      "threshold": 3
+    },
+    {
+      "axis": "S4",
+      "layer": "L4",
+      "status": "ready",
+      "detail": "ready=4 attention=0",
+      "receipts": [
+        "_report/usage/macro-hygiene-status.json"
+      ],
+      "metric": null,
+      "threshold": null
+    },
+    {
+      "axis": "S6",
+      "layer": "L4",
+      "status": "ready",
+      "detail": "done=210, with_receipts=207, ratio=0.99, threshold=0.8",
+      "receipts": [],
+      "metric": 0.9857142857142858,
+      "threshold": 0.8
+    }
+  ],
+  "summary": {
+    "ready": 3,
+    "attention": 1,
+    "breach": 1
+  },
+  "receipt_sha256": "6638ba57c8e2f6ad6be95a2c6698a9720ec450e51d62e04b02b10254ca5acdd3",
+  "plan_id": "2025-11-08-systemic-radar-guard",
+  "plan_step_id": "S3"
+}

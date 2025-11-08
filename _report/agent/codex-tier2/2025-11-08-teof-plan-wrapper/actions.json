@@ -1,0 +1,18 @@
+{
+  "plan_id": "2025-11-08-teof-plan-wrapper",
+  "generated_at": "2025-11-08T20:57:00Z",
+  "actions": [
+    {
+      "description": "Confirmed Tier2/onboarding docs reference `teof-plan new …` without a local shim; logged gap in S1.",
+      "status": "done"
+    },
+    {
+      "description": "Added executable wrapper bin/teof-plan that execs python3 -m tools.planner.cli and verified it via --help.",
+      "status": "done"
+    },
+    {
+      "description": "Updated docs/onboarding/tier2-solo-dev-PROTOTYPE.md with wrapper guidance and captured planner validation receipts.",
+      "status": "done"
+    }
+  ]
+}

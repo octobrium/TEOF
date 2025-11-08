@@ -1,10 +1,10 @@
 {
-  "agent_id": "codex-4",
-  "branch": "agent/codex-4/consent-exit",
-  "claimed_at": "2025-09-20T23:47:34Z",
-  "plan_id": "2025-09-20-consent-exit",
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/systemic-radar",
+  "claimed_at": "2025-11-08T21:54:09Z",
+  "notes": "Systemic radar guard delivered",
+  "plan_id": "2025-11-08-systemic-radar-guard",
+  "released_at": "2025-11-08T21:59:01Z",
   "status": "done",
-  "task_id": "QUEUE-053",
-  "notes": "Consent & exit paragraph",
-  "released_at": "2025-09-21T02:33:01Z"
+  "task_id": "QUEUE-053"
 }

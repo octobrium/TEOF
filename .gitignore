@@ -103,6 +103,9 @@ _report/
 !_report/impact/
 !_report/impact/**/*.json
 !_report/impact/**/*.md
+
+# Agent manifest helper backups
+.manifest_backups/
 !_bus/
 !_bus/README.md
 !_bus/claims/

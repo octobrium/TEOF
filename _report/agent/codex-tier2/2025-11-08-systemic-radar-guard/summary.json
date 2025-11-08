@@ -1,0 +1,10 @@
+{
+  "plan_id": "2025-11-08-systemic-radar-guard",
+  "status": "done",
+  "highlights": [
+    "Baseline config + CI guard ensure systemic radar receipts stay fresh.",
+    "docs/reports/systemic-radar.md gives stewards a quick human-readable snapshot."
+  ],
+  "blockers": [],
+  "generated_at": "2025-11-08T22:00:10Z"
+}

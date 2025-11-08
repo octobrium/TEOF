@@ -1,0 +1,34 @@
+{
+  "plan_id": "2025-11-08-tier2-practice",
+  "generated_at": "2025-11-08T20:45:44Z",
+  "actions": [
+    {
+      "description": "Reviewed docs/architecture.md and docs/workflow.md to align with Tier 2 prerequisites.",
+      "status": "done"
+    },
+    {
+      "description": "Scaffolded plan via tools.planner.cli new with systemic/layer metadata and queued steps.",
+      "status": "done"
+    },
+    {
+      "description": "Captured receipt bundle (tools.receipts.main scaffold + planner validator runs) and attached to step S3.",
+      "status": "done"
+    },
+    {
+      "description": "Logged Tier 1 compute donation with python3 -m teof up --contribute for contributor codex-tier2.",
+      "status": "done"
+    },
+    {
+      "description": "Seeded bus claim QUEUE-200 via tools.agent.claim_seed to tie plan to coordination lane.",
+      "status": "done"
+    },
+    {
+      "description": "Updated plan links/receipts and reran planner validation (strict) after wiring claim reference.",
+      "status": "done"
+    },
+    {
+      "description": "Bootstrapped codex-tier2 session (session_boot) with bus_status + dashboard receipts to enter the autonomy lane.",
+      "status": "done"
+    }
+  ]
+}

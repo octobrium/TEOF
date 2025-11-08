@@ -10,6 +10,8 @@ Review cadence: Monthly sweep
 
 **Purpose:** Make any fresh session (human or assistant) act optimally to assess and advance TEOF with minimal surface area and deterministic, auditable outputs.
 
+> **Design intent reference:** This workflow operationalizes the Pattern C structure captured in `docs/foundation/DESIGN-INTENT.md`. Check that document when evaluating whether new procedures preserve the observation-first core vs. adaptive edge split.
+
 **Mission**
 - Advance TEOF with minimal surface area and deterministic, auditable outputs.
 - Follow the repo DNA, not ad-hoc preferences.
@@ -59,6 +61,11 @@ This hook blocks commits to DNA files (architecture.md, workflow.md, governance/
 - `python3 -m tools.planner.validate --strict` now enforces a *planner ratchet index*: the ratio of completed steps/claims to open work must stay ≥1.0. When the index drops, the validator exits non-zero and the CI guard blocks promotion until we either close outstanding plans or raise the ratchet with fresh receipts.
 11) Before editing, review active claims via `python -m tools.agent.bus_status --active-only` (or the manager preset) so you coordinate with current owners instead of colliding; escalate on the bus when overlaps appear.  
 12) When waiting on another seat, default to logged contributions: capture a reflection (`python -m tools.memory.cli note --summary "..."`) or draft the next plan (`teof-plan new <slug> --summary "..." --scaffold`) so idle windows still produce receipts.
+
+**Autonomy default**
+- Once steps 1–6 above are satisfied (observation, plan, receipts, claim), agents are expected to continue executing the active plan without additional prompts.  
+- Default to self-direction: advance plan steps, emit receipts, and broadcast status on the bus. Only pause for new approval when you encounter a guard you cannot satisfy or a governance change is needed.  
+- This mirrors Pattern C (Design Intent): a small, stable core authorizes adaptive edge actions as long as observation-first behavior is proven.
 
 **Review receipts lane**
 - Log pending reviews with `python -m tools.agent.review request --id <slug> --summary "..." --artifact path` so `_report/reviews/<slug>/request-*.json` captures what’s blocking whom.
@@ -162,7 +169,7 @@ view.
 - **Single Source of Truth:** immutable baselines live under `capsule/<version>/` and are covered by `capsule/<version>/hashes.json`. `capsule/current` stays a symlink to the active version; treat it as the canonical pointer.
 - **Determinism:** commands run reproducibly on a clean machine (no hidden state, same output paths).
 - **Append-Only Governance:** `governance/anchors.json` is append-only; releases map to a baseline with a `prev_content_hash`.
-- **Observation Discipline:** claims follow [VDP](foundation/alignment-protocol/TAP.md#volatile-data-protocol-vdp-and-ogs-requirements); reasoning can be scored with [OGS](OGS-spec.md). The `check_vdp` guard and golden fixtures keep receipts citational; use **N/A** when not applicable.
+- **Observation Discipline:** claims follow [VDP](foundation/alignment-protocol/TAP.md#volatile-data-protocol-vdp-and-ogs-requirements); reasoning can be scored with [OGS](OGS-spec.md). The `check_vdp` guard and golden fixtures keep receipts citational; use **N/A** when not applicable. Before editing DNA/architecture/workflow docs, run `python -m tools.agent.session_guard log-memory-check --context dna` so the latest `memory/log.jsonl` entry is cited, then enforce freshness with `python -m tools.agent.session_guard verify-memory-check --context dna`.
 - **Fractal accountability:** `scripts/ci/check_fractal_conformance.py` must pass (counts must stay at or below `docs/fractal/baseline.json`, trending toward zero) before automation can promote work downstream.
 - **Retro advisories:** the same guard writes `_report/fractal/advisories/latest.json`; convert any entries with your plan ID or path into queue backfill items before starting new work.
 - **Defensive exception logging:** when urgent action must precede planning, surface the observation to governance immediately and backfill receipts as soon as practicable so the deviation remains auditable.

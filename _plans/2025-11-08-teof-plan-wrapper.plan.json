@@ -1,0 +1,58 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-teof-plan-wrapper",
+  "created": "2025-11-08T20:54:27Z",
+  "actor": "Octo",
+  "summary": "Add teof-plan wrapper for planner CLI",
+  "systemic_targets": [
+    "S3",
+    "S4"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 4,
+  "layer": "L5",
+  "systemic_scale": 4,
+  "impact_score": 1,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Validate current guidance + gap",
+      "status": "done",
+      "notes": "docs/onboarding/tier2-solo-dev-PROTOTYPE.md + status_report mention 'teof-plan' but no bin wrapper; gap validated",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Implement teof-plan wrapper",
+      "status": "done",
+      "notes": "Added bin/teof-plan shim (exec python3 -m tools.planner.cli) + made executable",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Update docs + receipts",
+      "status": "done",
+      "notes": "Added Tier2 doc note pointing to bin/teof-plan wrapper + fallback",
+      "receipts": [
+        "_report/planner/validate/summary-20251108T205537Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-200.json"
+    }
+  ],
+  "receipts": [
+    "_report/planner/validate/summary-20251108T205537Z.json"
+  ]
+}

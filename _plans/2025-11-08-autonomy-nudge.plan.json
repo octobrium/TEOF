@@ -1,0 +1,58 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-autonomy-nudge",
+  "created": "2025-11-08T21:13:18Z",
+  "actor": "Octo",
+  "summary": "Clarify autonomous execution after prerequisites",
+  "systemic_targets": [
+    "S1",
+    "S4"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 5,
+  "layer": "L5",
+  "systemic_scale": 4,
+  "impact_score": 1,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Identify workflow sections",
+      "status": "done",
+      "notes": "Reviewed docs/workflow Operator Mode + Daily Rhythm to find best spot for autonomy note",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Add autonomy language",
+      "status": "done",
+      "notes": "Inserted Autonomy default block under Operating order in docs/workflow.md",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Capture receipts + release",
+      "status": "done",
+      "notes": "Captured strict planner receipt after adding autonomy language",
+      "receipts": [
+        "_report/planner/validate/summary-20251108T211420Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-202.json"
+    }
+  ],
+  "receipts": [
+    "_report/planner/validate/summary-20251108T211420Z.json"
+  ]
+}

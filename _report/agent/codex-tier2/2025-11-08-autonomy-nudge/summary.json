@@ -1,0 +1,9 @@
+{
+  "plan_id": "2025-11-08-autonomy-nudge",
+  "status": "done",
+  "highlights": [
+    "Workflow doc now states agents proceed autonomously once observation/plan/claim prerequisites are met."
+  ],
+  "blockers": [],
+  "generated_at": "2025-11-08T21:14:20Z"
+}

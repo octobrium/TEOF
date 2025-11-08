@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+
+python3 scripts/ci/check_dna_memory_guard.py
+
 python3 - <<'PY'
 import json, os, sys, pathlib
 

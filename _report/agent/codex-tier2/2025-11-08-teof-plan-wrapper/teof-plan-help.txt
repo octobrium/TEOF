@@ -1,0 +1,17 @@
+usage: planner [-h] {new,status,list,show,step,attach-receipt,warnings} ...
+
+Planner authoring helpers
+
+positional arguments:
+  {new,status,list,show,step,attach-receipt,warnings}
+    new                 Create a plan skeleton
+    status              Update the overall plan status
+    list                List plans and their statuses
+    show                Display plan summary
+    step                Modify steps
+    attach-receipt      Attach a receipt to a step
+    warnings            Show queue metadata warnings from the latest
+                        validation run
+
+optional arguments:
+  -h, --help            show this help message and exit

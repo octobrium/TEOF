@@ -1,0 +1,14 @@
+{
+  "plan_id": "2025-11-08-teof-plan-wrapper",
+  "generated_at": "2025-11-08T20:57:00Z",
+  "tests": [
+    {
+      "command": "bin/teof-plan --help",
+      "receipt": "_report/agent/codex-tier2/2025-11-08-teof-plan-wrapper/teof-plan-help.txt"
+    },
+    {
+      "command": "python3 tools/planner/validate.py --strict _plans/2025-11-08-teof-plan-wrapper.plan.json",
+      "receipt": "_report/planner/validate/summary-20251108T205537Z.json"
+    }
+  ]
+}

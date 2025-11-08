@@ -1,0 +1,58 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-design-intent-integration",
+  "created": "2025-11-08T21:05:28Z",
+  "actor": "Octo",
+  "summary": "Integrate design intent cross-links",
+  "systemic_targets": [
+    "S1",
+    "S4"
+  ],
+  "layer_targets": [
+    "L4"
+  ],
+  "priority": 4,
+  "layer": "L4",
+  "systemic_scale": 4,
+  "impact_score": 1,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Assess doc surfaces",
+      "status": "done",
+      "notes": "Read docs/architecture.md, docs/workflow.md, docs/onboarding/tier2... to locate missing design-intent references",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Add architecture/workflow hooks",
+      "status": "done",
+      "notes": "Added design-intent callouts to docs/architecture.md + docs/workflow.md",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Update Tier2 checklist + receipts",
+      "status": "done",
+      "notes": "Tier2 doc checklist now includes DESIGN-INTENT review + renumbered steps",
+      "receipts": [
+        "_report/planner/validate/summary-20251108T210706Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-201.json"
+    }
+  ],
+  "receipts": [
+    "_report/planner/validate/summary-20251108T210706Z.json"
+  ]
+}

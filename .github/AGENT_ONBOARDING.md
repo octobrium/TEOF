@@ -13,5 +13,19 @@ Quick links:
 - Receipts map: [`docs/reference/receipts-map.md`](../docs/reference/receipts-map.md)
 - Coordination policy: [`docs/parallel-codex.md`](../docs/parallel-codex.md)
 
+## Quickstart (5 min)
+
+<!-- generated: quickstart snippet -->
+Run this smoke test on a fresh checkout:
+```bash
+python3 -m pip install -e .
+teof brief
+ls artifacts/systemic_out/latest
+cat artifacts/systemic_out/latest/brief.json
+```
+
+- Install exposes the teof console script.
+- teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/systemic_out/<UTC>.
+
 Keep this stub in sync with the canonical doc so GitHub viewers land on the
 same guidance without diluting the source of truth.

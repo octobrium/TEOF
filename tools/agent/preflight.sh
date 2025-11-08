@@ -67,6 +67,20 @@ fi
 
 python3 tools/receipts/main.py check
 
+dna_targets=("docs/architecture.md" "docs/workflow.md" "docs/promotion-policy.md")
+dna_dirty=()
+for target in "${dna_targets[@]}"; do
+  status_output="$(git status --short -- "$target" 2>/dev/null || true)"
+  if [[ -n "$status_output" ]]; then
+    dna_dirty+=("$target")
+  fi
+done
+
+if [[ "${#dna_dirty[@]}" -gt 0 ]]; then
+  echo "preflight: DNA docs changed (${dna_dirty[*]}). Verifying memory observation receipt..."
+  python3 -m tools.agent.session_guard verify-memory-check --agent "$agent_id" --context dna
+fi
+
 log_preflight() {
   local mode="$1"
   local ts

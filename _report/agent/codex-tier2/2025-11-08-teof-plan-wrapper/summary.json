@@ -1,0 +1,10 @@
+{
+  "plan_id": "2025-11-08-teof-plan-wrapper",
+  "status": "done",
+  "highlights": [
+    "bin/teof-plan wrapper added so Tier2/onboarding guidance now has an executable.",
+    "Tier2 doc updated with wrapper + fallback note; strict planner validation receipt captured."
+  ],
+  "blockers": [],
+  "generated_at": "2025-11-08T20:57:00Z"
+}

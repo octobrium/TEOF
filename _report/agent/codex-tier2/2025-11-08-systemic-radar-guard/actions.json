@@ -1,0 +1,18 @@
+{
+  "plan_id": "2025-11-08-systemic-radar-guard",
+  "generated_at": "2025-11-08T22:00:10Z",
+  "actions": [
+    {
+      "description": "Documented baseline config + thresholds for systemic radar.",
+      "status": "done"
+    },
+    {
+      "description": "Created scripts/ci/check_systemic_radar.py guard and ran it after fresh receipt.",
+      "status": "done"
+    },
+    {
+      "description": "Published docs/reports/systemic-radar.md summary referencing latest receipt.",
+      "status": "done"
+    }
+  ]
+}

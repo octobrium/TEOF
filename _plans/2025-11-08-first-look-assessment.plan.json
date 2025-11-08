@@ -1,0 +1,44 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-first-look-assessment",
+  "created": "2025-11-08T21:58:17Z",
+  "actor": "Octo",
+  "summary": "Validate onboarding loop and README hook",
+  "systemic_targets": [
+    "S1",
+    "S4"
+  ],
+  "layer_targets": [
+    "L4"
+  ],
+  "priority": 5,
+  "layer": "L4",
+  "systemic_scale": 4,
+  "impact_score": 3,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Validate onboarding loop and README hook",
+      "status": "done",
+      "notes": "(CMD-__)",
+      "receipts": [
+        "_report/usage/onboarding/tier1-evaluation-20251108T203738Z.json",
+        "_report/usage/onboarding/quickstart-20251108T215738Z.json",
+        "_report/onboarding/codex-tier2/onboarding-2025-11-08T21:58:24Z.json",
+        "_report/agent/codex-tier2/session_boot/coordination-dashboard-2025-11-08T21:58:00Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Quickstart + handshake receipts verified",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/usage/onboarding/tier1-evaluation-20251108T203738Z.json",
+    "_report/usage/onboarding/quickstart-20251108T215738Z.json",
+    "_report/onboarding/codex-tier2/onboarding-2025-11-08T21:58:24Z.json"
+  ]
+}

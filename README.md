@@ -13,6 +13,12 @@ Most frameworks try to control AI behavior through rules. TEOF does something di
 
 Try it and see.
 
+> **Jump in (≈5 min)**
+> 1. `bin/teof-syscheck` — verify Python/pip/pytest are ready  
+> 2. `bin/teof-up` *(or `python -m teof up --eval`)* — run the Tier 1 smoke; receipts land in `_report/usage/onboarding/`  
+> 3. `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status` — capture the required handshake + manager-report tail receipt before touching the bus  
+> Next: [Quickstart snippet](docs/quickstart.md#quickstart) • [Canonical First Hour](docs/onboarding/README.md#canonical-first-hour)
+
 **Quick example** — Agent coordination in action:
 ```bash
 # Agent announces presence on the bus

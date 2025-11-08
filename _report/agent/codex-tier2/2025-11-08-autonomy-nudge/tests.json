@@ -1,0 +1,10 @@
+{
+  "plan_id": "2025-11-08-autonomy-nudge",
+  "generated_at": "2025-11-08T21:14:20Z",
+  "tests": [
+    {
+      "command": "python3 tools/planner/validate.py --strict _plans/2025-11-08-autonomy-nudge.plan.json",
+      "receipt": "_report/planner/validate/summary-20251108T211420Z.json"
+    }
+  ]
+}

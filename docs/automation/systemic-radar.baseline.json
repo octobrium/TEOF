@@ -1,0 +1,47 @@
+{
+  "generated_at": "2025-11-08T21:52:00Z",
+  "version": 0,
+  "axes": [
+    {
+      "axis": "S1",
+      "layer": "L0",
+      "metric": "memory_entries",
+      "detail": "Count of memory/log.jsonl entries in trailing window",
+      "threshold": 5,
+      "window_days": 7,
+      "receipts": ["memory/log.jsonl"]
+    },
+    {
+      "axis": "S2",
+      "layer": "L6",
+      "metric": "autonomy_guard_ready",
+      "detail": "Autonomy status receipt readiness flag",
+      "threshold": 1,
+      "receipts": ["_report/usage/autonomy-status.json"]
+    },
+    {
+      "axis": "S3",
+      "layer": "L5",
+      "metric": "backlog_pending",
+      "detail": "Pending plans (from backlog-health receipt) must exceed threshold",
+      "threshold": 3,
+      "receipts": ["_report/usage/backlog-health/*"]
+    },
+    {
+      "axis": "S4",
+      "layer": "L4",
+      "metric": "macro_hygiene_ready",
+      "detail": "Macro hygiene summary must report zero attention items",
+      "threshold": 0,
+      "receipts": ["_report/usage/macro-hygiene-status.json"]
+    },
+    {
+      "axis": "S6",
+      "layer": "L4",
+      "metric": "plan_receipt_ratio",
+      "detail": "Ratio of done plans with receipts",
+      "threshold": 0.8,
+      "receipts": ["_plans/*.plan.json", "_report/planner/validate/*.json"]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "plan_id": "2025-11-08-autonomy-nudge",
+  "generated_at": "2025-11-08T21:14:20Z",
+  "actions": [
+    {
+      "description": "Reviewed workflow Operator Mode + daily rhythm to locate autonomy messaging gap.",
+      "status": "done"
+    },
+    {
+      "description": "Inserted Autonomy default block in docs/workflow.md referencing Design Intent.",
+      "status": "done"
+    },
+    {
+      "description": "Captured strict planner receipt and released claim QUEUE-202.",
+      "status": "done"
+    }
+  ]
+}

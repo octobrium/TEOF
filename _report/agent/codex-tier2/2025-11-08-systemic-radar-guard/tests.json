@@ -1,0 +1,18 @@
+{
+  "plan_id": "2025-11-08-systemic-radar-guard",
+  "generated_at": "2025-11-08T22:00:10Z",
+  "tests": [
+    {
+      "command": "python3 -m tools.autonomy.systemic_radar --baseline-config docs/automation/systemic-radar.baseline.json",
+      "receipt": "_report/usage/systemic-radar/systemic-radar-20251108T215621Z.json"
+    },
+    {
+      "command": "python3 scripts/ci/check_systemic_radar.py",
+      "receipt": "_report/usage/systemic-radar/systemic-radar-20251108T215621Z.json"
+    },
+    {
+      "command": "python3 tools/planner/validate.py --strict _plans/2025-11-08-systemic-radar-guard.plan.json",
+      "receipt": "_report/planner/validate/summary-20251108T215810Z.json"
+    }
+  ]
+}

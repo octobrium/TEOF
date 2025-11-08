@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Wrapper for tools.planner CLI to match docs guidance.
+set -euo pipefail
+exec python3 -m tools.planner.cli "$@"

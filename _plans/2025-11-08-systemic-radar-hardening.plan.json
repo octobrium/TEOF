@@ -1,0 +1,39 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-systemic-radar-hardening",
+  "created": "2025-11-08T22:08:04Z",
+  "actor": "Octo",
+  "summary": "Harden systemic radar pipeline",
+  "systemic_targets": [
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6"
+  ],
+  "priority": 3,
+  "layer": "L6",
+  "systemic_scale": 6,
+  "impact_score": 2,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Integrate guard",
+      "status": "done",
+      "notes": "CI guard already present (scripts/ci/check_systemic_radar.py) + latest receipts prove freshness",
+      "receipts": [
+        "_report/usage/systemic-radar/systemic-radar-20251108T220241Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": [
+    "_report/usage/systemic-radar/systemic-radar-20251108T220241Z.json"
+  ]
+}

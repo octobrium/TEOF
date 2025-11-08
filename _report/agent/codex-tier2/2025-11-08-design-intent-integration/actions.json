@@ -1,0 +1,18 @@
+{
+  "plan_id": "2025-11-08-design-intent-integration",
+  "generated_at": "2025-11-08T21:07:06Z",
+  "actions": [
+    {
+      "description": "Reviewed architecture/workflow/onboarding docs + design intent to find missing cross-links.",
+      "status": "done"
+    },
+    {
+      "description": "Added design-intent callouts to docs/architecture.md and docs/workflow.md.",
+      "status": "done"
+    },
+    {
+      "description": "Updated Tier 2 checklist to require reading the design-intent executive summary.",
+      "status": "done"
+    }
+  ]
+}

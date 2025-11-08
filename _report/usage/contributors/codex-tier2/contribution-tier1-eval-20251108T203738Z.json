@@ -1,0 +1,20 @@
+{
+  "run_id": "20251108T203738Z-tier1-eval",
+  "generated_at": "2025-11-08T20:37:38Z",
+  "contributor_id": "codex-tier2",
+  "workload": "tier1-eval",
+  "workload_version": "c239bfced0320ba6ac790deaa545e3e47e1e7659",
+  "artifacts": {
+    "artifact_dir": "artifacts/systemic_out/20251108T203738Z",
+    "eval_receipt": "_report/usage/onboarding/tier1-evaluation-20251108T203738Z.json",
+    "quickstart_receipt": "_report/usage/onboarding/quickstart-20251106T000853Z.json"
+  },
+  "document_count": 10,
+  "score": "ensemble_count=10",
+  "system": {
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "python": "3.9.6 (default, Apr 30 2025, 02:07:17) \n[Clang 17.0.0 (clang-1700.0.13.5)]",
+    "cwd": "/Users/evan/Documents/GitHub/TEOF"
+  },
+  "notes": null
+}

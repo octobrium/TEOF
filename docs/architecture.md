@@ -4,6 +4,8 @@ Purpose: Contracts, layout, mechanisms (offline, lineage)
 Change process: PR + 2 maintainers (one must be core)
 Compatibility: SemVer; deprecations get one minor window
 
+> **Why this layout works:** TEOF’s layer placement mirrors the Pattern C structure described in `docs/foundation/DESIGN-INTENT.md` (stable core, adaptive edge). When proposing structural changes, confirm they satisfy that design intent before editing this file.
+
 # TEOF Repo Architecture (v1.5, minimal)
 
 ## Allowed top-level

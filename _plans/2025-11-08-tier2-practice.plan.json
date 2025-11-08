@@ -1,0 +1,64 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-tier2-practice",
+  "created": "2025-11-08T20:36:36Z",
+  "actor": "Octo",
+  "summary": "Tier2 practice plan",
+  "systemic_targets": [
+    "S1",
+    "S4"
+  ],
+  "layer_targets": [
+    "L4"
+  ],
+  "priority": 5,
+  "layer": "L4",
+  "systemic_scale": 4,
+  "impact_score": 1,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review architecture",
+      "status": "done",
+      "notes": "Reviewed architecture + workflow before touching code",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Scaffold plan",
+      "status": "done",
+      "notes": "Plan scaffolded via tools.planner.cli new",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Capture receipt",
+      "status": "done",
+      "notes": "Receipt scaffold + validator summary attached",
+      "receipts": [
+        "_report/planner/validate/summary-20251108T203656Z.json",
+        "_report/planner/validate/summary-20251108T203902Z.json",
+        "_report/planner/validate/summary-20251108T204335Z.json",
+        "_report/planner/validate/summary-20251108T204357Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-200.json"
+    }
+  ],
+  "receipts": [
+    "_report/planner/validate/summary-20251108T203656Z.json",
+    "_report/planner/validate/summary-20251108T203902Z.json",
+    "_report/planner/validate/summary-20251108T204335Z.json",
+    "_report/planner/validate/summary-20251108T204357Z.json"
+  ]
+}
