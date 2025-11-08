@@ -1,0 +1,10 @@
+{
+  "plan_id": "2025-11-08-systemic-radar-maintenance",
+  "status": "done",
+  "highlights": [
+    "Autonomy status + backlog health receipts refreshed; radar summary now ready state.",
+    "Systemic radar receipt 20251108T224815Z captures the new inputs."
+  ],
+  "blockers": [],
+  "generated_at": "2025-11-08T22:48:15Z"
+}

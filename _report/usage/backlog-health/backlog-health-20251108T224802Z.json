@@ -1,0 +1,131 @@
+{
+  "generated_at": "2025-11-08T22:48:02Z",
+  "hours_since_update": 470.0444391847222,
+  "pending_count": 14,
+  "pending_items": [
+    {
+      "id": "ND-052",
+      "layer": "L5",
+      "plan_suggestion": "2025-10-19-systemic-health-radar",
+      "priority": "high",
+      "systemic_scale": 6,
+      "title": "Systemic Health Radar"
+    },
+    {
+      "id": "ND-053",
+      "layer": "L4",
+      "plan_suggestion": "2025-10-19-observation-receipt-graph",
+      "priority": "high",
+      "systemic_scale": 6,
+      "title": "Observation Receipt Graph"
+    },
+    {
+      "id": "ND-054",
+      "layer": "L6",
+      "plan_suggestion": "2025-10-19-autonomy-stress-harness",
+      "priority": "high",
+      "systemic_scale": 4,
+      "title": "Autonomy Stress Harness"
+    },
+    {
+      "id": "ND-055",
+      "layer": "L3",
+      "plan_suggestion": "2025-10-19-external-adoption-capsule",
+      "priority": "medium",
+      "systemic_scale": 3,
+      "title": "External Adoption Capsule"
+    },
+    {
+      "id": "ND-056",
+      "layer": "L2",
+      "plan_suggestion": "2025-10-19-impact-bridge-dashboard",
+      "priority": "medium",
+      "systemic_scale": 10,
+      "title": "Impact Bridge Dashboard"
+    },
+    {
+      "id": "ND-068",
+      "layer": "L6",
+      "plan_suggestion": "2025-10-20-confidence-calibration",
+      "priority": "high",
+      "systemic_scale": 8,
+      "title": "Confidence calibration analytics"
+    },
+    {
+      "id": "ND-069",
+      "layer": "L2",
+      "plan_suggestion": "2025-10-11-decentralized-node",
+      "priority": "high",
+      "systemic_scale": 8,
+      "title": "Decentralized node incentive ledger"
+    },
+    {
+      "id": "ND-070",
+      "layer": "L3",
+      "plan_suggestion": "2025-10-20-relay-offering-launch",
+      "priority": "medium",
+      "systemic_scale": 10,
+      "title": "Relay offering launch path"
+    },
+    {
+      "id": "ND-071",
+      "layer": "L6",
+      "plan_suggestion": "2025-10-20-convergence-metrics",
+      "priority": "high",
+      "systemic_scale": 6,
+      "title": "Convergence metrics pipeline"
+    },
+    {
+      "id": "ND-063",
+      "layer": "L6",
+      "plan_suggestion": "2025-10-20-receipts-index-streaming",
+      "priority": "medium",
+      "systemic_scale": 5,
+      "title": "Receipts index streaming"
+    },
+    {
+      "id": "ND-064",
+      "layer": "L4",
+      "plan_suggestion": "2025-10-20-legacy-artifact-prune",
+      "priority": "medium",
+      "systemic_scale": 5,
+      "title": "Legacy artifact cold storage"
+    },
+    {
+      "id": "ND-065",
+      "layer": "L4",
+      "plan_suggestion": "2025-10-20-build-artifact-guard",
+      "priority": "medium",
+      "systemic_scale": 3,
+      "title": "Build artifact hygiene guard"
+    },
+    {
+      "id": "ND-066",
+      "layer": "L0",
+      "plan_suggestion": "2025-10-20-apoptosis-compression",
+      "priority": "medium",
+      "systemic_scale": 4,
+      "title": "Apoptosis snapshot compression"
+    },
+    {
+      "id": "ND-067",
+      "layer": "L6",
+      "plan_suggestion": "2025-10-20-autonomy-module-consolidation",
+      "priority": "medium",
+      "systemic_scale": 4,
+      "title": "Autonomy module consolidation"
+    }
+  ],
+  "pending_threshold_breached": false,
+  "replenishment_candidates": [],
+  "status_counts": {
+    "done": 2,
+    "pending": 14,
+    "queued": 2
+  },
+  "threshold": 3,
+  "total_items": 18,
+  "updated": "2025-10-20T08:45:23Z",
+  "plan_id": "2025-11-08-systemic-radar-maintenance",
+  "plan_step_id": "S2"
+}

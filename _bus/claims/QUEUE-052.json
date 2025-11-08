@@ -1,10 +1,10 @@
 {
   "agent_id": "codex-tier2",
-  "branch": "agent/codex-tier2/systemic-radar",
-  "claimed_at": "2025-11-08T21:44:06Z",
-  "notes": "Systemic radar scout + prototype receipt complete",
-  "plan_id": "2025-11-08-systemic-radar-scout",
-  "released_at": "2025-11-08T21:49:43Z",
+  "branch": "agent/codex-tier2/systemic-maint",
+  "claimed_at": "2025-11-08T22:44:52Z",
+  "notes": "Systemic radar inputs refreshed",
+  "plan_id": "2025-11-08-systemic-radar-maintenance",
+  "released_at": "2025-11-08T22:50:46Z",
   "status": "done",
   "task_id": "QUEUE-052"
 }

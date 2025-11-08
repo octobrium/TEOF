@@ -1,0 +1,18 @@
+{
+  "plan_id": "2025-11-08-systemic-radar-maintenance",
+  "generated_at": "2025-11-08T22:48:15Z",
+  "tests": [
+    {
+      "command": "python3 -m tools.agent.autonomy_status --json",
+      "receipt": "_report/usage/autonomy-status.json"
+    },
+    {
+      "command": "python3 -m tools.agent.backlog_health --threshold 3 --candidate-limit 5",
+      "receipt": "_report/usage/backlog-health/backlog-health-20251108T224802Z.json"
+    },
+    {
+      "command": "python3 -m tools.autonomy.systemic_radar --markdown docs/reports/systemic-radar.md",
+      "receipt": "_report/usage/systemic-radar/systemic-radar-20251108T224815Z.json"
+    }
+  ]
+}

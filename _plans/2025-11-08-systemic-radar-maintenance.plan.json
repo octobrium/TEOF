@@ -1,0 +1,70 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-systemic-radar-maintenance",
+  "created": "2025-11-08T22:44:42Z",
+  "actor": "Octo",
+  "summary": "Refresh autonomy status + backlog health for radar",
+  "systemic_targets": [
+    "S2",
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6"
+  ],
+  "priority": 3,
+  "layer": "L6",
+  "systemic_scale": 6,
+  "impact_score": 1,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Refresh autonomy status",
+      "status": "done",
+      "notes": "Ran python3 -m tools.agent.autonomy_status --json to refresh receipt",
+      "receipts": [
+        "_report/usage/autonomy-status.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Run backlog health guard",
+      "status": "done",
+      "notes": "Generated backlog health receipt",
+      "receipts": [
+        "_report/usage/backlog-health/backlog-health-20251108T224802Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Regenerate radar + docs",
+      "status": "done",
+      "notes": "Generated systemic radar receipt + markdown",
+      "receipts": [
+        "_report/usage/systemic-radar/systemic-radar-20251108T224815Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-052.json"
+    },
+    {
+      "type": "queue",
+      "ref": "queue/052-systemic-health-radar.md"
+    }
+  ],
+  "receipts": [
+    "_report/usage/autonomy-status.json",
+    "_report/usage/backlog-health/backlog-health-20251108T224802Z.json",
+    "_report/usage/systemic-radar/systemic-radar-20251108T224815Z.json"
+  ]
+}

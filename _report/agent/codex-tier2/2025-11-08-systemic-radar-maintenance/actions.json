@@ -1,0 +1,18 @@
+{
+  "plan_id": "2025-11-08-systemic-radar-maintenance",
+  "generated_at": "2025-11-08T22:48:15Z",
+  "actions": [
+    {
+      "description": "Refreshed autonomy status via python3 -m tools.agent.autonomy_status --json after running receipts_hygiene.",
+      "status": "done"
+    },
+    {
+      "description": "Ran python3 -m tools.agent.backlog_health --threshold 3 --candidate-limit 5 to regenerate backlog-health receipt.",
+      "status": "done"
+    },
+    {
+      "description": "Regenerated systemic radar receipt + markdown to reflect fresh inputs.",
+      "status": "done"
+    }
+  ]
+}
