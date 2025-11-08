@@ -1,10 +1,9 @@
 {
-  "agent_id": "codex-4",
-  "branch": "agent/codex-4/ci-guarantees",
-  "claimed_at": "2025-09-20T23:47:56Z",
-  "plan_id": "2025-09-20-ci-guarantees",
-  "status": "done",
-  "task_id": "QUEUE-054",
-  "notes": "CI guardrail summary",
-  "released_at": "2025-09-21T02:33:01Z"
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/systemic-radar",
+  "claimed_at": "2025-11-08T22:13:02Z",
+  "notes": "Systemic radar dashboard",
+  "plan_id": "2025-11-08-systemic-radar-dashboard",
+  "status": "active",
+  "task_id": "QUEUE-054"
 }

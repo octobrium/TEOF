@@ -289,3 +289,7 @@
 {"agent_id": "claude-coding-1", "event": "governance-resolution", "receipts": ["_report/agent/claude-coding-1/governance/20251105-the-observer-identity-question.md"], "summary": "Observer identity question resolved: Path C (exploratory structure, receipts decide at maturation)", "ts": "2025-11-05T20:48:39Z"}
 {"agent_id": "codex-4", "branch_prefix": "agent/codex-4/", "event": "handshake", "meta": {"focus": "manager"}, "summary": "Session handshake", "ts": "2025-11-05T22:40:57Z"}
 {"agent_id": "codex-tier2", "branch_prefix": "agent/codex-tier2/", "event": "handshake", "meta": {"focus": "tier2-practice"}, "summary": "Tier2 autonomy bootstrap", "ts": "2025-11-08T20:45:44Z"}
+{"agent_id": "codex-tier2", "branch_prefix": "agent/codex-tier2/", "event": "handshake", "meta": {"focus": "systemic-radar"}, "summary": "Systemic radar work", "ts": "2025-11-08T21:49:26Z"}
+{"agent_id": "codex-tier2", "event": "observation", "receipts": ["_report/session/codex-tier2/dirty-handoff/dirty-20251108T215756Z.txt"], "summary": "Dirty working tree detected during session_boot", "ts": "2025-11-08T21:57:56Z"}
+{"agent_id": "codex-tier2", "branch_prefix": "agent/codex-tier2/", "event": "handshake", "meta": {"focus": "assessment"}, "summary": "Session handshake", "ts": "2025-11-08T21:58:00Z"}
+{"agent_id": "codex-tier2", "branch_prefix": "agent/codex-tier2/", "event": "handshake", "meta": {"focus": "assessment"}, "summary": "Tier1 onboarding verification", "ts": "2025-11-08T22:12:19Z"}

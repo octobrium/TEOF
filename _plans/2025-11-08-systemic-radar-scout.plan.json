@@ -1,0 +1,63 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-systemic-radar-scout",
+  "created": "2025-11-08T21:44:02Z",
+  "actor": "Octo",
+  "summary": "Scout Systemic Health Radar inputs + prototype",
+  "systemic_targets": [
+    "S1",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 2,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Review existing health/backlog receipts",
+      "status": "done",
+      "notes": "Reviewed backlog-health guard, macro hygiene script, queue/052, existing receipts",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Draft radar data contract",
+      "status": "done",
+      "notes": "Drafted docs/automation/systemic-radar.md data contract covering sources + output",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Prototype aggregator + receipts",
+      "status": "done",
+      "notes": "Implemented tools.autonomy.systemic_radar and generated first receipt",
+      "receipts": [
+        "_report/usage/systemic-radar/systemic-radar-20251108T214643Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/QUEUE-052.json"
+    },
+    {
+      "type": "queue",
+      "ref": "queue/052-systemic-health-radar.md"
+    }
+  ],
+  "receipts": [
+    "_report/usage/systemic-radar/systemic-radar-20251108T214643Z.json"
+  ]
+}

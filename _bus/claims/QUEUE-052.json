@@ -1,10 +1,10 @@
 {
-  "agent_id": "codex-4",
-  "branch": "agent/codex-4/memory-tests",
-  "claimed_at": "2025-09-20T23:47:08Z",
-  "plan_id": "2025-09-20-memory-tests",
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/systemic-radar",
+  "claimed_at": "2025-11-08T21:44:06Z",
+  "notes": "Systemic radar scout + prototype receipt complete",
+  "plan_id": "2025-11-08-systemic-radar-scout",
+  "released_at": "2025-11-08T21:49:43Z",
   "status": "done",
-  "task_id": "QUEUE-052",
-  "notes": "Memory tooling tests",
-  "released_at": "2025-09-21T02:33:01Z"
+  "task_id": "QUEUE-052"
 }

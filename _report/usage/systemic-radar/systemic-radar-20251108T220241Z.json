@@ -61,5 +61,7 @@
     "attention": 1,
     "breach": 1
   },
-  "receipt_sha256": "d9e8e3081fb6cab3f368d88cdea211cd3d5596ae2801419b8bbb6e2083be35c2"
+  "receipt_sha256": "d9e8e3081fb6cab3f368d88cdea211cd3d5596ae2801419b8bbb6e2083be35c2",
+  "plan_id": "2025-11-08-systemic-radar-hardening",
+  "plan_step_id": "S1"
 }

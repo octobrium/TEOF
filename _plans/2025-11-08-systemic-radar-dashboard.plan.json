@@ -1,0 +1,50 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-systemic-radar-dashboard",
+  "created": "2025-11-08T22:12:56Z",
+  "actor": "Octo",
+  "summary": "Automate systemic radar dashboard + guard wiring",
+  "systemic_targets": [
+    "S1",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6"
+  ],
+  "priority": 3,
+  "layer": "L6",
+  "systemic_scale": 6,
+  "impact_score": 2,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Integrate CI guard",
+      "status": "done",
+      "notes": "CI guard exists (scripts/ci/check_systemic_radar.py); verifying receipts via radar run",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Automate docs/reports",
+      "status": "done",
+      "notes": "docs/reports/systemic-radar.md already added; automation not yet built",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Extend radar inputs",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
