@@ -1,0 +1,50 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-autonomy-pause-reduction",
+  "created": "2025-11-08T23:45:51Z",
+  "actor": "Octo",
+  "summary": "Clarify autonomy defaults and guard telemetry",
+  "systemic_targets": [
+    "S2",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 4,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 1,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Update workflow/operator brief",
+      "status": "done",
+      "notes": "Highlighted Autonomy default in Operator Mode + workflow",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Add pause telemetry hook",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Onboarding + doc-verification cues",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}

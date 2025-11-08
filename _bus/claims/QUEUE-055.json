@@ -1,0 +1,9 @@
+{
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/systemic-automation",
+  "claimed_at": "2025-11-08T23:38:21Z",
+  "notes": "Radar automation",
+  "plan_id": "2025-11-08-systemic-radar-automation",
+  "status": "in_progress",
+  "task_id": "QUEUE-055"
+}

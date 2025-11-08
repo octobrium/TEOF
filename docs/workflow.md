@@ -61,10 +61,10 @@ This hook blocks commits to DNA files (architecture.md, workflow.md, governance/
 - `python3 -m tools.planner.validate --strict` now enforces a *planner ratchet index*: the ratio of completed steps/claims to open work must stay ≥1.0. When the index drops, the validator exits non-zero and the CI guard blocks promotion until we either close outstanding plans or raise the ratchet with fresh receipts.
 11) Before editing, review active claims via `python -m tools.agent.bus_status --active-only` (or the manager preset) so you coordinate with current owners instead of colliding; escalate on the bus when overlaps appear.  
 12) When waiting on another seat, default to logged contributions: capture a reflection (`python -m tools.memory.cli note --summary "..."`) or draft the next plan (`teof-plan new <slug> --summary "..." --scaffold`) so idle windows still produce receipts.
-13) Systemic guard: generate and verify the systemic radar receipt before autonomy loops (`python3 -m tools.autonomy.systemic_radar --markdown docs/reports/systemic-radar.md` followed by `python3 scripts/ci/check_systemic_radar.py`). This keeps S1–S6 coverage observable and blocks deployments when the latest receipt is stale (>24h) or shows breaches without acknowledgements.
+13) Systemic guard: refresh autonomy status (`python3 -m tools.agent.autonomy_status --json`) and generate/verify the systemic radar receipt (`python3 -m tools.autonomy.systemic_radar --markdown docs/reports/systemic-radar.md` then `python3 scripts/ci/check_systemic_radar.py`). This keeps S1–S6 coverage observable and blocks deployments when the latest receipt is stale (>24h) or shows breaches without acknowledgements.
 
 **Autonomy default**
-- Once steps 1–6 above are satisfied (observation, plan, receipts, claim), agents are expected to continue executing the active plan without additional prompts.  
+- Once steps 1–6 above are satisfied (observation, plan, receipts, claim), agents are expected to continue executing the active plan without additional prompts. Treat this as the active default, not an exception.
 - Default to self-direction: advance plan steps, emit receipts, and broadcast status on the bus. Only pause for new approval when you encounter a guard you cannot satisfy or a governance change is needed.  
 - This mirrors Pattern C (Design Intent): a small, stable core authorizes adaptive edge actions as long as observation-first behavior is proven.
 

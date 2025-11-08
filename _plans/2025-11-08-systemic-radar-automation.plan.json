@@ -1,0 +1,51 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-systemic-radar-automation",
+  "created": "2025-11-08T23:38:11Z",
+  "actor": "Octo",
+  "summary": "Automate radar/backlog/autonomy refresh",
+  "systemic_targets": [
+    "S2",
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6"
+  ],
+  "priority": 4,
+  "layer": "L6",
+  "systemic_scale": 6,
+  "impact_score": 1,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design trigger strategy",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Prototype event hook",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Document rollout",
+      "status": "queued",
+      "notes": "(CMD-__)",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
