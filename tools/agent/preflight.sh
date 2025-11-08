@@ -1,6 +1,22 @@
 #!/usr/bin/env bash
 # Preflight checklist for agents before opening a PR.
 set -euo pipefail
+
+MODE="${1:-core}"
+case "$MODE" in
+  core|full) ;;
+  -h|--help)
+    echo "Usage: tools/agent/preflight.sh [core|full]"
+    echo "  core (default) → minimal observation guards (tier: core)"
+    echo "  full → legacy workflow guard bundle (tier: operational)"
+    exit 0
+    ;;
+  *)
+    echo "Unknown mode '$MODE' (expected 'core' or 'full')" >&2
+    exit 2
+    ;;
+esac
+
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 cd "$ROOT"
 
@@ -9,8 +25,8 @@ if ! command -v python3 >/dev/null 2>&1; then
   exit 1
 fi
 
-if ! command -v pytest >/dev/null 2>&1; then
-  echo "pytest is required" >&2
+if [[ "$MODE" == "full" ]] && ! command -v pytest >/dev/null 2>&1; then
+  echo "pytest is required for full preflight" >&2
   exit 1
 fi
 
@@ -50,6 +66,28 @@ if [[ ! -s "$tail_receipt" ]]; then
 fi
 
 python3 tools/receipts/main.py check
+
+log_preflight() {
+  local mode="$1"
+  local ts
+  ts="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+  local dir="_report/usage/preflight"
+  mkdir -p "$dir"
+  cat > "${dir}/preflight-${ts}-${mode}.json" <<EOF
+{
+  "ts": "${ts}",
+  "agent_id": "${agent_id}",
+  "mode": "${mode}"
+}
+EOF
+}
+
+if [[ "$MODE" == "core" ]]; then
+  log_preflight "core"
+  echo "Core preflight complete: observation receipts verified. Run 'tools/agent/preflight.sh full' for workflow guards."
+  exit 0
+fi
+
 python3 -m tools.maintenance.worktree_guard --max-changes 80
 python3 tools/snippets/render_quickstart.py
 python3 tools/snippets/check_quickstart_docs.py --apply
@@ -60,4 +98,5 @@ python3 tools/planner/validate.py --strict --output _report/planner/validate/sum
 python3 tools/agent/bus_status.py --json --limit 5 >/dev/null
 pytest tests/test_agent_bus_status.py tests/test_systemic_rules.py tests/test_brief.py tests/test_systemic_eval.py
 
-echo "Preflight complete: receipts, plans, planner validation, bus status, targeted tests verified."
+log_preflight "full"
+echo "Full preflight complete: receipts, plans, planner validation, bus status, targeted tests verified."

@@ -1,0 +1,113 @@
+{
+  "tiers": [
+    "tactical",
+    "operational",
+    "core"
+  ],
+  "guards": [
+    {
+      "name": "dna_commit_msg_guard",
+      "path": "scripts/hooks/commit-msg-dna-guard",
+      "tier": "core",
+      "enforces": [
+        "core"
+      ]
+    },
+    {
+      "name": "dna_guard_ci",
+      "path": "scripts/ci/guard_dna.sh",
+      "tier": "core",
+      "enforces": [
+        "core"
+      ]
+    },
+    {
+      "name": "apoptosis_guard_ci",
+      "path": "scripts/ci/guard_apoptosis.sh",
+      "tier": "core",
+      "enforces": [
+        "core"
+      ]
+    },
+    {
+      "name": "operator_verify",
+      "path": "teof/commands/operator.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "agent_preflight",
+      "path": "tools/agent/preflight.sh",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "policy_checks",
+      "path": "scripts/policy_checks.sh",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "plan_validator_ci",
+      "path": "scripts/ci/check_plans.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "plan_receipts_ci",
+      "path": "scripts/ci/check_plan_receipts_exist.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "ratchet_velocity_ci",
+      "path": "scripts/ci/check_ratchet_velocity.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "vdp_guard",
+      "path": "scripts/ci/check_vdp.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "consensus_receipts_guard",
+      "path": "scripts/ci/check_consensus_receipts.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "readability_guard_ci",
+      "path": "scripts/ci/check_readability.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "quickstart_smoke",
+      "path": "scripts/ci/quickstart_smoke.sh",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    }
+  ]
+}

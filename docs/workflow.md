@@ -41,6 +41,7 @@ This hook blocks commits to DNA files (architecture.md, workflow.md, governance/
 
 **Operating order**
 1) Confirm structure matches `docs/architecture.md`.  
+   - Run `teof operator verify` (core tier) to capture session + structure receipts before touching the bus. Add `--strict-plan` only when the run must also refresh the strict plan validator receipts for governance reviews.
 2) Produce an E2E plan using `docs/quickstart.md` (exact commands, no guessing) and drop it in `_plans/` (`*.plan.json`). Validate with `python3 tools/planner/validate.py`.  
  2a) Run `python3 -m tools.agent.push_ready --require-test <receipt>` before pushing so the working tree, branch, claims, and receipts are captured with a readiness summary.  
  3) Verify enforcement: confirm `scripts/policy_checks.sh` and `scripts/ci/check_vdp.py` run in CI; the latter blocks volatile data without timestamps/sources using the fixtures in `datasets/goldens/`.  
@@ -51,7 +52,7 @@ This hook blocks commits to DNA files (architecture.md, workflow.md, governance/
 7) After releasing a claim, run `python -m tools.agent.task_sync` so `agents/tasks/tasks.json` mirrors claim status.  
 8) Only if rules block progress: propose a minimal DNA edit via a one-page Meta‑TEP (Problem, Proposal, Alternatives, Impact, Rollback).  
 9) For external feeds, open a plan, register the signing key (anchors entry), build `python -m tools.external.adapter` receipts, and extend `scripts/ci/check_vdp.py` + dashboards before promoting.  
-10) Keep plan receipts audited: run `python3 scripts/ci/check_plan_receipts_exist.py` regularly and log the summary under `_report/usage/` so missing/untracked evidence is caught early.
+10) Keep plan receipts audited: run `python3 scripts/ci/check_plan_receipts_exist.py` regularly and log the summary under `_report/usage/` so missing/untracked evidence is caught early. Use `tools/agent/preflight.sh core|full` to separate observation (core) from workflow (operational) guards; each run drops `_report/usage/preflight/preflight-*.json` so we can monitor how often the heavier lane is needed.
   - Draft the idea in `docs/proposals/` first (see `docs/proposals/readme.md`) so other seats can review before it graduates to a Meta‑TEP.
 - Capture lattice health metrics with `python3 -m tools.metrics.plan_lattice --snapshot <yyyymmdd>` and attach the receipt under `_report/health/plan-lattice/` before starting new hygiene passes; when consolidating plans, append a cost entry per `docs/automation/plan-merge-ledger.md` so the `proportion_index` remains evidence-backed.
 - Plan JSON must remain canonical: run `python3 -m tools.planner.validate` (or the CI guard) to ensure keys are unique—duplicate sections now fail fast so hygiene changes stay reversible.

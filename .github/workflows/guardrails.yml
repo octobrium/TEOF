@@ -28,6 +28,8 @@ jobs:
         run: scripts/policy_checks.sh
       - name: Fractal conformance check
         run: scripts/ci/check_fractal_conformance.py
+      - name: Guard tier manifest check
+        run: python3 scripts/ci/check_guard_tiers.py
       - name: Capability inventory guard
         run: PYTHONPATH=. python3 scripts/ci/check_capability_inventory.py
       - name: Automation inventory guard
