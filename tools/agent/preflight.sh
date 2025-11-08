@@ -106,9 +106,28 @@ python3 -m tools.maintenance.worktree_guard --max-changes 80
 python3 tools/snippets/render_quickstart.py
 python3 tools/snippets/check_quickstart_docs.py --apply
 git diff --exit-code docs/_generated/quickstart_snippet.md README.md docs/quickstart.md docs/agents.md .github/AGENT_ONBOARDING.md
+
+status_snapshot="$(git status --short)"
+onboarding_docs=("docs/onboarding/README.md" "docs/onboarding/tier1-evaluate-PROTOTYPE.md" "docs/onboarding/tier2-solo-dev-PROTOTYPE.md")
+onboarding_dirty=()
+for doc in "${onboarding_docs[@]}"; do
+  if grep -F -- " $doc" <<< "$status_snapshot" >/dev/null; then
+    onboarding_dirty+=("$doc")
+  fi
+done
+
+if [[ "${#onboarding_dirty[@]}" -gt 0 ]]; then
+  if ! grep -F -- "doc-verification" <<< "$status_snapshot" >/dev/null; then
+    echo "preflight: onboarding docs changed (${onboarding_dirty[*]}) but no doc verification receipts staged (_report/agent/*/doc-verification/…)." >&2
+    echo "  Run the SOP in docs/onboarding/doc-verification-sop.md and add the generated receipt before continuing." >&2
+    exit 1
+  fi
+fi
+
 python3 -m tools.maintenance.plan_hygiene
 python3 scripts/ci/check_plans.py
 python3 tools/planner/validate.py --strict --output _report/planner/validate/summary-latest.json
+python3 -m tools.agent.autonomy_status --json
 python3 -m tools.autonomy.systemic_radar --markdown docs/reports/systemic-radar.md
 python3 scripts/ci/check_systemic_radar.py
 python3 tools/agent/bus_status.py --json --limit 5 >/dev/null

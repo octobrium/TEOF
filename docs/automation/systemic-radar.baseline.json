@@ -17,6 +17,7 @@
       "metric": "autonomy_guard_ready",
       "detail": "Autonomy status receipt readiness flag",
       "threshold": 1,
+      "max_age_hours": 24,
       "receipts": ["_report/usage/autonomy-status.json"]
     },
     {

@@ -16,16 +16,14 @@
   "layer": "L6",
   "systemic_scale": 6,
   "impact_score": 2,
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Integrate CI guard",
       "status": "done",
       "notes": "Preflight now runs systemic radar + guard; workflow docs updated",
-      "receipts": [
-        "_report/usage/systemic-radar/systemic-radar-20251108T222627Z.json"
-      ]
+      "receipts": []
     },
     {
       "id": "S2",
@@ -33,21 +31,23 @@
       "status": "done",
       "notes": "tools.autonomy.systemic_radar now supports --markdown updating docs/reports/systemic-radar.md",
       "receipts": [
-        "_report/usage/systemic-radar/systemic-radar-20251108T220241Z.json"
+        "_report/usage/systemic-radar/systemic-radar-20251108T222627Z.json"
       ]
     },
     {
       "id": "S3",
       "title": "Extend radar inputs",
-      "status": "queued",
-      "notes": "Add autonomy status + backlog summary sources",
-      "receipts": []
+      "status": "done",
+      "notes": "Autonomy status CLI now runs in preflight; radar enforces max_age_hours via baseline config",
+      "receipts": [
+        "_report/usage/systemic-radar/systemic-radar-20251108T220241Z.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -60,6 +60,7 @@
     }
   ],
   "receipts": [
+    "_report/usage/systemic-radar/systemic-radar-20251108T220241Z.json",
     "_report/usage/systemic-radar/systemic-radar-20251108T222627Z.json"
   ]
 }

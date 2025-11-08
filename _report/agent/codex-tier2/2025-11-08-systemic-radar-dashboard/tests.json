@@ -1,0 +1,14 @@
+{
+  "plan_id": "2025-11-08-systemic-radar-dashboard",
+  "generated_at": "2025-11-08T22:27:12Z",
+  "tests": [
+    {
+      "command": "python3 -m tools.autonomy.systemic_radar --markdown docs/reports/systemic-radar.md",
+      "receipt": "_report/usage/systemic-radar/systemic-radar-20251108T222627Z.json"
+    },
+    {
+      "command": "python3 scripts/ci/check_systemic_radar.py",
+      "receipt": "_report/usage/systemic-radar/systemic-radar-20251108T222627Z.json"
+    }
+  ]
+}

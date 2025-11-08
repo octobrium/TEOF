@@ -1,0 +1,10 @@
+{
+  "plan_id": "2025-11-08-systemic-radar-dashboard",
+  "status": "in_progress",
+  "highlights": [
+    "Preflight + workflow docs now reference the systemic radar guard.",
+    "Radar CLI emits markdown summaries automatically."
+  ],
+  "blockers": [],
+  "generated_at": "2025-11-08T22:27:12Z"
+}

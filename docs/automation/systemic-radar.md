@@ -16,7 +16,7 @@
 |-------|--------|--------|-----------|
 | Backlog pending count | `_report/usage/backlog-health/*.json` | `pending_threshold_breached`, `pending_items` | S3 Propagation / L5 |
 | Macro hygiene objectives | `_report/usage/macro-hygiene-status.json` | `summary.ready/attention`, failing checks | S4 Resilience / L4–L5 |
-| Autonomy receipts | `_report/usage/autonomy-status.json` (future) | `autonomy_guard_ready`, `pending_followups` | S2 Energy / L6 |
+| Autonomy receipts | `_report/usage/autonomy-status.json` (fresh <24h) | `autonomy_guard_ready`, `pending_followups`, staleness | S2 Energy / L6 |
 | Plan receipts coverage | `_plans/*.plan.json` + `_report/planner/validate/summary-*.json` | ratio of done plans with receipts | S6 Truth / L4 |
 | Memory cadence | `memory/log.jsonl` | count of entries in trailing 7 days tagged `systemic` | S1 Unity / L0 |
 
@@ -73,7 +73,8 @@ The radar aggregates these signals into `systemic_index` objects, each with:
    - `--output` to override receipt path.
    - `--memory-window-days` to tune trailing window (defaults to baseline config values).
    - `--baseline-config` to point at an alternate JSON config (default: `docs/automation/systemic-radar.baseline.json`).
-3. Every run writes receipts + optional Markdown summary for `docs/reports/systemic-radar.md`.
+   - `--markdown docs/reports/systemic-radar.md` to regenerate the human-readable dashboard.
+3. Every run writes receipts + updates the Markdown summary when `--markdown` is passed. `tools/agent/preflight.sh full` now runs `python3 -m tools.agent.autonomy_status --json`, the radar, and `scripts/ci/check_systemic_radar.py` to keep the autonomy status + systemic receipt fresh before pushes.
 
 ## Next Steps
 

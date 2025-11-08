@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
-from tools.autonomy.shared import load_json, utc_timestamp, write_receipt_payload
+from tools.autonomy.shared import load_json, utc_timestamp, write_receipt_payload, atomic_write_text
 
 ROOT = Path(__file__).resolve().parents[2]
 BACKLOG_DIR = ROOT / "_report" / "usage" / "backlog-health"
@@ -151,21 +151,43 @@ def _memory_signal(window_days: int = 7, target: int = 5) -> AxisSignal:
     )
 
 
-def _autonomy_signal() -> AxisSignal:
+def _autonomy_signal(max_age_hours: int | None = None) -> AxisSignal:
     data = load_json(AUTONOMY_STATUS_PATH) or {}
+    if not data:
+        return AxisSignal(
+            axis="S2",
+            layer="L6",
+            status="attention",
+            detail="autonomy status receipt missing",
+            receipts=[],
+        )
     ready = bool(data.get("autonomy_guard_ready"))
-    detail = (
-        f"autonomy_guard_ready={ready}, pending_followups={len(data.get('pending_followups', []))}"
-        if data
-        else "autonomy status receipt missing"
-    )
-    receipts = [str(AUTONOMY_STATUS_PATH.relative_to(ROOT))] if data else []
+    pending = data.get("pending_followups") or []
+    generated = data.get("generated_at") or data.get("summary", {}).get("generated_at")
+    age_hours = None
+    breach = False
+    if generated:
+        try:
+            ts = datetime.fromisoformat(generated.replace("Z", "+00:00"))
+            age = datetime.now(timezone.utc) - ts
+            age_hours = age.total_seconds() / 3600.0
+            if max_age_hours and age > timedelta(hours=max_age_hours):
+                breach = True
+        except ValueError:
+            pass
+    status = "ready" if ready else "attention"
+    if breach:
+        status = "breach"
+    detail = f"autonomy_guard_ready={ready}, pending_followups={len(pending)}, generated_at={generated}, age_hours={age_hours:.2f}" if generated and age_hours is not None else f"autonomy_guard_ready={ready}, pending_followups={len(pending)}"
+    receipts = [str(AUTONOMY_STATUS_PATH.relative_to(ROOT))]
     return AxisSignal(
         axis="S2",
         layer="L6",
-        status="ready" if ready else "attention",
+        status=status,
         detail=detail,
         receipts=receipts,
+        metric=age_hours,
+        threshold=max_age_hours,
     )
 
 
@@ -184,7 +206,7 @@ def build_payload(args: argparse.Namespace, baseline: dict[str, Any]) -> dict[st
             window_days=axes_cfg.get("S1", {}).get("window_days", args.memory_window_days),
             target=axes_cfg.get("S1", {}).get("threshold", args.memory_target),
         ),
-        _autonomy_signal(),
+        _autonomy_signal(max_age_hours=axes_cfg.get("S2", {}).get("max_age_hours")),
         _latest_backlog_receipt(threshold=axes_cfg.get("S3", {}).get("threshold")),
         _macro_hygiene_signal(),
         _plan_receipt_ratio(threshold=axes_cfg.get("S6", {}).get("threshold", args.plan_receipt_threshold)),
@@ -238,7 +260,28 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--baseline-config", type=Path, default=DEFAULT_BASELINE, help="Baseline config path")
     parser.add_argument("--output", type=Path, help="Optional explicit receipt path")
+    parser.add_argument("--markdown", type=Path, help="Optional markdown summary path")
     return parser.parse_args()
+
+
+def _write_markdown(payload: dict[str, Any], receipt_path: Path, markdown_path: Path) -> None:
+    rel = receipt_path.relative_to(ROOT)
+    lines = [
+        "# Systemic Radar Summary",
+        "",
+        f"**Updated:** {payload['generated_at']}  ",
+        f"**Receipt:** `{rel}`",
+        "",
+        f"Summary: ready={payload['summary'].get('ready', 0)}, attention={payload['summary'].get('attention', 0)}, breach={payload['summary'].get('breach', 0)}",
+        "",
+        "## Axes",
+    ]
+    for axis in payload["axes"]:
+        detail = axis["detail"]
+        lines.append(f"- `{axis['axis']}:{axis['layer']}` — {axis['status']} — {detail}")
+    lines.append("")
+    lines.append("Generated automatically by `python -m tools.autonomy.systemic_radar --markdown …`.")
+    atomic_write_text(markdown_path, "\n".join(lines) + "\n")
 
 
 def main() -> int:
@@ -246,6 +289,8 @@ def main() -> int:
     baseline = _load_baseline(args.baseline_config)
     payload = build_payload(args, baseline)
     path = persist_payload(payload, output=args.output)
+    if args.markdown:
+        _write_markdown(payload, path, args.markdown)
     print(f"systemic radar receipt -> {path.relative_to(ROOT)}")
     print(json.dumps(payload["summary"], indent=2))
     return 0

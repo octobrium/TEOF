@@ -1,0 +1,18 @@
+{
+  "plan_id": "2025-11-08-systemic-radar-dashboard",
+  "generated_at": "2025-11-08T22:27:12Z",
+  "actions": [
+    {
+      "description": "Integrated systemic radar guard into preflight + workflow Operating Order.",
+      "status": "done"
+    },
+    {
+      "description": "Enhanced tools.autonomy.systemic_radar with --markdown option and regenerated docs/reports/systemic-radar.md.",
+      "status": "done"
+    },
+    {
+      "description": "Captured fresh radar receipt (20251108T222627Z) proving guard + dashboard output.",
+      "status": "done"
+    }
+  ]
+}
