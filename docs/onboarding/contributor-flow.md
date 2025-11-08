@@ -16,7 +16,8 @@ while keeping the observation chain intact:
 
 This unlocks propagation (S3) by lowering the barrier to entry: anyone who trusts
 the repo can contribute work, earn proof, and hand that proof to downstream
-systems (funding, governance, energy inflow).
+systems (funding, governance, energy inflow). Contributions are summarized in
+`_report/usage/contributors/summary.json` so new nodes can see prior runs.
 
 ## Workflow
 

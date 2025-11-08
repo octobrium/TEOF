@@ -21,7 +21,6 @@
       "notes": "Added teof up --contribute with receipt logging and contributor doc updates.",
       "receipts": [
         "teof/commands/up.py",
-        "docs/onboarding/contributor-flow.md",
         "tests/test_teof_eval_prototype_script.py"
       ]
     },
@@ -34,9 +33,7 @@
         "README.md",
         "docs/onboarding/README.md",
         "docs/onboarding/tier1-evaluate-PROTOTYPE.md",
-        "docs/onboarding/tier2-solo-dev-PROTOTYPE.md",
-        "docs/onboarding/contributor-flow.md",
-        "_report/usage/contributors/demo-agent/contribution-tier1-eval-20251107T232002Z.json"
+        "docs/onboarding/tier2-solo-dev-PROTOTYPE.md"
       ]
     }
   ],
@@ -46,7 +43,9 @@
     "status": "satisfied"
   },
   "links": [],
-  "receipts": [],
+  "receipts": [
+    "docs/onboarding/contributor-flow.md"
+  ],
   "status": "done",
   "layer": "L5",
   "systemic_scale": 4,
