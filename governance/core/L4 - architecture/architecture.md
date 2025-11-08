@@ -5,6 +5,8 @@ Role: Canonical
 > This document turns **L3 – Properties** into executable design.  
 > Each blueprint is grouped by **Unity → Energy → Propagation → Resilience → Intelligence**, so contributors know what to build first.
 
+Design intent reference: `docs/foundation/DESIGN-INTENT.md` explains how these blueprints map to the Pattern C operational tier so downstream workflow/docs stay within their lane.
+
 ---
 
 ### Unity

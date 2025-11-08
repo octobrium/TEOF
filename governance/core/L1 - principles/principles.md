@@ -6,7 +6,7 @@ Canonical source: `governance/core/L1 - principles/canonical-teof.md`
 > These are **observations about reality** — patterns found to persist across nature, history, and systems.  
 > They are not rules but lenses: if true, they imply certain objectives for any system that wants to survive and stay coherent.
 
-Design intent reference: see `docs/foundation/design-intent-pattern-c.md` for how these observations map onto the Pattern C tiering (core ↔ operational ↔ tactical) that TEOF enforces downstream.
+Design intent reference: see `docs/foundation/DESIGN-INTENT.md` for how these observations map onto the Pattern C tiering (core ↔ operational ↔ tactical) that TEOF enforces downstream.
 
 ---
 

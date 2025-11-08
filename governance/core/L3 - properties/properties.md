@@ -5,6 +5,8 @@ Role: Canonical
 TEOF’s properties describe **how** the framework behaves — its intrinsic traits — ensuring alignment with L0 (Observation), L1 (Principles), and the objectives in L2.  
 Properties are organized in the natural order of systemic emergence: **Unity → Energy → Propagation → Resilience → Intelligence.**
 
+Pattern C context: see `docs/foundation/DESIGN-INTENT.md` for how these properties descend into operational guides and automation tiers without polluting the core.
+
 ---
 
 ### Meta-Property

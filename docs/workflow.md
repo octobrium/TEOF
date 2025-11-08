@@ -52,13 +52,19 @@ This hook blocks commits to DNA files (architecture.md, workflow.md, governance/
 7) After releasing a claim, run `python -m tools.agent.task_sync` so `agents/tasks/tasks.json` mirrors claim status.  
 8) Only if rules block progress: propose a minimal DNA edit via a one-page Meta‑TEP (Problem, Proposal, Alternatives, Impact, Rollback).  
 9) For external feeds, open a plan, register the signing key (anchors entry), build `python -m tools.external.adapter` receipts, and extend `scripts/ci/check_vdp.py` + dashboards before promoting.  
-10) Keep plan receipts audited: run `python3 scripts/ci/check_plan_receipts_exist.py` regularly and log the summary under `_report/usage/` so missing/untracked evidence is caught early. Use `tools/agent/preflight.sh core|full` to separate observation (core) from workflow (operational) guards; each run drops `_report/usage/preflight/preflight-*.json` so we can monitor how often the heavier lane is needed.
+10) Keep plan receipts audited: run `python3 scripts/ci/check_plan_receipts_exist.py` regularly and log the summary under `_report/usage/` so missing/untracked evidence is caught early. Use `tools/agent/preflight.sh core|full` to separate observation (core) from workflow (operational) guards; each run drops `_report/usage/preflight/preflight-*.json` so we can monitor how often the heavier lane is needed (`python -m tools.usage.preflight_summary` rolls these receipts up for dashboards).
   - Draft the idea in `docs/proposals/` first (see `docs/proposals/readme.md`) so other seats can review before it graduates to a Meta‑TEP.
 - Capture lattice health metrics with `python3 -m tools.metrics.plan_lattice --snapshot <yyyymmdd>` and attach the receipt under `_report/health/plan-lattice/` before starting new hygiene passes; when consolidating plans, append a cost entry per `docs/automation/plan-merge-ledger.md` so the `proportion_index` remains evidence-backed.
 - Plan JSON must remain canonical: run `python3 -m tools.planner.validate` (or the CI guard) to ensure keys are unique—duplicate sections now fail fast so hygiene changes stay reversible.
 - `python3 -m tools.planner.validate --strict` now enforces a *planner ratchet index*: the ratio of completed steps/claims to open work must stay ≥1.0. When the index drops, the validator exits non-zero and the CI guard blocks promotion until we either close outstanding plans or raise the ratchet with fresh receipts.
 11) Before editing, review active claims via `python -m tools.agent.bus_status --active-only` (or the manager preset) so you coordinate with current owners instead of colliding; escalate on the bus when overlaps appear.  
 12) When waiting on another seat, default to logged contributions: capture a reflection (`python -m tools.memory.cli note --summary "..."`) or draft the next plan (`teof-plan new <slug> --summary "..." --scaffold`) so idle windows still produce receipts.
+
+**Review receipts lane**
+- Log pending reviews with `python -m tools.agent.review request --id <slug> --summary "..." --artifact path` so `_report/reviews/<slug>/request-*.json` captures what’s blocking whom.
+- Respond via `python -m tools.agent.review respond --id <slug> --status approved|changes_requested|info --notes "..."` to record approvals/rejections without routing through the user.
+- Discover open work with `python -m tools.agent.review list --status pending` (uses `_report/reviews/**`) so reviewers can pick up requests without the user as intermediary.
+- Watch `_report/reviews/` (future dashboard hook) to track throughput; this keeps review loops within Pattern C’s tactical lane while leaving a durable audit record.
 
 **Response format**
 - Summary (2–4 bullets)  
@@ -234,6 +240,7 @@ view.
 
 - **Daily (async):** rotate through engineers to run `python -m tools.consensus.ledger --limit 5` and `python -m tools.consensus.dashboard --format table --since <24h>`; log `bus_event --consensus-decision <id>` for any decisions touched and stash the output under `_report/agent/<id>/consensus/`.
 - **Weekly (manager):** the current manager runs both CLIs for the trailing week, appends a receipt via `python -m tools.consensus.receipts --decision WEEKLY-<ISO>` and shares a short summary in `manager-report.jsonl`.
+- **Weekly telemetry:** roll up preflight usage with `python -m tools.usage.preflight_summary --window-hours 168 --output _report/usage/preflight/preflight-summary-<ISO>.json` and link it in `manager-report.jsonl` so we can see how often the heavy lane triggers.
 - **Escalation:** if a decision lacks receipts after a daily sweep, post `bus_message --type request --meta escalation=consensus` tagging the owner and record the follow-up in the next sweep.
 - **Receipts:** daily sweep logs live under `_report/agent/<id>/consensus/`; weekly summaries go to `_report/manager/` (linkable from manager reports) so audits and automation confirm cadence compliance.
 

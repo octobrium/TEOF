@@ -108,6 +108,46 @@
       "enforces": [
         "operational"
       ]
+    },
+    {
+      "name": "hash_consistency_guard",
+      "path": "scripts/ci/check_hashes.sh",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "append_only_guard",
+      "path": "scripts/ci/check_append_only.sh",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "consensus_smoke",
+      "path": "scripts/ci/consensus_smoke.sh",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "readability_guard_py",
+      "path": "tools/maintenance/readability_guard.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "guard_tier_validator",
+      "path": "scripts/ci/check_guard_tiers.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
     }
   ]
 }

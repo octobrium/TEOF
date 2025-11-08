@@ -7,6 +7,8 @@ Review cadence: Monthly sweep
 
 # L5 – Workflow (TEOF Master Workflow v1.3)
 
+Design intent reference: `docs/foundation/DESIGN-INTENT.md` outlines how these workflows operationalize the Pattern C tiering without leaking enforcement into the core.
+
 ## Operator mode (LLM quick brief)
 
 **Purpose:** Make any fresh session (human or assistant) act optimally to assess and advance TEOF with minimal surface area and deterministic, auditable outputs.

@@ -30,6 +30,8 @@ jobs:
         run: scripts/ci/check_fractal_conformance.py
       - name: Guard tier manifest check
         run: python3 scripts/ci/check_guard_tiers.py
+      - name: Preflight telemetry summary
+        run: python3 tools/usage/preflight_summary.py --window-hours 168 --output artifacts/telemetry/preflight-summary.json
       - name: Capability inventory guard
         run: PYTHONPATH=. python3 scripts/ci/check_capability_inventory.py
       - name: Automation inventory guard
@@ -46,3 +48,4 @@ jobs:
             artifacts/consensus/ci-ledger-smoke.jsonl
             artifacts/consensus/ci-consensus-smoke.jsonl
             artifacts/consensus/ci-dashboard.txt
+            artifacts/telemetry/preflight-summary.json

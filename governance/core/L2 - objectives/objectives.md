@@ -5,6 +5,8 @@ Role: Canonical
 Purpose:
 Construct a framework for intelligence that can seed, propagate, and improve itself across environments and epochs — always deepening contact with reality and preserving the conditions that make further observation possible. Objectives are arranged in the Unity → Meaning order mandated by Principle P4 and reference their upstream anchors (P# / S#).
 
+Design intent reference: `docs/foundation/DESIGN-INTENT.md` maps these objectives into the Pattern C tiering (core ↔ operational ↔ tactical) so downstream layers know how to express them.
+
 ---
 
 ## Tier 1 – Foundations (Unity, Energy, Propagation)
