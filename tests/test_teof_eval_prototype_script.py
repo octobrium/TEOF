@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-import subprocess
 import json
+import subprocess
 from pathlib import Path
 from types import SimpleNamespace
+
+import pytest
 
 from teof.commands import up as up_cmd
 
@@ -37,3 +39,43 @@ def test_teof_up_eval_writes_receipt(tmp_path: Path) -> None:
     assert receipts, "expected evaluation receipt"
     data = json.loads(receipts[-1].read_text(encoding="utf-8"))
     assert data["document_count"] == 10
+
+
+def test_teof_up_contribute_requires_id() -> None:
+    args = SimpleNamespace(
+        contribute=True,
+        contributor_id=None,
+        workload="tier1-eval",
+        skip_install=True,
+        receipt_dir=up_cmd.ONBOARDING_REPORT_DIR,
+        eval=False,
+        notes=None,
+        _teof_up_parser=None,
+    )
+    with pytest.raises(SystemExit):
+        up_cmd.run(args)
+
+
+def test_teof_up_contribute_creates_receipt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    contrib_root = tmp_path / "contributors"
+    onboarding_dir = tmp_path / "onboarding"
+    onboarding_dir.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(up_cmd, "CONTRIBUTOR_ROOT", contrib_root)
+    monkeypatch.setattr(up_cmd, "ONBOARDING_REPORT_DIR", onboarding_dir)
+
+    args = SimpleNamespace(
+        contribute=True,
+        contributor_id="Test-Agent_01",
+        workload="tier1-eval",
+        skip_install=True,
+        receipt_dir=onboarding_dir,
+        eval=False,
+        notes="unit-test",
+        _teof_up_parser=None,
+    )
+    rc = up_cmd.run(args)
+    assert rc == 0
+    receipts = sorted(contrib_root.glob("test-agent_01/contribution-tier1-eval-*.json"))
+    assert receipts, "expected contribution receipt"
+    data = json.loads(receipts[-1].read_text(encoding="utf-8"))
+    assert data["contributor_id"] == "test-agent_01"

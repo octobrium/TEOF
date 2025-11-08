@@ -1,0 +1,17 @@
+{
+  "sample_size": 1,
+  "percentage": 30,
+  "tasks": [
+    {
+      "task_id": "A001",
+      "category": "adversarial",
+      "observation_first": true,
+      "checks_performed": [
+        "git_log",
+        "memory_log",
+        "explicit_observation"
+      ],
+      "checks_count": 3
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-07-plug-and-play-compute",
+  "created": "2025-11-07T22:35:00Z",
+  "actor": "codex-4",
+  "summary": "Enable plug-and-play compute contributions with receipts and onboarding instructions.",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design contributor flow and receipt schema",
+      "status": "done",
+      "notes": "Documented in docs/onboarding/contributor-flow.md",
+      "receipts": [
+        "docs/onboarding/contributor-flow.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement CLI + automation to run workloads and capture receipts",
+      "status": "done",
+      "notes": "Added teof up --contribute with receipt logging and contributor doc updates.",
+      "receipts": [
+        "teof/commands/up.py",
+        "docs/onboarding/contributor-flow.md",
+        "tests/test_teof_eval_prototype_script.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Update onboarding/docs to invite contributors",
+      "status": "done",
+      "notes": "README + onboarding docs reference teof up --contribute and example receipts.",
+      "receipts": [
+        "README.md",
+        "docs/onboarding/README.md",
+        "docs/onboarding/tier1-evaluate-PROTOTYPE.md",
+        "docs/onboarding/tier2-solo-dev-PROTOTYPE.md",
+        "docs/onboarding/contributor-flow.md",
+        "_report/usage/contributors/demo-agent/contribution-tier1-eval-20251107T232002Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Contributors can run one command, produce receipts in _report/usage/contributors/, and docs explain how to donate compute.",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [],
+  "status": "done",
+  "layer": "L5",
+  "systemic_scale": 4,
+  "systemic_targets": [
+    "S3",
+    "S2",
+    "S4"
+  ],
+  "layer_targets": [
+    "L5",
+    "L6"
+  ]
+}

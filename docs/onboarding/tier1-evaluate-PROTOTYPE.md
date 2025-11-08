@@ -79,6 +79,15 @@ No extra commands. No manual logging. No "I think I ran this with those settings
 
 These aren't features you configure — they're **built-in guarantees**. TEOF's foundational rules enforce them automatically in every workflow.
 
+**Want to donate compute next?**
+```bash
+python -m teof up --contribute \
+  --contributor-id <slug> \
+  --workload tier1-eval
+```
+This records a contribution receipt under `_report/usage/contributors/<slug>/`.
+See [`docs/onboarding/contributor-flow.md`](contributor-flow.md) for details.
+
 ## Next steps
 
 ### Ready to build with TEOF?

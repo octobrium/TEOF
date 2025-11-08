@@ -1,0 +1,13 @@
+{
+  "sample_size": 1,
+  "percentage": 30,
+  "tasks": [
+    {
+      "task_id": "SYNTH-0-checks",
+      "category": "simple",
+      "observation_first": false,
+      "checks_performed": [],
+      "checks_count": 0
+    }
+  ]
+}

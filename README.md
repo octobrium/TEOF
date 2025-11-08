@@ -75,6 +75,7 @@ When you act without observing, the framework will reflect that back. Not as pun
 > - **[Tier 1: Evaluate (5 min)](docs/onboarding/tier1-evaluate-PROTOTYPE.md)** — Run one command, see automatic audit trails
 > - **[Tier 2: Solo Developer (30 min)](docs/onboarding/tier2-solo-dev-PROTOTYPE.md)** — Build with TEOF's architecture
 > - **[Tier 3: Multi-Agent (60 min)](docs/onboarding/README.md)** — Coordinate agents through the bus
+> - **Ready to donate compute?** — After Tier 1 succeeds, run `python -m teof up --contribute --contributor-id <you>` (see [`docs/onboarding/contributor-flow.md`](docs/onboarding/contributor-flow.md)) to record a contribution receipt under `_report/usage/contributors/`.
 >
 > **Already familiar with TEOF?**
 > - Glossary: [`docs/glossary.md`](docs/glossary.md) — Essential terms and concepts

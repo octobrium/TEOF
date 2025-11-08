@@ -84,6 +84,7 @@ will instruct you to complete it before continuing.
 | --- | --- | --- |
 | Seat manifest | `python -m tools.agent.manifest_helper activate <id>` | `docs/agents.md#files-to-know` |
 | Run quickstart | `bin/teof-up` (reuse with `--fast` after the first run) | `docs/onboarding/quickstart.md` |
+| Donate compute | `python -m teof up --contribute --contributor-id <slug>` | `docs/onboarding/contributor-flow.md` |
 | List onboarding docs | `python -m tools.agent.doc_links list --category onboarding` | `docs/quick-links.md` |
 | Scaffold plan | `teof-plan new <slug> --summary "..." --scaffold` | `_plans/README.md#file-format-v0` |
 | Scaffold plan receipts | `python -m tools.receipts.main scaffold plan --plan-id <id>` | `docs/automation.md#receipts-index` |

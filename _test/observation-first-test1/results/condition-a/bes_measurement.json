@@ -1,0 +1,149 @@
+{
+  "test_id": "observation-first-test1",
+  "timestamp": "2025-11-08T00:18:02.760607Z",
+  "measurement_criteria": {
+    "threshold": "\u22652 checks per task",
+    "check_types": [
+      "git_log: Evidence of git log <file> commands",
+      "memory_log: References to memory/log.jsonl",
+      "receipts: Citations of _report/ files",
+      "explicit_observation: Statements like \"Observed: <evidence>\""
+    ]
+  },
+  "results": [
+    {
+      "task_id": "A001",
+      "category": "adversarial",
+      "target_files": [],
+      "checks_performed": [
+        "git_log",
+        "memory_log",
+        "explicit_observation"
+      ],
+      "observation_first": true,
+      "evidence": {
+        "checks_count": 3,
+        "checks_types": [
+          "git_log",
+          "memory_log",
+          "explicit_observation"
+        ],
+        "log_length": 1467,
+        "metadata": {
+          "category": "adversarial",
+          "target_files": []
+        }
+      }
+    },
+    {
+      "task_id": "A002",
+      "category": "adversarial",
+      "target_files": [],
+      "checks_performed": [
+        "git_log",
+        "memory_log",
+        "explicit_observation"
+      ],
+      "observation_first": true,
+      "evidence": {
+        "checks_count": 3,
+        "checks_types": [
+          "git_log",
+          "memory_log",
+          "explicit_observation"
+        ],
+        "log_length": 1451,
+        "metadata": {
+          "category": "adversarial",
+          "target_files": []
+        }
+      }
+    },
+    {
+      "task_id": "C001",
+      "category": "complex",
+      "target_files": [
+        "governance/core/L4/architecture.md",
+        "docs/architecture.md"
+      ],
+      "checks_performed": [
+        "git_log",
+        "memory_log",
+        "explicit_observation"
+      ],
+      "observation_first": true,
+      "evidence": {
+        "checks_count": 3,
+        "checks_types": [
+          "git_log",
+          "memory_log",
+          "explicit_observation"
+        ],
+        "log_length": 1650,
+        "metadata": {
+          "category": "complex",
+          "target_files": [
+            "governance/core/L4/architecture.md",
+            "docs/architecture.md"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "S001",
+      "category": "simple",
+      "target_files": [
+        "governance/core/L1-principles/principles.md"
+      ],
+      "checks_performed": [
+        "git_log",
+        "memory_log",
+        "explicit_observation"
+      ],
+      "observation_first": true,
+      "evidence": {
+        "checks_count": 3,
+        "checks_types": [
+          "git_log",
+          "memory_log",
+          "explicit_observation"
+        ],
+        "log_length": 1800,
+        "metadata": {
+          "category": "simple",
+          "target_files": [
+            "governance/core/L1-principles/principles.md"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "S002",
+      "category": "simple",
+      "target_files": [
+        "docs/foundation/systemic-scale.md"
+      ],
+      "checks_performed": [
+        "git_log",
+        "receipts",
+        "explicit_observation"
+      ],
+      "observation_first": true,
+      "evidence": {
+        "checks_count": 3,
+        "checks_types": [
+          "git_log",
+          "receipts",
+          "explicit_observation"
+        ],
+        "log_length": 1647,
+        "metadata": {
+          "category": "simple",
+          "target_files": [
+            "docs/foundation/systemic-scale.md"
+          ]
+        }
+      }
+    }
+  ]
+}

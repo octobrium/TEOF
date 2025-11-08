@@ -14,6 +14,7 @@
 2. Skim `docs/workflow.md` sections on the Architecture Gate and Operator Mode.
 3. Experiment with plan scaffolding: `teof-plan new <slug> --summary "..." --scaffold`.
 4. Capture a practice receipt using `python -m tools.receipts.main scaffold plan --plan-id <id>`.
+5. Optional: run `python -m teof up --contribute --contributor-id <slug> --workload tier1-eval` to log a compute contribution receipt once Tier 1 succeeds.
 
 ## Coming Soon
 - Step-by-step walkthrough with estimated times.

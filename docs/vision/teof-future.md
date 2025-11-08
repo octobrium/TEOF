@@ -15,6 +15,12 @@ reference for planning conversations.
 - Every coordinate pair (S#, L#) indicates both *what* frontier we
   serve and *how deep* the recursion runs. Keeping both axes visible is
   mandatory for balanced growth.
+- **Propagation + energy cadence.** Per `memory/reflections/reflection-20251107T070059Z.json`,
+  the S2 seed (current funding + observation) already exists. S3 propagation
+  receipts expand the surface area so additional energy inflow can accelerate.
+  Treat Tier 1 accuracy + plug-and-play contributions as “roots/leaves” that
+  let external nodes donate compute/resources without drifting from observation
+  primacy; S2 and S3 stay intertwined instead of purely sequential.
 
 ## Phases of Scale
 

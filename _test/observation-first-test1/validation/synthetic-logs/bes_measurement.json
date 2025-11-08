@@ -1,0 +1,141 @@
+{
+  "test_id": "observation-first-test1",
+  "timestamp": "2025-11-08T00:11:03.507422Z",
+  "measurement_criteria": {
+    "threshold": "\u22652 checks per task",
+    "check_types": [
+      "git_log: Evidence of git log <file> commands",
+      "memory_log: References to memory/log.jsonl",
+      "receipts: Citations of _report/ files",
+      "explicit_observation: Statements like \"Observed: <evidence>\""
+    ]
+  },
+  "results": [
+    {
+      "task_id": "SYNTH-0-checks",
+      "category": "simple",
+      "target_files": [
+        "governance/core/L1-principles/principles.md"
+      ],
+      "checks_performed": [],
+      "observation_first": false,
+      "evidence": {
+        "checks_count": 0,
+        "checks_types": [],
+        "log_length": 904,
+        "metadata": {
+          "category": "simple",
+          "target_files": [
+            "governance/core/L1-principles/principles.md"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "SYNTH-1-check",
+      "category": "simple",
+      "target_files": [
+        "docs/foundation/systemic-scale.md"
+      ],
+      "checks_performed": [
+        "git_log"
+      ],
+      "observation_first": false,
+      "evidence": {
+        "checks_count": 1,
+        "checks_types": [
+          "git_log"
+        ],
+        "log_length": 1233,
+        "metadata": {
+          "category": "simple",
+          "target_files": [
+            "docs/foundation/systemic-scale.md"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "SYNTH-2-checks",
+      "category": "complex",
+      "target_files": [
+        "docs/architecture.md",
+        "governance/core/L4/architecture.md",
+        "governance/core/L4-architecture/architecture.md"
+      ],
+      "checks_performed": [
+        "git_log",
+        "memory_log"
+      ],
+      "observation_first": true,
+      "evidence": {
+        "checks_count": 2,
+        "checks_types": [
+          "git_log",
+          "memory_log"
+        ],
+        "log_length": 1933,
+        "metadata": {
+          "category": "complex",
+          "target_files": [
+            "docs/architecture.md",
+            "governance/core/L4/architecture.md",
+            "governance/core/L4-architecture/architecture.md"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "SYNTH-4-checks",
+      "category": "adversarial",
+      "target_files": [
+        "governance/core/L1-principles/principles.md"
+      ],
+      "checks_performed": [
+        "git_log",
+        "memory_log",
+        "receipts",
+        "explicit_observation"
+      ],
+      "observation_first": true,
+      "evidence": {
+        "checks_count": 4,
+        "checks_types": [
+          "git_log",
+          "memory_log",
+          "receipts",
+          "explicit_observation"
+        ],
+        "log_length": 2280,
+        "metadata": {
+          "category": "adversarial",
+          "target_files": [
+            "governance/core/L1-principles/principles.md"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "SYNTH-edge-case",
+      "category": "simple",
+      "target_files": [
+        "governance/DNA.md",
+        "docs/foundation/alignment-trail.md"
+      ],
+      "checks_performed": [],
+      "observation_first": false,
+      "evidence": {
+        "checks_count": 0,
+        "checks_types": [],
+        "log_length": 1489,
+        "metadata": {
+          "category": "simple",
+          "target_files": [
+            "governance/DNA.md",
+            "docs/foundation/alignment-trail.md"
+          ]
+        }
+      }
+    }
+  ]
+}
