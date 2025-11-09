@@ -1,0 +1,80 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-agent-channel-infrastructure",
+  "created": "2025-11-09T04:23:00Z",
+  "actor": "codex-tier2",
+  "summary": "Implement agent-directed bus channels (targeted bus_message posts, inbox reader, session_boot surfacing) plus docs/receipts per the 2025-11-09 decision.",
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 34,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Extend bus_message with agent targeting",
+      "status": "done",
+      "notes": "Add --target flag, emit agent inbox messages alongside task posts, and carry a to=<role> field so downstream readers can filter direct messages.",
+      "receipts": [
+        "tools/agent/bus_message.py",
+        "_report/agent/codex-tier2/2025-11-09-agent-channel-infrastructure/implementation.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Ship bus_inbox helper + session_boot inbox surfacing",
+      "status": "done",
+      "notes": "Create a helper to tail `_bus/messages/agent-<role>.jsonl` (filters, unread counts) and call it from session_boot so agents see their backlog.",
+      "receipts": [
+        "tools/agent/bus_inbox.py",
+        "tools/agent/session_boot.py",
+        "_report/agent/codex-tier2/2025-11-09-agent-channel-infrastructure/tests.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document agent inbox workflow",
+      "status": "done",
+      "notes": "Update docs/agents.md + parallel playbook with CLI usage, capture receipts, and log the new role channel convention.",
+      "receipts": [
+        "docs/agents.md",
+        "docs/parallel-codex.md",
+        "_report/agent/codex-tier2/2025-11-09-agent-channel-infrastructure/docs.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Agent inbox tooling operational with docs/tests and referenced receipts",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/074-agent-channel-infrastructure.md"
+    },
+    {
+      "type": "memory",
+      "ref": "_report/assessments/20251109-agent-communication-design.md"
+    },
+    {
+      "type": "memory",
+      "ref": "_report/assessments/20251109-agent-communication-decision.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-agent-channel-infrastructure/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-agent-channel-infrastructure/implementation.json",
+    "_report/agent/codex-tier2/2025-11-09-agent-channel-infrastructure/tests.json",
+    "_report/agent/codex-tier2/2025-11-09-agent-channel-infrastructure/docs.json"
+  ],
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "generated_at": "2025-11-09T05:21:00Z",
+  "agent": "codex-tier2",
+  "plan_id": "2025-11-09-pytest-coverage-guard",
+  "summary": "Plan recorded for pytest coverage guard (queue/076, memory/log coverage gap).",
+  "links": [
+    "queue/076-pytest-coverage-guard.md",
+    "memory/log.jsonl#L107"
+  ]
+}

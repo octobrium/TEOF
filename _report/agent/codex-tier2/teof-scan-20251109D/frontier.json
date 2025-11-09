@@ -1,0 +1,135 @@
+{
+  "generated_at": "2025-11-09T05:33:56Z",
+  "git_commit": "b97ba03",
+  "parameters": {
+    "limit": 5
+  },
+  "state_snapshot": {
+    "log_entries": 135,
+    "facts": 1
+  },
+  "entries": [
+    {
+      "coord": {
+        "layer": "L6",
+        "systemic_scale": 8
+      },
+      "source": "backlog",
+      "id": "ND-068",
+      "title": "Confidence calibration analytics",
+      "status": "pending",
+      "priority": "high",
+      "plan_id": "2025-11-09-confidence-calibration",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-confidence-calibration/plan.json",
+        "_report/agent/codex-tier2/2025-11-09-confidence-calibration/requirements.md",
+        "_report/agent/codex-tier2/2025-11-09-confidence-calibration/design.md"
+      ],
+      "components": {
+        "impact": 3.0,
+        "dependency_weight": 1.4000000000000001,
+        "confidence_gap": 1.0,
+        "cohesion_gain": 1.1400000000000001,
+        "effort": 1.0
+      },
+      "score": 4.788000000000001
+    },
+    {
+      "coord": {
+        "layer": "L6",
+        "systemic_scale": 6
+      },
+      "source": "backlog",
+      "id": "ND-071",
+      "title": "Convergence metrics pipeline",
+      "status": "pending",
+      "priority": "high",
+      "plan_id": "2025-11-09-convergence-metrics",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-convergence-metrics/requirements.md",
+        "queue/071-convergence-metrics.md"
+      ],
+      "components": {
+        "impact": 3.0,
+        "dependency_weight": 1.3,
+        "confidence_gap": 1.0,
+        "cohesion_gain": 1.08,
+        "effort": 1.0
+      },
+      "score": 4.212000000000001
+    },
+    {
+      "coord": {
+        "layer": "L2",
+        "systemic_scale": 10
+      },
+      "source": "backlog",
+      "id": "ND-056",
+      "title": "Impact Bridge Dashboard",
+      "status": "pending",
+      "priority": "medium",
+      "plan_id": "2025-11-09-impact-bridge",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-impact-bridge/requirements.md",
+        "queue/056-impact-bridge.md"
+      ],
+      "components": {
+        "impact": 2.0,
+        "dependency_weight": 1.3,
+        "confidence_gap": 1.0,
+        "cohesion_gain": 1.2999999999999998,
+        "effort": 1.0
+      },
+      "score": 3.3799999999999994
+    },
+    {
+      "coord": {
+        "layer": "L0",
+        "systemic_scale": 4
+      },
+      "source": "backlog",
+      "id": "ND-066",
+      "title": "Apoptosis snapshot compression",
+      "status": "pending",
+      "priority": "medium",
+      "plan_id": "2025-11-09-apoptosis-compression",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-apoptosis-compression/requirements.md",
+        "_plans/next-development.todo.json"
+      ],
+      "components": {
+        "impact": 2.0,
+        "dependency_weight": 1.3,
+        "confidence_gap": 1.0,
+        "cohesion_gain": 1.2,
+        "effort": 1.0
+      },
+      "score": 3.12
+    },
+    {
+      "coord": {
+        "layer": "L4",
+        "systemic_scale": 3
+      },
+      "source": "backlog",
+      "id": "ND-065",
+      "title": "Build artifact hygiene guard",
+      "status": "pending",
+      "priority": "medium",
+      "plan_id": "2025-11-09-build-artifact-guard",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-build-artifact-guard/requirements.md",
+        "_plans/next-development.todo.json"
+      ],
+      "components": {
+        "impact": 2.0,
+        "dependency_weight": 1.3,
+        "confidence_gap": 1.0,
+        "cohesion_gain": 1.2,
+        "effort": 1.0
+      },
+      "score": 3.12
+    }
+  ],
+  "receipt_sha256": "8755d07fcbf2b39487e726808aa3f43384a71237e477b5cafadde253698e40ab"
+}

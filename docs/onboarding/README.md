@@ -30,11 +30,15 @@ loop summary (handshake → plan → bus → receipts), see the [`TEOF Operator 
    smoke pipeline, and writes `_report/usage/onboarding/quickstart-*.json`.
    Inspect the receipt before proceeding. After a successful full run you can
    reuse the cached environment with `bin/teof-up --fast` to refresh receipts
-   without rebuilding the wheel.
+   without rebuilding the wheel.  
+   **Do not modify the repository yet. Tier 1 ends here; advancing to Tier 2 is mandatory before any edits.**  
+   _Maintainers_: verify any onboarding text changes via the [doc verification SOP](doc-verification-sop.md) before editing.  
+   _Public entry_: send new observers to [`docs/onboarding/tier1-evaluate-PROTOTYPE.md`](tier1-evaluate-PROTOTYPE.md) — it’s the 5-minute walkthrough you can share outside the repo, and it now cites the metadata receipts created by `teof up --eval`.
 
 5. **Handshake on the bus (`docs/parallel-codex.md#suggested-session-loop`).**  
    Run `python3 -m tools.agent.session_boot --agent <id> --focus <role> --with-status`.
-   This records the handshake, syncs the repo, captures `bus_status`, and writes
+   This records the handshake, syncs the repo, captures a `python3 -m teof bus_status --preset support`
+   snapshot (legacy `python -m tools.agent.bus_status` still works), and writes
    the manager-report tail receipt required by preflight.
 
 6. **Scaffold your first plan (`_plans/README.md`).**  
@@ -44,7 +48,7 @@ loop summary (handshake → plan → bus → receipts), see the [`TEOF Operator 
 
 7. **Select work from the canonical backlog (`_plans/next-development.todo.json`).**  
    Choose the first item that matches your seat/systemic targets, seed the bus
-   claim (`python -m tools.agent.bus_claim claim …`), then proceed into the plan.
+   claim (`python -m teof bus_claim claim …`), then proceed into the plan.
 
 Automation expects receipts from each step; if one is missing, preflight and CI
 will instruct you to complete it before continuing.
@@ -54,11 +58,14 @@ will instruct you to complete it before continuing.
   will use on the bus (`python3 -m tools.agent.manifest_helper show`).
 - **Announce the session** – `python3 -m tools.agent.session_boot --focus <role> --with-status`
   captures the handshake, manager-report tail, and coordination dashboard receipt.
-- **Broadcast presence** – `python3 -m tools.agent.bus_message --task manager-report --type status --summary "<agent-id>: on deck for <focus>" --meta agent=<agent-id>`.
-- **Monitor manager-report** – keep `python3 -m tools.agent.bus_watch --task manager-report --follow --limit 20`
+- **Broadcast presence** – `python -m teof bus_message --task manager-report --type status --summary "<agent-id>: on deck for <focus>" --meta agent=<agent-id>` (legacy path: `python3 -m tools.agent.bus_message`).
+- **Monitor manager-report** – keep `python3 -m teof bus_watch --task manager-report --follow --limit 20` (legacy path: `python3 -m tools.agent.bus_watch`)
   (or `python3 -m tools.agent.session_brief --task manager-report`) open while you work.
-- **Claim and update** – use `python3 -m tools.agent.bus_claim claim`, `bus_event log --event status`, and `bus_message` to keep claims, plans, and receipts aligned.
-- **Escalate & release** – escalate blockers with `bus_message --meta escalation=needed`, and close with `python3 -m tools.agent.bus_claim release --status done --summary "handoff"`.
+- **Snapshot the lane** – `python3 -m teof bus_status --preset support --window-hours 6`
+  captures the current claims/events and writes a receipt; add `--json` when scripting or
+  fall back to `python -m tools.agent.bus_status` if the alias isn’t available.
+- **Claim and update** – use `python -m teof bus_claim claim`, `python -m teof bus_event log --event status`, and `python -m teof bus_message` to keep claims, plans, and receipts aligned.
+- **Escalate & release** – escalate blockers with `python -m teof bus_message --meta escalation=needed`, and close with `python -m teof bus_claim release --status done --summary "handoff"`.
 
 ## Operating Rhythm
 - **Receipts-first** – no step is “done” until receipts exist. Record artifacts
@@ -84,11 +91,11 @@ will instruct you to complete it before continuing.
 | --- | --- | --- |
 | Seat manifest | `python -m tools.agent.manifest_helper activate <id>` | `docs/agents.md#files-to-know` |
 | Run quickstart | `bin/teof-up` (reuse with `--fast` after the first run) | `docs/onboarding/quickstart.md` |
-| Donate compute | `python -m teof up --contribute --contributor-id <slug>` | `docs/onboarding/contributor-flow.md` |
+| Donate compute | `python3 -m teof up --contribute --contributor-id <slug>` | `docs/onboarding/contributor-flow.md` |
 | List onboarding docs | `python -m tools.agent.doc_links list --category onboarding` | `docs/quick-links.md` |
 | Scaffold plan | `teof-plan new <slug> --summary "..." --scaffold` | `_plans/README.md#file-format-v0` |
 | Scaffold plan receipts | `python -m tools.receipts.main scaffold plan --plan-id <id>` | `docs/automation.md#receipts-index` |
-| Claim work | `python -m tools.agent.bus_claim claim --task <task> --plan <plan>` | `docs/parallel-codex.md#coordination-bus` |
+| Claim work | `python -m teof bus_claim claim --task <task> --plan <plan>` | `docs/parallel-codex.md#coordination-bus` |
 
 ## Related References
 - `docs/workflow.md`, `docs/architecture.md`, and `docs/commandments.md` for the

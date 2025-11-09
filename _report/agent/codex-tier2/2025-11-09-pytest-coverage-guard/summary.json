@@ -1,0 +1,17 @@
+{
+  "generated_at": "2025-11-09T04:51:43Z",
+  "summary": [
+    "pytest now runs with pytest-cov defaults from pyproject.toml to emit XML/JSON line-rate receipts",
+    "tools.tests.coverage_guard enforces a 70% minimum (runner + preflight wire it in, default threshold now 0.70)",
+    "docs/agents.md instructs operators to run the guard; receipts logged under _report/agent/codex-tier2/2025-11-09-pytest-coverage-guard/"
+  ],
+  "artifacts": [
+    "pyproject.toml",
+    "tools/tests/__init__.py",
+    "tools/tests/coverage_guard.py",
+    "tests/test_coverage_guard.py",
+    "tools/agent/runner.sh",
+    "tools/agent/preflight.sh",
+    "docs/agents.md"
+  ]
+}

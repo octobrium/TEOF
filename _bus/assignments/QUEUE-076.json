@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-11-09T04:43:03Z",
+  "branch": "agent/codex-tier2/coverage-guard",
+  "engineer": "codex-tier2",
+  "manager": "codex-tier2",
+  "note": "Add pytest coverage defaults + guard",
+  "plan_id": "2025-11-09-pytest-coverage-guard",
+  "task_id": "QUEUE-076"
+}

@@ -1,0 +1,28 @@
+{
+  "stamp": "2025-11-09T05:33:56Z",
+  "coherence_gain": 1050.0,
+  "complexity_added": 91.0,
+  "closure_velocity": 12.0,
+  "risk_load": 11.0,
+  "ratchet_index": 10.412,
+  "plan_stats": {
+    "total_plans": 254,
+    "done_plans": 230,
+    "active_plans": 24,
+    "closed_steps": 726,
+    "open_steps": 59,
+    "checkpoint_satisfied": 217,
+    "median_age_days": 47.30482395488426
+  },
+  "claim_stats": {
+    "total_claims": 97,
+    "active_claims": 3,
+    "terminal_claims": 94
+  },
+  "scan_counts": {
+    "frontier": 5,
+    "critic": 0,
+    "tms": 0,
+    "ethics": 11
+  }
+}

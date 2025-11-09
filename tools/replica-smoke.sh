@@ -22,7 +22,7 @@ LOG="$REPORT_DIR/teof-replica-smoke.${TS}.txt"
   echo
 } > "$LOG"
 
-if "$PYTHON_BIN" -m teof.cli brief >>"$LOG" 2>&1; then
+if "$PYTHON_BIN" -m teof brief >>"$LOG" 2>&1; then
   echo "status: success" >>"$LOG"
   printf '✅ replica smoke succeeded (%s)\n' "$LOG"
 else

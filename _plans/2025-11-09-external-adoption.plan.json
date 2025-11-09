@@ -1,0 +1,62 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-external-adoption",
+  "created": "2025-11-09T05:08:18Z",
+  "actor": "codex-tier2",
+  "summary": "Produce a signed external adoption capsule with telemetry + receipts for partner nodes.",
+  "status": "in_progress",
+  "priority": 2,
+  "layer": "L3",
+  "systemic_scale": 6,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture adoption capsule requirements",
+      "status": "done",
+      "notes": "Documented capsule scope, CLI expectations, receipts, and risks from the queue brief.",
+      "receipts": [
+        "queue/055-external-adoption-capsule.md",
+        "_report/agent/codex-tier2/2025-11-09-external-adoption/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design capsule manifest + CLI",
+      "status": "queued",
+      "notes": "Define packaging format, telemetry hooks, signature workflow, and CLI flags.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement capsule, telemetry, and docs",
+      "status": "queued",
+      "notes": "Build tooling, emit receipts, update onboarding docs, and wire CI guard for capsule freshness.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Adoption capsule CLI produces signed artifacts + receipts and telemetry hooks verified in CI.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-external-adoption/requirements.md"
+  ],
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/055-external-adoption-capsule.md"
+    }
+  ],
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L3",
+    "L5"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-teof-macro-hygiene-cli",
+  "created": "2025-11-09T06:20:00Z",
+  "actor": "codex-tier2",
+  "summary": "Expose macro_hygiene ledger check via teof CLI (queue/080).",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 18,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Share macro_hygiene parser",
+      "status": "done",
+      "notes": "Ensure tools.autonomy.macro_hygiene exposes configure_parser/run helper.",
+      "receipts": [
+        "tools/autonomy/macro_hygiene.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add teof command + tests",
+      "status": "done",
+      "notes": "Create teof.commands.macro_hygiene wrapper and regression tests invoking JSON/human modes.",
+      "receipts": [
+        "teof/commands/macro_hygiene.py",
+        "teof/commands/__init__.py",
+        "tests/test_teof_macro_hygiene.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document usage",
+      "status": "done",
+      "notes": "Update docs/maintenance/macro-hygiene.md (and quick references) to mention the teof alias.",
+      "receipts": [
+        "docs/maintenance/macro-hygiene.md",
+        "_report/agent/codex-tier2/2025-11-09-teof-macro-hygiene-cli/tests.json",
+        "_report/agent/codex-tier2/2025-11-09-teof-macro-hygiene-cli/summary.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "teof macro_hygiene command documented/tested",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/080-teof-macro-hygiene-cli.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-teof-macro-hygiene-cli/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-teof-macro-hygiene-cli/tests.json",
+    "_report/agent/codex-tier2/2025-11-09-teof-macro-hygiene-cli/summary.json"
+  ],
+  "systemic_targets": [
+    "S3"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
+}

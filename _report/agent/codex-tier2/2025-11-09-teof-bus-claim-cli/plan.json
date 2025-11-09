@@ -1,0 +1,5 @@
+{
+  "plan_id": "2025-11-09-teof-bus-claim-cli",
+  "captured_at": "2025-11-09T05:35:05Z",
+  "summary": "Add teof bus_claim wrapper + docs/tests"
+}

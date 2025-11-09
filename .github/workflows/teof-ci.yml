@@ -318,7 +318,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts/systemic_out
-          OUT_ROOT="$GITHUB_WORKSPACE/artifacts" python -m teof.cli brief
+          OUT_ROOT="$GITHUB_WORKSPACE/artifacts" python3 -m teof brief
           test -f artifacts/systemic_out/latest/brief.json
           test -f artifacts/systemic_out/latest/score.txt
           ls -l artifacts/systemic_out/latest/

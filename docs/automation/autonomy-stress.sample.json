@@ -1,0 +1,20 @@
+[
+  {
+    "name": "missing receipt guard",
+    "type": "missing_receipt",
+    "severity": "high",
+    "config": {
+      "missing_receipt": true,
+      "expected_result": "fail"
+    }
+  },
+  {
+    "name": "healthy heartbeat",
+    "type": "stuck_task",
+    "config": {
+      "heartbeat_gap_minutes": 5,
+      "max_gap_minutes": 30,
+      "expected_result": "pass"
+    }
+  }
+]

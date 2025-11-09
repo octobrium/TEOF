@@ -1,0 +1,59 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-build-artifact-guard",
+  "created": "2025-11-09T05:11:28Z",
+  "actor": "codex-tier2",
+  "summary": "Add a build artifact hygiene guard (git ignores + CLI + CI).",
+  "status": "in_progress",
+  "priority": 2,
+  "layer": "L4",
+  "systemic_scale": 4,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture guard requirements",
+      "status": "done",
+      "notes": "Documented backlog needs, CLI idea, receipts, and risks.",
+      "receipts": [
+        "_plans/next-development.todo.json",
+        "_report/agent/codex-tier2/2025-11-09-build-artifact-guard/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design guard + allowlist",
+      "status": "queued",
+      "notes": "Define detection rules, allowlist, CLI flags, and CI integration.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement guard + tests",
+      "status": "queued",
+      "notes": "Update .gitignore, add guard CLI, write tests/docs, and wire CI.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Build artifact guard prevents tracked build outputs and CI enforces it.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-build-artifact-guard/requirements.md"
+  ],
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-065"
+    }
+  ],
+  "systemic_targets": [
+    "S2",
+    "S4"
+  ],
+  "layer_targets": [
+    "L4",
+    "L6"
+  ]
+}

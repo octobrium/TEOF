@@ -1,0 +1,11 @@
+{
+  "generated_at": "2025-11-09T05:10:15Z",
+  "agent": "codex-tier2",
+  "plan_id": "2025-11-09-decentralized-node-ledger",
+  "summary": "Started the decentralized node incentive ledger plan (ND-069) to move frontier/critic blockers into execution.",
+  "inputs": [
+    "queue/069-node-incentive-ledger.md",
+    "_plans/2025-10-11-decentralized-node.plan.json",
+    "_report/agent/codex-tier2/teof-scan-20251109B/frontier.json"
+  ]
+}

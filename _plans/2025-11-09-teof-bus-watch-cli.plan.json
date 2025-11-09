@@ -1,0 +1,68 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-teof-bus-watch-cli",
+  "created": "2025-11-09T06:00:00Z",
+  "actor": "codex-tier2",
+  "summary": "Expose bus_watch via teof CLI, share parser logic, and document usage (queue/078).",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 20,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Refactor bus_watch parser/run",
+      "status": "done",
+      "notes": "Add configure_parser + run helper so teof wrapper can reuse argument validation.",
+      "receipts": [
+        "tools/agent/bus_watch.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add teof bus_watch command",
+      "status": "done",
+      "notes": "Create teof.commands.bus_watch module + register it.",
+      "receipts": [
+        "teof/commands/bus_watch.py",
+        "teof/commands/__init__.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Add docs + tests",
+      "status": "done",
+      "notes": "Document the CLI alias and add regression tests under tests/test_teof_bus_watch.py.",
+      "receipts": [
+        "docs/agents.md",
+        "docs/parallel-codex.md",
+        "tests/test_teof_bus_watch.py",
+        "_report/agent/codex-tier2/2025-11-09-teof-bus-watch-cli/tests.json",
+        "_report/agent/codex-tier2/2025-11-09-teof-bus-watch-cli/summary.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "teof bus_watch command documented/tested",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/078-teof-bus-watch-cli.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-watch-cli/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-watch-cli/tests.json",
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-watch-cli/summary.json"
+  ],
+  "systemic_targets": [
+    "S3"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
+}

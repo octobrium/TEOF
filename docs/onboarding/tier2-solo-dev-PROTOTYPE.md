@@ -16,7 +16,7 @@
 4. Experiment with plan scaffolding: `teof-plan new <slug> --summary "..." --scaffold`.
    - The repo ships a helper wrapper at `bin/teof-plan` so you can run the planner without installing the package; fall back to `python -m tools.planner.cli ...` if you prefer the explicit module call.
 5. Capture a practice receipt using `python -m tools.receipts.main scaffold plan --plan-id <id>`.
-6. Optional: run `python -m teof up --contribute --contributor-id <slug> --workload tier1-eval` to log a compute contribution receipt once Tier 1 succeeds.
+6. Optional: run `python3 -m teof up --contribute --contributor-id <slug> --workload tier1-eval` to log a compute contribution receipt once Tier 1 succeeds.
 
 ## Coming Soon
 - Step-by-step walkthrough with estimated times.

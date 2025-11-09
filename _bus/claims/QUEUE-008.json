@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/bus-status-window",
+  "claimed_at": "2025-11-09T04:52:39Z",
+  "notes": "Docs/tests merged",
+  "plan_id": "2025-11-09-bus-status-window",
+  "released_at": "2025-11-09T04:54:13Z",
+  "status": "done",
+  "task_id": "QUEUE-008"
+}

@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/teof-bus-claim",
+  "claimed_at": "2025-11-09T05:24:53Z",
+  "notes": "teof bus_claim CLI rolled out",
+  "plan_id": "2025-11-09-teof-bus-claim-cli",
+  "released_at": "2025-11-09T05:35:17Z",
+  "status": "done",
+  "task_id": "QUEUE-082"
+}

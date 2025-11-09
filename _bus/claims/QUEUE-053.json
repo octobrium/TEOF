@@ -1,10 +1,10 @@
 {
   "agent_id": "codex-tier2",
-  "branch": "agent/codex-tier2/systemic-radar",
+  "branch": "agent/codex-tier2/receipt-graph",
   "claimed_at": "2025-11-08T21:54:09Z",
-  "notes": "Systemic radar guard delivered",
-  "plan_id": "2025-11-08-systemic-radar-guard",
-  "released_at": "2025-11-08T21:59:01Z",
+  "notes": "receipt_graph CLI, docs, backlog receipts delivered",
+  "plan_id": "2025-11-09-observation-receipt-graph",
+  "released_at": "2025-11-09T04:59:57Z",
   "status": "done",
   "task_id": "QUEUE-053"
 }

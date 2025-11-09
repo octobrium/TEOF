@@ -1,0 +1,9 @@
+{
+  "generated_at": "2025-11-09T05:41:00Z",
+  "agent": "codex-tier2",
+  "plan_id": "2025-11-09-bus-status-window",
+  "summary": "Plan logged for documenting/testing bus_status window-hours semantics (QUEUE-008).",
+  "links": [
+    "queue/008-bus-status-staleness.md"
+  ]
+}

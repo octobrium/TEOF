@@ -1,0 +1,61 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-observation-receipt-graph",
+  "created": "2025-11-09T04:55:20Z",
+  "actor": "codex-tier2",
+  "summary": "Ship an observation receipt graph CLI + schema that links plans, claims, memory, bus logs, and receipts.",
+  "status": "in_progress",
+  "priority": 2,
+  "layer": "L4",
+  "systemic_scale": 6,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture requirements and sources",
+      "status": "done",
+      "notes": "Summarised the queue brief + teof scan output to pin down traversal scope, CLI ergonomics, schema elements, and receipts expectations.",
+      "receipts": [
+        "queue/053-observation-receipt-graph.md",
+        "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design schema and CLI skeleton",
+      "status": "queued",
+      "notes": "Select module location (tools.observation.receipt_graph), define dataclasses + JSON schema, and stub CLI flags before wiring traversal.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement traversal + receipts",
+      "status": "queued",
+      "notes": "Build graph builder over plans/claims/messages, emit JSON+Mermaid outputs, write tests + docs, and land CLI receipts.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Graph CLI emits validated receipts and documentation teaches agents how to replay task lineage.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/requirements.md"
+  ],
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/053-observation-receipt-graph.md"
+    }
+  ],
+  "systemic_targets": [
+    "S1",
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4",
+    "L5"
+  ]
+}

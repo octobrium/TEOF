@@ -1,0 +1,3 @@
+Reproduction: session_brief format_entries with naive fallback
+Command: python3 - <<PY ...
+Exception: TypeError: can't compare offset-naive and offset-aware datetimes

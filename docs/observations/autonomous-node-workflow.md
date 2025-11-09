@@ -20,7 +20,7 @@ Purpose: Outline autonomous node workflow for decentralized TEOF deployments
    - Bundle receipts are submitted via PR or receipt ledger; include plan/idea IDs.
 
 4. **Promotion gate**
-   - Node must confirm related plan/claim is active (`python3 -m tools.agent.bus_status --plan <id>`).
+   - Node must confirm related plan/claim is active (`python3 -m teof bus_status --plan <id>`; legacy module path also works).
    - If guard fails, escalate to manual review; receipts flagged as provisional.
 
 5. **Sync & cleanup**

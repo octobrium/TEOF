@@ -1,0 +1,65 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-teof-bus-status-cli",
+  "created": "2025-11-09T05:50:00Z",
+  "actor": "codex-tier2",
+  "summary": "Expose bus_status via the teof CLI and document usage (queue/077).",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 20,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add teof bus_status command",
+      "status": "done",
+      "notes": "Create teof.commands.bus_status wrapper, register in CLI module list, and ensure it pipes args to tools.agent.bus_status.",
+      "receipts": [
+        "teof/commands/__init__.py",
+        "teof/commands/bus_status.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add regression tests",
+      "status": "done",
+      "notes": "Cover teof bus_status JSON/text output using sandboxed bus fixtures.",
+      "receipts": [
+        "tests/test_teof_bus_status.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document CLI usage",
+      "status": "done",
+      "notes": "Update docs/agents.md (and quickstart if needed) to mention `python3 -m teof bus_status` option.",
+      "receipts": [
+        "docs/agents.md",
+        "_report/agent/codex-tier2/2025-11-09-teof-bus-status-cli/summary.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "teof bus_status command documented and tested",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/077-teof-bus-status-cli.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-status-cli/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-status-cli/tests.json",
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-status-cli/summary.json"
+  ],
+  "systemic_targets": [
+    "S3"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-11-09T04:55:32Z",
+  "branch": "agent/codex-tier2/teof-bus-status",
+  "engineer": "codex-tier2",
+  "manager": "codex-tier2",
+  "note": "Add teof bus_status command",
+  "plan_id": "2025-11-09-teof-bus-status-cli",
+  "task_id": "QUEUE-077"
+}

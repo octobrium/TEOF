@@ -1,7 +1,9 @@
 {
   "blockers": [],
-  "generated_at": "2025-11-08T23:38:31Z",
-  "highlights": [],
+  "generated_at": "2025-11-08T23:41:40Z",
+  "highlights": [
+    "Added systemic_radar regression tests + pytest receipts"
+  ],
   "plan_id": "2025-11-08-systemic-radar-automation",
-  "status": "pending"
+  "status": "done"
 }

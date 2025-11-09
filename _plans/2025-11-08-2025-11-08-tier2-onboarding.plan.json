@@ -1,0 +1,55 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-2025-11-08-tier2-onboarding",
+  "created": "2025-11-08T22:23:03Z",
+  "actor": "Octo",
+  "summary": "Tier2 practice plan",
+  "systemic_targets": [
+    "S3"
+  ],
+  "layer_targets": [
+    "L4"
+  ],
+  "priority": 3,
+  "layer": "L4",
+  "systemic_scale": 3,
+  "impact_score": 1,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Tier2 practice plan",
+      "status": "done",
+      "notes": "Plan + receipts scaffolded via bin/teof-plan + tools.receipts",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Define documentation verification requirements",
+      "status": "done",
+      "notes": "Requirements captured in docs/onboarding/doc-verification-sop.md",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Draft SOP doc with verification commands",
+      "status": "done",
+      "notes": "SOP file added + receipts logged under _report/agent/codex-tier2/...",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Update onboarding docs to reference SOP",
+      "status": "done",
+      "notes": "Tier1 + onboarding README link to SOP",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}

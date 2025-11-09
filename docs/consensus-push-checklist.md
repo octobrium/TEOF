@@ -24,7 +24,7 @@ cross-audit before a push.
    Add a short summary of what was validated in the receipt body.
 4. **Post to manager-report** —
    ```bash
-   python3 -m tools.agent.bus_message --task manager-report --type status \
+   python3 -m teof bus_message --task manager-report --type status \
      --summary "<agent>: consensus snapshot ready" \
      --receipt _report/consensus/push-<slug>-<UTC>.jsonl \
      --meta scope=<slug> --meta status=await-ack

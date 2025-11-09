@@ -1,0 +1,10 @@
+{
+  "generated_at": "2025-11-09T05:18:55Z",
+  "plan_id": "2025-11-09-decentralized-node-ledger",
+  "status": "in_progress",
+  "highlights": [
+    "Node ledger CLI (append/show/audit) operational",
+    "JSON schema committed and initial ledger entry recorded",
+    "Pytest coverage added via tests/test_node_ledger.py"
+  ]
+}

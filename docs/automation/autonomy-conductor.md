@@ -66,3 +66,16 @@ Answering these questions will inform steps S2–S3 of plan
 `2025-09-23-autonomy-conductor`. The conductor now records frontier preview,
 open critic/TMS alerts, and fails fast when the L6 ethics gate reports missing
 consent/review receipts so high-risk coordinates cannot proceed unattended.
+
+## Stress Harness
+
+Before promoting unattended loops, run the deterministic harness:
+
+```bash
+python -m tools.autonomy.stress_harness --scenarios automation/autonomy-stress.json --require-pass
+```
+
+Receipts land under `_report/usage/autonomy-stress/` and capture pass/fail counts
+plus a digest for auditing. See `docs/automation/autonomy-stress-harness.md` for
+the scenario schema and integration hooks; CI can wire this command in to block
+promotion when guardrail regressions appear.

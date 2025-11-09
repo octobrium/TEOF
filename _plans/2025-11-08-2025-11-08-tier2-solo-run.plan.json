@@ -1,0 +1,39 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-2025-11-08-tier2-solo-run",
+  "created": "2025-11-08T22:24:37Z",
+  "actor": "Octo",
+  "summary": "Tier 2 solo practice",
+  "systemic_targets": [
+    "S4"
+  ],
+  "layer_targets": [
+    "L4"
+  ],
+  "priority": 6,
+  "layer": "L4",
+  "systemic_scale": 4,
+  "impact_score": 1,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Tier 2 solo practice",
+      "status": "done",
+      "notes": "Docs reviewed + plan scaffolded.",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-08-2025-11-08-tier2-solo-run/summary.json",
+        "_report/agent/codex-tier2/2025-11-08-2025-11-08-tier2-solo-run/notes.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Document Tier2 actions",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-08-2025-11-08-tier2-solo-run/summary.json"
+  ]
+}

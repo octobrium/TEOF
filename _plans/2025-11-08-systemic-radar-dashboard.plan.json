@@ -31,7 +31,7 @@
       "status": "done",
       "notes": "tools.autonomy.systemic_radar now supports --markdown updating docs/reports/systemic-radar.md",
       "receipts": [
-        "_report/usage/systemic-radar/systemic-radar-20251108T222627Z.json"
+        "_report/usage/systemic-radar/systemic-radar-20251108T223755Z.json"
       ]
     },
     {
@@ -40,7 +40,7 @@
       "status": "done",
       "notes": "Autonomy status CLI now runs in preflight; radar enforces max_age_hours via baseline config",
       "receipts": [
-        "_report/usage/systemic-radar/systemic-radar-20251108T220241Z.json"
+        "_report/usage/autonomy-status.json"
       ]
     }
   ],
@@ -60,7 +60,7 @@
     }
   ],
   "receipts": [
-    "_report/usage/systemic-radar/systemic-radar-20251108T220241Z.json",
-    "_report/usage/systemic-radar/systemic-radar-20251108T222627Z.json"
+    "_report/usage/systemic-radar/systemic-radar-20251108T223755Z.json",
+    "_report/usage/autonomy-status.json"
   ]
 }

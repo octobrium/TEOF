@@ -1,0 +1,72 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-teof-bus-message-cli",
+  "created": "2025-11-09T06:30:00Z",
+  "actor": "codex-tier2",
+  "summary": "Add teof bus_message wrapper to align coordination commands.",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 21,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Expose parser/run helper",
+      "status": "done",
+      "notes": "Updated tools.agent.bus_message to export configure_parser + run_with_namespace for reuse.",
+      "receipts": [
+        "tools/agent/bus_message.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add teof command + tests",
+      "status": "done",
+      "notes": "Created teof.commands.bus_message, registered it, and added pytest coverage for the wrapper.",
+      "receipts": [
+        "teof/commands/bus_message.py",
+        "teof/commands/__init__.py",
+        "tests/test_teof_bus_message.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document usage",
+      "status": "done",
+      "notes": "Docs (agents, onboarding, collab support, operator atlas, parallel codex) now reference `python -m teof bus_message`.",
+      "receipts": [
+        "docs/agents.md",
+        "docs/onboarding/README.md",
+        "docs/collab-support.md",
+        "docs/operator-atlas.md",
+        "docs/parallel-codex.md",
+        "docs/examples/coordination-walkthrough.md",
+        "_report/agent/codex-tier2/2025-11-09-teof-bus-message-cli/tests.json",
+        "_report/agent/codex-tier2/2025-11-09-teof-bus-message-cli/summary.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "teof bus_message documented & tested",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/081-teof-bus-message-cli.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-message-cli/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-message-cli/tests.json",
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-message-cli/summary.json"
+  ],
+  "systemic_targets": [
+    "S3"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
+}

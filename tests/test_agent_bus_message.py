@@ -206,3 +206,53 @@ def test_bus_message_allows_explicit_agent_without_manifest(tmp_path, monkeypatc
     assert exit_code == 0
     payload = json.loads((messages_dir / "QUEUE-020.jsonl").read_text(encoding="utf-8").splitlines()[0])
     assert payload["from"] == "codex-5"
+
+
+def test_bus_message_writes_agent_target_channel(tmp_path, monkeypatch):
+    messages_dir, claims_dir, _ = _configure_paths(tmp_path, monkeypatch)
+    _write_manifest(tmp_path, agent_id="codex-7")
+    _write_claim(claims_dir, "QUEUE-030", "codex-7")
+
+    rc = bus_message.main(
+        [
+            "--task",
+            "QUEUE-030",
+            "--type",
+            "status",
+            "--summary",
+            "needs review",
+            "--target",
+            "CODEX-2",
+        ]
+    )
+
+    assert rc == 0
+    task_payload = json.loads((messages_dir / "QUEUE-030.jsonl").read_text(encoding="utf-8").splitlines()[0])
+    assert task_payload["to"] == "codex-2"
+    inbox_path = messages_dir / "agent-codex-2.jsonl"
+    assert inbox_path.exists()
+    inbox_payload = json.loads(inbox_path.read_text(encoding="utf-8").splitlines()[0])
+    assert inbox_payload["summary"] == "needs review"
+    assert inbox_payload["to"] == "codex-2"
+
+
+def test_bus_message_rejects_invalid_target(tmp_path, monkeypatch):
+    _, claims_dir, _ = _configure_paths(tmp_path, monkeypatch)
+    _write_manifest(tmp_path, agent_id="codex-5")
+    _write_claim(claims_dir, "QUEUE-040", "codex-5")
+
+    with pytest.raises(SystemExit) as exc:
+        bus_message.main(
+            [
+                "--task",
+                "QUEUE-040",
+                "--type",
+                "note",
+                "--summary",
+                "invalid target",
+                "--target",
+                "../oops",
+            ]
+        )
+
+    assert "--target" in str(exc.value)

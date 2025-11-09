@@ -61,11 +61,13 @@ def load_events(
     limit: int | None = None,
     *,
     since: datetime | None = None,
+    path: Path | None = None,
 ) -> list[dict[str, Any]]:
-    if not EVENT_LOG.exists():
+    log_path = path or EVENT_LOG
+    if not log_path.exists():
         return []
     events: list[dict[str, Any]] = []
-    with EVENT_LOG.open(encoding="utf-8") as fh:
+    with log_path.open(encoding="utf-8") as fh:
         for line in fh:
             line = line.strip()
             if not line:
@@ -449,8 +451,13 @@ def _print_summary(
         print("- manager heartbeat: none detected")
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Summarize the agent bus state")
+def _arg_error(message: str, parser: argparse.ArgumentParser | None) -> None:
+    if parser is not None:
+        parser.error(message)
+    raise SystemExit(message)
+
+
+def configure_parser(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     parser.add_argument(
         "--preset",
         choices=sorted(PRESETS.keys()),
@@ -506,21 +513,35 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Print a condensed bullet summary instead of verbose sections",
     )
+    parser.add_argument(
+        "--events-path",
+        type=Path,
+        default=EVENT_LOG,
+        help="Override events log path (default: %(default)s)",
+    )
     return parser
 
 
-def main(argv: list[str] | None = None) -> int:
-    parser = build_parser()
-    args = parser.parse_args(argv)
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Summarize the agent bus state")
+    return configure_parser(parser)
+    return parser
+
+
+def run_with_namespace(
+    args: argparse.Namespace,
+    *,
+    parser: argparse.ArgumentParser | None = None,
+) -> int:
     claims = load_claims()
     if args.window_hours is not None and args.window_hours < 0:
-        parser.error("--window-hours must be greater than or equal to 0")
+        _arg_error("--window-hours must be greater than or equal to 0", parser)
     since: datetime | None = None
     if args.since:
         try:
             since = datetime.strptime(args.since, ISO_FMT).replace(tzinfo=timezone.utc)
         except ValueError:
-            parser.error("--since must be ISO8601 UTC (YYYY-MM-DDTHH:MM:SSZ)")
+            _arg_error("--since must be ISO8601 UTC (YYYY-MM-DDTHH:MM:SSZ)", parser)
     elif args.window_hours:
         since = datetime.now(timezone.utc) - timedelta(hours=args.window_hours)
     preset_applied = None
@@ -553,11 +574,11 @@ def main(argv: list[str] | None = None) -> int:
             val = str(value).strip().lower()
             if val not in SEVERITY_LEVELS:
                 allowed = ", ".join(sorted(SEVERITY_LEVELS))
-                parser.error(f"--severity must be one of: {allowed}")
+                _arg_error(f"--severity must be one of: {allowed}", parser)
             normalized.append(val)
         severity_filter = normalized
 
-    all_events = load_events(limit=None, since=since)
+    all_events = load_events(path=args.events_path, limit=None, since=since)
     events = all_events[-limit:] if limit else all_events
     manager_candidates = _collect_manager_candidates(manifests)
     manager_status = _detect_manager_status(
@@ -610,6 +631,12 @@ def main(argv: list[str] | None = None) -> int:
             severity_filter=severity_filter,
         )
     return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    return run_with_namespace(args, parser=parser)
 
 
 if __name__ == "__main__":

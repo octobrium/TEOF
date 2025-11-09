@@ -10,6 +10,11 @@ Treat this page as the day-to-day companion to the lightweight onboarding entry 
 - Full manifest lives in `docs/quick-links.md`.
 - Need machine-readable output? `python -m tools.agent.doc_links list --format json`.
 - Need a manual receipt scaffold? `python -m tools.receipts.main scaffold plan --plan-id <id> --agent <id>` or `... claim --task <id> --agent <id>` creates the default files without touching plans/claims.
+- Post to the bus from anywhere: `python -m teof bus_message --task <id> --type status --summary "<update>" --receipt <path>` (legacy path: `python -m tools.agent.bus_message`).
+- Red-team automation: `python -m tools.autonomy.stress_harness --scenarios automation/autonomy-stress.json --require-pass` emits `_report/usage/autonomy-stress/*.json` receipts before unattended runs (see `docs/automation/autonomy-stress-harness.md`).
+- Trace any queue→plan→claim→receipt lineage: `python -m tools.observation.receipt_graph --task <id> --mermaid _report/usage/receipt-graph/<id>.mmd` writes a JSON provenance graph (and optional Mermaid diagram) tying together the queue brief, claim, plan, and receipts so ND-053 stays observable.
+- Inspect your agent inbox (targeted messages land in `_bus/messages/agent-<id>.jsonl`): `python3 -m teof inbox --mark-read --limit 5` (legacy: `python -m tools.agent.bus_inbox`) writes `_report/session/<id>/agent-inbox-tail.txt` and tracks unread counts.
+- Install tooling (pytest + coverage guard): `python -m pip install -e .`.
 - Canonical core map: `governance/core/index.md`.
 - Persistent lane primer + helper CLI: see `docs/automation/agent-lane.md` and `python -m tools.agent.lane --help`.
 
@@ -17,16 +22,21 @@ Treat this page as the day-to-day companion to the lightweight onboarding entry 
 - **Verify manifest** – confirm `AGENT_MANIFEST.json` (or `python3 -m tools.agent.manifest_helper show`) lists the `agent_id` you will broadcast with.
 - **Announce the session** – `python3 -m tools.agent.session_boot --agent <agent-id> --focus <role> --with-status` records the handshake, ensures the repo is synced, and captures a `bus_status` receipt.
 - **Read the hub** – the same `session_boot` run tails `_bus/messages/manager-report.jsonl` and stores `_report/session/<agent-id>/manager-report-tail.txt`. Preflight fails fast without this receipt, so treat it as evidence you checked the coordination lane.
-- **Broadcast the hello** – post to the shared lane with `python3 -m tools.agent.bus_message --task manager-report --type status --summary "<agent-id>: on deck for <focus>" --note "Context"`. Keep the `<agent-id>:` prefix so downstream readers know who spoke.
-- **Respect the guard** – `tools.agent.bus_message` exits when the manifest and `--agent` disagree; rerun `session_boot` or `python3 -m tools.agent.manifest_helper activate <id>` before posting.
-- **Watch the feed** – keep `python3 -m tools.agent.bus_watch --task manager-report --follow --limit 20` running (or spot-check via `python3 -m tools.agent.session_brief --task manager-report --limit 5`).
-- **Coordinate ongoing work** – claim tasks (`python3 -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>`), emit heartbeats (`python3 -m tools.agent.bus_event log --event status ...`), and reply on `_bus/messages/<task>.jsonl` (`python3 -m tools.agent.bus_message --task <task_id> --type status ... --receipt <path>`), attaching receipts whenever possible.
+- **Check your inbox** – `session_boot` now also captures `_report/session/<agent-id>/agent-inbox-tail.txt` (with unread counts) by tailing `_bus/messages/agent-<agent-id>.jsonl`; rerun `python3 -m teof inbox --mark-read --limit 10` (or the direct module) any time you want a manual refresh.
+- **Broadcast the hello** – post to the shared lane with `python -m teof bus_message --task manager-report --type status --summary "<agent-id>: on deck for <focus>" --note "Context"` (legacy path: `python3 -m tools.agent.bus_message ...`). Keep the `<agent-id>:` prefix so downstream readers know who spoke.
+- **Target a peer** – supply `--target <agent-id>` when using `bus_message` (e.g., `--task QUEUE-123 --target codex-2`) to mirror the entry under `_bus/messages/agent-<agent-id>.jsonl`, ensuring the role inherits the note asynchronously.
+- **Snapshot the lane** – `python3 -m teof bus_status --preset support --window-hours 6` shows the last 6h of events/claims (default window=24h; pass `--window-hours 0` when you need the full log).
+- **Respect the guard** – `python -m teof bus_message` (backed by `tools.agent.bus_message`) exits when the manifest and `--agent` disagree; rerun `session_boot` or `python3 -m tools.agent.manifest_helper activate <id>` before posting.
+- **Watch the feed** – keep `python3 -m teof bus_watch --follow --limit 20 --window-hours 6` running (legacy path: `python -m tools.agent.bus_watch`) or spot-check via `python3 -m teof brief --task manager-report --limit 5`.
+- **Coordinate ongoing work** – claim tasks (`python -m teof bus_claim claim --task <task_id> --plan <plan_id>`), emit heartbeats (`python -m teof bus_event log --event status ...`), and reply on `_bus/messages/<task>.jsonl` (`python -m teof bus_message --task <task_id> --type status ... --receipt <path> --target <peer>`), attaching receipts whenever possible.
 - **Heartbeat shortcut** – `python3 -m tools.agent.bus_ping --task <task_id> --message-task <task_id> --summary "progress"` auto-prefixes `<agent-id>:` and logs both the event + message. Add `--skip-message` when you only need the event log.
+- **Coverage guard** – pytest now emits `coverage.xml`; guard against regressions with `python -m tools.tests.coverage_guard` (default threshold tracks the current baseline, bump `--threshold` as we raise coverage).
 
 ## Operator Mode Checklist (refine TEOF safely)
 - **Confirm placement** – compare the repo layout against `docs/architecture.md`; queue architecture fixes first if folders drift.
 - **Re-run the quickstart** – execute `docs/quickstart.md` commands, capture receipts, and log an updated plan in `_plans/` (`python3 -m tools.planner.cli new ...` + `python3 tools/planner/validate.py`).
 - **Verify guards** – ensure `scripts/policy_checks.sh` (import policy + quickstart smoke) is wired in CI; note gaps if enforcement is missing.
+- **Watch coverage** – every pytest run now emits `coverage.xml`; enforce ≥70% line-rate with `python3 -m tools.tests.coverage_guard --threshold 0.70` (runner + preflight call this automatically) before pushing.
 - **Patch observed gaps** – propose the smallest changes that make quickstart, docs, or imports accurate again. Document receipts under `_report/agent/<id>/...`.
 - **Publish the next steps** – surface a prioritized list (3–6 items) in your plan so other agents can resume the refinement loop.
 - **Seed and sync claims** – run `python3 -m tools.agent.claim_seed --task <id> --agent <owner> --plan <plan-id>` before assignments, and `python3 -m tools.agent.task_sync` after releasing work so `agents/tasks/tasks.json` stays current.
@@ -37,13 +47,13 @@ Treat this page as the day-to-day companion to the lightweight onboarding entry 
 ```
 $ python3 -m tools.agent.manifest_helper show
 $ python3 -m tools.agent.session_boot --agent codex-4 --focus docs --with-status
-$ python3 -m tools.agent.bus_message --task manager-report --type status \
+$ python -m teof bus_message --task manager-report --type status \
     --summary "codex-4: online; focus=docs"
 $ python3 -m tools.agent.session_brief --task manager-report --limit 5
-$ python3 -m tools.agent.bus_claim claim --task QUEUE-123 --plan 2025-09-20-queue-123
-$ python3 -m tools.agent.bus_event log --event status --task QUEUE-123 \
+$ python -m teof bus_claim claim --task QUEUE-123 --plan 2025-09-20-queue-123
+$ python3 -m teof bus_event log --event status --task QUEUE-123 \
     --summary "codex-4 working" --plan 2025-09-20-queue-123
-$ python3 -m tools.agent.bus_message --task QUEUE-123 --type status \
+$ python -m teof bus_message --task QUEUE-123 --type status \
     --summary "codex-4: uploaded receipts" --receipt _report/agent/codex-4/queue-123/notes.md
 ```
 
@@ -67,7 +77,7 @@ cat artifacts/systemic_out/latest/brief.json
 
 ## Idle Cadence
 - Within 5 minutes of going idle, publish a status event and mirror it on the queue (`docs/parallel-codex.md#follow-up-logging`, `docs/collab-support.md`). Escalate after 30 minutes if no claim lands.
-- Keep `tools.agent.bus_watch` tailing to spot blockers, responding with `bus_message --type status` when you intervene. Add `--meta reviewer=<id>` when auditing.
+- Keep `python3 -m teof bus_watch --follow --limit 20` tailing to spot blockers (the legacy `python -m tools.agent.bus_watch` still works) and reply with `python -m teof bus_message --task <id> --type status ...` when you intervene. Add `--meta reviewer=<id>` when auditing.
 - Start each session with `python -m tools.agent.session_boot --agent <id> --focus <role>` so the bus records your presence. The helper now runs `git fetch --prune && git pull --ff-only` before logging the handshake, emits a coord_dashboard snapshot under `_report/agent/<id>/session_boot/`, **and** writes `_report/session/<id>/manager-report-tail.txt` so you prove you read the hub. Use `--no-sync` to skip the fetch/pull, `--sync-allow-dirty` if you intentionally keep local changes, `--with-status` for a `bus_status` summary receipt, or `--no-dashboard` if you truly need to skip the dashboard capture. Close the loop with `session_boot --summary "session wrap" --focus idle` when you switch context.
 - Use the manifest helper when swapping roles (`python -m tools.agent.manifest_helper session-save <label>` / `session-restore <label>`). `session-save` now records a status heartbeat automatically—add `--heartbeat-meta shift=<label>` (or similar) to annotate the broadcast or `--no-heartbeat` if you need a silent snapshot. Pair this with the idle pickup helper (`python -m tools.agent.idle_pickup list|claim`) to grab vetted backlog without manager involvement.
 - Scaffold receipts early: `teof-plan new <slug> --summary "..." --scaffold` (or `python -m tools.planner.cli new ...`) seeds `_report/agent/<id>/<plan>/` with `notes.md`, `actions.json`, `tests.json`, and `summary.json`. Managers can add `--scaffold` to `tools.agent.claim_seed` or `tools.agent.task_assign` to prep the same structure during handoff.
@@ -76,14 +86,14 @@ cat artifacts/systemic_out/latest/brief.json
 - When you retire a persona, add its id to `tools.agent.coord_dashboard.RETIRED_AGENTS` (and note the retirement in your session brief) so the dashboard stops expecting new heartbeats until it returns.
 - When you post receipts and the tests are green, release the claim promptly and move to the next assignment unless the manager’s reply includes a `hold` tag or you detect a risky signal (missing receipts, flaky tests, governance/capsule work). Explicitly note those edge cases on the bus so they stay visible.
 - Prefix bus summaries with your `agent_id` (`<agent-id>:`) so manager-report, manifests, and receipts stay aligned.
-- Summaries and audits belong in receipts: run `python -m tools.agent.bus_status --preset support` to use the helper defaults (limit 20, `--active-only`, `--window-hours 6`). The command now automatically targets the agent in `AGENT_MANIFEST.json`; pass `--agent <id>` when you need to inspect another seat. Store transcripts under `_report/agent/<id>/` for planner validation. Add `--json` when scripting or `--window-hours 0` when you need the full event log.
+- Summaries and audits belong in receipts: run `python3 -m teof bus_status --preset support` to use the helper defaults (limit 20, `--active-only`, `--window-hours 6`). The command now automatically targets the agent in `AGENT_MANIFEST.json`; pass `--agent <id>` when you need to inspect another seat. Store transcripts under `_report/agent/<id>/` for planner validation. Add `--json` when scripting or `--window-hours 0` when you need the full event log.
 - Keep automation healthy—run `tools.agent.task_sync` after releasing a claim and `python -m tools.maintenance.prune_artifacts --dry-run` daily to archive stale plans into `_apoptosis/<stamp>/`.
 - When you publish a new coordination directive (`BUS-COORD-xxxx`), run `python -m tools.agent.directive_pointer --task BUS-COORD-xxxx --summary "<directive summary>" --plan <plan-id>` so the helper writes the directive entry **and** mirrors a pointer in `manager-report`. Add `--pointer-summary/--pointer-note` if you need custom manager wording; plans that skip the pointer still fail review.
 - Before pushing, run `tools/agent/preflight.sh` and `python3 tools/planner/validate.py --strict --output _report/planner/validate/summary-latest.json` — this keeps the validator receipt stable so plans reference a file guaranteed to exist in the repo.
 
 ## Claim Seeding (Managers)
 - Seed `_bus/claims/<task>.json` before broadcasting assignments so the downstream guard passes: `python -m tools.agent.claim_seed --task QUEUE-014 --agent codex-2 --plan 2025-09-18-claim-seed-docs --branch agent/codex-2/queue-014 --status paused` (run `--help` for optional flags like `--notes`). The helper mirrors `bus_claim` but lets a manager stage the claim while the seat is still vacant.
-- The `bus_message` CLI now enforces the claim guard: it exits if the task lacks a claim, belongs to another agent, or has been released. Seed first, then run `python -m tools.agent.task_assign ...`; the assignment now auto-claims on behalf of the engineer, so they can start immediately. Use `--no-auto-claim` only when staging backlog slots without beginning work.
+- The `teof bus_message` CLI (backed by `tools.agent.bus_message`) now enforces the claim guard: it exits if the task lacks a claim, belongs to another agent, or has been released. Seed first, then run `python -m tools.agent.task_assign ...`; the assignment now auto-claims on behalf of the engineer, so they can start immediately. Use `--no-auto-claim` only when staging backlog slots without beginning work.
 - Drop a short `python -m tools.agent.session_brief --task QUEUE-014` snippet into the assignment message so the engineer sees the seeded branch/plan context alongside the bus receipts.
 
 ## Contract

@@ -71,7 +71,7 @@ The first six questions are mandatory for every PR. Items 7–10 apply to govern
 
 | Stage | Owner | Command / Artifact |
 | --- | --- | --- |
-| Local preflight | Agent | `scripts/policy_checks.sh`, `python -m tools.agent.bus_watch --follow` |
+| Local preflight | Agent | `scripts/policy_checks.sh`, `python3 -m teof bus_watch --follow` |
 | Capsule freeze | Steward | `scripts/freeze.sh` → update `governance/anchors.json` |
 | Receipt review | Manager | `_report/usage/manager-report.md` + attachments |
 | External mirror | Infra | Sync `capsule/`, `docs/`, `governance/` to cold storage; verify hash match |

@@ -12,7 +12,7 @@ touch only the lanes below unless a Meta-TEP introduces a new surface.
 
 | Folder | Purpose | Typical Writers / Commands | Notes |
 | --- | --- | --- | --- |
-| `_report/agent/<agent-id>/` | Seat-scoped receipts (session boot, bus status, plan runs, governance notes). | `python -m tools.agent.session_boot`, `python -m tools.agent.bus_event`, `teof scan --out`, autonomy/coordinator helpers. | Keep subfolders predictable: `session_guard/`, `runs/`, `governance/`, `feedback/`, `analysis/`. |
+| `_report/agent/<agent-id>/` | Seat-scoped receipts (session boot, bus status, plan runs, governance notes). | `python -m tools.agent.session_boot`, `python3 -m teof bus_event`, `teof scan --out`, autonomy/coordinator helpers. | Keep subfolders predictable: `session_guard/`, `runs/`, `governance/`, `feedback/`, `analysis/`. |
 | `_report/planner/validate/` | Plan validator summaries, queue warnings. | `python -m tools.planner.validate --strict`, planner CLI `list/status`. | Attach summaries to plans and memory entries; CI reads the latest JSON for health checks. |
 | `_report/usage/` | Shared dashboards, hygiene reports, and longitudinal metrics (autonomy status, receipts index, ratchet history). | `python -m tools.agent.receipts_hygiene`, `teof scan --out`, `python -m tools.metrics.plan_lattice`, `python -m tools.agent.autonomy_status`. | Treat as the canonical “observatory”—one subfolder/file per product. Avoid personal notes here. |
 | `_report/manager/` | Manager cadence reports, severity digests. | `python -m tools.agent.manager_report`, `python -m tools.agent.coord_dashboard`. | Each run writes a timestamped markdown summary; managers should link these in memory/log and plan receipts. |

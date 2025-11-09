@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable, Optional, Sequence
@@ -20,15 +21,35 @@ QUICKSTART_LATEST = ROOT / "artifacts" / "systemic_out" / "latest"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 TERMINAL_CLAIM_STATUSES = {"done", "released", "closed", "cancelled", "abandoned"}
+_FALLBACK_TS = datetime.min.replace(tzinfo=timezone.utc)
+_OFFSET_NO_COLON = re.compile(r"([+-])(\d{2})(\d{2})$")
 
 
 def parse_iso(ts: str | None) -> datetime | None:
     if not ts:
         return None
+    candidate = ts.strip()
+    if not candidate:
+        return None
     try:
-        return datetime.strptime(ts, ISO_FMT).replace(tzinfo=timezone.utc)
+        return datetime.strptime(candidate, ISO_FMT).replace(tzinfo=timezone.utc)
+    except ValueError:
+        pass
+    normalized = candidate
+    if normalized[-1:] in {"Z", "z"}:
+        normalized = f"{normalized[:-1]}+00:00"
+    else:
+        match = _OFFSET_NO_COLON.search(normalized)
+        if match:
+            sign, hours, minutes = match.groups()
+            normalized = f"{normalized[:match.start()]}{sign}{hours}:{minutes}"
+    try:
+        parsed = datetime.fromisoformat(normalized)
     except ValueError:
         return None
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
 
 
 def load_jsonl(path: Path) -> list[dict]:
@@ -77,9 +98,13 @@ def summarize_claim(claim: dict | None, task: str) -> str:
 
 
 def format_entries(entries: Iterable[dict], *, limit: int, title: str) -> str:
+    def _entry_ts(entry: dict) -> datetime:
+        resolved = parse_iso(entry.get("ts"))
+        return resolved or _FALLBACK_TS
+
     selected = sorted(
         (entry for entry in entries if entry),
-        key=lambda e: parse_iso(e.get("ts")) or datetime.min,
+        key=_entry_ts,
         reverse=True,
     )[:limit]
     if not selected:

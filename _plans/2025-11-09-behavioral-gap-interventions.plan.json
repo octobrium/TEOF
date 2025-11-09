@@ -1,0 +1,66 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-behavioral-gap-interventions",
+  "created": "2025-11-09T00:55:00Z",
+  "actor": "codex-tier2",
+  "summary": "Diagnose behavioral execution gap and run scaffold experiments",
+  "systemic_targets": ["S1", "S3", "S4", "S6"],
+  "layer_targets": ["L4", "L5"],
+  "priority": 1,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 3,
+  "status": "queued",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Root-cause study",
+      "status": "done",
+      "notes": "Compiled baseline inventory covering confounds, insularity, guard reliance, and telemetry gaps.",
+      "receipts": [
+        "_report/analysis/behavioral-gap-root-cause-20251109.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design interventions",
+      "status": "done",
+      "notes": "Documented intervention matrix covering hooks, worked examples, repetition, blind trials, and feedback surfaces.",
+      "receipts": [
+        "_report/design/behavioral-intervention-matrix-20251109.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Run controlled trials",
+      "status": "queued",
+      "notes": "Integrate with blind Test1 rerun; collect ≥20 agent trials and compute BES.",
+      "receipts": []
+    },
+    {
+      "id": "S4",
+      "title": "Decide structural vs emergent path",
+      "status": "queued",
+      "notes": "Based on evidence, recommend guardrail strategy or emergent protocol.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Publish behavioral gap report + experiment results",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "assessment",
+      "ref": "_report/assessments/20251108-path-to-stellar.md"
+    },
+    {
+      "type": "assessment",
+      "ref": "_report/assessments/20251109-meta-feedback-on-stellar-responses.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/feedback/20251109-meta-feedback-response.md"
+  ]
+}

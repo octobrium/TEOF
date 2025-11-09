@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-11-09T04:52:39Z",
+  "branch": "agent/codex-tier2/bus-status-window",
+  "engineer": "codex-tier2",
+  "manager": "codex-tier2",
+  "note": "Document/test bus_status window semantics",
+  "plan_id": "2025-11-09-bus-status-window",
+  "task_id": "QUEUE-008"
+}

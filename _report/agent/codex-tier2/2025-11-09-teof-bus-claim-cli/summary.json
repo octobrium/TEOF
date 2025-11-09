@@ -1,0 +1,17 @@
+{
+  "generated_at": "2025-11-09T05:34:33Z",
+  "summary": [
+    "Exposed configure_parser/run helpers in tools.agent.bus_claim",
+    "teof bus_claim command + regression tests ensure claim/release flows work via bootloader",
+    "Docs reference python -m teof bus_claim in quickstart/agents/onboarding/README"
+  ],
+  "artifacts": [
+    "teof/commands/bus_claim.py",
+    "tests/test_teof_bus_claim.py",
+    "docs/agents.md",
+    "README.md",
+    "docs/quickstart.md",
+    "docs/onboarding/README.md",
+    "docs/parallel-codex.md"
+  ]
+}

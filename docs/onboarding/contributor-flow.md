@@ -21,7 +21,7 @@ systems (funding, governance, energy inflow). Contributions are summarized in
 
 ## Workflow
 
-1. **Clone + bootstrap:** contributors follow Tier 1 (`python -m teof up --eval`)
+1. **Clone + bootstrap:** contributors follow Tier 1 (`python3 -m teof up --eval`)
    to prove their environment matches repo expectations.
 2. **Identify themselves:** each invocation supplies `--contributor-id
    <slug>`. We store contributor metadata in
@@ -36,7 +36,7 @@ systems (funding, governance, energy inflow). Contributions are summarized in
    `artifacts/systemic_out/…` (or workload-specific folders), and records a
    receipt at `_report/usage/contributors/<contributor_id>/contribution-<workload>-<timestamp>.json`.
    ```bash
-   python -m teof up --contribute \
+   python3 -m teof up --contribute \
      --contributor-id <slug> \
      --workload tier1-eval \
      --skip-install  # optional once environment is ready
@@ -79,7 +79,7 @@ only receipts + optional copies for convenience.
 
 ## CLI Hooks
 
-- `python -m teof up --contribute --contributor-id <slug> --workload tier1-eval`
+- `python3 -m teof up --contribute --contributor-id <slug> --workload tier1-eval`
 - Aliases: `bin/teof-contribute` (thin wrapper), `bin/teof-up --contribute`.
 - Flags: `--skip-install`, `--reuse-venv`, `--output-dir`, `--workload`.
 - Workloads register as callables returning `(artifacts, metadata)` so the CLI

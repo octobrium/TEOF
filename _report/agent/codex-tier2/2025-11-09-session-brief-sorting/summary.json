@@ -1,0 +1,18 @@
+{
+  "ts": "2025-11-09T04:46:02Z",
+  "agent": "codex-tier2",
+  "task_id": "QUEUE-075",
+  "plan_id": "2025-11-09-session-brief-sorting",
+  "changes": [
+    "session_brief.parse_iso now accepts stripped ISO strings, timezone offsets, and normalizes Z suffixes to UTC",
+    "format_entries sorts via a timezone-aware fallback timestamp to avoid naive/aware comparisons",
+    "Regression tests cover parse_iso + mixed timestamp scenarios"
+  ],
+  "tests": [
+    "_report/agent/codex-tier2/2025-11-09-session-brief-sorting/tests.json"
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-session-brief-sorting/repro.txt",
+    "_report/agent/codex-tier2/2025-11-09-session-brief-sorting/tests.json"
+  ]
+}

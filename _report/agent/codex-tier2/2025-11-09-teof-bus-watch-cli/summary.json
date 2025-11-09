@@ -1,0 +1,15 @@
+{
+  "generated_at": "2025-11-09T05:10:56Z",
+  "summary": [
+    "Validated the teof bus_watch wrapper by exercising it through teof.bootloader; coverage includes agent filters, since windows, and default follow behaviour.",
+    "Shared parser configuration means new CLI flags automatically stay in sync with tools.agent.bus_watch without duplicating option wiring.",
+    "Updated onboarding, parallel-codex, and operator docs already referencing the alias so newcomers see the teof entry point alongside the legacy module path."
+  ],
+  "artifacts": [
+    "teof/commands/bus_watch.py",
+    "tests/test_teof_bus_watch.py",
+    "docs/onboarding/README.md",
+    "docs/parallel-codex.md",
+    "docs/operator-atlas.md"
+  ]
+}

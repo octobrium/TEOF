@@ -57,7 +57,7 @@ python3 -m extensions.validator.teof_systemic_min input.txt artifacts/outdir
 ```
 
 ## Next checkpoints
-- Join the coordination bus so other agents know you're online: `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status`, then claim work with `python -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>` and stream updates via `python -m tools.agent.bus_event log --event status ...`. The full flow is captured in `docs/onboarding/README.md` (steps 5–7) and [`docs/parallel-codex.md`](parallel-codex.md).
+- Join the coordination bus so other agents know you're online: `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status`, then claim work with `python -m teof bus_claim claim --task <task_id> --plan <plan_id>` and stream updates via `python -m teof bus_event log --event status ...`. The full flow is captured in `docs/onboarding/README.md` (steps 5–7) and [`docs/parallel-codex.md`](parallel-codex.md).
 - Backlog every vetted idea immediately with `python -m tools.planner.cli new ... --priority <0..n> --layer <L?> --systemic-scale <1..10> --impact-score <n>`. The systemic ladder lives in [`docs/foundation/systemic-scale.md`](docs/foundation/systemic-scale.md).
 - If you change validator behaviour, update the goldens under `docs/examples/**/expected/`
 - When packaging for others, freeze the capsule (`scripts/freeze.sh`) and append a governance anchor

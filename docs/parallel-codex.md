@@ -10,23 +10,28 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 
 ## Coordination Bus
 
-- Use `_bus/claims/` to claim tasks (`tools/agent/bus_claim.py claim --task QUEUE-001`).
-- Agents log progress to `_bus/events/events.jsonl` via `tools/agent/bus_event.py log ...`.
+- Use `_bus/claims/` to claim tasks (`python -m teof bus_claim claim --task QUEUE-001`).
+- Agents log progress to `_bus/events/events.jsonl` via `python3 -m teof bus_event log ...`.
 - Claims reference planner artifacts (set `--plan` to `_plans/<id>.plan.json`).
 - Release claims with `bus_claim release --task QUEUE-001 --status done`.
 - When reclaiming a task, the CLI now clears stale `released_at` timestamps automatically; add `--clear-notes` if you need to drop the previous note while keeping the claim active.
 - CI ensures one active claim per task and validates event JSON.
+- Direct messages live under `_bus/messages/agent-<role>.jsonl`; use `bus_message --target <role>` to mirror any update into that inbox and `python3 -m teof inbox --mark-read` (or `tools.agent.bus_inbox`) to capture receipts/unread counts.
 
 > **Hub quick commands (manager-report)**
 >
 > | Action | Command |
 > | --- | --- |
-> | Announce presence | `python -m tools.agent.bus_message --task manager-report --type status --summary "<agent-id> online; focus=<role>" --meta agent=<agent-id>` |
-> | Tail the hub | `python -m tools.agent.bus_watch --limit 20 --follow --event status` |
-> | Claim work | `python -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>` |
-> | Send heartbeat | `python -m tools.agent.bus_event log --event status --task <task_id> --summary "<agent-id> working" --plan <plan_id>` |
+> | Announce presence | `python -m teof bus_message --task manager-report --type status --summary "<agent-id> online; focus=<role>" --meta agent=<agent-id>` |
+> | Tail the hub | `python3 -m teof bus_watch --limit 20 --follow --event status` |
+> | Claim work | `python -m teof bus_claim claim --task <task_id> --plan <plan_id>` |
+> | Send heartbeat | `python3 -m teof bus_event log --event status --task <task_id> --summary "<agent-id> working" --plan <plan_id>` |
 > | Heartbeat shortcut | `python -m tools.agent.bus_ping --task <task_id> --message-task <task_id> --summary "working"` |
-> | Reply in-thread | `python -m tools.agent.bus_message --task <task_id> --type status --summary "<update>" --receipt <path>` |
+> | Reply in-thread | `python -m teof bus_message --task <task_id> --type status --summary "<update>" --receipt <path>` |
+> | Target a peer | `python -m teof bus_message --task <task_id> --target <agent-id> --summary "<update>"` |
+> | Check agent inbox | `python3 -m teof inbox --agent <agent-id> --mark-read --limit 10` |
+> | Snapshot bus | `python3 -m teof bus_status --preset support --window-hours 6` (use `--window-hours 0` to read the full log) |
+> | Legacy note | `python -m tools.agent.bus_watch ...` still works, but we recommend `python3 -m teof bus_watch ...` so the table stays consistent with the other teof shortcuts. |
 
 ### Bus event severity
 
@@ -34,8 +39,8 @@ Purpose: coordinate multiple Codex sessions (or other agents) working on TEOF in
 - `medium`: requires follow-up soon (e.g., waiting on receipts or tasks at risk of stalling).
 - `high`: urgent escalation—treat as a safety/ethics signal and respond immediately.
 
-Pass `--severity <level>` to `bus_event log` whenever an action changes posture; automation surfaces the field in `bus_status` and `bus_watch` so managers can prioritize responses.
-`python -m tools.agent.bus_status --preset support` now defaults to `--severity medium --severity high`; `--preset manager` narrows further to `--severity high`.
+Pass `--severity <level>` to `bus_event log` (via `python3 -m teof bus_event`) whenever an action changes posture; automation surfaces the field in `bus_status` and `bus_watch` so managers can prioritize responses.
+`python3 -m teof bus_status --preset support` (legacy: `python -m tools.agent.bus_status`) now defaults to `--severity medium --severity high`; `--preset manager` narrows further to `--severity high`.
 Add explicit `--severity` flags alongside a preset when you need a different mix.
 `python -m tools.agent.coord_dashboard report` appends a **Severity Digest** section that lists recent `high` events pulled from the bus so cadence sweeps catch escalations even when chat history scrolls.
 
@@ -47,23 +52,23 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse t
 ## Suggested Session Loop
 
 1. **Sync** (`git pull origin main`).
-   - Start with `git status -sb`. If you inherit uncommitted changes from another seat, treat them as theirs—do **not** stash/reset. Run `python -m tools.agent.session_boot --agent <id> --sync-allow-dirty` so the handshake lands without touching their work; the helper now captures a `_report/session/<id>/dirty-handoff/` receipt and logs an `observation` event automatically. Add a quick `bus_event status` if you need extra context for the owner. If the edits block your task, escalate on the bus or draft a queue follow-up rather than mutating their branch. Session boot now also checks the current branch—stick to `agent/<id>/*` (or `main`) or pass `--allow-branch-mismatch` if you truly need to operate elsewhere; overrides still log a warning receipt.
+   - Start with `git status -sb`. If you inherit uncommitted changes from another seat, treat them as theirs—do **not** stash/reset. Run `python -m tools.agent.session_boot --agent <id> --sync-allow-dirty` so the handshake lands without touching their work; the helper now captures a `_report/session/<id>/dirty-handoff/` receipt and logs an `observation` event automatically. Add a quick `python3 -m teof bus_event log --event status --summary "<agent> context"` if you need extra context for the owner. If the edits block your task, escalate on the bus or draft a queue follow-up rather than mutating their branch. Session boot now also checks the current branch—stick to `agent/<id>/*` (or `main`) or pass `--allow-branch-mismatch` if you truly need to operate elsewhere; overrides still log a warning receipt.
    - Clear any lingering `git update-index --assume-unchanged` flags before staging. Run `python -m tools.agent.reset_assume_unchanged list` followed by `python -m tools.agent.reset_assume_unchanged clear`, then mention the reset in your next bus status (e.g., “cleared assume-unchanged flags during takeover”).
 2. **Announce session** (`python -m tools.agent.session_boot --agent <id> --focus <role>` logs a handshake, auto-syncs the repo, and now captures a coord_dashboard snapshot under `_report/agent/<id>/session_boot/`). Add `--with-status` if you also want a `bus_status` receipt, or `--no-dashboard` when you explicitly need to skip the dashboard snapshot. If you just need any free seat, pass `--auto-agent` (optionally `--auto-agent-pool codex-1 --auto-agent-pool codex-4`) and the helper will claim the first stale slot, update `AGENT_MANIFEST.json`, and print the assigned seat. Pair it with `python -m tools.agent.manifest_helper session-save <label>` before you swap seats—`session-save` emits a status heartbeat automatically, so append `--heartbeat-meta shift=<label>` to tag the broadcast or `--no-heartbeat` if you truly need to skip it.
    - If you draft a fresh plan, run `python -m tools.planner.cli new <slug> --summary "..." --scaffold` so the corresponding `_report/agent/<id>/<plan>/` folder is ready before the first commit. Managers can mirror this with `tools.agent.claim_seed --scaffold` or `tools.agent.task_assign --scaffold` when staging handoffs.
-3. **Managers assign tasks** (`python -m tools.agent.task_assign --task <id> --engineer <id> --plan <plan>`). Claims are created automatically for the assignee; add `--no-auto-claim` if you need to stage the backlog without starting the work immediately. Engineers should still acknowledge with a quick `bus_event` status. The CLI now prints the `_bus/messages/<task>.jsonl` path after the assignment so your session notes can link directly to the bus_message receipt (which includes `meta.plan_id` and the assignee).
+3. **Managers assign tasks** (`python -m tools.agent.task_assign --task <id> --engineer <id> --plan <plan>`). Claims are created automatically for the assignee; add `--no-auto-claim` if you need to stage the backlog without starting the work immediately. Engineers should still acknowledge with a quick `python3 -m teof bus_event log --event status ...`. The CLI now prints the `_bus/messages/<task>.jsonl` path after the assignment so your session notes can link directly to the bus_message receipt (which includes `meta.plan_id` and the assignee).
 4. **Review queue** (`queue/`, `_bus/claims/`, `_bus/messages/`, `_bus/events/`).
    - The coordination dashboard includes a **Dirty Handoffs** section—clear your agent’s entry (or reassign) before calling the board green.
    - Run `python -m tools.agent.dirty_autoresolver --output _report/agent/<id>/dirty-autoresolver/latest.json` to scan outstanding receipts and trigger bus nudges when they age past the guardrail. CI/cron jobs can call this with `--bus-message` to auto-escalate stale handoffs.
-5. **Heartbeat check** run `python -m tools.agent.bus_heartbeat --manager-window 30 --dry-run` to capture a receipt and confirm automation coverage. The helper records stale manager or idle-claim alerts under `_report/agent/<id>/apoptosis-004/alerts/`. When you need an interactive snapshot, `python -m tools.agent.bus_status --preset manager --manager-window 30` still surfaces the warning—follow up with a manager handshake or escalation in `manager-report` if either path flags a gap. The coordination dashboard now prints the active heartbeat windows and lists any in-flight automation plans (`Heartbeat automation in flight`) so you can tell whether codex-2/3/4 have shipped the auto hook, docs, and receipts before declaring the board green. Retired personas (e.g., dormant observers) are listed in `tools.agent.coord_dashboard.RETIRED_AGENTS` so they do not block the board; add/remove entries there when parking or reviving an agent. **Every time you open a new coordination thread (e.g., `BUS-COORD-xxxx`), run `python -m tools.agent.directive_pointer --task BUS-COORD-xxxx --summary "<directive summary>"`** so the pointer lands in `manager-report`. If the pointer is missing, automation will fail the plan in review.
+5. **Heartbeat check** run `python -m tools.agent.bus_heartbeat --manager-window 30 --dry-run` to capture a receipt and confirm automation coverage. The helper records stale manager or idle-claim alerts under `_report/agent/<id>/apoptosis-004/alerts/`. When you need an interactive snapshot, `python3 -m teof bus_status --preset manager --manager-window 30` (legacy path still accepted) surfaces the warning—follow up with a manager handshake or escalation in `manager-report` if either path flags a gap. The coordination dashboard now prints the active heartbeat windows and lists any in-flight automation plans (`Heartbeat automation in flight`) so you can tell whether codex-2/3/4 have shipped the auto hook, docs, and receipts before declaring the board green. Retired personas (e.g., dormant observers) are listed in `tools.agent.coord_dashboard.RETIRED_AGENTS` so they do not block the board; add/remove entries there when parking or reviving an agent. **Every time you open a new coordination thread (e.g., `BUS-COORD-xxxx`), run `python -m tools.agent.directive_pointer --task BUS-COORD-xxxx --summary "<directive summary>"`** so the pointer lands in `manager-report`. If the pointer is missing, automation will fail the plan in review.
 6. **Claim / pick up** — auto-claim covers common assignments, but engineers can:
    - Unsure whether a manager assignment dropped the plan stub into git? Run `python3 -m tools.agent.assignment_locator` to list your active claims and highlight missing plan files before diving in.
    - run `python -m tools.agent.idle_pickup list` to view unclaimed backlog items, or `... claim --task <id>` to auto-assign themselves when idle;
-   - re-run `tools/agent/bus_claim.py claim ...` to reclaim stalled work, switch branches, or update status. Keep `python -m tools.agent.bus_watch --limit 20 --follow` running (add `--agent <id>` or `--event status` to narrow the stream) so coordination updates stay visible.
+   - re-run `python -m teof bus_claim claim ...` to reclaim stalled work, switch branches, or update status. Keep `python -m teof bus_watch --limit 20 --follow` running (add `--agent <id>` or `--event status` to narrow the stream) so coordination updates stay visible.
    - When receipts + tests are green, release the claim within minutes and move forward unless a `hold` note appears on the bus or you spot a risky signal (missing receipts, flaky tests, governance/capsule touchpoints). Flag those cases explicitly so the manager can weigh in.
 7. **Plan** modifications under `_plans/` + justification. Reference only receipts that already live in git (`tools.planner.validate --strict` now rejects missing/ignored files).
 8. **Implement** changes on `agent/<id>/<slug>` branch, storing receipts under `_report/agent/<id>/` and `_report/runner/` as needed.
-9. **Log events** (`bus_event log --event proposal`, `--event pr_opened`) and append message responses via `bus_event` or JSONL entries.
+9. **Log events** (`python3 -m teof bus_event log --event proposal`, `--event pr_opened`) and append message responses via `bus_event` or JSONL entries.
 10. **Open draft PR** with plan, justification, receipts.
 11. **Managers run reports** (`python -m tools.agent.manager_report --log-heartbeat --heartbeat-shift <label>`, `python -m tools.agent.coord_dashboard report`) to produce `_report/manager/manager-report-<timestamp>.md`, emit a fresh heartbeat, and capture a coordination snapshot for follow-up triage. `bus_status --preset manager` now surfaces the heartbeat summary + metadata alongside the timestamp, so use `--heartbeat-shift` (or additional `--heartbeat-meta key=value`) to broadcast context like `shift=mid` or `cadence=daily`. The dashboard view has become the default “source of truth” during sweeps, so stash the generated receipt with any bus follow-ups.
 12. **Run preflight** (`tools/agent/preflight.sh`) to ensure receipts and plans are valid before opening/refreshing the PR.
@@ -73,8 +78,8 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse t
 ## Self-Audit & Cross-Audit
 
 - Use `python -m tools.agent.bus_heartbeat --dry-run` to produce an auditable alert receipt; add `--manager-window 30 --agent-window 240` (defaults) or tighten/disable windows per session. Combine with `--no-bus-event --no-bus-message` during rehearsals. As the automation plans land, expect the dashboard heartbeat note to shrink once the auto hook takes over routine beats.
-- Use `tools/agent/bus_status.py --preset support` to summarise active claims and latest events (the helper defaults to the agent in `AGENT_MANIFEST.json`; add `--agent <id>` when you need a different view). Add `--json` when piping into dashboards or `--summary` for a compact bullet list.
-- For a live feed while working, run `python -m tools.agent.bus_watch --limit 20 --follow`; add `--agent <id>` or `--event status` to focus the stream, or `--since <ISO>` to replay a window.
+- Use `python3 -m teof bus_status --preset support` to summarise active claims and latest events (the helper defaults to the agent in `AGENT_MANIFEST.json`; add `--agent <id>` when you need a different view). Add `--json` when piping into dashboards or `--summary` for a compact bullet list.
+- For a live feed while working, run `python3 -m teof bus_watch --limit 20 --follow`; add `--agent <id>` or `--event status` to focus the stream, or `--since <ISO>` to replay a window.
 - Generate an evidence snapshot with `python -m tools.agent.receipts_index --output receipts-index.jsonl` before handing off; inspect the JSONL to spot missing or untracked receipts across plans and manager messages.
 - Track how fast reflections turn into evidence with `python -m tools.agent.receipts_metrics --output receipts-latency.jsonl`; review the per-plan latency deltas and address outliers.
 - Run `python -m tools.agent.session_brief --task <id> --preset operator --output _report/agent/<id>/session_brief/operator.json` to emit the Operator Mode checklist (manager tail, plan validation, quickstart receipts, claim seed, task sync, receipts index) as a receipt.
@@ -90,8 +95,8 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse t
 <a id="follow-up-logging"></a>
 ## Follow-up Logging
 
-- When a manager posts coordination requests (e.g., reminding an engineer to release a claim), follow up with `python -m tools.agent.bus_event log --event status --summary "<agent> handled <follow-up>" --plan <plan-id> --receipt <path>` so the resolution lands in `_bus/events/events.jsonl` with a receipt.
-- Mirror the update on the relevant bus message thread (task-specific file or `manager-report.jsonl`) using `python -m tools.agent.bus_message --task <id> --type status --summary "<agent> resolved follow-up" --receipt <path>`.
+- When a manager posts coordination requests (e.g., reminding an engineer to release a claim), follow up with `python3 -m teof bus_event log --event status --summary "<agent> handled <follow-up>" --plan <plan-id> --receipt <path>` so the resolution lands in `_bus/events/events.jsonl` with a receipt.
+- Mirror the update on the relevant bus message thread (task-specific file or `manager-report.jsonl`) using `python -m teof bus_message --task <id> --type status --summary "<agent> resolved follow-up" --receipt <path>`.
 - File the referenced receipt under `_report/agent/<agent-id>/...` with the command output (task sync logs, pytest transcripts, etc.) so future plans and CI runs can verify the action without guessing.
 - Add a short note in the plan or handoff summary pointing to the bus entries when the follow-up closes. This creates a deterministic breadcrumb trail before consensus queues (QUEUE-030..033) go live.
 
@@ -106,13 +111,13 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse t
 
 - Use `python -m tools.consensus.ledger --format table` to inspect `_report/ledger.csv` with optional filters such as `--decision`, `--agent`, `--since`, and `--limit`.
 - Capture JSON receipts with `--output <file>` (relative paths land in `_report/consensus/`) so consensus reviews can attach deterministic evidence.
-- Append normalized receipts when closing decisions via `python -m tools.consensus.receipts --decision <id> --summary "..." --agent <id> --receipt <path>` or by adding `--consensus-decision <id>` to `python -m tools.agent.bus_event log ...`. Both paths write to `_report/consensus/`.
+- Append normalized receipts when closing decisions via `python -m tools.consensus.receipts --decision <id> --summary "..." --agent <id> --receipt <path>` or by adding `--consensus-decision <id>` to `python3 -m teof bus_event log ...`. Both paths write to `_report/consensus/`.
 - Pair CLI runs with bus follow-up logs referencing the generated receipt to keep consensus bookkeeping auditable.
 - Summarise open decisions with `python -m tools.consensus.dashboard --format table` (add `--task` filters or `--since` when needed). Escalate in `manager-report` if a decision shows zero receipts or the last update exceeds the 24h cadence.
 
 ## Consensus Cadence
 
-- **Daily sweep (≤10 minutes):** the on-call agent tails `python -m tools.consensus.ledger --limit 5` and `python -m tools.consensus.dashboard --format table --since <24h>` to confirm fresh receipts. Log `python -m tools.agent.bus_event log --event status --consensus-decision <id>` for any decisions touched and capture output under `_report/agent/<id>/consensus/`.
+- **Daily sweep (≤10 minutes):** the on-call agent tails `python -m tools.consensus.ledger --limit 5` and `python -m tools.consensus.dashboard --format table --since <24h>` to confirm fresh receipts. Log `python3 -m teof bus_event log --event status --consensus-decision <id>` for any decisions touched and capture output under `_report/agent/<id>/consensus/`.
 - **Weekly review:** managers run the ledger + dashboard commands for the trailing week, capture a JSONL receipt via `python -m tools.consensus.receipts --decision WEEKLY-<iso>` and post a `bus_message --type consensus` summarising health.
 - **Escalation path:** if a decision lacks receipts after 24h, issue `bus_message --type request --meta escalation=consensus` and assign follow-up before marking the weekly review complete.
 - **Receipts:** keep daily sweep logs in `_report/agent/<id>/consensus/` and weekly summaries in `_report/manager/` so automation can enforce the cadence.
@@ -125,7 +130,7 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse t
 
 ## Idle Seats & Collision Checks
 
-- Before editing, review active claims with `python -m tools.agent.bus_status --active-only` (or the manager preset) so you do not collide with teammates; coordinate in `manager-report` when a plan is already owned.
+- Before editing, review active claims with `python3 -m teof bus_status --active-only` (or the manager preset; legacy module path still works) so you do not collide with teammates; coordinate in `manager-report` when a plan is already owned.
 - When standing by, contribute observable output: log reflections via `python -m tools.memory.cli note --summary "..." --tags standby` or prep future work with `teof-plan new <slug> --summary "..." --scaffold` so the session leaves receipts even while the primary task is blocked.
 
 ## Recommended Labels & Metadata

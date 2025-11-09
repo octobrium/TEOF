@@ -1,0 +1,20 @@
+{
+  "generated_at": "2025-11-09T05:10:56Z",
+  "summary": [
+    "teof bus_status wrapper now delegates to tools.agent.bus_status.run_with_namespace and supports the existing parser options (including --events-path for tests).",
+    "bus_status.load_events gained an optional path override so the CLI can read sandboxed event logs; regression tests cover JSON + summary output via teof.bootloader.",
+    "Docs (onboarding, parallel-codex, workflow, operator atlas, bus README, queue brief) now reference the teof alias while keeping the legacy module path noted for compatibility."
+  ],
+  "artifacts": [
+    "teof/commands/bus_status.py",
+    "tools/agent/bus_status.py",
+    "tests/test_teof_bus_status.py",
+    "docs/onboarding/README.md",
+    "docs/parallel-codex.md",
+    "docs/workflow.md",
+    "docs/operator-atlas.md",
+    "_bus/README.md",
+    "queue/077-teof-bus-status-cli.md",
+    "docs/observations/autonomous-node-workflow.md"
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-pytest-coverage-guard",
+  "created": "2025-11-09T05:20:00Z",
+  "actor": "codex-tier2",
+  "summary": "Wire pytest coverage defaults + guard so TEOF enforces ≥70% line-rate (memory/log: coverage gap).",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 26,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add pytest coverage config",
+      "status": "done",
+      "notes": "Update pyproject to define pytest addopts/testpaths and include pytest-cov dependency or doc; ensure coverage.xml emitted.",
+      "receipts": [
+        "pyproject.toml"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Implement coverage guard + hook",
+      "status": "done",
+      "notes": "Create tools.tests.coverage_guard (parse coverage.xml, enforce threshold) and call it from tools/agent/runner.sh (and document CLI).",
+      "receipts": [
+        "tools/tests/__init__.py",
+        "tools/tests/coverage_guard.py",
+        "tools/agent/runner.sh",
+        "tools/agent/preflight.sh",
+        "tests/test_coverage_guard.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document + receipts",
+      "status": "done",
+      "notes": "Explain in docs/agents.md (or automation doc) and capture plan/tests receipts.",
+      "receipts": [
+        "docs/agents.md",
+        "_report/agent/codex-tier2/2025-11-09-pytest-coverage-guard/summary.json",
+        "_report/agent/codex-tier2/2025-11-09-pytest-coverage-guard/tests.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Coverage config + guard landed, docs/tests updated",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/076-pytest-coverage-guard.md"
+    },
+    {
+      "type": "memory",
+      "ref": "memory/log.jsonl#L107"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-pytest-coverage-guard/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-pytest-coverage-guard/tests.json",
+    "_report/agent/codex-tier2/2025-11-09-pytest-coverage-guard/summary.json"
+  ],
+  "systemic_targets": [
+    "S3"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
+}

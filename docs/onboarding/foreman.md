@@ -8,13 +8,14 @@ sane defaults.
 ## Quick start
 
 ```bash
-python -m teof.cli foreman --say "run the alignment scan"
-python -m teof.cli foreman --say "show me the status"
-python -m teof.cli foreman --say "list today's tasks"
-python -m teof.cli foreman --say "rebuild the brief"
+python3 -m teof foreman "run the alignment scan"
+python3 -m teof foreman --say "show me the status"
+python3 -m teof foreman "list today's tasks"
+python3 -m teof foreman --say "rebuild the brief"
 ```
 
-Call `python -m teof.cli foreman` with no arguments to be prompted interactively.
+Add plain language directly after the command or use `--say`. Call
+`python3 -m teof foreman` with no arguments to be prompted interactively.
 
 ## What it covers today
 

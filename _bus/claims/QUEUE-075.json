@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/session-brief-sorting",
+  "claimed_at": "2025-11-09T04:37:24Z",
+  "notes": "session_brief parser handles lowercase z + HHMM offsets",
+  "plan_id": "2025-11-09-session-brief-sorting",
+  "released_at": "2025-11-09T04:44:47Z",
+  "status": "done",
+  "task_id": "QUEUE-075"
+}

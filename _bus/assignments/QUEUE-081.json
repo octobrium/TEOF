@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-11-09T05:17:14Z",
+  "branch": "agent/codex-tier2/teof-bus-message",
+  "engineer": "codex-tier2",
+  "manager": "codex-tier2",
+  "note": "Add teof bus_message CLI",
+  "plan_id": "2025-11-09-teof-bus-message-cli",
+  "task_id": "QUEUE-081"
+}

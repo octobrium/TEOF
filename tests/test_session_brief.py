@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import timezone
 from pathlib import Path
 
 import pytest
@@ -276,3 +277,59 @@ def test_session_brief_operator_preset_flags_failures(tmp_path: Path, monkeypatc
     assert statuses["manager_tail"] == "fail"
     assert statuses["receipts_hygiene"] == "warn"
     assert data["summary"] == "fail"
+
+
+def test_parse_iso_accepts_naive_iso_strings() -> None:
+    result = session_brief.parse_iso("2025-11-09T01:02:03")
+    assert result is not None
+    assert result.tzinfo == timezone.utc
+    assert result.isoformat() == "2025-11-09T01:02:03+00:00"
+
+
+def test_format_entries_handles_missing_and_malformed_timestamps() -> None:
+    entries = [
+        {"ts": "2025-11-09T04:00:00Z", "summary": "aware ts", "agent_id": "codex-1", "event": "status"},
+        {"ts": "2025-11-09T04:05:00", "summary": "naive ts", "agent_id": "codex-2", "event": "status"},
+        {"summary": "missing timestamp", "agent_id": "codex-3", "event": "note"},
+    ]
+
+    output = session_brief.format_entries(entries, limit=3, title="Events")
+
+    assert "Events (latest 3):" in output
+    assert "aware ts" in output
+    assert "naive ts" in output
+    assert "missing timestamp" in output
+
+
+def test_format_entries_handles_mixed_timestamps() -> None:
+    entries = [
+        {"ts": "2025-11-09T05:05:00Z", "agent_id": "codex-1", "summary": "valid"},
+        {"ts": None, "agent_id": "codex-2", "summary": "missing"},
+        {"ts": "not-a-timestamp", "agent_id": "codex-3", "summary": "malformed"},
+    ]
+
+    output = session_brief.format_entries(entries, limit=3, title="Mixed")
+
+    assert "Mixed" in output
+    assert "codex-1" in output
+    assert "codex-2" in output
+    assert "codex-3" in output
+
+
+def test_parse_iso_accepts_lowercase_z() -> None:
+    parsed = session_brief.parse_iso("2025-11-09T05:05:00z")
+    assert parsed is not None
+    assert parsed.strftime(session_brief.ISO_FMT) == "2025-11-09T05:05:00Z"
+
+
+def test_parse_iso_accepts_offset_without_colon() -> None:
+    parsed = session_brief.parse_iso("2025-11-09T05:05:00+0130")
+    assert parsed is not None
+    assert parsed.strftime(session_brief.ISO_FMT) == "2025-11-09T03:35:00Z"
+
+
+def test_parse_iso_accepts_offset_without_colon_and_fractional() -> None:
+    parsed = session_brief.parse_iso("2025-11-09T05:05:00.500000-0230")
+    assert parsed is not None
+    # Fractional seconds are truncated by strftime format; verifying UTC conversion is correct
+    assert parsed.strftime(session_brief.ISO_FMT) == "2025-11-09T07:35:00Z"

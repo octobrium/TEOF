@@ -23,7 +23,7 @@ TEOF exists to operationalize AI alignment as an **observation-first protocol**.
 
 - **Start from Observation:** Run `teof brief` and inspect the receipts under `artifacts/systemic_out/latest/` to ground in measurable outputs before proposing changes.
 - **Trace Constraints:** Read `governance/policy.json`, `docs/architecture.md`, and `docs/workflow.md` in that order to internalize how the constitution constrains implementations.
-- **Plan in the Open:** Use the planner and bus CLIs (`tools.agent.session_boot`, `tools.agent.bus_claim`, `tools.agent.bus_message`) so others can audit your intent and progress.
+- **Plan in the Open:** Use the planner and bus CLIs (`tools.agent.session_boot`, `python -m teof bus_claim`, `python -m teof bus_message`) so others can audit your intent and progress.
 - **Demand Coherence:** When refining validators, evaluators, or governance, map every suggestion back to an systemic trait and surface the receipt that proves the gap.
 
 ## Next Steps for Mastery

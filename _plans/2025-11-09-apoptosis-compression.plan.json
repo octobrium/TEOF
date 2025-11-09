@@ -1,0 +1,59 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-apoptosis-compression",
+  "created": "2025-11-09T05:12:06Z",
+  "actor": "codex-tier2",
+  "summary": "Compress apoptosis snapshots into hashed bundles with restore receipts.",
+  "status": "in_progress",
+  "priority": 2,
+  "layer": "L0",
+  "systemic_scale": 4,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture compression requirements",
+      "status": "done",
+      "notes": "Documented snapshot goals, CLI idea, receipts, and risks.",
+      "receipts": [
+        "_plans/next-development.todo.json",
+        "_report/agent/codex-tier2/2025-11-09-apoptosis-compression/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design bundle + manifest schema",
+      "status": "queued",
+      "notes": "Define tar format, hashing, metadata, and restore process.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement tooling + migration",
+      "status": "queued",
+      "notes": "Build CLI, write tests/docs, migrate existing snapshots, add CI guard.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Apoptosis snapshots stored as hashed bundles with restore receipts and CI guard.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-apoptosis-compression/requirements.md"
+  ],
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-066"
+    }
+  ],
+  "systemic_targets": [
+    "S2",
+    "S4"
+  ],
+  "layer_targets": [
+    "L0",
+    "L4"
+  ]
+}

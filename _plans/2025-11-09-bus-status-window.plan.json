@@ -1,0 +1,55 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-bus-status-window",
+  "created": "2025-11-09T05:40:00Z",
+  "actor": "codex-tier2",
+  "summary": "Document bus_status window semantics and ensure tests prove default/disabled paths (QUEUE-008).",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 18,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Document window-hours usage",
+      "status": "done",
+      "notes": "Update docs/agents.md (and parallel references) to explain default 24h window and how --window-hours 0 disables filtering.",
+      "receipts": [
+        "docs/agents.md",
+        "docs/parallel-codex.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Tighten tests around window defaults",
+      "status": "done",
+      "notes": "Extend test_agent_bus_status to assert default filtering hides old events and textual output mentions disabled mode.",
+      "receipts": [
+        "tests/test_agent_bus_status.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Docs + tests capture bus_status window semantics",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/008-bus-status-staleness.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-bus-status-window/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-bus-status-window/tests.json",
+    "_report/agent/codex-tier2/2025-11-09-bus-status-window/summary.json"
+  ],
+  "systemic_targets": [
+    "S3"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
+}

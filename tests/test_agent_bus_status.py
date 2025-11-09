@@ -276,6 +276,11 @@ def test_bus_status_window_hours_zero_disables_filter(tmp_path, monkeypatch, cap
     assert "QUEUE-999" in tasks
     assert payload["filters"]["window_hours"] == 0
 
+    exit_code = bus_status.main(["--limit", "10", "--window-hours", "0"])
+    assert exit_code == 0
+    out = capsys.readouterr().out
+    assert "QUEUE-999" in out
+
 
 def test_bus_status_presets_apply_defaults(tmp_path, monkeypatch, capsys):
     _setup_bus(tmp_path, monkeypatch)

@@ -62,6 +62,7 @@ def _setup_env(
     *,
     agent_id: str = "codex-3",
     manager_entries: Optional[List[str]] = None,
+    agent_inbox_entries: Optional[List[str]] = None,
 ):
     root = tmp_path
     monkeypatch.setattr(session_boot, "ROOT", root)
@@ -77,6 +78,9 @@ def _setup_env(
     if manager_entries is None:
         manager_entries = ["{\"ts\": \"2025-09-20T00:00:00Z\", \"note\": \"init\"}\n"]
     manager_log.write_text("".join(manager_entries), encoding="utf-8")
+    agent_inbox_path = root / "_bus" / "messages" / f"agent-{agent_id}.jsonl"
+    if agent_inbox_entries:
+        agent_inbox_path.write_text("".join(agent_inbox_entries), encoding="utf-8")
 
     monkeypatch.setattr(session_boot, "EVENT_LOG", events_path)
     monkeypatch.setattr(session_boot, "CLAIMS_DIR", claims_dir)
@@ -87,6 +91,10 @@ def _setup_env(
     monkeypatch.setattr(session_boot.manifest_helper, "ROOT", root)
     monkeypatch.setattr(session_boot.manifest_helper, "DEFAULT_MANIFEST", manifest_path)
     monkeypatch.setattr(session_boot.manifest_helper, "BACKUP_DIR", root / ".manifest_backups")
+    monkeypatch.setattr(session_boot.bus_inbox, "ROOT", root)
+    monkeypatch.setattr(session_boot.bus_inbox, "MESSAGES_DIR", manager_log.parent)
+    monkeypatch.setattr(session_boot.bus_inbox, "SESSION_REPORT_DIR", root / "_report" / "session")
+    monkeypatch.setattr(session_boot.bus_inbox, "MANIFEST_PATH", manifest_path)
 
     return events_path, manager_log
 
@@ -359,6 +367,57 @@ def test_session_boot_can_skip_manager_report_tail(monkeypatch, tmp_path):
     assert exit_code == 0
     tail_path = tmp_path / "_report" / "session" / "codex-3" / "manager-report-tail.txt"
     assert not tail_path.exists()
+
+
+def test_session_boot_captures_agent_inbox_receipt(monkeypatch, tmp_path):
+    inbox_entries = [
+        '{"ts": "2025-11-09T04:00:00Z", "from": "codex-1", "summary": "hello"}\n',
+        '{"ts": "2025-11-09T04:05:00Z", "from": "codex-2", "summary": "follow-up"}\n',
+    ]
+    _setup_env(monkeypatch, tmp_path, agent_inbox_entries=inbox_entries)
+    sync = FakeSync()
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    dashboard = FakeDashboard()
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", dashboard)
+
+    exit_code = session_boot.main(
+        [
+            "--agent",
+            "codex-3",
+            "--no-dashboard",
+        ]
+    )
+
+    assert exit_code == 0
+    receipt_path = tmp_path / "_report" / "session" / "codex-3" / "agent-inbox-tail.txt"
+    assert receipt_path.exists()
+    content = receipt_path.read_text(encoding="utf-8")
+    assert "unread_since_state=2" in content
+    state_path = tmp_path / "_report" / "session" / "codex-3" / "agent-inbox-state.json"
+    assert state_path.exists()
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    assert state["last_seen_ts"] == "2025-11-09T04:05:00Z"
+
+
+def test_session_boot_can_skip_agent_inbox(monkeypatch, tmp_path):
+    _setup_env(monkeypatch, tmp_path)
+    sync = FakeSync()
+    monkeypatch.setattr(session_boot.session_sync, "run_sync", sync)
+    dashboard = FakeDashboard()
+    monkeypatch.setattr(session_boot.coord_dashboard, "run_report", dashboard)
+
+    exit_code = session_boot.main(
+        [
+            "--agent",
+            "codex-3",
+            "--no-dashboard",
+            "--no-agent-inbox",
+        ]
+    )
+
+    assert exit_code == 0
+    receipt_path = tmp_path / "_report" / "session" / "codex-3" / "agent-inbox-tail.txt"
+    assert not receipt_path.exists()
 
 
 def test_session_boot_auto_agent_selects_free_slot(monkeypatch, tmp_path):

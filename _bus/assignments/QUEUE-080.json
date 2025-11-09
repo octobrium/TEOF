@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-11-09T05:13:13Z",
+  "branch": "agent/codex-tier2/teof-macro-hygiene",
+  "engineer": "codex-tier2",
+  "manager": "codex-tier2",
+  "note": "Add teof macro_hygiene CLI",
+  "plan_id": "2025-11-09-teof-macro-hygiene-cli",
+  "task_id": "QUEUE-080"
+}

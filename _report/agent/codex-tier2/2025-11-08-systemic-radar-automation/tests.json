@@ -1,5 +1,13 @@
 {
-  "generated_at": "2025-11-08T23:38:31Z",
+  "generated_at": "2025-11-08T23:41:32Z",
   "plan_id": "2025-11-08-systemic-radar-automation",
-  "tests": []
+  "tests": [
+    {
+      "command": "pytest tests/test_systemic_radar.py tests/test_teof_scan.py tests/test_autonomy_footprint.py -q",
+      "status": "passed",
+      "timestamp": "2025-11-08T23:41:20Z",
+      "artifacts": []
+    }
+  ],
+  "plan_step_id": "S4"
 }

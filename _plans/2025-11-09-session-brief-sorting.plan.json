@@ -1,0 +1,66 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-session-brief-sorting",
+  "created": "2025-11-09T05:00:00Z",
+  "actor": "codex-tier2",
+  "summary": "Harden tools.agent.session_brief timestamp sorting to stop naive/aware comparison crashes and add regression coverage.",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 21,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Reproduce failure + capture receipts",
+      "status": "done",
+      "notes": "Run session_brief to surface the TypeError, save command/output under _report/agent/codex-tier2/2025-11-09-session-brief-sorting.",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-session-brief-sorting/repro.txt"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Patch sorting + add tests",
+      "status": "done",
+      "notes": "Normalize fallback timestamps (timezone-aware) and extend test coverage around messages lacking proper ISO strings.",
+      "receipts": [
+        "tools/agent/session_brief.py",
+        "tests/test_session_brief.py",
+        "_report/agent/codex-tier2/2025-11-09-session-brief-sorting/tests.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Document workflow impact",
+      "status": "done",
+      "notes": "If needed update docs (e.g., troubleshooting) and capture summary receipt.",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-session-brief-sorting/summary.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "session_brief stable on mixed timestamps with regression tests",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/075-session-brief-sorting.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-session-brief-sorting/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-session-brief-sorting/repro.txt",
+    "_report/agent/codex-tier2/2025-11-09-session-brief-sorting/tests.json",
+    "_report/agent/codex-tier2/2025-11-09-session-brief-sorting/summary.json"
+  ],
+  "systemic_targets": [
+    "S3"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
+}

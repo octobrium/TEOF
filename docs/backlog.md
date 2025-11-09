@@ -11,7 +11,7 @@ code or touching the bus, confirm your next move here.
   checkpoints for current work. If you adopt a plan, update its steps before
   making changes.
 - **Live claims** – `_bus/claims/*.json` show who owns which queue entries. Claim
-  your task with `python -m tools.agent.bus_claim claim --task <id> --plan
+  your task with `python -m teof bus_claim claim --task <id> --plan
   <plan_id>` so other seats see you working.
 
 ## Daily rhythm

@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/receipt-graph",
+  "claimed_at": "2025-11-09T04:59:58Z",
+  "notes": "teof bus_watch CLI + tests",
+  "plan_id": "2025-11-09-teof-bus-watch-cli",
+  "released_at": "2025-11-09T05:12:23Z",
+  "status": "done",
+  "task_id": "QUEUE-078"
+}

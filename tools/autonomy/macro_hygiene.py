@@ -178,8 +178,7 @@ def _print_human(status: Mapping[str, Any]) -> None:
             print(f"{prefix} {check.get('kind')} {check.get('path')}{opt}: {check.get('detail')}")
 
 
-def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
+def configure_parser(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     parser.add_argument("--no-write", action="store_true", help="Skip writing the receipt to disk")
     parser.add_argument("--out", type=Path, help=f"Custom output path (default: {DEFAULT_RECEIPT.relative_to(ROOT)})")
     parser.add_argument("--human", action="store_true", help="Print human-readable summary")
@@ -188,8 +187,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         action="store_true",
         help="Treat optional checks as required (useful for debugging the ledger)",
     )
-    args = parser.parse_args(argv)
+    return parser
 
+
+def run_with_namespace(args: argparse.Namespace) -> int:
     status = compute_status()
 
     output = status
@@ -224,7 +225,18 @@ def main(argv: Sequence[str] | None = None) -> int:
     return 0
 
 
-__all__ = ["compute_status", "main"]
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    return configure_parser(parser)
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    return run_with_namespace(args)
+
+
+__all__ = ["compute_status", "main", "configure_parser", "run_with_namespace"]
 
 
 if __name__ == "__main__":

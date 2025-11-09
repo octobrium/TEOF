@@ -1,0 +1,11 @@
+{
+  "generated_at": "2025-11-09T05:18:30Z",
+  "plan_id": "2025-11-09-decentralized-node-ledger",
+  "artifacts": [
+    "schemas/node-incentive-ledger.schema.json",
+    "tools/autonomy/node_ledger.py",
+    "tests/test_node_ledger.py",
+    "_report/usage/node-incentive-ledger/ledger.jsonl"
+  ],
+  "summary": "Ledger schema + CLI shipped with append/show/audit commands and first ledger entry recorded for ND-069."
+}

@@ -20,7 +20,7 @@ pip install -e .
 
 ```bash
 # Produce the brief artifacts and link the latest run
-python -m teof.cli brief
+python3 -m teof brief
 
 # Inspect the latest outputs
 ls artifacts/systemic_out/latest
@@ -54,7 +54,7 @@ Pull changes periodically and re-run the smoke flow:
 
 ```bash
 git pull --ff-only
-python -m teof.cli brief
+python3 -m teof brief
 ```
 
 Use signed attestations (threshold ≥2 signers) if you publish capsule promotions or governance modifications.

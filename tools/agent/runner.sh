@@ -42,6 +42,10 @@ if command -v pytest >/dev/null 2>&1; then
     echo "Tests failed. Fix before pushing." >&2
     exit 1
   }
+  if command -v python >/dev/null 2>&1; then
+    echo "→ enforcing ≥70% coverage via tools.tests.coverage_guard"
+    python -m tools.tests.coverage_guard --threshold 0.70 || exit 1
+  fi
 else
   echo "pytest not available; skipping test run" >&2
 fi

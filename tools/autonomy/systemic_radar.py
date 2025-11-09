@@ -163,7 +163,11 @@ def _autonomy_signal(max_age_hours: int | None = None) -> AxisSignal:
         )
     ready = bool(data.get("autonomy_guard_ready"))
     pending = data.get("pending_followups") or []
-    generated = data.get("generated_at") or data.get("summary", {}).get("generated_at")
+    generated = (
+        data.get("generated_at")
+        or data.get("summary", {}).get("generated_at")
+        or data.get("hygiene", {}).get("generated_at")
+    )
     age_hours = None
     breach = False
     if generated:

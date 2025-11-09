@@ -1,0 +1,73 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-teof-bus-claim-cli",
+  "created": "2025-11-09T06:40:00Z",
+  "actor": "codex-tier2",
+  "summary": "Add teof bus_claim wrapper and document usage (queue/082).",
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 3,
+  "impact_score": 20,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Expose parser/run helpers",
+      "status": "done",
+      "notes": "Refactor tools.agent.bus_claim to provide configure_parser + run_with_namespace.",
+      "receipts": [
+        "tools/agent/bus_claim.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add teof CLI + tests",
+      "status": "done",
+      "notes": "Create teof.commands.bus_claim, register it, and add pytest coverage for claim/release flows.",
+      "receipts": [
+        "teof/commands/bus_claim.py",
+        "teof/commands/__init__.py",
+        "tests/test_teof_bus_claim.py",
+        "_report/agent/codex-tier2/2025-11-09-teof-bus-claim-cli/tests.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Refresh docs",
+      "status": "done",
+      "notes": "Update docs/agents.md, README, quickstart, operator atlas, etc. to reference `python -m teof bus_claim`.",
+      "receipts": [
+        "docs/agents.md",
+        "README.md",
+        "docs/quickstart.md",
+        "docs/parallel-codex.md",
+        "docs/onboarding/README.md",
+        "_report/agent/codex-tier2/2025-11-09-teof-bus-claim-cli/tests.json",
+        "_report/agent/codex-tier2/2025-11-09-teof-bus-claim-cli/summary.json",
+        "_report/agent/codex-tier2/2025-11-09-teof-bus-claim-cli/summary.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "teof bus_claim documented & tested",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/082-teof-bus-claim-cli.md"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-claim-cli/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-claim-cli/tests.json",
+    "_report/agent/codex-tier2/2025-11-09-teof-bus-claim-cli/summary.json"
+  ],
+  "systemic_targets": [
+    "S3"
+  ],
+  "layer_targets": [
+    "L5"
+  ]
+}

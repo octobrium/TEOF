@@ -2,8 +2,9 @@
   "agent_id": "codex-tier2",
   "branch": "agent/codex-tier2/systemic-automation",
   "claimed_at": "2025-11-08T23:38:21Z",
-  "notes": "Radar automation",
+  "notes": "Plan 2025-11-08-systemic-radar-automation complete; systemic_radar tests + receipts landed.",
   "plan_id": "2025-11-08-systemic-radar-automation",
-  "status": "in_progress",
+  "released_at": "2025-11-08T23:43:46Z",
+  "status": "done",
   "task_id": "QUEUE-055"
 }

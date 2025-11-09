@@ -1,0 +1,61 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-legacy-artifact-cold-storage",
+  "created": "2025-11-09T05:10:52Z",
+  "actor": "codex-tier2",
+  "summary": "Compress and hash legacy artifacts into cold storage snapshots with receipts.",
+  "status": "in_progress",
+  "priority": 2,
+  "layer": "L4",
+  "systemic_scale": 6,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture cold storage requirements",
+      "status": "done",
+      "notes": "Summarised backlog intent, CLI sketch, receipts, and risks.",
+      "receipts": [
+        "_plans/next-development.todo.json",
+        "_report/agent/codex-tier2/2025-11-09-legacy-artifact-cold-storage/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design snapshot format + workflow",
+      "status": "queued",
+      "notes": "Define tarball format, manifest schema, verification strategy, and CI hooks.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement tooling + guard",
+      "status": "queued",
+      "notes": "Build snapshot CLI, add tests/docs, and enforce guard to prevent raw artifacts from landing.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Legacy artifacts stored as hashed snapshots with CI enforcement.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-legacy-artifact-cold-storage/requirements.md"
+  ],
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-064"
+    }
+  ],
+  "systemic_targets": [
+    "S1",
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4",
+    "L0"
+  ]
+}

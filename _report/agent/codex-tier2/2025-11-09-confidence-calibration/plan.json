@@ -1,0 +1,11 @@
+{
+  "generated_at": "2025-11-09T05:25:15Z",
+  "agent": "codex-tier2",
+  "plan_id": "2025-11-09-confidence-calibration",
+  "summary": "Initiated ND-068 confidence calibration analytics plan (requirements + pipeline + tooling).",
+  "inputs": [
+    "queue/068-confidence-calibration.md",
+    "docs/automation/confidence-metrics.md",
+    "tools/agent/confidence_watch.py"
+  ]
+}

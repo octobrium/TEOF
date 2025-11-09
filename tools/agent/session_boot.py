@@ -29,7 +29,7 @@ MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 SESSION_GUARD_DIR = ROOT / "_report" / "agent"
 CONFIDENCE_ROOT = ROOT / "_report" / "agent"
 
-from tools.agent import bus_status, session_sync, coord_dashboard, manifest_helper
+from tools.agent import bus_status, session_sync, coord_dashboard, manifest_helper, bus_inbox
 
 
 AUTO_AGENT_POOL = ("codex-1", "codex-2", "codex-3", "codex-4")
@@ -459,6 +459,22 @@ def build_parser() -> argparse.ArgumentParser:
         help="How many manager-report entries to capture for the receipt (default: 10)",
     )
     parser.add_argument(
+        "--agent-inbox",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Capture the agent inbox tail/unread count (default: enabled)",
+    )
+    parser.add_argument(
+        "--agent-inbox-limit",
+        type=int,
+        default=5,
+        help="How many agent inbox entries to capture for the receipt (default: 5)",
+    )
+    parser.add_argument(
+        "--agent-inbox-receipt",
+        help="Optional path for the agent inbox receipt (defaults under _report/session/<id>/agent-inbox-tail.txt)",
+    )
+    parser.add_argument(
         "--allow-manifest-mismatch",
         action="store_true",
         help="Allow running even if AGENT_MANIFEST.json does not match the requested agent",
@@ -658,6 +674,30 @@ def main(argv: list[str] | None = None) -> int:
         printed_messages.append(f"  entries={written} receipt={rel_receipt}")
     else:
         printed_messages.append("manager-report tail capture skipped (--no-manager-report-tail)")
+
+    if args.agent_inbox:
+        inbox_receipt = Path(args.agent_inbox_receipt) if args.agent_inbox_receipt else None
+        try:
+            inbox_summary = bus_inbox.inspect_inbox(
+                agent_id=agent_id,
+                limit=args.agent_inbox_limit,
+                receipt_path=inbox_receipt,
+                mark_read=True,
+                enforce_manifest=False,
+            )
+        except bus_inbox.BusInboxError as exc:
+            printed_messages.append(f"agent inbox check failed: {exc}")
+        else:
+            printed_messages.append(
+                f"agent inbox: total={inbox_summary.total_messages} new={inbox_summary.new_messages}"
+            )
+            channel_display = _relative_to_root(inbox_summary.channel_path)
+            receipt_display = (
+                _relative_to_root(inbox_summary.receipt_path) if inbox_summary.receipt_path else "-"
+            )
+            printed_messages.append(f"  receipt={receipt_display} channel={channel_display}")
+    else:
+        printed_messages.append("agent inbox check skipped (--no-agent-inbox)")
 
     for message in printed_messages:
         print(message)

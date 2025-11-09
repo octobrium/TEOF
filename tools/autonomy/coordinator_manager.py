@@ -59,17 +59,17 @@ def _default_commands() -> list[dict[str, Any]]:
         {
             "label": "pre_status",
             "description": "Capture current repository status snapshot",
-            "cmd": ["python3", "-m", "teof.cli", "foreman", "--say", "show the status"],
+            "cmd": ["python3", "-m", "teof", "foreman", "--say", "show the status"],
         },
         {
             "label": "alignment_scan",
             "description": "Run alignment scan summary before/after edits",
-            "cmd": ["python3", "-m", "teof.cli", "foreman", "--say", "run the alignment scan"],
+            "cmd": ["python3", "-m", "teof", "foreman", "--say", "run the alignment scan"],
         },
         {
             "label": "tasks_snapshot",
             "description": "List active tasks to monitor claim distribution",
-            "cmd": ["python3", "-m", "teof.cli", "foreman", "--say", "list today’s tasks"],
+            "cmd": ["python3", "-m", "teof", "foreman", "--say", "list today’s tasks"],
         },
     ]
 

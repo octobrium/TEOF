@@ -19,3 +19,4 @@ Readiness Checklist:
 Receipts to Extend:
 - `_report/usage/receipt-graph/` (new) containing JSON graph snapshots + checksum
 - Memory reflection updating how the graph closes prior audit gaps
+- CLI receipts under `_report/agent/<seat>/YYYY-mm-dd-observation-receipt-graph/graph-<task>.json(.mmd)` emitted by `python -m tools.observation.receipt_graph --task <id> --mermaid <path>`.

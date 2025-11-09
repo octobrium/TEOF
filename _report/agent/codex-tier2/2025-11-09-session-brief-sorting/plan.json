@@ -1,0 +1,9 @@
+{
+  "generated_at": "2025-11-09T05:01:00Z",
+  "agent": "codex-tier2",
+  "plan_id": "2025-11-09-session-brief-sorting",
+  "summary": "Plan logged for fixing session_brief timestamp sorting crash (queue/075).",
+  "links": [
+    "queue/075-session-brief-sorting.md"
+  ]
+}

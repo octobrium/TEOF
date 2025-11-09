@@ -1,0 +1,9 @@
+{
+  "assigned_at": "2025-11-09T05:24:53Z",
+  "branch": "agent/codex-tier2/teof-bus-claim",
+  "engineer": "codex-tier2",
+  "manager": "codex-tier2",
+  "note": "Add teof bus_claim CLI",
+  "plan_id": "2025-11-09-teof-bus-claim-cli",
+  "task_id": "QUEUE-082"
+}

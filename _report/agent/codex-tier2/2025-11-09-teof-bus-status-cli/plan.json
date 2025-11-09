@@ -1,0 +1,9 @@
+{
+  "generated_at": "2025-11-09T05:51:00Z",
+  "agent": "codex-tier2",
+  "plan_id": "2025-11-09-teof-bus-status-cli",
+  "summary": "Plan logged for teof bus_status CLI wrapper (queue/077).",
+  "links": [
+    "queue/077-teof-bus-status-cli.md"
+  ]
+}

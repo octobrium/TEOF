@@ -6,8 +6,8 @@ ensuring every seat announces itself, tails the manager-report lane, and
 captures the evidence before mutating claims or messages.
 
 ## What is enforced
-- `python -m tools.agent.bus_claim` (claim/release)
-- `python -m tools.agent.bus_event`
+- `python -m teof bus_claim` (claim/release)
+- `python3 -m teof bus_event`
 - `python -m tools.agent.bus_message`
 - `python -m tools.agent.bus_ping`
 - Helpers that call the above (`directive_pointer`, `task_assign`, etc.)

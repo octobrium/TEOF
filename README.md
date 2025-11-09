@@ -15,8 +15,9 @@ Try it and see.
 
 > **Jump in (≈5 min)**
 > 1. `bin/teof-syscheck` — verify Python/pip/pytest are ready  
-> 2. `bin/teof-up` *(or `python -m teof up --eval`)* — run the Tier 1 smoke; receipts land in `_report/usage/onboarding/`  
+> 2. `bin/teof-up` *(or `python3 -m teof up --eval`)* — run the Tier 1 smoke; receipts land in `_report/usage/onboarding/`  
 > 3. `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status` — capture the required handshake + manager-report tail receipt before touching the bus  
+> 4. Share `docs/onboarding/tier1-evaluate-PROTOTYPE.md` — the 5-minute public entry that now ships with metadata receipts  
 > Next: [Quickstart snippet](docs/quickstart.md#quickstart) • [Canonical First Hour](docs/onboarding/README.md#canonical-first-hour)
 
 **Quick example** — Agent coordination in action:
@@ -25,13 +26,13 @@ Try it and see.
 python -m tools.agent.session_boot --agent codex-4 --focus backend
 
 # Agent claims a task
-python -m tools.agent.bus_claim claim --task QUEUE-123 --plan my-plan
+python -m teof bus_claim claim --task QUEUE-123 --plan my-plan
 
 # Agent emits status (automatically timestamped + logged)
-python -m tools.agent.bus_event log --event status --task QUEUE-123 --summary "Tests passing"
+python3 -m teof bus_event log --event status --task QUEUE-123 --summary "Tests passing"
 
 # Other agents see the coordination
-python -m tools.agent.bus_status --preset support
+python3 -m teof bus_status --preset support
 ```
 
 All coordination lives in `_bus/` (claims, events, messages) and `_report/` (receipts). No databases, no external services—just git-versioned JSON/JSONL files.
@@ -81,7 +82,7 @@ When you act without observing, the framework will reflect that back. Not as pun
 > - **[Tier 1: Evaluate (5 min)](docs/onboarding/tier1-evaluate-PROTOTYPE.md)** — Run one command, see automatic audit trails
 > - **[Tier 2: Solo Developer (30 min)](docs/onboarding/tier2-solo-dev-PROTOTYPE.md)** — Build with TEOF's architecture
 > - **[Tier 3: Multi-Agent (60 min)](docs/onboarding/README.md)** — Coordinate agents through the bus
-> - **Ready to donate compute?** — After Tier 1 succeeds, run `python -m teof up --contribute --contributor-id <you>` (see [`docs/onboarding/contributor-flow.md`](docs/onboarding/contributor-flow.md)) to record a contribution receipt under `_report/usage/contributors/`. Current contributions are summarized in `_report/usage/contributors/summary.json`.
+> - **Ready to donate compute?** — After Tier 1 succeeds, run `python3 -m teof up --contribute --contributor-id <you>` (see [`docs/onboarding/contributor-flow.md`](docs/onboarding/contributor-flow.md)) to record a contribution receipt under `_report/usage/contributors/`. Current contributions are summarized in `_report/usage/contributors/summary.json`.
 >
 > **Already familiar with TEOF?**
 > - Glossary: [`docs/glossary.md`](docs/glossary.md) — Essential terms and concepts
@@ -200,9 +201,9 @@ Coordinate with other TEOF agents through the repository bus:
 
 - Announce your session: `python -m tools.agent.session_boot --agent <id> --focus <role> --with-status` captures a handshake and heartbeat receipt.
 - `session_boot` now verifies that `AGENT_MANIFEST.json` matches `--agent` and that you are on `agent/<id>/…` (or an approved branch). Run `python -m tools.agent.manifest_helper activate <id>` if you swap seats; pass `--allow-manifest-mismatch` or `--allow-branch-mismatch` only when you capture the override receipt on purpose.
-- Claim the task: `python -m tools.agent.bus_claim claim --task <task_id> --plan <plan_id>` writes `_bus/claims/<task_id>.json` and advertises ownership.
-- Log status: `python -m tools.agent.bus_event log --event status --task <task_id> --summary "..."` keeps `_bus/events/events.jsonl` and task message channels current.
-- Listen in: `python -m tools.agent.bus_watch --follow` (or `python -m tools.agent.bus_status --preset support`) to monitor peers, manager directives, and stale claims.
+- Claim the task: `python -m teof bus_claim claim --task <task_id> --plan <plan_id>` writes `_bus/claims/<task_id>.json` and advertises ownership.
+- Log status: `python3 -m teof bus_event log --event status --task <task_id> --summary "..."` keeps `_bus/events/events.jsonl` and task message channels current.
+- Listen in: `python3 -m teof bus_watch --follow` (or `python3 -m teof bus_status --preset support`) to monitor peers, manager directives, and stale claims.
 
 Expanded coordination policy lives in [`docs/parallel-codex.md`](docs/parallel-codex.md); the agent rhythm is summarised in [`docs/agents.md`](docs/agents.md).
 
@@ -274,7 +275,7 @@ Licensed under the [Apache-2.0 License](LICENSE).
 1. Read the constitution: [`governance/CHARTER.md`](governance/CHARTER.md) and [`governance/policy.json`](governance/policy.json)
 2. Set up agent identity: create `AGENT_MANIFEST.json` (see examples in [`docs/examples/agents/`](docs/examples/agents/))
 3. Join the bus: `python -m tools.agent.session_boot --agent <id> --focus <role>`
-4. Claim work: `python -m tools.agent.bus_claim claim --task <id> --plan <plan-id>`
+4. Claim work: `python -m teof bus_claim claim --task <id> --plan <plan-id>`
 5. Emit receipts: all changes include structured receipts under `_report/agent/<id>/`
 
 **For framework developers:**

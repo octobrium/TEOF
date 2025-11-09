@@ -1,0 +1,182 @@
+{
+  "generated_at": "2025-11-09T05:33:56Z",
+  "git_commit": "b97ba03",
+  "violations": [
+    {
+      "type": "backlog",
+      "id": "ND-054",
+      "title": "Autonomy Stress Harness",
+      "coord": {
+        "layer": "L6",
+        "systemic_scale": 4
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-autonomy-stress-harness/plan.json",
+        "_report/agent/codex-tier2/2025-11-09-autonomy-stress-harness/requirements.md",
+        "queue/054-autonomy-stress-harness.md"
+      ]
+    },
+    {
+      "type": "backlog",
+      "id": "ND-056",
+      "title": "Impact Bridge Dashboard",
+      "coord": {
+        "layer": "L2",
+        "systemic_scale": 10
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-impact-bridge/requirements.md",
+        "queue/056-impact-bridge.md"
+      ]
+    },
+    {
+      "type": "backlog",
+      "id": "ND-068",
+      "title": "Confidence calibration analytics",
+      "coord": {
+        "layer": "L6",
+        "systemic_scale": 8
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-confidence-calibration/plan.json",
+        "_report/agent/codex-tier2/2025-11-09-confidence-calibration/requirements.md",
+        "_report/agent/codex-tier2/2025-11-09-confidence-calibration/design.md"
+      ]
+    },
+    {
+      "type": "backlog",
+      "id": "ND-069",
+      "title": "Decentralized node incentive ledger",
+      "coord": {
+        "layer": "L2",
+        "systemic_scale": 8
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/plan.json",
+        "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/requirements.md",
+        "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/design.md",
+        "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/implementation.json",
+        "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/tests.json",
+        "tools/autonomy/node_ledger.py",
+        "tests/test_node_ledger.py",
+        "schemas/node-incentive-ledger.schema.json",
+        "_report/usage/node-incentive-ledger/ledger.jsonl"
+      ]
+    },
+    {
+      "type": "backlog",
+      "id": "ND-070",
+      "title": "Relay offering launch path",
+      "coord": {
+        "layer": "L3",
+        "systemic_scale": 10
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": [
+        "_report/usage/case-study/relay-insight/summary.json",
+        "docs/impact/relay-insight-case-study.md",
+        "docs/vision/relay-offering-collateral.md",
+        "docs/vision/relay-offering-dry-run.md",
+        "docs/vision/relay-offering.md",
+        "_report/usage/case-study/relay-insight/command-log-20251003T191500Z.json",
+        "_report/usage/case-study/relay-insight/conductor-run-20251003T191500Z.json",
+        "_report/usage/case-study/relay-insight/diffs-20251003T191620Z.json",
+        "_report/usage/case-study/relay-insight/tests-20251003T191310Z.json",
+        "docs/impact/relay-insight-public.md",
+        "docs/vision/relay-offering-sample-brief.md",
+        "memory/decisions/decision-20250926T220511Z.json"
+      ]
+    },
+    {
+      "type": "backlog",
+      "id": "ND-071",
+      "title": "Convergence metrics pipeline",
+      "coord": {
+        "layer": "L6",
+        "systemic_scale": 6
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-convergence-metrics/requirements.md",
+        "queue/071-convergence-metrics.md"
+      ]
+    },
+    {
+      "type": "backlog",
+      "id": "ND-062",
+      "title": "Autonomy audit receipt aggregation",
+      "coord": {
+        "layer": "L6",
+        "systemic_scale": 5
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": [
+        "_report/usage/autonomy-audit/summary-latest.json",
+        "_report/usage/autonomy-audit/pytest-autonomy-digest.xml",
+        "docs/automation/autonomy-audit-digest.md",
+        "tools/autonomy/autonomy_audit_digest.py",
+        "tests/test_autonomy_audit_digest.py",
+        "docs/automation.md",
+        "_report/usage/autonomy-audit/archive/20251020T084307Z/manifest.json",
+        "_report/usage/autonomy-audit/archive/20251020T084958Z/manifest.json"
+      ]
+    },
+    {
+      "type": "backlog",
+      "id": "ND-063",
+      "title": "Receipts index streaming",
+      "coord": {
+        "layer": "L6",
+        "systemic_scale": 5
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-receipts-index-streaming/requirements.md",
+        "_plans/next-development.todo.json"
+      ]
+    },
+    {
+      "type": "backlog",
+      "id": "ND-067",
+      "title": "Autonomy module consolidation",
+      "coord": {
+        "layer": "L6",
+        "systemic_scale": 4
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-autonomy-module-consolidation/requirements.md",
+        "_plans/next-development.todo.json"
+      ]
+    },
+    {
+      "type": "backlog",
+      "id": "ND-057",
+      "title": "Automate evidence_usage + targeted prune cadence",
+      "coord": {
+        "layer": "L6",
+        "systemic_scale": 2
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": [
+        "_plans/next-development.todo.json"
+      ]
+    },
+    {
+      "type": "task",
+      "id": "QUEUE-082",
+      "title": "QUEUE-082",
+      "coord": {
+        "layer": "L5",
+        "systemic_scale": 9
+      },
+      "reason": "missing_guard_receipt",
+      "receipts": []
+    }
+  ],
+  "receipt_sha256": "7f19df3e405202a54ab7530a261a3bbca0fe2953638783b858380086760c2aa6"
+}

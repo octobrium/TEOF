@@ -136,11 +136,14 @@ def test_scan_text_mode_receipts_and_emissions(
     assert "- critic: receipts/critic.json" in output
     assert "- tms: receipts/tms.json" in output
     assert "- ethics: receipts/ethics.json" in output
+    assert "- ratchet: receipts/ratchet.json" in output
     assert "Bus claims:" in output
     assert "- critic: _bus/claims/REPAIR-ND-1.json" in output
     assert "- ethics: _bus/claims/ETHICS-TASK-9.json" in output
     assert "Plans:" in output
     assert "- _plans/TMS-fact-1.plan.json" in output
+    assert "\nRatchet:" in output
+    assert "ratchet_index=" in output
 
 
 def test_scan_json_with_receipts_and_emission(
@@ -170,12 +173,14 @@ def test_scan_json_with_receipts_and_emission(
     assert (receipts_dir / "critic.json").exists()
     assert (receipts_dir / "tms.json").exists()
     assert (receipts_dir / "ethics.json").exists()
+    assert (receipts_dir / "ratchet.json").exists()
 
     assert payload["receipts"] == {
         "frontier": "receipts/frontier.json",
         "critic": "receipts/critic.json",
         "tms": "receipts/tms.json",
         "ethics": "receipts/ethics.json",
+        "ratchet": "receipts/ratchet.json",
     }
 
     # Emission should create bus claims and plan skeletons
@@ -193,6 +198,16 @@ def test_scan_json_with_receipts_and_emission(
     assert critic_claim.exists()
     assert ethics_claim.exists()
     assert plan_file.exists()
+    history_file = root / "_report" / "usage" / "systemic-scan" / "ratchet-history.jsonl"
+    assert history_file.exists()
+
+    ratchet_payload = payload.get("ratchet")
+    assert isinstance(ratchet_payload, dict)
+    for key in ("coherence_gain", "complexity_added", "closure_velocity", "risk_load", "ratchet_index"):
+        assert key in ratchet_payload
+    assert "scan_counts" in ratchet_payload
+    scan_counts = ratchet_payload["scan_counts"]
+    assert scan_counts == payload["counts"]
 
 
 def test_scan_only_frontier(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:

@@ -76,7 +76,7 @@ $ python -m tools.agent.task_assign --task QUEUE-042 --agent codex-4 \
 
 **codex-4 acknowledges and starts:**
 ```bash
-$ python -m tools.agent.bus_event log --event status --task QUEUE-042 \
+$ python3 -m teof bus_event log --event status --task QUEUE-042 \
     --summary "codex-4: starting health check implementation"
 
 ✓ Event logged to _bus/events/events.jsonl
@@ -102,7 +102,7 @@ $ git commit -m "feat: add health check endpoint with DB/cache checks"
 **codex-4 logs test results:**
 ```bash
 $ pytest tests/test_health.py > _report/agent/codex-4/QUEUE-042/test-results.txt
-$ python -m tools.agent.bus_message --task QUEUE-042 --type status \
+$ python -m teof bus_message --task QUEUE-042 --type status \
     --summary "codex-4: tests passing (5/5)" \
     --receipt _report/agent/codex-4/QUEUE-042/test-results.txt
 
@@ -120,7 +120,7 @@ $ python -m tools.agent.bus_message --task QUEUE-042 --type status \
 
 **codex-3 (reviewer role) monitors the bus:**
 ```bash
-$ python -m tools.agent.bus_watch --task QUEUE-042 --follow
+$ python3 -m teof bus_watch --task QUEUE-042 --follow
 
 [2025-01-07T10:06:00Z] assignment | manager: Assigned QUEUE-042 to codex-4
 [2025-01-07T10:07:30Z] status | codex-4: starting health check implementation
@@ -129,7 +129,7 @@ $ python -m tools.agent.bus_watch --task QUEUE-042 --follow
 
 **codex-3 reviews and comments:**
 ```bash
-$ python -m tools.agent.bus_message --task QUEUE-042 --type review \
+$ python -m teof bus_message --task QUEUE-042 --type review \
     --summary "codex-3: LGTM, consider adding timeout param" \
     --meta reviewer=codex-3
 
@@ -152,10 +152,10 @@ $ gh pr create --title "Add health check endpoint" --body "Closes QUEUE-042..."
 
 **codex-4 logs completion:**
 ```bash
-$ python -m tools.agent.bus_event log --event pr_opened --task QUEUE-042 \
+$ python3 -m teof bus_event log --event pr_opened --task QUEUE-042 \
     --summary "codex-4: PR #156 opened" --meta pr=156
 
-$ python -m tools.agent.bus_claim release --task QUEUE-042 --status done \
+$ python -m teof bus_claim release --task QUEUE-042 --status done \
     --summary "Implementation complete, tests green, PR opened"
 
 ✓ Claim released

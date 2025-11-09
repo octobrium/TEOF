@@ -2,6 +2,8 @@
 
 > **Every decision should be traceable. TEOF makes that automatic. Run one command, get proof.**
 
+> _Maintainer note_: Before editing this doc, complete the [Onboarding Documentation Verification SOP](doc-verification-sop.md) and attach the required receipts.
+
 ## What is TEOF?
 
 TEOF is an alignment framework that automatically creates audit trails for every action. Whether you're a solo developer or coordinating with AI agents, TEOF ensures your decisions are:
@@ -17,7 +19,7 @@ Think of it as **Git for decisions, but deeper**: Git tracks *what files changed
 Run this single command from the repository root:
 
 ```bash
-python -m teof up --eval
+python3 -m teof up --eval
 # Legacy wrapper: bin/teof-eval-PROTOTYPE.sh
 ```
 
@@ -32,6 +34,7 @@ This will:
 ```
 artifacts/systemic_out/latest/          # symlink → artifacts/systemic_out/<UTC stamp>/
   ├── brief.json          # Summary with 10 sample inputs and generated ensembles
+  ├── metadata.json       # Systemic provenance (layers, axes, referenced receipts)
   ├── score.txt           # Quick metrics (e.g., ensemble_count=10)
   └── *.ensemble.json     # 10 ensemble files (one per input document)
 
@@ -44,6 +47,7 @@ _report/usage/onboarding/
 **Those files ARE the point.**
 
 - `brief.json` — shows what happened (analysis processed 10 sample documents and generated ensembles)
+- `metadata.json` — captures layer/systemic targets plus links to the receipts you just generated
 - `score.txt` — quick metrics to sanity-check the run (e.g., ensemble_count=10)
 - `*.ensemble.json` — 10 individual ensemble files, one per input document
 - `tier1-evaluation-*.json` — records the entire execution (what was run, what changed, success/failure)
@@ -81,7 +85,7 @@ These aren't features you configure — they're **built-in guarantees**. TEOF's 
 
 **Want to donate compute next?**
 ```bash
-python -m teof up --contribute \
+python3 -m teof up --contribute \
   --contributor-id <slug> \
   --workload tier1-eval
 ```
@@ -91,6 +95,8 @@ See [`docs/onboarding/contributor-flow.md`](contributor-flow.md) for details.
 ## Next steps
 
 ### Ready to build with TEOF?
+> **Mandatory gate:** If you plan to edit this repository (code, docs, governance), you **must** complete Tier 2 first. Tier 1 is observe-only.
+
 → **[Tier 2: Solo Developer Path](tier2-solo-dev-PROTOTYPE.md)** (30 minutes)
 
 Learn how to:

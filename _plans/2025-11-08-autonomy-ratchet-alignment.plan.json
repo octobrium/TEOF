@@ -1,0 +1,61 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-08-autonomy-ratchet-alignment",
+  "created": "2025-11-08T22:45:43Z",
+  "actor": "codex-tier2",
+  "summary": "Align autonomy footprint baseline + scan receipts with ratchet telemetry",
+  "systemic_targets": [
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 1,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit-footprint",
+      "status": "done",
+      "notes": "Synced docs/automation/autonomy-footprint-baseline.json with live get_autonomy_footprint telemetry (modules=35, loc=6091, helpers=189).",
+      "receipts": [
+        "docs/automation/autonomy-footprint-baseline.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Refresh-tests",
+      "status": "done",
+      "notes": "Extended tests/test_teof_scan.py to expect ratchet.json receipt + payload, matching docs/automation.md behavior.",
+      "receipts": [
+        "tests/test_teof_scan.py",
+        "tests/test_autonomy_footprint.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Verify-pytest",
+      "status": "done",
+      "notes": "pytest tests/test_autonomy_footprint.py tests/test_teof_scan.py -q (2025-11-08T22:46Z)",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-08-autonomy-ratchet-alignment/tests.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "docs/automation/autonomy-footprint-baseline.json",
+    "tests/test_teof_scan.py",
+    "tests/test_autonomy_footprint.py",
+    "_report/agent/codex-tier2/2025-11-08-autonomy-ratchet-alignment/tests.json"
+  ]
+}

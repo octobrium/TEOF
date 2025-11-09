@@ -20,8 +20,8 @@ Every phase already has tooling; the “lane” simply wires them together so au
 | Phase | Command(s) | Mandatory receipts |
 | --- | --- | --- |
 | Handshake | `python -m tools.agent.session_boot --agent <id> --focus <focus> --with-status` | `_report/session/<id>/session_boot/*.json` |
-| Claim | `python -m tools.agent.bus_claim claim --task <queue-id> --plan <plan-id> [--branch …]` | `_bus/claims/<task>.json`, `_plans/<plan>.plan.json` |
-| Broadcast | `python -m tools.agent.bus_event log --event status --task <task> --summary "..." --plan <plan>` and/or `python -m tools.agent.bus_ping …` | `_bus/events/events.jsonl`, `_bus/messages/<task>.jsonl` |
+| Claim | `python -m teof bus_claim claim --task <queue-id> --plan <plan-id> [--branch …]` | `_bus/claims/<task>.json`, `_plans/<plan>.plan.json` |
+| Broadcast | `python3 -m teof bus_event log --event status --task <task> --summary "..." --plan <plan>` and/or `python -m tools.agent.bus_ping …` | `_bus/events/events.jsonl`, `_bus/messages/<task>.jsonl` |
 | Memory | `python tools/memory/log-entry.py --summary "…" --ref <task/plan> --artifact <receipt>` | `memory/log.jsonl`, `_report/agent/<id>/…` |
 
 Running these in order already satisfies manager policies. The lane helper below packages the same choreography so new agents can plug in with fewer manual steps.
@@ -45,8 +45,8 @@ python -m tools.agent.lane \
 What happens:
 
 1. `session_boot` runs with `--with-status`, refreshing the manager report receipt.
-2. `bus_claim` (optional) ensures the task is owned (`--skip-claim` bypasses this).
-3. `bus_event log` emits a status heartbeat (and optionally `bus_message` for a lane like `manager-report`).
+2. `python -m teof bus_claim` (optional) ensures the task is owned (`--skip-claim` bypasses this).
+3. `python3 -m teof bus_event log` emits a status heartbeat (and optionally `bus_message` for a lane like `manager-report`).
 4. `_report/agent/codex-7/lane/<ts>.json` records the arguments + exit codes so other agents can replay or audit.
 
 ### Flags
@@ -69,6 +69,6 @@ Hand off to `python tools/memory/log-entry.py …` after the helper completes to
 - Create/refresh the plan before claiming; the lane expects `_plans/<plan>.plan.json` to exist and validate.
 - Ensure `_report/agent/<id>/lane/` is tracked—receipts from each run unlock fast forensic replay.
 - During long sessions, rerun `python -m tools.agent.lane --skip-claim --message-task manager-report --summary "…"`.
-- When releasing the task, run `python -m tools.agent.bus_claim release …` and capture a final lane receipt for the exit heartbeat.
+- When releasing the task, run `python -m teof bus_claim release …` and capture a final lane receipt for the exit heartbeat.
 
 This helper doesn’t replace the constitutional rules; it makes following them the default. Extend it (or compose new helpers) as additional phases become automatable (plan validation, memory append, receipts index refresh, etc.).

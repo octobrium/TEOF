@@ -181,10 +181,8 @@ def handle_release(args: argparse.Namespace) -> None:
     print(f"Updated claim {args.task} → status={status}")
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Manage agent bus claims")
+def configure_parser(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="command", required=True)
-
     claim = sub.add_parser("claim", help="Create or update a task claim")
     claim.add_argument("--task", required=True, help="Task identifier (e.g., QUEUE-001)")
     claim.add_argument("--plan", help="Associated plan id")
@@ -212,7 +210,7 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         help="Override session freshness limit in seconds (default: env TEOF_SESSION_MAX_AGE or 3600)",
     )
-    claim.set_defaults(func=handle_claim)
+    claim.set_defaults(handler=handle_claim)
 
     release = sub.add_parser("release", help="Release a task claim")
     release.add_argument("--task", required=True, help="Task identifier")
@@ -229,20 +227,32 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         help="Override session freshness limit in seconds (default: env TEOF_SESSION_MAX_AGE or 3600)",
     )
-    release.set_defaults(func=handle_release)
+    release.set_defaults(handler=handle_release)
 
     return parser
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Manage agent bus claims")
+    return configure_parser(parser)
+
+
+def run_with_namespace(args: argparse.Namespace, *, parser: argparse.ArgumentParser | None = None) -> int:
+    handler = getattr(args, "handler", None)
+    if handler is None:
+        if parser:
+            parser.print_help()
+        else:
+            print("bus_claim: missing subcommand", file=sys.stderr)
+        return 1
+    handler(args)
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    try:
-        args.func(args)
-    except AttributeError:
-        parser.print_help()
-        return 1
-    return 0
+    return run_with_namespace(args, parser=parser)
 
 
 if __name__ == "__main__":

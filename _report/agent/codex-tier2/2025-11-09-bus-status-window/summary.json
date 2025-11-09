@@ -1,0 +1,12 @@
+{
+  "generated_at": "2025-11-09T05:45:30Z",
+  "summary": [
+    "Documented bus_status window defaults/disable in docs/agents.md and docs/parallel-codex.md",
+    "Extended tests to assert --window-hours 0 surfaces older events in text mode"
+  ],
+  "artifacts": [
+    "docs/agents.md",
+    "docs/parallel-codex.md",
+    "tests/test_agent_bus_status.py"
+  ]
+}

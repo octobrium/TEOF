@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 from teof.commands import foreman
 
 
@@ -11,3 +13,13 @@ def test_choose_action_matches_keywords():
 
 def test_choose_action_handles_unknown_request():
     assert foreman._choose_action("schedule a meeting", foreman._ACTIONS) is None
+
+
+def test_spoken_from_args_prefers_flag_value():
+    args = SimpleNamespace(say="  run scan ", phrase=["ignored"])
+    assert foreman._spoken_from_args(args) == "run scan"
+
+
+def test_spoken_from_args_joins_positional_phrase():
+    args = SimpleNamespace(say=None, phrase=["run", "the", "alignment", "scan"])
+    assert foreman._spoken_from_args(args) == "run the alignment scan"

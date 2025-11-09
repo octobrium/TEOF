@@ -46,20 +46,20 @@ Recommended fields: `branch`, `plan_id`, `pr`, `receipts`.
 
 ## Tooling (planned)
 
-- `python -m tools.agent.bus_claim` — create/release claims safely.
+- `python -m teof bus_claim` — create/release claims safely.
 - `python -m tools.agent.bus_event` — append events with validation (supports `--severity` values `low|medium|high`).
-- `python -m tools.agent.bus_status` — render current claims + latest events (`--agent <id>`, `--active-only`, `--since <ISO>`, `--json`).
+- `python3 -m teof bus_status` (alias: `python -m tools.agent.bus_status`) — render current claims + latest events (`--agent <id>`, `--active-only`, `--since <ISO>`, `--json`).
 - `python -m tools.agent.bus_watch` — stream or filter events (`--follow`, `--since <ISO>`, `--agent <id>`, `--event <type>`).
 
 ## Workflow
 
 1. Agent starts session and logs a handshake (`python -m tools.agent.session_boot --agent <id>`).
 2. Manager assigns tasks with `python -m tools.agent.task_assign --task ... --engineer ...` (writes `_bus/assignments/<task>.json` and appends `_bus/messages/<task>.jsonl`).
-3. Engineer claims assigned task (`bus_claim claim --task QUEUE-001 --plan ...`).
+3. Engineer claims assigned task (`python -m teof bus_claim claim --task QUEUE-001 --plan ...`).
 4. Engineer emits events during work (`bus_event log --event proposal ...`); manager monitors with `bus_watch` and `bus_status`.
 5. Engineers update plan + justification, open PRs, and store receipts under `_report/agent/<id>/...`.
 6. Manager runs `python -m tools.agent.manager_report` to generate `_report/manager/manager-report-<ts>.md` summarising consensus and outstanding work.
-7. On completion, engineer releases claim (`bus_claim release ... --status done`), manager posts a `consensus` message if ready for review.
+7. On completion, engineer releases claim (`python -m teof bus_claim release ... --status done`), manager posts a `consensus` message if ready for review.
 8. Humans audit via `_bus/events/*.jsonl`, `_bus/messages/*.jsonl`, and `_report/**` receipts.
 
 ## Interaction with memory + plans

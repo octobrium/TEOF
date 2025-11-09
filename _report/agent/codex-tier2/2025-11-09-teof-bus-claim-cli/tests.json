@@ -1,0 +1,9 @@
+{
+  "generated_at": "2025-11-09T05:34:33Z",
+  "tests": [
+    {
+      "command": "pytest tests/test_teof_bus_claim.py tests/test_agent_bus_claim.py",
+      "result": "pass"
+    }
+  ]
+}

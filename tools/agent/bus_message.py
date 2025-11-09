@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -20,6 +21,7 @@ CLAIMS_DIR = ROOT / "_bus" / "claims"
 AGENT_REPORT_DIR = ROOT / "_report" / "agent"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
 GUARDED_MESSAGE_TYPES = {"status", "note", "request", "summary", "consensus", "proposal"}
+TARGET_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]*")
 
 
 def _iso_now() -> str:
@@ -48,6 +50,21 @@ def _append_message(path: Path, payload: Mapping[str, Any]) -> Path:
     return path
 
 
+def _normalize_target(target: str | None) -> str | None:
+    if target is None:
+        return None
+    candidate = target.strip().lower()
+    if not candidate:
+        raise SystemExit("--target requires a non-empty agent id")
+    if "/" in candidate or "\\" in candidate:
+        raise SystemExit("--target must not contain path separators")
+    if not TARGET_PATTERN.fullmatch(candidate):
+        raise SystemExit("--target must contain only alphanumeric, dot, underscore, or hyphen characters")
+    if candidate.startswith("."):
+        raise SystemExit("--target must not start with '.'")
+    return candidate
+
+
 def log_message(
     *,
     task_id: str,
@@ -63,6 +80,7 @@ def log_message(
     allow_stale_session: bool = False,
     session_max_age: Optional[int] = None,
     context: str = "bus_message",
+    target: Optional[str] = None,
 ) -> Path:
     agent_id = session_guard.resolve_agent_id(agent_id, manifest_path=MANIFEST_PATH)
     session_guard.ensure_recent_session(
@@ -78,8 +96,8 @@ def log_message(
             report_root=AGENT_REPORT_DIR,
             agent_id=agent_id,
             task_id=task_id,
-            action=msg_type,
-        )
+        action=msg_type,
+    )
 
     payload: Dict[str, Any] = {
         "ts": timestamp or _iso_now(),
@@ -88,6 +106,7 @@ def log_message(
         "task_id": task_id,
         "summary": summary,
     }
+    target_slug = _normalize_target(target)
     if branch:
         payload["branch"] = branch
     if plan_id:
@@ -99,22 +118,30 @@ def log_message(
         payload["receipts"] = receipts_list
     if note:
         payload["note"] = note
+    if target_slug:
+        payload["to"] = target_slug
 
     path = MESSAGES_DIR / f"{task_id}.jsonl"
     result = _append_message(path, payload)
+
+    if target_slug:
+        agent_payload = dict(payload)
+        agent_path = MESSAGES_DIR / f"agent-{target_slug}.jsonl"
+        _append_message(agent_path, agent_payload)
+
     record_usage(
         "bus_message",
         action=msg_type,
         extra={
             "task": task_id,
             "agent": agent_id,
+            **({"target": target_slug} if target_slug else {}),
         },
     )
     return result
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Append a message to the bus")
+def configure_parser(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     parser.add_argument("--task", required=True, help="Task identifier (e.g., QUEUE-001)")
     parser.add_argument("--type", required=True, help="Message type (assignment, status, note, etc.)")
     parser.add_argument("--summary", required=True, help="Short message summary")
@@ -124,6 +151,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--receipt", action="append", help="Receipt path to attach (repeatable)")
     parser.add_argument("--meta", action="append", help="Additional key=value metadata (repeatable)")
     parser.add_argument("--note", help="Optional note to include in the message")
+    parser.add_argument(
+        "--target",
+        help="Agent role to notify (writes `_bus/messages/agent-<role>.jsonl` in addition to the task lane)",
+    )
     parser.add_argument(
         "--allow-stale-session",
         action="store_true",
@@ -137,10 +168,14 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: list[str] | None = None) -> int:
-    parser = build_parser()
-    args = parser.parse_args(argv)
-    meta = _parse_meta(args.meta)
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Append a message to the bus")
+    configure_parser(parser)
+    return parser
+
+
+def run_with_namespace(args: argparse.Namespace, *, parser: argparse.ArgumentParser | None = None) -> int:
+    meta = _parse_meta(getattr(args, "meta", None))
     path = log_message(
         task_id=args.task,
         msg_type=args.type,
@@ -153,13 +188,31 @@ def main(argv: list[str] | None = None) -> int:
         note=args.note,
         allow_stale_session=args.allow_stale_session,
         session_max_age=args.session_max_age,
+        target=args.target,
     )
+
     try:
         display_path = path.relative_to(ROOT)
     except ValueError:
         display_path = path
-    print(f"Logged message to {display_path}")
+
+    if args.target:
+        target_slug = _normalize_target(args.target)
+        target_path = MESSAGES_DIR / f"agent-{target_slug}.jsonl"
+        try:
+            target_display = target_path.relative_to(ROOT)
+        except ValueError:
+            target_display = target_path
+        print(f"Logged message to {display_path} + agent inbox {target_display}")
+    else:
+        print(f"Logged message to {display_path}")
     return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    return run_with_namespace(args, parser=parser)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,8 @@
+{
+  "generated_at": "2025-11-09T04:33:30Z",
+  "summary": "Documented agent inbox workflow (bus_inbox helper + session_boot receipt) and --target usage in docs/agents.md and docs/parallel-codex.md.",
+  "artifacts": [
+    "docs/agents.md",
+    "docs/parallel-codex.md"
+  ]
+}

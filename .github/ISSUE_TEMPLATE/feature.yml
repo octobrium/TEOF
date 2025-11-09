@@ -40,7 +40,7 @@ body:
       label: Acceptance criteria
       description: "Objective checks to call this done."
       placeholder: |
-        - Offline: `python3 -m teof.cli validate examples_hello.json` passes
+        - Offline: `python3 -m teof scan --summary` passes
         - Receipt matches schema; manifest lists entrypoint; hashes verified
   - type: checkboxes
     id: priority

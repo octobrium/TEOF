@@ -1,0 +1,5 @@
+{
+  "plan_id": "2025-11-09-teof-bus-watch-cli",
+  "captured_at": "2025-11-09T05:04:48Z",
+  "summary": "Expose bus_watch via teof CLI with shared parser/tests/docs."
+}

@@ -1,0 +1,15 @@
+{
+  "generated_at": "2025-11-09T04:32:00Z",
+  "summary": [
+    "Extended tools.agent.bus_message with --target routing and agent inbox fan-out",
+    "Introduced tools.agent.bus_inbox for tailing _bus/messages/agent-<id>.jsonl with unread tracking",
+    "Updated session_boot to capture agent inbox receipts and surface unread counts"
+  ],
+  "artifacts": [
+    "tools/agent/bus_message.py",
+    "tools/agent/bus_inbox.py",
+    "tools/agent/session_boot.py",
+    "queue/074-agent-channel-infrastructure.md",
+    "_plans/2025-11-09-agent-channel-infrastructure.plan.json"
+  ]
+}

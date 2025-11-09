@@ -16,41 +16,52 @@
   "layer": "L5",
   "systemic_scale": 6,
   "impact_score": 3,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Inventory Tier1 accuracy issues",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Confirmed blockers via fresh Tier1 eval run (doc count 10, metadata receipt missing prior) and captured verification notes.",
+      "receipts": [
+        "_report/agent/codex-tier2/doc-verification/20251108T225351Z/notes.md"
+      ]
     },
     {
       "id": "S2",
       "title": "Patch docs & CLI to match reality",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "CLI now emits metadata.json and Tier1 doc highlights it; aligns doc promises with actual artifacts.",
+      "receipts": [
+        "teof/commands/up.py",
+        "docs/onboarding/tier1-evaluate-PROTOTYPE.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Re-run prototype with receipts",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Validated flow end-to-end after fixes; receipts stored under onboarding usage + artifacts tree.",
+      "receipts": [
+        "_report/usage/onboarding/tier1-evaluation-20251108T225351Z.json"
+      ]
     },
     {
       "id": "S4",
       "title": "Publish public-facing entry",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Tier 1 evaluate doc is now linked from README + onboarding landing so external observers have a canonical entry.",
+      "receipts": [
+        "README.md",
+        "docs/onboarding/README.md",
+        "_report/agent/codex-tier2/tier1-launch/20251108T230600Z/summary.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
     "owner": "Octo",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
     {
@@ -62,5 +73,9 @@
       "ref": "docs/proposals/20251105-fresh-evaluation-findings.md"
     }
   ],
-  "receipts": []
+  "receipts": [
+    "_report/agent/codex-tier2/doc-verification/20251108T225351Z/notes.md",
+    "_report/usage/onboarding/tier1-evaluation-20251108T225351Z.json",
+    "_report/agent/codex-tier2/tier1-launch/20251108T230600Z/summary.md"
+  ]
 }

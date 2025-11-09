@@ -79,7 +79,7 @@ def _run_help() -> int:
         "  • \"show me the status\"\n"
         "  • \"list today’s tasks\"\n"
         "  • \"rebuild the brief\"\n"
-        "Pass text with `teof foreman --say \"…\"` or call without arguments to type interactively."
+        "Pass text with `teof foreman --say \"…\"`, `teof foreman \"…\"`, or call without arguments to type interactively."
     )
     return 0
 
@@ -87,6 +87,18 @@ def _run_help() -> int:
 def _normalise(text: str) -> str:
     cleaned = re.sub(r"\s+", " ", text).strip()
     return cleaned.lower()
+
+
+def _spoken_from_args(args: argparse.Namespace) -> str | None:
+    spoken = getattr(args, "say", None)
+    if spoken is not None:
+        cleaned = spoken.strip()
+        return cleaned or None
+    words = getattr(args, "phrase", None)
+    if words:
+        joined = " ".join(words).strip()
+        return joined or None
+    return None
 
 
 _ACTIONS: tuple[ForemanAction, ...] = (
@@ -115,7 +127,7 @@ def _choose_action(text: str, actions: Iterable[ForemanAction]) -> ForemanAction
 
 
 def run(args: argparse.Namespace) -> int:
-    spoken = args.say
+    spoken = _spoken_from_args(args)
     if spoken is None:
         try:
             spoken = input("Foreman ▸ How can I help? ").strip()
@@ -146,7 +158,12 @@ def register(subparsers: "argparse._SubParsersAction[object]") -> None:
         metavar="TEXT",
         help="Plain-language instruction (otherwise prompted interactively)",
     )
+    parser.add_argument(
+        "phrase",
+        nargs=argparse.REMAINDER,
+        help="Plain-language instruction (alternate to --say)",
+    )
     parser.set_defaults(func=run)
 
 
-__all__ = ["register", "run", "_choose_action", "_ACTIONS"]
+__all__ = ["register", "run", "_choose_action", "_ACTIONS", "_spoken_from_args"]

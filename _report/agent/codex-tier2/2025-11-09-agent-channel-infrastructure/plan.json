@@ -1,0 +1,11 @@
+{
+  "generated_at": "2025-11-09T04:24:00Z",
+  "agent": "codex-tier2",
+  "plan_id": "2025-11-09-agent-channel-infrastructure",
+  "summary": "Plan captured for agent channel infrastructure (targeted bus_message posts, bus_inbox helper, session_boot inbox surfacing, docs).",
+  "links": [
+    "queue/074-agent-channel-infrastructure.md",
+    "_report/assessments/20251109-agent-communication-design.md",
+    "_report/assessments/20251109-agent-communication-decision.md"
+  ]
+}

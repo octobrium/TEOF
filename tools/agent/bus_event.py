@@ -120,6 +120,10 @@ def handle_log(args: argparse.Namespace) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Append coordination events")
+    return configure_parser(parser)
+
+
+def configure_parser(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="command", required=True)
 
     log = sub.add_parser("log", help="Append an event")
@@ -159,19 +163,18 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         help="Override session freshness limit in seconds (default: env TEOF_SESSION_MAX_AGE or 3600)",
     )
-    log.set_defaults(func=handle_log)
-
+    log.set_defaults(handler=handle_log)
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    try:
-        args.func(args)
-    except AttributeError:
+    handler = getattr(args, "handler", None)
+    if handler is None:
         parser.print_help()
         return 1
+    handler(args)
     return 0
 
 

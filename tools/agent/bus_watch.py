@@ -194,8 +194,7 @@ def stream_events(
         pass
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Tail or filter agent bus events")
+def configure_parser(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     parser.add_argument("--since", help="ISO8601 UTC timestamp (inclusive) to filter events")
     parser.add_argument("--agent", action="append", help="Filter by agent id (repeatable)")
     parser.add_argument("--event", dest="event_type", action="append", help="Filter by event name")
@@ -207,24 +206,36 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_WINDOW_HOURS,
         help="Restrict to events within the most recent N hours (default: %(default)s; use 0 to disable)",
     )
+    parser.add_argument(
+        "--path",
+        type=Path,
+        default=EVENT_LOG,
+        help="Override the events log path (default: %(default)s)",
+    )
     return parser
 
 
-def main(argv: list[str] | None = None) -> int:
-    parser = build_parser()
-    args = parser.parse_args(argv)
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Tail or filter agent bus events")
+    return configure_parser(parser)
 
+
+def run_with_namespace(args: argparse.Namespace, *, parser: argparse.ArgumentParser | None = None) -> int:
     try:
         since = parse_iso8601(args.since)
     except BusWatchError as exc:
-        parser.error(str(exc))
-        return 2
+        if parser:
+            parser.error(str(exc))
+            return 2
+        raise
 
     try:
         window_since = compute_window_since(args.window_hours)
     except BusWatchError as exc:
-        parser.error(str(exc))
-        return 2
+        if parser:
+            parser.error(str(exc))
+            return 2
+        raise
 
     effective_since = None
     candidates = [cutoff for cutoff in (since, window_since) if cutoff is not None]
@@ -233,7 +244,7 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         stream_events(
-            EVENT_LOG,
+            args.path,
             since=effective_since,
             agents=args.agent,
             events_filter=args.event_type,
@@ -241,9 +252,17 @@ def main(argv: list[str] | None = None) -> int:
             limit=args.limit,
         )
     except BusWatchError as exc:
-        parser.error(str(exc))
-        return 2
+        if parser:
+            parser.error(str(exc))
+            return 2
+        raise
     return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    return run_with_namespace(args, parser=parser)
 
 
 if __name__ == "__main__":

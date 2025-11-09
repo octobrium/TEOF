@@ -8,7 +8,7 @@ Purpose: equip the operator with ready-to-run stories, assets, and cadence for p
 1. Pick a story from `docs/evangelism/narrative-arcs.md` that matches the audience.
 2. Tailor the one-pager, slide outline, or demo script as needed.
 3. Log every external touch under `_report/usage/evangelism/` so guardrails can audit follow through.
-4. Sync receipts into the manager report via `python -m tools.agent.bus_event` when outreach lands.
+4. Sync receipts into the manager report via `python3 -m teof bus_event` when outreach lands.
 
 ### Current Assets
 - Narrative arcs: `docs/evangelism/narrative-arcs.md` (includes Arc D for capsule cadence)

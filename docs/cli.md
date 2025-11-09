@@ -13,7 +13,7 @@ pip install -e .
 Run the bundled "brief" example through the ensemble scorer and emit artifacts under `artifacts/systemic_out/<timestamp>/`:
 
 ```bash
-python -m teof.cli brief
+python3 -m teof brief
 ```
 
 Each invocation produces:

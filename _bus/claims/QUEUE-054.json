@@ -2,8 +2,9 @@
   "agent_id": "codex-tier2",
   "branch": "agent/codex-tier2/systemic-radar",
   "claimed_at": "2025-11-08T22:13:02Z",
-  "notes": "Systemic radar dashboard",
+  "notes": "Wrapped systemic radar dashboard plan (2025-11-08-systemic-radar-dashboard). Moving to automation/test follow-up.",
   "plan_id": "2025-11-08-systemic-radar-dashboard",
-  "status": "active",
+  "released_at": "2025-11-08T23:41:16Z",
+  "status": "done",
   "task_id": "QUEUE-054"
 }

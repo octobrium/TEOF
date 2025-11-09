@@ -128,10 +128,12 @@ python3 -m tools.maintenance.plan_hygiene
 python3 scripts/ci/check_plans.py
 python3 tools/planner/validate.py --strict --output _report/planner/validate/summary-latest.json
 python3 -m tools.agent.autonomy_status --json
-python3 -m tools.autonomy.systemic_radar --markdown docs/reports/systemic-radar.md
+python3 -m tools.autonomy.systemic_radar --markdown docs/reports/systemic_radar.md
 python3 scripts/ci/check_systemic_radar.py
 python3 tools/agent/bus_status.py --json --limit 5 >/dev/null
-pytest tests/test_agent_bus_status.py tests/test_systemic_rules.py tests/test_brief.py tests/test_systemic_eval.py
+echo "preflight: running full pytest suite for coverage enforcement"
+pytest
+python3 -m tools.tests.coverage_guard --threshold 0.70
 
 log_preflight "full"
-echo "Full preflight complete: receipts, plans, planner validation, bus status, targeted tests verified."
+echo "Full preflight complete: receipts, plans, systemic radar, full pytest coverage guard verified."

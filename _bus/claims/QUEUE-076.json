@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/coverage-guard",
+  "claimed_at": "2025-11-09T04:43:03Z",
+  "notes": "pytest coverage guard (>=70%) wired into runner/preflight with docs/tests.",
+  "plan_id": "2025-11-09-pytest-coverage-guard",
+  "released_at": "2025-11-09T04:52:42Z",
+  "status": "done",
+  "task_id": "QUEUE-076"
+}

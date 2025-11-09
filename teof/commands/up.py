@@ -110,6 +110,54 @@ class Tier1Result(TypedDict):
     document_count: int
     quickstart_receipt: Optional[Path]
     eval_receipt: Path
+    metadata_path: Path
+
+
+def _write_metadata(
+    target: Path,
+    ensembles: list[str],
+    doc_count: int,
+    eval_receipt: Path,
+    quickstart: Optional[Path],
+    score_text: str,
+) -> Path:
+    now = dt.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    rel_target = _rel(target)
+    score_file = target / "score.txt"
+    artifacts = {
+        "brief": f"{rel_target}/brief.json",
+        "ensembles": [f"{rel_target}/{name}" for name in ensembles],
+    }
+    if score_file.exists():
+        artifacts["score"] = f"{rel_target}/score.txt"
+
+    metadata = {
+        "schema_version": "1.0",
+        "summary": "Tier 1 evaluation artifacts demonstrating automatic receipts.",
+        "layer": "L5",
+        "layer_targets": ["L5", "L6"],
+        "systemic_targets": ["S3", "S4", "S6"],
+        "systemic_scale": 6,
+        "artifact_dir": rel_target,
+        "document_count": doc_count,
+        "score": score_text,
+        "artifacts": artifacts,
+        "receipts": [
+            _rel(eval_receipt),
+            _rel(quickstart) if quickstart else None,
+        ],
+        "references": [
+            "docs/onboarding/tier1-evaluate-PROTOTYPE.md",
+        ],
+        "workload": "tier1-eval",
+        "git_revision": _git_rev(),
+        "created_at": now,
+        "updated_at": now,
+    }
+    metadata["receipts"] = [value for value in metadata["receipts"] if value]
+    metadata_path = target / "metadata.json"
+    metadata_path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return metadata_path
 
 
 def _run_tier1_workload(*, skip_install: bool, receipt_dir: Path) -> Tier1Result:
@@ -120,6 +168,7 @@ def _run_tier1_workload(*, skip_install: bool, receipt_dir: Path) -> Tier1Result
     target, ensembles, score_text, doc_count = _load_artifacts()
     quickstart = _latest_quickstart_receipt()
     eval_receipt = _write_eval_receipt(target, ensembles, score_text, doc_count, receipt_dir)
+    metadata_path = _write_metadata(target, ensembles, doc_count, eval_receipt, quickstart, score_text)
     return {
         "artifact_dir": target,
         "ensembles": ensembles,
@@ -127,6 +176,7 @@ def _run_tier1_workload(*, skip_install: bool, receipt_dir: Path) -> Tier1Result
         "document_count": doc_count,
         "quickstart_receipt": quickstart,
         "eval_receipt": eval_receipt,
+        "metadata_path": metadata_path,
     }
 
 
@@ -176,7 +226,6 @@ def _run_eval(skip_install: bool, receipt_dir: Path) -> int:
     ensembles = result["ensembles"]
     score_text = result["score_text"]
     doc_count = result["document_count"]
-
     _section("Step 3/3: Here's what happened")
     print()
     _info("TEOF just created these files:")
@@ -185,6 +234,7 @@ def _run_eval(skip_install: bool, receipt_dir: Path) -> int:
     latest_rel = _rel(target)
     print(f"  {GREEN}{latest_rel}/{RESET}")
     print(f"    • brief.json          {BLUE}← Summary of {doc_count} sample documents{RESET}")
+    print(f"    • metadata.json       {BLUE}← Provenance + systemic metadata{RESET}")
     if ensembles:
         print(f"    • *.ensemble.json     {BLUE}← {len(ensembles)} generated analysis files{RESET}")
     if score_text:
@@ -208,6 +258,7 @@ def _run_eval(skip_install: bool, receipt_dir: Path) -> int:
     print(f"{BOLD}The Key Insight:{RESET}\n")
     print(f"Those files {BOLD}ARE{RESET} the point. They're your automatic audit trail.\n")
     print(f"  • {GREEN}brief.json{RESET}      → What happened (analysis processed {doc_count} sample documents)")
+    print(f"  • {GREEN}metadata.json{RESET}   → Systemic provenance (layers, axes, receipts)")
     if score_text:
         print(f"  • {GREEN}score.txt{RESET}       → Quick metrics to sanity-check the run ({score_text})")
     print(f"  • {GREEN}{eval_receipt.name}{RESET} → Full execution record (reproducible)")
@@ -291,6 +342,7 @@ def _run_contribution(args: argparse.Namespace) -> int:
             "artifact_dir": _rel(result["artifact_dir"]),
             "eval_receipt": _rel(result["eval_receipt"]),
             "quickstart_receipt": _rel(result["quickstart_receipt"]) if result["quickstart_receipt"] else None,
+            "metadata": _rel(result["metadata_path"]),
         },
         "document_count": result["document_count"],
         "score": result["score_text"],

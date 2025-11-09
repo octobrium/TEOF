@@ -13,8 +13,8 @@ Macro hygiene now lives in a structured ledger at `docs/maintenance/macro-hygien
 
 ## Automation
 
-- `python -m tools.autonomy.macro_hygiene` emits the objective status and writes `_report/usage/macro-hygiene-status.json`.
+- `python -m teof macro_hygiene` emits the objective status and writes `_report/usage/macro-hygiene-status.json`.
 - Add `"optional": true` to any check in `macro-hygiene.objectives.json` when the evidence is informative but not required. Optional misses are recorded yet keep the objective in a ready state unless you run `--strict`.
-- `python -m tools.autonomy.macro_hygiene --strict` treats optional checks as mandatory so you can audit drift without loosening normal operations.
+- `python -m teof macro_hygiene --strict` treats optional checks as mandatory so you can audit drift without loosening normal operations.
 - `python -m tools.agent.autonomy_status --json` now inlines the macro hygiene summary so readiness dashboards see gaps immediately.
 - When the ledger changes, update this doc and the JSON file together so CI and operators stay aligned.
