@@ -37,4 +37,4 @@ The manifest contains the `plan_id`, generation timestamp, and the resolved file
 3. Run `tools/agent/preflight.sh full` inside the scoped worktree, log receipts, and push.
 4. Delete the scoped worktree or reuse it for the next plan.
 
-This approach keeps each push auditable and prevents large, multi-plan diffs from tripping the preflight guard.*** End Patch
+This approach keeps each push auditable and prevents large, multi-plan diffs from tripping the preflight guard. When juggling multiple plans, run `teof deadlock --format json` and archive the output under `_report/deadlock/` so coordination logs capture the state before any escape-valve protocol kicks in.

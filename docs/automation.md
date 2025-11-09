@@ -55,6 +55,14 @@ Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the
 
 `python -m teof impact_bridge` connects `memory/impact/log.jsonl` to `_plans/**/*.plan.json` and `_plans/next-development.todo.json`, then writes JSON + markdown receipts under `_report/impact/bridge/`. The CLI now prints a human summary (counts, missing/orphan slugs, unused ledger entries), can emit structured stdout via `--format json`, and writes an explicit remediation queue when `--orphans-out <path>` is supplied. Use `--fail-on-missing` to flip the exit code when plans are missing `impact_ref` values or reference slugs that do not exist. For CI, run `scripts/ci/check_impact_bridge.py` — it executes the bridge CLI with temporary output paths so you can gate PRs without mutating the repo. See [`docs/impact/impact-bridge.md`](impact/impact-bridge.md) for the full workflow, including how to refresh receipts and interpret linkage stats.
 
+### Plan scope manifests
+
+`python -m teof plan_scope --plan <id>` prints the files linked to a plan (plan JSON, queue receipts, agent reports, scoped manifests) so you can push one unit at a time. Add `--format json` to feed automation or `--manifest _plan_scope/<plan>.json` to write a manifest suitable for `git checkout-index --stdin < manifest`. This prevents worktree accumulation (the root cause of coordination deadlocks) and gives reviewers a deterministic artifact. Docs live in [`docs/automation/plan-scope.md`](automation/plan-scope.md); store manifests under `_plan_scope/<plan>.json` so plan receipts can reference them.
+
+### Deadlock detection
+
+`python -m teof deadlock` inspects the current worktree for multi-plan accumulation and large dirty diffs. The CLI emits a summary or JSON payload noting dirty file counts, the plans implicated, and whether heuristics suspect a coordination deadlock. Run it before invoking the override protocol in [`docs/workflow.md`](workflow.md) and archive the JSON under `_report/deadlock/`. Tune sensitivity with `--file-threshold` / `--plan-threshold`, and follow the recommendations (`teof plan_scope`, `git worktree`, empirical escape valve) when the command flags recursion.
+
 ### Apoptosis compression
 
 `python -m tools.autonomy.apoptosis_compress` (in-flight) will bundle `_apoptosis/<stamp>/…` directories into hashed tarballs under `artifacts/apoptosis/`, emit receipts under `_report/usage/apoptosis/`, and remove the original raw dumps. Design notes covering bundle format, manifest schema, receipts, and the upcoming CI guard live in [`docs/automation/apoptosis-compression.md`](automation/apoptosis-compression.md). Implementors should follow that spec when adding the CLI, guard script, and documentation updates.
