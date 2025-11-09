@@ -1,0 +1,125 @@
+{
+  "task_id": "QUEUE-053",
+  "plan_id": "2025-11-09-observation-receipt-graph",
+  "generated_at": "2025-11-09T04:58:21Z",
+  "nodes": [
+    {
+      "id": "task:QUEUE-053",
+      "type": "task",
+      "label": "QUEUE-053",
+      "path": "queue/053-observation-receipt-graph.md"
+    },
+    {
+      "id": "claim:QUEUE-053",
+      "type": "claim",
+      "label": "Claim QUEUE-053",
+      "path": "_bus/claims/QUEUE-053.json",
+      "status": "active",
+      "agent": "codex-tier2"
+    },
+    {
+      "id": "plan:2025-11-09-observation-receipt-graph",
+      "type": "plan",
+      "label": "2025-11-09-observation-receipt-graph",
+      "path": "_plans/2025-11-09-observation-receipt-graph.plan.json",
+      "summary": "Close ND-053's missing receipts by adding a receipt_graph CLI that links queue briefs, plans, claims, and receipts plus accompanying docs/tests."
+    },
+    {
+      "id": "receipt:_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/plan.json",
+      "type": "receipt",
+      "label": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/plan.json",
+      "path": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/plan.json"
+    },
+    {
+      "id": "receipt:_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/tests.json",
+      "type": "receipt",
+      "label": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/tests.json",
+      "path": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/tests.json"
+    },
+    {
+      "id": "receipt:_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/summary.json",
+      "type": "receipt",
+      "label": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/summary.json",
+      "path": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/summary.json"
+    },
+    {
+      "id": "receipt:_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/graph-QUEUE-053.json",
+      "type": "receipt",
+      "label": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/graph-QUEUE-053.json",
+      "path": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/graph-QUEUE-053.json"
+    },
+    {
+      "id": "receipt:tools/observation/receipt_graph.py",
+      "type": "receipt",
+      "label": "tools/observation/receipt_graph.py",
+      "path": "tools/observation/receipt_graph.py"
+    },
+    {
+      "id": "receipt:tests/test_receipt_graph.py",
+      "type": "receipt",
+      "label": "tests/test_receipt_graph.py",
+      "path": "tests/test_receipt_graph.py"
+    }
+  ],
+  "edges": [
+    {
+      "source": "claim:QUEUE-053",
+      "target": "plan:2025-11-09-observation-receipt-graph",
+      "type": "references"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/graph-QUEUE-053.json",
+      "type": "produced"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/plan.json",
+      "type": "produced"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/summary.json",
+      "type": "produced"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/tests.json",
+      "type": "produced"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:tests/test_receipt_graph.py",
+      "type": "produced"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:tools/observation/receipt_graph.py",
+      "type": "produced"
+    },
+    {
+      "source": "task:QUEUE-053",
+      "target": "claim:QUEUE-053",
+      "type": "claimed"
+    },
+    {
+      "source": "task:QUEUE-053",
+      "target": "plan:2025-11-09-observation-receipt-graph",
+      "type": "planned"
+    }
+  ],
+  "sources": {
+    "queue": "queue/053-observation-receipt-graph.md",
+    "claim": "_bus/claims/QUEUE-053.json",
+    "plan": "_plans/2025-11-09-observation-receipt-graph.plan.json"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/tests.json",
+    "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/summary.json",
+    "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/graph-QUEUE-053.json",
+    "tools/observation/receipt_graph.py",
+    "tests/test_receipt_graph.py"
+  ],
+  "digest": "3f004ba81ffffd17813bbaac7d991b7ea1a3072fbb30a09315d4ef6512f5b75e"
+}

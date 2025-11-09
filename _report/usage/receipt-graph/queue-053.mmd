@@ -1,0 +1,23 @@
+graph TD
+  task_QUEUE_053["QUEUE-053 (task)"]
+  claim_QUEUE_053["Claim QUEUE-053 (claim)"]
+  plan_2025_11_09_observation_receipt_graph["2025-11-09-observation-receipt-graph (plan)"]
+  receipt__report_agent_codex_tier2_2025_11_09_observation_receipt_graph_requirements.md["_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/requirements.md (receipt)"]
+  receipt_queue_053_observation_receipt_graph.md["queue/053-observation-receipt-graph.md (receipt)"]
+  receipt_tools_observation_receipt_graph.py["tools/observation/receipt_graph.py (receipt)"]
+  receipt_tests_test_receipt_graph.py["tests/test_receipt_graph.py (receipt)"]
+  receipt_docs_agents.md["docs/agents.md (receipt)"]
+  event_2025_11_09T04_59_09Z_313["status @ 2025-11-09T04:59:09Z (event)"]
+  event_2025_11_09T05_00_09Z_314["status @ 2025-11-09T05:00:09Z (event)"]
+  claim_QUEUE_053 -->|bus_event| event_2025_11_09T04_59_09Z_313
+  claim_QUEUE_053 -->|bus_event| event_2025_11_09T05_00_09Z_314
+  claim_QUEUE_053 -->|references| plan_2025_11_09_observation_receipt_graph
+  event_2025_11_09T04_59_09Z_313 -->|plan_context| plan_2025_11_09_observation_receipt_graph
+  event_2025_11_09T05_00_09Z_314 -->|plan_context| plan_2025_11_09_observation_receipt_graph
+  plan_2025_11_09_observation_receipt_graph -->|produced| receipt__report_agent_codex_tier2_2025_11_09_observation_receipt_graph_requirements.md
+  plan_2025_11_09_observation_receipt_graph -->|produced| receipt_docs_agents.md
+  plan_2025_11_09_observation_receipt_graph -->|produced| receipt_queue_053_observation_receipt_graph.md
+  plan_2025_11_09_observation_receipt_graph -->|produced| receipt_tests_test_receipt_graph.py
+  plan_2025_11_09_observation_receipt_graph -->|produced| receipt_tools_observation_receipt_graph.py
+  task_QUEUE_053 -->|claimed| claim_QUEUE_053
+  task_QUEUE_053 -->|planned| plan_2025_11_09_observation_receipt_graph

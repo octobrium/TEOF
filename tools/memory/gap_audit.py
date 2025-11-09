@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable, Sequence, Tuple
 
@@ -97,13 +97,18 @@ def _audit(plans: Iterable[tuple[str, Path, dict]], refs: set[str], artifacts: s
     return rows
 
 
+def _utc_now() -> datetime:
+    """Return timezone-aware UTC now that honours datetime.utcnow monkeypatches."""
+    return datetime.utcnow().replace(tzinfo=timezone.utc)
+
+
 def _effective_since(since: datetime | None, window_hours: float | None) -> tuple[datetime | None, float | None]:
     if window_hours is None:
         return since, window_hours
-    window_since = datetime.utcnow() - timedelta(hours=window_hours)
+    window_since = _utc_now() - timedelta(hours=window_hours)
     if since is None:
         return window_since, window_hours
-    return max(since, window_since), window_hours
+    return (since if since > window_since else window_since), window_hours
 
 
 def run_audit(
@@ -124,10 +129,10 @@ def run_audit(
     plan_entries = list(_iter_plans(effective_since, plan_filter))
     rows = _audit(plan_entries, refs, artifacts)
     summary = {
-        "generated_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        "generated_at": _utc_now().isoformat(timespec="seconds").replace("+00:00", "Z"),
         "since": since,
         "window_hours": effective_window,
-        "effective_since": effective_since.isoformat(timespec="seconds") + "Z" if effective_since else None,
+        "effective_since": effective_since.isoformat(timespec="seconds").replace("+00:00", "Z") if effective_since else None,
         "total": len(rows),
         "recorded": sum(1 for row in rows if row["recorded"]),
         "missing": [row for row in rows if not row["recorded"]],

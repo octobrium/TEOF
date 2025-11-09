@@ -1,0 +1,8 @@
+{
+  "generated_at": "2025-11-09T17:33:43Z",
+  "task_id": "QUEUE-053",
+  "plan_id": "2025-11-09-observation-receipt-graph",
+  "receipt": "_report/usage/receipt-graph/receipt_graph-run-queue-053-20251109T173343.json",
+  "graph": "_report/usage/receipt-graph/queue-053-20251109T173343.json",
+  "mermaid": "_report/usage/receipt-graph/QUEUE-053.mmd"
+}

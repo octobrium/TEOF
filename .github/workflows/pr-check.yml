@@ -69,9 +69,7 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: python3 scripts/ci/check_memory_state.py
       - name: Memory gap audit
-        env:
-          MEMORY_GAP_WINDOW_HOURS: 168
-        run: python3 scripts/ci/check_memory_gap.py
+        run: python3 scripts/ci/check_memory_gap.py --window-hours 168 --max-missing 50
       - name: Build brief (staging)
         shell: bash
         run: |

@@ -1,0 +1,17 @@
+{
+  "schema": "teof.receipt_graph.run/v1",
+  "generated_at": "2025-11-09T17:33:43Z",
+  "task_id": "QUEUE-053",
+  "plan_id": "2025-11-09-observation-receipt-graph",
+  "graph_path": "_report/usage/receipt-graph/queue-053-20251109T173343.json",
+  "mermaid_path": "_report/usage/receipt-graph/QUEUE-053.mmd",
+  "digest": "c01beb82483ac28a02d4000658f3caafc37013aee7c10da0b6d62c8ee3ca2b14",
+  "node_counts": {
+    "task": 1,
+    "claim": 1,
+    "plan": 1,
+    "receipt": 5,
+    "event": 2
+  },
+  "edge_count": 12
+}
