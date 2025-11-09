@@ -234,10 +234,10 @@ def register_cli(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     append_cmd.add_argument("--ts", required=True, help="ISO8601 timestamp")
     append_cmd.add_argument("--metadata", type=Path)
     append_cmd.add_argument("--signature")
-    append_cmd.set_defaults(func=cmd_append)
+    append_cmd.set_defaults(_hash_ledger_handler=cmd_append)
 
     guard_cmd = sub.add_parser("guard", help="Validate ledger integrity")
-    guard_cmd.set_defaults(func=cmd_guard)
+    guard_cmd.set_defaults(_hash_ledger_handler=cmd_guard)
     return parser
 
 
@@ -245,7 +245,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     register_cli(parser)
     args = parser.parse_args(argv)
-    return args.func(args)
+    handler = getattr(args, "_hash_ledger_handler", None)
+    if handler is None:
+        parser.error("hash_ledger subcommand required")
+    return handler(args)
 
 
 if __name__ == "__main__":  # pragma: no cover
