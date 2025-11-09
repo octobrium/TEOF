@@ -39,7 +39,7 @@
       "status": "done",
       "notes": "Summarize the cadence decisions in _report/agent/codex-3/consensus-cadence/notes.md and capture doc diffs or key commands.",
       "receipts": [
-        "docs/reports/consensus-cadence.md"
+        "_report/agent/codex-3/consensus-cadence/notes.md"
       ]
     }
   ],

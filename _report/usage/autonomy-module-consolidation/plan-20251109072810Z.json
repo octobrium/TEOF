@@ -1,0 +1,142 @@
+{
+  "schema": "autonomy.module_consolidation.plan/v1",
+  "generated_at": "2025-11-09T07:28:10Z",
+  "services": [
+    {
+      "service": "coordination",
+      "target": "tools.autonomy.coord",
+      "modules": [
+        {
+          "path": "tools/autonomy/coordinator_manager.py",
+          "exists": true,
+          "lines": 193,
+          "primitive_hits": 1
+        },
+        {
+          "path": "tools/autonomy/coordinator_service.py",
+          "exists": true,
+          "lines": 100,
+          "primitive_hits": 1
+        },
+        {
+          "path": "tools/autonomy/coordinator_guard.py",
+          "exists": true,
+          "lines": 226,
+          "primitive_hits": 1
+        },
+        {
+          "path": "tools/autonomy/coordinator_worker.py",
+          "exists": true,
+          "lines": 182,
+          "primitive_hits": 1
+        },
+        {
+          "path": "tools/autonomy/coordinator_loop.py",
+          "exists": true,
+          "lines": 116,
+          "primitive_hits": 0
+        },
+        {
+          "path": "tools/autonomy/commitment_guard.py",
+          "exists": true,
+          "lines": 93,
+          "primitive_hits": 0
+        }
+      ],
+      "metrics": {
+        "line_count": 910,
+        "primitive_hits": 4
+      }
+    },
+    {
+      "service": "execution",
+      "target": "tools.autonomy.exec",
+      "modules": [
+        {
+          "path": "tools/autonomy/auto_loop.py",
+          "exists": true,
+          "lines": 512,
+          "primitive_hits": 0
+        },
+        {
+          "path": "tools/autonomy/conductor.py",
+          "exists": true,
+          "lines": 221,
+          "primitive_hits": 1
+        },
+        {
+          "path": "tools/autonomy/chronicle.py",
+          "exists": true,
+          "lines": 256,
+          "primitive_hits": 0
+        }
+      ],
+      "metrics": {
+        "line_count": 989,
+        "primitive_hits": 1
+      }
+    },
+    {
+      "service": "signal",
+      "target": "tools.autonomy.signal",
+      "modules": [
+        {
+          "path": "tools/autonomy/systemic_radar.py",
+          "exists": true,
+          "lines": 305,
+          "primitive_hits": 1
+        },
+        {
+          "path": "tools/autonomy/autonomy_radar.py",
+          "exists": false,
+          "lines": 0,
+          "primitive_hits": 0
+        },
+        {
+          "path": "tools/autonomy/objectives_status.py",
+          "exists": true,
+          "lines": 244,
+          "primitive_hits": 0
+        },
+        {
+          "path": "tools/autonomy/backlog_steward.py",
+          "exists": true,
+          "lines": 257,
+          "primitive_hits": 1
+        }
+      ],
+      "metrics": {
+        "line_count": 806,
+        "primitive_hits": 2
+      }
+    },
+    {
+      "service": "advisory",
+      "target": "tools.autonomy.advisory",
+      "modules": [
+        {
+          "path": "tools/autonomy/advisory_report.py",
+          "exists": true,
+          "lines": 165,
+          "primitive_hits": 0
+        },
+        {
+          "path": "tools/autonomy/decision_cycle.py",
+          "exists": true,
+          "lines": 148,
+          "primitive_hits": 0
+        },
+        {
+          "path": "tools/autonomy/next_step.py",
+          "exists": true,
+          "lines": 325,
+          "primitive_hits": 0
+        }
+      ],
+      "metrics": {
+        "line_count": 638,
+        "primitive_hits": 0
+      }
+    }
+  ]
+}

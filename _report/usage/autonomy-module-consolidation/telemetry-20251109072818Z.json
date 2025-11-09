@@ -1,0 +1,34 @@
+{
+  "schema": "autonomy.module_consolidation.telemetry/v1",
+  "generated_at": "2025-11-09T07:28:18Z",
+  "inventory_duration_ms": 0.71,
+  "services": [
+    {
+      "service": "coordination",
+      "module_count": 6,
+      "line_count": 910,
+      "primitive_hits": 4
+    },
+    {
+      "service": "execution",
+      "module_count": 3,
+      "line_count": 989,
+      "primitive_hits": 1
+    },
+    {
+      "service": "signal",
+      "module_count": 4,
+      "line_count": 806,
+      "primitive_hits": 2
+    },
+    {
+      "service": "advisory",
+      "module_count": 3,
+      "line_count": 638,
+      "primitive_hits": 0
+    }
+  ],
+  "duplication_tokens": {
+    "write_receipt": 15
+  }
+}

@@ -36,7 +36,9 @@
       "notes": "Implemented streaming CLI/tests/docs, emitted hashed shards, and refreshed the latest pointer.",
       "receipts": [
         "tools/autonomy/receipts_index_stream.py",
-        "tests/test_receipts_index_stream.py"
+        "tests/test_receipts_index_stream.py",
+        "_report/usage/receipts-index/stream/receipts-20251109T064955Z-0006.manifest.json",
+        "_report/usage/receipts-index/latest.json"
       ]
     }
   ],

@@ -1,0 +1,10 @@
+{
+  "generated_at": "2025-11-09T07:28:10Z",
+  "plan": "_report/usage/autonomy-module-consolidation/plan-20251109072810Z.json",
+  "services": [
+    "coordination",
+    "execution",
+    "signal",
+    "advisory"
+  ]
+}

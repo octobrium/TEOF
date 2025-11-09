@@ -1,0 +1,12 @@
+{
+  "shard_id": "receipts-20251109T064955Z-0006",
+  "sequence": 6,
+  "prev_shard": "receipts-20251109T064955Z-0005",
+  "prev_sha256": "75c28dd85cffe0eb3fb4054081fb4d3576551af5ed74af5c2aae103d7ab4ce9f",
+  "entries": 37,
+  "first_timestamp": "2025-11-07T01:47:23Z",
+  "last_timestamp": "2025-11-08T22:32:13Z",
+  "sha256": "75cba93e54a009bbbb6543277465cf46653c3478b4adac1952166f2625541343",
+  "generated_at": "2025-11-09T06:49:55Z",
+  "source": "_report/usage/receipts-index/manifest.json"
+}

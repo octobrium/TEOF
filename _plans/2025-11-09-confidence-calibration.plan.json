@@ -16,7 +16,7 @@
       "status": "done",
       "notes": "Reviewed queue brief + confidence docs to enumerate inputs, storage, CLI surface, metrics, and alert integration for ND-068.",
       "receipts": [
-        "docs/automation/confidence-calibration.md"
+        "_report/agent/codex-tier2/2025-11-09-confidence-calibration/requirements.md"
       ]
     },
     {
