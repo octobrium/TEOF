@@ -2,9 +2,8 @@
   "agent_id": "codex-tier2",
   "branch": "agent/codex-tier2/nd-074",
   "claimed_at": "2025-11-09T21:01:12Z",
-  "notes": "Auto-release stale claim (> threshold)",
+  "notes": "Ant-colony pickup",
   "plan_id": "2025-11-09-behavioral-gap-interventions",
-  "released_at": "2025-11-09T23:02:22Z",
-  "status": "released",
+  "status": "active",
   "task_id": "ND-074"
 }

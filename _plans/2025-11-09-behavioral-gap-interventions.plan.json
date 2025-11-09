@@ -18,7 +18,7 @@
   "layer": "L5",
   "systemic_scale": 6,
   "impact_score": 3,
-  "status": "queued",
+  "status": "in_progress",
   "steps": [
     {
       "id": "S1",
@@ -41,12 +41,17 @@
     {
       "id": "S3",
       "title": "Run controlled trials",
-      "status": "in_progress",
-      "notes": "Reflection audit CLI + tests now surface missing plan/tag metadata (see _report/analysis/reflection-gap/latest.json). Next step is to pair this with blind Test1 reruns, annotate reflections with plan IDs, and capture ≥20 trials for BES.",
+      "status": "done",
+      "notes": "Reflection audit guard enforced; recorded 20 blind Test1 reruns via tools.behavioral.trials with results logged in docs/analysis/behavioral-gap-trials-20251109.md and summary receipts under _report/usage/behavioral-trials/.",
       "receipts": [
         "tools/memory/reflection_audit.py",
         "tests/tools/test_reflection_audit.py",
-        "_report/analysis/reflection-gap/latest.json"
+        "tools/behavioral/trials.py",
+        "tests/tools/test_behavioral_trials.py",
+        "docs/analysis/behavioral-gap-trials-20251109.md",
+        "_report/usage/behavioral-trials/index.jsonl",
+        "_report/usage/behavioral-trials/summary-20251109T233106Z.json",
+        "_report/usage/plan-scope/plan-scope-2025-11-09-behavioral-gap-interventions-20251109T232611Z.json"
       ]
     },
     {
