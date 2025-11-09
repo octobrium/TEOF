@@ -1,0 +1,13 @@
+{
+  "module": "tools.autonomy.receipts_stream_guard",
+  "generated_at": "2025-11-09T17:46:18Z",
+  "status": "ok",
+  "message": "receipts_stream_guard: shard receipts-20251109T064955Z-0006.jsonl ok (seq=6, age=19.2h)",
+  "pointer": "_report/usage/receipts-index/latest.json",
+  "pointer_sha256": "75cba93e54a009bbbb6543277465cf46653c3478b4adac1952166f2625541343",
+  "shard": "_report/usage/receipts-index/stream/receipts-20251109T064955Z-0006.jsonl",
+  "manifest": "_report/usage/receipts-index/stream/receipts-20251109T064955Z-0006.manifest.json",
+  "sequence": 6,
+  "age_hours": 19.234862673333332,
+  "max_age_hours": 24.0
+}

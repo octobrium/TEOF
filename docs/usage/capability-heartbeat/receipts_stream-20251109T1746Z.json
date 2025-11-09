@@ -1,0 +1,21 @@
+{
+  "module": "tools.autonomy.receipts_index_stream",
+  "generated_at": "2025-11-09T17:46:06Z",
+  "command": "teof receipts_stream",
+  "subcommand": "stream",
+  "manifest": "_report/usage/receipts-index/manifest.json",
+  "dest": "_report/usage/receipts-index/stream",
+  "pointer": {
+    "path": "_report/usage/receipts-index/latest.json",
+    "latest": "_report/usage/receipts-index/stream/receipts-20251109T064955Z-0006.jsonl",
+    "sha256": "75cba93e54a009bbbb6543277465cf46653c3478b4adac1952166f2625541343",
+    "sequence": 6,
+    "generated_at": "2025-11-09T06:49:55Z"
+  },
+  "stats": {
+    "new_entries": 0,
+    "shards_created": 0,
+    "max_age_hours": 24.0,
+    "latest_entry_timestamp": "2025-11-08T22:32:13Z"
+  }
+}

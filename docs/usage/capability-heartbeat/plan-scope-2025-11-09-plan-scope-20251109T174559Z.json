@@ -1,0 +1,40 @@
+{
+  "schema": "teof.plan_scope.receipt/v1",
+  "command": "teof plan_scope",
+  "plan_id": "2025-11-09-plan-scope",
+  "generated_at": "2025-11-09T17:45:59Z",
+  "output_format": "json",
+  "file_count": 6,
+  "files": [
+    {
+      "path": "_plans/2025-11-09-plan-scope.plan.json",
+      "exists": true,
+      "source": "plan"
+    },
+    {
+      "path": "docs/automation/plan-scope.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "teof/commands/plan_scope.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tests/test_plan_scope.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_plan_scope/manifests/plan-scope.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/usage/plan-scope/latest.json",
+      "exists": true,
+      "source": "receipt"
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+{
+  "generated_at": "2025-11-09T17:46:27Z",
+  "command": "scan_history",
+  "query": {
+    "history_path": "/Users/evan/Documents/GitHub/TEOF/_report/usage/systemic-scan/ratchet-history.jsonl",
+    "limit": 10,
+    "components": null,
+    "format": "json",
+    "summary": true
+  },
+  "count": 10,
+  "summary_counts": {
+    "frontier": 29,
+    "critic": 0,
+    "tms": 0,
+    "ethics": 0
+  },
+  "entries": [
+    {
+      "ts": "2025-11-09T17:17:48Z",
+      "components": [
+        "frontier",
+        "critic",
+        "tms",
+        "ethics"
+      ],
+      "limit": 10,
+      "counts": {
+        "frontier": 3,
+        "critic": 0,
+        "tms": 0,
+        "ethics": 0
+      },
+      "format": "table",
+      "summary": false,
+      "emit_bus": false,
+      "emit_plan": false
+    },
+    {
+      "ts": "2025-11-09T17:18:04Z",
+      "components": [
+        "frontier",
+        "critic",
+        "tms",
+        "ethics"
+      ],
+      "limit": 10,
+      "counts": {
+        "frontier": 3,
+        "critic": 0,
+        "tms": 0,
+        "ethics": 0
+      },
+      "format": "json",
+      "summary": true,
+      "emit_bus": false,
+      "emit_plan": false
+    },
+    {
+      "ts": "2025-11-09T17:22:14Z",
+      "components": [
+        "frontier",
+        "critic",
+        "tms",
+        "ethics"
+      ],
+      "limit": 10,
+      "counts": {
+        "frontier": 3,
+        "critic": 0,
+        "tms": 0,
+        "ethics": 0
+      },
+      "format": "json",
+      "summary": false,
+      "emit_bus": false,
+      "emit_plan": false
+    },
+    {
+      "ts": "2025-11-09T17:25:11Z",
+      "components": [
+        "frontier",
+        "critic",
+        "tms",
+        "ethics"
+      ],
+      "limit": 10,
+      "counts": {
+        "frontier": 3,
+        "critic": 0,
+        "tms": 0,
+        "ethics": 0
+      },
+      "format": "table",
+      "summary": true,
+      "emit_bus": false,
+      "emit_plan": false
+    },
+    {
+      "ts": "2025-11-09T17:31:43Z",
+      "components": [
+        "frontier",
+        "critic",
+        "tms",
+        "ethics"
+      ],
+      "limit": 10,
+      "counts": {
+        "frontier": 3,
+        "critic": 0,
+        "tms": 0,
+        "ethics": 0
+      },
+      "format": "json",
+      "summary": false,
+      "emit_bus": false,
+      "emit_plan": false
+    },
+    {
+      "ts": "2025-11-09T17:32:00Z",
+      "components": [
+        "frontier",
+        "critic",
+        "tms",
+        "ethics"
+      ],
+      "limit": 10,
+      "counts": {
+        "frontier": 3,
+        "critic": 0,
+        "tms": 0,
+        "ethics": 0
+      },
+      "format": "table",
+      "summary": true,
+      "emit_bus": false,
+      "emit_plan": false
+    },
+    {
+      "ts": "2025-11-09T17:32:24Z",
+      "components": [
+        "frontier",
+        "critic",
+        "tms",
+        "ethics"
+      ],
+      "limit": 10,
+      "counts": {
+        "frontier": 3,
+        "critic": 0,
+        "tms": 0,
+        "ethics": 0
+      },
+      "format": "table",
+      "summary": true,
+      "emit_bus": false,
+      "emit_plan": false
+    },
+    {
+      "ts": "2025-11-09T17:32:44Z",
+      "components": [
+        "frontier",
+        "critic",
+        "tms",
+        "ethics"
+      ],
+      "limit": 10,
+      "counts": {
+        "frontier": 3,
+        "critic": 0,
+        "tms": 0,
+        "ethics": 0
+      },
+      "format": "json",
+      "summary": false,
+      "emit_bus": false,
+      "emit_plan": false
+    },
+    {
+      "ts": "2025-11-09T17:34:30Z",
+      "components": [
+        "frontier",
+        "critic",
+        "tms",
+        "ethics"
+      ],
+      "limit": 10,
+      "counts": {
+        "frontier": 3,
+        "critic": 0,
+        "tms": 0,
+        "ethics": 0
+      },
+      "format": "table",
+      "summary": true,
+      "emit_bus": false,
+      "emit_plan": false
+    },
+    {
+      "ts": "2025-11-09T17:44:46Z",
+      "components": [
+        "frontier",
+        "critic",
+        "tms",
+        "ethics"
+      ],
+      "limit": 10,
+      "counts": {
+        "frontier": 2,
+        "critic": 0,
+        "tms": 0,
+        "ethics": 0
+      },
+      "format": "table",
+      "summary": true,
+      "emit_bus": false,
+      "emit_plan": false
+    }
+  ]
+}
