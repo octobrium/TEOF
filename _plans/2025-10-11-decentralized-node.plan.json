@@ -8,7 +8,7 @@
   "layer": "L5",
   "systemic_scale": 6,
   "impact_score": 4,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -31,15 +31,18 @@
     {
       "id": "S3",
       "title": "Document governance + incentives",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Published binder covering incentives, guardrails, and receipt bundles under docs/usage/autonomous-node-governance.md.",
+      "receipts": [
+        "docs/usage/autonomous-node-governance.md",
+        "_report/usage/plan-scope/plan-scope-2025-10-11-decentralized-node-20251109T232218Z.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
-    "owner": "Octo",
-    "status": "pending"
+    "owner": "codex-tier2",
+    "status": "satisfied"
   },
   "links": [
     {

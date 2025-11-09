@@ -1,0 +1,40 @@
+{
+  "schema": "teof.plan_scope.receipt/v1",
+  "command": "teof plan_scope",
+  "plan_id": "2025-10-11-decentralized-node",
+  "generated_at": "2025-11-09T23:22:18Z",
+  "output_format": "table",
+  "file_count": 6,
+  "files": [
+    {
+      "path": "_plans/2025-10-11-decentralized-node.plan.json",
+      "exists": true,
+      "source": "plan"
+    },
+    {
+      "path": "docs/usage/autonomous-node-workflow.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "docs/usage/autonomous-node/20251012T193658Z/summary.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_bus/claims/ND-073.json",
+      "exists": true,
+      "source": "task_claim"
+    },
+    {
+      "path": "_bus/assignments/ND-073.json",
+      "exists": true,
+      "source": "task_assignment"
+    },
+    {
+      "path": "_bus/messages/ND-073.jsonl",
+      "exists": true,
+      "source": "task_messages"
+    }
+  ]
+}

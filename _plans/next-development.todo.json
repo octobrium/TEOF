@@ -470,7 +470,8 @@
     {
       "id": "ND-073",
       "title": "Decentralized node governance binder",
-      "status": "in_progress",
+      "status": "done",
+      "completed_at": "2025-11-09T23:25:00Z",
       "plan_suggestion": "2025-10-11-decentralized-node",
       "notes": "Document incentives, guardrails, and claim/receipt expectations so partner nodes can operate autonomously with verifiable governance.",
       "priority": "medium",

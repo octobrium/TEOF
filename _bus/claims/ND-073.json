@@ -2,9 +2,9 @@
   "agent_id": "codex-tier2",
   "branch": "agent/codex-tier2/nd-073",
   "claimed_at": "2025-11-09T18:47:15Z",
-  "notes": "Auto-release stale claim (> threshold)",
+  "notes": "Governance binder shipped",
   "plan_id": "2025-10-11-decentralized-node",
-  "released_at": "2025-11-09T23:02:22Z",
-  "status": "released",
+  "released_at": "2025-11-09T23:24:14Z",
+  "status": "done",
   "task_id": "ND-073"
 }

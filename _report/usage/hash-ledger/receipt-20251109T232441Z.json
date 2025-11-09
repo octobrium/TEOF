@@ -1,0 +1,15 @@
+{
+  "version": 0,
+  "prev_hash": "09f6b3644ba87bbe464a5b850f2592e787164a74d34ebe83d4147c6b4e59d0df",
+  "plan_id": "2025-10-11-decentralized-node",
+  "plan_step_id": "S3",
+  "receipt_path": "_report/usage/plan-scope/plan-scope-2025-10-11-decentralized-node-20251109T232407Z.json",
+  "agent_id": "codex-tier2",
+  "ts": "2025-11-09T23:24:41Z",
+  "metadata": {
+    "binder": "docs/usage/autonomous-node-governance.md",
+    "plan_scope_receipt": "_report/usage/plan-scope/plan-scope-2025-10-11-decentralized-node-20251109T232407Z.json",
+    "note": "Governance binder shipped"
+  },
+  "hash": "710232a801b76a41e66951a33515d4f7814bd3a6f26435a8b98eb3a2e1ce373d"
+}
