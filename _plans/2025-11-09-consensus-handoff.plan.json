@@ -1,0 +1,70 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-consensus-handoff",
+  "created": "2025-11-09T16:30:00Z",
+  "actor": "codex-tier2",
+  "summary": "Introduce a consensus handoff protocol + tooling so agents blocked from the bus can record actionable receipts.",
+  "status": "done",
+  "priority": 2,
+  "layer": "L4",
+  "systemic_scale": 6,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture requirements + failure mode",
+      "status": "done",
+      "notes": "Documented the guard recursion / bus access deadlock plus the receipt requirements tying pending action, branch, and next steps.",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-consensus-handoff/requirements.md",
+        "memory/impact/coordination-deadlock-finding-20251109.md",
+        "docs/workflow.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Author automation spec",
+      "status": "done",
+      "notes": "Added docs/automation/consensus-handoff.md covering workflow, CLI usage, and guardrails for emitting receipts under _report/analysis/.",
+      "receipts": [
+        "docs/automation/consensus-handoff.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Implement CLI + regression test",
+      "status": "done",
+      "notes": "Implemented tools.automation.consensus_handoff plus pytest coverage verifying receipt/pointer emission.",
+      "receipts": [
+        "tools/automation/consensus_handoff.py",
+        "tests/test_consensus_handoff.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Consensus handoff receipts are documented, implemented, and tested.",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-consensus-handoff/requirements.md",
+    "docs/automation/consensus-handoff.md",
+    "tools/automation/consensus_handoff.py",
+    "tests/test_consensus_handoff.py"
+  ],
+  "links": [
+    {
+      "type": "memory",
+      "ref": "memory/impact/coordination-deadlock-finding-20251109.md"
+    }
+  ],
+  "systemic_targets": [
+    "S2",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4",
+    "L5"
+  ],
+  "impact_ref": "2025-11-09-consensus-handoff"
+}
