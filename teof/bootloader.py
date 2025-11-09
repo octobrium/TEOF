@@ -8,6 +8,7 @@ command logic to dedicated modules under ``teof.commands``.
 from __future__ import annotations
 
 import argparse
+import signal
 from pathlib import Path
 from typing import Iterable
 
@@ -34,6 +35,24 @@ from tools.impact import ttd_trend as ttd_trend_mod  # noqa: F401
 
 ROOT = repo_root(default=Path(__file__).resolve().parents[1])
 SCAN_COMPONENTS = cmd_scan_mod.SCAN_COMPONENTS
+_SIGPIPE_CONFIGURED = False
+
+
+def _configure_sigpipe() -> None:
+    global _SIGPIPE_CONFIGURED
+    if _SIGPIPE_CONFIGURED:
+        return
+    try:
+        sigpipe = signal.SIGPIPE
+        sigdfl = signal.SIG_DFL
+    except AttributeError:
+        _SIGPIPE_CONFIGURED = True
+        return
+    try:
+        signal.signal(sigpipe, sigdfl)
+    except (OSError, ValueError):
+        pass
+    _SIGPIPE_CONFIGURED = True
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -44,6 +63,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Iterable[str] | None = None) -> int:
+    _configure_sigpipe()
     parser = build_parser()
     args = parser.parse_args(list(argv) if argv is not None else None)
     func = getattr(args, "func", None)

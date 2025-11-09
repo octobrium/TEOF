@@ -4,7 +4,7 @@
   "created": "2025-11-09T06:23:00Z",
   "actor": "codex-5",
   "summary": "Stabilize authenticity tiers (primary_truth + unassigned) after the 2025-10 alert streak by auditing guard receipts and wiring the follow-up remediation steps.",
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -29,7 +29,8 @@
   "checkpoint": {
     "description": "Authenticity tiers remain above threshold for both primary_truth and unassigned feeds with receipts proving remediation.",
     "owner": "codex-5",
-    "status": "pending"
+    "status": "satisfied",
+    "notes": "tools.external.authenticity_report run 2025-11-09T17:04Z shows primary_truth=0.85, unassigned=0.68 after remediation receipts."
   },
   "links": [
     {
@@ -43,7 +44,8 @@
   ],
   "receipts": [
     "docs/ethics/2025-11-09-authenticity-stability.md",
-    "docs/automation/authenticity-stability.md"
+    "docs/automation/authenticity-stability.md",
+    "_report/usage/external-authenticity.md"
   ],
   "layer": "L5",
   "systemic_scale": 6,

@@ -1,0 +1,75 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-autonomy-stress-test",
+  "created": "2025-11-09T17:18:39Z",
+  "actor": "Octo",
+  "summary": "Sprint autonomy stress test harness",
+  "impact_ref": "2025-11-09-autonomy-stress-test",
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S4"
+  ],
+  "layer_targets": [
+    "L6"
+  ],
+  "priority": 2,
+  "layer": "L6",
+  "systemic_scale": 4,
+  "impact_score": 10,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Define directive + guardrails",
+      "status": "done",
+      "notes": "Guardrails captured in _plans/exploratory/2025-11-09-autonomy-stress-test.md; baseline status receipt recorded.",
+      "receipts": [
+        "_report/exploratory/2025-11-09-autonomy-stress-test/status-20251109T172214Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Prototype orchestration loop",
+      "status": "done",
+      "notes": "Harness added at tools/automation/autonomy_stress.py and initial run captured break receipt.",
+      "receipts": [
+        "_report/exploratory/autonomy-stress-test/harness-20251109T172510Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Run sprint + log breaks",
+      "status": "done",
+      "notes": "Harness ran multiple loops capturing observation-drift breaks + final clean pass.",
+      "receipts": [
+        "_report/exploratory/autonomy-stress-test/harness-20251109T172510Z.json",
+        "_report/exploratory/autonomy-stress-test/harness-20251109T173200Z.json",
+        "_report/exploratory/autonomy-stress-test/harness-20251109T173224Z.json",
+        "_report/exploratory/autonomy-stress-test/harness-20251109T173240Z.json",
+        "_report/exploratory/autonomy-stress-test/harness-20251109T173322Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "doc",
+      "ref": "_plans/exploratory/2025-11-09-autonomy-stress-test.md"
+    }
+  ],
+  "receipts": [
+    "_report/exploratory/2025-11-09-autonomy-stress-test/status-20251109T172214Z.json",
+    "_report/exploratory/autonomy-stress-test/harness-20251109T173322Z.json"
+  ],
+  "lane": "exploratory",
+  "exploratory": {
+    "expires_at": "2025-11-12T17:18:39Z",
+    "horizon_hours": 72
+  }
+}

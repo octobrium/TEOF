@@ -13,8 +13,11 @@ def run(args: Namespace) -> int:
     statuses = getattr(args, "statuses", None)
     priorities = getattr(args, "priorities", None)
     agents = getattr(args, "agents", None)
+    plans = getattr(args, "plans", None)
     summary_only = bool(getattr(args, "summary", False))
     include_done = bool(getattr(args, "all", False))
+    limit_value = getattr(args, "limit", None)
+    limit = limit_value if isinstance(limit_value, int) and limit_value > 0 else None
     if statuses and any((status or "").strip().lower() == "done" for status in statuses):
         include_done = True
 
@@ -26,16 +29,24 @@ def run(args: Namespace) -> int:
         statuses=statuses,
         priorities=priorities,
         agents=agents,
+        plans=plans,
     )
     ordered = tasks_report.sort_tasks(filtered)
     warnings = tasks_report.compute_warnings(ordered)
     summary_data = tasks_report.summarize_tasks(ordered)
+    total_filtered = len(ordered)
+    if limit is not None and limit < total_filtered:
+        display_tasks = ordered[:limit]
+    else:
+        display_tasks = ordered
 
     if output_format == "json":
-        task_rows = [] if summary_only else ordered
+        task_rows = [] if summary_only else display_tasks
         payload = tasks_report.to_payload(task_rows, warnings=warnings)
         payload["summary"] = summary_data
         payload["summary_only"] = summary_only
+        payload["limit_applied"] = limit
+        payload["total_filtered"] = total_filtered
         try:
             json.dump(payload, sys.stdout, ensure_ascii=False, indent=2)
             sys.stdout.write("\n")
@@ -71,8 +82,10 @@ def run(args: Namespace) -> int:
         return 0
 
     try:
-        table = tasks_report.render_table(ordered)
+        table = tasks_report.render_table(display_tasks)
         print(table)
+        if limit is not None and limit < total_filtered:
+            print(f"\nShowing {len(display_tasks)} of {total_filtered} tasks (limit={limit}).")
         print("\nWarnings:")
         if warnings:
             for warning in warnings:
@@ -123,9 +136,20 @@ def register(subparsers: "argparse._SubParsersAction[object]") -> None:
         help="Filter by assignment or claim agent id (repeatable)",
     )
     parser.add_argument(
+        "--plan",
+        dest="plans",
+        action="append",
+        help="Filter by associated plan id (repeatable; matches task or claim plan)",
+    )
+    parser.add_argument(
         "--summary",
         action="store_true",
         help="Show aggregate counts instead of the full table (JSON adds a summary block and omits tasks)",
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        help="Show at most N tasks after filtering and sorting (default: no limit)",
     )
     parser.set_defaults(func=run)
 

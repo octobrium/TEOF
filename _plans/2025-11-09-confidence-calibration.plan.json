@@ -55,7 +55,8 @@
     "docs/automation/confidence-calibration.md",
     "docs/reports/confidence-calibration.md",
     "tools/agent/confidence_calibration.py",
-    "tests/test_confidence_calibration.py"
+    "tests/test_confidence_calibration.py",
+    "_report/ethics/guards/2025-11-09/nd-068-ethics.json"
   ],
   "systemic_targets": [
     "S4",

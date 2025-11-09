@@ -29,8 +29,8 @@ Add plain language directly after the command or use `--say`. Call
 | “help” | _Foreman help_ | Displays supported phrases and tips. |
 
 Pair the request with filters when you need to zoom in: the routed `teof tasks`
-command now accepts `--status`, `--priority`, `--agent` (repeatable), and
-`--summary`, so `python3 -m teof foreman "list tasks --status open --agent codex-2 --summary"`
+command now accepts `--status`, `--priority`, `--agent`, `--plan` (all repeatable),
+`--limit`, and `--summary`, so `python3 -m teof foreman "list tasks --status open --agent codex-2 --plan 2025-09-24-teof-tasks --limit 5 --summary"`
 only shows the assignments that matter with aggregate counts.
 
 The matcher is keyword-based, so keep the intent words (scan, status, tasks,

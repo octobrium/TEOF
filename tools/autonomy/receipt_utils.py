@@ -10,6 +10,7 @@ from tools.autonomy.shared import load_json
 
 ROOT = repo_root(default=Path(__file__).resolve().parents[2])
 DEFAULT_PLANS_DIR = ROOT / "_plans"
+GUARDS_DIR = ROOT / "_report" / "ethics" / "guards"
 
 
 def normalise_receipts(values: Iterable[str] | None) -> List[str]:
@@ -55,18 +56,42 @@ def compute_receipt_digest(receipts: Sequence[str]) -> str:
     return hashlib.sha256(joined.encode("utf-8")).hexdigest()
 
 
+def _canonical_guard_receipts(identifier: object, *, guards_dir: Path | None = None) -> List[str]:
+    slug = str(identifier or "").strip().lower()
+    if not slug:
+        return []
+    guards_root = guards_dir or GUARDS_DIR
+    if not guards_root.exists():
+        return []
+    filename = f"{slug}-ethics.json"
+    matches: List[str] = []
+    for datedir in sorted(guards_root.iterdir()):
+        if not datedir.is_dir():
+            continue
+        candidate = datedir / filename
+        if candidate.exists():
+            matches.append(candidate.relative_to(ROOT).as_posix())
+    return matches
+
+
 def resolve_item_receipts(
     item: Mapping[str, object],
     *,
     plans_dir: Path | None = None,
 ) -> List[str]:
+    receipts_list: List[str] = []
     receipts = item.get("receipts")
     if isinstance(receipts, list):
-        return normalise_receipts(receipts)
-    ref = item.get("receipts_ref")
-    if isinstance(ref, Mapping):
-        if ref.get("kind") == "plan":
-            plan_id = ref.get("plan_id")
-            if isinstance(plan_id, str):
-                return collect_plan_receipts(plan_id, plans_dir=plans_dir)
-    return []
+        receipts_list = normalise_receipts(receipts)
+    else:
+        ref = item.get("receipts_ref")
+        if isinstance(ref, Mapping):
+            if ref.get("kind") == "plan":
+                plan_id = ref.get("plan_id")
+                if isinstance(plan_id, str):
+                    receipts_list = collect_plan_receipts(plan_id, plans_dir=plans_dir)
+    guard_receipts = _canonical_guard_receipts(item.get("id"))
+    for path in guard_receipts:
+        if path not in receipts_list:
+            receipts_list.append(path)
+    return receipts_list

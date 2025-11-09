@@ -97,6 +97,9 @@ _report/
 !_report/usage/autonomy-audit/archive/
 !_report/usage/onboarding/
 !_report/usage/onboarding/*.json
+!_report/usage/plan-scope/
+!_report/usage/plan-scope/*.json
+!_report/usage/plan-scope/**/*.json
 !_report/external/
 !_report/external/**/*.json
 !_report/external/**/*.jsonl

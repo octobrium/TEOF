@@ -1,0 +1,25 @@
+{
+  "generated_at": "2025-11-09T17:29:41Z",
+  "since": null,
+  "total": 2,
+  "recorded": 2,
+  "missing": [],
+  "entries": [
+    {
+      "plan_id": "2025-10-19-autonomy-coordinator",
+      "plan_path": "_plans/2025-10-19-autonomy-coordinator.plan.json",
+      "created": "2025-10-19T13:03:36Z",
+      "status": "done",
+      "recorded": true,
+      "missing_receipts": []
+    },
+    {
+      "plan_id": "2025-10-19-autonomy-evolution",
+      "plan_path": "_plans/2025-10-19-autonomy-evolution.plan.json",
+      "created": "2025-10-19T21:40:43Z",
+      "status": "done",
+      "recorded": true,
+      "missing_receipts": []
+    }
+  ]
+}

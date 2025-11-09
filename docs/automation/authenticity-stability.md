@@ -9,7 +9,10 @@ thresholds on 2025-11-09.
 1. **Guard audit:** replay the ethics guard that triggered the alert and capture
    the JSON summary (`_report/ethics/guards/2025-11-09/*.json`). Summaries are
    paraphrased in `docs/ethics/2025-11-09-authenticity-stability.md` so plans can
-   point to a stable artifact.
+   point to a stable artifact. The CLI now auto-detects canonical guard receipts
+   stored under `_report/ethics/guards/<date>/`, so keeping the JSON there is
+   enough for `teof scan/frontier/ethics` to prove coverage even if the plan
+   forgets to list the file explicitly.
 2. **Telemetry rebaseline:**
    - Run `python3 -m tools.external.authenticity_report --feeds primary_truth,unassigned`.
    - Log the remediation in `_bus/messages/AUTH-*` via

@@ -621,33 +621,39 @@
     },
     {
       "assigned_by": "codex-4",
-      "branch": null,
+      "branch": "agent/codex-tier2/auth-primary_truth-codex-5-20251004",
       "id": "AUTH-PRIMARY_TRUTH-codex-5-20251004",
       "layer": "L5",
-      "notes": "Authenticity tier primary_truth below threshold for consecutive runs; feeds demo:0.255 (avg=0.255).",
+      "notes": "Authenticity tier primary_truth dipped below guard (demo feed 0.255) — remediated 2025-11-09 with trust back at 0.85.",
       "plan_id": "2025-11-09-authenticity-stability",
       "priority": "medium",
       "receipts": [
-        "_report/ethics/guards/2025-11-09/auth-primary_truth-codex-5-20251004-ethics.json"
+        "_report/ethics/guards/2025-11-09/auth-primary_truth-codex-5-20251004-ethics.json",
+        "docs/ethics/2025-11-09-authenticity-stability.md",
+        "docs/automation/authenticity-stability.md",
+        "_report/usage/external-authenticity.md"
       ],
       "role": "engineer",
-      "status": "open",
+      "status": "done",
       "systemic_scale": 9,
       "title": "AUTH-PRIMARY_TRUTH-codex-5-20251004"
     },
     {
       "assigned_by": "codex-4",
-      "branch": null,
+      "branch": "agent/codex-tier2/auth-unassigned-codex-5-20251004",
       "id": "AUTH-UNASSIGNED-codex-5-20251004",
       "layer": "L5",
-      "notes": "Authenticity tier unassigned below threshold for consecutive runs; feeds sample:0.204 (avg=0.204).",
+      "notes": "Authenticity tier unassigned dipped (sample feed 0.204) — remediated 2025-11-09 with trust back at 0.68.",
       "plan_id": "2025-11-09-authenticity-stability",
       "priority": "medium",
       "receipts": [
-        "_report/ethics/guards/2025-11-09/auth-unassigned-codex-5-20251004-ethics.json"
+        "_report/ethics/guards/2025-11-09/auth-unassigned-codex-5-20251004-ethics.json",
+        "docs/ethics/2025-11-09-authenticity-stability.md",
+        "docs/automation/authenticity-stability.md",
+        "_report/usage/external-authenticity.md"
       ],
       "role": "engineer",
-      "status": "open",
+      "status": "done",
       "systemic_scale": 9,
       "title": "AUTH-UNASSIGNED-codex-5-20251004"
     },

@@ -95,6 +95,8 @@ every run, promotes trustworthy facts, and indexes artifacts for replay.
 - `python -m tools.memory.doctor` – verify hash chain, missing runs, stale facts.
 - `python -m tools.memory.timeline [--task <id>]` – render compact history.
 - `python -m tools.memory.diff --run <id> --against <id|latest>` – compare outputs.
+- `python -m tools.memory.gap_audit --since <iso> [--plan <id>]` – list plans missing corresponding memory log coverage and emit `_report/analysis/memory-gap/latest.json` for remediation. Use `--fail-on-missing` inside feature branches so gaps are repaired before CI runs.
+- `scripts/ci/check_memory_gap.py` – CI wrapper (72h window by default) that invokes the audit with fail semantics and attaches `_report/analysis/memory-gap/ci-latest.json` receipts so merges are blocked until matching memory entries exist.
 
 This schema anchors the implementation work in `2025-09-25-memory-layer`. Receipts:
 - `docs/automation/memory-layer.md` (this document).

@@ -57,7 +57,7 @@ Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the
 
 ### Plan scope manifests
 
-`python -m teof plan_scope --plan <id>` prints the files linked to a plan (plan JSON, queue receipts, agent reports, scoped manifests) so you can push one unit at a time. Add `--format json` to feed automation or `--manifest _plan_scope/<plan>.json` to write a manifest suitable for `git checkout-index --stdin < manifest`. This prevents worktree accumulation (the root cause of coordination deadlocks) and gives reviewers a deterministic artifact. Docs live in [`docs/automation/plan-scope.md`](automation/plan-scope.md); store manifests under `_plan_scope/<plan>.json` so plan receipts can reference them.
+`python -m teof plan_scope --plan <id>` prints the files linked to a plan (plan JSON, queue receipts, agent reports, scoped manifests) so you can push one unit at a time. Add `--format json` to feed automation, `--manifest _plan_scope/<plan>.json` to write a manifest suitable for `git checkout-index --stdin < manifest`, and every run logs `_report/usage/plan-scope/plan-scope-<plan>-<ts>.json` plus `_report/usage/plan-scope/latest.json` by default. This prevents worktree accumulation (the root cause of coordination deadlocks) and gives reviewers a deterministic artifact. Use `--receipt-dir <path>` to relocate receipts or `--no-receipt` for dry-run tests that emit their own receipts. Docs live in [`docs/automation/plan-scope.md`](automation/plan-scope.md); store manifests under `_plan_scope/<plan>.json` so plan receipts can reference them.
 
 ### Deadlock detection
 

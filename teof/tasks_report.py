@@ -10,6 +10,7 @@ from typing import Any, Iterable, Mapping, Sequence
 from collections import Counter
 
 from teof._paths import repo_root
+from tools.autonomy import receipt_utils
 
 ROOT = repo_root(default=Path(__file__).resolve().parents[1])
 TASKS_RELATIVE = Path("agents") / "tasks" / "tasks.json"
@@ -83,6 +84,28 @@ def _as_list(value: Any) -> list[str]:
     return []
 
 
+def _resolve_receipts(task_id: str, entry: Mapping[str, Any] | None) -> list[str]:
+    """Resolve receipts (plan/guard/manual) for a task-like entry."""
+
+    if entry is None:
+        entry = {}
+    manual_receipts = _as_list(entry.get("receipts"))
+    payload: dict[str, Any] = {"id": task_id}
+    if manual_receipts:
+        payload["receipts"] = manual_receipts
+    receipts_ref = entry.get("receipts_ref") if isinstance(entry, Mapping) else None
+    plan_id = entry.get("plan_id") if isinstance(entry, Mapping) else None
+    if not isinstance(receipts_ref, Mapping) and isinstance(plan_id, str) and plan_id.strip():
+        receipts_ref = {"kind": "plan", "plan_id": plan_id}
+    if isinstance(receipts_ref, Mapping):
+        payload["receipts_ref"] = receipts_ref
+    try:
+        resolved = receipt_utils.resolve_item_receipts(payload)
+    except (FileNotFoundError, ValueError):
+        resolved = manual_receipts
+    return resolved
+
+
 def _normalise_tokens(values: Sequence[str] | None) -> set[str]:
     tokens: set[str] = set()
     if not values:
@@ -108,6 +131,20 @@ def _record_agents(record: TaskRecord) -> set[str]:
             if token:
                 normalized.add(token)
     return normalized
+
+
+def _record_plans(record: TaskRecord) -> set[str]:
+    candidates = [
+        record.plan_id,
+        record.claim_plan_id,
+    ]
+    tokens: set[str] = set()
+    for entry in candidates:
+        if isinstance(entry, str):
+            token = entry.strip().lower()
+            if token:
+                tokens.add(token)
+    return tokens
 
 
 def _load_tasks(root: Path) -> dict[str, TaskRecord]:
@@ -138,7 +175,7 @@ def _load_tasks(root: Path) -> dict[str, TaskRecord]:
             notes=entry.get("notes") if isinstance(entry.get("notes"), str) else None,
             assigned_by=entry.get("assigned_by") if isinstance(entry.get("assigned_by"), str) else None,
             branch=entry.get("branch") if isinstance(entry.get("branch"), str) else None,
-            receipts=_as_list(entry.get("receipts")),
+            receipts=_resolve_receipts(task_id, entry),
             assignment_engineer=None,
             assignment_manager=None,
             assignment_note=None,
@@ -184,23 +221,25 @@ def collect_tasks(root: Path | None = None) -> list[TaskRecord]:
 
     root = root or ROOT
     tasks = _load_tasks(root)
+    tracked_task_ids = set(tasks.keys())
     assignments = _load_assignments(root)
     claims = _load_claims(root)
 
     # Ensure tasks present for assignments/claims even if missing in tasks.json
     for task_id, payload in assignments.items():
         if task_id not in tasks:
+            status = _normalise_status(payload.get("status") or "open")
             tasks[task_id] = TaskRecord(
                 task_id=task_id,
                 title=task_id,
-                status="untracked",
-                priority="medium",
+                status=status,
+                priority=_normalise_priority(payload.get("priority")),
                 role=None,
                 plan_id=payload.get("plan_id") if isinstance(payload.get("plan_id"), str) else None,
                 notes=None,
                 assigned_by=None,
                 branch=None,
-                receipts=[],
+                receipts=_resolve_receipts(task_id, payload),
                 assignment_engineer=None,
                 assignment_manager=None,
                 assignment_note=None,
@@ -216,17 +255,18 @@ def collect_tasks(root: Path | None = None) -> list[TaskRecord]:
 
     for task_id, payload in claims.items():
         if task_id not in tasks:
+            status = _normalise_status(payload.get("status") or "open")
             tasks[task_id] = TaskRecord(
                 task_id=task_id,
                 title=task_id,
-                status="untracked",
-                priority="medium",
+                status=status,
+                priority=_normalise_priority(payload.get("priority")),
                 role=None,
                 plan_id=payload.get("plan_id") if isinstance(payload.get("plan_id"), str) else None,
                 notes=None,
                 assigned_by=None,
                 branch=None,
-                receipts=[],
+                receipts=_resolve_receipts(task_id, payload),
                 assignment_engineer=None,
                 assignment_manager=None,
                 assignment_note=None,
@@ -258,7 +298,8 @@ def collect_tasks(root: Path | None = None) -> list[TaskRecord]:
             claim_status = claim.get("status")
             claim_branch = claim.get("branch")
             record.claim_agent = claim_agent if isinstance(claim_agent, str) else None
-            record.claim_status = _normalise_status(claim_status)
+            claim_status_norm = _normalise_status(claim_status)
+            record.claim_status = claim_status_norm
             record.claim_branch = claim_branch if isinstance(claim_branch, str) else None
             plan_id = claim.get("plan_id")
             if isinstance(plan_id, str):
@@ -272,6 +313,12 @@ def collect_tasks(root: Path | None = None) -> list[TaskRecord]:
             branch = claim.get("branch")
             if not record.branch and isinstance(branch, str):
                 record.branch = branch
+            if (
+                task_id not in tracked_task_ids
+                and claim_status_norm
+                and claim_status_norm not in {"done", "released"}
+            ):
+                record.status = claim_status_norm
             if record.released_at and record.claim_status not in {"done", "released"}:
                 record.claim_status = "released"
         if record.claim_status:
@@ -289,12 +336,14 @@ def filter_open_tasks(
     statuses: Sequence[str] | None = None,
     priorities: Sequence[str] | None = None,
     agents: Sequence[str] | None = None,
+    plans: Sequence[str] | None = None,
 ) -> list[TaskRecord]:
     """Filter tasks using normalized status/priority/agent selectors."""
 
     status_filter = _normalise_tokens(statuses)
     priority_filter = _normalise_tokens(priorities)
     agent_filter = _normalise_tokens(agents)
+    plan_filter = _normalise_tokens(plans)
 
     results: list[TaskRecord] = []
     for task in tasks:
@@ -307,6 +356,8 @@ def filter_open_tasks(
         if agent_filter:
             if not _record_agents(task).intersection(agent_filter):
                 continue
+        if plan_filter and not _record_plans(task).intersection(plan_filter):
+            continue
         results.append(task)
     return results
 

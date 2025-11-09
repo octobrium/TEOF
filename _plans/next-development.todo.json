@@ -447,7 +447,8 @@
     {
       "id": "ND-057",
       "title": "Automate evidence_usage + targeted prune cadence",
-      "status": "queued",
+      "status": "done",
+      "completed_at": "2025-11-09T05:27:10Z",
       "plan_suggestion": "2025-11-09-evidence-prune-automation",
       "notes": "Integrate evidence-of-use scan + prune into multi-LLM / compute workflows; emit receipts per run.",
       "priority": "medium",
@@ -470,7 +471,13 @@
       "priority": "medium",
       "layer": "L5",
       "systemic_scale": 6,
-      "source": "queue/052-systemic-health-radar.md"
+      "source": "queue/052-systemic-health-radar.md",
+      "receipts_ref": {
+        "kind": "plan",
+        "plan_id": "2025-10-20-memory-ledger-backfill",
+        "count": 4,
+        "digest": "6868191fff062e9eab11984915944743b1810c09f243c76958127bff75fa89a6"
+      }
     }
   ],
   "history": [

@@ -50,7 +50,8 @@
   "receipts": [
     "tools/autonomy/receipts_index_stream.py",
     "tests/test_receipts_index_stream.py",
-    "docs/automation/receipts-index-streaming.md"
+    "docs/automation/receipts-index-streaming.md",
+    "_report/ethics/guards/2025-11-09/nd-063-ethics.json"
   ],
   "links": [
     {

@@ -2,7 +2,9 @@
   "agent_id": "codex-tier2",
   "branch": "agent/codex-tier2/auth-primary_truth-codex-5-20251004",
   "claimed_at": "2025-11-09T06:45:32Z",
+  "notes": "Remediation receipts logged 2025-11-09",
   "plan_id": "2025-11-09-authenticity-stability",
-  "status": "active",
+  "released_at": "2025-11-09T17:06:23Z",
+  "status": "done",
   "task_id": "AUTH-PRIMARY_TRUTH-codex-5-20251004"
 }

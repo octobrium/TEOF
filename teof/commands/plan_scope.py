@@ -17,6 +17,7 @@ TASKS_PATH = ROOT / "agents" / "tasks" / "tasks.json"
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 ASSIGNMENTS_DIR = ROOT / "_bus" / "assignments"
 MESSAGES_DIR = ROOT / "_bus" / "messages"
+RECEIPT_DIR = ROOT / "_report" / "usage" / "plan-scope"
 
 
 @dataclass
@@ -86,6 +87,13 @@ def _collect_files(plan_id: str) -> list[ScopedFile]:
     return list(unique.values())
 
 
+def _relative(path: Path) -> str:
+    try:
+        return path.resolve().relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def _render_table(entries: Iterable[ScopedFile]) -> str:
     rows: list[list[str]] = []
     for entry in entries:
@@ -125,15 +133,93 @@ def _write_manifest(path: Path, plan_id: str, files: list[ScopedFile]) -> Path:
     return path
 
 
+def _slug(value: str) -> str:
+    cleaned = []
+    for ch in value.strip():
+        if ch.isalnum() or ch in {"-", "_"}:
+            cleaned.append(ch)
+        else:
+            cleaned.append("-")
+    slug = "".join(cleaned).strip("-")
+    return slug or "plan"
+
+
+def _timestamp_slug() -> str:
+    return utc_timestamp().replace("-", "").replace(":", "")
+
+
+def _resolve_receipt_dir(value: str | None) -> Path:
+    if value:
+        candidate = Path(value)
+        if not candidate.is_absolute():
+            candidate = ROOT / candidate
+    else:
+        candidate = RECEIPT_DIR
+    candidate.mkdir(parents=True, exist_ok=True)
+    return candidate
+
+
+def _write_receipt(
+    target: Path,
+    plan_id: str,
+    files: list[ScopedFile],
+    *,
+    manifest_path: Path | None,
+    output_format: str,
+    receipt_dir: Path,
+) -> Path:
+    timestamp = utc_timestamp()
+    payload = {
+        "schema": "teof.plan_scope.receipt/v1",
+        "command": "teof plan_scope",
+        "plan_id": plan_id,
+        "generated_at": timestamp,
+        "output_format": output_format,
+        "file_count": len(files),
+        "files": [entry.as_dict() for entry in files],
+    }
+    if manifest_path is not None:
+        payload["manifest"] = _relative(manifest_path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    pointer_payload = {
+        "generated_at": timestamp,
+        "plan_id": plan_id,
+        "receipt": _relative(target),
+    }
+    if manifest_path is not None:
+        pointer_payload["manifest"] = _relative(manifest_path)
+    (receipt_dir / "latest.json").write_text(
+        json.dumps(pointer_payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return target
+
+
 def run(args: argparse.Namespace) -> int:
     plan_id = getattr(args, "plan")
     if not plan_id:
         raise SystemExit("--plan is required")
     files = _collect_files(plan_id)
-    manifest_path = getattr(args, "manifest", None)
-    if manifest_path:
-        manifest = _write_manifest(Path(manifest_path), plan_id, files)
-        print(f"wrote manifest → {manifest.relative_to(ROOT)}")
+    manifest_path = None
+    manifest_arg = getattr(args, "manifest", None)
+    if manifest_arg:
+        manifest_path = _write_manifest(Path(manifest_arg), plan_id, files)
+        print(f"wrote manifest → {_relative(manifest_path)}")
+    receipt_path = None
+    if not getattr(args, "no_receipt", False):
+        receipt_dir = _resolve_receipt_dir(getattr(args, "receipt_dir", None))
+        slug = _slug(plan_id)
+        name = f"plan-scope-{slug}-{_timestamp_slug()}.json"
+        receipt_target = receipt_dir / name
+        receipt_path = _write_receipt(
+            receipt_target,
+            plan_id,
+            files,
+            manifest_path=manifest_path,
+            output_format=getattr(args, "format", "table"),
+            receipt_dir=receipt_dir,
+        )
     output_format = getattr(args, "format", "table")
     if output_format == "json":
         payload = {
@@ -141,9 +227,13 @@ def run(args: argparse.Namespace) -> int:
             "count": len(files),
             "files": [entry.as_dict() for entry in files],
         }
+        if receipt_path is not None:
+            payload["receipt"] = _relative(receipt_path)
         print(json.dumps(payload, ensure_ascii=False, indent=2))
     else:
         print(_render_table(files))
+        if receipt_path is not None:
+            print(f"\nreceipt → {_relative(receipt_path)}")
     return 0
 
 
@@ -166,6 +256,15 @@ def register(subparsers: "argparse._SubParsersAction[object]") -> None:
     parser.add_argument(
         "--manifest",
         help="Optional path to write a scope manifest JSON",
+    )
+    parser.add_argument(
+        "--receipt-dir",
+        help="Custom receipt directory (default: _report/usage/plan-scope)",
+    )
+    parser.add_argument(
+        "--no-receipt",
+        action="store_true",
+        help="Skip receipt logging (use only for dry-run tests that emit their own receipts)",
     )
     parser.set_defaults(func=run)
 

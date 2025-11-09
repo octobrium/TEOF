@@ -52,7 +52,8 @@
     "tests/test_impact_bridge.py",
     "docs/vision/impact-ledger.md",
     "docs/quickstart.md",
-    "docs/impact/impact-bridge.md"
+    "docs/impact/impact-bridge.md",
+    "_report/ethics/guards/2025-11-09/nd-056-ethics.json"
   ],
   "links": [
     {

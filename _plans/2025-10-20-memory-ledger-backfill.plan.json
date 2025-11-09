@@ -3,7 +3,7 @@
   "plan_id": "2025-10-20-memory-ledger-backfill",
   "created": "2025-10-20T07:57:30Z",
   "actor": "codex",
-  "summary": "Backfill missing memory log entries for October autonomy work",
+  "summary": "Backfill missing memory log entries for October autonomy work and ship a guard that blocks new drift.",
   "systemic_targets": [
     "S1",
     "S3",
@@ -15,36 +15,55 @@
   ],
   "layer": "L5",
   "systemic_scale": 6,
-  "status": "queued",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
       "title": "Audit memory gaps since 2025-10-03",
-      "status": "queued",
-      "notes": "Compare recent plans/queue briefs vs memory/log.jsonl to identify missing entries.",
-      "receipts": []
+      "status": "done",
+      "notes": "Ran tools.memory.gap_audit to enumerate 106 plans created since 2025-10-03; autonomy work (e.g., 2025-10-19-* plans) lack memory coverage.",
+      "receipts": [
+        "_report/analysis/memory-gap/latest.json"
+      ]
     },
     {
       "id": "S2",
       "title": "Capture autonomy coordinator/evolution reflections",
-      "status": "queued",
-      "notes": "Emit reflections + append-only log entries covering the Oct 19 autonomy work.",
-      "receipts": []
+      "status": "done",
+      "notes": "Appended memory/log.jsonl entries (lines 136–137) referencing the Oct 19 autonomy coordinator/evolution receipts and captured the targeted gap audit as proof.",
+      "receipts": [
+        "memory/log.jsonl",
+        "_report/analysis/memory-gap/autonomy-2025-10-19.json",
+        "_report/analysis/memory-gap/2025-11-09-autonomy-backfill.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Automate memory guard for multi-LLM sessions",
-      "status": "queued",
-      "notes": "Add evidence-usage hook or CI to warn when new receipts land without matching memory entries.",
-      "receipts": []
+      "status": "done",
+      "notes": "Added scripts/ci/check_memory_gap.py (default 72h window) invoking tools.memory.gap_audit with fail semantics, documented the guard, and covered it with tests.",
+      "receipts": [
+        "scripts/ci/check_memory_gap.py",
+        "tools/memory/gap_audit.py",
+        "docs/automation/memory-layer.md",
+        "tests/test_memory_gap_audit.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Memory log reflects all Oct 19 autonomy artifacts and guard prevents future drift",
     "owner": "codex",
-    "status": "pending"
+    "status": "satisfied"
   },
-  "receipts": [],
+  "receipts": [
+    "_report/analysis/memory-gap/latest.json",
+    "_report/analysis/memory-gap/2025-11-09-autonomy-backfill.md",
+    "_report/analysis/memory-gap/autonomy-2025-10-19.json",
+    "scripts/ci/check_memory_gap.py",
+    "tools/memory/gap_audit.py",
+    "tests/test_memory_gap_audit.py",
+    "docs/automation/memory-layer.md"
+  ],
   "links": [],
   "impact_ref": "2025-10-20-memory-ledger-backfill"
 }

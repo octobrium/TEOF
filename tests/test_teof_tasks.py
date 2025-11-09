@@ -9,6 +9,7 @@ from pathlib import Path
 import teof.bootloader as bootloader
 from teof import tasks_report
 from teof.tasks_report import TaskRecord
+from tools.autonomy import receipt_utils
 
 
 def _setup_repo(
@@ -98,10 +99,21 @@ def _run_tasks_cli(monkeypatch, args: list[str]) -> dict:
     return json.loads(buffer.getvalue())
 
 
+def _patch_receipts(monkeypatch, root: Path) -> None:
+    plans_dir = root / "_plans"
+    guards_root = root / "_report" / "ethics" / "guards"
+    plans_dir.mkdir(parents=True, exist_ok=True)
+    guards_root.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(receipt_utils, "ROOT", root)
+    monkeypatch.setattr(receipt_utils, "DEFAULT_PLANS_DIR", plans_dir)
+    monkeypatch.setattr(receipt_utils, "GUARDS_DIR", guards_root)
+
+
 def test_cli_tasks_json(tmp_path: Path, monkeypatch) -> None:
     _setup_repo(tmp_path)
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
 
     buffer = io.StringIO()
     monkeypatch.setattr(sys, "stdout", buffer)
@@ -124,6 +136,7 @@ def test_cli_tasks_table_includes_done_when_requested(tmp_path: Path, monkeypatc
     _setup_repo(tmp_path)
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
 
     buffer = io.StringIO()
     monkeypatch.setattr(sys, "stdout", buffer)
@@ -141,6 +154,7 @@ def test_cli_tasks_status_filter_includes_done(tmp_path: Path, monkeypatch) -> N
     _setup_repo(tmp_path)
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
 
     payload = _run_tasks_cli(monkeypatch, ["--all", "--status", "DONE"])
     tasks = payload["tasks"]
@@ -188,6 +202,8 @@ def test_cli_tasks_priority_and_agent_filters(tmp_path: Path, monkeypatch) -> No
     )
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
 
     payload = _run_tasks_cli(monkeypatch, ["--priority", "medium", "--agent", "codex-10"])
     tasks = payload["tasks"]
@@ -204,6 +220,7 @@ def test_cli_tasks_handles_broken_pipe_in_json(tmp_path: Path, monkeypatch) -> N
     _setup_repo(tmp_path)
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
 
     class _BrokenStdout:
         def write(self, _: str) -> int:
@@ -221,6 +238,7 @@ def test_cli_tasks_filters_by_agent(tmp_path: Path, monkeypatch) -> None:
     _setup_repo(tmp_path)
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
 
     buffer = io.StringIO()
     monkeypatch.setattr(sys, "stdout", buffer)
@@ -242,6 +260,7 @@ def test_cli_tasks_summary_table(tmp_path: Path, monkeypatch) -> None:
     _setup_repo(tmp_path)
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
 
     buffer = io.StringIO()
     monkeypatch.setattr(sys, "stdout", buffer)
@@ -260,6 +279,7 @@ def test_cli_tasks_summary_json(tmp_path: Path, monkeypatch) -> None:
     _setup_repo(tmp_path)
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
 
     buffer = io.StringIO()
     monkeypatch.setattr(sys, "stdout", buffer)
@@ -275,6 +295,119 @@ def test_cli_tasks_summary_json(tmp_path: Path, monkeypatch) -> None:
     assert summary["priority"]["high"] == 1
     assert summary["assignments"] == 1
     assert summary["claims"] == 1
+
+
+def test_cli_tasks_limit_restricts_output(tmp_path: Path, monkeypatch) -> None:
+    _setup_repo(
+        tmp_path,
+        extra_tasks=[
+            {
+                "id": "QUEUE-102",
+                "title": "Second open task",
+                "status": "open",
+                "priority": "medium",
+                "role": "engineer",
+            }
+        ],
+    )
+    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
+    monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
+
+    payload = _run_tasks_cli(monkeypatch, ["--limit", "1"])
+    assert payload["limit_applied"] == 1
+    assert payload["total_filtered"] == 2
+    assert len(payload["tasks"]) == 1
+    assert payload["tasks"][0]["task_id"] == "QUEUE-100"
+    assert any("QUEUE-102" in warning for warning in payload["warnings"])
+
+
+def test_cli_tasks_table_limit_note(tmp_path: Path, monkeypatch) -> None:
+    _setup_repo(
+        tmp_path,
+        extra_tasks=[
+            {
+                "id": "QUEUE-103",
+                "title": "Open task (table limit)",
+                "status": "open",
+                "priority": "low",
+                "role": "engineer",
+            }
+        ],
+    )
+    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
+    monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
+
+    buffer = io.StringIO()
+    monkeypatch.setattr(sys, "stdout", buffer)
+
+    result = bootloader.main(["tasks", "--limit", "1"])
+    assert result == 0
+    output = buffer.getvalue()
+    assert "Showing 1 of 2 tasks (limit=1)." in output
+
+
+def test_cli_tasks_plan_filter(tmp_path: Path, monkeypatch) -> None:
+    _setup_repo(
+        tmp_path,
+        extra_tasks=[
+            {
+                "id": "QUEUE-300",
+                "title": "Claim-only plan linkage",
+                "status": "open",
+                "priority": "medium",
+                "role": "engineer",
+            }
+        ],
+        extra_claims={
+            "QUEUE-300": {
+                "task_id": "QUEUE-300",
+                "agent_id": "codex-12",
+                "status": "active",
+                "plan_id": "2025-10-02-claimed-only",
+                "claimed_at": "2025-10-02T00:00:00Z",
+            }
+        },
+    )
+    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
+    monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
+
+    payload = _run_tasks_cli(monkeypatch, ["--plan", "2025-09-24-teof-tasks"])
+    assert [task["task_id"] for task in payload["tasks"]] == ["QUEUE-100"]
+
+    payload = _run_tasks_cli(monkeypatch, ["--plan", "2025-10-02-claimed-only"])
+    assert [task["task_id"] for task in payload["tasks"]] == ["QUEUE-300"]
+
+
+def test_tasks_cli_includes_guard_receipts(tmp_path: Path, monkeypatch) -> None:
+    _setup_repo(tmp_path)
+    guard_dir = tmp_path / "_report" / "ethics" / "guards" / "2025-11-09"
+    guard_dir.mkdir(parents=True, exist_ok=True)
+    guard_path = guard_dir / "queue-100-ethics.json"
+    guard_path.write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
+    monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
+
+    payload = _run_tasks_cli(monkeypatch, [])
+    receipts = payload["tasks"][0]["receipts"]
+    assert guard_path.relative_to(tmp_path).as_posix() in receipts
+
+
+def test_tasks_cli_uses_claim_status_when_task_missing(tmp_path: Path, monkeypatch) -> None:
+    _setup_repo(tmp_path)
+    tasks_path = tmp_path / "agents" / "tasks" / "tasks.json"
+    payload = json.loads(tasks_path.read_text(encoding="utf-8"))
+    payload["tasks"] = [entry for entry in payload["tasks"] if entry["id"] != "QUEUE-100"]
+    tasks_path.write_text(json.dumps(payload), encoding="utf-8")
+    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
+    monkeypatch.setattr(tasks_report, "ROOT", tmp_path)
+    _patch_receipts(monkeypatch, tmp_path)
+
+    payload = _run_tasks_cli(monkeypatch, [])
+    assert payload["tasks"][0]["status"] == "active"
 
 
 _BASE_RECORD = TaskRecord(

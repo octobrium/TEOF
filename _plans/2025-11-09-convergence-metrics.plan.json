@@ -51,7 +51,8 @@
     "docs/reports/convergence-metrics.md",
     "tools/network/convergence_metrics.py",
     "teof/commands/convergence_metrics.py",
-    "tests/test_convergence_metrics.py"
+    "tests/test_convergence_metrics.py",
+    "_report/ethics/guards/2025-11-09/nd-071-ethics.json"
   ],
   "links": [
     {

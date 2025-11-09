@@ -12,7 +12,7 @@ Treat this page as the day-to-day companion to the lightweight onboarding entry 
 - Need a manual receipt scaffold? `python -m tools.receipts.main scaffold plan --plan-id <id> --agent <id>` or `... claim --task <id> --agent <id>` creates the default files without touching plans/claims.
 - Post to the bus from anywhere: `python -m teof bus_message --task <id> --type status --summary "<update>" --receipt <path>` (legacy path: `python -m tools.agent.bus_message`).
 - Red-team automation: `python -m tools.autonomy.stress_harness --scenarios automation/autonomy-stress.json --require-pass` emits `_report/usage/autonomy-stress/*.json` receipts before unattended runs (see `docs/automation/autonomy-stress-harness.md`).
-- Trace any queue→plan→claim→receipt lineage: `python -m tools.observation.receipt_graph --task <id> --mermaid _report/usage/receipt-graph/<id>.mmd` writes a JSON provenance graph (and optional Mermaid diagram) tying together the queue brief, claim, plan, and receipts so ND-053 stays observable.
+- Trace any queue→plan→claim lineage (with bus events, memory refs, and receipts): `python -m tools.observation.receipt_graph --task <id> --mermaid _report/usage/receipt-graph/<id>.mmd` writes a JSON provenance graph, optional Mermaid diagram, and a run receipt under `_report/usage/receipt-graph/` so ND-053 stays observable end-to-end.
 - Inspect your agent inbox (targeted messages land in `_bus/messages/agent-<id>.jsonl`): `python3 -m teof inbox --mark-read --limit 5` (legacy: `python -m tools.agent.bus_inbox`) writes `_report/session/<id>/agent-inbox-tail.txt` and tracks unread counts.
 - Install tooling (pytest + coverage guard): `python -m pip install -e .`.
 - Canonical core map: `governance/core/index.md`.

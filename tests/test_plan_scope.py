@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import json
+from argparse import Namespace
 from pathlib import Path
 
 import pytest
 
-import teof.bootloader as bootloader
+from teof.commands import plan_scope as plan_scope_mod
 
 
 def _seed_plan(root: Path) -> None:
@@ -56,23 +57,34 @@ def _seed_tasks(root: Path) -> None:
 
 
 def _patch_plan_scope(root: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    from teof.commands import plan_scope as plan_scope_mod
-
     monkeypatch.setattr(plan_scope_mod, "ROOT", root, raising=False)
     monkeypatch.setattr(plan_scope_mod, "PLANS_DIR", root / "_plans", raising=False)
     monkeypatch.setattr(plan_scope_mod, "TASKS_PATH", root / "agents" / "tasks" / "tasks.json", raising=False)
     monkeypatch.setattr(plan_scope_mod, "CLAIMS_DIR", root / "_bus" / "claims", raising=False)
     monkeypatch.setattr(plan_scope_mod, "ASSIGNMENTS_DIR", root / "_bus" / "assignments", raising=False)
     monkeypatch.setattr(plan_scope_mod, "MESSAGES_DIR", root / "_bus" / "messages", raising=False)
+    monkeypatch.setattr(plan_scope_mod, "RECEIPT_DIR", root / "_report" / "usage" / "plan-scope", raising=False)
+
+
+def _run_plan_scope(**kwargs: object) -> int:
+    defaults: dict[str, object] = {
+        "plan": "demo-plan",
+        "format": "table",
+        "manifest": None,
+        "receipt_dir": None,
+        "no_receipt": False,
+    }
+    defaults.update(kwargs)
+    args = Namespace(**defaults)
+    return plan_scope_mod.run(args)
 
 
 def test_plan_scope_json(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
     _seed_plan(tmp_path)
     _seed_tasks(tmp_path)
     _patch_plan_scope(tmp_path, monkeypatch)
-    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
 
-    exit_code = bootloader.main(["plan_scope", "--plan", "demo-plan", "--format", "json"])
+    exit_code = _run_plan_scope(format="json")
     assert exit_code == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["plan_id"] == "demo-plan"
@@ -80,21 +92,66 @@ def test_plan_scope_json(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
     assert "README.md" in paths
     assert "_bus/claims/QUEUE-001.json" in paths
     assert paths["_bus/messages/QUEUE-001.jsonl"]["exists"] is True
+    assert "receipt" in payload
+    receipt_path = tmp_path / payload["receipt"]
+    assert receipt_path.exists()
 
 
 def test_plan_scope_manifest(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
     _seed_plan(tmp_path)
     _seed_tasks(tmp_path)
     _patch_plan_scope(tmp_path, monkeypatch)
-    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
 
     manifest_path = tmp_path / "_plan_scope" / "demo.json"
-    exit_code = bootloader.main(
-        ["plan_scope", "--plan", "demo-plan", "--manifest", str(manifest_path.relative_to(tmp_path))]
-    )
+    exit_code = _run_plan_scope(manifest=str(manifest_path.relative_to(tmp_path)))
     assert exit_code == 0
     output = capsys.readouterr().out
     assert "wrote manifest" in output
+    assert "receipt → " in output
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     assert manifest["plan_id"] == "demo-plan"
     assert manifest["files"]
+    receipt_dir = tmp_path / "_report" / "usage" / "plan-scope"
+    receipts = [path for path in receipt_dir.glob("plan-scope-*.json")]
+    assert receipts, "expected plan_scope receipt to be recorded"
+
+
+def test_plan_scope_receipt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+    _seed_plan(tmp_path)
+    _seed_tasks(tmp_path)
+    _patch_plan_scope(tmp_path, monkeypatch)
+
+    manifest_rel = "_plan_scope/manifests/demo.json"
+    exit_code = _run_plan_scope(manifest=manifest_rel, format="json")
+    assert exit_code == 0
+    captured = capsys.readouterr().out
+    marker = '{\n  "plan_id"'
+    start = captured.rfind(marker)
+    assert start != -1
+    output = json.loads(captured[start:])
+    assert output["plan_id"] == "demo-plan"
+
+    receipt_dir = tmp_path / "_report" / "usage" / "plan-scope"
+    receipts = sorted(receipt_dir.glob("plan-scope-demo-plan-*.json"))
+    assert len(receipts) == 1
+    receipt_payload = json.loads(receipts[0].read_text(encoding="utf-8"))
+    assert receipt_payload["plan_id"] == "demo-plan"
+    assert receipt_payload["file_count"] == len(output["files"])
+    assert receipt_payload["manifest"] == manifest_rel
+    pointer = json.loads((receipt_dir / "latest.json").read_text(encoding="utf-8"))
+    assert pointer["plan_id"] == "demo-plan"
+    assert pointer["receipt"] == f"_report/usage/plan-scope/{receipts[0].name}"
+
+
+def test_plan_scope_no_receipt_flag(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+    _seed_plan(tmp_path)
+    _seed_tasks(tmp_path)
+    _patch_plan_scope(tmp_path, monkeypatch)
+
+    exit_code = _run_plan_scope(format="json", no_receipt=True)
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["plan_id"] == "demo-plan"
+    assert "receipt" not in payload
+    receipt_dir = tmp_path / "_report" / "usage" / "plan-scope"
+    assert not receipt_dir.exists()
