@@ -6,6 +6,7 @@ from typing import Iterable
 _COMMAND_MODULES: tuple[str, ...] = (
     "assess",
     "brief",
+    "bus_guard",
     "foreman",
     "status",
     "tasks",

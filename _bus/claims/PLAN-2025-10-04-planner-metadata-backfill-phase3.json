@@ -1,6 +1,6 @@
 {
   "agent_id": "codex-1",
-  "branch": "main",
+  "branch": "agent/codex-1/plan-2025-10-04-planner-metadata-backfill-phase3",
   "claimed_at": "2025-10-04T20:44:45Z",
   "plan_id": "2025-10-04-planner-metadata-backfill-phase3",
   "released_at": "2025-10-04T20:45:32Z",

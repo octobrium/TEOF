@@ -1,8 +1,8 @@
 {
   "agent_id": "codex-4",
-  "branch": "main",
+  "branch": "agent/codex-4/nd-025",
   "claimed_at": "2025-10-05T21:41:21Z",
-  "notes": "TT\u0394 trend reporting complete",
+  "notes": "TTΔ trend reporting complete",
   "plan_id": "2025-10-05-ttd-trend-reporting",
   "released_at": "2025-10-05T21:46:41Z",
   "status": "done",

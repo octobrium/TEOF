@@ -1,0 +1,101 @@
+{
+  "schema": "teof.plan_scope.receipt/v1",
+  "command": "teof plan_scope",
+  "plan_id": "2025-11-09-autonomy-module-consolidation",
+  "generated_at": "2025-11-09T18:31:02Z",
+  "output_format": "json",
+  "file_count": 18,
+  "files": [
+    {
+      "path": "_plans/2025-11-09-autonomy-module-consolidation.plan.json",
+      "exists": true,
+      "source": "plan"
+    },
+    {
+      "path": "docs/automation/autonomy-module-consolidation.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_plans/next-development.todo.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/agent/codex-tier2/2025-11-09-autonomy-module-consolidation/requirements.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "docs/automation.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/module_consolidate.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tests/test_module_consolidate.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/shared_bus.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tests/test_shared_bus.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/critic.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/ethics_gate.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/automation/auto_claim.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tests/test_auto_claim.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/usage/autonomy-module-consolidation/plan-20251109072810Z.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/usage/autonomy-module-consolidation/plan-latest.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/usage/autonomy-module-consolidation/telemetry-20251109072818Z.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/usage/autonomy-module-consolidation/telemetry-latest.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "scripts/ci/check_autonomy_module_consolidation.py",
+      "exists": true,
+      "source": "receipt"
+    }
+  ],
+  "manifest": "_plan_scope/manifests/autonomy-module-consolidation.json"
+}

@@ -1,6 +1,6 @@
 {
   "agent_id": "codex-tier2",
-  "branch": "main",
+  "branch": "agent/codex-tier2/queue-3001",
   "claimed_at": "2025-11-08T23:44:49Z",
   "notes": "Systemic_radar automation/tests complete; plan 2025-11-08-systemic-radar-automation done.",
   "plan_id": "2025-11-08-systemic-radar-automation",

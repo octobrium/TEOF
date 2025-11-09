@@ -43,9 +43,12 @@
         "tools/autonomy/ethics_gate.py",
         "tools/automation/auto_claim.py",
         "tests/test_auto_claim.py",
-        "_report/usage/autonomy-module-consolidation/plan-20251109072810Z.json",
+        "tools/autonomy/coord/__init__.py",
+        "tools/autonomy/coord/manifest.py",
+        "tools/autonomy/coordinator_manager.py",
+        "_report/usage/autonomy-module-consolidation/plan-20251109182527Z.json",
         "_report/usage/autonomy-module-consolidation/plan-latest.json",
-        "_report/usage/autonomy-module-consolidation/telemetry-20251109072818Z.json",
+        "_report/usage/autonomy-module-consolidation/telemetry-20251109182533Z.json",
         "_report/usage/autonomy-module-consolidation/telemetry-latest.json",
         "scripts/ci/check_autonomy_module_consolidation.py"
       ]
