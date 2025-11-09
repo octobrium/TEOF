@@ -1,0 +1,32 @@
+{
+  "generated_at": "2025-11-09T23:45:00Z",
+  "author": "codex-tier2",
+  "summary": "Capability inventory flagged stale receipts because evidence lived only on local commits.",
+  "details": {
+    "insight": [
+      "Running `teof bus_guard` or `hash_ledger guard` locally is not enough; CI only sees receipts that already live on main.",
+      "Store capability heartbeat outputs under docs/usage/capability-heartbeat and push them immediately so the next CI run inherits the proof.",
+      "Treat capability receipts like any other guard artifact: version them in git before asking automation to validate them."
+    ]
+  },
+  "layer_targets": [
+    "L5"
+  ],
+  "systemic_targets": [
+    "S2",
+    "S4",
+    "S6"
+  ],
+  "plan_suggestion": "2025-11-09-behavioral-gap-interventions",
+  "tags": [
+    "capability-inventory",
+    "bus_guard",
+    "hash_ledger",
+    "ci"
+  ],
+  "links": [
+    "docs/usage/capability-heartbeat/bus_guard-20251109T233631Z.json",
+    "docs/usage/capability-heartbeat/hash_ledger-guard-20251109T233641Z.json",
+    "_report/usage/systemic-scan/summary-20251109T231312Z.json"
+  ]
+}

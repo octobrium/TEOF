@@ -1,0 +1,33 @@
+{
+  "generated_at": "2025-11-09T23:49:00Z",
+  "author": "codex-tier2",
+  "summary": "CI keeps flagging missing evidence-prune/capability receipts whenever the pointer isn’t committed.",
+  "details": {
+    "insight": [
+      "Scripts such as check_capability_inventory and check_evidence_prune look for git-tracked receipts. Local runs don’t count until the artifacts live on main.",
+      "Every time we refresh bus_guard/hash_ledger or evidence prune locally but forget to push the new receipts, CI fails and burns time.",
+      "Standardize a habit: store heartbeat outputs under docs/usage/capability-heartbeat/, install `_report/usage/evidence-prune/latest.json` via the automation CLI, and push those receipts before rerunning guards."
+    ]
+  },
+  "plan_suggestion": "2025-11-09-behavioral-gap-interventions",
+  "tags": [
+    "capability-inventory",
+    "evidence-prune",
+    "ci",
+    "receipts"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "systemic_targets": [
+    "S2",
+    "S4",
+    "S6"
+  ],
+  "links": [
+    "docs/usage/capability-heartbeat/bus_guard-20251109T233631Z.json",
+    "docs/usage/capability-heartbeat/hash_ledger-guard-20251109T233641Z.json",
+    "_report/usage/evidence-prune/evidence-20251109T234547Z.json/evidence-20251109T234548Z.json",
+    "_report/usage/evidence-prune/latest.json"
+  ]
+}
