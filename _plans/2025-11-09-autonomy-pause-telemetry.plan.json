@@ -1,0 +1,50 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-autonomy-pause-telemetry",
+  "created": "2025-11-09T00:04:10Z",
+  "actor": "Octo",
+  "summary": "Track autonomy pauses without guards",
+  "systemic_targets": [
+    "S2",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 4,
+  "layer": "L5",
+  "systemic_scale": 6,
+  "impact_score": 1,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Design pause telemetry",
+      "status": "done",
+      "notes": "Autonomy default language amplified in docs/workflow.md",
+      "receipts": []
+    },
+    {
+      "id": "S2",
+      "title": "Wire manager-report summary",
+      "status": "done",
+      "notes": "Added manager-report pause telemetry stub",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Doc onboarding cues",
+      "status": "done",
+      "notes": "Onboarding + doc verification now call out autonomy default expectations",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": []
+}
