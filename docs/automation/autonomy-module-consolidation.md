@@ -24,14 +24,24 @@ ND-067 calls for collapsing the sprawl of `tools.autonomy.*` helpers into a focu
 | --- | --- | --- | --- |
 | `coordination` service | Claim tasks, enforce macro hygiene, dispatch workers | `coordinator_*`, `commitment_guard.py` | `tools.autonomy.coord.service` (package exposes manager/worker CLI) |
 | `execution` service | Run conductor/auto-loop sessions with receipts + guard rails | `auto_loop.py`, `conductor.py`, `chronicle.py` | `tools.autonomy.exec.{runner,guard}` |
-| `signal` service | Produce systemic/macro/queue dashboards | `systemic_radar.py`, `objectives_status.py`, `backlog_steward.py` | `tools.autonomy.signal.*` sharing telemetry primitives |
+| `signal` service | Produce systemic/macro/queue dashboards | `systemic_radar.py`, `objectives_status.py`, `backlog_steward.py` | `tools.autonomy.signal_service.*` sharing telemetry primitives |
 | `advisory` service | Generate decision/next-step summaries for stewards | `advisory_report.py`, `decision_cycle.py`, `next_step.py` | `tools.autonomy.advisory.*` |
+
+Each service now ships a manifest builder so coordinators can spin up receipts without bespoke scripts:
+
+- `tools.autonomy.coord.manifest.CoordinatorManifestBuilder`
+- `tools.autonomy.exec.manifest.ExecutionManifestBuilder`
+- `tools.autonomy.signal_service.manifest.SignalManifestBuilder`
+- `tools.autonomy.advisory.manifest.AdvisoryManifestBuilder`
+
+Call `build_manifest_payload(agent_id=<id>, plan=<plan>, step=<step>)` to obtain the JSON payload, then `write_manifest(...)` to store it under `_report/agent/<agent>/manifests/`. These builders share a common base (`tools.autonomy.service_manifest.BaseServiceManifestBuilder`) so new services only override their default commands and expected receipts.
 
 ### Shared primitives
 
 1. **Bus client** – lightweight wrapper in `tools.autonomy.shared_bus` for claims/events (now live with `emit_claim` powering `critic` + `ethics_gate`, replacing ad-hoc JSON writers).
 2. **Receipt writers** – unify `write_receipt_payload`, latency/size metrics, and pointer updates.
 3. **Policy config** – centralize baseline JSON (trust thresholds, freshness windows) under `docs/automation/autonomy-footprint-policy.md`.
+4. **Coordination service** – `tools.autonomy.coord.service.CoordinationService` now feeds backlog selection + plan-step resolution so guard/loop CLIs reuse the same primitives instead of reloading JSON independently.
 
 ## CLI design (`python -m tools.autonomy.module_consolidate`)
 

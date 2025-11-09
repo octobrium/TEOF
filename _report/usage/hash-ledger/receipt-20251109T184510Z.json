@@ -1,0 +1,11 @@
+{
+  "version": 0,
+  "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "plan_id": "2025-10-12-infinite-ledger",
+  "plan_step_id": "S1",
+  "receipt_path": "_report/usage/plan-scope/plan-scope-2025-10-12-infinite-ledger-20251109T184442Z.json",
+  "agent_id": "codex-tier2",
+  "ts": "2025-11-09T18:45:10Z",
+  "metadata": {},
+  "hash": "9611f097dd5e2d55c8908653143395f1f62df560ec0fa36e037b7232cc1e0964"
+}

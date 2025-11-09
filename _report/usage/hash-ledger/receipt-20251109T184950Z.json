@@ -1,0 +1,11 @@
+{
+  "version": 0,
+  "prev_hash": "630ed75550c636303ea6df28698a84f1494a18375ad08ae07cb5b143058b732a",
+  "plan_id": "2025-10-12-infinite-ledger",
+  "plan_step_id": "S1",
+  "receipt_path": "docs/specs/hash-linked-receipt-ledger.md",
+  "agent_id": "codex-tier2",
+  "ts": "2025-11-09T18:49:50Z",
+  "metadata": {},
+  "hash": "23d02fe5c367fbd1e440355f5bd5bf715781737facbe0247cabc7e0a4abba152"
+}

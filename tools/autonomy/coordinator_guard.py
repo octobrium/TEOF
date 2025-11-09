@@ -15,6 +15,7 @@ from typing import Any, Dict, Sequence
 
 from tools.agent import session_guard, bus_event
 from tools.autonomy import scan_trigger, coordinator_manager, coordinator_worker
+from tools.autonomy.coord import CoordinationService, CoordinationServiceError
 from tools.autonomy.shared import load_json, write_receipt_payload
 from teof.eval import systemic_min
 
@@ -85,19 +86,24 @@ def _load_manifest(agent_id: str, plan: Dict[str, Any], step: Dict[str, Any]) ->
     return manifest_path
 
 
+def _coord_service() -> CoordinationService:
+    return CoordinationService(root=ROOT)
+
+
 def _load_plan(plan_id: str) -> Dict[str, Any]:
-    path = ROOT / "_plans" / f"{plan_id}.plan.json"
-    data = load_json(path)
-    if not isinstance(data, dict):
-        raise SystemExit(f"::error:: unable to load plan {plan_id}")
-    return data
+    service = _coord_service()
+    try:
+        return service.load_plan(plan_id)
+    except CoordinationServiceError as exc:
+        raise SystemExit(str(exc)) from exc
 
 
 def _select_step(plan: Dict[str, Any], step_id: str) -> Dict[str, Any]:
-    for step in plan.get("steps", []):
-        if isinstance(step, dict) and step.get("id") == step_id:
-            return step
-    raise SystemExit(f"::error:: step {step_id} not found in plan {plan.get('plan_id')}")
+    service = _coord_service()
+    try:
+        return service.select_step(plan, step_id)
+    except CoordinationServiceError as exc:
+        raise SystemExit(str(exc)) from exc
 
 
 def _log_bus(manager_agent: str, summary: str, status: str) -> None:
