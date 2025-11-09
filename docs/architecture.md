@@ -16,7 +16,7 @@ lower ones but must not bypass their contracts.
 
 | Path | Layer(s) | Contract | Detail |
 | --- | --- | --- | --- |
-| `_bus/` | L0 ↔ L5 | Append-only JSONL lanes for coordination; CI enforces schema and claim guards. | See [`_bus/README.md`](../_bus/README.md) for channel layout and tooling. |
+| `_bus/` | L0 ↔ L5 | Append-only JSONL lanes for coordination; CI enforces schema and claim guards. | See [`_bus/README.md`](../_bus/README.md) for channel layout and tooling; shared stewardship guard (`python3 -m tools.agent.stale_claims`) ensures idle claims emit a pheromone trail other agents can resume. |
 | `_plans/` | L4 → L5 | Structured plans drive workflow; lifecycle changes must stay monotonic and pass strict validation. Exploratory spikes live in `_plans/exploratory/` with provisional guardrails. | Authoring + validation rules live in [`_plans/README.md`](../_plans/README.md); sandbox lane guidance in [`_plans/exploratory/README.md`](../_plans/exploratory/README.md). |
 | `_report/` | L0 | Receipts from evaluations, coordination dashboards, and audits; automation appends new runs under scoped folders. | Treat subdirectories as evidence stores referenced by bus/plans/memory; exploratory runs log to `_report/exploratory/` as provisional receipts. |
 | `_apoptosis/` | L0 | Cold storage for retired artifacts (timestamped). No mutation once archived. | Populated by pruning/retirement automation. |
