@@ -1,5 +1,6 @@
 {
-  "generated_at": "2025-11-09T17:45:59Z",
-  "plan_id": "2025-11-09-plan-scope",
-  "receipt": "docs/usage/capability-heartbeat/plan-scope-2025-11-09-plan-scope-20251109T174559Z.json"
+  "generated_at": "2025-11-09T18:01:22Z",
+  "plan_id": "2025-11-09-autonomy-module-consolidation",
+  "receipt": "docs/usage/capability-heartbeat/plan-scope-2025-11-09-autonomy-module-consolidation-20251109T180122Z.json",
+  "manifest": "_plan_scope/manifests/2025-11-09-autonomy-module-consolidation.json"
 }
