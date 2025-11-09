@@ -35,5 +35,6 @@
   "links": [],
   "receipts": [
     "_report/agent/codex-tier2/2025-11-08-2025-11-08-tier2-solo-run/summary.json"
-  ]
+  ],
+  "impact_ref": "2025-11-08-2025-11-08-tier2-solo-run"
 }

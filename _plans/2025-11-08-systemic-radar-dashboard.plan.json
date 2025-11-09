@@ -62,5 +62,6 @@
   "receipts": [
     "_report/usage/systemic-radar/systemic-radar-20251108T223755Z.json",
     "_report/usage/autonomy-status.json"
-  ]
+  ],
+  "impact_ref": "2025-11-08-systemic-radar-dashboard"
 }

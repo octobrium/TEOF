@@ -36,6 +36,8 @@ jobs:
         run: PYTHONPATH=. python3 scripts/ci/check_capability_inventory.py
       - name: Automation inventory guard
         run: PYTHONPATH=. python3 scripts/ci/check_automation_inventory.py
+      - name: Evidence prune guard
+        run: PYTHONPATH=. python3 scripts/ci/check_evidence_prune.py
       - name: Quickstart smoke test
         run: scripts/ci/quickstart_smoke.sh
       - name: Systemic ratchet guard

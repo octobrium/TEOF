@@ -81,5 +81,6 @@
   "priority": {
     "value": "high",
     "reason": "Validates decentralized operation across live stewards with signed evidence."
-  }
+  },
+  "impact_ref": "2025-10-17-decentralized-live-run"
 }

@@ -1,0 +1,9 @@
+{
+  "task_id": "ETHICS-ND-071",
+  "status": "pending",
+  "agent_id": "ethics_gate",
+  "plan_id": "ND-071",
+  "branch": "agent/ethics/ethics-nd-071",
+  "note": "Convergence metrics pipeline",
+  "receipt": "_report/usage/systemic-scan/20251109T160717Z/ethics.json"
+}

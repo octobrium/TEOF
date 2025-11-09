@@ -46,5 +46,6 @@
     "status": "pending"
   },
   "links": [],
-  "receipts": []
+  "receipts": [],
+  "impact_ref": "2025-11-09-autonomy-pause-telemetry"
 }

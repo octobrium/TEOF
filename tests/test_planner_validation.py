@@ -20,6 +20,7 @@ def base_payload(plan_id: str = "2025-09-17-sample") -> dict:
         "actor": "tester",
         "summary": "Sample plan",
         "status": "queued",
+        "impact_ref": plan_id,
         "layer": "L5",
         "systemic_scale": 6,
         "systemic_targets": ["S1", "S2", "S3", "S4", "S6"],
@@ -107,6 +108,15 @@ def test_validate_plan_requires_metadata(tmp_path: Path) -> None:
     result = validate_plan(path)
     assert not result.ok
     assert any("layer" in err for err in result.errors)
+
+
+def test_validate_plan_requires_impact_ref(tmp_path: Path) -> None:
+    payload = base_payload()
+    payload.pop("impact_ref")
+    path = write_plan(tmp_path, payload)
+    result = validate_plan(path)
+    assert not result.ok
+    assert any("impact_ref" in err for err in result.errors)
 
 
 def test_validate_plan_validates_systemic_range(tmp_path: Path) -> None:

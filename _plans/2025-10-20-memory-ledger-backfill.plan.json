@@ -45,5 +45,6 @@
     "status": "pending"
   },
   "receipts": [],
-  "links": []
+  "links": [],
+  "impact_ref": "2025-10-20-memory-ledger-backfill"
 }

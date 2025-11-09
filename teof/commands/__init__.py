@@ -4,6 +4,7 @@ from importlib import import_module
 from typing import Iterable
 
 _COMMAND_MODULES: tuple[str, ...] = (
+    "assess",
     "brief",
     "foreman",
     "status",
@@ -11,6 +12,8 @@ _COMMAND_MODULES: tuple[str, ...] = (
     "reflections",
     "ttd_trend",
     "scan",
+    "scan_history",
+    "plan_scope",
     "frontier",
     "critic",
     "tms",
@@ -25,6 +28,10 @@ _COMMAND_MODULES: tuple[str, ...] = (
     "inbox",
     "operator",
     "up",
+    "impact_bridge",
+    "receipts_stream",
+    "receipts_stream_guard",
+    "convergence_metrics",
 )
 
 

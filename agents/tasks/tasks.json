@@ -602,29 +602,53 @@
       "title": "Batch refinement telemetry refresh"
     },
     {
+      "assigned_by": "codex-1",
+      "branch": "agent/codex-4/queue-032",
+      "id": "QUEUE-032",
+      "layer": "L5",
+      "notes": "Document consensus cadence expectations for daily sweeps + weekly review.",
+      "plan_id": "2025-09-18-consensus-cadence",
+      "priority": "medium",
+      "receipts": [
+        "_plans/2025-09-18-consensus-cadence.plan.json",
+        "_report/agent/codex-4/queue-032/consensus-cadence-notes.md",
+        "_report/ethics/guards/2025-11-09/queue-032-ethics.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "systemic_scale": 6,
+      "title": "Consensus cadence guidance"
+    },
+    {
       "assigned_by": "codex-4",
       "branch": null,
       "id": "AUTH-PRIMARY_TRUTH-codex-5-20251004",
-      "plan_id": null,
+      "layer": "L5",
+      "notes": "Authenticity tier primary_truth below threshold for consecutive runs; feeds demo:0.255 (avg=0.255).",
+      "plan_id": "2025-11-09-authenticity-stability",
       "priority": "medium",
       "receipts": [
         "_report/ethics/guards/2025-11-09/auth-primary_truth-codex-5-20251004-ethics.json"
       ],
       "role": "engineer",
       "status": "open",
+      "systemic_scale": 9,
       "title": "AUTH-PRIMARY_TRUTH-codex-5-20251004"
     },
     {
       "assigned_by": "codex-4",
       "branch": null,
       "id": "AUTH-UNASSIGNED-codex-5-20251004",
-      "plan_id": null,
+      "layer": "L5",
+      "notes": "Authenticity tier unassigned below threshold for consecutive runs; feeds sample:0.204 (avg=0.204).",
+      "plan_id": "2025-11-09-authenticity-stability",
       "priority": "medium",
       "receipts": [
         "_report/ethics/guards/2025-11-09/auth-unassigned-codex-5-20251004-ethics.json"
       ],
       "role": "engineer",
       "status": "open",
+      "systemic_scale": 9,
       "title": "AUTH-UNASSIGNED-codex-5-20251004"
     },
     {
@@ -780,7 +804,7 @@
       "plan_id": "2025-11-09-teof-bus-claim-cli",
       "priority": "medium",
       "role": "engineer",
-      "status": "open",
+      "status": "done",
       "title": "QUEUE-082",
       "receipts": [
         "_report/ethics/guards/2025-11-09/queue-082-ethics.json"

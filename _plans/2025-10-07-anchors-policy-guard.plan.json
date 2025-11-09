@@ -67,5 +67,6 @@
   ],
   "layer_targets": [
     "L1"
-  ]
+  ],
+  "impact_ref": "2025-10-07-anchors-policy-guard"
 }

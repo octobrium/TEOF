@@ -4,7 +4,7 @@
   "created": "2025-11-09T05:10:10Z",
   "actor": "codex-tier2",
   "summary": "Stream the receipts index via incremental shards + CLI support.",
-  "status": "in_progress",
+  "status": "done",
   "priority": 2,
   "layer": "L6",
   "systemic_scale": 6,
@@ -22,26 +22,33 @@
     {
       "id": "S2",
       "title": "Design shard schema + CLI",
-      "status": "queued",
-      "notes": "Define shard manifest format, hash chaining, CLI flags, and transition plan for existing consumers.",
-      "receipts": []
+      "status": "done",
+      "notes": "Defined shard manifest format, hash chaining, CLI flags, pointer file, and guard/transition plan in convergence spec.",
+      "receipts": [
+        "docs/automation/receipts-index-streaming.md",
+        "docs/automation.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Implement generator + CI guard",
-      "status": "queued",
-      "notes": "Build streaming generator, write tests, emit receipts, and add CI freshness guard.",
-      "receipts": []
+      "status": "done",
+      "notes": "Implemented streaming CLI/tests/docs, emitted hashed shards, and refreshed the latest pointer.",
+      "receipts": [
+        "tools/autonomy/receipts_index_stream.py",
+        "tests/test_receipts_index_stream.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Streaming receipts index emits hashed shards and CI enforces freshness.",
     "owner": "codex-tier2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "receipts": [
-    "_report/agent/codex-tier2/2025-11-09-receipts-index-streaming/requirements.md",
-    "_report/ethics/guards/2025-11-09/nd-063-ethics.json"
+    "tools/autonomy/receipts_index_stream.py",
+    "tests/test_receipts_index_stream.py",
+    "docs/automation/receipts-index-streaming.md"
   ],
   "links": [
     {
@@ -57,5 +64,6 @@
   "layer_targets": [
     "L6",
     "L5"
-  ]
+  ],
+  "impact_ref": "receipts-index-streaming"
 }

@@ -17,6 +17,13 @@ from ._utils import DEFAULT_ROOT, relpath
 SCAN_COMPONENTS = ("frontier", "critic", "tms", "ethics")
 
 
+def _append_history(path: Path, entry: dict[str, object]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(entry, ensure_ascii=False))
+        handle.write("\n")
+
+
 def _scan_root() -> Path:
     for module in (frontier_mod, critic_mod, tms_mod, ethics_mod):
         root = getattr(module, "ROOT", None)
@@ -32,12 +39,21 @@ def _rel(base: Path) -> Callable[[Path], str]:
 def run(args: Namespace) -> int:
     limit = max(0, getattr(args, "limit", 10))
     fmt = getattr(args, "format", "table")
-    summary_only = bool(getattr(args, "summary", False)) and fmt == "table"
+    summary_only = bool(getattr(args, "summary", False))
     base_root = _scan_root()
     rel = _rel(base_root)
     out_dir = getattr(args, "out", None)
     if out_dir is not None and not out_dir.is_absolute():
         out_dir = base_root / out_dir
+    history_path: Path | None = None
+    if not getattr(args, "no_history", False):
+        history_candidate = getattr(args, "history", None)
+        if history_candidate is None:
+            history_path = base_root / ratchet_mod.HISTORY_DIR / "ratchet-history.jsonl"
+        else:
+            history_path = history_candidate
+            if not history_path.is_absolute():
+                history_path = base_root / history_path
 
     if args.emit_bus and out_dir is None:
         print("::error:: --emit-bus requires --out for provenance")
@@ -135,81 +151,108 @@ def run(args: Namespace) -> int:
         receipts["ratchet"] = ratchet_path
         ratchet_snapshot = snapshot
 
+    ordered = [comp for comp in SCAN_COMPONENTS if comp in selected]
+
     if fmt == "json":
         payload: dict[str, object] = {
             "generated_at": dt.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "components": ordered,
+            "limit": limit,
             "counts": counts,
+            "summary": summary_only,
         }
-        if "frontier" in selected:
-            payload["frontier"] = [entry.as_dict() for entry in frontier_entries]
-        if "critic" in selected:
-            payload["critic"] = critic_anomalies
-        if "tms" in selected:
-            payload["tms"] = tms_conflicts
-        if "ethics" in selected:
-            payload["ethics"] = ethics_violations
+        if not summary_only:
+            if "frontier" in selected:
+                payload["frontier"] = [entry.as_dict() for entry in frontier_entries]
+            if "critic" in selected:
+                payload["critic"] = critic_anomalies
+            if "tms" in selected:
+                payload["tms"] = tms_conflicts
+            if "ethics" in selected:
+                payload["ethics"] = ethics_violations
+            if ratchet_snapshot is not None:
+                payload["ratchet"] = ratchet_snapshot.as_dict()
         if receipts:
             payload["receipts"] = {name: rel(path) for name, path in receipts.items()}
         if bus_emitted:
             payload["emitted_bus"] = bus_emitted
         if plans_emitted:
             payload["emitted_plans"] = plans_emitted
-        if ratchet_snapshot is not None:
-            payload["ratchet"] = ratchet_snapshot.as_dict()
         print(json.dumps(payload, ensure_ascii=False, indent=2))
-        return 0
-
-    ordered = [comp for comp in SCAN_COMPONENTS if comp in selected]
-    if summary_only:
-        print("Counts:")
-        for comp in ordered:
-            print(f"- {comp}: {counts[comp]}")
     else:
-        for idx, comp in enumerate(ordered):
-            if idx:
-                print()
-            if comp == "frontier":
-                print("== Frontier ==")
-                print(frontier_mod.render_table(frontier_entries))
-                print(f"entries: {counts['frontier']}")
-            elif comp == "critic":
-                print("== Critic ==")
-                print(critic_mod.render_table(critic_anomalies))
-                print(f"anomalies: {counts['critic']}")
-            elif comp == "tms":
-                print("== TMS ==")
-                print(tms_mod.render_table(tms_conflicts))
-                print(f"conflicts: {counts['tms']}")
-            elif comp == "ethics":
-                print("== Ethics ==")
-                print(ethics_mod.render_table(ethics_violations))
-                print(f"violations: {counts['ethics']}")
+        if summary_only:
+            print("Counts:")
+            for comp in ordered:
+                print(f"- {comp}: {counts[comp]}")
+        else:
+            for idx, comp in enumerate(ordered):
+                if idx:
+                    print()
+                if comp == "frontier":
+                    print("== Frontier ==")
+                    print(frontier_mod.render_table(frontier_entries))
+                    print(f"entries: {counts['frontier']}")
+                elif comp == "critic":
+                    print("== Critic ==")
+                    print(critic_mod.render_table(critic_anomalies))
+                    print(f"anomalies: {counts['critic']}")
+                elif comp == "tms":
+                    print("== TMS ==")
+                    print(tms_mod.render_table(tms_conflicts))
+                    print(f"conflicts: {counts['tms']}")
+                elif comp == "ethics":
+                    print("== Ethics ==")
+                    print(ethics_mod.render_table(ethics_violations))
+                    print(f"violations: {counts['ethics']}")
 
-    if receipts:
-        print("\nReceipts:")
-        for name, path in receipts.items():
-            print(f"- {name}: {rel(path)}")
+        if receipts:
+            print("\nReceipts:")
+            for name, path in receipts.items():
+                print(f"- {name}: {rel(path)}")
 
-    if bus_emitted:
-        print("\nBus claims:")
-        for source, paths in bus_emitted.items():
-            for item in paths:
-                print(f"- {source}: {item}")
+        if bus_emitted:
+            print("\nBus claims:")
+            for source, paths in bus_emitted.items():
+                for item in paths:
+                    print(f"- {source}: {item}")
 
-    if plans_emitted:
-        print("\nPlans:")
-        for path in plans_emitted:
-            print(f"- {path}")
+        if plans_emitted:
+            print("\nPlans:")
+            for path in plans_emitted:
+                print(f"- {path}")
 
-    if ratchet_snapshot is not None:
-        print("\nRatchet:")
-        print(
-            f"- coherence_gain={ratchet_snapshot.coherence_gain} "
-            f"complexity_added={ratchet_snapshot.complexity_added} "
-            f"closure_velocity={ratchet_snapshot.closure_velocity} "
-            f"risk_load={ratchet_snapshot.risk_load} "
-            f"ratchet_index={ratchet_snapshot.ratchet_index}"
-        )
+        if ratchet_snapshot is not None:
+            print("\nRatchet:")
+            print(
+                f"- coherence_gain={ratchet_snapshot.coherence_gain} "
+                f"complexity_added={ratchet_snapshot.complexity_added} "
+                f"closure_velocity={ratchet_snapshot.closure_velocity} "
+                f"risk_load={ratchet_snapshot.risk_load} "
+                f"ratchet_index={ratchet_snapshot.ratchet_index}"
+            )
+
+    if history_path is not None:
+        history_entry: dict[str, object] = {
+            "ts": dt.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "components": ordered,
+            "limit": limit,
+            "counts": counts,
+            "format": fmt,
+            "summary": summary_only,
+            "emit_bus": bool(getattr(args, "emit_bus", False)),
+            "emit_plan": bool(getattr(args, "emit_plan", False)),
+        }
+        if out_dir is not None:
+            history_entry["out_dir"] = rel(out_dir)
+        if receipts:
+            history_entry["receipts"] = {name: rel(path) for name, path in receipts.items()}
+        if bus_emitted:
+            history_entry["emitted_bus"] = bus_emitted
+        if plans_emitted:
+            history_entry["emitted_plans"] = plans_emitted
+        if ratchet_snapshot is not None:
+            history_entry["ratchet"] = ratchet_snapshot.as_dict()
+        _append_history(history_path, history_entry)
 
     return 0
 
@@ -264,6 +307,16 @@ def register(subparsers: "argparse._SubParsersAction[object]") -> None:
         action="append",
         choices=SCAN_COMPONENTS,
         help="Skip the specified component(s) (repeat flag for multiple)",
+    )
+    parser.add_argument(
+        "--history",
+        type=Path,
+        help="Append scan counts to this JSONL file (format: one JSON object per line)",
+    )
+    parser.add_argument(
+        "--no-history",
+        action="store_true",
+        help="Skip automatic scan history logging (default writes to _report/usage/systemic-scan/ratchet-history.jsonl)",
     )
     parser.set_defaults(func=run)
 

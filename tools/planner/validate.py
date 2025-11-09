@@ -29,6 +29,7 @@ LEGACY_STATUS = {"pending": "queued"}
 CHECKPOINT_STATUS = {"pending", "satisfied", "superseded"}
 VALID_LAYERS = {f"L{idx}" for idx in range(7)}
 SYSTEMIC_MIN, SYSTEMIC_MAX = 1, 10
+IMPACT_REF_PATTERN = re.compile(r"^[a-z0-9][a-z0-9-]*$")
 
 PlanDict = Dict[str, Any]
 
@@ -442,6 +443,19 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
     else:
         errors.append("layer_targets must be list when provided")
 
+    raw_impact_ref = data.get("impact_ref")
+    impact_ref = None
+    if isinstance(raw_impact_ref, str):
+        candidate = raw_impact_ref.strip().lower()
+        if not candidate:
+            errors.append("impact_ref must be non-empty string")
+        elif not IMPACT_REF_PATTERN.fullmatch(candidate):
+            errors.append("impact_ref must be lowercase slug (letters, numbers, hyphen)")
+        else:
+            impact_ref = candidate
+    else:
+        errors.append("impact_ref is required and must be string")
+
     if "legacy_loop_target" in data:
         errors.append("legacy_loop_target is deprecated; use systemic_targets/layer_targets")
 
@@ -476,6 +490,7 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
             "systemic_scale": systemic_scale,
             "systemic_targets": systemic_targets,
             "layer_targets": layer_targets,
+            "impact_ref": impact_ref,
         },
         [],
     )

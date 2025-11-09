@@ -4,8 +4,16 @@
   "created": "2025-11-09T00:55:00Z",
   "actor": "codex-tier2",
   "summary": "Diagnose behavioral execution gap and run scaffold experiments",
-  "systemic_targets": ["S1", "S3", "S4", "S6"],
-  "layer_targets": ["L4", "L5"],
+  "systemic_targets": [
+    "S1",
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4",
+    "L5"
+  ],
   "priority": 1,
   "layer": "L5",
   "systemic_scale": 6,
@@ -62,5 +70,6 @@
   ],
   "receipts": [
     "_report/agent/codex-tier2/feedback/20251109-meta-feedback-response.md"
-  ]
+  ],
+  "impact_ref": "2025-11-09-behavioral-gap-interventions"
 }

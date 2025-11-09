@@ -77,5 +77,6 @@
     "_report/agent/codex-tier2/doc-verification/20251108T225351Z/notes.md",
     "_report/usage/onboarding/tier1-evaluation-20251108T225351Z.json",
     "_report/agent/codex-tier2/tier1-launch/20251108T230600Z/summary.md"
-  ]
+  ],
+  "impact_ref": "2025-11-07-tier1-accuracy-launch"
 }

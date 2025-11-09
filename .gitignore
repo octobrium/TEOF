@@ -18,6 +18,7 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 coverage.xml
+coverage.json
 .coverage*
 htmlcov/
 
@@ -47,6 +48,8 @@ build/
 # Legacy OCERS outputs (retired heuristics)
 ocers_reports/*.ensemble.json
 artifacts/
+!tools/artifacts/
+!tools/artifacts/**
 *.pyc
 ### TEOF standard ignores ###
 dist/

@@ -52,7 +52,7 @@
       "id": "step-3",
       "title": "Audit trail",
       "status": "blocked",
-      "notes": "Set up automated dashboards/receipts so the scoreboard stays observable \u2014 transferred to queue/073.",
+      "notes": "Set up automated dashboards/receipts so the scoreboard stays observable — transferred to queue/073.",
       "receipts": [
         "_report/impact/btc-ledger/2025-10-07-ledger.json",
         "_report/impact/btc-ledger/proof/README.md"
@@ -71,5 +71,6 @@
   ],
   "layer_targets": [
     "L5"
-  ]
+  ],
+  "impact_ref": "2025-10-06-teof-btc-scoreboard"
 }

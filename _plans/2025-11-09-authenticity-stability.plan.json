@@ -1,0 +1,60 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-authenticity-stability",
+  "created": "2025-11-09T06:23:00Z",
+  "actor": "codex-5",
+  "summary": "Stabilize authenticity tiers (primary_truth + unassigned) after the 2025-10 alert streak by auditing guard receipts and wiring the follow-up remediation steps.",
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit guard receipts + confirm degradation source",
+      "status": "done",
+      "notes": "Guardrails captured the alert (ethics receipts dated 2025-11-09); steward acknowledged and analyzed the drop.",
+      "receipts": [
+        "docs/ethics/2025-11-09-authenticity-stability.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Rebaseline authenticity telemetry + implement remediation",
+      "status": "done",
+      "notes": "Documented remediation workflow + receipt contract (authenticity report, escalation logging, guard verification).",
+      "receipts": [
+        "docs/automation/authenticity-stability.md",
+        "docs/automation.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Authenticity tiers remain above threshold for both primary_truth and unassigned feeds with receipts proving remediation.",
+    "owner": "codex-5",
+    "status": "pending"
+  },
+  "links": [
+    {
+      "type": "task",
+      "ref": "AUTH-PRIMARY_TRUTH-codex-5-20251004"
+    },
+    {
+      "type": "task",
+      "ref": "AUTH-UNASSIGNED-codex-5-20251004"
+    }
+  ],
+  "receipts": [
+    "docs/ethics/2025-11-09-authenticity-stability.md",
+    "docs/automation/authenticity-stability.md"
+  ],
+  "layer": "L5",
+  "systemic_scale": 6,
+  "systemic_targets": [
+    "S2",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "impact_ref": "2025-11-09-authenticity-stability"
+}

@@ -121,7 +121,7 @@
     {
       "id": "ND-056",
       "title": "Impact Bridge Dashboard",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-11-09-impact-bridge",
       "notes": "Tie impact ledger entries to backlog items and automation receipts so Meaning-level outcomes stay observable.",
       "priority": "medium",
@@ -141,14 +141,15 @@
       "receipts_ref": {
         "kind": "plan",
         "plan_id": "2025-11-09-impact-bridge",
-        "count": 2,
-        "digest": "a019a76c7e952611892ba5f1e76ea29d489d3ec51ee39f5e708661d01269b4b7"
-      }
+        "count": 10,
+        "digest": "7ddb67df18945fdb0daad5552be620605c40a6f2ac3a07356020aa8787f3901c"
+      },
+      "completed_at": "2025-11-09T06:32:29Z"
     },
     {
       "id": "ND-068",
       "title": "Confidence calibration analytics",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-11-09-confidence-calibration",
       "notes": "Correlate agent confidence receipts with plan outcomes and emit ethics alerts before automation drifts from observation-first guardrails.",
       "priority": "high",
@@ -167,9 +168,10 @@
       "receipts_ref": {
         "kind": "plan",
         "plan_id": "2025-11-09-confidence-calibration",
-        "count": 2,
-        "digest": "1606a09a4d6d90adcf86dc2d56a25cd14ea46eed80f185e2b0d6e1ad9658530e"
-      }
+        "count": 9,
+        "digest": "b33228e3c3f36ea955b5fc436c3a3a5aa024ae8d6392269156f2ef0cba620ab7"
+      },
+      "completed_at": "2025-11-09T06:26:15Z"
     },
     {
       "id": "ND-069",
@@ -231,7 +233,7 @@
     {
       "id": "ND-071",
       "title": "Convergence metrics pipeline",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-11-09-convergence-metrics",
       "notes": "Instrument multi-node convergence metrics (hash alignment, receipt coverage, anchor latency) so propagation drift surfaces immediately.",
       "priority": "high",
@@ -252,8 +254,9 @@
         "kind": "plan",
         "plan_id": "2025-11-09-convergence-metrics",
         "count": 2,
-        "digest": "4740de8c04581193a79aa1f56b362c71b26821ec41646c24fe646bd448f1d597"
-      }
+        "digest": "369cc1a6a4ed20b767e5bcfb7422392de16cce826c4ef1d263405f974be430d2"
+      },
+      "completed_at": "2025-11-09T06:42:05Z"
     },
     {
       "id": "ND-061",
@@ -312,7 +315,7 @@
     {
       "id": "ND-063",
       "title": "Receipts index streaming",
-      "status": "pending",
+      "status": "done",
       "plan_suggestion": "2025-11-09-receipts-index-streaming",
       "notes": "Rebuild the receipts index generator to emit incremental shards instead of a single multi-megabyte JSONL so agents can fetch fresh state quickly and avoid repeated large writes.",
       "priority": "medium",
@@ -331,14 +334,16 @@
       "receipts_ref": {
         "kind": "plan",
         "plan_id": "2025-11-09-receipts-index-streaming",
-        "count": 2,
-        "digest": "77bed26378547dc83e52318f5404bce184560e9008cb7bc9330fa8d95cd5c535"
-      }
+        "count": 7,
+        "digest": "126be8b4e81790b83fd483778e645a5e6efe5c6a7743907dc47532b13290660e"
+      },
+      "completed_at": "2025-11-09T06:49:55Z"
     },
     {
       "id": "ND-064",
       "title": "Legacy artifact cold storage",
-      "status": "pending",
+      "status": "done",
+      "completed_at": "2025-11-09T06:47:30Z",
       "plan_suggestion": "2025-11-09-legacy-artifact-cold-storage",
       "notes": "Move legacy_loop_out bundles into compressed apoptosis snapshots with manifest hashes so the repo stops tracking heavy ensembles while preserving provenance.",
       "priority": "medium",
@@ -364,7 +369,8 @@
     {
       "id": "ND-065",
       "title": "Build artifact hygiene guard",
-      "status": "pending",
+      "status": "done",
+      "completed_at": "2025-11-09T06:34:40Z",
       "plan_suggestion": "2025-11-09-build-artifact-guard",
       "notes": "Stop tracking dist/ and teof.egg-info outputs by tightening .gitignore and adding a guard that fails when build products leak into commits.",
       "priority": "medium",
@@ -389,7 +395,8 @@
     {
       "id": "ND-066",
       "title": "Apoptosis snapshot compression",
-      "status": "pending",
+      "status": "done",
+      "completed_at": "2025-11-09T06:43:10Z",
       "plan_suggestion": "2025-11-09-apoptosis-compression",
       "notes": "Replace full _report copies under _apoptosis with hashed bundles or tarballs so cold storage remains append-only without duplicating active receipts.",
       "priority": "medium",

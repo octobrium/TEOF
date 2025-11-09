@@ -8,7 +8,7 @@
   "layer": "L6",
   "systemic_scale": 8,
   "impact_score": 29,
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -16,7 +16,7 @@
       "status": "done",
       "notes": "Reviewed queue brief + confidence docs to enumerate inputs, storage, CLI surface, metrics, and alert integration for ND-068.",
       "receipts": [
-        "_report/agent/codex-tier2/2025-11-09-confidence-calibration/requirements.md"
+        "docs/automation/confidence-calibration.md"
       ]
     },
     {
@@ -31,25 +31,41 @@
     {
       "id": "S3",
       "title": "Implement tooling + receipts",
-      "status": "pending",
-      "notes": "Ship CLI/report, emit _report/usage/confidence-calibration/* artifacts, and wire into scan/ethics hooks.",
-      "receipts": []
+      "status": "done",
+      "notes": "Ship CLI/report, emit tracked summaries, and wire into scan/ethics hooks.",
+      "receipts": [
+        "tools/agent/confidence_calibration.py",
+        "tests/test_confidence_calibration.py",
+        "docs/reports/confidence-calibration.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Confidence calibration analytics live with receipts + automated alerts",
     "owner": "codex-tier2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "links": [
-    {"type": "queue", "ref": "queue/068-confidence-calibration.md"}
+    {
+      "type": "queue",
+      "ref": "queue/068-confidence-calibration.md"
+    }
   ],
   "receipts": [
-    "_report/agent/codex-tier2/2025-11-09-confidence-calibration/plan.json",
-    "_report/agent/codex-tier2/2025-11-09-confidence-calibration/requirements.md",
-    "_report/agent/codex-tier2/2025-11-09-confidence-calibration/design.md",
-    "_report/ethics/guards/2025-11-09/nd-068-ethics.json"
+    "docs/automation/confidence-calibration.md",
+    "docs/reports/confidence-calibration.md",
+    "tools/agent/confidence_calibration.py",
+    "tests/test_confidence_calibration.py"
   ],
-  "systemic_targets": ["S4", "S5", "S6", "S8"],
-  "layer_targets": ["L6", "L5"]
+  "systemic_targets": [
+    "S4",
+    "S5",
+    "S6",
+    "S8"
+  ],
+  "layer_targets": [
+    "L6",
+    "L5"
+  ],
+  "impact_ref": "2025-11-09-confidence-calibration"
 }

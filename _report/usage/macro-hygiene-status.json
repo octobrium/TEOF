@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-08T22:47:19Z",
+  "generated_at": "2025-11-09T06:01:56Z",
   "objectives": [
     {
       "id": "MH-ENV",
@@ -132,7 +132,7 @@
           "kind": "path_exists",
           "path": "tests/test_agent_bus_status.py",
           "ok": true,
-          "detail": "exists (mtime=2025-10-07T21:26:16.647428+00:00)",
+          "detail": "exists (mtime=2025-11-09T05:49:06.322309+00:00)",
           "optional": false
         }
       ],
@@ -254,5 +254,5 @@
     "total": 4
   },
   "status": "ready",
-  "receipt_sha256": "4c0331c9288b3c6b9dd035036a2138c1e90f94e52b78d5739766186ad2b40c64"
+  "receipt_sha256": "06ec8765d872d24be215db112b9e9803bc562670aeea0b3806ad76807c932ac9"
 }

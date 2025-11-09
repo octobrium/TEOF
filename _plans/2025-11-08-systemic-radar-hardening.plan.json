@@ -35,5 +35,6 @@
   "links": [],
   "receipts": [
     "_report/usage/systemic-radar/systemic-radar-20251108T220241Z.json"
-  ]
+  ],
+  "impact_ref": "2025-11-08-systemic-radar-hardening"
 }

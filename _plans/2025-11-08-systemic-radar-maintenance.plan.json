@@ -66,5 +66,6 @@
     "_report/usage/autonomy-status.json",
     "_report/usage/backlog-health/backlog-health-20251108T224802Z.json",
     "_report/usage/systemic-radar/systemic-radar-20251108T224815Z.json"
-  ]
+  ],
+  "impact_ref": "2025-11-08-systemic-radar-maintenance"
 }

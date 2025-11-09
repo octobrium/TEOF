@@ -65,5 +65,6 @@
   "receipts": [
     "_report/usage/systemic-radar/systemic-radar-20251108T215621Z.json",
     "_report/planner/validate/summary-20251108T215810Z.json"
-  ]
+  ],
+  "impact_ref": "2025-11-08-systemic-radar-guard"
 }

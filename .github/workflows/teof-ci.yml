@@ -94,6 +94,24 @@ jobs:
           fi
           bash tools/doctor.sh
 
+      - name: Build artifact guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/ci/check_build_artifacts.py
+
+      - name: Impact bridge guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/ci/check_impact_bridge.py
+
+      - name: Legacy cold storage guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/ci/check_legacy_cold_storage.py
+
       - name: Reconciliation pipeline (sample)
         shell: bash
         run: |

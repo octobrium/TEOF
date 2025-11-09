@@ -68,5 +68,6 @@
     "_report/usage/autonomy-audit/summary-latest.json",
     "_report/usage/autonomy-audit/pytest-autonomy-digest.xml",
     "_report/ethics/guards/2025-11-09/nd-062-ethics.json"
-  ]
+  ],
+  "impact_ref": "2025-10-20-autonomy-audit-aggregation"
 }

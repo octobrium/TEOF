@@ -1,0 +1,16 @@
+{
+  "plan_id": "2025-11-09-plan-scope",
+  "generated_at": "2025-11-09T16:13:43Z",
+  "files": [
+    {
+      "path": "_plans/2025-11-09-plan-scope.plan.json",
+      "exists": true,
+      "source": "plan"
+    },
+    {
+      "path": "docs/automation/plan-scope.md",
+      "exists": true,
+      "source": "receipt"
+    }
+  ]
+}

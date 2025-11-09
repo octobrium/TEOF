@@ -1,0 +1,9 @@
+{
+  "task_id": "ETHICS-ND-068",
+  "status": "pending",
+  "agent_id": "ethics_gate",
+  "plan_id": "ND-068",
+  "branch": "agent/ethics/ethics-nd-068",
+  "note": "Confidence calibration analytics",
+  "receipt": "_report/usage/systemic-scan/20251109T160717Z/ethics.json"
+}

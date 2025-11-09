@@ -55,5 +55,6 @@
     "_report/usage/evidence-usage.json",
     "_report/usage/prune-artifacts/20251020T074500Z.json"
   ],
-  "links": []
+  "links": [],
+  "impact_ref": "2025-10-20-evidence-hygiene"
 }

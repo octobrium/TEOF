@@ -4,7 +4,7 @@
   "created": "2025-11-09T05:11:28Z",
   "actor": "codex-tier2",
   "summary": "Add a build artifact hygiene guard (git ignores + CLI + CI).",
-  "status": "in_progress",
+  "status": "done",
   "priority": 2,
   "layer": "L4",
   "systemic_scale": 4,
@@ -22,25 +22,35 @@
     {
       "id": "S2",
       "title": "Design guard + allowlist",
-      "status": "queued",
-      "notes": "Define detection rules, allowlist, CLI flags, and CI integration.",
-      "receipts": []
+      "status": "done",
+      "notes": "Documented detection rules, CLI flags, receipts, and CI integration path in automation docs.",
+      "receipts": [
+        "docs/automation.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Implement guard + tests",
-      "status": "queued",
-      "notes": "Update .gitignore, add guard CLI, write tests/docs, and wire CI.",
-      "receipts": []
+      "status": "done",
+      "notes": "Guard CLI, CI wrapper, docs, tests, and receipts landed; workflow runs the guard.",
+      "receipts": [
+        "tools/autonomy/build_guard.py",
+        "scripts/ci/check_build_artifacts.py",
+        "tests/test_autonomy_build_guard.py",
+        ".github/workflows/teof-ci.yml"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Build artifact guard prevents tracked build outputs and CI enforces it.",
     "owner": "codex-tier2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "receipts": [
-    "_report/agent/codex-tier2/2025-11-09-build-artifact-guard/requirements.md"
+    "_report/agent/codex-tier2/2025-11-09-build-artifact-guard/requirements.md",
+    "tools/autonomy/build_guard.py",
+    "scripts/ci/check_build_artifacts.py",
+    "tests/test_autonomy_build_guard.py"
   ],
   "links": [
     {
@@ -55,5 +65,6 @@
   "layer_targets": [
     "L4",
     "L6"
-  ]
+  ],
+  "impact_ref": "2025-11-09-build-artifact-guard"
 }

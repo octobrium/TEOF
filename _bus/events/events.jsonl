@@ -324,3 +324,13 @@
 {"agent_id": "codex-tier2", "event": "claim", "plan_id": "2025-11-09-decentralized-node-ledger", "summary": "Reclaimed node ledger follow-up for docs+governance integration", "task_id": "ND-069", "ts": "2025-11-09T05:23:22Z"}
 {"agent_id": "codex-tier2", "event": "claim", "plan_id": "2025-11-09-teof-bus-claim-cli", "summary": "Starting teof bus_claim CLI wrapper", "task_id": "QUEUE-082", "ts": "2025-11-09T05:30:55Z"}
 {"agent_id": "codex-tier2", "event": "status", "plan_id": "2025-11-09-teof-bus-claim-cli", "receipts": ["_report/agent/codex-tier2/2025-11-09-teof-bus-claim-cli/summary.json"], "summary": "teof bus_claim wrapper + docs/tests complete; claim released.", "task_id": "QUEUE-082", "ts": "2025-11-09T05:35:23Z"}
+{"agent_id": "codex-tier2", "event": "observation", "receipts": ["_report/session/codex-tier2/dirty-handoff/dirty-20251109T060057Z.txt"], "summary": "Dirty working tree detected during session_boot", "ts": "2025-11-09T06:00:57Z"}
+{"agent_id": "codex-tier2", "branch_prefix": "agent/codex-tier2/", "event": "handshake", "summary": "Session handshake", "ts": "2025-11-09T06:01:06Z"}
+{"agent_id": "codex-tier2", "branch_prefix": "agent/codex-tier2/", "event": "handshake", "summary": "Session handshake", "ts": "2025-11-09T06:21:20Z"}
+{"agent_id": "codex-tier2", "event": "status", "plan_id": "2025-11-09-authenticity-stability", "summary": "Investigating authenticity drop", "task_id": "AUTH-PRIMARY_TRUTH-codex-5-20251004", "ts": "2025-11-09T06:45:37Z"}
+{"agent_id": "codex-tier2", "branch_prefix": "agent/codex-tier2/", "event": "handshake", "meta": {"focus": "authenticity"}, "summary": "Session handshake", "ts": "2025-11-09T07:23:03Z"}
+{"agent_id": "codex-tier2", "event": "status", "plan_id": "2025-11-09-authenticity-stability", "summary": "Authenticity remediation receipts refreshed", "task_id": "AUTH-PRIMARY_TRUTH-codex-5-20251004", "ts": "2025-11-09T07:23:09Z"}
+{"agent_id": "codex-tier2", "event": "status", "plan_id": "2025-11-09-authenticity-stability", "summary": "Preparing push: scan history + status clean; running preflight next", "ts": "2025-11-09T07:29:29Z"}
+{"agent_id": "codex-tier2", "event": "observation", "receipts": ["_report/session/codex-tier2/dirty-handoff/dirty-20251109T155708Z.txt"], "summary": "Dirty working tree detected during session_boot", "ts": "2025-11-09T15:57:08Z"}
+{"agent_id": "codex-tier2", "branch_prefix": "agent/codex-tier2/", "event": "handshake", "meta": {"focus": "authenticity"}, "summary": "Session handshake", "ts": "2025-11-09T15:57:13Z"}
+{"agent_id": "codex-tier2", "event": "status", "plan_id": "2025-11-09-plan-scope", "summary": "Implementing teof plan_scope to automate per-plan push scoping", "ts": "2025-11-09T16:10:00Z"}

@@ -27,7 +27,8 @@
 
 Run `python -m tools.agent.receipts_index --output receipts-index.jsonl` to emit a JSONL ledger covering `_plans/*.plan.json`, `_report/**` receipts, and manager-report entries. Relative `--output` paths land under `_report/usage/`; omit `--output` to stream to stdout. Each record includes basic metadata (timestamp, size, sha256) and flags receipts that are missing or untracked so you can repair evidence before CI fails `check_plans`. Automation can ingest the ledger to power hygiene sweeps or surface stale subsystems.
 
-`python -m tools.maintenance.evidence_usage --json evidence-usage.json` consumes the same ledger, flags orphan receipts and plans missing receipts, and writes a summary under `_report/usage/`. Run it before pruning to prove which artifacts can safely move into `_apoptosis/`.
+`python -m tools.maintenance.evidence_usage --json evidence-usage.json` consumes the same ledger, flags orphan receipts and plans missing receipts, and writes a summary under `_report/usage/`. Run it before pruning to prove which artifacts can safely move into `_apoptosis/`.  
+`python -m tools.automation.evidence_prune run --apply-prune --cutoff-hours 168` wraps the scan, writes `_report/usage/evidence-prune/evidence-<ts>.json`, plans (or applies) a targeted `prune_artifacts` sweep, and updates `_report/usage/evidence-prune/latest.json`. CI calls `python -m tools.automation.evidence_prune guard` (see `scripts/ci/check_evidence_prune.py`) to ensure the pointer exists, is fresh, and that orphan counts trigger a prune receipts when required.
 
 ### Receipts latency
 
@@ -46,6 +47,51 @@ Need both artifacts in one go? `python -m tools.agent.receipts_hygiene` runs the
 - `--warn-plan-latency <seconds>` (default **259200s**, 3 days) annotates slow plans with `severity="warn"` in `slow_plan_alerts`.
 - `--fail-plan-latency <seconds>` (default **604800s**, 7 days) raises a non-zero exit and records `severity="fail"` when breached.
 
+### Build artifact guard
+
+`python -m tools.autonomy.build_guard check` scans the git index for directories and files that must remain untracked (`build/`, `dist/`, `artifacts/systemic_out/`, `node_modules/`, coverage outputs, etc.). The CLI writes `_report/usage/build-artifact-guard.json` by default, exits non-zero when it finds tracked build artifacts, and prints the offending paths so operators can `git rm` or update their `.gitignore`. Use `--paths <pattern …>` to override the default allowlist, `--json` to emit the structured receipt payload to stdout, and `--no-write` when rehearsing a fix locally. CI invokes the guard via `scripts/ci/check_build_artifacts.py`; keep it in the preflight lane before pushing to ensure capsules never inherit local build outputs.
+
+### Impact bridge dashboard
+
+`python -m teof impact_bridge` connects `memory/impact/log.jsonl` to `_plans/**/*.plan.json` and `_plans/next-development.todo.json`, then writes JSON + markdown receipts under `_report/impact/bridge/`. The CLI now prints a human summary (counts, missing/orphan slugs, unused ledger entries), can emit structured stdout via `--format json`, and writes an explicit remediation queue when `--orphans-out <path>` is supplied. Use `--fail-on-missing` to flip the exit code when plans are missing `impact_ref` values or reference slugs that do not exist. For CI, run `scripts/ci/check_impact_bridge.py` — it executes the bridge CLI with temporary output paths so you can gate PRs without mutating the repo. See [`docs/impact/impact-bridge.md`](impact/impact-bridge.md) for the full workflow, including how to refresh receipts and interpret linkage stats.
+
+### Apoptosis compression
+
+`python -m tools.autonomy.apoptosis_compress` (in-flight) will bundle `_apoptosis/<stamp>/…` directories into hashed tarballs under `artifacts/apoptosis/`, emit receipts under `_report/usage/apoptosis/`, and remove the original raw dumps. Design notes covering bundle format, manifest schema, receipts, and the upcoming CI guard live in [`docs/automation/apoptosis-compression.md`](automation/apoptosis-compression.md). Implementors should follow that spec when adding the CLI, guard script, and documentation updates.
+
+### Receipts index streaming
+
+Run `teof receipts_stream --dest _report/usage/receipts-index/stream --pointer _report/usage/receipts-index/latest.json` (alias: `python -m tools.autonomy.receipts_index_stream stream …`) to down-sample `_report/usage/receipts-index/manifest.json` into hashed JSONL shards. Each invocation resumes after the last emitted shard, writes `receipts-<stamp>-<seq>.jsonl` + `receipts-<stamp>-<seq>.manifest.json`, and refreshes the pointer file with the latest shard path and hash. Use `--max-entries` to tune shard size (default 500), `--since-shard` to rebuild from a specific point, and `--dry-run` for rehearsal. Pass `--receipt _report/usage/receipts-index/stream-run-<stamp>.json` (or similar) so the CLI emits a module-tagged receipt describing shard counts, pointer metadata, and the freshness window in use—this keeps automation health checks aware of recent runs. `--max-age-hours` (default 24h) enforces freshness by failing when the newest entry exceeds the threshold. Full schema + rollout notes live in [`docs/automation/receipts-index-streaming.md`](automation/receipts-index-streaming.md); run `teof receipts_stream_guard --pointer _report/usage/receipts-index/latest.json --receipt _report/usage/receipts-index/guard/receipts-stream-guard-<stamp>.json` (the same logic wired into `scripts/ci/check_receipts_stream.py`) to rehash the pointer target, capture guard receipts, and enforce the freshness gate during CI or local rehearsals.
+
+### Legacy artifact cold storage
+
+Historical `_report/legacy_loop_out/` exports and `_apoptosis/` leftovers will migrate into hashed tar.zst bundles created by `python -m tools.artifacts.cold_storage snapshot`. Each bundle writes `manifest.json`, `SHASUMS.txt`, and a receipt under `_report/usage/legacy-cold-storage/`, plus a pointer (`latest.json`) for dashboards. The planned guard script will verify bundle hashes, freshness, and ensure no stray raw artifacts remain committed. Implementation details live in [`docs/automation/legacy-cold-storage.md`](automation/legacy-cold-storage.md).
+
+### Autonomy module consolidation
+
+Overlapping coordinator/conductor/advisory modules will collapse into four focused services (coordination, execution, signal, advisory) managed by a new CLI (`python -m tools.autonomy.module_consolidate`). The design spec in [`docs/automation/autonomy-module-consolidation.md`](automation/autonomy-module-consolidation.md) outlines the target module map, shared primitives, telemetry receipts, and the migration CLI/guard flow.
+
+### Convergence metrics pipeline
+
+`python -m teof convergence_metrics collect` scoops up reconciliation receipts, receipt-sync logs, CMD-tag usage across plans, and automation audit accuracy into `artifacts/convergence/records-latest.json`. Follow with:
+
+```bash
+python -m teof convergence_metrics aggregate \
+  --source artifacts/convergence/records-latest.json \
+  --report-dir _report/reconciliation/convergence-metrics \
+  --markdown docs/reports/convergence-metrics.md
+```
+
+The summary JSON captures hash-match rate, receipt-gap rate, anchor latency, CMD-tag ratio, and automation accuracy (with default thresholds baked in). The markdown dashboard mirrors those metrics for manager reports. CI integration: `python -m teof convergence_metrics guard --summary _report/reconciliation/convergence-metrics/latest.json --hash-min 0.95 --gap-max 0.05 --latency-max 30 --cmd-min 0.8 --automation-min 0.9` exits non-zero when drift crosses limits. Full design + schema lives in [`docs/automation/convergence-metrics.md`](automation/convergence-metrics.md).
+
+### Consensus cadence guard
+
+Consensus reviews (QUEUE-032) require daily engineer sweeps plus a weekly manager packet. The guard expects fresh receipts under `_report/agent/<id>/consensus/` and `_report/manager/consensus-weekly-*.md`, enforced via `scripts/ci/check_consensus_receipts.py`. See [`docs/automation/consensus-cadence.md`](automation/consensus-cadence.md) for the runbook, CLI commands, and guard rules so Ethics stays green.
+
+### Authenticity stability playbook
+
+When authenticity tiers (`primary_truth`, `unassigned`) fall below trust thresholds, run the remediation loop captured in [`docs/automation/authenticity-stability.md`](automation/authenticity-stability.md). It details how to re-run `tools.external.authenticity_report`, log actions with `tools.agent.authenticity_escalation`, emit remediation receipts under `_report/usage/authenticity-stability/`, and verify guards before clearing the `AUTH-*` tasks.
+
 ### Systemic scan bundle
 
 `teof scan` runs the frontier, critic, TMS, and ethics guardrails together so humans get a single systemic readiness snapshot.
@@ -61,7 +107,10 @@ teof scan --out _report/usage/systemic-scan --format json --emit-bus --emit-plan
 - Use `--limit` to cap frontier entries (default **10**). Skipping `--out` keeps the run read-only.
 - Scope the run with `--only <component>` (repeat for multiple) or `--skip <component>` to evaluate a subset. Component names: `frontier`, `critic`, `tms`, `ethics`.
 - Pass `--summary` to print a quick counts list instead of full tables when you only need systemic readiness tallies.
+- Add `--history _report/usage/scan-history.jsonl` (or another path) to append each run’s counts, selected components, and receipt paths to a JSONL log for dashboards or CI auditors.
 - Capture a fresh manager-report tail before automation runs (`python -m tools.agent.session_boot --agent <id> --with-status`) so the session guard sees the latest coordination receipts. CI jobs should run `session_boot` in the same step as the scan.
+
+Use `python3 -m teof scan_history --limit 5` to inspect the most recent entries in `_report/usage/scan-history.jsonl` (JSON output available via `--format json`, custom paths via `--path`). Add `--component critic` (repeatable) to focus on runs where a given subsystem fired, and `--summary` to emit aggregated totals instead of the per-entry table. Pass `--emit-receipt` (or `--receipt-path <file>`) to store a JSON receipt under `_report/usage/scan-history/receipts/`, which keeps capability inventory from flagging the command as dormant.
 
 ### Dynamic scan driver
 

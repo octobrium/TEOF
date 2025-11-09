@@ -56,6 +56,7 @@
   ],
   "priority": {
     "value": "medium",
-    "reason": "Provides a bridge between existing compliance frameworks and TEOF\u2019s constitutional lattice."
-  }
+    "reason": "Provides a bridge between existing compliance frameworks and TEOF’s constitutional lattice."
+  },
+  "impact_ref": "2025-10-17-systemic-alignment-matrix"
 }

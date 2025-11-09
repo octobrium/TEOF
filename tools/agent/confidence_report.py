@@ -20,6 +20,7 @@ class ConfidenceEntry:
     agent: str
     confidence: float
     note: str | None
+    plan_id: str | None = None
 
 
 def _coerce_float(value: object) -> float | None:
@@ -47,7 +48,9 @@ def load_entries(path: Path) -> list[ConfidenceEntry]:
         ts = str(payload.get("ts") or "-")
         agent = str(payload.get("agent") or "-")
         note = payload.get("note") if isinstance(payload.get("note"), str) else None
-        entries.append(ConfidenceEntry(ts=ts, agent=agent, confidence=confidence, note=note))
+        plan_id = payload.get("plan_id")
+        plan_value = plan_id if isinstance(plan_id, str) and plan_id.strip() else None
+        entries.append(ConfidenceEntry(ts=ts, agent=agent, confidence=confidence, note=note, plan_id=plan_value))
     return entries
 
 
@@ -154,4 +157,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

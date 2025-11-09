@@ -141,6 +141,12 @@ def build_parser(subparsers: "argparse._SubParsersAction[object]") -> None:
         action="store_true",
         help="Include strict plan validation (operational tier)",
     )
+    verify.add_argument(
+        "--format",
+        choices=("text", "json"),
+        default="text",
+        help="Output format for the summary (default: text)",
+    )
     verify.set_defaults(func=_cmd_verify)
 
 
@@ -148,8 +154,7 @@ def register(subparsers: "argparse._SubParsersAction[object]") -> None:  # pragm
     build_parser(subparsers)
 
 
-def _cmd_verify(args: argparse.Namespace) -> int:
-    root = repo_root()
+def _run_verify(args: argparse.Namespace, root: Path) -> tuple[dict[str, object], Path, bool]:
     stamp = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
     receipt_dir = root / "_report" / "operator" / "verify"
     receipt_dir.mkdir(parents=True, exist_ok=True)
@@ -181,6 +186,17 @@ def _cmd_verify(args: argparse.Namespace) -> int:
     if not summary_path.is_absolute():
         summary_path = root / summary_path
     _write_json(summary_path, summary)
-    print(f"operator verify receipt → {_relative(summary_path, root)}")
+    return summary, summary_path, overall_ok
+
+
+def _cmd_verify(args: argparse.Namespace) -> int:
+    root = repo_root()
+    summary, summary_path, overall_ok = _run_verify(args, root)
+    fmt = getattr(args, "format", "text").lower()
+
+    if fmt == "json":
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+    else:
+        print(f"operator verify receipt → {_relative(summary_path, root)}")
 
     return 0 if overall_ok else 2

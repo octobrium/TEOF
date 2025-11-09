@@ -10,7 +10,6 @@ from teof._paths import repo_root
 
 from tools.autonomy.receipt_utils import resolve_item_receipts
 from tools.autonomy.shared import (
-    atomic_write_json,
     count_lines,
     git_commit,
     load_backlog_items,
@@ -20,11 +19,12 @@ from tools.autonomy.shared import (
     utc_timestamp,
     write_receipt_payload,
 )
+from tools.autonomy import shared_bus
 
 ROOT = repo_root(default=Path(__file__).resolve().parents[2])
+CLAIMS_DIR = ROOT / "_bus" / "claims"  # legacy attribute (tests monkeypatch)
 BACKLOG_PATH = ROOT / "_plans" / "next-development.todo.json"
 STATE_PATH = ROOT / "memory" / "state.json"
-CLAIMS_DIR = ROOT / "_bus" / "claims"
 
 
 def _load_backlog() -> list[dict[str, Any]]:
@@ -123,23 +123,17 @@ def write_receipt(anomalies: Sequence[dict[str, Any]], out_path: Path) -> Path:
 
 
 def emit_bus_claim(anomaly: dict[str, Any], receipt_path: Path) -> Path:
-    CLAIMS_DIR.mkdir(parents=True, exist_ok=True)
     task = anomaly.get("suggested_task") or {}
-    task_id = str(task.get("task_id") or f"REPAIR-{anomaly.get('id')}")
-    filename = f"{task_id}.json"
-    claim_path = CLAIMS_DIR / filename
-    if claim_path.exists():
-        return claim_path
-    payload = {
-        "task_id": task_id,
-        "status": "pending",
-        "agent_id": "critic",
-        "plan_id": anomaly.get("id"),
-        "branch": f"agent/critic/{task_id.lower()}",
-        "note": anomaly.get("title"),
-        "receipt": str(receipt_path.relative_to(ROOT)),
-    }
-    return atomic_write_json(claim_path, payload)
+    task_id = str(task.get("task_id") or f"REPAIR-{anomaly.get('id') or 'anomaly'}")
+    return shared_bus.emit_claim(
+        task_id=task_id,
+        agent_id="critic",
+        note=anomaly.get("title"),
+        plan_id=anomaly.get("id"),
+        receipt_path=receipt_path,
+        branch=f"agent/critic/{task_id.lower()}",
+        root=ROOT,
+    )
 
 
 # Backwards compatibility: retain the private alias until downstream callers migrate.

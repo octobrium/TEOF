@@ -21,12 +21,17 @@ Add plain language directly after the command or use `--say`. Call
 
 | Request style | Routed command | Behaviour |
 | --- | --- | --- |
-| “run the alignment scan”, “check alignment” | `teof scan --summary` | Executes the scan driver with summary output (limit 10). |
-| “show the status”, “what’s the state” | `teof status` | Prints the repo status snapshot. |
-| “list tasks”, “what’s next” | `teof tasks` | Shows the active task table with warnings. |
+| “run the alignment scan”, “check alignment” | `teof scan --summary` | Executes the scan driver with summary output (limit 10). Add `--format json` when you just need the counts. |
+| “show the status”, “what’s the state” | `teof status` | Prints the repo status snapshot (add `--format json` for machine output). |
+| “list tasks”, “what’s next” | `teof tasks` | Shows the active task table with warnings (`--summary` for aggregate counts, `--format json --summary` for automation). |
 | “rebuild the brief” | `teof brief` | Regenerates the bundled brief ensemble. |
 | “daily cycle”, “run my routine” | `status → scan → tasks` | Runs the daily alignment cadence (status, scan summary, task snapshot). |
 | “help” | _Foreman help_ | Displays supported phrases and tips. |
+
+Pair the request with filters when you need to zoom in: the routed `teof tasks`
+command now accepts `--status`, `--priority`, `--agent` (repeatable), and
+`--summary`, so `python3 -m teof foreman "list tasks --status open --agent codex-2 --summary"`
+only shows the assignments that matter with aggregate counts.
 
 The matcher is keyword-based, so keep the intent words (scan, status, tasks,
 brief) in your sentence. If the foreman cannot map a request, it prints examples

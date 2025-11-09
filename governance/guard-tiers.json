@@ -54,6 +54,30 @@
       ]
     },
     {
+      "name": "build_artifact_guard",
+      "path": "scripts/ci/check_build_artifacts.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "impact_bridge_guard",
+      "path": "scripts/ci/check_impact_bridge.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
+      "name": "receipts_stream_guard",
+      "path": "scripts/ci/check_receipts_stream.py",
+      "tier": "operational",
+      "enforces": [
+        "operational"
+      ]
+    },
+    {
       "name": "plan_validator_ci",
       "path": "scripts/ci/check_plans.py",
       "tier": "operational",

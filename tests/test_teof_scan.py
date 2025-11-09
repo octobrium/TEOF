@@ -124,7 +124,7 @@ def test_scan_text_mode_receipts_and_emissions(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    _setup_scan_environment(tmp_path, monkeypatch)
+    root = _setup_scan_environment(tmp_path, monkeypatch)
     _install_scan_stubs(monkeypatch)
 
     exit_code = bootloader.main(["scan", "--out", "receipts", "--emit-bus", "--emit-plan"])
@@ -208,6 +208,91 @@ def test_scan_json_with_receipts_and_emission(
     assert "scan_counts" in ratchet_payload
     scan_counts = ratchet_payload["scan_counts"]
     assert scan_counts == payload["counts"]
+
+
+def test_scan_history_jsonl(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    root = _setup_scan_environment(tmp_path, monkeypatch)
+    _install_scan_stubs(monkeypatch)
+
+    history_path = root / "_report" / "usage" / "scan-history.jsonl"
+    exit_code = bootloader.main(
+        ["scan", "--summary", "--history", str(history_path.relative_to(root))]
+    )
+    assert exit_code == 0
+    assert history_path.exists()
+    lines = history_path.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) == 1
+    entry = json.loads(lines[0])
+    assert entry["counts"] == {"frontier": 1, "critic": 1, "tms": 1, "ethics": 1}
+    assert entry["summary"] is True
+    assert entry["components"] == ["frontier", "critic", "tms", "ethics"]
+
+
+def test_scan_history_json_mode_appends(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    root = _setup_scan_environment(tmp_path, monkeypatch)
+    _install_scan_stubs(monkeypatch)
+
+    history_path = root / "_report" / "usage" / "scan-history.jsonl"
+    exit_code = bootloader.main(
+        [
+            "scan",
+            "--summary",
+            "--format",
+            "json",
+            "--history",
+            str(history_path.relative_to(root)),
+        ]
+    )
+    assert exit_code == 0
+    lines = history_path.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) == 1
+    entry = json.loads(lines[0])
+    assert entry["format"] == "json"
+    assert entry["counts"] == {"frontier": 1, "critic": 1, "tms": 1, "ethics": 1}
+
+
+def test_scan_history_defaults_to_systemic_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    root = _setup_scan_environment(tmp_path, monkeypatch)
+    _install_scan_stubs(monkeypatch)
+
+    history_path = root / "_report" / "usage" / "systemic-scan" / "ratchet-history.jsonl"
+    assert not history_path.exists()
+
+    exit_code = bootloader.main(["scan", "--summary"])
+    assert exit_code == 0
+    assert history_path.exists()
+
+
+def test_scan_history_opt_out(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    root = _setup_scan_environment(tmp_path, monkeypatch)
+    _install_scan_stubs(monkeypatch)
+
+    history_path = root / "_report" / "usage" / "systemic-scan" / "ratchet-history.jsonl"
+    assert not history_path.exists()
+
+    exit_code = bootloader.main(["scan", "--summary", "--no-history"])
+    assert exit_code == 0
+    assert not history_path.exists()
+
+
+def test_scan_json_summary_counts_only(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    root = _setup_scan_environment(tmp_path, monkeypatch)
+    _install_scan_stubs(monkeypatch)
+
+    exit_code = bootloader.main(["scan", "--format", "json", "--summary"])
+    assert exit_code == 0
+
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["summary"] is True
+    assert payload["components"] == ["frontier", "critic", "tms", "ethics"]
+    assert payload["limit"] == 10
+    assert payload["counts"] == {"frontier": 1, "critic": 1, "tms": 1, "ethics": 1}
+    assert "frontier" not in payload
+    assert "ratchet" not in payload
 
 
 def test_scan_only_frontier(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:

@@ -200,6 +200,15 @@ def _normalize_slug(slug: str) -> str:
     return slug
 
 
+def _normalize_impact_ref(value: str | None, fallback: str) -> str:
+    if value is None:
+        return fallback
+    slug = _normalize_slug(value)
+    if not slug:
+        raise PlannerCliError("--impact-ref must contain alphanumeric characters")
+    return slug
+
+
 def _parse_timestamp(raw: str | None) -> datetime:
     if not raw:
         return datetime.utcnow()
@@ -394,6 +403,8 @@ def cmd_new(args: argparse.Namespace) -> int:
         impact_score = 10
     else:
         impact_score = _ensure_impact_score(impact_arg)
+    impact_ref_arg = getattr(args, "impact_ref", None)
+    impact_ref = _normalize_impact_ref(impact_ref_arg, plan_id)
     queue_refs: list[str] = [ref for ref in getattr(args, "queue_ref", []) if ref]
     (
         layer,
@@ -468,6 +479,7 @@ def cmd_new(args: argparse.Namespace) -> int:
         "created": f"{timestamp:%Y-%m-%dT%H:%M:%SZ}",
         "actor": actor,
         "summary": summary,
+        "impact_ref": impact_ref,
         "systemic_targets": systemic_targets,
         "layer_targets": layer_targets,
         "priority": priority,
@@ -582,6 +594,7 @@ def cmd_show(args: argparse.Namespace) -> int:
     created_iso = created.strftime("%Y-%m-%dT%H:%M:%SZ") if isinstance(created, datetime) else str(created)
     print(f"plan_id: {plan.get('plan_id')}")
     print(f"summary: {plan.get('summary')}")
+    print(f"impact_ref: {plan.get('impact_ref')}")
     print(f"status: {plan.get('status')}")
     print(f"created: {created_iso}")
     checkpoint = plan.get('checkpoint') or {}
@@ -893,6 +906,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="Systemic axis (S1–S10)",
     )
     new.add_argument("--impact-score", type=int, help="Relative impact score (>=0)")
+    new.add_argument("--impact-ref", help="Impact ledger slug (defaults to plan_id)")
     new.add_argument(
         "--queue-ref",
         action="append",

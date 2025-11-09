@@ -15,8 +15,10 @@ import os
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Iterable, Optional
+from typing import Any, Iterable, Optional
 import re
+
+from tools.autonomy import shared_bus
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 ROOT = Path(os.environ.get("TEOF_ROOT", DEFAULT_ROOT))
@@ -126,24 +128,26 @@ def gather_candidates() -> list[Candidate]:
 
 
 def write_claim(candidate: Candidate) -> None:
-    candidate.claim_path.parent.mkdir(parents=True, exist_ok=True)
+    claimed_at = iso_now()
+    notes = None
     if candidate.existing_claim:
-        claimed_at = candidate.existing_claim.get("claimed_at") or iso_now()
+        claimed_at = candidate.existing_claim.get("claimed_at") or claimed_at
         notes = candidate.existing_claim.get("notes")
-    else:
-        claimed_at = iso_now()
-        notes = None
-    payload = {
-        "task_id": candidate.task_id,
-        "agent_id": candidate.agent,
-        "branch": candidate.branch,
-        "status": "active",
-        "claimed_at": claimed_at,
-        "plan_id": candidate.plan_id,
-    }
+    extra: dict[str, Any] = {"claimed_at": claimed_at}
     if notes:
-        payload["notes"] = notes
-    candidate.claim_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        extra["notes"] = notes
+    shared_bus.emit_claim(
+        candidate.task_id,
+        agent_id=candidate.agent,
+        note=candidate.plan_data.get("summary"),
+        plan_id=candidate.plan_id,
+        receipt_path=candidate.plan_path,
+        branch=candidate.branch,
+        status="active",
+        root=ROOT,
+        extra_fields=extra,
+        replace=True,
+    )
 
 
 def update_plan_status(candidate: Candidate) -> None:

@@ -25,7 +25,8 @@ def _write_brief_outputs(output_dir: Path) -> list[dict[str, object]]:
     return records
 
 
-def run(_: Namespace) -> int:
+def run(args: Namespace) -> int:
+    fmt = getattr(args, "format", "text")
     ARTIFACT_ROOT.mkdir(parents=True, exist_ok=True)
     timestamp = dt.datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
     dest = ARTIFACT_ROOT / timestamp
@@ -38,7 +39,8 @@ def run(_: Namespace) -> int:
         "inputs": [record["input"] for record in records],
         "artifacts": [record["output"] for record in records],
     }
-    (dest / "brief.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    summary_path = dest / "brief.json"
+    summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (dest / "score.txt").write_text(f"ensemble_count={len(records)}\n", encoding="utf-8")
 
     latest = ARTIFACT_ROOT / "latest"
@@ -51,7 +53,23 @@ def run(_: Namespace) -> int:
         latest.symlink_to(dest, target_is_directory=True)
     except OSError:
         shutil.copytree(dest, latest)
-    print(f"brief: wrote {dest.relative_to(ROOT)}")
+
+    dest_rel = dest.relative_to(ROOT).as_posix()
+    if fmt == "json":
+        payload = {
+            "generated_at": timestamp,
+            "output_dir": dest_rel,
+            "summary_path": summary_path.relative_to(ROOT).as_posix(),
+            "inputs": summary["inputs"],
+            "artifacts": summary["artifacts"],
+            "artifact_paths": [
+                (dest / record["output"]).relative_to(ROOT).as_posix() for record in records
+            ],
+            "artifact_count": len(records),
+        }
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        print(f"brief: wrote {dest_rel}")
     return 0
 
 
@@ -60,6 +78,12 @@ def register(subparsers: "argparse._SubParsersAction[object]") -> None:
 
     parser = subparsers.add_parser(
         "brief", help="Run bundled brief example through the ensemble scorer"
+    )
+    parser.add_argument(
+        "--format",
+        choices=("text", "json"),
+        default="text",
+        help="Output format for the CLI summary (default: text)",
     )
     parser.set_defaults(func=run)
 

@@ -4,7 +4,7 @@
   "created": "2025-11-09T05:25:40Z",
   "actor": "codex-tier2",
   "summary": "Automate evidence_usage scan + prune cadence with receipts",
-  "status": "in_progress",
+  "status": "done",
   "priority": 2,
   "layer": "L6",
   "systemic_scale": 4,
@@ -17,16 +17,40 @@
       "receipts": [
         "_plans/next-development.todo.json"
       ]
+    },
+    {
+      "id": "S2",
+      "title": "Ship automation CLI + receipts",
+      "status": "done",
+      "notes": "Implemented `tools.automation.evidence_prune run/guard` so evidence_usage + targeted prune runs emit receipts + pointer.",
+      "receipts": [
+        "tools/automation/evidence_prune.py",
+        "tests/test_evidence_prune.py"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Wire guard + docs + CI",
+      "status": "done",
+      "notes": "Documented cadence in automation docs and added CI guard (`scripts/ci/check_evidence_prune.py`).",
+      "receipts": [
+        "docs/automation.md",
+        "scripts/ci/check_evidence_prune.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "evidence_usage automation emits receipts + CI guard",
     "owner": "codex-tier2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "receipts": [
     "_plans/next-development.todo.json",
-    "_report/ethics/guards/2025-11-09/nd-057-ethics.json"
+    "_report/ethics/guards/2025-11-09/nd-057-ethics.json",
+    "tools/automation/evidence_prune.py",
+    "tests/test_evidence_prune.py",
+    "docs/automation.md",
+    "scripts/ci/check_evidence_prune.py"
   ],
   "links": [
     {
@@ -37,5 +61,6 @@
   "systemic_targets": [
     "S2",
     "S4"
-  ]
+  ],
+  "impact_ref": "2025-11-09-evidence-prune-automation"
 }

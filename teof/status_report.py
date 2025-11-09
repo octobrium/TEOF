@@ -4,7 +4,7 @@ import datetime as dt
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Iterable
+from typing import Callable, Iterable, Mapping
 
 try:  # Python 3.11+
     import tomllib  # type: ignore[attr-defined]
@@ -78,7 +78,11 @@ def _package_line(root: Path) -> str:
 
 
 def _cli_line() -> str:
-    return "CLI: `teof brief` → writes `artifacts/systemic_out/<UTCSTAMP>/` and updates `artifacts/systemic_out/latest/`"
+    return (
+        "CLI: `teof brief` → writes `artifacts/systemic_out/<UTCSTAMP>/` and updates `artifacts/systemic_out/latest/`; "
+        "`teof impact_bridge` links `memory/impact/log.jsonl` to `_plans/**/*.plan.json` and stores dashboards under `_report/impact/bridge/`; "
+        "`teof scan --summary` keeps systemic guard counts streaming into `_report/usage/systemic-scan/ratchet-history.jsonl` by default (pass `--no-history` to opt out)"
+    )
 
 
 def _artifacts_line(root: Path) -> str:
@@ -449,88 +453,133 @@ def _automation_summary(root: Path, *, stale_days: float = 30.0) -> list[str]:
     return lines
 
 
-def generate_status(root: Path | None = None, *, log: bool = True) -> str:
+def build_status_payload(root: Path | None = None, *, log: bool = True) -> dict[str, object]:
     root = root or ROOT
     timestamp = _now_iso()
-    if log and root.resolve() == ROOT.resolve():
+    should_log = log and root.resolve() == ROOT.resolve()
+    if should_log:
         footprint = log_autonomy_footprint(root)
     else:
         footprint = get_autonomy_footprint(root)
     baseline = _load_autonomy_baseline(root)
     baseline_lookup = baseline or {}
     recent_entries = get_recent_autonomy_footprint_entries(root)
+    growth_flag = detect_sustained_autonomy_growth(recent_entries, baseline_lookup)
+
+    payload: dict[str, object] = {
+        "generated_at": timestamp,
+        "snapshot": gather_snapshot_lines(root),
+        "autonomy_footprint": {
+            "metrics": footprint,
+            "baseline": baseline,
+            "recent": recent_entries,
+            "warnings": {
+                "receipt_threshold_exceeded": footprint["receipt_count"] > 200,
+                "sustained_autonomy_growth": bool(growth_flag),
+            },
+        },
+        "cli_capability": _capability_summary(root),
+        "automation_health": _automation_summary(root),
+        "objectives": gather_objective_lines(root, OBJECTIVES),
+        "notes": [
+            "Keep `capsule/current` as a symlink.",
+            "Python ≥3.9 for local dev.",
+        ],
+    }
+    return payload
+
+
+def render_status_text(payload: Mapping[str, object]) -> str:
+    timestamp = str(payload.get("generated_at", "?"))
     lines: list[str] = []
     lines.append(f"# TEOF Status ({timestamp})")
     lines.append("")
     lines.append("## Snapshot")
-    for entry in gather_snapshot_lines(root):
+    for entry in payload.get("snapshot", []):
         lines.append(f"- {entry}")
     lines.append("")
     lines.append("## Autonomy Footprint")
+    autonomy = payload.get("autonomy_footprint") or {}
+    metrics = autonomy.get("metrics") if isinstance(autonomy, Mapping) else {}
+    baseline = autonomy.get("baseline") if isinstance(autonomy, Mapping) else None
+    baseline_lookup = baseline if isinstance(baseline, Mapping) else {}
+    recent_entries = autonomy.get("recent") if isinstance(autonomy, Mapping) else None
+    warnings = autonomy.get("warnings") if isinstance(autonomy, Mapping) else {}
+    module_files = metrics.get("module_files", 0) if isinstance(metrics, Mapping) else 0
+    loc = metrics.get("loc", 0) if isinstance(metrics, Mapping) else 0
+    helper_defs = metrics.get("helper_defs", 0) if isinstance(metrics, Mapping) else 0
+    receipt_count = metrics.get("receipt_count", 0) if isinstance(metrics, Mapping) else 0
     lines.append(
         "- Modules: "
         + " · ".join(
             [
-                f"{_format_delta_label(footprint['module_files'], baseline_lookup.get('module_files'))} files",
-                f"{_format_delta_label(footprint['loc'], baseline_lookup.get('loc'))} LOC",
-                f"{_format_delta_label(footprint['helper_defs'], baseline_lookup.get('helper_defs'))} helper defs",
+                f"{_format_delta_label(module_files, baseline_lookup.get('module_files'))} files",
+                f"{_format_delta_label(loc, baseline_lookup.get('loc'))} LOC",
+                f"{_format_delta_label(helper_defs, baseline_lookup.get('helper_defs'))} helper defs",
             ]
         )
     )
-    receipt_label = _format_delta_label(
-        footprint["receipt_count"], baseline_lookup.get("receipt_count")
-    )
-    lines.append(
-        f"- Receipts: {receipt_label} JSON receipts under `_report/usage` containing 'autonomy'"
-    )
-    if footprint["receipt_count"] > 200:
-        lines.append(
-            "- Warning: autonomy receipts exceed 200; prune stale entries under `_report/usage`."
-        )
-    growth_flag = detect_sustained_autonomy_growth(recent_entries, baseline_lookup)
-    if recent_entries:
+    receipt_label = _format_delta_label(receipt_count, baseline_lookup.get("receipt_count"))
+    lines.append(f"- Receipts: {receipt_label} JSON receipts under `_report/usage` containing 'autonomy'")
+    if isinstance(warnings, Mapping) and warnings.get("receipt_threshold_exceeded"):
+        lines.append("- Warning: autonomy receipts exceed 200; prune stale entries under `_report/usage`.")
+    if isinstance(recent_entries, list) and recent_entries:
         lines.append("- Recent Footprint Deltas:")
         for entry in reversed(recent_entries[-3:]):
             stamp = entry.get("generated_at", "?")
             modules = entry.get("module_files", "?")
-            loc = entry.get("loc", "?")
+            loc_delta = entry.get("loc", "?")
             helpers = entry.get("helper_defs", "?")
             receipts = entry.get("receipt_count", "?")
-            lines.append(
-                f"  - {stamp}: modules={modules}, loc={loc}, helpers={helpers}, receipts={receipts}"
-            )
+            lines.append(f"  - {stamp}: modules={modules}, loc={loc_delta}, helpers={helpers}, receipts={receipts}")
     else:
         lines.append("- Recent Footprint Deltas: (no log entries)")
-    if growth_flag:
+    if isinstance(warnings, Mapping) and warnings.get("sustained_autonomy_growth"):
         lines.append(
             "- Warning: sustained autonomy growth detected across recent runs; prune receipts or reassess scope."
         )
     lines.append("")
     lines.append("## CLI Capability Health")
-    for entry in _capability_summary(root):
+    for entry in payload.get("cli_capability", []):
         lines.append(entry)
     lines.append("")
     lines.append("## Automation Health")
-    for entry in _automation_summary(root):
+    for entry in payload.get("automation_health", []):
         lines.append(entry)
     lines.append("")
     lines.append("## Auto Objectives (detected)")
-    for entry in gather_objective_lines(root, OBJECTIVES):
+    for entry in payload.get("objectives", []):
         lines.append(f"- {entry}")
     lines.append("")
     lines.append("## Manual Objectives (optional)")
     lines.append("- (none listed)")
     lines.append("")
     lines.append("## Notes")
-    lines.append("- Keep `capsule/current` as a symlink.")
-    lines.append("- Python ≥3.9 for local dev.")
+    notes = payload.get("notes", [])
+    for note in notes:
+        lines.append(f"- {note}")
     lines.append("")
     return "\n".join(lines)
 
 
-def write_status(path: Path, *, root: Path | None = None, quiet: bool = False) -> Path:
+def generate_status(root: Path | None = None, *, log: bool = True) -> str:
     root = root or ROOT
-    content = generate_status(root, log=root.resolve() == ROOT.resolve())
+    payload = build_status_payload(root, log=log)
+    return render_status_text(payload)
+
+
+def write_status(
+    path: Path, *, root: Path | None = None, quiet: bool = False, format: str = "text"
+) -> Path:
+    root = root or ROOT
+    payload = build_status_payload(root, log=root.resolve() == ROOT.resolve())
+    fmt = (format or "text").lower()
+    if fmt not in {"text", "json"}:
+        raise ValueError(f"Unsupported status format: {format!r}")
+    if fmt == "json":
+        content = json.dumps(payload, ensure_ascii=False, indent=2)
+    else:
+        content = render_status_text(payload)
     path = path.resolve()
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
@@ -541,6 +590,8 @@ def write_status(path: Path, *, root: Path | None = None, quiet: bool = False) -
 
 
 __all__ = [
+    "build_status_payload",
+    "render_status_text",
     "generate_status",
     "write_status",
     "OBJECTIVES",

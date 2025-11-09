@@ -35,6 +35,40 @@ Run `python -m tools.agent.confidence_report --agent <id>` to summarise logged
 entries. Pass `--warn-threshold` to highlight repeated high-confidence entries
 and `--format json` for machine-readable output.
 
+## Calibration pipeline
+
+Run the end-to-end CLI to collect, aggregate, and alert on calibration drift:
+
+```bash
+# 1) Collect raw entries from _report/agent/*/confidence.jsonl
+python -m tools.agent.confidence_calibration collect \
+  --out artifacts/confidence_calibration/latest.json
+
+# 2) Aggregate against plan outcomes + emit receipts
+python -m tools.agent.confidence_calibration aggregate \
+  --source artifacts/confidence_calibration/latest.json \
+  --report-dir _report/usage/confidence-calibration
+
+# 3) Evaluate alerts and (optionally) emit bus events
+python -m tools.agent.confidence_calibration alerts \
+  --summary _report/usage/confidence-calibration/summary-<ts>.json \
+  --emit-bus
+```
+
+- `collect` scans every agent confidence log and attempts to infer the plan id
+  from embedded metadata (`plan:2025-11-09-example`). Entries are stored in a
+  normalized artifact so downstream steps operate deterministically.
+- `aggregate` joins the collected entries with `_plans/*.plan.json` statuses to
+  compute mean delta, mean absolute delta, Brier score, and over/underconfidence
+  rates. Receipts land in `_report/usage/confidence-calibration/summary-*.json`
+  plus a markdown dashboard for manager-report attachments.
+- `alerts` reads a summary, evaluates thresholds (defaults: `|mean_delta|>0.15`
+  or overconfidence rate `>0.30`), writes `_report/usage/confidence-calibration/alerts-*.json`,
+  and can emit a `confidence-alert` bus event.
+
+CI/automation can now gate merges by running the aggregate + alerts steps and
+failing when alerts fire.
+
 ## Dashboards & Alerts
 
 Run the watcher to scan every `_report/agent/<id>/confidence.jsonl` file and

@@ -14,6 +14,7 @@ dependencies = [
     "pytest>=8.1",
     "pytest-cov>=4.1",
     "coverage>=7.5",
+    "zstandard>=0.22",
 ]
 
 [project.scripts]

@@ -22,16 +22,28 @@
     {
       "id": "S2",
       "title": "Design target module map",
-      "status": "queued",
-      "notes": "Define which modules merge, shared primitives, APIs, and migration plan.",
-      "receipts": []
+      "status": "done",
+      "notes": "Documented service map, shared primitives, CLI design, telemetry, and migration guard in docs/automation/autonomy-module-consolidation.md.",
+      "receipts": [
+        "docs/automation/autonomy-module-consolidation.md",
+        "docs/automation.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Implement consolidation + telemetry",
-      "status": "queued",
-      "notes": "Refactor modules, update tests/docs, emit latency receipts, and stage rollout.",
-      "receipts": []
+      "status": "in_progress",
+      "notes": "Scaffolded `tools.autonomy.module_consolidate` CLI (inventory/plan/apply/telemetry) with receipts + tests and started consolidating shared bus primitives used by critic/ethics flows; service refactors still pending. Latest plan/telemetry receipts now land under _report/usage/autonomy-module-consolidation/ and feed the upcoming guard.",
+      "receipts": [
+        "tools/autonomy/module_consolidate.py",
+        "tests/test_module_consolidate.py",
+        "tools/autonomy/shared_bus.py",
+        "tests/test_shared_bus.py",
+        "tools/autonomy/critic.py",
+        "tools/autonomy/ethics_gate.py",
+        "tools/automation/auto_claim.py",
+        "tests/test_auto_claim.py"
+      ]
     }
   ],
   "checkpoint": {
@@ -40,8 +52,7 @@
     "status": "pending"
   },
   "receipts": [
-    "_report/agent/codex-tier2/2025-11-09-autonomy-module-consolidation/requirements.md",
-    "_report/ethics/guards/2025-11-09/nd-067-ethics.json"
+    "docs/automation/autonomy-module-consolidation.md"
   ],
   "links": [
     {
@@ -57,5 +68,6 @@
   "layer_targets": [
     "L6",
     "L4"
-  ]
+  ],
+  "impact_ref": "2025-11-09-autonomy-module-consolidation"
 }

@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 import teof.bootloader as bootloader
+import teof.commands as commands_mod
 from teof import status_report
 from tools.maintenance import capability_inventory
 from tools.maintenance import automation_inventory
@@ -61,19 +62,18 @@ teof brief
     (auth / "external-authenticity.md").write_text("# Dashboard\n", encoding="utf-8")
 
 
-def test_generate_status(tmp_path: Path, monkeypatch) -> None:
-    _setup_repo(tmp_path)
+def _install_inventory_stubs(root: Path, monkeypatch) -> None:
     cap_entry = capability_inventory.CommandUsage(
         name="brief",
-        module_path=tmp_path / "teof" / "commands" / "brief.py",
-        tests=[tmp_path / "tests" / "test_brief.py"],
+        module_path=root / "teof" / "commands" / "brief.py",
+        tests=[root / "tests" / "test_brief.py"],
         receipt_paths=[],
         last_receipt=None,
     )
     auto_entry = automation_inventory.AutomationEntry(
         module="tools.autonomy.frontier",
-        path=tmp_path / "tools" / "autonomy" / "frontier.py",
-        tests=[tmp_path / "tests" / "test_frontier.py"],
+        path=root / "tools" / "autonomy" / "frontier.py",
+        tests=[root / "tests" / "test_frontier.py"],
         receipts=[],
         last_receipt=None,
     )
@@ -88,6 +88,11 @@ def test_generate_status(tmp_path: Path, monkeypatch) -> None:
         "generate_inventory",
         lambda stale_days=30.0: [auto_entry],
     )
+
+
+def test_generate_status(tmp_path: Path, monkeypatch) -> None:
+    _setup_repo(tmp_path)
+    _install_inventory_stubs(tmp_path, monkeypatch)
     report = status_report.generate_status(tmp_path)
     assert "# TEOF Status" in report
     assert "Package: teof 9.9.9" in report
@@ -109,30 +114,8 @@ def test_generate_status(tmp_path: Path, monkeypatch) -> None:
 
 def test_cli_writes_file(tmp_path: Path, monkeypatch) -> None:
     _setup_repo(tmp_path)
-    cap_entry = capability_inventory.CommandUsage(
-        name="brief",
-        module_path=tmp_path / "teof" / "commands" / "brief.py",
-        tests=[tmp_path / "tests" / "test_brief.py"],
-        receipt_paths=[],
-        last_receipt=None,
-    )
-    auto_entry = automation_inventory.AutomationEntry(
-        module="tools.autonomy.frontier",
-        path=tmp_path / "tools" / "autonomy" / "frontier.py",
-        tests=[tmp_path / "tests" / "test_frontier.py"],
-        receipts=[],
-        last_receipt=None,
-    )
-    monkeypatch.setattr(
-        capability_inventory,
-        "generate_inventory",
-        lambda stale_days=30.0: [cap_entry],
-    )
-    monkeypatch.setattr(
-        automation_inventory,
-        "generate_inventory",
-        lambda stale_days=30.0: [auto_entry],
-    )
+    _install_inventory_stubs(tmp_path, monkeypatch)
+    _restrict_commands(monkeypatch)
     # Ensure CLI looks at tmp_path
     monkeypatch.setattr(bootloader, "ROOT", tmp_path)
     monkeypatch.setattr(status_report, "ROOT", tmp_path)
@@ -153,3 +136,41 @@ def test_cli_writes_file(tmp_path: Path, monkeypatch) -> None:
     printed_lines = buffer.getvalue().rstrip('\n').splitlines()
     expected_lines = expected_after.rstrip('\n').splitlines()
     assert printed_lines[1:] == expected_lines[1:]
+
+
+def test_status_cli_json_output(tmp_path: Path, monkeypatch) -> None:
+    _setup_repo(tmp_path)
+    _install_inventory_stubs(tmp_path, monkeypatch)
+    _restrict_commands(monkeypatch)
+    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
+    monkeypatch.setattr(status_report, "ROOT", tmp_path)
+
+    buffer = io.StringIO()
+    monkeypatch.setattr(sys, "stdout", buffer)
+    result = bootloader.main(["status", "--format", "json"])
+    assert result == 0
+    payload = json.loads(buffer.getvalue())
+    assert payload["snapshot"]
+    assert "autonomy_footprint" in payload
+    assert "cli_capability" in payload
+    assert payload["notes"]
+
+
+def test_status_cli_json_out_file(tmp_path: Path, monkeypatch) -> None:
+    _setup_repo(tmp_path)
+    _install_inventory_stubs(tmp_path, monkeypatch)
+    _restrict_commands(monkeypatch)
+    monkeypatch.setattr(bootloader, "ROOT", tmp_path)
+    monkeypatch.setattr(status_report, "ROOT", tmp_path)
+
+    out_path = tmp_path / "status.json"
+    result = bootloader.main(
+        ["status", "--format", "json", "--out", str(out_path), "--quiet"]
+    )
+    assert result == 0
+    payload = json.loads(out_path.read_text(encoding="utf-8"))
+    assert isinstance(payload["autonomy_footprint"]["metrics"]["module_files"], int)
+def _restrict_commands(monkeypatch) -> None:
+    allowed = ("status",)
+    monkeypatch.setattr(commands_mod, "_COMMAND_MODULES", allowed, raising=False)
+    monkeypatch.setattr(commands_mod, "COMMAND_MODULES", allowed, raising=False)

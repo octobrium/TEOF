@@ -68,5 +68,6 @@
   "receipts": [
     "_report/planner/validate/summary-20251020T083550Z.json"
   ],
-  "links": []
+  "links": [],
+  "impact_ref": "2025-10-20-backlog-compaction"
 }

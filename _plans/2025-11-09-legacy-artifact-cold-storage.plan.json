@@ -4,7 +4,7 @@
   "created": "2025-11-09T05:10:52Z",
   "actor": "codex-tier2",
   "summary": "Compress and hash legacy artifacts into cold storage snapshots with receipts.",
-  "status": "in_progress",
+  "status": "done",
   "priority": 2,
   "layer": "L4",
   "systemic_scale": 6,
@@ -22,25 +22,39 @@
     {
       "id": "S2",
       "title": "Design snapshot format + workflow",
-      "status": "queued",
-      "notes": "Define tarball format, manifest schema, verification strategy, and CI hooks.",
-      "receipts": []
+      "status": "done",
+      "notes": "Captured snapshot format, manifest schema, CLI flow, and guard plan in automation docs.",
+      "receipts": [
+        "docs/automation/legacy-cold-storage.md",
+        "docs/automation.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Implement tooling + guard",
-      "status": "queued",
-      "notes": "Build snapshot CLI, add tests/docs, and enforce guard to prevent raw artifacts from landing.",
-      "receipts": []
+      "status": "done",
+      "notes": "Delivered `tools.artifacts.cold_storage` CLI (snapshot/restore/guard), pointer receipts, CI wrapper, deps, and regression tests.",
+      "receipts": [
+        "tools/artifacts/cold_storage.py",
+        "tools/artifacts/__init__.py",
+        "scripts/ci/check_legacy_cold_storage.py",
+        "tests/test_cold_storage.py",
+        "pyproject.toml"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Legacy artifacts stored as hashed snapshots with CI enforcement.",
     "owner": "codex-tier2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "receipts": [
-    "_report/agent/codex-tier2/2025-11-09-legacy-artifact-cold-storage/requirements.md"
+    "docs/automation/legacy-cold-storage.md",
+    "pyproject.toml",
+    "tools/artifacts/cold_storage.py",
+    "tools/artifacts/__init__.py",
+    "scripts/ci/check_legacy_cold_storage.py",
+    "tests/test_cold_storage.py"
   ],
   "links": [
     {
@@ -57,5 +71,6 @@
   "layer_targets": [
     "L4",
     "L0"
-  ]
+  ],
+  "impact_ref": "2025-11-09-legacy-artifact-cold-storage"
 }

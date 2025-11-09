@@ -92,6 +92,7 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
     assert data["systemic_targets"] == ["S1", "S2", "S4", "S5"]
     assert data["layer_targets"] == ["L5"]
     assert data["impact_score"] == 90
+    assert data["impact_ref"] == "2025-09-17-example-slug"
     assert "legacy_loop_target" not in data
 
     result = validate_plan(plan_path, strict=True)
@@ -116,6 +117,8 @@ def test_cli_new_normalizes_slug(planner_root: Path) -> None:
             "6",
             "--impact-score",
             "80",
+            "--impact-ref",
+            "relay-impact",
             "--plan-dir",
             str(plan_dir),
             "--timestamp",
@@ -125,6 +128,8 @@ def test_cli_new_normalizes_slug(planner_root: Path) -> None:
     )
     plan_path = plan_dir / "2025-09-17-new-feature.plan.json"
     assert plan_path.exists()
+    data = read_plan(plan_path)
+    assert data["impact_ref"] == "relay-impact"
 
 
 def test_cli_new_rejects_duplicate_steps(planner_root: Path) -> None:

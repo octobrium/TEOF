@@ -76,5 +76,6 @@
   "priority": {
     "value": "high",
     "reason": "Interoperability unlocks external adoption and cross-org alignment."
-  }
+  },
+  "impact_ref": "2025-10-17-systemic-interoperability"
 }

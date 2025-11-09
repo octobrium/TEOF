@@ -4,7 +4,7 @@
   "created": "2025-11-09T05:12:06Z",
   "actor": "codex-tier2",
   "summary": "Compress apoptosis snapshots into hashed bundles with restore receipts.",
-  "status": "in_progress",
+  "status": "done",
   "priority": 2,
   "layer": "L0",
   "systemic_scale": 4,
@@ -22,25 +22,33 @@
     {
       "id": "S2",
       "title": "Design bundle + manifest schema",
-      "status": "queued",
-      "notes": "Define tar format, hashing, metadata, and restore process.",
-      "receipts": []
+      "status": "done",
+      "notes": "Documented bundle/manifest schema, CLI flow, receipts, and guard strategy in automation spec.",
+      "receipts": [
+        "docs/automation/apoptosis-compression.md",
+        "docs/automation.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Implement tooling + migration",
-      "status": "queued",
-      "notes": "Build CLI, write tests/docs, migrate existing snapshots, add CI guard.",
-      "receipts": []
+      "status": "done",
+      "notes": "CLI, docs, and tests landed (`tools.autonomy.apoptosis_compress`, receipts pointer, restore/verify helpers).",
+      "receipts": [
+        "tools/autonomy/apoptosis_compress.py",
+        "tests/test_apoptosis_compress.py"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Apoptosis snapshots stored as hashed bundles with restore receipts and CI guard.",
     "owner": "codex-tier2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "receipts": [
-    "_report/agent/codex-tier2/2025-11-09-apoptosis-compression/requirements.md"
+    "tools/autonomy/apoptosis_compress.py",
+    "tests/test_apoptosis_compress.py",
+    "docs/automation/apoptosis-compression.md"
   ],
   "links": [
     {
@@ -55,5 +63,6 @@
   "layer_targets": [
     "L0",
     "L4"
-  ]
+  ],
+  "impact_ref": "2025-11-09-apoptosis-compression"
 }

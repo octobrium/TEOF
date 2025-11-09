@@ -58,5 +58,6 @@
   "priority": {
     "value": "high",
     "reason": "Improves adoption by making systemic guidance first-class."
-  }
+  },
+  "impact_ref": "2025-10-17-systemic-adoption-kit"
 }

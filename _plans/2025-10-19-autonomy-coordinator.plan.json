@@ -69,5 +69,6 @@
     "_report/agent/Octo/2025-10-19-autonomy-coordinator/summary.json",
     "_report/agent/Octo/2025-10-19-autonomy-coordinator/actions.json",
     "_report/agent/Octo/2025-10-19-autonomy-coordinator/tests.json"
-  ]
+  ],
+  "impact_ref": "2025-10-19-autonomy-coordinator"
 }

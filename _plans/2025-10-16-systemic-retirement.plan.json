@@ -73,5 +73,6 @@
     "docs/automation/legacy-loop-retirement-schema.md",
     "docs/automation/legacy-loop-retirement-progress.md"
   ],
-  "notes": "Proposal includes comprehensive approach, sequencing, and resource model for retired observation loop deprecation."
+  "notes": "Proposal includes comprehensive approach, sequencing, and resource model for retired observation loop deprecation.",
+  "impact_ref": "2025-10-16-systemic-retirement"
 }

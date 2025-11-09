@@ -26,9 +26,11 @@
       "status": "done",
       "notes": "Update docs/parallel-codex.md and docs/workflow.md with the cadence loop; ensure cross-references to manager heartbeat and consensus tooling.",
       "receipts": [
-        "_report/agent/codex-4/queue-032/consensus-cadence-notes.md",
         "docs/parallel-codex.md",
-        "docs/workflow.md"
+        "docs/workflow.md",
+        "docs/automation/consensus-cadence.md",
+        "docs/automation.md",
+        "docs/reports/consensus-cadence.md"
       ]
     },
     {
@@ -37,8 +39,7 @@
       "status": "done",
       "notes": "Summarize the cadence decisions in _report/agent/codex-3/consensus-cadence/notes.md and capture doc diffs or key commands.",
       "receipts": [
-        "_report/agent/codex-3/consensus-cadence/notes.md",
-        "_report/planner/validate/summary-latest.json"
+        "docs/reports/consensus-cadence.md"
       ]
     }
   ],
@@ -63,9 +64,10 @@
   ],
   "receipts": [
     "_plans/2025-09-18-consensus-cadence.justification.md",
-    "_report/agent/codex-4/queue-032/consensus-cadence-notes.md",
-    "_report/agent/codex-3/consensus-cadence/notes.md",
-    "_report/planner/validate/summary-latest.json"
+    "docs/automation/consensus-cadence.md",
+    "docs/reports/consensus-cadence.md",
+    "docs/parallel-codex.md",
+    "docs/workflow.md"
   ],
   "systemic_scale": 10,
   "layer": "L5",
@@ -77,5 +79,6 @@
   ],
   "layer_targets": [
     "L5"
-  ]
+  ],
+  "impact_ref": "2025-09-18-consensus-cadence"
 }

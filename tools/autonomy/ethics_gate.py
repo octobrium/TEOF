@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -16,11 +15,12 @@ from tools.autonomy.shared import (
     utc_timestamp,
     write_receipt_payload,
 )
+from tools.autonomy import shared_bus
 
 ROOT = Path(__file__).resolve().parents[2]
+CLAIMS_DIR = ROOT / "_bus" / "claims"  # legacy attribute (tests monkeypatch)
 BACKLOG_PATH = ROOT / "_plans" / "next-development.todo.json"
 TASKS_PATH = ROOT / "agents" / "tasks" / "tasks.json"
-CLAIMS_DIR = ROOT / "_bus" / "claims"
 
 GUARD_KEYWORDS = ("consent", "review", "ethics")
 HIGH_RISK_LAYERS = {"L6"}
@@ -129,23 +129,17 @@ def write_receipt(violations: Sequence[dict[str, Any]], out_path: Path) -> Path:
 
 
 def emit_bus_claim(violation: dict[str, Any], receipt_path: Path) -> Path:
-    CLAIMS_DIR.mkdir(parents=True, exist_ok=True)
     identifier = str(violation.get("id") or violation.get("title") or "item")
-    task_id = f"ETHICS-{identifier}".replace(" ", "-")
-    claim_path = CLAIMS_DIR / f"{task_id}.json"
-    if claim_path.exists():
-        return claim_path
-    payload = {
-        "task_id": task_id,
-        "status": "pending",
-        "agent_id": "ethics_gate",
-        "plan_id": violation.get("id"),
-        "branch": f"agent/ethics/{task_id.lower()}",
-        "note": violation.get("title"),
-        "receipt": str(receipt_path.relative_to(ROOT)),
-    }
-    claim_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    return claim_path
+    task_id = f"ETHICS-{identifier}"
+    return shared_bus.emit_claim(
+        task_id=task_id,
+        agent_id="ethics_gate",
+        note=violation.get("title"),
+        plan_id=violation.get("id"),
+        receipt_path=receipt_path,
+        branch=f"agent/ethics/{task_id.lower()}",
+        root=ROOT,
+    )
 
 
 _emit_bus_claim = emit_bus_claim

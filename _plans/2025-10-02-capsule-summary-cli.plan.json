@@ -76,5 +76,6 @@
   ],
   "layer_targets": [
     "L4"
-  ]
+  ],
+  "impact_ref": "2025-10-02-capsule-summary-cli"
 }

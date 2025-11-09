@@ -57,5 +57,6 @@
     "tests/test_teof_scan.py",
     "tests/test_autonomy_footprint.py",
     "_report/agent/codex-tier2/2025-11-08-autonomy-ratchet-alignment/tests.json"
-  ]
+  ],
+  "impact_ref": "2025-11-08-autonomy-ratchet-alignment"
 }

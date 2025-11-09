@@ -54,5 +54,6 @@
   ],
   "receipts": [
     "_report/planner/validate/summary-20251108T211420Z.json"
-  ]
+  ],
+  "impact_ref": "2025-11-08-autonomy-nudge"
 }

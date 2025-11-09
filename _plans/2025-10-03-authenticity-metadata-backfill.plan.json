@@ -67,5 +67,6 @@
   ],
   "layer_targets": [
     "L5"
-  ]
+  ],
+  "impact_ref": "2025-10-03-authenticity-metadata-backfill"
 }

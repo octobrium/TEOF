@@ -54,5 +54,6 @@
   ],
   "receipts": [
     "_report/planner/validate/summary-20251108T210706Z.json"
-  ]
+  ],
+  "impact_ref": "2025-11-08-design-intent-integration"
 }

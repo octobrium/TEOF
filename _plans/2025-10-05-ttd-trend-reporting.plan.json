@@ -3,7 +3,7 @@
   "created": "2025-10-05T21:40:39Z",
   "actor": "codex-4",
   "status": "done",
-  "summary": "Build TT\u0394 trend reporting tooling to visualize and alert on trust delta changes.",
+  "summary": "Build TTΔ trend reporting tooling to visualize and alert on trust delta changes.",
   "links": [
     {
       "type": "plan",
@@ -17,7 +17,7 @@
   "steps": [
     {
       "id": "step-1",
-      "title": "Capture TT\u0394 requirements and data format",
+      "title": "Capture TTΔ requirements and data format",
       "status": "done",
       "description": "Confirm schema for memory/impact/ttd.jsonl and desired outputs (sparkline, slope, alert thresholds).",
       "receipts": [
@@ -28,7 +28,7 @@
       "id": "step-2",
       "title": "Implement trend computation and CLI",
       "status": "done",
-      "description": "Add tooling under tools/autonomy or tools/impact to compute TT\u0394 trend metrics and generate summaries.",
+      "description": "Add tooling under tools/autonomy or tools/impact to compute TTΔ trend metrics and generate summaries.",
       "receipts": [
         "tools/impact/ttd_trend.py",
         "tests/test_ttd_trend.py"
@@ -46,7 +46,7 @@
     }
   ],
   "checkpoint": {
-    "description": "TT\u0394 trend tooling live with docs and receipts",
+    "description": "TTΔ trend tooling live with docs and receipts",
     "owner": "codex-4",
     "status": "satisfied"
   },
@@ -65,5 +65,6 @@
   ],
   "layer_targets": [
     "L5"
-  ]
+  ],
+  "impact_ref": "2025-10-05-ttd-trend-reporting"
 }

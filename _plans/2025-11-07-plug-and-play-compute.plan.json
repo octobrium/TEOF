@@ -57,5 +57,6 @@
   "layer_targets": [
     "L5",
     "L6"
-  ]
+  ],
+  "impact_ref": "2025-11-07-plug-and-play-compute"
 }

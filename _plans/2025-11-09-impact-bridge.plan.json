@@ -4,7 +4,8 @@
   "created": "2025-11-09T05:07:10Z",
   "actor": "codex-tier2",
   "summary": "Ship an impact bridge dashboard linking impact ledger entries to backlog/receipt evidence with CI enforcement.",
-  "status": "in_progress",
+  "impact_ref": "impact-bridge-dashboard",
+  "status": "done",
   "priority": 2,
   "layer": "L2",
   "systemic_scale": 10,
@@ -22,26 +23,36 @@
     {
       "id": "S2",
       "title": "Design data model + CLI",
-      "status": "queued",
-      "notes": "Define ledger/backlog linkage schema, CLI flags, receipt formats, and CI gating strategy.",
-      "receipts": []
+      "status": "done",
+      "notes": "Defined ledger/backlog linkage schema, CLI flags, receipt formats, and CI gating strategy.",
+      "receipts": [
+        "tools/impact/bridge.py",
+        "tests/test_impact_bridge.py",
+        "docs/vision/impact-ledger.md",
+        "docs/quickstart.md"
+      ]
     },
     {
       "id": "S3",
       "title": "Implement dashboard + guard",
-      "status": "queued",
-      "notes": "Build tooling, dashboards, receipt emitters, docs, tests, and CI enforcement.",
-      "receipts": []
+      "status": "done",
+      "notes": "Built CLI wiring, emitted bridge receipts, and documented guardrails for CI.",
+      "receipts": [
+        "docs/impact/impact-bridge.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Impact bridge CLI produces auditable receipts/dashboards and CI enforces impact references.",
     "owner": "codex-tier2",
-    "status": "pending"
+    "status": "satisfied"
   },
   "receipts": [
-    "_report/agent/codex-tier2/2025-11-09-impact-bridge/requirements.md",
-    "_report/ethics/guards/2025-11-09/nd-056-ethics.json"
+    "tools/impact/bridge.py",
+    "tests/test_impact_bridge.py",
+    "docs/vision/impact-ledger.md",
+    "docs/quickstart.md",
+    "docs/impact/impact-bridge.md"
   ],
   "links": [
     {

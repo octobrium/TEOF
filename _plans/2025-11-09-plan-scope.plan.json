@@ -1,0 +1,49 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-plan-scope",
+  "created": "2025-11-09T07:35:00Z",
+  "actor": "codex-tier2",
+  "summary": "Automate per-plan scoping so pushes stay within guardrails (derive file lists from plan receipts and emit reusable manifests/worktrees).",
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Model scoped file set",
+      "status": "done",
+      "notes": "Inspect plan receipts/steps to understand which paths must ship together."
+    },
+    {
+      "id": "S2",
+      "title": "Implement CLI tooling",
+      "status": "in_progress",
+      "notes": "Expose `teof plan_scope` to list files and optionally materialize a scoped manifest/worktree."
+    },
+    {
+      "id": "S3",
+      "title": "Document workflow",
+      "status": "pending",
+      "notes": "Capture usage in docs/automation (linking to push/preflight instructions)."
+    }
+  ],
+  "checkpoint": {
+    "description": "Operators can run `teof plan_scope` to generate a scoped manifest/worktree before preflight/push.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": [
+    "docs/automation/plan-scope.md"
+  ],
+  "layer": "L5",
+  "systemic_scale": 6,
+  "systemic_targets": [
+    "S1",
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "impact_ref": "2025-11-09-plan-scope"
+}

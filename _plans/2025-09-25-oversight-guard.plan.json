@@ -64,7 +64,7 @@
   ],
   "dictionary_alignments": {
     "layer": "docs/workflow.md#layer-hierarchy",
-    "systemic_scale": "docs/foundation/systemic-scale.md (S1\u2013S10)"
+    "systemic_scale": "docs/foundation/systemic-scale.md (S1–S10)"
   },
   "systemic_targets": [
     "S4",
@@ -73,5 +73,6 @@
   ],
   "layer_targets": [
     "L5"
-  ]
+  ],
+  "impact_ref": "2025-09-25-oversight-guard"
 }

@@ -6,7 +6,8 @@ import json
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable, Mapping
+from typing import Any, Iterable, Mapping, Sequence
+from collections import Counter
 
 from teof._paths import repo_root
 
@@ -80,6 +81,33 @@ def _as_list(value: Any) -> list[str]:
                 results.append(item)
         return results
     return []
+
+
+def _normalise_tokens(values: Sequence[str] | None) -> set[str]:
+    tokens: set[str] = set()
+    if not values:
+        return tokens
+    for value in values:
+        if not isinstance(value, str):
+            continue
+        token = value.strip().lower()
+        if token:
+            tokens.add(token)
+    return tokens
+
+
+def _record_agents(record: TaskRecord) -> set[str]:
+    candidates = [
+        record.assignment_engineer,
+        record.claim_agent,
+    ]
+    normalized: set[str] = set()
+    for entry in candidates:
+        if isinstance(entry, str):
+            token = entry.strip().lower()
+            if token:
+                normalized.add(token)
+    return normalized
 
 
 def _load_tasks(root: Path) -> dict[str, TaskRecord]:
@@ -254,14 +282,32 @@ def collect_tasks(root: Path | None = None) -> list[TaskRecord]:
     return list(tasks.values())
 
 
-def filter_open_tasks(tasks: Iterable[TaskRecord], include_done: bool = False) -> list[TaskRecord]:
+def filter_open_tasks(
+    tasks: Iterable[TaskRecord],
+    include_done: bool = False,
+    *,
+    statuses: Sequence[str] | None = None,
+    priorities: Sequence[str] | None = None,
+    agents: Sequence[str] | None = None,
+) -> list[TaskRecord]:
+    """Filter tasks using normalized status/priority/agent selectors."""
+
+    status_filter = _normalise_tokens(statuses)
+    priority_filter = _normalise_tokens(priorities)
+    agent_filter = _normalise_tokens(agents)
+
     results: list[TaskRecord] = []
     for task in tasks:
-        if include_done:
-            results.append(task)
+        if not include_done and task.status == "done":
             continue
-        if task.status != "done":
-            results.append(task)
+        if status_filter and task.status not in status_filter:
+            continue
+        if priority_filter and task.priority not in priority_filter:
+            continue
+        if agent_filter:
+            if not _record_agents(task).intersection(agent_filter):
+                continue
+        results.append(task)
     return results
 
 
@@ -324,13 +370,11 @@ def compute_warnings(tasks: Iterable[TaskRecord]) -> list[str]:
     active_claim_statuses = {"open", "active", "in_progress", "pending"}
     for task in tasks:
         if task.status == "done" and not task.receipts:
-            warnings.append(
-                f"{task.task_id}: marked done but no receipts recorded"
-            )
+            warnings.append(f"{task.task_id}: marked done but no receipts recorded")
         if task.status != "done" and not (task.assignment_engineer or task.claim_agent):
-            warnings.append(
-                f"{task.task_id}: open with no assignment or active claim"
-            )
+            warnings.append(f"{task.task_id}: open with no assignment or active claim")
+        if task.status != "done" and not task.plan_id:
+            warnings.append(f"{task.task_id}: open task missing plan_id linkage")
         if (
             task.assignment_engineer
             and task.claim_agent
@@ -348,6 +392,25 @@ def compute_warnings(tasks: Iterable[TaskRecord]) -> list[str]:
     return warnings
 
 
+def summarize_tasks(tasks: Iterable[TaskRecord]) -> dict[str, object]:
+    records = list(tasks)
+    status_counts = Counter(record.status for record in records)
+    priority_counts = Counter(record.priority for record in records)
+    summary = {
+        "total": len(records),
+        "status": dict(status_counts),
+        "priority": dict(priority_counts),
+        "assignments": sum(1 for record in records if record.assignment_engineer),
+        "claims": sum(1 for record in records if record.claim_agent),
+        "open_unowned": sum(
+            1
+            for record in records
+            if record.status != "done" and not (record.assignment_engineer or record.claim_agent)
+        ),
+    }
+    return summary
+
+
 __all__ = [
     "TaskRecord",
     "collect_tasks",
@@ -356,4 +419,5 @@ __all__ = [
     "to_payload",
     "render_table",
     "compute_warnings",
+    "summarize_tasks",
 ]

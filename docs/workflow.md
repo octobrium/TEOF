@@ -43,7 +43,7 @@ This hook blocks commits to DNA files (architecture.md, workflow.md, governance/
 
 **Operating order**
 1) Confirm structure matches `docs/architecture.md`.  
-   - Run `teof operator verify` (core tier) to capture session + structure receipts before touching the bus. Add `--strict-plan` only when the run must also refresh the strict plan validator receipts for governance reviews.
+   - Run `teof operator verify` (core tier) to capture session + structure receipts before touching the bus. Add `--strict-plan` only when the run must also refresh the strict plan validator receipts for governance reviews. Pass `--format json` when automations need to parse the summary without scraping the receipt file.
 2) Produce an E2E plan using `docs/quickstart.md` (exact commands, no guessing) and drop it in `_plans/` (`*.plan.json`). Validate with `python3 tools/planner/validate.py`.  
  2a) Run `python3 -m tools.agent.push_ready --require-test <receipt>` before pushing so the working tree, branch, claims, and receipts are captured with a readiness summary.  
  3) Verify enforcement: confirm `scripts/policy_checks.sh` and `scripts/ci/check_vdp.py` run in CI; the latter blocks volatile data without timestamps/sources using the fixtures in `datasets/goldens/`.  

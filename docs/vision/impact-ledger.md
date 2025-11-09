@@ -18,6 +18,12 @@ Notes: <Context, lessons learned>
 Record raw entries with `python3 -m tools.receipts.log_event impact --title ...`
 (writes to `memory/impact/log.jsonl`); summarize key wins here for storytelling.
 
+## Automation bridge
+
+- Every plan must declare an `impact_ref` that matches a slug in `memory/impact/log.jsonl`. Reuse the slug when closing work that fulfilled a ledger entry or mint a new slug alongside the ledger update.
+- Run `python3 -m teof impact_bridge --report-dir _report/impact/bridge --fail-on-missing` to emit JSON + markdown dashboards tying ledger entries to backlog items, plans, and receipts. The CLI prints a stats summary by default; add `--format json` for machine-readable stdout and `--orphans-out _report/impact/bridge/orphans.json` when you want a ready-made remediation queue.
+- Review `_report/impact/bridge/impact-bridge-*.json` before marking a backlog objective done; the summary shows which Meaning-level outcomes still lack traceable plan receipts.
+
 ## Example Entries
 
 - *2025-09-23 — API Relay Dry-Run Pilot*
