@@ -46,6 +46,7 @@ python -m tools.autonomy.module_consolidate telemetry
 - `plan`: generates migration steps (files, tests, docs) + expected receipts. When `--out` is omitted the CLI writes `_report/usage/autonomy-module-consolidation/plan-<ts>.json` and updates `plan-latest.json`.
 - `apply`: executes the plan (optionally `--dry-run` to confirm) and records receipts alongside the plan file.
 - `telemetry`: captures before/after timings (module import latency, CLI runtime, duplication count) for dashboards. Without `--out`, receipts are written to `_report/usage/autonomy-module-consolidation/telemetry-<ts>.json` with a pointer `telemetry-latest.json`.
+- `guard`: validates that `plan-latest.json` and `telemetry-latest.json` exist, are fresh (default ≤24h), and point to actual receipts. CI runs `scripts/ci/check_autonomy_module_consolidation.py` to keep the consolidation receipts healthy before pushes.
 
 ## Receipts & telemetry
 

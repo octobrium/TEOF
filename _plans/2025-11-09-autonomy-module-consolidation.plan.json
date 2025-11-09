@@ -46,7 +46,8 @@
         "_report/usage/autonomy-module-consolidation/plan-20251109072810Z.json",
         "_report/usage/autonomy-module-consolidation/plan-latest.json",
         "_report/usage/autonomy-module-consolidation/telemetry-20251109072818Z.json",
-        "_report/usage/autonomy-module-consolidation/telemetry-latest.json"
+        "_report/usage/autonomy-module-consolidation/telemetry-latest.json",
+        "scripts/ci/check_autonomy_module_consolidation.py"
       ]
     }
   ],
