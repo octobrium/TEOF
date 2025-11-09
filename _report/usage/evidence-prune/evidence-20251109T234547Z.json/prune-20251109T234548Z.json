@@ -1,0 +1,14 @@
+{
+  "generated_at": "2025-11-09T23:45:48Z",
+  "stamp": "20251109T234548Z",
+  "root": "/Users/evan/Documents/GitHub/TEOF",
+  "targets": [
+    "_report/usage"
+  ],
+  "cutoff_hours": 168.0,
+  "applied": true,
+  "move_count": 0,
+  "skipped_moves": 0,
+  "moves": [],
+  "evidence_receipt": "_report/usage/evidence-prune/evidence-20251109T234547Z.json/evidence-20251109T234548Z.json"
+}

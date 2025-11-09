@@ -1,0 +1,51 @@
+{
+  "generated_at": "2025-11-09T18:11:26Z",
+  "evidence_receipt": "_report/usage/evidence-prune/evidence-20251109T181126Z.json",
+  "summary": {
+    "generated_at": "2025-11-09T18:11:26Z",
+    "orphan_receipts": 2781,
+    "plans_missing_receipts": 0,
+    "orphan_by_category": {
+      ".DS_Store": 1,
+      "agent": 324,
+      "analysis": 5,
+      "assessments": 22,
+      "autonomy": 4,
+      "capsule": 3,
+      "case-studies": 2,
+      "consensus": 6,
+      "debates": 8,
+      "design": 1,
+      "ethics": 38,
+      "exploratory": 9,
+      "external": 1,
+      "feedback": 4,
+      "fractal": 3,
+      "guard": 1,
+      "health": 707,
+      "impact": 50,
+      "manager": 20,
+      "notes": 9,
+      "onboarding": 7,
+      "operator": 92,
+      "planner": 558,
+      "proposals": 3,
+      "readability": 2,
+      "reconciliation": 17,
+      "runner": 4,
+      "runner_test": 248,
+      "session": 30,
+      "systemic_ai": 1,
+      "usage": 601
+    }
+  },
+  "orphan_receipts": 2781,
+  "plans_missing_receipts": 0,
+  "prune": {
+    "receipt": "_report/usage/evidence-prune/prune-20251109T181126Z.json",
+    "applied": true,
+    "move_count": 81,
+    "cutoff_hours": 168.0,
+    "stamp": "20251109T181126Z"
+  }
+}

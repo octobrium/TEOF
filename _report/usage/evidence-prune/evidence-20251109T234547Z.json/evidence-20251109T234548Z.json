@@ -1,0 +1,187 @@
+{
+  "generated_at": "2025-11-09T23:45:48Z",
+  "root": "/Users/evan/Documents/GitHub/TEOF",
+  "report": {
+    "summary": {
+      "generated_at": "2025-11-09T23:45:48Z",
+      "orphan_receipts": 2890,
+      "plans_missing_receipts": 0,
+      "orphan_by_category": {
+        ".DS_Store": 1,
+        "agent": 344,
+        "analysis": 6,
+        "assessments": 22,
+        "autonomy": 4,
+        "capsule": 3,
+        "case-studies": 2,
+        "consensus": 6,
+        "debates": 8,
+        "design": 1,
+        "ethics": 38,
+        "exploratory": 13,
+        "external": 1,
+        "feedback": 4,
+        "fractal": 3,
+        "guard": 1,
+        "health": 711,
+        "impact": 50,
+        "manager": 20,
+        "notes": 9,
+        "onboarding": 7,
+        "operator": 95,
+        "planner": 583,
+        "proposals": 3,
+        "readability": 2,
+        "reconciliation": 17,
+        "runner": 4,
+        "runner_test": 248,
+        "session": 24,
+        "systemic_ai": 1,
+        "usage": 659
+      }
+    },
+    "orphans": [
+      {
+        "path": "_report/planner/validate/summary-20251109T234150Z.json",
+        "category": "planner",
+        "size": 83346,
+        "mtime": "2025-11-09T23:41:50Z",
+        "sha256": "162610d62d69c041fe1e75adfacdc1ee36d53f11c69521630f3da020f8c974af"
+      },
+      {
+        "path": "_report/usage/hash-ledger/state.json",
+        "category": "usage",
+        "size": 105,
+        "mtime": "2025-11-09T23:36:41Z",
+        "sha256": "5e28e1cbddec80d87d5ed41a4444df589cd5e17f8e0143a3023424ec64a9e8f0"
+      },
+      {
+        "path": "_report/planner/validate/summary-20251109T233409Z.json",
+        "category": "planner",
+        "size": 83350,
+        "mtime": "2025-11-09T23:34:09Z",
+        "sha256": "72e820457d35410dec05b8b1a90312ac3d0fad37f77e7dad4034f1de2fd4d99b"
+      },
+      {
+        "path": "_report/usage/behavioral-trials/summary-latest.json",
+        "category": "usage",
+        "size": 78,
+        "mtime": "2025-11-09T23:31:06Z",
+        "sha256": "fb7c7d2267baf8a4985c0ec014f94c3b0307600958dbeceea93834f2c0dc42db"
+      },
+      {
+        "path": "_report/usage/behavioral-trials/summary-20251109T233030Z.json",
+        "category": "usage",
+        "size": 78,
+        "mtime": "2025-11-09T23:30:30Z",
+        "sha256": "fb7c7d2267baf8a4985c0ec014f94c3b0307600958dbeceea93834f2c0dc42db"
+      },
+      {
+        "path": "_report/usage/behavioral-trials/summary-20251109T233012Z.json",
+        "category": "usage",
+        "size": 78,
+        "mtime": "2025-11-09T23:30:12Z",
+        "sha256": "fb7c7d2267baf8a4985c0ec014f94c3b0307600958dbeceea93834f2c0dc42db"
+      },
+      {
+        "path": "_report/usage/plan-scope/reflections-20251109T232630Z.txt",
+        "category": "usage",
+        "size": 4217,
+        "mtime": "2025-11-09T23:27:24Z",
+        "sha256": "59419ca4347e8974208bf57c7ac8d5ef6b7353188f3ffdfe679cb24540b168f2"
+      },
+      {
+        "path": "_report/usage/plan-scope/reflections-20251109T232630Z.json",
+        "category": "usage",
+        "size": 0,
+        "mtime": "2025-11-09T23:27:03Z",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "_report/planner/validate/summary-20251109T232539Z.json",
+        "category": "planner",
+        "size": 83362,
+        "mtime": "2025-11-09T23:25:39Z",
+        "sha256": "874c7838cd27f5281b6d7984b10be8b6071939e25c9301eb5b6fdbdcda200de4"
+      },
+      {
+        "path": "_report/usage/hash-ledger/receipt-20251109T232441Z.json",
+        "category": "usage",
+        "size": 656,
+        "mtime": "2025-11-09T23:24:41Z",
+        "sha256": "401bba5fb298d733294d41906ddaaba1fb09ca55bfd412276c33b75b35f658ad"
+      },
+      {
+        "path": "_report/usage/hash-ledger/metadata-2025-11-09T232441Z.json",
+        "category": "usage",
+        "size": 213,
+        "mtime": "2025-11-09T23:24:41Z",
+        "sha256": "9f8c615c0bd579fa106a52b4f7ff502b4f559aac138cbcaeaa5874a7a7514ef0"
+      },
+      {
+        "path": "_report/usage/hash-ledger/index.jsonl",
+        "category": "usage",
+        "size": 2377,
+        "mtime": "2025-11-09T23:24:41Z",
+        "sha256": "53084490ff592a04a3e40589ac003bd1d43337ae0b08227fb7979d6a74603d44"
+      },
+      {
+        "path": "_report/usage/plan-scope/plan-scope-2025-10-11-decentralized-node-20251109T232407Z.json",
+        "category": "usage",
+        "size": 1221,
+        "mtime": "2025-11-09T23:24:07Z",
+        "sha256": "661a6ccf1a79b57dc4767924bc44cfeb94b3d0869a6dfc654aae59bc00d37d4c"
+      },
+      {
+        "path": "_report/planner/validate/summary-20251109T232056Z.json",
+        "category": "planner",
+        "size": 83332,
+        "mtime": "2025-11-09T23:20:56Z",
+        "sha256": "87c40976f79dda7579a07b5215475517db7d25dedb539935cfc8eaf6daec8fd5"
+      },
+      {
+        "path": "_report/usage/autonomy-footprint.jsonl",
+        "category": "usage",
+        "size": 45564,
+        "mtime": "2025-11-09T23:20:38Z",
+        "sha256": "1a8609e4e6ec504276ecd7f2f245aa3c1fc87cdcbff658edd7bb82a7eb783caf"
+      },
+      {
+        "path": "_report/planner/validate/summary-20251109T232025Z.json",
+        "category": "planner",
+        "size": 83011,
+        "mtime": "2025-11-09T23:20:25Z",
+        "sha256": "a3930d10a1c87f52eaf9d2e29a0c4246bf0b6144ef495f8f9b1069dc49ad91b2"
+      },
+      {
+        "path": "_report/usage/onboarding/quickstart-20251109T231907Z.json",
+        "category": "usage",
+        "size": 590,
+        "mtime": "2025-11-09T23:19:07Z",
+        "sha256": "7684fe3a2f871194a6361e63d04da831aa2dcdd5e088eb7c4d217d1541e0c940"
+      },
+      {
+        "path": "_report/usage/onboarding/build-20251109T231903Z.json",
+        "category": "usage",
+        "size": 616,
+        "mtime": "2025-11-09T23:19:03Z",
+        "sha256": "96161b4cbdcd10f6838ffdc3598890e16ebe39842ae0966c5ea2343db3093f46"
+      },
+      {
+        "path": "_report/planner/validate/summary-20251109T231720Z.json",
+        "category": "planner",
+        "size": 82977,
+        "mtime": "2025-11-09T23:17:20Z",
+        "sha256": "8e0ee95362d0468550577b7cb619ef8b54c065db7dafeb63ed94e634173a3d35"
+      },
+      {
+        "path": "_report/usage/plan-scope/plan-scope-2025-10-12-infinite-ledger-20251109T231434Z.json",
+        "category": "usage",
+        "size": 1522,
+        "mtime": "2025-11-09T23:14:34Z",
+        "sha256": "28986b5a1917dc8417a58f2c1ca6b888ff7bcfeb306ebe73d68922f0bb2635e1"
+      }
+    ],
+    "plan_failures": []
+  }
+}
