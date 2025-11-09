@@ -1,0 +1,8 @@
+{
+  "snapshot_id": "legacy-20251109T181833Z",
+  "created_at": "2025-11-09T18:18:33Z",
+  "bundle": "artifacts/legacy_cold_storage/legacy-20251109T181833Z/bundle.tar.zst",
+  "manifest": "artifacts/legacy_cold_storage/legacy-20251109T181833Z/manifest.json",
+  "receipt": "_report/usage/legacy-cold-storage/bundle-20251109T181833Z.json",
+  "bundle_sha256": "73cc9de42086f2b5c4d52ea9b61ea7e660b6e2804468312ffb4c844cf7043e68"
+}
