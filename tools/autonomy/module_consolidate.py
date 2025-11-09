@@ -7,6 +7,7 @@ import json
 import time
 from collections import Counter
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -60,6 +61,13 @@ def _rel(path: Path) -> str:
         return path.relative_to(ROOT).as_posix()
     except ValueError:
         return path.as_posix()
+
+
+def _abs_path(path: Path | str) -> Path:
+    candidate = Path(path)
+    if not candidate.is_absolute():
+        candidate = ROOT / candidate
+    return candidate
 
 
 def _collect_inventory() -> list[dict[str, Any]]:
@@ -129,13 +137,23 @@ def _selected_services(selected: Sequence[str] | None) -> list[str]:
 
 
 def _timestamp_slug() -> str:
-    return shared.utc_timestamp().replace("-", "").replace(":", "").replace("T", "")
+    stamp = shared.utc_timestamp()
+    return stamp.replace("-", "").replace(":", "").replace("T", "")
+
+
+def _parse_ts(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    try:
+        if value.endswith("Z"):
+            value = value[:-1] + "+00:00"
+        return datetime.fromisoformat(value)
+    except ValueError:
+        return None
 
 
 def _ensure_receipt_dir(value: str | None = None) -> Path:
-    path = Path(value) if value else DEFAULT_RECEIPT_DIR
-    if not path.is_absolute():
-        path = ROOT / path
+    path = _abs_path(value or DEFAULT_RECEIPT_DIR)
     path.mkdir(parents=True, exist_ok=True)
     return path
 
@@ -265,6 +283,71 @@ def cmd_telemetry(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_guard(args: argparse.Namespace) -> int:
+    receipt_dir = _ensure_receipt_dir(args.receipt_dir)
+    errors: list[str] = []
+
+    def _check_pointer(pointer_name: str, key: str) -> Path | None:
+        pointer_path = receipt_dir / pointer_name
+        if not pointer_path.exists():
+            errors.append(f"missing {pointer_name} in {receipt_dir}")
+            return None
+        try:
+            payload = json.loads(pointer_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            errors.append(f"invalid {pointer_name}: {exc}")
+            return None
+        path_str = payload.get(key)
+        if not path_str:
+            errors.append(f"{pointer_name} missing '{key}' field")
+            return None
+        target = _abs_path(path_str)
+        if not target.exists():
+            errors.append(f"{pointer_name} points to missing file: {path_str}")
+            return None
+        generated_at = payload.get("generated_at")
+        parsed = _parse_ts(generated_at)
+        if parsed is None:
+            errors.append(f"{pointer_name} missing/invalid generated_at")
+        else:
+            age_hours = (datetime.now(timezone.utc) - parsed).total_seconds() / 3600.0
+            if age_hours > args.max_age_hours:
+                errors.append(
+                    f"{pointer_name} older than {args.max_age_hours}h (generated {generated_at})"
+                )
+        return target
+
+    plan_path = _check_pointer("plan-latest.json", "plan")
+    telemetry_path = _check_pointer("telemetry-latest.json", "telemetry")
+
+    if plan_path is not None:
+        try:
+            plan_payload = json.loads(plan_path.read_text(encoding="utf-8"))
+            services = {svc["service"] for svc in plan_payload.get("services", []) if isinstance(svc, Mapping)}
+        except json.JSONDecodeError as exc:
+            errors.append(f"plan receipt invalid JSON: {plan_path}: {exc}")
+            services = set()
+    else:
+        services = set()
+
+    if telemetry_path is not None:
+        try:
+            telemetry_payload = json.loads(telemetry_path.read_text(encoding="utf-8"))
+            telemetry_services = {svc["service"] for svc in telemetry_payload.get("services", []) if isinstance(svc, Mapping)}
+        except json.JSONDecodeError as exc:
+            errors.append(f"telemetry receipt invalid JSON: {telemetry_path}: {exc}")
+            telemetry_services = set()
+        if services and telemetry_services and services != telemetry_services:
+            errors.append("plan/telemetry service sets differ")
+
+    if errors:
+        for message in errors:
+            print(f"::error::{message}")
+        return 1
+    print("autonomy module consolidation receipts healthy")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -291,6 +374,11 @@ def build_parser() -> argparse.ArgumentParser:
     telemetry_cmd.add_argument("--out", help="Telemetry receipt path (default: _report/.../telemetry-<ts>.json)")
     telemetry_cmd.add_argument("--receipt-dir", help="Custom receipt directory")
     telemetry_cmd.set_defaults(func=cmd_telemetry)
+
+    guard_cmd = subparsers.add_parser("guard", help="Validate consolidation receipts and freshness")
+    guard_cmd.add_argument("--receipt-dir", help="Receipt directory (default: _report/usage/autonomy-module-consolidation)")
+    guard_cmd.add_argument("--max-age-hours", type=float, default=24.0, help="Maximum allowed pointer age (hours, default 24)")
+    guard_cmd.set_defaults(func=cmd_guard)
 
     return parser
 

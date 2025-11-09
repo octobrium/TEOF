@@ -39,17 +39,25 @@ def test_plan_apply_telemetry(tmp_path: Path) -> None:
     assert apply_receipt.exists()
 
     telemetry_path = tmp_path / "telemetry.json"
+    receipt_dir = tmp_path / "receipts"
     rc = module_consolidate.main(
         [
             "telemetry",
             "--out",
             str(telemetry_path),
             "--receipt-dir",
-            str(tmp_path / "receipts"),
+            str(receipt_dir),
         ]
     )
     assert rc == 0
     telemetry = json.loads(telemetry_path.read_text(encoding="utf-8"))
     assert telemetry["services"]
-    pointer = tmp_path / "receipts" / "telemetry-latest.json"
+    pointer = receipt_dir / "telemetry-latest.json"
     assert pointer.exists()
+
+    rc = module_consolidate.main(["guard", "--receipt-dir", str(receipt_dir)])
+    assert rc == 0
+
+    (receipt_dir / "plan-latest.json").unlink()
+    rc = module_consolidate.main(["guard", "--receipt-dir", str(receipt_dir)])
+    assert rc == 1
