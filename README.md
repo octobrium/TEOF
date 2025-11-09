@@ -121,6 +121,15 @@ When you act without observing, the framework will reflect that back. Not as pun
 
 ---
 
+## Support Observation (BTC)
+
+- **Wallet:** `bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c` — canonical address documented in [`docs/impact/teof-btc-wallet.md`](docs/impact/teof-btc-wallet.md)
+- **Why sats matter:** BTC inflows are TEOF’s “energy capture” metric. Donations fund verifiable autonomy runs (systemic scans, decentralized node sponsorships, observation bounties) that immediately produce receipts.
+- **Proof of use:** Every transaction is logged under `_report/impact/btc-ledger/` per [`docs/impact/btc-ledger.md`](docs/impact/btc-ledger.md) with txid, block height, and linked plans. The capture plan lives in [`docs/impact/btc-capture-strategy.md`](docs/impact/btc-capture-strategy.md).
+- **How to contribute:** Send BTC to the wallet above, then open an issue or bus message referencing your tx so we can attach receipts (or include a reference in your signed message). Once the first donation lands, status/manager reports will surface cumulative balance + usage notes.
+
+---
+
 ## Framework Ordering
 
 TEOF is layered (L0 → L6).  

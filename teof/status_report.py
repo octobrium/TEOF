@@ -3,6 +3,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 from dataclasses import dataclass
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Callable, Iterable, Mapping
 
@@ -18,6 +19,7 @@ from tools.planner.exploratory_lane import scan_lane as scan_exploratory_lane
 
 ROOT = repo_root(default=Path(__file__).resolve().parents[1])
 ISO_FMT = "%Y-%m-%dT%H:%M:%S%zZ"
+DECIMAL_ZERO = Decimal("0")
 
 
 def _footprint_log_path(base: Path | None = None) -> Path:
@@ -48,6 +50,95 @@ def _relative(path: Path, root: Path) -> str:
         return str(path.resolve().relative_to(root))
     except ValueError:
         return str(path.resolve())
+
+
+def _btc_ledger_dir(root: Path) -> Path:
+    return root / "_report" / "impact" / "btc-ledger"
+
+
+def _btc_wallet_address(root: Path) -> str | None:
+    candidate = root / "governance" / "canonical-btc-address.txt"
+    if not candidate.exists():
+        return None
+    return candidate.read_text(encoding="utf-8").strip() or None
+
+
+def _parse_decimal(value: object) -> Decimal:
+    if isinstance(value, Decimal):
+        return value
+    if isinstance(value, (int, float)):
+        return Decimal(str(value))
+    if isinstance(value, str) and value.strip():
+        try:
+            return Decimal(value.strip())
+        except InvalidOperation:
+            return DECIMAL_ZERO
+    return DECIMAL_ZERO
+
+
+def _parse_ledger_timestamp(value: object) -> dt.datetime | None:
+    if not isinstance(value, str):
+        return None
+    try:
+        return dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def _btc_ledger_summary(root: Path) -> dict[str, object]:
+    ledger_dir = _btc_ledger_dir(root)
+    wallet = _btc_wallet_address(root)
+    if not ledger_dir.exists():
+        return {
+            "wallet": wallet,
+            "entries": 0,
+            "total_in_btc": "0.00000000",
+            "total_out_btc": "0.00000000",
+            "net_btc": "0.00000000",
+            "last_transaction": None,
+        }
+
+    total_in = DECIMAL_ZERO
+    total_out = DECIMAL_ZERO
+    last_ts: dt.datetime | None = None
+    last_entry: dict[str, object] | None = None
+    total_entries = 0
+
+    for ledger_path in sorted(ledger_dir.glob("*.json")):
+        if ledger_path.is_dir():
+            continue
+        try:
+            data = json.loads(ledger_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        entries = data.get("entries")
+        if not isinstance(entries, list):
+            continue
+        for entry in entries:
+            if not isinstance(entry, dict):
+                continue
+            direction = entry.get("direction")
+            amount = _parse_decimal(entry.get("amount_btc"))
+            if direction == "in":
+                total_in += amount
+            elif direction == "out":
+                total_out += amount
+            ts = _parse_ledger_timestamp(entry.get("observed_at"))
+            if ts and (last_ts is None or ts > last_ts):
+                last_ts = ts
+                last_entry = entry
+            total_entries += 1
+
+    net = total_in - total_out
+    last_stamp = last_entry.get("observed_at") if last_entry else None
+    return {
+        "wallet": wallet,
+        "entries": total_entries,
+        "total_in_btc": f"{total_in:.8f}",
+        "total_out_btc": f"{total_out:.8f}",
+        "net_btc": f"{net:.8f}",
+        "last_transaction": last_stamp,
+    }
 
 
 def _capsule_line(root: Path) -> str:
@@ -481,6 +572,7 @@ def build_status_payload(root: Path | None = None, *, log: bool = True) -> dict[
         "cli_capability": _capability_summary(root),
         "automation_health": _automation_summary(root),
         "objectives": gather_objective_lines(root, OBJECTIVES),
+        "btc_ledger": _btc_ledger_summary(root),
         "notes": [
             "Keep `capsule/current` as a symlink.",
             "Python ≥3.9 for local dev.",
@@ -497,6 +589,24 @@ def render_status_text(payload: Mapping[str, object]) -> str:
     lines.append("## Snapshot")
     for entry in payload.get("snapshot", []):
         lines.append(f"- {entry}")
+    lines.append("")
+    lines.append("## BTC Ledger")
+    btc = payload.get("btc_ledger") or {}
+    wallet = btc.get("wallet") if isinstance(btc, Mapping) else None
+    entries = btc.get("entries", 0) if isinstance(btc, Mapping) else 0
+    total_in = btc.get("total_in_btc", "0.00000000") if isinstance(btc, Mapping) else "0.00000000"
+    total_out = btc.get("total_out_btc", "0.00000000") if isinstance(btc, Mapping) else "0.00000000"
+    net = btc.get("net_btc", "0.00000000") if isinstance(btc, Mapping) else "0.00000000"
+    last_tx = btc.get("last_transaction") if isinstance(btc, Mapping) else None
+    if entries:
+        lines.append(
+            f"- Entries: {entries} | total_in={total_in} BTC | total_out={total_out} BTC | net={net} BTC"
+        )
+        if last_tx:
+            lines.append(f"- Last transaction observed_at={last_tx}")
+    else:
+        address_note = wallet or "wallet pending"
+        lines.append(f"- No ledger entries recorded yet. Wallet {address_note} is ready for the first donation.")
     lines.append("")
     lines.append("## Autonomy Footprint")
     autonomy = payload.get("autonomy_footprint") or {}

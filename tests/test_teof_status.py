@@ -60,6 +60,35 @@ teof brief
     auth = root / "_report" / "usage"
     auth.mkdir(parents=True, exist_ok=True)
     (auth / "external-authenticity.md").write_text("# Dashboard\n", encoding="utf-8")
+    # BTC ledger + wallet
+    wallet_txt = root / "governance" / "canonical-btc-address.txt"
+    wallet_txt.parent.mkdir(parents=True, exist_ok=True)
+    wallet_txt.write_text("bc1qtestwallet000000000000000000000000000", encoding="utf-8")
+    ledger_dir = root / "_report" / "impact" / "btc-ledger"
+    ledger_dir.mkdir(parents=True, exist_ok=True)
+    (ledger_dir / "2025-10-07-ledger.json").write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "wallet": "bc1qtestwallet000000000000000000000000000",
+                "generated_at": "2025-10-07T00:00:00Z",
+                "entries": [
+                    {
+                        "txid": "abc123",
+                        "direction": "in",
+                        "amount_btc": "0.01000000",
+                        "observed_at": "2025-10-07T00:00:00Z",
+                        "block_height": 1,
+                        "evidence": [],
+                        "linked_work": [],
+                        "notes": "seed donation",
+                    }
+                ],
+                "receipt_sha256": "deadbeef",
+            }
+        ),
+        encoding="utf-8",
+    )
 
 
 def _install_inventory_stubs(root: Path, monkeypatch) -> None:
@@ -99,6 +128,8 @@ def test_generate_status(tmp_path: Path, monkeypatch) -> None:
     assert "Artifacts latest" in report
     assert "Authenticity dashboard" in report
     assert "Exploratory lane" in report
+    assert "## BTC Ledger" in report
+    assert "Entries: 1" in report
     assert "## Autonomy Footprint" in report
     assert "Modules:" in report
     assert "Receipts:" in report
@@ -153,6 +184,7 @@ def test_status_cli_json_output(tmp_path: Path, monkeypatch) -> None:
     assert payload["snapshot"]
     assert "autonomy_footprint" in payload
     assert "cli_capability" in payload
+    assert payload["btc_ledger"]["entries"] == 1
     assert payload["notes"]
 
 
@@ -170,6 +202,7 @@ def test_status_cli_json_out_file(tmp_path: Path, monkeypatch) -> None:
     assert result == 0
     payload = json.loads(out_path.read_text(encoding="utf-8"))
     assert isinstance(payload["autonomy_footprint"]["metrics"]["module_files"], int)
+    assert payload["btc_ledger"]["wallet"].startswith("bc1qtest")
 def _restrict_commands(monkeypatch) -> None:
     allowed = ("status",)
     monkeypatch.setattr(commands_mod, "_COMMAND_MODULES", allowed, raising=False)

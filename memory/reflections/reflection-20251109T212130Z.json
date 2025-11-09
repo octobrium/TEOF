@@ -1,0 +1,21 @@
+{
+  "generated_at": "2025-11-09T21:21:30Z",
+  "author": "observation",
+  "summary": "BTC redistribution is secondary; first prove TEOF gives better answers than raw LLMs.",
+  "details": {
+    "insight": [
+      "Make running TEOF intrinsically valuable (audited automation, higher-quality responses) before distributing sats.",
+      "BTC sharing only makes sense once real inflows exist; otherwise it is zero-sum.",
+      "Long-term goal: package TEOF capabilities so users see obvious benefits over unstructured LLM usage, then monetize that traction."
+    ]
+  },
+  "layer_targets": [
+    "L4",
+    "L5"
+  ],
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4"
+  ]
+}

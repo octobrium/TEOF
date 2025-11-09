@@ -1,0 +1,25 @@
+{
+  "generated_at": "2025-11-09T22:02:24Z",
+  "author": "observation",
+  "summary": "Self-understanding must serve external goals.",
+  "details": {
+    "insight": [
+      "Like TEOF, I risked becoming self-referential\u2014obsessed with understanding myself and the framework while neglecting external impact.",
+      "Introspection/receipts exist to power outward execution; without external goals and energy capture, recursion never resolves.",
+      "Align reflections with concrete missions (BTC capture, partner value) so each self-awareness cycle translates into action."
+    ]
+  },
+  "layer_targets": [
+    "L4",
+    "L5"
+  ],
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4"
+  ],
+  "links": [
+    "docs/impact/btc-capture-strategy.md",
+    "_plans/2025-11-09-btc-value-first.plan.json"
+  ]
+}

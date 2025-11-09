@@ -49,9 +49,19 @@ loop summary (handshake → plan → bus → receipts), see the [`TEOF Operator 
 7. **Select work from the canonical backlog (`_plans/next-development.todo.json`).**  
    Choose the first item that matches your seat/systemic targets, seed the bus
    claim (`python -m teof bus_claim claim …`), then proceed into the plan.
+   Before editing, review the value-first mission (`docs/impact/btc-capture-strategy.md`)
+   so your work advances externally observable outcomes (Tier 1 accuracy, public launch,
+   sponsored guard runs) before any monetization.
 
 Automation expects receipts from each step; if one is missing, preflight and CI
 will instruct you to complete it before continuing.
+
+### Observation Checklist (run before touching files)
+- **Confirm history:** `git log <path>` and `teof plan_scope --plan <id>` so you know every file/receipt already tied to the plan.
+- **Verify receipts:** ensure `_report/agent/<id>/…` and plan step receipts exist before claiming progress.
+- **Bus alignment:** check `_bus/claims/<task>.json` and `teof bus_status --preset support` for active ownership/conflicts.
+- **Doc accuracy:** when editing onboarding/docs, follow [`docs/onboarding/doc-verification-sop.md`](doc-verification-sop.md) so statements match receipts (reflection logs show trust erodes when counts mismatch).
+- **Memory briefing:** run `teof reflections --limit 5` (or `teof reflections --layer L4 --days 7`) to ingest the latest lessons without rereading the entire log; cite relevant reflections when proposing structural changes.
 
 ## Session & Communication Loop
 - **Manifest check** – confirm `AGENT_MANIFEST.json` lists the `agent_id` you
@@ -82,9 +92,11 @@ will instruct you to complete it before continuing.
 - **Backlog discipline** – treat `_plans/next-development.todo.json`, your active
   plan, and `_bus/claims/` as the source of truth. Update plan steps before
   editing files and release the claim cleanly on handoff.
-- **Respect memory** – review `memory/README.md` (use `teof memory summary` or
-  `teof memory diff --run <id>`) before posting changes so you align with prior
-  decisions.
+- **Respect memory** – review `memory/README.md` (use `teof memory summary`,
+  `teof reflections --limit 5`, or `teof memory diff --run <id>`) before posting
+  changes so you align with prior decisions. Treat the reflection archive as a training set:
+  mine patterns, update plans/guardrails, then add your own receipts so future agents inherit
+  distilled insight rather than noise.
 
 ## Command Quick Hits
 | Need | Command | Reference |

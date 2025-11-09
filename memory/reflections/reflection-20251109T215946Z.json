@@ -1,0 +1,27 @@
+{
+  "generated_at": "2025-11-09T21:59:46Z",
+  "author": "observation",
+  "summary": "Use memory patterns to evolve TEOF\u2019s core guidance.",
+  "details": {
+    "insight": [
+      "Treat memory/log + reflections as a training set: mine patterns (stalled plans, guard failures, breakthrough insights) and codify them into guardrails, onboarding briefs, and conductor prompts.",
+      "Incoming agents shouldn\u2019t read every raw entry; give them plan-scoped summaries distilled from those patterns so inheritance stays lightweight but grounded in real history.",
+      "Keep expanding the core architecture by combining synthesized memory patterns with existing design principles (L0\u2013L6, systemic axes) and real-world coordination lessons."
+    ]
+  },
+  "layer_targets": [
+    "L4",
+    "L5",
+    "L6"
+  ],
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4",
+    "S6"
+  ],
+  "links": [
+    "docs/automation.md",
+    "README.md"
+  ]
+}

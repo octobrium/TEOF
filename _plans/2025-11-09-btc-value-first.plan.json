@@ -1,0 +1,65 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-btc-value-first",
+  "created": "2025-11-09T21:21:38Z",
+  "actor": "observation",
+  "summary": "Prioritize intrinsic TEOF value before BTC redistribution.",
+  "status": "queued",
+  "priority": 2,
+  "layer": "L5",
+  "systemic_scale": 4,
+  "checkpoint": {
+    "description": "Value-first mission documented and reflected in onboarding",
+    "owner": "observation",
+    "status": "pending"
+  },
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Document value-first directive",
+      "status": "done",
+      "receipts": [
+        "docs/impact/btc-capture-strategy.md",
+        "memory/reflections/reflection-20251109T212130Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Package superior TEOF workflows",
+      "status": "queued",
+      "notes": "Showcase audited automation advantages vs raw LLM use."
+    },
+    {
+      "id": "S3",
+      "title": "Monetize proven value",
+      "status": "queued",
+      "notes": "Offer guard sponsorships/engagements once S2 lands; consider BTC share only after inflows"
+    },
+    {
+      "id": "S4",
+      "title": "Update onboarding to emphasize value-first observation",
+      "status": "done",
+      "receipts": [
+        "docs/onboarding/README.md",
+        "memory/reflections/reflection-20251109T215424Z.json",
+        "memory/reflections/reflection-20251109T215946Z.json",
+        "memory/reflections/reflection-20251109T220224Z.json"
+      ]
+    }
+  ],
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S4"
+  ],
+  "layer_targets": [
+    "L4",
+    "L5"
+  ],
+  "receipts": [
+    "docs/impact/btc-capture-strategy.md",
+    "README.md"
+  ],
+  "impact_ref": "2025-11-09-btc-value-first",
+  "updated": "2025-11-09T22:14:00Z"
+}
