@@ -52,6 +52,7 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse t
 
 - Claims are shared resources. Any agent may resume a stalled task once receipts prove the previous work is recorded. Use the pheromone trail (receipts + bus events) instead of waiting indefinitely for a single owner.
 - Detect idle lanes with `python3 -m tools.agent.stale_claims --threshold-hours 6 --json` (add `--agent <id>` to check only your seats). The helper inspects `_bus/claims/*.json` and `_bus/events/events.jsonl` to find tasks without recent touch.
+- If the prior owner is gone and receipts already exist, default to reclaim → finish → log. “Ant colony mode” means **do not** wait for permission once the lane is cold.
 - Before taking over:
   1. Run `python3 -m tools.agent.stale_claims --threshold-hours 6 --fail-on-stale` and confirm the task you want is listed.
   2. Log a bus event (`bus_event log --event status --task <id> --severity medium --summary "Claim handoff from <agent>"`) so the previous owner sees the pickup.

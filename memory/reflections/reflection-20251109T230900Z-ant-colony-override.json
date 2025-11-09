@@ -1,0 +1,22 @@
+{
+  "captured_at": "2025-11-09T23:09:00Z",
+  "title": "Ant-colony override reclaimed abandoned plans",
+  "layers": [
+    "L4",
+    "L5"
+  ],
+  "summary": "Released all codex-tier2 claims with tools.agent.stale_claims --threshold-hours 0 and shipped an override commit bundling the abandoned plan/bus artifacts so work can continue without waiting for missing owners.",
+  "actions": "Captured working-tree + stale-claim receipts under _report/usage/override/, auto-released ND-067/072/073/074/075/076 and QUEUE-057, then committed override: reclaim abandoned plans and pushed to main.",
+  "signals": "Stale claim sweep showed >20h idle QUEUE-057 plus multiple cold ND tasks; workflow improvements demanded a pheromone-first response instead of waiting for plan owners who no longer exist.",
+  "plan_suggestion": "2025-11-09-behavioral-gap-interventions",
+  "tags": [
+    "override",
+    "shared-stewardship",
+    "stale-claims",
+    "ant-colony"
+  ],
+  "receipts": [
+    "_report/usage/override/working-tree-20251109T230506Z.txt",
+    "_report/usage/override/stale-claims-20251109T230506Z.json"
+  ]
+}
