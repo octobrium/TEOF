@@ -66,6 +66,7 @@ if [[ ! -s "$tail_receipt" ]]; then
 fi
 
 python3 tools/receipts/main.py check
+python3 -m tools.agent.stale_claims --agent "$agent_id" --threshold-hours 6 --fail-on-stale
 
 dna_targets=("docs/architecture.md" "docs/workflow.md" "docs/promotion-policy.md")
 dna_dirty=()

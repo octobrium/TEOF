@@ -48,6 +48,17 @@ Onboarding surfaces (`.github/AGENT_ONBOARDING.md` and `docs/agents.md`) reuse t
 
 **Guardrail:** `tools.agent.bus_message` refuses mismatched agent ids—run `python -m tools.agent.session_boot --agent <id>` (or `python -m tools.agent.manifest_helper activate <id>`) before posting so the manifest matches the seat you’re representing.
 
+### Shared plan stewardship (pheromone trail)
+
+- Claims are shared resources. Any agent may resume a stalled task once receipts prove the previous work is recorded. Use the pheromone trail (receipts + bus events) instead of waiting indefinitely for a single owner.
+- Detect idle lanes with `python3 -m tools.agent.stale_claims --threshold-hours 6 --json` (add `--agent <id>` to check only your seats). The helper inspects `_bus/claims/*.json` and `_bus/events/events.jsonl` to find tasks without recent touch.
+- Before taking over:
+  1. Run `python3 -m tools.agent.stale_claims --threshold-hours 6 --fail-on-stale` and confirm the task you want is listed.
+  2. Log a bus event (`bus_event log --event status --task <id> --severity medium --summary "Claim handoff from <agent>"`) so the previous owner sees the pickup.
+  3. If you still own the claim, auto-release it via `python3 -m tools.agent.stale_claims --agent <id> --threshold-hours 6 --release` (this calls `teof bus_claim release` with a “stale” note). Otherwise coordinate in `manager-report` before re-claiming.
+- When resuming someone else’s plan step, cite the receipts you inherited and add new ones before moving the step to `done`. The plan entry now records both agents, so auditors can follow the entire trail.
+- Don’t let perfection stall the colony: partial work with receipts beats an idle claim. If you must pause, drop a quick reflection and release the claim so the next agent can continue immediately.
+
 <a id="session-loop"></a>
 ## Suggested Session Loop
 

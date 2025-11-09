@@ -62,6 +62,7 @@ will instruct you to complete it before continuing.
 - **Bus alignment:** check `_bus/claims/<task>.json` and `teof bus_status --preset support` for active ownership/conflicts.
 - **Doc accuracy:** when editing onboarding/docs, follow [`docs/onboarding/doc-verification-sop.md`](doc-verification-sop.md) so statements match receipts (reflection logs show trust erodes when counts mismatch).
 - **Memory briefing:** run `teof reflections --limit 5` (or `teof reflections --layer L4 --days 7`) to ingest the latest lessons without rereading the entire log; cite relevant reflections when proposing structural changes.
+- **Shared stewardship:** run `python3 -m tools.agent.stale_claims --agent <id> --threshold-hours 6 --fail-on-stale` so any idle claims get released or updated before you continue; if you see another agent’s stalled task, announce the takeover in `manager-report` before reclaiming.
 
 ## Session & Communication Loop
 - **Manifest check** – confirm `AGENT_MANIFEST.json` lists the `agent_id` you
@@ -75,7 +76,7 @@ will instruct you to complete it before continuing.
   captures the current claims/events and writes a receipt; add `--json` when scripting or
   fall back to `python -m tools.agent.bus_status` if the alias isn’t available.
 - **Claim and update** – use `python -m teof bus_claim claim`, `python -m teof bus_event log --event status`, and `python -m teof bus_message` to keep claims, plans, and receipts aligned.
-- **Escalate & release** – escalate blockers with `python -m teof bus_message --meta escalation=needed`, and close with `python -m teof bus_claim release --status done --summary "handoff"`.
+- **Escalate & release** – escalate blockers with `python -m teof bus_message --meta escalation=needed`, and close with `python -m teof bus_claim release --status done --summary "handoff"` (or run `python3 -m tools.agent.stale_claims --agent <id> --release` to auto-release your own idle claim when stepping away).
 
 ## Operating Rhythm
 - **Receipts-first** – no step is “done” until receipts exist. Record artifacts
