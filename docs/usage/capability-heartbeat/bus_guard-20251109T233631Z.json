@@ -1,0 +1,10 @@
+{
+  "command": "bus_guard",
+  "generated_at": "2025-11-09T23:36:31.898934Z",
+  "output": {
+    "root": "/Users/evan/Documents/GitHub/TEOF",
+    "fix_applied": false,
+    "issue_count": 0,
+    "issues": []
+  }
+}

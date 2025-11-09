@@ -1,0 +1,7 @@
+{
+  "command": "hash_ledger",
+  "generated_at": "2025-11-09T23:36:41.480145Z",
+  "output": [
+    "ledger guard: ok (entries=5)"
+  ]
+}
