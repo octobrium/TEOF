@@ -24,6 +24,7 @@ _COMMAND_MODULES: tuple[str, ...] = (
     "bus_watch",
     "bus_message",
     "macro_hygiene",
+    "deadlock",
     "bus_claim",
     "inbox",
     "operator",

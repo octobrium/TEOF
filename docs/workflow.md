@@ -108,7 +108,13 @@ This SOP keeps push decisions deterministic, repeatable, and auditable; treat it
 
 ### Coordination Deadlock Resolution (Empirical Escape Valve)
 
-When guardrails create recursion—the rule blocks the fix for the rule—or when multi-plan worktree accumulation stalls all forward progress, use this empirical override protocol.
+When guardrails create recursion—the rule blocks the fix for the rule—or when multi-plan worktree accumulation stalls all forward progress, use this empirical override protocol. Before invoking the override, run:
+
+```bash
+python3 -m teof deadlock --format json > _report/deadlock/detect-$(date -u +%Y%m%dT%H%M%SZ).json
+```
+
+`teof deadlock` inspects the dirty worktree for multi-plan accumulation or massive file deltas and records the evidence that a deadlock is forming.
 
 **Trigger conditions:**
 - Guardrail blocks the tool/fix that would satisfy the guardrail (guard recursion)
@@ -176,7 +182,7 @@ When guardrails create recursion—the rule blocks the fix for the rule—or whe
      - Lessons learned
    - Update prevention tools:
      - Improve `teof plan_scope` if scoping was the issue
-     - Add deadlock detection if pattern is repeatable
+     - Use `teof deadlock` regularly when juggling multiple plans
      - Document new workflow if valid use case emerged
 
 **Rationale:** This treats bypass as reversible experiment, not protocol violation. Nature doesn't preserve deadlocks—ants explore alternate paths, assess which delivers food, and let failed paths fade. TEOF optimizes for functional outcomes (P1: Observation) over ceremonial purity. Git's rollback capability makes this empirically safe.
@@ -193,6 +199,7 @@ When guardrails create recursion—the rule blocks the fix for the rule—or whe
 
 **Post-override SOP:**
 - Use `teof plan_scope --plan <id>` for future pushes to prevent worktree accumulation
+- Run `teof deadlock` when worktrees start to feel crowded; log the JSON receipts under `_report/deadlock/`
 - Consider creating scoped worktrees (`git worktree add`) for concurrent plan work
 - Monitor `_report/deadlock/` for patterns indicating systemic coordination gaps
 
