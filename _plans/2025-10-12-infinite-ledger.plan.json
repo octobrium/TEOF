@@ -8,7 +8,7 @@
   "layer": "L4",
   "systemic_scale": 6,
   "impact_score": 5,
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -34,15 +34,18 @@
     {
       "id": "S3",
       "title": "Plan receipt mirror + anchoring",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Anchored the latest plan-scope receipt into the hash ledger with metadata pointing at the manager-report tail + reflection; guard run proves continuity.",
+      "receipts": [
+        "_report/usage/plan-scope/plan-scope-2025-10-12-infinite-ledger-20251109T231051Z.json",
+        "_report/usage/hash-ledger/receipt-20251109T231337Z.json"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Define verification + receipts",
-    "owner": "Octo",
-    "status": "pending"
+    "owner": "codex-tier2",
+    "status": "satisfied"
   },
   "links": [
     {
@@ -50,7 +53,9 @@
       "ref": "queue/072-receipt-ledger-guard.md"
     }
   ],
-  "receipts": [],
+  "receipts": [
+    "_report/usage/hash-ledger/receipt-20251109T231337Z.json"
+  ],
   "systemic_targets": [
     "S1",
     "S2",

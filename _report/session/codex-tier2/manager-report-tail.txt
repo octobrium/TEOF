@@ -1,6 +1,6 @@
 # manager-report tail
 # source=_bus/messages/manager-report.jsonl
-# captured_at=2025-11-09T22:39:27Z
+# captured_at=2025-11-09T23:08:27Z
 # requested_entries=10
 # written_entries=10
 

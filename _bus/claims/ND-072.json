@@ -2,9 +2,9 @@
   "agent_id": "codex-tier2",
   "branch": "agent/codex-tier2/nd-072",
   "claimed_at": "2025-11-09T18:46:31Z",
-  "notes": "Auto-release stale claim (> threshold)",
+  "notes": "Hash-ledger anchoring complete",
   "plan_id": "2025-10-12-infinite-ledger",
-  "released_at": "2025-11-09T23:02:22Z",
-  "status": "released",
+  "released_at": "2025-11-09T23:14:40Z",
+  "status": "done",
   "task_id": "ND-072"
 }

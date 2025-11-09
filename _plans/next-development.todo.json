@@ -447,7 +447,8 @@
     {
       "id": "ND-072",
       "title": "Hash-linked receipt ledger",
-      "status": "in_progress",
+      "status": "done",
+      "completed_at": "2025-11-09T23:13:00Z",
       "plan_suggestion": "2025-10-12-infinite-ledger",
       "notes": "Finish the receipt hash-chain schema, ship a validator + CI guard, and define anchoring receipts so every autonomy artifact stays tamper evident.",
       "priority": "high",

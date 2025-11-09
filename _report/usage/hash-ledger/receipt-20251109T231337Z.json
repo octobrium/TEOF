@@ -1,0 +1,15 @@
+{
+  "version": 0,
+  "prev_hash": "23d02fe5c367fbd1e440355f5bd5bf715781737facbe0247cabc7e0a4abba152",
+  "plan_id": "2025-10-12-infinite-ledger",
+  "plan_step_id": "S3",
+  "receipt_path": "_report/usage/plan-scope/plan-scope-2025-10-12-infinite-ledger-20251109T231051Z.json",
+  "agent_id": "codex-tier2",
+  "ts": "2025-11-09T23:13:37Z",
+  "metadata": {
+    "manager_report_tail": "_report/session/codex-tier2/manager-report-tail.txt",
+    "reflection": "memory/reflections/reflection-20251109T230900Z-ant-colony-override.json",
+    "note": "Anchoring plan-scope receipt into hash ledger after ant-colony override"
+  },
+  "hash": "09f6b3644ba87bbe464a5b850f2592e787164a74d34ebe83d4147c6b4e59d0df"
+}
