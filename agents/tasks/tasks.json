@@ -8,7 +8,8 @@
       "plan_id": "2025-09-17-anchors-append-guard",
       "priority": "high",
       "receipts": [
-        "_report/agent/codex-2/anchors-append-guard/pytest.json"
+        "_report/agent/codex-2/anchors-append-guard/pytest.json",
+        "_report/ethics/guards/2025-11-09/queue-000-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -22,7 +23,8 @@
       "plan_id": "2025-09-17-agent-bus-watch",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-2/agent-bus-watch/pytest.json"
+        "_report/agent/codex-2/agent-bus-watch/pytest.json",
+        "_report/ethics/guards/2025-11-09/queue-001-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -36,7 +38,8 @@
       "plan_id": "2025-09-17-codex1-support",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-1/bus-status-20250917T234600Z.txt"
+        "_report/agent/codex-1/bus-status-20250917T234600Z.txt",
+        "_report/ethics/guards/2025-11-09/bus-coord-0001-ethics.json"
       ],
       "role": "manager",
       "status": "done",
@@ -49,7 +52,8 @@
       "plan_id": "2025-09-18-agent-bus-cli-tests",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-3/agent-bus-cli-tests/pytest.json"
+        "_report/agent/codex-3/agent-bus-cli-tests/pytest.json",
+        "_report/ethics/guards/2025-11-09/queue-003-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -63,7 +67,8 @@
       "plan_id": "2025-09-18-agent-bus-status",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-2/agent-bus-status/pytest.json"
+        "_report/agent/codex-2/agent-bus-status/pytest.json",
+        "_report/ethics/guards/2025-11-09/queue-002-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -76,7 +81,8 @@
       "plan_id": "2025-09-18-bus-message-cli",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-2/bus-message-cli/pytest.json"
+        "_report/agent/codex-2/bus-message-cli/pytest.json",
+        "_report/ethics/guards/2025-11-09/queue-005-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -89,7 +95,8 @@
       "plan_id": "2025-09-18-task-assign-bus-message",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-2/task-assign-bus-message/pytest.json"
+        "_report/agent/codex-2/task-assign-bus-message/pytest.json",
+        "_report/ethics/guards/2025-11-09/queue-006-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -102,20 +109,22 @@
       "plan_id": "2025-09-18-bus-event-severity",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-3/bus-event-severity/pytest.json"
+        "_report/agent/codex-3/bus-event-severity/pytest.json",
+        "_report/ethics/guards/2025-11-09/queue-007-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
       "title": "Add bus_event severity tagging"
     },
     {
-      "assigned_by": "codex-manager",
-      "branch": "agent/codex-3/queue-008",
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/bus-status-window",
       "id": "QUEUE-008",
-      "plan_id": "2025-09-18-bus-status-staleness",
+      "plan_id": "2025-11-09-bus-status-window",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-3/bus-status-staleness/pytest.json"
+        "_report/agent/codex-3/bus-status-staleness/pytest.json",
+        "_report/ethics/guards/2025-11-09/queue-008-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -128,7 +137,8 @@
       "plan_id": "2025-09-18-bus-watch-window",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-4/bus-watch-window/pytest.json"
+        "_report/agent/codex-4/bus-watch-window/pytest.json",
+        "_report/ethics/guards/2025-11-09/queue-009-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -141,7 +151,8 @@
       "plan_id": "2025-09-18-collab-support",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-3/collab-support/docs.json"
+        "_report/agent/codex-3/collab-support/docs.json",
+        "_report/ethics/guards/2025-11-09/queue-010-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -153,7 +164,9 @@
       "id": "QUEUE-011",
       "plan_id": "2025-09-18-bus-tooling-review",
       "priority": "medium",
-      "receipts": [],
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-011-ethics.json"
+      ],
       "role": "engineer",
       "status": "done",
       "title": "Pre-review bus tooling"
@@ -165,7 +178,8 @@
       "plan_id": "2025-09-18-bus-message-claim-guard",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-2/bus-message-claim-guard/pytest.json"
+        "_report/agent/codex-2/bus-message-claim-guard/pytest.json",
+        "_report/ethics/guards/2025-11-09/queue-012-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -178,7 +192,8 @@
       "plan_id": "2025-09-18-maintenance-pruning",
       "priority": "medium",
       "receipts": [
-        "_report/agent/codex-3/maintenance-pruning/summary.json"
+        "_report/agent/codex-3/maintenance-pruning/summary.json",
+        "_report/ethics/guards/2025-11-09/queue-013-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -190,7 +205,9 @@
       "id": "QUEUE-014",
       "plan_id": "2025-09-18-claim-seed-docs",
       "priority": "medium",
-      "receipts": [],
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-014-ethics.json"
+      ],
       "role": "engineer",
       "status": "done",
       "title": "Document claim seeding"
@@ -201,7 +218,9 @@
       "id": "QUEUE-015",
       "plan_id": "2025-09-18-prune-script",
       "priority": "medium",
-      "receipts": [],
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-015-ethics.json"
+      ],
       "role": "engineer",
       "status": "done",
       "title": "Automate pruning helper"
@@ -212,6 +231,9 @@
       "id": "QUEUE-034",
       "plan_id": "2025-09-18-l4-binding-brief",
       "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-034-ethics.json"
+      ],
       "role": "engineer",
       "status": "done",
       "title": "QUEUE-034"
@@ -222,6 +244,9 @@
       "id": "QUEUE-035",
       "plan_id": "2025-09-18-capsule-status-ledger",
       "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-035-ethics.json"
+      ],
       "role": "engineer",
       "status": "done",
       "title": "QUEUE-035"
@@ -232,6 +257,9 @@
       "id": "QUEUE-036",
       "plan_id": "2025-09-18-macro-hygiene",
       "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-036-ethics.json"
+      ],
       "role": "engineer",
       "status": "done",
       "title": "QUEUE-036"
@@ -244,7 +272,8 @@
       "priority": "medium",
       "receipts": [
         "_plans/2025-09-21-consensus-ci-integration.plan.json",
-        "_report/agent/codex-4/queue-038/consensus-ci-smoke.log"
+        "_report/agent/codex-4/queue-038/consensus-ci-smoke.log",
+        "_report/ethics/guards/2025-11-09/queue-038-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -258,7 +287,8 @@
       "priority": "medium",
       "receipts": [
         "_plans/2025-09-19-manifest-swap.plan.json",
-        "_report/agent/codex-2/queue-040/summary.json"
+        "_report/agent/codex-2/queue-040/summary.json",
+        "_report/ethics/guards/2025-11-09/queue-037-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -273,7 +303,8 @@
       "receipts": [
         "_plans/2025-10-02-capsule-summary-cli.plan.json",
         "_report/agent/codex-4/queue-039/pytest-capsule-cadence.log",
-        "_report/capsule/summary-latest.json"
+        "_report/capsule/summary-latest.json",
+        "_report/ethics/guards/2025-11-09/queue-039-ethics.json"
       ],
       "role": "engineer",
       "status": "done",
@@ -290,7 +321,8 @@
         "_report/agent/codex-2/kernel-slimdown/heuristic-audit.md",
         "_report/agent/codex-2/kernel-slimdown/heuristic-refactor.md",
         "_report/agent/codex-2/kernel-slimdown/deterministic-coverage.md",
-        "_report/runner/20250918T221405Z-20155a7c.json"
+        "_report/runner/20250918T221405Z-20155a7c.json",
+        "_report/ethics/guards/2025-11-09/apop-001-ethics.json"
       ],
       "role": "systems-architect",
       "status": "done",
@@ -306,7 +338,8 @@
       "receipts": [
         "_report/agent/codex-3/tooling-prune/actions.json",
         "_report/agent/codex-3/tooling-prune/summary.json",
-        "_report/agent/codex-3/tooling-prune/tests.json"
+        "_report/agent/codex-3/tooling-prune/tests.json",
+        "_report/ethics/guards/2025-11-09/apop-002-ethics.json"
       ],
       "role": "automation-engineer",
       "status": "done",
@@ -322,7 +355,8 @@
       "receipts": [
         "_report/agent/codex-4/apoptosis-003/delta-20250918.md",
         "_report/agent/codex-4/apoptosis-003/preflight-20250918.log",
-        "_report/agent/codex-4/apoptosis-003/planner-validate-20250918.log"
+        "_report/agent/codex-4/apoptosis-003/planner-validate-20250918.log",
+        "_report/ethics/guards/2025-11-09/apop-003-ethics.json"
       ],
       "role": "product-strategist",
       "status": "done",
@@ -332,18 +366,21 @@
       "assigned_by": "codex-1",
       "branch": "agent/codex-2/apoptosis-004",
       "id": "APOP-004",
+      "layer": "L5",
       "notes": "Build automated bus heartbeat monitor with configurable windows and idle alerts.",
       "plan_id": "2025-09-20-bus-heartbeat-refresh",
       "priority": "high",
       "receipts": [],
       "role": "systems-architect",
       "status": "done",
+      "systemic_scale": 6,
       "title": "Bus Heartbeat Monitor"
     },
     {
       "assigned_by": "codex-1",
       "branch": "agent/codex-3/apoptosis-005",
       "id": "APOP-005",
+      "layer": "L5",
       "notes": "Automate receipt scaffolding, polish bus_status ergonomics, and streamline session bootstrap.",
       "plan_id": "2025-09-20-receipt-scaffold-v2",
       "priority": "high",
@@ -355,12 +392,14 @@
       ],
       "role": "automation-engineer",
       "status": "done",
+      "systemic_scale": 6,
       "title": "Receipt Scaffold & Bus UX"
     },
     {
       "assigned_by": "codex-1",
       "branch": "agent/codex-4/apoptosis-006",
       "id": "APOP-006",
+      "layer": "L5",
       "notes": "Add doc quick-links and helper CLI for high-traffic guidance surfaces.",
       "plan_id": "2025-09-20-docs-quicklinks-v2",
       "priority": "high",
@@ -375,24 +414,30 @@
       ],
       "role": "product-strategist",
       "status": "done",
+      "systemic_scale": 6,
       "title": "Docs Quick Links"
     },
     {
       "assigned_by": "codex-1",
       "branch": "agent/codex-2/apoptosis-007",
       "id": "APOP-007",
+      "layer": "L4",
       "notes": "Compact shared code without changing systemic behaviour.",
       "plan_id": "2025-09-21-code-compaction",
       "priority": "high",
-      "receipts": [],
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/apop-007-ethics.json"
+      ],
       "role": "systems-architect",
       "status": "done",
+      "systemic_scale": 10,
       "title": "Code Compaction"
     },
     {
       "assigned_by": "codex-1",
       "branch": "agent/codex-3/apoptosis-008",
       "id": "APOP-008",
+      "layer": "L5",
       "notes": "Ship session sync helper so every session starts on the latest commit.",
       "plan_id": "2025-09-21-session-sync",
       "priority": "high",
@@ -402,12 +447,14 @@
       ],
       "role": "automation-engineer",
       "status": "done",
+      "systemic_scale": 6,
       "title": "Session Sync Helper"
     },
     {
       "assigned_by": "codex-1",
       "branch": "agent/codex-4/apoptosis-009",
       "id": "APOP-009",
+      "layer": "L5",
       "notes": "Deliver coordination dashboard/report for live situational awareness.",
       "plan_id": "2025-09-21-coordination-dashboard",
       "priority": "high",
@@ -424,28 +471,33 @@
       ],
       "role": "product-strategist",
       "status": "done",
+      "systemic_scale": 6,
       "title": "Coordination Dashboard"
     },
     {
       "branch": "agent/codex-2/queue-040",
       "id": "QUEUE-040",
+      "layer": "L4",
       "plan_id": "2025-09-19-docs-quicklinks-codex2",
       "receipts": [
         "_report/agent/codex-2/queue-040/summary.json"
       ],
       "role": "docs",
       "status": "done",
+      "systemic_scale": 2,
       "title": "Docs quick-links surface"
     },
     {
       "branch": "agent/codex-2/queue-042",
       "id": "QUEUE-042",
+      "layer": "L5",
       "plan_id": "2025-09-19-coordination-dashboard-codex2",
       "receipts": [
         "_report/agent/codex-2/queue-042/summary.json"
       ],
       "role": "automation",
       "status": "done",
+      "systemic_scale": 6,
       "title": "Coordination Dashboard"
     },
     {
@@ -508,26 +560,34 @@
       "assigned_by": "codex-4",
       "branch": null,
       "id": "QUEUE-044",
+      "layer": "L5",
       "plan_id": "2025-10-03-dirty-handoff-automation",
       "priority": "medium",
       "role": "engineer",
       "status": "done",
+      "systemic_scale": 3,
       "title": "QUEUE-044"
     },
     {
       "assigned_by": "codex-4",
       "branch": "agent/codex-3/plan-schema-dedupe",
       "id": "PLAN-2025-10-03-plan-schema-dedupe",
+      "layer": "L6",
       "plan_id": "2025-10-03-plan-schema-dedupe",
       "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/plan-2025-10-03-plan-schema-dedupe-ethics.json"
+      ],
       "role": "engineer",
       "status": "done",
+      "systemic_scale": 10,
       "title": "PLAN-2025-10-03-plan-schema-dedupe"
     },
     {
       "assigned_by": "codex-5",
       "branch": "agent/codex-5/batch-refinement-refresh",
       "id": "QUEUE-050",
+      "layer": "L5",
       "notes": "Refresh batch refinement receipts and autonomy status telemetry",
       "plan_id": "2025-09-21-autonomy-status-receipt",
       "priority": "medium",
@@ -538,6 +598,7 @@
       ],
       "role": "engineer",
       "status": "done",
+      "systemic_scale": 5,
       "title": "Batch refinement telemetry refresh"
     },
     {
@@ -546,6 +607,9 @@
       "id": "AUTH-PRIMARY_TRUTH-codex-5-20251004",
       "plan_id": null,
       "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/auth-primary_truth-codex-5-20251004-ethics.json"
+      ],
       "role": "engineer",
       "status": "open",
       "title": "AUTH-PRIMARY_TRUTH-codex-5-20251004"
@@ -556,6 +620,9 @@
       "id": "AUTH-UNASSIGNED-codex-5-20251004",
       "plan_id": null,
       "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/auth-unassigned-codex-5-20251004-ethics.json"
+      ],
       "role": "engineer",
       "status": "open",
       "title": "AUTH-UNASSIGNED-codex-5-20251004"
@@ -564,6 +631,7 @@
       "assigned_by": "codex-4",
       "branch": null,
       "id": "ND-025",
+      "layer": "L5",
       "plan_id": "2025-10-05-ttd-trend-reporting",
       "priority": "medium",
       "receipts": [
@@ -572,22 +640,26 @@
       ],
       "role": "engineer",
       "status": "done",
+      "systemic_scale": 6,
       "title": "ND-025"
     },
     {
       "assigned_by": "codex-4",
       "branch": "agent/codex-4/autonomy-coordinator",
       "id": "AUTO-COORD",
+      "layer": "L5",
       "plan_id": "2025-10-19-autonomy-coordinator",
       "priority": "medium",
       "role": "engineer",
       "status": "done",
+      "systemic_scale": 7,
       "title": "AUTO-COORD"
     },
     {
       "assigned_by": "codex-4",
       "branch": null,
       "id": "DOC-HYGIENE",
+      "layer": "L5",
       "plan_id": "2025-11-05-doc-consolidation",
       "priority": "medium",
       "receipts": [
@@ -597,7 +669,122 @@
       ],
       "role": "engineer",
       "status": "done",
+      "systemic_scale": 6,
       "title": "DOC-HYGIENE"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/agent-channel-infra",
+      "id": "QUEUE-074",
+      "layer": "L5",
+      "plan_id": "2025-11-09-agent-channel-infrastructure",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "done",
+      "systemic_scale": 3,
+      "title": "QUEUE-074"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/session-brief",
+      "id": "QUEUE-075",
+      "layer": "L5",
+      "plan_id": "2025-11-09-session-brief-sorting",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "done",
+      "systemic_scale": 3,
+      "title": "QUEUE-075"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/coverage-guard",
+      "id": "QUEUE-076",
+      "layer": "L5",
+      "plan_id": "2025-11-09-pytest-coverage-guard",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "done",
+      "systemic_scale": 3,
+      "title": "QUEUE-076"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/teof-bus-status",
+      "id": "QUEUE-077",
+      "plan_id": "2025-11-09-teof-bus-status-cli",
+      "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-077-ethics.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-077"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/teof-bus-watch",
+      "id": "QUEUE-078",
+      "plan_id": "2025-11-09-teof-bus-watch-cli",
+      "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-078-ethics.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-078"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/teof-bus-event",
+      "id": "QUEUE-079",
+      "plan_id": "2025-11-09-teof-bus-event-cli",
+      "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-079-ethics.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-079"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/teof-macro-hygiene",
+      "id": "QUEUE-080",
+      "plan_id": "2025-11-09-teof-macro-hygiene-cli",
+      "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-080-ethics.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-080"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/teof-bus-message",
+      "id": "QUEUE-081",
+      "plan_id": "2025-11-09-teof-bus-message-cli",
+      "priority": "medium",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-081-ethics.json"
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-081"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/teof-bus-claim",
+      "id": "QUEUE-082",
+      "plan_id": "2025-11-09-teof-bus-claim-cli",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "QUEUE-082",
+      "receipts": [
+        "_report/ethics/guards/2025-11-09/queue-082-ethics.json"
+      ]
     }
   ],
   "version": 1

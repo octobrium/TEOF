@@ -1,0 +1,61 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-autonomy-module-consolidation",
+  "created": "2025-11-09T05:12:43Z",
+  "actor": "codex-tier2",
+  "summary": "Consolidate autonomy coordinator modules into focused services with shared primitives.",
+  "status": "in_progress",
+  "priority": 2,
+  "layer": "L6",
+  "systemic_scale": 6,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture consolidation requirements",
+      "status": "done",
+      "notes": "Documented overlapping modules, desired CLI/report, receipts, and risks.",
+      "receipts": [
+        "_plans/next-development.todo.json",
+        "_report/agent/codex-tier2/2025-11-09-autonomy-module-consolidation/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design target module map",
+      "status": "queued",
+      "notes": "Define which modules merge, shared primitives, APIs, and migration plan.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement consolidation + telemetry",
+      "status": "queued",
+      "notes": "Refactor modules, update tests/docs, emit latency receipts, and stage rollout.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Consolidated autonomy modules with receipts proving latency/duplication reductions.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-autonomy-module-consolidation/requirements.md",
+    "_report/ethics/guards/2025-11-09/nd-067-ethics.json"
+  ],
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-067"
+    }
+  ],
+  "systemic_targets": [
+    "S2",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6",
+    "L4"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-convergence-metrics",
+  "created": "2025-11-09T05:06:18Z",
+  "actor": "codex-tier2",
+  "summary": "Implement convergence metrics pipeline (CLI + receipts) to monitor multi-node coherence.",
+  "status": "in_progress",
+  "priority": 2,
+  "layer": "L6",
+  "systemic_scale": 6,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture metrics requirements",
+      "status": "done",
+      "notes": "Reviewed the queue brief + reflections to enumerate metrics, data sources, receipts, and CI expectations.",
+      "receipts": [
+        "queue/071-convergence-metrics.md",
+        "_report/agent/codex-tier2/2025-11-09-convergence-metrics/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design schema + CLI",
+      "status": "queued",
+      "notes": "Define metric schema, CLI flags, output receipts, and dashboard format before wiring ingestion.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement pipeline + guardrails",
+      "status": "queued",
+      "notes": "Build data ingestion, calculations, receipts, dashboards, doc updates, and CI guard.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Convergence metrics CLI emits receipts/dashboards and CI blocks drift.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-convergence-metrics/requirements.md",
+    "_report/ethics/guards/2025-11-09/nd-071-ethics.json"
+  ],
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/071-convergence-metrics.md"
+    }
+  ],
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6",
+    "L5"
+  ]
+}

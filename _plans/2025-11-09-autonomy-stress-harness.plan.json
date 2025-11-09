@@ -1,0 +1,62 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-autonomy-stress-harness",
+  "created": "2025-11-09T05:04:15Z",
+  "actor": "codex-tier2",
+  "summary": "Build a deterministic autonomy stress harness (CLI + receipts) to red-team auto_loop/conductor flows before unattended runs.",
+  "status": "done",
+  "priority": 1,
+  "layer": "L6",
+  "systemic_scale": 6,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture harness requirements",
+      "status": "done",
+      "notes": "Documented scenario scope, receipt expectations, and CI hooks from the queue brief + automation docs.",
+      "receipts": [
+        "queue/054-autonomy-stress-harness.md",
+        "_report/agent/codex-tier2/2025-11-09-autonomy-stress-harness/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design scenario schema + CLI",
+      "status": "queued",
+      "notes": "Define scenario manifest format, CLI arguments, and output receipts before touching automation modules.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement harness + CI integration",
+      "status": "queued",
+      "notes": "Implement runner, fixtures, receipts, docs, and add a CI guard to block promotion when stress tests fail.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Harness CLI emits receipts for all scenarios and CI enforces guardrail coverage.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-autonomy-stress-harness/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-autonomy-stress-harness/requirements.md",
+    "_report/ethics/guards/2025-11-09/nd-054-ethics.json"
+  ],
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/054-autonomy-stress-harness.md"
+    }
+  ],
+  "systemic_targets": [
+    "S2",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6",
+    "L5"
+  ]
+}

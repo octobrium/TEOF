@@ -1,0 +1,41 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-evidence-prune-automation",
+  "created": "2025-11-09T05:25:40Z",
+  "actor": "codex-tier2",
+  "summary": "Automate evidence_usage scan + prune cadence with receipts",
+  "status": "in_progress",
+  "priority": 2,
+  "layer": "L6",
+  "systemic_scale": 4,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture automation requirements",
+      "status": "done",
+      "notes": "Documented backlog intent + hooks",
+      "receipts": [
+        "_plans/next-development.todo.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "evidence_usage automation emits receipts + CI guard",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_plans/next-development.todo.json",
+    "_report/ethics/guards/2025-11-09/nd-057-ethics.json"
+  ],
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-057"
+    }
+  ],
+  "systemic_targets": [
+    "S2",
+    "S4"
+  ]
+}

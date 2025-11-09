@@ -1,0 +1,55 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-confidence-calibration",
+  "created": "2025-11-09T05:25:00Z",
+  "actor": "codex-tier2",
+  "summary": "Link confidence receipts to plan outcomes so ND-068 (confidence calibration analytics) exits critic backlog.",
+  "priority": 2,
+  "layer": "L6",
+  "systemic_scale": 8,
+  "impact_score": 29,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Consolidate telemetry + requirements",
+      "status": "done",
+      "notes": "Reviewed queue brief + confidence docs to enumerate inputs, storage, CLI surface, metrics, and alert integration for ND-068.",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-confidence-calibration/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design analytics pipeline",
+      "status": "done",
+      "notes": "Outlined collector/normalizer/aggregator alerts pipeline + CLI surface and integration hooks for ND-068.",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-confidence-calibration/design.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Implement tooling + receipts",
+      "status": "pending",
+      "notes": "Ship CLI/report, emit _report/usage/confidence-calibration/* artifacts, and wire into scan/ethics hooks.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Confidence calibration analytics live with receipts + automated alerts",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "links": [
+    {"type": "queue", "ref": "queue/068-confidence-calibration.md"}
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-confidence-calibration/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-confidence-calibration/requirements.md",
+    "_report/agent/codex-tier2/2025-11-09-confidence-calibration/design.md",
+    "_report/ethics/guards/2025-11-09/nd-068-ethics.json"
+  ],
+  "systemic_targets": ["S4", "S5", "S6", "S8"],
+  "layer_targets": ["L6", "L5"]
+}

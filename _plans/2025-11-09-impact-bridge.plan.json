@@ -1,0 +1,63 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-impact-bridge",
+  "created": "2025-11-09T05:07:10Z",
+  "actor": "codex-tier2",
+  "summary": "Ship an impact bridge dashboard linking impact ledger entries to backlog/receipt evidence with CI enforcement.",
+  "status": "in_progress",
+  "priority": 2,
+  "layer": "L2",
+  "systemic_scale": 10,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture impact bridge requirements",
+      "status": "done",
+      "notes": "Documented the impact ledger connections, CLI expectations, and receipt requirements from the queue brief.",
+      "receipts": [
+        "queue/056-impact-bridge.md",
+        "_report/agent/codex-tier2/2025-11-09-impact-bridge/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design data model + CLI",
+      "status": "queued",
+      "notes": "Define ledger/backlog linkage schema, CLI flags, receipt formats, and CI gating strategy.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement dashboard + guard",
+      "status": "queued",
+      "notes": "Build tooling, dashboards, receipt emitters, docs, tests, and CI enforcement.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Impact bridge CLI produces auditable receipts/dashboards and CI enforces impact references.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-impact-bridge/requirements.md",
+    "_report/ethics/guards/2025-11-09/nd-056-ethics.json"
+  ],
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/056-impact-bridge.md"
+    }
+  ],
+  "systemic_targets": [
+    "S3",
+    "S4",
+    "S6",
+    "S7",
+    "S10"
+  ],
+  "layer_targets": [
+    "L2",
+    "L5"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-receipts-index-streaming",
+  "created": "2025-11-09T05:10:10Z",
+  "actor": "codex-tier2",
+  "summary": "Stream the receipts index via incremental shards + CLI support.",
+  "status": "in_progress",
+  "priority": 2,
+  "layer": "L6",
+  "systemic_scale": 6,
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Capture streaming requirements",
+      "status": "done",
+      "notes": "Documented backlog intent, CLI sketch, retention rules, and risks.",
+      "receipts": [
+        "_plans/next-development.todo.json",
+        "_report/agent/codex-tier2/2025-11-09-receipts-index-streaming/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design shard schema + CLI",
+      "status": "queued",
+      "notes": "Define shard manifest format, hash chaining, CLI flags, and transition plan for existing consumers.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Implement generator + CI guard",
+      "status": "queued",
+      "notes": "Build streaming generator, write tests, emit receipts, and add CI freshness guard.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Streaming receipts index emits hashed shards and CI enforces freshness.",
+    "owner": "codex-tier2",
+    "status": "pending"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-receipts-index-streaming/requirements.md",
+    "_report/ethics/guards/2025-11-09/nd-063-ethics.json"
+  ],
+  "links": [
+    {
+      "type": "backlog",
+      "ref": "ND-063"
+    }
+  ],
+  "systemic_targets": [
+    "S1",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L6",
+    "L5"
+  ]
+}

@@ -62,7 +62,8 @@
     "_report/usage/case-study/relay-insight/summary.json",
     "docs/impact/relay-insight-case-study.md",
     "docs/vision/relay-offering-collateral.md",
-    "docs/vision/relay-offering-dry-run.md"
+    "docs/vision/relay-offering-dry-run.md",
+    "_report/ethics/guards/2025-11-09/nd-070-ethics.json"
   ],
   "layer": "L5",
   "systemic_scale": 7,

@@ -1,0 +1,81 @@
+{
+  "version": 0,
+  "plan_id": "2025-11-09-decentralized-node-ledger",
+  "created": "2025-11-09T05:10:00Z",
+  "actor": "codex-tier2",
+  "summary": "Design and implement the decentralized node incentive ledger so ND-069 has receipts, schema, and automation hooks.",
+  "priority": 2,
+  "layer": "L4",
+  "systemic_scale": 8,
+  "impact_score": 34,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Consolidate requirements + existing receipts",
+      "status": "done",
+      "notes": "Digested queue brief, prior decentralized-node plan, ideas doc, propagation automation, and latest scan receipts to enumerate ledger scope, schema, workflow, and guard requirements.",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/requirements.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Design ledger schema + governance workflow",
+      "status": "done",
+      "notes": "Drafted schema + CLI blueprint (tools.autonomy.node_ledger) including JSONL format, hash chaining, governance workflow hooks, and guardrails.",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/design.md"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Implement ledger + automation receipts",
+      "status": "done",
+      "notes": "Implemented tools.autonomy.node_ledger CLI with append/show/audit commands, added JSON schema + regression tests, and recorded the first ledger entry under _report/usage/node-incentive-ledger/",
+      "receipts": [
+        "tools/autonomy/node_ledger.py",
+        "tests/test_node_ledger.py",
+        "schemas/node-incentive-ledger.schema.json",
+        "_report/usage/node-incentive-ledger/ledger.jsonl",
+        "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/implementation.json",
+        "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/tests.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Ledger CLI + schema live with enforceable receipts and docs so ND-069 exits critic backlog.",
+    "owner": "codex-tier2",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/069-node-incentive-ledger.md"
+    },
+    {
+      "type": "plan",
+      "ref": "_plans/2025-10-11-decentralized-node.plan.json"
+    }
+  ],
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/plan.json",
+    "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/requirements.md",
+    "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/design.md",
+    "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/implementation.json",
+    "_report/agent/codex-tier2/2025-11-09-decentralized-node-ledger/tests.json",
+    "_report/ethics/guards/2025-11-09/nd-069-ethics.json"
+  ],
+  "systemic_targets": [
+    "S2",
+    "S3",
+    "S4",
+    "S7",
+    "S8"
+  ],
+  "layer_targets": [
+    "L2",
+    "L4",
+    "L5"
+  ]
+}
