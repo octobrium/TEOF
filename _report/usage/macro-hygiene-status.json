@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-09T06:01:56Z",
+  "generated_at": "2025-11-09T22:48:57Z",
   "objectives": [
     {
       "id": "MH-ENV",
@@ -111,7 +111,7 @@
           "kind": "path_exists",
           "path": ".github/workflows/guardrails.yml",
           "ok": true,
-          "detail": "exists (mtime=2025-11-08T20:06:14.741897+00:00)",
+          "detail": "exists (mtime=2025-11-09T07:14:19.735679+00:00)",
           "optional": false
         },
         {
@@ -222,7 +222,7 @@
           "kind": "path_exists",
           "path": "docs/automation.md",
           "ok": true,
-          "detail": "exists (mtime=2025-11-07T09:10:41.486214+00:00)",
+          "detail": "exists (mtime=2025-11-09T17:28:22.228886+00:00)",
           "optional": false
         },
         {
@@ -254,5 +254,5 @@
     "total": 4
   },
   "status": "ready",
-  "receipt_sha256": "06ec8765d872d24be215db112b9e9803bc562670aeea0b3806ad76807c932ac9"
+  "receipt_sha256": "1e2b49beb4232fcdba1d9ae591f512da28e2bd3f19420e6c2b80ef6de6ba912b"
 }

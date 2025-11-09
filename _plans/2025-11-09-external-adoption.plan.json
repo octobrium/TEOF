@@ -46,6 +46,10 @@
     {
       "type": "queue",
       "ref": "queue/055-external-adoption-capsule.md"
+    },
+    {
+      "type": "queue",
+      "ref": "queue/076-external-adoption-capsule.md"
     }
   ],
   "systemic_targets": [

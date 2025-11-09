@@ -1,565 +1,2855 @@
 {
-  "generated_at": "2025-09-20T22:27:44Z",
+  "generated_at": "2025-11-09T22:48:57Z",
   "strict": true,
   "exit_code": 0,
   "plans": [
     {
-      "path": "_plans/1970-01-01-agent-template.plan.json",
-      "ok": true,
-      "errors": [],
-      "plan_id": "1970-01-01-agent-template"
-    },
-    {
       "path": "_plans/2025-09-17-agent-bus-awareness.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-agent-bus-awareness"
+      "plan_id": "2025-09-17-agent-bus-awareness",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-17-agent-bus-awareness",
+          "queue_ref": "queue/001-agent-bus-watch.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-09-17-agent-bus-awareness: systemic_scale 6 not in queue queue/001-agent-bus-watch.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-17-agent-bus-watch.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-agent-bus-watch"
+      "plan_id": "2025-09-17-agent-bus-watch",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-anchors-append-guard.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-anchors-append-guard"
+      "plan_id": "2025-09-17-anchors-append-guard",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-anchors-guard.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-anchors-guard"
+      "plan_id": "2025-09-17-anchors-guard",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-automation-doc.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-automation-doc"
+      "plan_id": "2025-09-17-automation-doc",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-codex1-support.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-codex1-support"
+      "plan_id": "2025-09-17-codex1-support",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-commandment-defaults.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-commandment-defaults"
+      "plan_id": "2025-09-17-commandment-defaults",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-commandment-tags.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-commandment-tags"
+      "plan_id": "2025-09-17-commandment-tags",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-commandments-diff.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-commandments-diff"
+      "plan_id": "2025-09-17-commandments-diff",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-commandments.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-commandments"
+      "plan_id": "2025-09-17-commandments",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-convergence-metrics.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-convergence-metrics"
+      "plan_id": "2025-09-17-convergence-metrics",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-delta-exchange.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-delta-exchange"
+      "plan_id": "2025-09-17-delta-exchange",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-docs-landing.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-docs-landing"
+      "plan_id": "2025-09-17-docs-landing",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-handshake-cli.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-handshake-cli"
+      "plan_id": "2025-09-17-handshake-cli",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-handshake-diff.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-handshake-diff"
+      "plan_id": "2025-09-17-handshake-diff",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-layer-update.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-layer-update"
+      "plan_id": "2025-09-17-layer-update",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-ledger-upkeep.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-ledger-upkeep"
+      "plan_id": "2025-09-17-ledger-upkeep",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-meaning-memory.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-meaning-memory"
+      "plan_id": "2025-09-17-meaning-memory",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-metrics-aggregate.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-metrics-aggregate"
+      "plan_id": "2025-09-17-metrics-aggregate",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-metrics-jsonl.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-metrics-jsonl"
+      "plan_id": "2025-09-17-metrics-jsonl",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-metrics-logging.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-metrics-logging"
+      "plan_id": "2025-09-17-metrics-logging",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-planner-cli-bootstrap.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-planner-cli-bootstrap"
+      "plan_id": "2025-09-17-planner-cli-bootstrap",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-planner-eval-bootstrap.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-planner-eval-bootstrap"
+      "plan_id": "2025-09-17-planner-eval-bootstrap",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-planner-insight-tools.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-planner-insight-tools"
+      "plan_id": "2025-09-17-planner-insight-tools",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-planner-show-command.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-planner-show-command"
+      "plan_id": "2025-09-17-planner-show-command",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-planner-v0-2.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-planner-v0-2"
+      "plan_id": "2025-09-17-planner-v0-2",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-planner-validator-upgrade.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-planner-validator-upgrade"
+      "plan_id": "2025-09-17-planner-validator-upgrade",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-queue-hygiene.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-queue-hygiene"
+      "plan_id": "2025-09-17-queue-hygiene",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-reconcile-ci.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-reconcile-ci"
+      "plan_id": "2025-09-17-reconcile-ci",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-reconcile-merge.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-reconcile-merge"
+      "plan_id": "2025-09-17-reconcile-merge",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-reconcile-pipeline.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-reconcile-pipeline"
+      "plan_id": "2025-09-17-reconcile-pipeline",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-reconciliation.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-reconciliation"
+      "plan_id": "2025-09-17-reconciliation",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-17-runner-ux.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-17-runner-ux"
+      "plan_id": "2025-09-17-runner-ux",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-agent-bus-status.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-agent-bus-status"
+      "plan_id": "2025-09-18-agent-bus-status",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-auto-claim.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-auto-claim"
+      "plan_id": "2025-09-18-auto-claim",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-backlog-refresh.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-backlog-refresh"
+      "plan_id": "2025-09-18-backlog-refresh",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-bus-message-claim-guard.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-bus-message-claim-guard"
+      "plan_id": "2025-09-18-bus-message-claim-guard",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-bus-message-claim-guard",
+          "queue_ref": "queue/012-bus-message-claim-guard.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-09-18-bus-message-claim-guard: systemic_scale 6 not in queue queue/012-bus-message-claim-guard.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-capsule-cadence.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-capsule-cadence"
+      "plan_id": "2025-09-18-capsule-cadence",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-capsule-status-ledger.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-capsule-status-ledger"
+      "plan_id": "2025-09-18-capsule-status-ledger",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-claim-seed-docs.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-claim-seed-docs"
+      "plan_id": "2025-09-18-claim-seed-docs",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-claim-seed-docs",
+          "queue_ref": "queue/014-claim-seed-docs.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-09-18-claim-seed-docs: systemic_scale 6 not in queue queue/014-claim-seed-docs.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-claim-session-cli.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-claim-session-cli"
+      "plan_id": "2025-09-18-claim-session-cli",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-codex4-bus-followups.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-codex4-bus-followups"
+      "plan_id": "2025-09-18-codex4-bus-followups",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-codex4-bus-watch-window.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-codex4-bus-watch-window"
+      "plan_id": "2025-09-18-codex4-bus-watch-window",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-codex4-bus-watch-window",
+          "queue_ref": "queue/009-bus-watch-window.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-09-18-codex4-bus-watch-window: systemic_scale 6 not in queue queue/009-bus-watch-window.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-codex4-consensus-context.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-codex4-consensus-context"
+      "plan_id": "2025-09-18-codex4-consensus-context",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-codex4-consensus-draft.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-codex4-consensus-draft"
+      "plan_id": "2025-09-18-codex4-consensus-draft",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-collab-support.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-collab-support"
+      "plan_id": "2025-09-18-collab-support",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-collab-support",
+          "queue_ref": "queue/010-collab-support.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-09-18-collab-support: systemic_scale 6 not in queue queue/010-collab-support.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-consensus-cadence.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-consensus-cadence"
+      "plan_id": "2025-09-18-consensus-cadence",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-consensus-cadence",
+          "queue_ref": "queue/032-consensus-cadence.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            6
+          ],
+          "actual": 10,
+          "message": "2025-09-18-consensus-cadence: systemic_scale 10 not in queue queue/032-consensus-cadence.md"
+        },
+        {
+          "plan_id": "2025-09-18-consensus-cadence",
+          "queue_ref": "queue/030-consensus-ledger-cli.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            6
+          ],
+          "actual": 10,
+          "message": "2025-09-18-consensus-cadence: systemic_scale 10 not in queue queue/030-consensus-ledger-cli.md"
+        },
+        {
+          "plan_id": "2025-09-18-consensus-cadence",
+          "queue_ref": "queue/030-consensus-ledger-cli.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S1",
+            "S2",
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S10",
+            "S3",
+            "S4",
+            "S6"
+          ],
+          "missing": [
+            "S1",
+            "S2"
+          ],
+          "message": "2025-09-18-consensus-cadence: systemic_targets mismatch for queue queue/030-consensus-ledger-cli.md; expected ['S1', 'S2', 'S3', 'S6'], got ['S10', 'S3', 'S4', 'S6']"
+        },
+        {
+          "plan_id": "2025-09-18-consensus-cadence",
+          "queue_ref": "queue/031-consensus-receipts.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            6
+          ],
+          "actual": 10,
+          "message": "2025-09-18-consensus-cadence: systemic_scale 10 not in queue queue/031-consensus-receipts.md"
+        },
+        {
+          "plan_id": "2025-09-18-consensus-cadence",
+          "queue_ref": "queue/031-consensus-receipts.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S4",
+            "S5",
+            "S6",
+            "S8"
+          ],
+          "actual": [
+            "S10",
+            "S3",
+            "S4",
+            "S6"
+          ],
+          "missing": [
+            "S5",
+            "S8"
+          ],
+          "message": "2025-09-18-consensus-cadence: systemic_targets mismatch for queue queue/031-consensus-receipts.md; expected ['S4', 'S5', 'S6', 'S8'], got ['S10', 'S3', 'S4', 'S6']"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-consensus-ci.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-consensus-ci"
+      "plan_id": "2025-09-18-consensus-ci",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-consensus-dashboard.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-consensus-dashboard"
+      "plan_id": "2025-09-18-consensus-dashboard",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-consensus-dashboard",
+          "queue_ref": "queue/031-consensus-receipts.md",
+          "issue": "layer_mismatch",
+          "expected": [
+            "L5"
+          ],
+          "actual": "L4",
+          "message": "2025-09-18-consensus-dashboard: layer L4 not in queue queue/031-consensus-receipts.md"
+        },
+        {
+          "plan_id": "2025-09-18-consensus-dashboard",
+          "queue_ref": "queue/031-consensus-receipts.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S4",
+            "S5",
+            "S6",
+            "S8"
+          ],
+          "actual": [
+            "S1",
+            "S2",
+            "S4",
+            "S6"
+          ],
+          "missing": [
+            "S5",
+            "S8"
+          ],
+          "message": "2025-09-18-consensus-dashboard: systemic_targets mismatch for queue queue/031-consensus-receipts.md; expected ['S4', 'S5', 'S6', 'S8'], got ['S1', 'S2', 'S4', 'S6']"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-consensus-ledger-cli.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-consensus-ledger-cli"
+      "plan_id": "2025-09-18-consensus-ledger-cli",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-consensus-receipts.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-consensus-receipts"
+      "plan_id": "2025-09-18-consensus-receipts",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-consensus-receipts",
+          "queue_ref": "queue/031-consensus-receipts.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            6
+          ],
+          "actual": 8,
+          "message": "2025-09-18-consensus-receipts: systemic_scale 8 not in queue queue/031-consensus-receipts.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-governance-bridge.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-governance-bridge"
+      "plan_id": "2025-09-18-governance-bridge",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-idle-pickup.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-idle-pickup"
+      "plan_id": "2025-09-18-idle-pickup",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-l4-bindings.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-l4-bindings"
+      "plan_id": "2025-09-18-l4-bindings",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-macro-hygiene.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-macro-hygiene"
+      "plan_id": "2025-09-18-macro-hygiene",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-macro-hygiene",
+          "queue_ref": "queue/036-macro-hygiene-objective.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            5
+          ],
+          "actual": 6,
+          "message": "2025-09-18-macro-hygiene: systemic_scale 6 not in queue queue/036-macro-hygiene-objective.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-maintenance-pruning.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-maintenance-pruning"
+      "plan_id": "2025-09-18-maintenance-pruning",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-maintenance-pruning",
+          "queue_ref": "queue/013-maintenance-pruning.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            5
+          ],
+          "actual": 10,
+          "message": "2025-09-18-maintenance-pruning: systemic_scale 10 not in queue queue/013-maintenance-pruning.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-manager-coordination.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-manager-coordination"
+      "plan_id": "2025-09-18-manager-coordination",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-manager-coordination",
+          "queue_ref": "queue/002-bus-status-filters.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-09-18-manager-coordination: systemic_scale 6 not in queue queue/002-bus-status-filters.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-manager-heartbeat.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-manager-heartbeat"
+      "plan_id": "2025-09-18-manager-heartbeat",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-18-manifest-helper-codex3.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-manifest-helper-codex3"
+      "plan_id": "2025-09-18-manifest-helper-codex3",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-manifest-helper-codex3",
+          "queue_ref": "queue/037-manifest-helper.md",
+          "issue": "missing_queue_entry",
+          "message": "2025-09-18-manifest-helper-codex3: queue entry 'queue/037-manifest-helper.md' not found"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-prune-script.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-prune-script"
+      "plan_id": "2025-09-18-prune-script",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-18-prune-script",
+          "queue_ref": "queue/015-prune-script.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            5
+          ],
+          "actual": 10,
+          "message": "2025-09-18-prune-script: systemic_scale 10 not in queue queue/015-prune-script.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-18-release-readiness.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-18-release-readiness"
+      "plan_id": "2025-09-18-release-readiness",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-coordination-dashboard-codex2.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-coordination-dashboard-codex2"
+      "plan_id": "2025-09-19-coordination-dashboard-codex2",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-docs-quicklinks-codex2.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-docs-quicklinks-codex2"
+      "plan_id": "2025-09-19-docs-quicklinks-codex2",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-19-docs-quicklinks-codex2",
+          "queue_ref": "queue/040-code-compaction.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            2
+          ],
+          "actual": 10,
+          "message": "2025-09-19-docs-quicklinks-codex2: systemic_scale 10 not in queue queue/040-code-compaction.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-19-governance-trim.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-governance-trim"
+      "plan_id": "2025-09-19-governance-trim",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-heartbeat-auto-codex2.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-heartbeat-auto-codex2"
+      "plan_id": "2025-09-19-heartbeat-auto-codex2",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-heartbeat-docs-codex3.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-heartbeat-docs-codex3"
+      "plan_id": "2025-09-19-heartbeat-docs-codex3",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-heartbeat-followup.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-heartbeat-followup"
+      "plan_id": "2025-09-19-heartbeat-followup",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-heartbeat-integration-codex4.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-heartbeat-integration-codex4"
+      "plan_id": "2025-09-19-heartbeat-integration-codex4",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-kernel-slimdown.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-kernel-slimdown"
+      "plan_id": "2025-09-19-kernel-slimdown",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-manager-heartbeat-auto.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-manager-heartbeat-auto"
+      "plan_id": "2025-09-19-manager-heartbeat-auto",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-manifest-swap.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-manifest-swap"
+      "plan_id": "2025-09-19-manifest-swap",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-19-manifest-swap",
+          "queue_ref": "queue/037-manifest-swap-helper.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 10,
+          "message": "2025-09-19-manifest-swap: systemic_scale 10 not in queue queue/037-manifest-swap-helper.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-19-plan-hygiene-dedupe.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-plan-hygiene-dedupe"
+      "plan_id": "2025-09-19-plan-hygiene-dedupe",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-plan-hygiene.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-plan-hygiene"
+      "plan_id": "2025-09-19-plan-hygiene",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-retire-codex-observer.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-retire-codex-observer"
+      "plan_id": "2025-09-19-retire-codex-observer",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-19-tooling-prune.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-19-tooling-prune"
+      "plan_id": "2025-09-19-tooling-prune",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-20-bus-guardrails-cleanup.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-20-bus-guardrails-cleanup"
+      "plan_id": "2025-09-20-bus-guardrails-cleanup",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-20-bus-guardrails-cleanup",
+          "queue_ref": "QUEUE-012-bus-message-claim-guard",
+          "issue": "missing_queue_entry",
+          "message": "2025-09-20-bus-guardrails-cleanup: queue entry 'QUEUE-012-bus-message-claim-guard' not found"
+        },
+        {
+          "plan_id": "2025-09-20-bus-guardrails-cleanup",
+          "queue_ref": "QUEUE-042-coordination-dashboard",
+          "issue": "missing_queue_entry",
+          "message": "2025-09-20-bus-guardrails-cleanup: queue entry 'QUEUE-042-coordination-dashboard' not found"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-20-bus-heartbeat-refresh.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-20-bus-heartbeat-refresh"
+      "plan_id": "2025-09-20-bus-heartbeat-refresh",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-20-bus-ping-helper.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-20-bus-ping-helper"
+      "plan_id": "2025-09-20-bus-ping-helper",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-capsule-symlink-policy.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-capsule-symlink-policy",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-capsule-version-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-capsule-version-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-ci-guarantees.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-ci-guarantees",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-consent-exit.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-consent-exit",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-20-docs-quicklinks-v2.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-20-docs-quicklinks-v2"
+      "plan_id": "2025-09-20-docs-quicklinks-v2",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-20-manager-directive-pointer.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-20-manager-directive-pointer"
+      "plan_id": "2025-09-20-manager-directive-pointer",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-20-memory-tests.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-20-memory-tests",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-20-operator-mode-checklist.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-20-operator-mode-checklist"
+      "plan_id": "2025-09-20-operator-mode-checklist",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-20-receipt-scaffold-v2.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-20-receipt-scaffold-v2"
+      "plan_id": "2025-09-20-receipt-scaffold-v2",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-20-repo-hygiene-codex4.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-20-repo-hygiene-codex4"
+      "plan_id": "2025-09-20-repo-hygiene-codex4",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-20-session-boot-tail-tests.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-20-session-boot-tail-tests"
+      "plan_id": "2025-09-20-session-boot-tail-tests",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-automation-governance-upgrade.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-automation-governance-upgrade",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-autonomy-batch-runner.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-autonomy-batch-runner",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-autonomy-metrics.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-autonomy-metrics",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-autonomy-status-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-autonomy-status-cli",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-autonomy-status-receipt.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-autonomy-status-receipt",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-batch-hygiene-thresholds.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-batch-hygiene-thresholds",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-batch-refinement-log.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-batch-refinement-log",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-batch-refinement-report.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-batch-refinement-report",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-21-capsule-cadence-automation.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-21-capsule-cadence-automation"
+      "plan_id": "2025-09-21-capsule-cadence-automation",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-21-capsule-version-sync.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-21-capsule-version-sync"
+      "plan_id": "2025-09-21-capsule-version-sync",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-ci-vdp-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-ci-vdp-automation",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-21-code-compaction.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-21-code-compaction"
+      "plan_id": "2025-09-21-code-compaction",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-21-code-compaction",
+          "queue_ref": "queue/040-code-compaction.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            2
+          ],
+          "actual": 10,
+          "message": "2025-09-21-code-compaction: systemic_scale 10 not in queue queue/040-code-compaction.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-21-consensus-ci-integration.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-21-consensus-ci-integration"
+      "plan_id": "2025-09-21-consensus-ci-integration",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-21-consensus-ci-integration",
+          "queue_ref": "queue/038-ci-consensus-integration.md",
+          "issue": "layer_mismatch",
+          "expected": [
+            "L6"
+          ],
+          "actual": "L4",
+          "message": "2025-09-21-consensus-ci-integration: layer L4 not in queue queue/038-ci-consensus-integration.md"
+        }
+      ]
     },
     {
       "path": "_plans/2025-09-21-coordination-dashboard.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-21-coordination-dashboard"
+      "plan_id": "2025-09-21-coordination-dashboard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-guard-plan-receipt-exists.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-guard-plan-receipt-exists",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-plan-receipt-guard-docs.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-plan-receipt-guard-docs",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-21-quickstart-smoke-ci.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-21-quickstart-smoke-ci"
+      "plan_id": "2025-09-21-quickstart-smoke-ci",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-21-readability-guard.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-21-readability-guard"
+      "plan_id": "2025-09-21-readability-guard",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-21-readability-guard",
+          "queue_ref": "queue/036-macro-hygiene-objective.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            5
+          ],
+          "actual": 6,
+          "message": "2025-09-21-readability-guard: systemic_scale 6 not in queue queue/036-macro-hygiene-objective.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-09-21-receipts-hygiene-alerts.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-receipts-hygiene-alerts",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-receipts-hygiene-thresholds.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-receipts-hygiene-thresholds",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-receipts-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-receipts-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-receipts-indexer.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-receipts-indexer",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-receipts-latency.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-receipts-latency",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-reduce-handshake.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-reduce-handshake",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-21-session-brief-operator.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-session-brief-operator",
+      "queue_warnings": []
     },
     {
       "path": "_plans/2025-09-21-session-sync.plan.json",
       "ok": true,
       "errors": [],
-      "plan_id": "2025-09-21-session-sync"
+      "plan_id": "2025-09-21-session-sync",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-09-21-session-sync",
+          "queue_ref": "queue/041-session-sync.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-09-21-session-sync: systemic_scale 6 not in queue queue/041-session-sync.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-09-21-vdp-pilot-case-study.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-21-vdp-pilot-case-study",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-22-decentralized-propagation-pilot.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-decentralized-propagation-pilot",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-22-external-adoption-runbook.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-external-adoption-runbook",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-22-external-feed-demo.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-external-feed-demo",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-22-governance-l1-hardening.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-governance-l1-hardening",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-22-teof-status-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-22-teof-status-cli",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-authenticity-chronicle.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-authenticity-chronicle",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-authenticity-steward-alerts.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-authenticity-steward-alerts",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-autonomy-auto-proceed.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-autonomy-auto-proceed",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-autonomy-conductor.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-autonomy-conductor",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-autonomy-roadmap.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-autonomy-roadmap",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-decision-loop.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-decision-loop",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-repo-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-repo-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-23-selfprompt-pilot.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-23-selfprompt-pilot",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-24-relay-offering.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-24-relay-offering",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-25-backlog-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-25-backlog-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-25-memory-layer.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-25-memory-layer",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-25-oversight-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-25-oversight-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-25-teof-anatomy-dashboard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-25-teof-anatomy-dashboard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-26-autonomy-preflight.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-26-autonomy-preflight",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-26-evangelism.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-26-evangelism",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-26-external-proof.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-26-external-proof",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-26-package-onboarding.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-26-package-onboarding",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-27-data-ingestion.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-data-ingestion",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-27-ethics-clarity.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-ethics-clarity",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-27-ethics-scenarios.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-ethics-scenarios",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-27-onboarding-receipts.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-onboarding-receipts",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-27-relay-case-run.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-27-relay-case-run",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-28-ethics-playbook-tool.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-28-ethics-playbook-tool",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-28-philosophical-alignment.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-28-philosophical-alignment",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-28-religious-wisdom-distillation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-28-religious-wisdom-distillation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-28-response-latency.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-28-response-latency",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-29-autonomous-backlog.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-29-autonomous-backlog",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-29-ethics-seed-prioritization.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-29-ethics-seed-prioritization",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-09-29-response-streamlining.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-09-29-response-streamlining",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-02-capsule-summary-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-02-capsule-summary-cli",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-2025-10-04-plan-metadata-backfill-phase2.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-2025-10-04-plan-metadata-backfill-phase2",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-authenticity-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-authenticity-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-autonomous-backlog-synthesis.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-autonomous-backlog-synthesis",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-autonomy-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-autonomy-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-autonomy-roadmap-metadata.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-autonomy-roadmap-metadata",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-backlog-advisory-report.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-backlog-advisory-report",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-capsule-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-capsule-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-coordination-dashboard-metadata.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-coordination-dashboard-metadata",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-dirty-handoff-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-dirty-handoff-automation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-dirty-handoff-autoresolver.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-dirty-handoff-autoresolver",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-evangelism-kit-refresh.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-evangelism-kit-refresh",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-external-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-external-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-governance-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-governance-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-heartbeat-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-heartbeat-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-plan-metadata-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-plan-metadata-automation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-plan-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-plan-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-plan-schema-dedupe.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-plan-schema-dedupe",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-planner-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-planner-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-reconcile-metadata-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-reconcile-metadata-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-03-repo-anatomy-dashboard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-repo-anatomy-dashboard",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-03-repo-anatomy-dashboard",
+          "queue_ref": "queue/048-repo-anatomy-dashboard.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            4
+          ],
+          "actual": 6,
+          "message": "2025-10-03-repo-anatomy-dashboard: systemic_scale 6 not in queue queue/048-repo-anatomy-dashboard.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-03-session-guard-upgrade.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-03-session-guard-upgrade",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-04-autonomy-status-upgrade.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-04-autonomy-status-upgrade",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-04-planner-metadata-backfill-phase3.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-04-planner-metadata-backfill-phase3",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-04-push-ready-checklist.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-04-push-ready-checklist",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-04-receipts-hygiene-upgrade.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-04-receipts-hygiene-upgrade",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-04-slow-plan-latency.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-04-slow-plan-latency",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-agent-collision-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-agent-collision-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-backlog-health.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-backlog-health",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-commitment-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-commitment-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-parallel-detection.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-parallel-detection",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-systemic-scan-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-systemic-scan-automation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-ttd-trend-integration.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-ttd-trend-integration",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-05-ttd-trend-reporting.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-05-ttd-trend-reporting",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-06-confidence-calibration.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-06-confidence-calibration",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-06-systemic-alignment.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-06-systemic-alignment",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-06-teof-btc-scoreboard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-06-teof-btc-scoreboard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-anchors-policy-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-anchors-policy-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-bus-event-severity.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-bus-event-severity",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-07-bus-event-severity",
+          "queue_ref": "queue/007-bus-event-severity.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-10-07-bus-event-severity: systemic_scale 6 not in queue queue/007-bus-event-severity.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-07-bus-message-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-bus-message-cli",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-07-bus-message-cli",
+          "queue_ref": "queue/005-bus-message-cli.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-10-07-bus-message-cli: systemic_scale 6 not in queue queue/005-bus-message-cli.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-07-bus-status-filters.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-bus-status-filters",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-07-bus-status-filters",
+          "queue_ref": "queue/002-bus-status-filters.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-10-07-bus-status-filters: systemic_scale 6 not in queue queue/002-bus-status-filters.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-07-bus-watch-severity.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-bus-watch-severity",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-07-bus-watch-severity",
+          "queue_ref": "queue/001-agent-bus-watch.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-10-07-bus-watch-severity: systemic_scale 6 not in queue queue/001-agent-bus-watch.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-07-l4-binding-brief.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-l4-binding-brief",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-macro-hygiene-objectives.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-macro-hygiene-objectives",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-07-macro-hygiene-objectives",
+          "queue_ref": "queue/036-macro-hygiene-objective.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            5
+          ],
+          "actual": 6,
+          "message": "2025-10-07-macro-hygiene-objectives: systemic_scale 6 not in queue queue/036-macro-hygiene-objective.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-07-manager-severity-digest.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-manager-severity-digest",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-07-task-assign-bus-message.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-07-task-assign-bus-message",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-07-task-assign-bus-message",
+          "queue_ref": "queue/006-task-assign-bus-message.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-10-07-task-assign-bus-message: systemic_scale 6 not in queue queue/006-task-assign-bus-message.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-11-decentralized-node.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-11-decentralized-node",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-11-decentralized-node",
+          "queue_ref": "queue/073-decentralized-node-governance.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            4
+          ],
+          "actual": 6,
+          "message": "2025-10-11-decentralized-node: systemic_scale 6 not in queue queue/073-decentralized-node-governance.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-12-infinite-ledger.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-12-infinite-ledger",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-12-infinite-ledger",
+          "queue_ref": "queue/072-receipt-ledger-guard.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            4
+          ],
+          "actual": 6,
+          "message": "2025-10-12-infinite-ledger: systemic_scale 6 not in queue queue/072-receipt-ledger-guard.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-16-systemic-retirement.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-16-systemic-retirement",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-10-16-systemic-retirement",
+          "queue_ref": "queue/000-observation.md",
+          "issue": "missing_queue_entry",
+          "message": "2025-10-16-systemic-retirement: queue entry 'queue/000-observation.md' not found"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-10-17-decentralized-live-run.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-17-decentralized-live-run",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-17-systemic-adoption-kit.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-17-systemic-adoption-kit",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-17-systemic-alignment-matrix.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-17-systemic-alignment-matrix",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-17-systemic-interoperability.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-17-systemic-interoperability",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-19-autonomy-coordinator.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-19-autonomy-coordinator",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-19-autonomy-evolution.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-19-autonomy-evolution",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-20-autonomy-audit-aggregation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-20-autonomy-audit-aggregation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-20-backlog-compaction.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-20-backlog-compaction",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-20-evidence-hygiene.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-20-evidence-hygiene",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-10-20-memory-ledger-backfill.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-10-20-memory-ledger-backfill",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-03-mirror-drill-cadence.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-03-mirror-drill-cadence",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-03-plan-hygiene-consolidation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-03-plan-hygiene-consolidation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-05-doc-consolidation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-05-doc-consolidation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-07-plug-and-play-compute.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-07-plug-and-play-compute",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-07-tier1-accuracy-launch.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-07-tier1-accuracy-launch",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-2025-11-08-tier2-onboarding.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-2025-11-08-tier2-onboarding",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-2025-11-08-tier2-solo-run.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-2025-11-08-tier2-solo-run",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-autonomy-nudge.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-autonomy-nudge",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-autonomy-pause-reduction.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-autonomy-pause-reduction",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-autonomy-ratchet-alignment.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-autonomy-ratchet-alignment",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-design-intent-integration.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-design-intent-integration",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-first-look-assessment.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-first-look-assessment",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-systemic-radar-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-systemic-radar-automation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-systemic-radar-dashboard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-systemic-radar-dashboard",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-08-systemic-radar-dashboard",
+          "queue_ref": "queue/052-systemic-health-radar.md",
+          "issue": "layer_mismatch",
+          "expected": [
+            "L5"
+          ],
+          "actual": "L6",
+          "message": "2025-11-08-systemic-radar-dashboard: layer L6 not in queue queue/052-systemic-health-radar.md"
+        },
+        {
+          "plan_id": "2025-11-08-systemic-radar-dashboard",
+          "queue_ref": "queue/052-systemic-health-radar.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S1",
+            "S2",
+            "S4",
+            "S6"
+          ],
+          "actual": [
+            "S1",
+            "S4",
+            "S6"
+          ],
+          "missing": [
+            "S2"
+          ],
+          "message": "2025-11-08-systemic-radar-dashboard: systemic_targets mismatch for queue queue/052-systemic-health-radar.md; expected ['S1', 'S2', 'S4', 'S6'], got ['S1', 'S4', 'S6']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-08-systemic-radar-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-systemic-radar-guard",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-08-systemic-radar-guard",
+          "queue_ref": "queue/052-systemic-health-radar.md",
+          "issue": "layer_mismatch",
+          "expected": [
+            "L5"
+          ],
+          "actual": "L6",
+          "message": "2025-11-08-systemic-radar-guard: layer L6 not in queue queue/052-systemic-health-radar.md"
+        },
+        {
+          "plan_id": "2025-11-08-systemic-radar-guard",
+          "queue_ref": "queue/052-systemic-health-radar.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S1",
+            "S2",
+            "S4",
+            "S6"
+          ],
+          "actual": [
+            "S1",
+            "S4",
+            "S6"
+          ],
+          "missing": [
+            "S2"
+          ],
+          "message": "2025-11-08-systemic-radar-guard: systemic_targets mismatch for queue queue/052-systemic-health-radar.md; expected ['S1', 'S2', 'S4', 'S6'], got ['S1', 'S4', 'S6']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-08-systemic-radar-hardening.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-systemic-radar-hardening",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-systemic-radar-maintenance.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-systemic-radar-maintenance",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-08-systemic-radar-maintenance",
+          "queue_ref": "queue/052-systemic-health-radar.md",
+          "issue": "layer_mismatch",
+          "expected": [
+            "L5"
+          ],
+          "actual": "L6",
+          "message": "2025-11-08-systemic-radar-maintenance: layer L6 not in queue queue/052-systemic-health-radar.md"
+        },
+        {
+          "plan_id": "2025-11-08-systemic-radar-maintenance",
+          "queue_ref": "queue/052-systemic-health-radar.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S1",
+            "S2",
+            "S4",
+            "S6"
+          ],
+          "actual": [
+            "S2",
+            "S3",
+            "S4",
+            "S6"
+          ],
+          "missing": [
+            "S1"
+          ],
+          "message": "2025-11-08-systemic-radar-maintenance: systemic_targets mismatch for queue queue/052-systemic-health-radar.md; expected ['S1', 'S2', 'S4', 'S6'], got ['S2', 'S3', 'S4', 'S6']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-08-systemic-radar-scout.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-systemic-radar-scout",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-08-systemic-radar-scout",
+          "queue_ref": "queue/052-systemic-health-radar.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S1",
+            "S2",
+            "S4",
+            "S6"
+          ],
+          "actual": [
+            "S1",
+            "S4",
+            "S6"
+          ],
+          "missing": [
+            "S2"
+          ],
+          "message": "2025-11-08-systemic-radar-scout: systemic_targets mismatch for queue queue/052-systemic-health-radar.md; expected ['S1', 'S2', 'S4', 'S6'], got ['S1', 'S4', 'S6']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-08-teof-plan-wrapper.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-teof-plan-wrapper",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-08-tier2-practice.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-08-tier2-practice",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-agent-channel-infrastructure.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-agent-channel-infrastructure",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-agent-channel-infrastructure",
+          "queue_ref": "queue/074-agent-channel-infrastructure.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-11-09-agent-channel-infrastructure: systemic_scale 6 not in queue queue/074-agent-channel-infrastructure.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-apoptosis-compression.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-apoptosis-compression",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-authenticity-stability.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-authenticity-stability",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-autonomy-module-consolidation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-autonomy-module-consolidation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-autonomy-pause-telemetry.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-autonomy-pause-telemetry",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-autonomy-stress-harness.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-autonomy-stress-harness",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-autonomy-stress-harness",
+          "queue_ref": "queue/054-autonomy-stress-harness.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            4
+          ],
+          "actual": 6,
+          "message": "2025-11-09-autonomy-stress-harness: systemic_scale 6 not in queue queue/054-autonomy-stress-harness.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-behavioral-gap-interventions.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-behavioral-gap-interventions",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-behavioral-gap-interventions",
+          "queue_ref": "queue/074-behavioral-gap-trials.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            4
+          ],
+          "actual": 6,
+          "message": "2025-11-09-behavioral-gap-interventions: systemic_scale 6 not in queue queue/074-behavioral-gap-trials.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-btc-value-first.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-btc-value-first",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-build-artifact-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-build-artifact-guard",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-bus-status-window.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-bus-status-window",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-bus-status-window",
+          "queue_ref": "queue/008-bus-status-staleness.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S3"
+          ],
+          "missing": [
+            "S6"
+          ],
+          "message": "2025-11-09-bus-status-window: systemic_targets mismatch for queue queue/008-bus-status-staleness.md; expected ['S3', 'S6'], got ['S3']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-confidence-calibration.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-confidence-calibration",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-confidence-calibration",
+          "queue_ref": "queue/068-confidence-calibration.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            6
+          ],
+          "actual": 8,
+          "message": "2025-11-09-confidence-calibration: systemic_scale 8 not in queue queue/068-confidence-calibration.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-consensus-handoff.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-consensus-handoff",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-convergence-metrics.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-convergence-metrics",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-decentralized-node-ledger.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-decentralized-node-ledger",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-decentralized-node-ledger",
+          "queue_ref": "queue/069-node-incentive-ledger.md",
+          "issue": "layer_mismatch",
+          "expected": [
+            "L2"
+          ],
+          "actual": "L4",
+          "message": "2025-11-09-decentralized-node-ledger: layer L4 not in queue queue/069-node-incentive-ledger.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-evidence-prune-automation.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-evidence-prune-automation",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-external-adoption.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-external-adoption",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-external-adoption",
+          "queue_ref": "queue/055-external-adoption-capsule.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-11-09-external-adoption: systemic_scale 6 not in queue queue/055-external-adoption-capsule.md"
+        },
+        {
+          "plan_id": "2025-11-09-external-adoption",
+          "queue_ref": "queue/076-external-adoption-capsule.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            3
+          ],
+          "actual": 6,
+          "message": "2025-11-09-external-adoption: systemic_scale 6 not in queue queue/076-external-adoption-capsule.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-impact-bridge.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-impact-bridge",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-legacy-artifact-cold-storage.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-legacy-artifact-cold-storage",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-observation-receipt-graph.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-observation-receipt-graph",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-observation-receipt-graph",
+          "queue_ref": "queue/075-observation-receipt-graph-ga.md",
+          "issue": "systemic_mismatch",
+          "expected": [
+            4
+          ],
+          "actual": 6,
+          "message": "2025-11-09-observation-receipt-graph: systemic_scale 6 not in queue queue/075-observation-receipt-graph-ga.md"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-plan-scope.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-plan-scope",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-pytest-coverage-guard.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-pytest-coverage-guard",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-pytest-coverage-guard",
+          "queue_ref": "queue/076-pytest-coverage-guard.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S3"
+          ],
+          "missing": [
+            "S6"
+          ],
+          "message": "2025-11-09-pytest-coverage-guard: systemic_targets mismatch for queue queue/076-pytest-coverage-guard.md; expected ['S3', 'S6'], got ['S3']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-receipts-index-streaming.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-receipts-index-streaming",
+      "queue_warnings": []
+    },
+    {
+      "path": "_plans/2025-11-09-session-brief-sorting.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-session-brief-sorting",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-session-brief-sorting",
+          "queue_ref": "queue/075-session-brief-sorting.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S3"
+          ],
+          "missing": [
+            "S6"
+          ],
+          "message": "2025-11-09-session-brief-sorting: systemic_targets mismatch for queue queue/075-session-brief-sorting.md; expected ['S3', 'S6'], got ['S3']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-teof-bus-claim-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-teof-bus-claim-cli",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-teof-bus-claim-cli",
+          "queue_ref": "queue/082-teof-bus-claim-cli.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S3"
+          ],
+          "missing": [
+            "S6"
+          ],
+          "message": "2025-11-09-teof-bus-claim-cli: systemic_targets mismatch for queue queue/082-teof-bus-claim-cli.md; expected ['S3', 'S6'], got ['S3']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-teof-bus-event-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-teof-bus-event-cli",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-teof-bus-event-cli",
+          "queue_ref": "queue/079-teof-bus-event-cli.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S3"
+          ],
+          "missing": [
+            "S6"
+          ],
+          "message": "2025-11-09-teof-bus-event-cli: systemic_targets mismatch for queue queue/079-teof-bus-event-cli.md; expected ['S3', 'S6'], got ['S3']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-teof-bus-message-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-teof-bus-message-cli",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-teof-bus-message-cli",
+          "queue_ref": "queue/081-teof-bus-message-cli.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S3"
+          ],
+          "missing": [
+            "S6"
+          ],
+          "message": "2025-11-09-teof-bus-message-cli: systemic_targets mismatch for queue queue/081-teof-bus-message-cli.md; expected ['S3', 'S6'], got ['S3']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-teof-bus-status-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-teof-bus-status-cli",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-teof-bus-status-cli",
+          "queue_ref": "queue/077-teof-bus-status-cli.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S3"
+          ],
+          "missing": [
+            "S6"
+          ],
+          "message": "2025-11-09-teof-bus-status-cli: systemic_targets mismatch for queue queue/077-teof-bus-status-cli.md; expected ['S3', 'S6'], got ['S3']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-teof-bus-watch-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-teof-bus-watch-cli",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-teof-bus-watch-cli",
+          "queue_ref": "queue/078-teof-bus-watch-cli.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S3"
+          ],
+          "missing": [
+            "S6"
+          ],
+          "message": "2025-11-09-teof-bus-watch-cli: systemic_targets mismatch for queue queue/078-teof-bus-watch-cli.md; expected ['S3', 'S6'], got ['S3']"
+        }
+      ]
+    },
+    {
+      "path": "_plans/2025-11-09-teof-macro-hygiene-cli.plan.json",
+      "ok": true,
+      "errors": [],
+      "plan_id": "2025-11-09-teof-macro-hygiene-cli",
+      "queue_warnings": [
+        {
+          "plan_id": "2025-11-09-teof-macro-hygiene-cli",
+          "queue_ref": "queue/080-teof-macro-hygiene-cli.md",
+          "issue": "systemic_targets_mismatch",
+          "expected": [
+            "S3",
+            "S6"
+          ],
+          "actual": [
+            "S3"
+          ],
+          "missing": [
+            "S6"
+          ],
+          "message": "2025-11-09-teof-macro-hygiene-cli: systemic_targets mismatch for queue queue/080-teof-macro-hygiene-cli.md; expected ['S3', 'S6'], got ['S3']"
+        }
+      ]
     }
-  ]
+  ],
+  "ratchet": {
+    "plan_stats": {
+      "total_plans": 258,
+      "done_plans": 243,
+      "active_plans": 15,
+      "closed_steps": 761,
+      "open_steps": 38,
+      "checkpoint_satisfied": 230,
+      "plan_age_days": [
+        47.96889049378472,
+        0.7365641048958333,
+        37.807258549340276,
+        48.85779095674769,
+        49.10189975304399,
+        51.95066132711806,
+        34.225858086377315,
+        42.19009419748843,
+        44.012466882673614,
+        52.12080021600695,
+        33.1138557715625,
+        44.232281697488425,
+        48.012466882673614,
+        1.0351867900810185,
+        49.54814975304399,
+        0.7006613271180555,
+        37.80853169748843,
+        37.81200391971065,
+        49.22288354934028,
+        42.824781697488426,
+        37.81408725304398,
+        33.6544807715625,
+        49.51471225304399,
+        1.0795154937847222,
+        48.75654095674769,
+        51.04093910489584,
+        42.98987429008102,
+        48.03052243822916,
+        42.18745530859954,
+        51.6973395678588,
+        0.9604877160069445,
+        37.82114743822917,
+        0.7076057715624999,
+        52.13802243822917,
+        0.9658117900810186,
+        0.7373511419328703,
+        53.134827993784725,
+        49.60494373452547,
+        0.735267808599537,
+        47.00621688267361,
+        49.578311790081024,
+        53.68306873452547,
+        49.238855771562505,
+        53.13966595674769,
+        52.69232799378473,
+        53.08968910489584,
+        51.69371688267361,
+        53.06971225304399,
+        44.011077993784724,
+        20.601459938229166,
+        49.261077993784724,
+        53.192212253043984,
+        43.103439104895834,
+        52.96155253082176,
+        52.09892521600695,
+        0.7284391048958333,
+        0.7393766048958333,
+        52.97843910489584,
+        53.10667984563658,
+        1.0022469752662038,
+        6.065244660451389,
+        0.6346891048958333,
+        49.47010577156251,
+        34.074758549340274,
+        44.23076549378472,
+        36.083647438229164,
+        52.668716882673614,
+        37.74927243822916,
+        37.8388557715625,
+        48.02357799378472,
+        53.66716595674769,
+        53.182976141932876,
+        41.66400623452546,
+        53.0935895678588,
+        45.5513557715625,
+        1.0664252160069445,
+        48.052397438229164,
+        52.13920299378473,
+        52.66941132711806,
+        51.67982799378473,
+        0.7379529937847222,
+        37.81750160489583,
+        34.1054182715625,
+        49.09649466045139,
+        51.95066132711806,
+        0.7145502160069445,
+        37.69545299378472,
+        52.11871688267362,
+        23.764550216006946,
+        23.775661327118055,
+        52.8639946604514,
+        51.03260577156251,
+        51.68677243822917,
+        53.15848540119214,
+        41.655684475266206,
+        1.0029529937847224,
+        49.24927243822917,
+        1.0250131789699075,
+        20.619064104895834,
+        0.7339252160069444,
+        51.68816132711806,
+        48.7648395678588,
+        52.09718910489584,
+        52.09788354934028,
+        42.198068734525464,
+        37.03052243822916,
+        23.785383549340278,
+        52.14336966045139,
+        1.0919113271180556,
+        52.69371688267361,
+        43.05752475304398,
+        37.835036327118054,
+        37.84684188267361,
+        0.7455687345254629,
+        49.071321049340284,
+        33.102050216006944,
+        52.133890493784726,
+        0.9124668826736112,
+        53.02439975304399,
+        48.18650623452546,
+        33.12774466045139,
+        53.61906410489584,
+        53.14848540119213,
+        0.26316132711805557,
+        0.7245039197106481,
+        49.022814104895836,
+        35.75274466045139,
+        1.028392808599537,
+        53.13162197526621,
+        37.695800216006944,
+        33.655175216006946,
+        50.036216882673614,
+        0.6937168826736111,
+        42.99797614193287,
+        29.117675216006944,
+        36.12667984563657,
+        0.7423279937847223,
+        0.7249668826736111,
+        53.63720067896991,
+        33.113508549340274,
+        35.21374003082176,
+        49.49788354934028,
+        51.041077993784725,
+        1.0381381789699076,
+        0.7680224382291667,
+        52.095962253043986,
+        49.42982799378473,
+        37.827050216006946,
+        21.40649466045139,
+        33.12739743822917,
+        52.12641364193288,
+        52.84649466045139,
+        49.95066132711806,
+        35.047432160451386,
+        53.10031410489584,
+        49.959168271562504,
+        20.589550216006945,
+        35.17843910489583,
+        35.002698364155094,
+        50.82566132711806,
+        49.96025623452547,
+        1.0179877160069446,
+        37.75274466045139,
+        0.6728835493402777,
+        52.09302243822917,
+        53.12580021600695,
+        52.96107799378473,
+        49.631297901192134,
+        50.821645123414356,
+        1.045082623414352,
+        49.9597932715625,
+        35.169411327118056,
+        53.24178401230325,
+        0.7334969752662037,
+        52.14149466045139,
+        51.95066132711806,
+        43.1201057715625,
+        2.640429845636574,
+        47.714202993784724,
+        53.171621975266206,
+        53.70100854934028,
+        51.03852012341436,
+        6.091807160451388,
+        36.0834969752662,
+        52.724932160451395,
+        37.729827993784724,
+        0.6846891048958333,
+        4.004874290081019,
+        52.11474697526621,
+        50.037119660451395,
+        36.0834969752662,
+        24.013161327118056,
+        51.95066132711806,
+        49.045186790081026,
+        52.13399466045139,
+        49.568427530821765,
+        49.95066132711806,
+        28.138647438229167,
+        51.04100854934028,
+        36.0834969752662,
+        53.12142521600695,
+        52.108994660451394,
+        52.13052243822917,
+        37.841286327118056,
+        53.10409882711806,
+        49.95066132711806,
+        53.034596512303246,
+        53.16964280859954,
+        34.084214567858794,
+        49.483994660451394,
+        1.0168997530439816,
+        51.95066132711806,
+        2.009689104895833,
+        49.51316132711806,
+        37.950834938229164,
+        49.271494660451395,
+        20.627744660451388,
+        40.97261734563657,
+        44.013161327118056,
+        48.16172614193287,
+        44.011772438229166,
+        49.22843910489584,
+        50.73503632711806,
+        37.81084651230324,
+        53.67716595674769,
+        49.44718910489584,
+        50.83086966045139,
+        1.0718650308217592,
+        51.95066132711806,
+        46.822189104895834,
+        0.9477678085995371,
+        52.1376983641551,
+        49.958925216006946,
+        53.073219197488434,
+        0.7343650308217592,
+        23.780522438229166,
+        52.98097382711806,
+        0.6867724382291667,
+        0.060638178969907405,
+        0.6798279937847223,
+        51.95066132711806,
+        37.823577993784724,
+        33.65482799378472,
+        53.0420733641551,
+        0.7353835493402777,
+        52.80482799378473,
+        47.6763557715625,
+        52.08885577156251,
+        44.2285895678588,
+        53.25463123452547,
+        37.760892808599536,
+        33.65552243822916,
+        52.10691132711806,
+        49.95944604934028,
+        49.12080021600695,
+        37.722883549340274,
+        0.7347816974884259,
+        21.047385864155093
+      ]
+    },
+    "claim_stats": {
+      "total_claims": 107,
+      "active_claims": 10,
+      "terminal_claims": 97
+    },
+    "planner_ratchet_index": 17.476,
+    "ratchet_threshold_met": true
+  }
 }

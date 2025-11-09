@@ -66,6 +66,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         manager_agent,
         "--execute",
     ]
+    if args.task_id:
+        guard_args.extend(["--task-id", args.task_id])
     if args.worker_agent:
         guard_args.extend(["--worker-agent", args.worker_agent])
     if args.allow_worker_stale:

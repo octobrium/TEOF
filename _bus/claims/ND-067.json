@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/nd-067",
+  "claimed_at": "2025-11-09T18:45:41Z",
+  "notes": "Auto-release stale claim (> threshold)",
+  "plan_id": "2025-11-09-autonomy-module-consolidation",
+  "released_at": "2025-11-09T23:02:22Z",
+  "status": "released",
+  "task_id": "ND-067"
+}

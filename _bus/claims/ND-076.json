@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-tier2",
+  "branch": "agent/codex-tier2/nd-076",
+  "claimed_at": "2025-11-09T22:21:12Z",
+  "notes": "Auto-release stale claim (> threshold)",
+  "plan_id": "2025-11-09-external-adoption",
+  "released_at": "2025-11-09T23:02:22Z",
+  "status": "released",
+  "task_id": "ND-076"
+}

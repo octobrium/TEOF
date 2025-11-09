@@ -8,21 +8,28 @@
   "layer": "L4",
   "systemic_scale": 6,
   "impact_score": 5,
-  "status": "queued",
+  "status": "in_progress",
   "steps": [
     {
       "id": "S1",
       "title": "Design receipt hash-chain schema",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Schema documented under docs/specs/hash-linked-receipt-ledger.md and CLI scaffolded via tools.autonomy.hash_ledger.",
+      "receipts": [
+        "docs/specs/hash-linked-receipt-ledger.md",
+        "tools/autonomy/hash_ledger.py"
+      ]
     },
     {
       "id": "S2",
       "title": "Implement validator + CI guard",
-      "status": "queued",
-      "notes": "(CMD-__)",
-      "receipts": []
+      "status": "done",
+      "notes": "Hash-ledger guard wired into CI and regression tests cover append/guard flows.",
+      "receipts": [
+        "tests/test_hash_ledger.py",
+        "scripts/ci/check_hash_ledger.py",
+        "teof/commands/hash_ledger.py"
+      ]
     },
     {
       "id": "S3",
@@ -37,7 +44,12 @@
     "owner": "Octo",
     "status": "pending"
   },
-  "links": [],
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/072-receipt-ledger-guard.md"
+    }
+  ],
   "receipts": [],
   "systemic_targets": [
     "S1",

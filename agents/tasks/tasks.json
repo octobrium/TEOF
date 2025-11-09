@@ -624,7 +624,7 @@
       "branch": "agent/codex-tier2/auth-primary_truth-codex-5-20251004",
       "id": "AUTH-PRIMARY_TRUTH-codex-5-20251004",
       "layer": "L5",
-      "notes": "Authenticity tier primary_truth dipped below guard (demo feed 0.255) — remediated 2025-11-09 with trust back at 0.85.",
+      "notes": "Authenticity tier primary_truth dipped below guard (demo feed 0.255) \u2014 remediated 2025-11-09 with trust back at 0.85.",
       "plan_id": "2025-11-09-authenticity-stability",
       "priority": "medium",
       "receipts": [
@@ -643,7 +643,7 @@
       "branch": "agent/codex-tier2/auth-unassigned-codex-5-20251004",
       "id": "AUTH-UNASSIGNED-codex-5-20251004",
       "layer": "L5",
-      "notes": "Authenticity tier unassigned dipped (sample feed 0.204) — remediated 2025-11-09 with trust back at 0.68.",
+      "notes": "Authenticity tier unassigned dipped (sample feed 0.204) \u2014 remediated 2025-11-09 with trust back at 0.68.",
       "plan_id": "2025-11-09-authenticity-stability",
       "priority": "medium",
       "receipts": [
@@ -809,12 +809,72 @@
       "id": "QUEUE-082",
       "plan_id": "2025-11-09-teof-bus-claim-cli",
       "priority": "medium",
-      "role": "engineer",
-      "status": "done",
-      "title": "QUEUE-082",
       "receipts": [
         "_report/ethics/guards/2025-11-09/queue-082-ethics.json"
-      ]
+      ],
+      "role": "engineer",
+      "status": "done",
+      "title": "QUEUE-082"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/nd-067",
+      "id": "ND-067",
+      "plan_id": "2025-11-09-autonomy-module-consolidation",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "ND-067"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/nd-072",
+      "id": "ND-072",
+      "plan_id": "2025-10-12-infinite-ledger",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "ND-072"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/nd-073",
+      "id": "ND-073",
+      "plan_id": "2025-10-11-decentralized-node",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "ND-073"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/nd-074",
+      "id": "ND-074",
+      "plan_id": "2025-11-09-behavioral-gap-interventions",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "ND-074"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/nd-075",
+      "id": "ND-075",
+      "plan_id": "2025-11-09-observation-receipt-graph",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "ND-075"
+    },
+    {
+      "assigned_by": "codex-tier2",
+      "branch": "agent/codex-tier2/nd-076",
+      "id": "ND-076",
+      "plan_id": "2025-11-09-external-adoption",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "ND-076"
     }
   ],
   "version": 1

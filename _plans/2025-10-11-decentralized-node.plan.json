@@ -41,7 +41,12 @@
     "owner": "Octo",
     "status": "pending"
   },
-  "links": [],
+  "links": [
+    {
+      "type": "queue",
+      "ref": "queue/073-decentralized-node-governance.md"
+    }
+  ],
   "receipts": [
     "docs/usage/autonomous-node-workflow.json",
     "docs/usage/autonomous-node/20251012T193658Z/summary.json"

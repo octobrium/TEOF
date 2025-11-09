@@ -1,8 +1,8 @@
 {
-  "generated_at": "2025-11-09T22:45:15Z",
+  "generated_at": "2025-11-09T22:48:57Z",
   "since": null,
   "window_days": 30.0,
-  "effective_since": "2025-10-10T22:45:15Z",
+  "effective_since": "2025-10-10T22:48:57Z",
   "total": 17,
   "missing_plan_suggestion": {
     "count": 0,

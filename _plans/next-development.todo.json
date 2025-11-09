@@ -1,7 +1,7 @@
 {
   "version": 0,
   "owner": "codex-5",
-  "updated": "2025-11-09T05:56:00Z",
+  "updated": "2025-11-09T18:44:13Z",
   "instructions": "Automation agents may pick the first pending item when authenticity trust is healthy and CI is green.",
   "prerequisites": {
     "min_overall_trust": 0.7,
@@ -421,7 +421,7 @@
     {
       "id": "ND-067",
       "title": "Autonomy module consolidation",
-      "status": "pending",
+      "status": "in_progress",
       "plan_suggestion": "2025-11-09-autonomy-module-consolidation",
       "notes": "Collapse overlapping tools.autonomy coordinator modules into focused services with shared primitives to cut invocation latency and receipt duplication.",
       "priority": "medium",
@@ -443,6 +443,111 @@
         "count": 2,
         "digest": "ba7f0c7a9a16a34e8cd43786eb88389722f783732e79181f00320aed6f7e11ed"
       }
+    },
+    {
+      "id": "ND-072",
+      "title": "Hash-linked receipt ledger",
+      "status": "in_progress",
+      "plan_suggestion": "2025-10-12-infinite-ledger",
+      "notes": "Finish the receipt hash-chain schema, ship a validator + CI guard, and define anchoring receipts so every autonomy artifact stays tamper evident.",
+      "priority": "high",
+      "layer": "L4",
+      "systemic_scale": 6,
+      "systemic_targets": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S6"
+      ],
+      "layer_targets": [
+        "L4",
+        "L5"
+      ],
+      "source": "queue/072-receipt-ledger-guard.md"
+    },
+    {
+      "id": "ND-073",
+      "title": "Decentralized node governance binder",
+      "status": "in_progress",
+      "plan_suggestion": "2025-10-11-decentralized-node",
+      "notes": "Document incentives, guardrails, and claim/receipt expectations so partner nodes can operate autonomously with verifiable governance.",
+      "priority": "medium",
+      "layer": "L5",
+      "systemic_scale": 6,
+      "systemic_targets": [
+        "S3",
+        "S4",
+        "S5",
+        "S6"
+      ],
+      "layer_targets": [
+        "L5"
+      ],
+      "source": "queue/073-decentralized-node-governance.md"
+    },
+    {
+      "id": "ND-074",
+      "title": "Behavioral gap intervention trials",
+      "status": "in_progress",
+      "plan_suggestion": "2025-11-09-behavioral-gap-interventions",
+      "notes": "Run blind Test 1 reruns, capture ≥20 trials, and decide whether structural guards or emergent scaffolds resolve the behavioral execution gap.",
+      "priority": "high",
+      "layer": "L5",
+      "systemic_scale": 6,
+      "systemic_targets": [
+        "S1",
+        "S3",
+        "S4",
+        "S6"
+      ],
+      "layer_targets": [
+        "L5"
+      ],
+      "source": "queue/074-behavioral-gap-trials.md"
+    },
+    {
+      "id": "ND-075",
+      "title": "Observation receipt graph GA",
+      "status": "in_progress",
+      "plan_suggestion": "2025-11-09-observation-receipt-graph",
+      "notes": "Complete traversal coverage for the receipt graph CLI, document the schema, and emit a guard receipt proving lineage replay works end-to-end.",
+      "priority": "medium",
+      "layer": "L4",
+      "systemic_scale": 6,
+      "systemic_targets": [
+        "S1",
+        "S3",
+        "S4",
+        "S6"
+      ],
+      "layer_targets": [
+        "L4",
+        "L5"
+      ],
+      "source": "queue/075-observation-receipt-graph-ga.md"
+    },
+    {
+      "id": "ND-076",
+      "title": "External adoption capsule packaging",
+      "status": "in_progress",
+      "plan_suggestion": "2025-11-09-external-adoption",
+      "notes": "Design the signed adoption capsule manifest, build the CLI/telemetry hooks, and wire CI guards so partner installs stay reproducible.",
+      "priority": "medium",
+      "layer": "L3",
+      "systemic_scale": 6,
+      "systemic_targets": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S6"
+      ],
+      "layer_targets": [
+        "L3",
+        "L5"
+      ],
+      "source": "queue/076-external-adoption-capsule.md"
     },
     {
       "id": "ND-057",
@@ -587,6 +692,30 @@
     {
       "id": "ND-062",
       "claimed_at": "2025-10-20T08:39:47Z"
+    },
+    {
+      "id": "ND-067",
+      "claimed_at": "2025-11-09T18:44:45Z"
+    },
+    {
+      "id": "ND-072",
+      "claimed_at": "2025-11-09T18:46:15Z"
+    },
+    {
+      "id": "ND-073",
+      "claimed_at": "2025-11-09T18:46:45Z"
+    },
+    {
+      "id": "ND-074",
+      "claimed_at": "2025-11-09T18:47:27Z"
+    },
+    {
+      "id": "ND-075",
+      "claimed_at": "2025-11-09T22:21:09Z"
+    },
+    {
+      "id": "ND-076",
+      "claimed_at": "2025-11-09T22:21:12Z"
     }
   ],
   "archive_ref": {

@@ -53,6 +53,10 @@
     {
       "type": "queue",
       "ref": "queue/053-observation-receipt-graph.md"
+    },
+    {
+      "type": "queue",
+      "ref": "queue/075-observation-receipt-graph-ga.md"
     }
   ],
   "systemic_targets": [

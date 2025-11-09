@@ -1,0 +1,61 @@
+{
+  "plan_id": "2025-11-09-observation-receipt-graph",
+  "generated_at": "2025-11-09T22:30:32Z",
+  "files": [
+    {
+      "path": "_plans/2025-11-09-observation-receipt-graph.plan.json",
+      "exists": true,
+      "source": "plan"
+    },
+    {
+      "path": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/requirements.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "queue/053-observation-receipt-graph.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/observation/receipt_graph.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tests/test_receipt_graph.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "docs/agents.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "docs/reference/receipts-map.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/usage/receipt-graph/queue-053-20251109T173343.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_bus/claims/ND-075.json",
+      "exists": true,
+      "source": "task_claim"
+    },
+    {
+      "path": "_bus/assignments/ND-075.json",
+      "exists": true,
+      "source": "task_assignment"
+    },
+    {
+      "path": "_bus/messages/ND-075.jsonl",
+      "exists": true,
+      "source": "task_messages"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "plan_id": "2025-11-09-autonomy-module-consolidation",
-  "generated_at": "2025-11-09T17:54:34Z",
+  "generated_at": "2025-11-09T22:48:30Z",
   "files": [
     {
       "path": "_plans/2025-11-09-autonomy-module-consolidation.plan.json",
@@ -43,6 +43,11 @@
       "source": "receipt"
     },
     {
+      "path": "tools/autonomy/shared.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
       "path": "tests/test_shared_bus.py",
       "exists": true,
       "source": "receipt"
@@ -68,7 +73,82 @@
       "source": "receipt"
     },
     {
-      "path": "_report/usage/autonomy-module-consolidation/plan-20251109072810Z.json",
+      "path": "tools/autonomy/coord/__init__.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/coord/manifest.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/coord/service.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/service_manifest.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/exec/__init__.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/exec/manifest.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/signal/__init__.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/signal/manifest.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/advisory/__init__.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/advisory/manifest.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tests/test_service_manifests.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tests/test_coord_service.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/autonomy/coordinator_manager.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "docs/specs/autonomy-coordination-service.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/usage/autonomy-module-consolidation/plan-20251109182527Z.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/usage/autonomy-module-consolidation/plan-20251109175642Z.json",
       "exists": true,
       "source": "receipt"
     },
@@ -78,7 +158,17 @@
       "source": "receipt"
     },
     {
-      "path": "_report/usage/autonomy-module-consolidation/telemetry-20251109072818Z.json",
+      "path": "_report/usage/autonomy-module-consolidation/telemetry-20251109182533Z.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/usage/autonomy-module-consolidation/telemetry-20251109220852Z.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/usage/autonomy-module-consolidation/telemetry-20251109175655Z.json",
       "exists": true,
       "source": "receipt"
     },
@@ -91,6 +181,21 @@
       "path": "scripts/ci/check_autonomy_module_consolidation.py",
       "exists": true,
       "source": "receipt"
+    },
+    {
+      "path": "_bus/claims/ND-067.json",
+      "exists": true,
+      "source": "task_claim"
+    },
+    {
+      "path": "_bus/assignments/ND-067.json",
+      "exists": true,
+      "source": "task_assignment"
+    },
+    {
+      "path": "_bus/messages/ND-067.jsonl",
+      "exists": true,
+      "source": "task_messages"
     }
   ]
 }

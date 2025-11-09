@@ -1,7 +1,7 @@
 """Shared helpers for autonomy tooling."""
 from __future__ import annotations
 
-import hashlib
+import importlib
 import json
 import os
 import subprocess
@@ -167,9 +167,10 @@ def atomic_write_json(path: Path, payload: Mapping[str, Any]) -> Path:
 def write_receipt_payload(out_path: Path, payload: Mapping[str, Any]) -> Path:
     """Persist *payload* as a receipt, appending ``receipt_sha256`` checksum."""
 
+    _hashlib = importlib.import_module("hashlib")
     data = dict(payload)
     base_json = json.dumps(data, ensure_ascii=False, indent=2)
-    checksum = hashlib.sha256(base_json.encode("utf-8")).hexdigest()
+    checksum = _hashlib.sha256(base_json.encode("utf-8")).hexdigest()
     data["receipt_sha256"] = checksum
     return atomic_write_json(out_path, data)
 

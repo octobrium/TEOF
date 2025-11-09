@@ -2,8 +2,9 @@
   "agent_id": "codex-tier2",
   "branch": "agent/codex-tier2/autonomy-telemetry",
   "claimed_at": "2025-11-09T00:04:21Z",
-  "notes": "Autonomy pause telemetry",
+  "notes": "Auto-release stale claim (> threshold)",
   "plan_id": "2025-11-09-autonomy-pause-telemetry",
-  "status": "active",
+  "released_at": "2025-11-09T23:02:22Z",
+  "status": "released",
   "task_id": "QUEUE-057"
 }

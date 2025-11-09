@@ -1,0 +1,36 @@
+{
+  "plan_id": "2025-11-09-external-adoption",
+  "generated_at": "2025-11-09T22:30:39Z",
+  "files": [
+    {
+      "path": "_plans/2025-11-09-external-adoption.plan.json",
+      "exists": true,
+      "source": "plan"
+    },
+    {
+      "path": "_report/agent/codex-tier2/2025-11-09-external-adoption/requirements.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "queue/055-external-adoption-capsule.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_bus/claims/ND-076.json",
+      "exists": true,
+      "source": "task_claim"
+    },
+    {
+      "path": "_bus/assignments/ND-076.json",
+      "exists": true,
+      "source": "task_assignment"
+    },
+    {
+      "path": "_bus/messages/ND-076.jsonl",
+      "exists": true,
+      "source": "task_messages"
+    }
+  ]
+}

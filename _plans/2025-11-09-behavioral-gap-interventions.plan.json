@@ -41,9 +41,13 @@
     {
       "id": "S3",
       "title": "Run controlled trials",
-      "status": "queued",
-      "notes": "Integrate with blind Test1 rerun; collect ≥20 agent trials and compute BES.",
-      "receipts": []
+      "status": "in_progress",
+      "notes": "Reflection audit CLI + tests now surface missing plan/tag metadata (see _report/analysis/reflection-gap/latest.json). Next step is to pair this with blind Test1 reruns, annotate reflections with plan IDs, and capture ≥20 trials for BES.",
+      "receipts": [
+        "tools/memory/reflection_audit.py",
+        "tests/tools/test_reflection_audit.py",
+        "_report/analysis/reflection-gap/latest.json"
+      ]
     },
     {
       "id": "S4",
@@ -66,6 +70,10 @@
     {
       "type": "assessment",
       "ref": "_report/assessments/20251109-meta-feedback-on-stellar-responses.md"
+    },
+    {
+      "type": "queue",
+      "ref": "queue/074-behavioral-gap-trials.md"
     }
   ],
   "receipts": [

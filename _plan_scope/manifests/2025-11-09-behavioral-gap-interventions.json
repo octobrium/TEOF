@@ -1,0 +1,56 @@
+{
+  "plan_id": "2025-11-09-behavioral-gap-interventions",
+  "generated_at": "2025-11-09T22:41:12Z",
+  "files": [
+    {
+      "path": "_plans/2025-11-09-behavioral-gap-interventions.plan.json",
+      "exists": true,
+      "source": "plan"
+    },
+    {
+      "path": "_report/agent/codex-tier2/feedback/20251109-meta-feedback-response.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/analysis/behavioral-gap-root-cause-20251109.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/design/behavioral-intervention-matrix-20251109.md",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tools/memory/reflection_audit.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "tests/tools/test_reflection_audit.py",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_report/analysis/reflection-gap/latest.json",
+      "exists": true,
+      "source": "receipt"
+    },
+    {
+      "path": "_bus/claims/ND-074.json",
+      "exists": true,
+      "source": "task_claim"
+    },
+    {
+      "path": "_bus/assignments/ND-074.json",
+      "exists": true,
+      "source": "task_assignment"
+    },
+    {
+      "path": "_bus/messages/ND-074.jsonl",
+      "exists": true,
+      "source": "task_messages"
+    }
+  ]
+}

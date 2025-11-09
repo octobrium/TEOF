@@ -103,6 +103,263 @@
       }
     ]
   },
+  "macro_hygiene": {
+    "generated_at": "2025-11-09T22:48:57Z",
+    "objectives": [
+      {
+        "id": "MH-ENV",
+        "title": "Stabilize environment hygiene",
+        "description": "Provide manifest and branch swap helpers so sessions remain clean between operators.",
+        "owners": [
+          "codex-2",
+          "codex-3"
+        ],
+        "cadence": "per session",
+        "status": "ready",
+        "checks": [
+          {
+            "kind": "plan_done",
+            "path": "_plans/2025-09-18-manifest-helper-codex3.plan.json",
+            "ok": true,
+            "detail": "status=done",
+            "optional": false
+          },
+          {
+            "kind": "plan_done",
+            "path": "_plans/2025-09-19-manifest-swap.plan.json",
+            "ok": true,
+            "detail": "status=done",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "tools/agent/manifest_helper.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-11-05T21:28:23.136715+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "tests/test_manifest_helper.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-11-05T21:28:39.291878+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": ".github/AGENT_ONBOARDING.md",
+            "ok": true,
+            "detail": "exists (mtime=2025-11-08T22:09:48.369614+00:00)",
+            "optional": false
+          }
+        ],
+        "optional_failures": [],
+        "signals": [
+          "docs/agents.md",
+          "docs/parallel-codex.md"
+        ]
+      },
+      {
+        "id": "MH-CI",
+        "title": "Integrate macro hygiene helpers into CI",
+        "description": "Ensure prune helpers, consensus tooling, and manager heartbeat checks run in guardrails.",
+        "owners": [
+          "codex-2",
+          "codex-3"
+        ],
+        "cadence": "per release",
+        "status": "ready",
+        "checks": [
+          {
+            "kind": "plan_done",
+            "path": "_plans/2025-09-18-prune-script.plan.json",
+            "ok": true,
+            "detail": "status=done",
+            "optional": false
+          },
+          {
+            "kind": "plan_done",
+            "path": "_plans/2025-09-18-manager-heartbeat.plan.json",
+            "ok": true,
+            "detail": "status=done",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "tools/autonomy/actions/hygiene.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-09-23T06:02:32.542352+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "scripts/ci/check_consensus_receipts.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-09-20T18:46:40.014884+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "scripts/ci/consensus_smoke.sh",
+            "ok": true,
+            "detail": "exists (mtime=2025-09-18T20:31:35.775544+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "scripts/ci/check_capsule_cadence.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-09-20T18:55:36.078814+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": ".github/workflows/guardrails.yml",
+            "ok": true,
+            "detail": "exists (mtime=2025-11-09T07:14:19.735679+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "tests/test_ci_check_consensus_receipts.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-09-20T18:47:03.056164+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "tests/test_ci_check_capsule_cadence.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-09-20T18:55:50.314234+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "tests/test_agent_bus_status.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-11-09T05:49:06.322309+00:00)",
+            "optional": false
+          }
+        ],
+        "optional_failures": [],
+        "signals": [
+          "docs/ci-guarantees.md",
+          "governance/core/L4 - architecture/bindings.yml"
+        ]
+      },
+      {
+        "id": "MH-CADENCE",
+        "title": "Align capsule cadence",
+        "description": "Wire capsule cadence to consensus receipts and keep the cadence summary fresh.",
+        "owners": [
+          "codex-2"
+        ],
+        "cadence": "weekly",
+        "status": "ready",
+        "checks": [
+          {
+            "kind": "plan_done",
+            "path": "_plans/2025-09-21-capsule-cadence-automation.plan.json",
+            "ok": true,
+            "detail": "status=done",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "_report/capsule/summary-latest.json",
+            "ok": true,
+            "detail": "exists (mtime=2025-10-03T00:09:58.339195+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "docs/maintenance/capsule-cadence.md",
+            "ok": true,
+            "detail": "exists (mtime=2025-10-04T22:20:21.419221+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "tools/capsule/cadence.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-10-03T00:09:50.101133+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "governance/core/emergent-principles.jsonl",
+            "ok": true,
+            "detail": "exists (mtime=2025-10-20T07:28:17.347274+00:00)",
+            "optional": false
+          }
+        ],
+        "optional_failures": [],
+        "signals": [
+          "docs/architecture.md",
+          "docs/quick-links.md"
+        ]
+      },
+      {
+        "id": "MH-AUTO",
+        "title": "Clarify auto-progression triggers",
+        "description": "Document when agents may proceed without renewed approval and back it with receipts.",
+        "owners": [
+          "codex-5"
+        ],
+        "cadence": "per unattended run",
+        "status": "ready",
+        "checks": [
+          {
+            "kind": "plan_done",
+            "path": "_plans/2025-09-23-autonomy-auto-proceed.plan.json",
+            "ok": true,
+            "detail": "status=done",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "docs/automation/autonomy-consent.json",
+            "ok": true,
+            "detail": "exists (mtime=2025-10-05T18:43:28.513920+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "docs/automation.md",
+            "ok": true,
+            "detail": "exists (mtime=2025-11-09T17:28:22.228886+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "tools/autonomy/next_step.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-11-03T20:47:24.884876+00:00)",
+            "optional": false
+          },
+          {
+            "kind": "path_exists",
+            "path": "tests/test_autonomy_next_step.py",
+            "ok": true,
+            "detail": "exists (mtime=2025-10-16T00:21:23.178720+00:00)",
+            "optional": false
+          }
+        ],
+        "optional_failures": [],
+        "signals": [
+          "_report/usage/autonomy-audit",
+          "_report/usage/autonomy-actions",
+          "_report/usage/autonomy-status.json"
+        ]
+      }
+    ],
+    "summary": {
+      "ready": 4,
+      "attention": 0,
+      "total": 4
+    },
+    "status": "ready"
+  },
   "plan_briefs": {
     "2025-09-19-kernel-slimdown": "Plan 2025-09-19-kernel-slimdown — status: done; layer: L5; systemic scale: 10; systemic targets: S4, S5, S6, S10",
     "2025-09-22-teof-status-cli": "Plan 2025-09-22-teof-status-cli — status: done; layer: L5; systemic scale: 6; systemic targets: S1, S2, S4, S5, S6",
