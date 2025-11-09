@@ -23,22 +23,21 @@
       "id": "S2",
       "title": "Design schema and CLI skeleton",
       "status": "done",
-      "notes": "Schema and CLI stubs live under tools.observation.receipt_graph + tests/test_receipt_graph.py; docs/agents.md links the capability.",
+      "notes": "Schema and CLI stubs live under tools.observation.receipt_graph + tests/test_receipt_graph.py.",
       "receipts": [
         "tools/observation/receipt_graph.py",
-        "tests/test_receipt_graph.py",
-        "docs/agents.md"
+        "tests/test_receipt_graph.py"
       ]
     },
     {
       "id": "S3",
       "title": "Implement traversal + receipts",
       "status": "in_progress",
-      "notes": "Graph builder now links bus events + memory/log entries in addition to receipts and emits run receipts/pointers; next iteration will add schema docs.",
+      "notes": "Graph builder links bus events + memory/log entries, emits run receipts/pointers, and documentation teaches operators how to replay the lineage; next iteration will add schema docs.",
       "receipts": [
-        "tools/observation/receipt_graph.py",
-        "tests/test_receipt_graph.py",
-        "_report/usage/receipt-graph/run-latest.json"
+        "docs/agents.md",
+        "docs/reference/receipts-map.md",
+        "_report/usage/receipt-graph/queue-053-20251109T173343.json"
       ]
     }
   ],

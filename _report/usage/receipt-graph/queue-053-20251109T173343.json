@@ -1,0 +1,176 @@
+{
+  "task_id": "QUEUE-053",
+  "plan_id": "2025-11-09-observation-receipt-graph",
+  "generated_at": "2025-11-09T17:33:43Z",
+  "nodes": [
+    {
+      "id": "task:QUEUE-053",
+      "type": "task",
+      "label": "QUEUE-053",
+      "path": "queue/053-observation-receipt-graph.md"
+    },
+    {
+      "id": "claim:QUEUE-053",
+      "type": "claim",
+      "label": "Claim QUEUE-053",
+      "path": "_bus/claims/QUEUE-053.json",
+      "status": "done",
+      "agent": "codex-tier2"
+    },
+    {
+      "id": "plan:2025-11-09-observation-receipt-graph",
+      "type": "plan",
+      "label": "2025-11-09-observation-receipt-graph",
+      "path": "_plans/2025-11-09-observation-receipt-graph.plan.json",
+      "summary": "Ship an observation receipt graph CLI + schema that links plans, claims, memory, bus logs, and receipts."
+    },
+    {
+      "id": "receipt:_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/requirements.md",
+      "type": "receipt",
+      "label": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/requirements.md",
+      "path": "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/requirements.md"
+    },
+    {
+      "id": "receipt:queue/053-observation-receipt-graph.md",
+      "type": "receipt",
+      "label": "queue/053-observation-receipt-graph.md",
+      "path": "queue/053-observation-receipt-graph.md"
+    },
+    {
+      "id": "receipt:tools/observation/receipt_graph.py",
+      "type": "receipt",
+      "label": "tools/observation/receipt_graph.py",
+      "path": "tools/observation/receipt_graph.py"
+    },
+    {
+      "id": "receipt:tests/test_receipt_graph.py",
+      "type": "receipt",
+      "label": "tests/test_receipt_graph.py",
+      "path": "tests/test_receipt_graph.py"
+    },
+    {
+      "id": "receipt:docs/agents.md",
+      "type": "receipt",
+      "label": "docs/agents.md",
+      "path": "docs/agents.md"
+    },
+    {
+      "id": "event:2025-11-09T04:59:09Z:313",
+      "type": "event",
+      "label": "status @ 2025-11-09T04:59:09Z",
+      "ts": "2025-11-09T04:59:09Z",
+      "agent": "codex-tier2",
+      "summary": "receipt_graph CLI + docs/tests shipped"
+    },
+    {
+      "id": "event:2025-11-09T05:00:09Z:314",
+      "type": "event",
+      "label": "status @ 2025-11-09T05:00:09Z",
+      "ts": "2025-11-09T05:00:09Z",
+      "agent": "codex-tier2",
+      "summary": "receipt_graph CLI ships queue\u2192plan\u2192claim provenance graph + docs."
+    }
+  ],
+  "edges": [
+    {
+      "source": "claim:QUEUE-053",
+      "target": "event:2025-11-09T04:59:09Z:313",
+      "type": "bus_event"
+    },
+    {
+      "source": "claim:QUEUE-053",
+      "target": "event:2025-11-09T05:00:09Z:314",
+      "type": "bus_event"
+    },
+    {
+      "source": "claim:QUEUE-053",
+      "target": "plan:2025-11-09-observation-receipt-graph",
+      "type": "references"
+    },
+    {
+      "source": "event:2025-11-09T04:59:09Z:313",
+      "target": "plan:2025-11-09-observation-receipt-graph",
+      "type": "plan_context"
+    },
+    {
+      "source": "event:2025-11-09T05:00:09Z:314",
+      "target": "plan:2025-11-09-observation-receipt-graph",
+      "type": "plan_context"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/requirements.md",
+      "type": "produced"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:docs/agents.md",
+      "type": "produced"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:queue/053-observation-receipt-graph.md",
+      "type": "produced"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:tests/test_receipt_graph.py",
+      "type": "produced"
+    },
+    {
+      "source": "plan:2025-11-09-observation-receipt-graph",
+      "target": "receipt:tools/observation/receipt_graph.py",
+      "type": "produced"
+    },
+    {
+      "source": "task:QUEUE-053",
+      "target": "claim:QUEUE-053",
+      "type": "claimed"
+    },
+    {
+      "source": "task:QUEUE-053",
+      "target": "plan:2025-11-09-observation-receipt-graph",
+      "type": "planned"
+    }
+  ],
+  "sources": {
+    "queue": "queue/053-observation-receipt-graph.md",
+    "claim": "_bus/claims/QUEUE-053.json",
+    "plan": "_plans/2025-11-09-observation-receipt-graph.plan.json",
+    "bus_events": "_bus/events/events.jsonl"
+  },
+  "receipts": [
+    "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/requirements.md",
+    "queue/053-observation-receipt-graph.md",
+    "tools/observation/receipt_graph.py",
+    "tests/test_receipt_graph.py",
+    "docs/agents.md"
+  ],
+  "bus_events": [
+    {
+      "node_id": "event:2025-11-09T04:59:09Z:313",
+      "ts": "2025-11-09T04:59:09Z",
+      "event": "status",
+      "summary": "receipt_graph CLI + docs/tests shipped",
+      "agent_id": "codex-tier2",
+      "plan_id": "2025-11-09-observation-receipt-graph",
+      "task_id": "QUEUE-053",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/summary.json"
+      ]
+    },
+    {
+      "node_id": "event:2025-11-09T05:00:09Z:314",
+      "ts": "2025-11-09T05:00:09Z",
+      "event": "status",
+      "summary": "receipt_graph CLI ships queue\u2192plan\u2192claim provenance graph + docs.",
+      "agent_id": "codex-tier2",
+      "plan_id": "2025-11-09-observation-receipt-graph",
+      "task_id": "QUEUE-053",
+      "receipts": [
+        "_report/agent/codex-tier2/2025-11-09-observation-receipt-graph/summary.json"
+      ]
+    }
+  ],
+  "digest": "c01beb82483ac28a02d4000658f3caafc37013aee7c10da0b6d62c8ee3ca2b14"
+}
