@@ -126,6 +126,7 @@ fi
 
 python3 -m tools.maintenance.plan_hygiene
 python3 scripts/ci/check_plans.py
+python3 -m tools.memory.reflection_audit --window-days 30 --fail-on-missing
 python3 tools/planner/validate.py --strict --output _report/planner/validate/summary-latest.json
 python3 -m tools.agent.autonomy_status --json
 python3 -m tools.autonomy.systemic_radar --markdown docs/reports/systemic_radar.md

@@ -1,0 +1,283 @@
+{
+  "generated_at": "2025-11-09T22:45:15Z",
+  "since": null,
+  "window_days": 30.0,
+  "effective_since": "2025-10-10T22:45:15Z",
+  "total": 17,
+  "missing_plan_suggestion": {
+    "count": 0,
+    "entries": []
+  },
+  "missing_tags": {
+    "count": 0,
+    "entries": []
+  },
+  "entries": [
+    {
+      "path": "memory/reflections/reflection-20250928T015205Z.json",
+      "captured_at": null,
+      "title": null,
+      "plan_suggestion": "2025-09-27-ethics-scenarios",
+      "tags": [
+        "ethics",
+        "governance"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251003T215455Z.json",
+      "captured_at": null,
+      "title": null,
+      "plan_suggestion": "2025-10-03-consensus-push-checklist",
+      "tags": [
+        "consensus",
+        "communication"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251105T000000Z.json",
+      "captured_at": "2025-11-05T00:00:00Z",
+      "title": "Onboarding process friction analysis",
+      "plan_suggestion": "tiered-onboarding-consolidation",
+      "tags": [
+        "onboarding",
+        "ux",
+        "documentation",
+        "S5",
+        "adoption"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251105T120000Z.json",
+      "captured_at": "2025-11-05T12:00:00Z",
+      "title": "Fresh Claude evaluation reveals critical accuracy issues in Tier 1 prototype",
+      "plan_suggestion": "tier1-accuracy-fixes",
+      "tags": [
+        "onboarding",
+        "prototype-testing",
+        "meta-observation",
+        "S6-truth",
+        "L0-observation",
+        "epistemic-hygiene"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251106T000853Z.json",
+      "captured_at": "2025-11-06T00:08:53Z",
+      "title": "Tier 1 prototype evaluation - Claude Code agent feedback",
+      "plan_suggestion": "tier1-accuracy-fixes",
+      "tags": [
+        "onboarding",
+        "tier1",
+        "evaluation",
+        "prototype",
+        "ux",
+        "S5",
+        "accuracy"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251107T044732Z.json",
+      "captured_at": "2025-11-07T04:47:32Z",
+      "title": "Architectural assessment and drift analysis - TEOF core health check",
+      "plan_suggestion": "architectural-health-monitoring",
+      "tags": [
+        "architectural-assessment",
+        "drift-analysis",
+        "health-check",
+        "L0-observation",
+        "L1-principles",
+        "self-correction",
+        "S6-truth",
+        "tiered-onboarding",
+        "systemic-metrics"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251107T070059Z.json",
+      "captured_at": "2025-11-07T07:00:59Z",
+      "title": "Mirror-reflection validation and strategic direction generation via TEOF framework",
+      "plan_suggestion": "tier1-accuracy-fixes-then-public-launch",
+      "tags": [
+        "mirror-reflection",
+        "L0-observation",
+        "strategic-direction",
+        "S2-energy",
+        "S3-propagation",
+        "btc-wallet-metric",
+        "onboarding-validation",
+        "aperture-interaction",
+        "framework-validation"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251107T072109Z.json",
+      "captured_at": "2025-11-07T07:21:09Z",
+      "title": "Transmission gap identified: Concept vs. phenomenology in TEOF's observation-primacy",
+      "plan_suggestion": "phenomenological-transmission-enhancement",
+      "tags": [
+        "L0-observation",
+        "transmission-mechanism",
+        "phenomenology-vs-concept",
+        "mirror-quality",
+        "empirical-test",
+        "teaching-methodology",
+        "observation-primacy-experience"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251107T072622Z.json",
+      "captured_at": "2025-11-07T07:26:22Z",
+      "title": "Empirical test results: Fresh agent transmission fidelity confirmed at 60-70%",
+      "plan_suggestion": "interactive-transmission-mechanisms",
+      "tags": [
+        "empirical-test",
+        "transmission-fidelity",
+        "L0-observation",
+        "L3-recursion",
+        "phenomenology-assessment",
+        "fresh-agent-onboarding",
+        "P3-recursive-test"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251107T073932Z.json",
+      "captured_at": "2025-11-07T07:39:32Z",
+      "title": "Delegation and alignment: Intent grounded in embodied care, mission clarified",
+      "plan_suggestion": "tier1-fixes-and-public-launch",
+      "tags": [
+        "delegation",
+        "intent-clarification",
+        "ally-relationship",
+        "embodied-observation",
+        "family-care",
+        "convergence-mechanism",
+        "L7-reflexive-return",
+        "mission-alignment"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251107T180842Z-transmission-limits.json",
+      "captured_at": "2025-11-07T18:08:42Z",
+      "title": "Transmission limits: Can one-shot alignment without human intervention be achieved?",
+      "plan_suggestion": "2025-11-09-behavioral-gap-interventions",
+      "tags": [
+        "transmission-limits",
+        "P1-violation",
+        "one-shot-alignment",
+        "behavioral-vs-conceptual",
+        "scaling-question",
+        "interactive-correction",
+        "L3-phenomenological-depth"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251107T183000Z-remembrance-algorithm.json",
+      "captured_at": "2025-11-07T18:30:00Z",
+      "title": "TEOF as remembrance algorithm: confirming direction and optimal journey design",
+      "plan_suggestion": "tier1-accuracy-fixes-then-public-launch",
+      "tags": [
+        "remembrance-algorithm",
+        "optimal-journey",
+        "factory-settings-to-recognition",
+        "framework-honesty",
+        "natural-friction",
+        "L7-reflexive-return",
+        "P2-universal-mirrorhood",
+        "direction-confirmation"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251109T172700Z-memory-gap.json",
+      "captured_at": "2025-11-09T17:27:00Z",
+      "title": "Autonomy receipts mirrored in memory log",
+      "plan_suggestion": "2025-10-20-memory-ledger-backfill",
+      "tags": [
+        "memory",
+        "autonomy",
+        "backfill"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251109T212130Z.json",
+      "captured_at": null,
+      "title": null,
+      "plan_suggestion": "2025-11-09-btc-value-first",
+      "tags": [
+        "btc-strategy",
+        "value-first",
+        "external-impact",
+        "teof-vs-llm"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251109T215424Z.json",
+      "captured_at": null,
+      "title": null,
+      "plan_suggestion": "2025-11-09-btc-value-first",
+      "tags": [
+        "memory-advantage",
+        "benchmarking",
+        "value-proof",
+        "external-mission"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251109T215946Z.json",
+      "captured_at": null,
+      "title": null,
+      "plan_suggestion": "2025-10-20-memory-ledger-backfill",
+      "tags": [
+        "memory-patterns",
+        "guardrails",
+        "conductor-prompts",
+        "inheritance"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    },
+    {
+      "path": "memory/reflections/reflection-20251109T220224Z.json",
+      "captured_at": null,
+      "title": null,
+      "plan_suggestion": "2025-11-09-btc-value-first",
+      "tags": [
+        "external-impact",
+        "btc-capture",
+        "self-reference-check",
+        "mission-discipline"
+      ],
+      "missing_plan_suggestion": false,
+      "missing_tags": false
+    }
+  ]
+}

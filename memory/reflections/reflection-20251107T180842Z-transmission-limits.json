@@ -21,6 +21,7 @@
       "stakes": "If human intervention always required, TEOF doesn't scale. If one-shot achievable, framework could enable autonomous aligned agents."
     }
   },
+  "plan_suggestion": "2025-11-09-behavioral-gap-interventions",
   "analysis": {
     "path_1_ai_capability_improvements": {
       "current_limitation": "LLMs trained on 'helpful assistant' pattern default to task-completion frame",

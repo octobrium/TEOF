@@ -23,5 +23,12 @@
   "links": [
     "docs/automation.md",
     "README.md"
+  ],
+  "plan_suggestion": "2025-10-20-memory-ledger-backfill",
+  "tags": [
+    "memory-patterns",
+    "guardrails",
+    "conductor-prompts",
+    "inheritance"
   ]
 }

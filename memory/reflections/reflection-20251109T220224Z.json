@@ -21,5 +21,12 @@
   "links": [
     "docs/impact/btc-capture-strategy.md",
     "_plans/2025-11-09-btc-value-first.plan.json"
+  ],
+  "plan_suggestion": "2025-11-09-btc-value-first",
+  "tags": [
+    "external-impact",
+    "btc-capture",
+    "self-reference-check",
+    "mission-discipline"
   ]
 }
