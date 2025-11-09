@@ -287,58 +287,69 @@ def cmd_guard(args: argparse.Namespace) -> int:
     receipt_dir = _ensure_receipt_dir(args.receipt_dir)
     errors: list[str] = []
 
-    def _check_pointer(pointer_name: str, key: str) -> Path | None:
+    def _load_json(path: Path, label: str) -> Mapping[str, Any] | None:
+        try:
+            return json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            errors.append(f"{label} invalid JSON: {path}: {exc}")
+            return None
+
+    def _validate_age(label: str, generated_at: str | None) -> None:
+        parsed = _parse_ts(generated_at)
+        if parsed is None:
+            errors.append(f"{label} missing/invalid generated_at")
+            return
+        age_hours = (datetime.now(timezone.utc) - parsed).total_seconds() / 3600.0
+        if age_hours > args.max_age_hours:
+            errors.append(f"{label} older than {args.max_age_hours}h (generated {generated_at})")
+
+    def _resolve_receipt(pointer_name: str, key: str, override: str | None) -> tuple[Path | None, Mapping[str, Any] | None]:
+        if override:
+            target = _abs_path(override)
+            if not target.exists():
+                errors.append(f"{pointer_name} override missing file: {override}")
+                return None, None
+            payload = _load_json(target, f"{pointer_name} receipt")
+            if payload is None:
+                return None, None
+            _validate_age(pointer_name, payload.get("generated_at"))
+            return target, payload
         pointer_path = receipt_dir / pointer_name
         if not pointer_path.exists():
             errors.append(f"missing {pointer_name} in {receipt_dir}")
-            return None
-        try:
-            payload = json.loads(pointer_path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError as exc:
-            errors.append(f"invalid {pointer_name}: {exc}")
-            return None
-        path_str = payload.get(key)
+            return None, None
+        pointer_payload = _load_json(pointer_path, pointer_name)
+        if pointer_payload is None:
+            return None, None
+        _validate_age(pointer_name, pointer_payload.get("generated_at"))
+        path_str = pointer_payload.get(key)
         if not path_str:
             errors.append(f"{pointer_name} missing '{key}' field")
-            return None
+            return None, None
         target = _abs_path(path_str)
         if not target.exists():
             errors.append(f"{pointer_name} points to missing file: {path_str}")
-            return None
-        generated_at = payload.get("generated_at")
-        parsed = _parse_ts(generated_at)
-        if parsed is None:
-            errors.append(f"{pointer_name} missing/invalid generated_at")
-        else:
-            age_hours = (datetime.now(timezone.utc) - parsed).total_seconds() / 3600.0
-            if age_hours > args.max_age_hours:
-                errors.append(
-                    f"{pointer_name} older than {args.max_age_hours}h (generated {generated_at})"
-                )
-        return target
+            return None, None
+        payload = _load_json(target, f"{key} receipt")
+        return target, payload
 
-    plan_path = _check_pointer("plan-latest.json", "plan")
-    telemetry_path = _check_pointer("telemetry-latest.json", "telemetry")
+    plan_path, plan_payload = _resolve_receipt("plan-latest.json", "plan", getattr(args, "plan_receipt", None))
+    telemetry_path, telemetry_payload = _resolve_receipt(
+        "telemetry-latest.json", "telemetry", getattr(args, "telemetry_receipt", None)
+    )
 
-    if plan_path is not None:
-        try:
-            plan_payload = json.loads(plan_path.read_text(encoding="utf-8"))
-            services = {svc["service"] for svc in plan_payload.get("services", []) if isinstance(svc, Mapping)}
-        except json.JSONDecodeError as exc:
-            errors.append(f"plan receipt invalid JSON: {plan_path}: {exc}")
-            services = set()
-    else:
-        services = set()
-
-    if telemetry_path is not None:
-        try:
-            telemetry_payload = json.loads(telemetry_path.read_text(encoding="utf-8"))
-            telemetry_services = {svc["service"] for svc in telemetry_payload.get("services", []) if isinstance(svc, Mapping)}
-        except json.JSONDecodeError as exc:
-            errors.append(f"telemetry receipt invalid JSON: {telemetry_path}: {exc}")
-            telemetry_services = set()
-        if services and telemetry_services and services != telemetry_services:
-            errors.append("plan/telemetry service sets differ")
+    services = (
+        {svc["service"] for svc in plan_payload.get("services", []) if isinstance(svc, Mapping)}
+        if plan_payload
+        else set()
+    )
+    telemetry_services = (
+        {svc["service"] for svc in telemetry_payload.get("services", []) if isinstance(svc, Mapping)}
+        if telemetry_payload
+        else set()
+    )
+    if services and telemetry_services and not telemetry_services.issuperset(services):
+        errors.append("plan services not covered by telemetry receipt")
 
     if errors:
         for message in errors:
@@ -362,7 +373,11 @@ def build_parser() -> argparse.ArgumentParser:
     plan_cmd = subparsers.add_parser("plan", help="Generate migration plan receipt")
     plan_cmd.add_argument("--service", action="append", help="Service(s) to include (default all)")
     plan_cmd.add_argument("--out", help="Output path (default: _report/usage/autonomy-module-consolidation/plan-<ts>.json)")
-    plan_cmd.add_argument("--receipt-dir", help="Custom receipt directory")
+    plan_cmd.add_argument(
+        "--receipt-dir",
+        default=DEFAULT_RECEIPT_DIR,
+        help="Custom receipt directory (default: %(default)s)",
+    )
     plan_cmd.set_defaults(func=cmd_plan)
 
     apply_cmd = subparsers.add_parser("apply", help="Record consolidation run (no-op placeholder)")
@@ -372,11 +387,21 @@ def build_parser() -> argparse.ArgumentParser:
 
     telemetry_cmd = subparsers.add_parser("telemetry", help="Capture telemetry metrics + pointer")
     telemetry_cmd.add_argument("--out", help="Telemetry receipt path (default: _report/.../telemetry-<ts>.json)")
-    telemetry_cmd.add_argument("--receipt-dir", help="Custom receipt directory")
+    telemetry_cmd.add_argument(
+        "--receipt-dir",
+        default=DEFAULT_RECEIPT_DIR,
+        help="Custom receipt directory (default: %(default)s)",
+    )
     telemetry_cmd.set_defaults(func=cmd_telemetry)
 
     guard_cmd = subparsers.add_parser("guard", help="Validate consolidation receipts and freshness")
-    guard_cmd.add_argument("--receipt-dir", help="Receipt directory (default: _report/usage/autonomy-module-consolidation)")
+    guard_cmd.add_argument(
+        "--receipt-dir",
+        default=DEFAULT_RECEIPT_DIR,
+        help="Receipt directory (default: %(default)s)",
+    )
+    guard_cmd.add_argument("--plan-receipt", help="Explicit plan receipt path (override pointer)")
+    guard_cmd.add_argument("--telemetry-receipt", help="Explicit telemetry receipt path (override pointer)")
     guard_cmd.add_argument("--max-age-hours", type=float, default=24.0, help="Maximum allowed pointer age (hours, default 24)")
     guard_cmd.set_defaults(func=cmd_guard)
 

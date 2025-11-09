@@ -17,6 +17,7 @@ def test_inventory_json(capsys) -> None:
 
 
 def test_plan_apply_telemetry(tmp_path: Path) -> None:
+    receipt_dir = tmp_path / "receipts"
     plan_path = tmp_path / "plan.json"
     rc = module_consolidate.main(
         [
@@ -26,7 +27,7 @@ def test_plan_apply_telemetry(tmp_path: Path) -> None:
             "--service",
             "coordination",
             "--receipt-dir",
-            str(tmp_path / "receipts"),
+            str(receipt_dir),
         ]
     )
     assert rc == 0
@@ -39,7 +40,6 @@ def test_plan_apply_telemetry(tmp_path: Path) -> None:
     assert apply_receipt.exists()
 
     telemetry_path = tmp_path / "telemetry.json"
-    receipt_dir = tmp_path / "receipts"
     rc = module_consolidate.main(
         [
             "telemetry",
@@ -55,10 +55,23 @@ def test_plan_apply_telemetry(tmp_path: Path) -> None:
     pointer = receipt_dir / "telemetry-latest.json"
     assert pointer.exists()
 
-    # Guard validation: telemetry will include all services while plan only has coordination
-    # This is expected - guard should pass if planned services are present in telemetry
+    # Guard validation succeeds even if plan services ⊂ telemetry services
+    rc = module_consolidate.main(["guard", "--receipt-dir", str(receipt_dir)])
+    assert rc == 0
 
-    # Test guard detects missing plan pointer
+    # Test guard detects missing plan pointer but can fall back to explicit receipts
     (receipt_dir / "plan-latest.json").unlink()
     rc = module_consolidate.main(["guard", "--receipt-dir", str(receipt_dir)])
     assert rc == 1
+    rc = module_consolidate.main(
+        [
+            "guard",
+            "--plan-receipt",
+            str(plan_path),
+            "--telemetry-receipt",
+            str(telemetry_path),
+            "--max-age-hours",
+            "1000",
+        ]
+    )
+    assert rc == 0
