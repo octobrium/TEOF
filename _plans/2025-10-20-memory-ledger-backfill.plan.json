@@ -30,11 +30,12 @@
       "id": "S2",
       "title": "Capture autonomy coordinator/evolution reflections",
       "status": "done",
-      "notes": "Appended memory/log.jsonl entries (lines 136–137) referencing the Oct 19 autonomy coordinator/evolution receipts and captured the targeted gap audit as proof.",
+      "notes": "Appended memory/log.jsonl entries (lines 134–135) referencing the Oct 19 autonomy coordinator/evolution receipts, captured the targeted gap audit as proof, and logged a reflection describing the remediation.",
       "receipts": [
         "memory/log.jsonl",
         "_report/analysis/memory-gap/autonomy-2025-10-19.json",
-        "_report/analysis/memory-gap/2025-11-09-autonomy-backfill.md"
+        "_report/analysis/memory-gap/2025-11-09-autonomy-backfill.md",
+        "memory/reflections/reflection-20251109T172700Z-memory-gap.json"
       ]
     },
     {
@@ -59,6 +60,7 @@
     "_report/analysis/memory-gap/latest.json",
     "_report/analysis/memory-gap/2025-11-09-autonomy-backfill.md",
     "_report/analysis/memory-gap/autonomy-2025-10-19.json",
+    "memory/reflections/reflection-20251109T172700Z-memory-gap.json",
     "scripts/ci/check_memory_gap.py",
     "tools/memory/gap_audit.py",
     "tests/test_memory_gap_audit.py",

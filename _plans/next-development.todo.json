@@ -465,7 +465,8 @@
     {
       "id": "ND-058",
       "title": "Backfill memory ledger for Oct autonomy work",
-      "status": "queued",
+      "status": "done",
+      "completed_at": "2025-11-09T17:30:00Z",
       "plan_suggestion": "2025-10-20-memory-ledger-backfill",
       "notes": "Log autonomy coordinator/evolution decisions and add guard so multi-LLM sessions emit memory receipts.",
       "priority": "medium",
@@ -475,8 +476,8 @@
       "receipts_ref": {
         "kind": "plan",
         "plan_id": "2025-10-20-memory-ledger-backfill",
-        "count": 4,
-        "digest": "6868191fff062e9eab11984915944743b1810c09f243c76958127bff75fa89a6"
+        "count": 8,
+        "digest": "9ae5b92e8b672a29497bc6cbbc023a4b26efa884e3992c045d54a72d092e88ed"
       }
     }
   ],
