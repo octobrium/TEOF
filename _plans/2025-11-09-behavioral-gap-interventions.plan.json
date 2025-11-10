@@ -18,7 +18,7 @@
   "layer": "L5",
   "systemic_scale": 6,
   "impact_score": 3,
-  "status": "in_progress",
+  "status": "done",
   "steps": [
     {
       "id": "S1",
@@ -57,15 +57,20 @@
     {
       "id": "S4",
       "title": "Decide structural vs emergent path",
-      "status": "queued",
-      "notes": "Based on evidence, recommend guardrail strategy or emergent protocol.",
-      "receipts": []
+      "status": "done",
+      "notes": "Recommendation captured in docs/analysis/behavioral-gap-recommendation-20251110.md; structural guard adopted as default with ongoing emergent warmups.",
+      "receipts": [
+        "docs/analysis/behavioral-gap-recommendation-20251110.md"
+      ]
     }
   ],
   "checkpoint": {
     "description": "Publish behavioral gap report + experiment results",
     "owner": "codex-tier2",
-    "status": "pending"
+    "status": "satisfied",
+    "receipts": [
+      "docs/analysis/behavioral-gap-recommendation-20251110.md"
+    ]
   },
   "links": [
     {
@@ -82,7 +87,8 @@
     }
   ],
   "receipts": [
-    "_report/agent/codex-tier2/feedback/20251109-meta-feedback-response.md"
+    "_report/agent/codex-tier2/feedback/20251109-meta-feedback-response.md",
+    "docs/analysis/behavioral-gap-recommendation-20251110.md"
   ],
   "impact_ref": "2025-11-09-behavioral-gap-interventions"
 }
