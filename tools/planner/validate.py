@@ -642,16 +642,27 @@ def _check_receipt(path_str: str, context: str, repo_root: Path, errors: List[st
         except DuplicateKeyError as exc:
             errors.append(f"{context} contains {exc}")
     tracked = _git_tracked_paths(str(repo_root))
-    if tracked is not None:
-        normalized = rec_path.as_posix()
-        if not _is_tracking_required(normalized):
-            return
-        if normalized not in tracked:
-            errors.append(f"{context} is not tracked by git: '{path_str}'")
+    normalized = rec_path.as_posix()
+    if _is_tracking_required(normalized) and not _receipt_tracked(normalized, repo_root, tracked):
+        errors.append(f"{context} is not tracked by git: '{path_str}'")
 
 
 def _is_tracking_required(path: str) -> bool:
     return not any(path.startswith(prefix) for prefix in RECEIPT_TRACKING_OPTIONAL_PREFIXES)
+
+
+def _receipt_tracked(path: str, repo_root: Path, tracked: Optional[set[str]]) -> bool:
+    if tracked is not None:
+        return path in tracked
+    try:
+        subprocess.check_call(
+            ["git", "-C", str(repo_root), "ls-files", "--error-unmatch", path],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        return True
+    except subprocess.CalledProcessError:
+        return False
 
 
 def strict_checks(plan: PlanDict, *, repo_root: Path) -> List[str]:
