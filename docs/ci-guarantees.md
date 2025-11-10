@@ -12,7 +12,8 @@ This one-pager summarises the invariants enforced by our automation. Each guard 
 | Capsule cadence | `scripts/ci/check_capsule_cadence.py` | Observation — verifies capsule maintenance receipts so releases stay auditable. |
 | Consensus receipts | `scripts/ci/check_consensus_receipts.py` | Coherence — requires recent consensus sweep receipts before merge. |
 | Readability guard | `scripts/ci/check_readability.py` | Ethics & Observation — ensures docs specify agent actions clearly and cite receipts. |
-| Plan hygiene | `scripts/ci/check_plans.py` | Reproducibility — validates plan JSON, requiring steps, git-tracked receipts, and checkpoints. |
+| Plan hygiene | `scripts/ci/check_plans.py` | Reproducibility — validates plan JSON, requiring steps, receipts (with `_report/` exemptions), and checkpoints. |
+| Evidence scope | `scripts/ci/check_evidence_scope.py` | Truth & Observation — runs `python -m tools.planner.evidence_scope --all --fail-on-missing --fail-on-missing-receipts` so schema‑v1 plans carry both citations and survey receipts (P1.2). |
 | Memory ledger | `scripts/ci/check_memory_log.py` | Observation — stops malformed entries from landing in `memory/log.jsonl`.
 
 ## Preflight expectations
@@ -31,6 +32,6 @@ This keeps the guardrail story observable at a glance while we continue to harde
 - Canonical status audit — `scripts/ci/check_canonical_status.py`
   - Ensures only the expected core governance files (L0–L5) declare `Role: Canonical` and that none are missing the header. Prints WARN lines on mismatch and exits 0.
 - Plan receipts existence — `scripts/ci/check_plan_receipts_exist.py`
-  - Warns when receipts listed in plans or steps are missing or not tracked by git. Prints WARN lines and exits 0.
+  - Warns when receipts listed in plans or steps are missing, or when non-`_report/` receipts are untracked. Prints WARN lines and exits 0.
 - Receipts hygiene bundle — `python -m tools.agent.receipts_hygiene`
   - Generates `_report/usage/receipts-index/manifest.json`, `_report/usage/receipts-index-latest.jsonl`, `_report/usage/receipts-latency-latest.jsonl`, and `receipts-hygiene-summary.json`. Use for periodic sweeps; leave artifacts for audit.

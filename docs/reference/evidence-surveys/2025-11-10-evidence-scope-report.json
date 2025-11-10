@@ -1,0 +1,16 @@
+{
+  "schema": "teof.evidence.survey/v1",
+  "plan_id": "2025-11-10-evidence-scope-report",
+  "collected_at": "2025-11-10T00:21:30Z",
+  "internal": [
+    {"ref": "docs/reference/evidence-scope.md", "summary": "Evidence scope schema"},
+    {"ref": "tools/planner/evidence_scope.py", "summary": "Implementation reference"}
+  ],
+  "external": [
+    {"ref": "https://en.wikipedia.org/wiki/Provenance", "summary": "Provenance patterns"}
+  ],
+  "comparative": [
+    {"ref": "https://queue.acm.org/detail.cfm?id=3454124", "summary": "Telemetry auditing gap"}
+  ],
+  "notes": "Survey captured while adding the evidence scope coverage CLI."
+}

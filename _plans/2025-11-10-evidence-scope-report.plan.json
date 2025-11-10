@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "plan_id": "2025-11-10-evidence-scope-report",
+  "created": "2025-11-10T12:00:00Z",
+  "actor": "codex",
+  "summary": "Add evidence scope coverage CLI",
+  "impact_ref": "2025-11-10-evidence-scope-report",
+  "systemic_targets": [
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4"
+  ],
+  "priority": 1,
+  "layer": "L4",
+  "systemic_scale": 6,
+  "impact_score": 70,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Implement",
+      "status": "done",
+      "notes": "tools.planner.evidence_scope gains scan/report CLI + receipts",
+      "receipts": [
+        "tools/planner/evidence_scope.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Document+test",
+      "status": "done",
+      "notes": "Docs + pytest coverage for evidence scope CLI",
+      "receipts": [
+        "docs/reference/evidence-scope.md",
+        "docs/workflow.md",
+        "tests/test_planner_evidence_scope.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "docs/reference/receipts-map.md"
+  ],
+  "evidence_scope": {
+    "internal": [
+      {
+        "ref": "docs/reference/evidence-scope.md",
+        "summary": "Schema definition"
+      }
+    ],
+    "external": [
+      {
+        "ref": "https://en.wikipedia.org/wiki/Provenance",
+        "summary": "External provenance patterns"
+      }
+    ],
+    "comparative": [
+      {
+        "ref": "https://queue.acm.org/detail.cfm?id=3454124",
+        "summary": "Telemetry auditing gap"
+      }
+    ],
+    "receipts": [
+      "docs/reference/evidence-surveys/2025-11-10-evidence-scope-report.json"
+    ]
+  }
+}

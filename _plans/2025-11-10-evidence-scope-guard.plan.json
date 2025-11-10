@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "plan_id": "2025-11-10-evidence-scope-guard",
+  "created": "2025-11-10T12:30:00Z",
+  "actor": "codex",
+  "summary": "Fail guard for missing evidence",
+  "impact_ref": "2025-11-10-evidence-scope-guard",
+  "systemic_targets": [
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4"
+  ],
+  "priority": 1,
+  "layer": "L4",
+  "systemic_scale": 6,
+  "impact_score": 65,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Add CLI fail flag",
+      "status": "done",
+      "notes": "tools.planner.evidence_scope gains fail-on-missing + fail-on-missing-receipts flags",
+      "receipts": [
+        "tools/planner/evidence_scope.py"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Wire docs/tests",
+      "status": "done",
+      "notes": "workflow + evidence docs updated and pytest coverage added",
+      "receipts": [
+        "docs/reference/evidence-scope.md",
+        "docs/workflow.md",
+        "tests/test_planner_evidence_scope.py"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "docs/reference/receipts-map.md"
+  ],
+  "evidence_scope": {
+    "internal": [
+      {
+        "ref": "docs/reference/evidence-scope.md",
+        "summary": "Usage guidance"
+      }
+    ],
+    "external": [
+      {
+        "ref": "https://queue.acm.org/detail.cfm?id=3454124",
+        "summary": "Telemetry governance"
+      }
+    ],
+    "comparative": [
+      {
+        "ref": "https://cloud.google.com/architecture/safer-change",
+        "summary": "Change safety playbook"
+      }
+    ],
+    "receipts": [
+      "docs/reference/evidence-surveys/2025-11-10-evidence-scope-guard.json"
+    ]
+  }
+}

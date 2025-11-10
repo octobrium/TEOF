@@ -1,0 +1,15 @@
+{
+  "schema": "teof.evidence.survey/v1",
+  "plan_id": "2025-11-10-teof-evidence-handoff",
+  "collected_at": "2025-11-10T00:21:40Z",
+  "internal": [
+    {"ref": "docs/reference/evidence-scope.md", "summary": "Evidence protocol"}
+  ],
+  "external": [
+    {"ref": "https://queue.acm.org/detail.cfm?id=3454124", "summary": "Telemetry governance"}
+  ],
+  "comparative": [
+    {"ref": "https://cloud.google.com/architecture/safer-change", "summary": "Change safety"}
+  ],
+  "notes": "Baseline citations for automation handoff follow-up."
+}
