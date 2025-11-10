@@ -9,10 +9,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, List, Optional, Sequence, Set
 
+from tools.planner import evidence_scope as planner_evidence
+from tools.planner import validate as planner_validate
+
 ROOT = Path(__file__).resolve().parents[2]
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
 TERMINAL_CLAIM_STATUSES = {"done", "released", "closed", "cancelled", "abandoned"}
+OPTIONAL_RECEIPT_PREFIXES = planner_validate.RECEIPT_TRACKING_OPTIONAL_PREFIXES
 
 
 @dataclass
@@ -87,18 +91,32 @@ def check_claims(agent: str) -> CheckResult:
     return CheckResult("claims_clear", ok, None if ok else f"active claims present: {', '.join(sorted(active))}")
 
 
+def _rel_to_root(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def _tracking_required(rel: str) -> bool:
+    return not any(rel.startswith(prefix) for prefix in OPTIONAL_RECEIPT_PREFIXES)
+
+
 def _is_tracked(path: Path) -> bool:
-    rel = path.as_posix()
+    rel = _rel_to_root(path)
+    if not _tracking_required(rel):
+        return True
     return bool(_run_git(["ls-files", rel]))
 
 
 def check_paths(name: str, paths: Iterable[Path]) -> CheckResult:
     missing: List[str] = []
     for path in paths:
+        rel = _rel_to_root(path)
         if not path.exists():
-            missing.append(f"{path} (missing)")
+            missing.append(f"{rel} (missing)")
         elif not _is_tracked(path):
-            missing.append(f"{path} (untracked)")
+            missing.append(f"{rel} (untracked)")
     ok = not missing
     return CheckResult(name, ok, None if ok else ", ".join(missing))
 
@@ -109,6 +127,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--allow-branch", action="append", default=[], help="Extra branch names allowed in addition to main and agent/<id>/ prefix")
     parser.add_argument("--require-receipt", action="append", default=[], help="Receipt path that must exist and be tracked")
     parser.add_argument("--require-test", action="append", default=[], help="Test receipt path that must exist and be tracked")
+    parser.add_argument(
+        "--require-evidence-plan",
+        action="append",
+        default=[],
+        help="Plan id that must satisfy the evidence_scope guard (repeatable)",
+    )
     return parser
 
 
@@ -130,6 +154,24 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         results.append(check_paths("receipts_exist", [ROOT / Path(p) for p in args.require_receipt]))
     if args.require_test:
         results.append(check_paths("tests_exist", [ROOT / Path(p) for p in args.require_test]))
+    if args.require_evidence_plan:
+        ok, reports = planner_evidence.require_evidence(args.require_evidence_plan, strict=True)
+        if reports:
+            if ok:
+                detail = "; ".join(
+                    f"{report.plan_id}: internal={report.counts['internal']}, "
+                    f"external={report.counts['external']}, comparative={report.counts['comparative']}, "
+                    f"receipts={len(report.receipts)}"
+                    for report in reports
+                )
+            else:
+                detail = "; ".join(
+                    f"{report.plan_id}: {', '.join(report.errors) or 'missing evidence'}"
+                    for report in reports
+                )
+        else:
+            detail = "no plan ids supplied"
+        results.append(CheckResult("evidence_scope", ok, detail))
 
     ready = all(r.ok for r in results)
     payload = {

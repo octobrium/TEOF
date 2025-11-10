@@ -91,5 +91,32 @@
   "layer_targets": [
     "L6"
   ],
-  "impact_ref": "2025-10-05-parallel-detection"
+  "impact_ref": "2025-10-05-parallel-detection",
+  "evidence_scope": {
+    "internal": [
+      {
+        "ref": "docs/parallel-codex.md",
+        "summary": "Defines operator workflow for multi-agent sessions"
+      },
+      {
+        "ref": "docs/automation/autonomy-consent.json",
+        "summary": "Consent contract for automation guardrails"
+      }
+    ],
+    "external": [
+      {
+        "ref": "https://queue.acm.org/detail.cfm?id=3301254",
+        "summary": "Industry lessons on concurrency failures"
+      }
+    ],
+    "comparative": [
+      {
+        "ref": "https://sre.google/sre-book/handling-overload/",
+        "summary": "SRE overload mitigation parallels to guard design"
+      }
+    ],
+    "receipts": [
+      "docs/reference/evidence-surveys/2025-10-05-parallel-detection.json"
+    ]
+  }
 }

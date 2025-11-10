@@ -1,0 +1,162 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0
+rootdir: /Users/evan/Documents/GitHub/TEOF
+configfile: pyproject.toml
+plugins: anyio-4.11.0, cov-7.0.0
+collected 29 items
+
+tests/test_push_ready.py .......                                         [ 24%]
+tests/test_planner_validation.py ................                        [ 79%]
+tests/test_receipts_hygiene.py ......                                    [100%]
+
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.9.6-final-0 ________________
+
+Name                                     Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------------------------------
+extensions/__init__.py                       0      0      0      0   100%
+extensions/prompts/__init__.py               2      2      0      0     0%   1-3
+extensions/prompts/philosophy.py            43     43      6      0     0%   2-100
+extensions/providers/__init__.py             0      0      0      0   100%
+extensions/providers/base.py                12     12      2      0     0%   1-14
+extensions/providers/mock.py                10     10      0      0     0%   1-12
+extensions/providers/registry.py             9      9      2      0     0%   1-13
+extensions/providers/runner.py              16     16      0      0     0%   1-17
+teof/__init__.py                             0      0      0      0   100%
+teof/__main__.py                             2      2      0      0     0%   2-4
+teof/_paths.py                              46     46     18      0     0%   2-85
+teof/bootloader.py                          80     80      6      0     0%   8-124
+teof/cli.py                                  6      6      2      0     0%   2-12
+teof/commands/__init__.py                    7      7      0      0     0%   1-61
+teof/commands/_utils.py                     16     16      2      0     0%   2-28
+teof/commands/assess.py                    131    131     26      0     0%   1-252
+teof/commands/brief.py                      55     55      8      0     0%   1-113
+teof/commands/bus_claim.py                  10     10      0      0     0%   1-23
+teof/commands/bus_event.py                  15     15      2      0     0%   1-26
+teof/commands/bus_guard.py                  37     37      8      0     0%   1-64
+teof/commands/bus_message.py                10     10      0      0     0%   1-21
+teof/commands/bus_status.py                 10     10      0      0     0%   1-23
+teof/commands/bus_watch.py                  10     10      0      0     0%   1-23
+teof/commands/convergence_metrics.py         9      9      0      0     0%   1-19
+teof/commands/critic.py                     38     38     14      0     0%   1-67
+teof/commands/deadlock.py                   75     75     16      0     0%   1-148
+teof/commands/ethics.py                     38     38     14      0     0%   1-67
+teof/commands/foreman.py                    92     92     22      0     0%   1-169
+teof/commands/frontier.py                   27     27      6      0     0%   1-55
+teof/commands/hash_ledger.py                12     12      2      0     0%   1-18
+teof/commands/ideas.py                     198    198     82      0     0%   1-394
+teof/commands/impact_bridge.py              10     10      0      0     0%   1-21
+teof/commands/inbox.py                      16     16      0      0     0%   1-51
+teof/commands/macro_hygiene.py              10     10      0      0     0%   1-21
+teof/commands/operator.py                  105    105     16      0     0%   1-232
+teof/commands/plan_scope.py                159    159     52      0     0%   1-272
+teof/commands/receipts_stream.py            18     18      0      0     0%   1-65
+teof/commands/receipts_stream_guard.py      27     27      2      0     0%   1-54
+teof/commands/reflections.py                46     46     16      0     0%   1-98
+teof/commands/scan.py                      202    202    126      0     0%   1-324
+teof/commands/scan_history.py              170    170     78      0     0%   1-294
+teof/commands/status.py                     32     32      8      0     0%   1-60
+teof/commands/tasks.py                      93     93     26      0     0%   1-157
+teof/commands/tms.py                        38     38     14      0     0%   1-67
+teof/commands/ttd_trend.py                  32     32     10      0     0%   1-68
+teof/commands/up.py                        245    245     40      0     0%   1-452
+teof/eval/__init__.py                        2      2      0      0     0%   3-5
+teof/eval/systemic_min.py                  136    136     34      0     0%   3-261
+teof/eval/systemic_receipts.py             135    135     60      0     0%   3-183
+teof/ideas.py                              191    191     76      0     0%   2-272
+teof/reflections_report.py                 185    185     76      0     0%   2-304
+teof/status_report.py                      474    474    162      0     0%   1-702
+teof/tasks_report.py                       279    279    128      0     0%   1-465
+tools/__init__.py                            1      0      0      0   100%
+tools/agent/push_ready.py                  119     17     36     11    82%   38, 44, 47-48, 52, 83-84, 86, 97-98, 109, 117, 119, 145, 154, 173, 191
+tools/agent/receipts_hygiene.py            156     11     56     11    89%   79, 158->163, 159->158, 164, 185, 214, 216-218, 234->243, 237->234, 281-283, 295-296
+tools/agent/receipts_index.py              285    160     88      6    39%   58-62, 72-73, 79, 83-85, 103-120, 131-159, 190-193, 204-214, 237-269, 348-363, 366-375, 422-447, 456-472, 476-481, 485-501
+tools/agent/receipts_metrics.py            208    114     88     13    38%   26, 28, 31-32, 38-39, 46, 58-60, 69-71, 76-98, 102-139, 151-194, 197-198, 201-203, 214->220, 216, 218, 232-235, 259-261, 314-315, 327-341
+tools/artifacts/__init__.py                  3      3      0      0     0%   3-7
+tools/artifacts/cold_storage.py            320    320     92      0     0%   3-513
+tools/autonomy/shared.py                   111     69     22      0    32%   20-23, 29-34, 40-46, 52, 58-72, 78-85, 91-98, 104-117, 123-125, 131-133, 148-156
+tools/backfill/__init__.py                   1      1      0      0     0%   3
+tools/capsule/__init__.py                    1      1      0      0     0%   3
+tools/capsule/cadence.py                    59     59      6      0     0%   2-100
+tools/consensus/__init__.py                  0      0      0      0   100%
+tools/consensus/dashboard.py               152    152     52      0     0%   3-257
+tools/consensus/ledger.py                  142    142     60      0     0%   3-193
+tools/consensus/receipts.py                 58     58     16      0     0%   3-106
+tools/ethics/__init__.py                     0      0      0      0   100%
+tools/evangelism/__init__.py                 0      0      0      0   100%
+tools/external/__init__.py                   0      0      0      0   100%
+tools/external/adapter.py                  135    135     44      0     0%   2-216
+tools/external/authenticity_report.py      113    113     20      0     0%   2-198
+tools/external/keys.py                      32     32      4      0     0%   2-58
+tools/external/registry_check.py           163    163     64      0     0%   2-230
+tools/external/registry_update.py          104    104     36      0     0%   2-194
+tools/external/summary.py                  467    467    188      0     0%   2-799
+tools/external/validate_systemic.py        136    136     64      0     0%   3-198
+tools/fractal/__init__.py                    1      0      0      0   100%
+tools/fractal/advisory.py                   95     95     26      0     0%   2-141
+tools/fractal/backfill_plans.py            120    120     72      0     0%   2-161
+tools/fractal/conformance.py               207    151     80      1    20%   33, 54, 77, 88, 92-101, 105-120, 124-149, 153-154, 158-221, 225-264, 268-294, 298-303, 307-331, 335
+tools/governance/__init__.py                 0      0      0      0   100%
+tools/governance/anchors_audit.py           76     76     20      0     0%   3-137
+tools/impact/__init__.py                     1      1      0      0     0%   3
+tools/impact/bridge.py                     277    277     94      0     0%   2-484
+tools/impact/btc_record.py                  58     58      6      0     0%   2-107
+tools/impact/case_study.py                 138    138     44      0     0%   2-281
+tools/impact/ttd_trend.py                  213    213     90      0     0%   2-339
+tools/memory/__init__.py                     2      2      0      0     0%   2-4
+tools/memory/cli.py                        105    105     44      0     0%   2-133
+tools/memory/gap_audit.py                  117    117     46      0     0%   2-180
+tools/memory/hot_index.py                   80     80     26      0     0%   3-102
+tools/memory/log-entry.py                   45     45     12      0     0%   3-83
+tools/memory/memory.py                     116    116     36      0     0%   2-180
+tools/memory/query.py                       46     46     20      0     0%   3-69
+tools/memory/reflection_audit.py            95     95     34      0     0%   2-161
+tools/metrics/__init__.py                    0      0      0      0   100%
+tools/metrics/plan_lattice.py              166    166     62      0     0%   20-386
+tools/metrics/ratchet.py                   130     83     34      0    29%   19-22, 26-29, 33-36, 51-53, 76, 102-138, 150-161, 174-203, 207-219
+tools/network/__init__.py                    2      2      0      0     0%   2-4
+tools/network/convergence_metrics.py       244    244     66      0     0%   3-362
+tools/network/discover.py                   62     62     22      0     0%   2-94
+tools/network/receipt_sync.py              332    332    136      0     0%   2-624
+tools/observation/__init__.py                2      2      0      0     0%   2-4
+tools/observation/receipt_graph.py         314    314    120      0     0%   3-558
+tools/onboarding/__init__.py                 8      8      0      0     0%   3-24
+tools/onboarding/build.py                   64     64      8      0     0%   2-106
+tools/onboarding/mirror_drill.py            48     48      8      0     0%   2-102
+tools/onboarding/quickstart.py             116    116     24      0     0%   2-239
+tools/planner/__init__.py                   31     14      8      3    56%   60-63, 66-70, 73-76, 82
+tools/planner/backlog_summary.py           105    105     26      0     0%   3-181
+tools/planner/cli.py                       726    726    304      0     0%   3-1102
+tools/planner/eval_minimal.py               11     11      2      0     0%   3-32
+tools/planner/evidence_scope.py            138     74     38     10    44%   33-36, 40, 47, 60-63, 66, 82, 84, 87, 89, 108, 111, 119-124, 128, 132-133, 137-175, 179-193, 197-273, 280
+tools/planner/exploratory_lane.py          168    168     62      0     0%   2-273
+tools/planner/link_memory.py                38     38      6      0     0%   3-60
+tools/planner/missing_receipts.py           58     58     16      0     0%   3-91
+tools/planner/queue_scan.py                 70     70     18      0     0%   3-102
+tools/planner/queue_warnings.py             52     52     22      0     0%   2-73
+tools/planner/systemic_targets.py           90     53     44      6    34%   33->32, 41, 44, 45->47, 49, 52-53, 55, 66-74, 78-86, 90-96, 100-110, 114-124
+tools/planner/validate.py                  568    185    280     85    65%   78-80, 86, 91->96, 94-95, 97->99, 125, 128, 131-139, 145->163, 164, 177->123, 181, 195->123, 227-228, 231-232, 238-239, 242-243, 246, 250-251, 255, 259-260, 263, 275-276, 285-286, 288-289, 302, 304-305, 311, 314->316, 317->319, 321-324, 326-327, 329->331, 332, 348-349, 365-366, 369, 375-378, 380->393, 385, 391, 399, 403, 406-407, 411, 413, 419-420, 422, 426, 429, 436, 446->448, 450, 452, 459, 463-464, 467, 472, 476-477, 481-482, 485, 497, 509, 513-514, 517-518, 522, 527-528, 533-534, 537-538, 544, 551, 553, 568->579, 571, 575, 615-616, 623, 626-627, 629-630, 635->644, 638-643, 645->exit, 649->exit, 660, 665-666, 674-675, 687-688, 696, 701-705, 709-711, 719, 722-723, 735-738, 742-744, 755-764, 768-838, 842
+tools/receipts/__init__.py                   1      1      0      0     0%   3
+tools/receipts/check.py                     24     24      6      0     0%   4-39
+tools/receipts/log_event.py                115    115     14      0     0%   2-226
+tools/receipts/main.py                      52     52     12      0     0%   4-81
+tools/receipts/scaffold.py                 103    103     42      0     0%   3-193
+tools/receipts/status.py                   115    115     40      0     0%   2-211
+tools/receipts/utils.py                     38     38     22      0     0%   2-56
+tools/reconcile_commandments_diff.py        23     23      4      0     0%   3-34
+tools/reconcile_diff.py                     26     26      8      0     0%   3-38
+tools/reconcile_fetch.py                    38     38     10      0     0%   3-51
+tools/reconcile_hello.py                    51     51     10      0     0%   3-105
+tools/reconcile_merge.py                    42     42     10      0     0%   3-86
+tools/reconcile_metrics_summary.py          34     34      8      0     0%   3-52
+tools/reconcile_pipeline.py                 63     63     10      0     0%   3-100
+tools/reconcile_utils.py                    42     42     18      0     0%   2-60
+tools/reference/__init__.py                  0      0      0      0   100%
+tools/reference/lookup.py                   36     36     14      0     0%   3-53
+tools/tests/__init__.py                      2      2      0      0     0%   2-4
+tools/tests/coverage_guard.py               52     52     12      0     0%   3-87
+------------------------------------------------------------------------------------
+TOTAL                                    12579  11465   4294    146     8%
+Coverage XML written to file coverage.xml
+Coverage JSON written to file coverage.json
+============================== 29 passed in 3.19s ==============================

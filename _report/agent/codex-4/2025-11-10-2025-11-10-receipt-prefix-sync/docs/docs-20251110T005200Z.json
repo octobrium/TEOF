@@ -1,0 +1,12 @@
+{
+  "type": "docs-update",
+  "plan_id": "2025-11-10-2025-11-10-receipt-prefix-sync",
+  "recorded_at": "2025-11-10T00:51:44Z",
+  "files": [
+    "_plans/README.md",
+    "docs/reference/evidence-scope.md",
+    "docs/ci-guarantees.md",
+    "docs/specs/hash-linked-receipt-ledger.md"
+  ],
+  "summary": "Documented shared _report receipt exemption across specs + guard table"
+}

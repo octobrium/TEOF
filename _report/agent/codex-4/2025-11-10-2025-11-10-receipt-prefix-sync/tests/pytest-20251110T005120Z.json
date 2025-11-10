@@ -1,0 +1,17 @@
+{
+  "type": "pytest",
+  "command": [
+    "pytest",
+    "tests/test_push_ready.py",
+    "tests/test_planner_validation.py",
+    "tests/test_receipts_hygiene.py"
+  ],
+  "recorded_at": "2025-11-10T00:51:37Z",
+  "result": {
+    "returncode": 0,
+    "tests": 29
+  },
+  "artifacts": [
+    "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-prefix-sync/tests/pytest-20251110T005120Z.txt"
+  ]
+}

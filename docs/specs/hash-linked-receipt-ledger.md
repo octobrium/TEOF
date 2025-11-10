@@ -41,7 +41,7 @@ hash = SHA256(json.dumps(payload, sort_keys=True, separators=(",", ":")))
 The `signature` (if present) signs the canonical concatenation `hash || agent_id || ts`.
 
 ## Validator Responsibilities
-1. Ensure files referenced by `receipt_path` exist and are tracked by git.
+1. Ensure files referenced by `receipt_path` exist. Receipts stored outside `_report/` must be tracked by git; `_report/…` evidence can stay untracked so we can capture run artifacts without polluting history.
 2. Recompute the payload hash and confirm it matches `hash`.
 3. Verify `prev_hash` matches the last accepted entry.
 4. When `signature` is provided, check the key against `governance/anchors.json`.

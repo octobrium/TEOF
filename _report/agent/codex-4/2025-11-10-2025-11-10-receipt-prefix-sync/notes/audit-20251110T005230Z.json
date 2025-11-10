@@ -1,0 +1,10 @@
+{
+  "type": "audit",
+  "plan_id": "2025-11-10-2025-11-10-receipt-prefix-sync",
+  "recorded_at": "2025-11-10T00:52:02Z",
+  "notes": [
+    "push_ready required git tracking for all receipts",
+    "receipts_index missing shared prefix exemption",
+    "CI guard already updated earlier but confirmed"
+  ]
+}

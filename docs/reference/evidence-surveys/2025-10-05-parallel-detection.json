@@ -1,0 +1,16 @@
+{
+  "schema": "teof.evidence.survey/v1",
+  "plan_id": "2025-10-05-parallel-detection",
+  "collected_at": "2025-11-10T01:21:00Z",
+  "internal": [
+    {"ref": "docs/parallel-codex.md", "summary": "Operator expectations for parallel agents"},
+    {"ref": "docs/automation/autonomy-consent.json", "summary": "Automation consent contract"}
+  ],
+  "external": [
+    {"ref": "https://queue.acm.org/detail.cfm?id=3301254", "summary": "Concurrency control failures in production systems"}
+  ],
+  "comparative": [
+    {"ref": "https://sre.google/sre-book/handling-overload/", "summary": "SRE overload handling parallels"}
+  ],
+  "notes": "Evidence retrofitted so the parallel guard plan cites internal and external heuristics."
+}

@@ -73,5 +73,32 @@
   "layer_targets": [
     "L5"
   ],
-  "impact_ref": "2025-10-05-commitment-guard"
+  "impact_ref": "2025-10-05-commitment-guard",
+  "evidence_scope": {
+    "internal": [
+      {
+        "ref": "docs/automation.md",
+        "summary": "Automation policy documents commitment guard obligations"
+      },
+      {
+        "ref": "tools/autonomy/commitment_guard.py",
+        "summary": "Guard implementation proving requirement"
+      }
+    ],
+    "external": [
+      {
+        "ref": "https://queue.acm.org/detail.cfm?id=3469848",
+        "summary": "Operational debt / untracked commitments guidance"
+      }
+    ],
+    "comparative": [
+      {
+        "ref": "https://martinfowler.com/bliki/ContinuousDelivery.html",
+        "summary": "Industry baseline for honoring commitments in delivery pipelines"
+      }
+    ],
+    "receipts": [
+      "docs/reference/evidence-surveys/2025-10-05-commitment-guard.json"
+    ]
+  }
 }

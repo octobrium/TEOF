@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "plan_id": "2025-11-10-2025-11-10-receipt-prefix-sync",
+  "created": "2025-11-10T00:46:53Z",
+  "actor": "Octo",
+  "summary": "Share _report receipt exemptions across tools",
+  "impact_ref": "receipt-prefix-sync",
+  "systemic_targets": [
+    "S3",
+    "S4"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 4,
+  "impact_score": 2,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Audit-tools",
+      "status": "done",
+      "notes": "Enumerated push_ready + receipts_index reliance on git tracking and captured audit notes",
+      "receipts": [
+        "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-prefix-sync/notes/audit-20251110T005230Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Sync-prefix",
+      "status": "done",
+      "notes": "Shared the planner receipt exemption with push_ready + receipts_index and added regression coverage",
+      "receipts": [
+        "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-prefix-sync/tests/pytest-20251110T005120Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Docs",
+      "status": "done",
+      "notes": "Updated schema + guard docs to mention the _report exemption",
+      "receipts": [
+        "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-prefix-sync/docs/docs-20251110T005200Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-prefix-sync/tests/pytest-20251110T005120Z.json",
+    "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-prefix-sync/docs/docs-20251110T005200Z.json"
+  ],
+  "evidence_scope": {
+    "internal": [
+      {
+        "ref": "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-tracking/tests/pytest-20251110T002104Z.json",
+        "summary": "recent-tests"
+      }
+    ],
+    "external": [
+      {
+        "ref": "docs/reference/evidence-scope.md",
+        "summary": "contract"
+      }
+    ],
+    "comparative": [],
+    "receipts": [
+      "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-prefix-sync/tests/pytest-20251110T005120Z.json"
+    ]
+  }
+}

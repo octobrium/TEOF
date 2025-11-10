@@ -30,6 +30,7 @@ CHECKPOINT_STATUS = {"pending", "satisfied", "superseded"}
 VALID_LAYERS = {f"L{idx}" for idx in range(7)}
 SYSTEMIC_MIN, SYSTEMIC_MAX = 1, 10
 IMPACT_REF_PATTERN = re.compile(r"^[a-z0-9][a-z0-9-]*$")
+EVIDENCE_BUCKETS: tuple[str, ...] = ("internal", "external", "comparative")
 
 PlanDict = Dict[str, Any]
 
@@ -37,6 +38,8 @@ PlanDict = Dict[str, Any]
 DEFAULT_SUMMARY_DIR = ROOT / "_report" / "planner" / "validate"
 
 _QUEUE_INDEX: Dict[str, fractal_conformance.QueueEntry] | None = None
+
+RECEIPT_TRACKING_OPTIONAL_PREFIXES: tuple[str, ...] = ("_report/",)
 
 
 class DuplicateKeyError(ValueError):
@@ -293,6 +296,103 @@ def _validate_checkpoint(raw: Any, errors: List[str]) -> Dict[str, Any] | None:
     }
 
 
+def _normalize_evidence_entries(raw: Any, bucket: str, errors: List[str]) -> List[Dict[str, str]]:
+    entries: List[Dict[str, str]] = []
+    if raw is None:
+        return entries
+    if not isinstance(raw, list):
+        errors.append(f"evidence_scope.{bucket} must be a list when provided")
+        return entries
+    for idx, item in enumerate(raw):
+        ref: str | None = None
+        summary: str | None = None
+        kind: str | None = None
+        if isinstance(item, str):
+            ref = item.strip()
+        elif isinstance(item, dict):
+            raw_ref = item.get("ref")
+            if isinstance(raw_ref, str):
+                ref = raw_ref.strip()
+            raw_summary = item.get("summary")
+            if isinstance(raw_summary, str) and raw_summary.strip():
+                summary = raw_summary.strip()
+            raw_kind = item.get("kind")
+            if isinstance(raw_kind, str) and raw_kind.strip():
+                kind = raw_kind.strip()
+        else:
+            errors.append(f"evidence_scope.{bucket}[{idx}] must be string or object")
+            continue
+        if not ref:
+            errors.append(f"evidence_scope.{bucket}[{idx}] requires non-empty ref")
+            continue
+        entry: Dict[str, str] = {"ref": ref}
+        if summary:
+            entry["summary"] = summary
+        if kind:
+            entry["kind"] = kind
+        entries.append(entry)
+    return entries
+
+
+def _normalize_evidence_scope(
+    raw: Any,
+    *,
+    require: bool,
+    errors: List[str],
+) -> Dict[str, Any] | None:
+    if raw is None:
+        if require:
+            errors.append("version>=1 plans must declare evidence_scope")
+        return None
+    if not isinstance(raw, dict):
+        errors.append("evidence_scope must be an object when provided")
+        return None
+
+    scope: Dict[str, Any] = {}
+    total_references = 0
+    for bucket in EVIDENCE_BUCKETS:
+        entries = _normalize_evidence_entries(raw.get(bucket), bucket, errors)
+        scope[bucket] = entries
+        total_references += len(entries)
+
+    receipts_raw = raw.get("receipts")
+    receipts: List[str] = []
+    if receipts_raw is None:
+        receipts = []
+    elif isinstance(receipts_raw, list):
+        for idx, item in enumerate(receipts_raw):
+            if not isinstance(item, str) or not item.strip():
+                errors.append(f"evidence_scope.receipts[{idx}] must be non-empty string")
+                continue
+            receipts.append(item.strip())
+    else:
+        errors.append("evidence_scope.receipts must be list when provided")
+    if receipts:
+        scope["receipts"] = receipts
+
+    notes = raw.get("notes")
+    if notes is not None:
+        if not isinstance(notes, str):
+            errors.append("evidence_scope.notes must be string when provided")
+        elif notes.strip():
+            scope["notes"] = notes.strip()
+
+    if require:
+        internal_count = len(scope.get("internal", []))
+        external_count = len(scope.get("external", []))
+        comparative_count = len(scope.get("comparative", []))
+        if internal_count == 0:
+            errors.append("evidence_scope.internal must include at least one reference for version>=1 plans")
+        if (external_count + comparative_count) == 0:
+            errors.append(
+                "evidence_scope.external or evidence_scope.comparative must include at least one reference for version>=1 plans"
+            )
+        if total_references == 0:
+            errors.append("evidence_scope must include at least one reference entry")
+
+    return scope
+
+
 def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
     errors: List[str] = []
     if not isinstance(data, dict):
@@ -456,6 +556,12 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
     else:
         errors.append("impact_ref is required and must be string")
 
+    evidence_scope = _normalize_evidence_scope(
+        data.get("evidence_scope"),
+        require=isinstance(version, int) and version >= 1,
+        errors=errors,
+    )
+
     if "legacy_loop_target" in data:
         errors.append("legacy_loop_target is deprecated; use systemic_targets/layer_targets")
 
@@ -491,6 +597,7 @@ def _load_plan(data: Any, path: Path) -> Tuple[PlanDict | None, List[str]]:
             "systemic_targets": systemic_targets,
             "layer_targets": layer_targets,
             "impact_ref": impact_ref,
+            "evidence_scope": evidence_scope,
         },
         [],
     )
@@ -537,8 +644,14 @@ def _check_receipt(path_str: str, context: str, repo_root: Path, errors: List[st
     tracked = _git_tracked_paths(str(repo_root))
     if tracked is not None:
         normalized = rec_path.as_posix()
+        if not _is_tracking_required(normalized):
+            return
         if normalized not in tracked:
             errors.append(f"{context} is not tracked by git: '{path_str}'")
+
+
+def _is_tracking_required(path: str) -> bool:
+    return not any(path.startswith(prefix) for prefix in RECEIPT_TRACKING_OPTIONAL_PREFIXES)
 
 
 def strict_checks(plan: PlanDict, *, repo_root: Path) -> List[str]:
@@ -562,6 +675,25 @@ def strict_checks(plan: PlanDict, *, repo_root: Path) -> List[str]:
                 continue
             seen_steps.add(entry)
             _check_receipt(entry, f"steps[{sidx}].receipts[{ridx}]", repo_root, errors)
+
+    scope = plan.get("evidence_scope")
+    version = plan.get("version") or 0
+    status = plan.get("status") or "queued"
+    if isinstance(scope, dict):
+        scope_receipts = scope.get("receipts") or []
+        seen_scope: set[str] = set()
+        for ridx, entry in enumerate(scope_receipts):
+            if entry in seen_scope:
+                errors.append(f"evidence_scope.receipts[{ridx}] duplicates '{entry}'")
+                continue
+            seen_scope.add(entry)
+            _check_receipt(entry, f"evidence_scope.receipts[{ridx}]", repo_root, errors)
+        if version >= 1 and status != "queued" and not scope_receipts:
+            errors.append(
+                "version>=1 plans must attach evidence_scope receipts before moving beyond queued status"
+            )
+    elif version >= 1:
+        errors.append("version>=1 plans must include evidence_scope section")
     return errors
 
 

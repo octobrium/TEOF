@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
 from tools.autonomy.shared import write_receipt_payload
+from tools.planner import validate as planner_validate
 
 ROOT = Path(__file__).resolve().parents[2]
 PLANS_DIR = ROOT / "_plans"
@@ -74,6 +75,16 @@ def _git_tracked_paths(root: Path) -> Optional[set[str]]:
     return entries
 
 
+def _tracking_required(rel: str) -> bool:
+    return not any(rel.startswith(prefix) for prefix in OPTIONAL_RECEIPT_PREFIXES)
+
+
+def _resolve_tracked(rel: str, tracked: Optional[set[str]]) -> bool:
+    if tracked is None or not _tracking_required(rel):
+        return True
+    return rel in tracked
+
+
 def _plan_entries(root: Path, *, tracked: Optional[set[str]]) -> tuple[List[Dict[str, Any]], Dict[str, List[ReceiptReference]]]:
     entries: List[Dict[str, Any]] = []
     refs: Dict[str, List[ReceiptReference]] = {}
@@ -94,7 +105,7 @@ def _plan_entries(root: Path, *, tracked: Optional[set[str]]) -> tuple[List[Dict
             rel = receipt.strip()
             target = root / rel
             exists = target.exists()
-            tracked_flag = tracked is None or rel in tracked
+            tracked_flag = _resolve_tracked(rel, tracked)
             if not exists or not tracked_flag:
                 missing.append(rel)
             mtime_iso: Optional[str] = None
@@ -125,7 +136,7 @@ def _plan_entries(root: Path, *, tracked: Optional[set[str]]) -> tuple[List[Dict
                 rel = receipt.strip()
                 target = root / rel
                 exists = target.exists()
-                tracked_flag = tracked is None or rel in tracked
+                tracked_flag = _resolve_tracked(rel, tracked)
                 if not exists or not tracked_flag:
                     missing.append(rel)
                 mtime_iso: Optional[str] = None
@@ -208,7 +219,7 @@ def _receipt_entries(root: Path, *, tracked: Optional[set[str]], refs: Dict[str,
                 "size": stat.st_size,
                 "mtime": _iso_timestamp(stat.st_mtime),
                 "sha256": _hash_file(path),
-                "tracked": (tracked is None) or (rel in tracked),
+                "tracked": _resolve_tracked(rel, tracked),
                 "referenced_by": entry_refs,
             }
         )
@@ -239,7 +250,7 @@ def _manager_entries(root: Path, *, tracked: Optional[set[str]]) -> List[Dict[st
                 rel = receipt.strip()
                 target = root / rel
                 exists = target.exists()
-                tracked_flag = (tracked is None) or (rel in tracked)
+                tracked_flag = _resolve_tracked(rel, tracked)
                 if not exists or not tracked_flag:
                     missing.append(rel)
                 receipts_info.append(
@@ -492,3 +503,4 @@ def main(argv: Optional[List[str]] = None) -> int:
 
 if __name__ == "__main__":  # pragma: no cover - CLI entry
     raise SystemExit(main())
+OPTIONAL_RECEIPT_PREFIXES = planner_validate.RECEIPT_TRACKING_OPTIONAL_PREFIXES

@@ -1,0 +1,16 @@
+{
+  "schema": "teof.evidence.survey/v1",
+  "plan_id": "2025-10-05-commitment-guard",
+  "collected_at": "2025-11-10T01:20:00Z",
+  "internal": [
+    {"ref": "docs/automation.md", "summary": "Automation policy lists commitment guard"},
+    {"ref": "tools/autonomy/commitment_guard.py", "summary": "Guard implementation"}
+  ],
+  "external": [
+    {"ref": "https://queue.acm.org/detail.cfm?id=3469848", "summary": "Operational debt from untracked commitments"}
+  ],
+  "comparative": [
+    {"ref": "https://martinfowler.com/bliki/ContinuousDelivery.html", "summary": "Continuous delivery mandate for committed work"}
+  ],
+  "notes": "Survey captured while retrofitting evidence scope for the commitment guard plan."
+}

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Advisory check: verify plan receipts exist and are tracked by git.
+Advisory check: verify plan receipts exist and, when required, are tracked by git.
 
 Non-blocking by design (exit 0). Prints WARN lines for:
   - Missing receipt files referenced by plan or steps
-  - Files not tracked by git (ls-files --error-unmatch fails)
+  - Files that must be tracked (non `_report/` paths) but aren't
 """
 from __future__ import annotations
 
@@ -13,8 +13,16 @@ import subprocess
 import sys
 from pathlib import Path
 
+from tools.planner import validate as planner_validate
+
 
 ROOT = Path(__file__).resolve().parents[2]
+OPTIONAL_TRACKING_PREFIXES = planner_validate.RECEIPT_TRACKING_OPTIONAL_PREFIXES
+
+
+def _tracking_required(rel: Path) -> bool:
+    rel_posix = rel.as_posix()
+    return not any(rel_posix.startswith(prefix) for prefix in OPTIONAL_TRACKING_PREFIXES)
 
 
 def _git_tracked(rel_path: Path) -> bool:
@@ -55,12 +63,14 @@ def main() -> int:
             nonlocal warnings
             if not isinstance(rel_str, str) or not rel_str.strip():
                 return
+            if "://" in rel_str:
+                return
             rel = Path(rel_str)
             abs_path = (ROOT / rel).resolve()
             if not abs_path.exists():
                 print(f"WARN: missing receipt {rel} (context={context})")
                 warnings += 1
-            elif not _git_tracked(rel):
+            elif _tracking_required(rel) and not _git_tracked(rel):
                 print(f"WARN: untracked receipt {rel} (context={context})")
                 warnings += 1
 
@@ -81,4 +91,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

@@ -38,8 +38,15 @@ Purpose: codify session/workstream plans as deterministic artifacts that feed CI
 - `status`: lifecycle (`queued|in_progress|blocked|done`).
 - `steps`: ordered list with unique `id` values; each step includes `id`, `title`, `status` (`queued|in_progress|blocked|done`), optional `notes`, and `receipts` (list of receipt paths/URLs). Only one step may be `in_progress` at a time.
 - `checkpoint`: object with `description` (non-empty), `owner`, and `status` (`pending|satisfied|superseded`).
-- `receipts`: optional list of receipt paths/URLs produced by evaluations. Paths are relative to the repo root, must not escape via `..`, and **must be tracked by git** (strict validation fails on ignored/untracked files).
+- `receipts`: optional list of receipt paths/URLs produced by evaluations. Paths are relative to the repo root, must not escape via `..`, and must exist. Most receipts must be tracked by git, but paths under `_report/` are exempt so automation can capture run artifacts without polluting history. Strict validation enforces both existence and the tracking rule.
 - `links`: optional structured references (`type`, `ref`).
+- `evidence_scope`: required for `version >= 1`. Object with:
+  - `internal`: references to existing TEOF artifacts (docs, memory, receipts) that motivate the plan.
+  - `external`: references to literature, datasets, or field evidence outside the repo.
+  - `comparative`: optional trend or benchmarking sources (e.g., scaling curves, other frameworks).
+  - `receipts`: list of files (e.g., `_report/agent/<id>/<plan_id>/evidence.json`) that capture the actual survey. Non `_report/` paths must be tracked by git; `_report/…` evidence can remain untracked.
+  Plans may stay `queued` without receipts while the survey is in progress, but receipts become mandatory before advancing to `in_progress` and automation guards can enforce them via `--require-evidence-plan`.
+  See [`docs/reference/evidence-scope.md`](../docs/reference/evidence-scope.md) for detailed guidance and examples.
 
 ## Authoring helpers
 - `python -m tools.planner.cli new <slug> --summary "..."` scaffolds a plan with lifecycle status `queued` and steps seeded from `--step ID:Title` (defaults to a single `S1`). Optional flags:
