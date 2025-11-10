@@ -79,3 +79,51 @@ def test_teof_up_contribute_creates_receipt(tmp_path: Path, monkeypatch: pytest.
     assert receipts, "expected contribution receipt"
     data = json.loads(receipts[-1].read_text(encoding="utf-8"))
     assert data["contributor_id"] == "test-agent_01"
+
+
+def test_quickstart_details_parses_git_and_intent(tmp_path: Path) -> None:
+    payload = {
+        "git": {"head": "abc", "branch": "main"},
+        "intent": {"TEOF_PLAN_ID": "2025-11-10-demo"},
+    }
+    quickstart = tmp_path / "quickstart.json"
+    quickstart.write_text(json.dumps(payload), encoding="utf-8")
+
+    git, intent = up_cmd._quickstart_details(quickstart)
+
+    assert git == payload["git"]
+    assert intent == payload["intent"]
+
+
+def test_write_metadata_embeds_quickstart_details(tmp_path: Path) -> None:
+    target = tmp_path / "artifacts" / "systemic_out" / "2025"
+    target.mkdir(parents=True, exist_ok=True)
+    (target / "brief.json").write_text("{}", encoding="utf-8")
+    (target / "score.txt").write_text("ensemble_count=1\n", encoding="utf-8")
+    eval_receipt = tmp_path / "_report" / "tier1.json"
+    eval_receipt.parent.mkdir(parents=True, exist_ok=True)
+    eval_receipt.write_text("{}", encoding="utf-8")
+    quickstart = tmp_path / "_report" / "usage" / "onboarding" / "quickstart.json"
+    quickstart.parent.mkdir(parents=True, exist_ok=True)
+    quickstart.write_text(
+        json.dumps(
+            {
+                "git": {"head": "abc"},
+                "intent": {"TEOF_PLAN_ID": "plan-1", "TEOF_TASK_ID": "ND-001"},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    metadata_path = up_cmd._write_metadata(
+        target,
+        ["doc.ensemble.json"],
+        1,
+        eval_receipt,
+        quickstart,
+        "ensemble_count=1",
+    )
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+
+    assert metadata["quickstart_git"]["head"] == "abc"
+    assert metadata["quickstart_intent"]["TEOF_PLAN_ID"] == "plan-1"

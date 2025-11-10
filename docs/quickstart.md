@@ -16,6 +16,9 @@ cat artifacts/systemic_out/latest/brief.json
 
 - Install exposes the teof console script.
 - teof brief scores docs/examples/brief/inputs/ and writes receipts under artifacts/systemic_out/<UTC>.
+- Quickstart receipts now record `git.head`, `git.branch`, `git.status`, and `git.dirty` so Tier 1 runs prove which snapshot produced the artifacts.
+- When env vars such as `TEOF_PLAN_ID`, `TEOF_PLAN_STEP_ID`, `TEOF_TASK_ID`, or `TEOF_AGENT_ID` are set, the receipt also includes an `intent` block so provenance ties back to the active plan/claim.
+- `artifacts/systemic_out/<timestamp>/metadata.json` copies the same `quickstart_git` + `quickstart_intent` block, so Tier 1 evaluations (`teof up --eval`, `bin/teof-up`) cite provenance without reopening the onboarding receipt.
 
 > Update the snippet via `python3 tools/snippets/render_quickstart.py` after editing `tools/snippets/quickstart.json`.
 
@@ -36,6 +39,18 @@ cat artifacts/systemic_out/latest/brief.json
   "run": {
     "reuse_venv": false,
     "skip_install": false
+  },
+  "git": {
+    "head": "1d0963153fa557edf5a3f6bfdca7fc0d77fe223f",
+    "branch": "main",
+    "status": "",
+    "dirty": false
+  },
+  "intent": {
+    "TEOF_PLAN_ID": "2025-10-03-tier1-upgrade",
+    "TEOF_PLAN_STEP_ID": "step-1",
+    "TEOF_TASK_ID": "ND-041",
+    "TEOF_AGENT_ID": "codex-5"
   },
   "generated_at": "2025-10-03T19:18:25Z",
   "python": "3.9.6 (default, Apr 30 2025, 02:07:17) [Clang 17.0.0 (clang-1700.0.13.5)]",

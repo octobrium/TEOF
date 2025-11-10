@@ -21,6 +21,7 @@ RECEIPT_DIR = USAGE_DIR
 BUS_EVENTS_PATH = ROOT / "_bus" / "events" / "events.jsonl"
 MEMORY_LOG_PATH = ROOT / "memory" / "log.jsonl"
 ISO_FMT = "%Y-%m-%dT%H:%M:%SZ"
+EVIDENCE_BUCKETS: tuple[str, ...] = ("internal", "external", "comparative")
 
 
 class ReceiptGraphError(RuntimeError):
@@ -119,9 +120,44 @@ def _collect_receipts(plan_data: Mapping[str, object], extras: Iterable[str] | N
             step_receipts = step.get("receipts")
             if isinstance(step_receipts, Sequence):
                 _append(str(item).strip() for item in step_receipts if isinstance(item, str))
+    scope = plan_data.get("evidence_scope")
+    if isinstance(scope, Mapping):
+        scope_receipts = scope.get("receipts")
+        if isinstance(scope_receipts, Sequence):
+            _append(str(item).strip() for item in scope_receipts if isinstance(item, str))
     if extras:
         _append(extra.strip() for extra in extras if isinstance(extra, str))
     return receipts
+
+
+def _collect_evidence(plan_data: Mapping[str, object]) -> list[dict[str, object]]:
+    scope = plan_data.get("evidence_scope")
+    if not isinstance(scope, Mapping):
+        return []
+    entries: list[dict[str, object]] = []
+    for bucket in EVIDENCE_BUCKETS:
+        raw_entries = scope.get(bucket)
+        if not isinstance(raw_entries, Sequence):
+            continue
+        for item in raw_entries:
+            ref: str | None = None
+            summary: str | None = None
+            if isinstance(item, str):
+                ref = item.strip()
+            elif isinstance(item, Mapping):
+                raw_ref = item.get("ref")
+                if isinstance(raw_ref, str):
+                    ref = raw_ref.strip()
+                raw_summary = item.get("summary")
+                if isinstance(raw_summary, str) and raw_summary.strip():
+                    summary = raw_summary.strip()
+            if not ref:
+                continue
+            entry: dict[str, object] = {"category": bucket, "ref": ref}
+            if summary:
+                entry["summary"] = summary
+            entries.append(entry)
+    return entries
 
 
 def _mermaid_id(node_id: str) -> str:
@@ -231,6 +267,7 @@ def _build_graph(
     plan_path: Path,
     plan_data: Mapping[str, object],
     receipts: Sequence[str],
+    evidence_entries: Sequence[Mapping[str, object]],
     bus_events: Sequence[Mapping[str, object]],
     memory_refs: Sequence[Mapping[str, object]],
 ) -> Mapping[str, object]:
@@ -317,6 +354,22 @@ def _build_graph(
         )
         add_edge(node_id, plan_node_id, "documents")
 
+    for idx, evidence in enumerate(evidence_entries):
+        category = str(evidence.get("category") or "evidence")
+        ref = str(evidence.get("ref") or "")
+        summary = str(evidence.get("summary") or "")
+        node_id = f"evidence:{category}:{idx}"
+        label = summary or ref or category
+        add_node(
+            node_id,
+            node_type="evidence",
+            label=label,
+            category=category,
+            ref=ref or None,
+            summary=summary or None,
+        )
+        add_edge(plan_node_id, node_id, f"{category}_evidence")
+
     graph: dict[str, object] = {
         "task_id": task_id,
         "plan_id": plan_id,
@@ -336,6 +389,8 @@ def _build_graph(
     if memory_refs:
         graph["memory_refs"] = list(memory_refs)
         graph["sources"]["memory_log"] = _relative(MEMORY_LOG_PATH)
+    if evidence_entries:
+        graph["evidence"] = list(evidence_entries)
     graph["digest"] = _canonical_digest(graph)
     return graph
 
@@ -354,6 +409,7 @@ def build_graph(
     effective_plan_id = plan_id or str(claim_data.get("plan_id") or "").strip() or None
     plan_id, plan_path, plan_data = _load_plan(effective_plan_id)
     receipts = _collect_receipts(plan_data, extra_receipts)
+    evidence_entries = _collect_evidence(plan_data)
     bus_events = _collect_bus_events(task_id, plan_id)
     memory_refs = _collect_memory_refs(plan_id)
 
@@ -366,6 +422,7 @@ def build_graph(
         plan_path=plan_path,
         plan_data=plan_data,
         receipts=receipts,
+        evidence_entries=evidence_entries,
         bus_events=bus_events,
         memory_refs=memory_refs,
     )

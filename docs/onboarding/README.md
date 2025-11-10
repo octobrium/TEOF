@@ -31,6 +31,13 @@ loop summary (handshake → plan → bus → receipts), see the [`TEOF Operator 
    Inspect the receipt before proceeding. After a successful full run you can
    reuse the cached environment with `bin/teof-up --fast` to refresh receipts
    without rebuilding the wheel.  
+   Confirm the `git.head`, `git.branch`, and `git.status` fields in the receipt
+   match the snapshot you'll work from; rerun if the repo state shifts.  
+   If the `intent` block is present, ensure `TEOF_PLAN_ID`/`TEOF_TASK_ID` match
+   the claim you're about to continue so provenance aligns with intent.  
+   Then inspect `artifacts/systemic_out/latest/metadata.json` — it now embeds a
+   `quickstart_git`/`quickstart_intent` block so Tier 1 evaluation artifacts cite
+   the same provenance without reopening the quickstart receipt.  
    **Do not modify the repository yet. Tier 1 ends here; advancing to Tier 2 is mandatory before any edits.**  
    _Maintainers_: verify any onboarding text changes via the [doc verification SOP](doc-verification-sop.md) before editing.  
    _Public entry_: send new observers to [`docs/onboarding/tier1-evaluate-PROTOTYPE.md`](tier1-evaluate-PROTOTYPE.md) — it’s the 5-minute walkthrough you can share outside the repo, and it now cites the metadata receipts created by `teof up --eval`.
@@ -61,6 +68,7 @@ will instruct you to complete it before continuing.
 - **Verify receipts:** ensure `_report/agent/<id>/…` and plan step receipts exist before claiming progress.
 - **Bus alignment:** check `_bus/claims/<task>.json` and `teof bus_status --preset support` for active ownership/conflicts.
 - **Doc accuracy:** when editing onboarding/docs, follow [`docs/onboarding/doc-verification-sop.md`](doc-verification-sop.md) so statements match receipts (reflection logs show trust erodes when counts mismatch).
+- **Evidence scope:** if your plan uses schema `version = 1`, keep `evidence_scope` updated (internal + external references) and capture `_report/agent/<id>/<plan_id>/evidence.json` before the status leaves `queued`. Guards like `teof operator verify --require-evidence-plan <plan>` and `python -m tools.agent.push_ready --require-evidence-plan <plan>` will block progress when the survey is missing.
 - **Memory briefing:** run `teof reflections --limit 5` (or `teof reflections --layer L4 --days 7`) to ingest the latest lessons without rereading the entire log; cite relevant reflections when proposing structural changes.
 - **Shared stewardship:** run `python3 -m tools.agent.stale_claims --agent <id> --threshold-hours 6 --fail-on-stale` so any idle claims get released or updated before you continue; if you see another agent’s stalled task, announce the takeover in `manager-report` before reclaiming.
 

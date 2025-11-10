@@ -55,6 +55,8 @@ Before proposing changes, especially to governance, architecture, or workflow fi
 
 When you act without observing, the framework will reflect that back. Not as punishment — as reality revealing its structure. This is how TEOF works.
 
+[New in P1.2](docs/reference/evidence-scope.md): before writing code, capture `evidence_scope` inside your plan (internal + external + comparative citations) and drop the survey receipt under `_report/agent/<id>/<plan_id>/`. Guards such as `teof operator verify --require-evidence-plan <plan>` and `python -m tools.agent.push_ready --require-evidence-plan <plan>` enforce this standard automatically.
+
 [See what happens when agents skip this step](docs/examples/transmission-failures.md)
 
 ---

@@ -69,6 +69,7 @@ def _setup_env(
 
     events_path = root / "_bus" / "events" / "events.jsonl"
     events_path.parent.mkdir(parents=True, exist_ok=True)
+    handshake_index_path = events_path.with_name("handshake_index.json")
     claims_dir = root / "_bus" / "claims"
     claims_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = root / "AGENT_MANIFEST.json"
@@ -83,6 +84,7 @@ def _setup_env(
         agent_inbox_path.write_text("".join(agent_inbox_entries), encoding="utf-8")
 
     monkeypatch.setattr(session_boot, "EVENT_LOG", events_path)
+    monkeypatch.setattr(session_boot, "HANDSHAKE_INDEX_PATH", handshake_index_path)
     monkeypatch.setattr(session_boot, "CLAIMS_DIR", claims_dir)
     monkeypatch.setattr(session_boot, "MANIFEST_PATH", manifest_path)
     monkeypatch.setattr(session_boot, "MANAGER_REPORT_LOG", manager_log)
@@ -462,3 +464,48 @@ def test_session_boot_auto_agent_selects_free_slot(monkeypatch, tmp_path):
     payloads = [json.loads(line) for line in events_path.read_text(encoding="utf-8").splitlines() if line.strip()]
     assert payloads[-1]["agent_id"] == "codex-2"
     assert payloads[-1]["event"] == "handshake"
+
+
+def test_handshake_index_updates_via_append(monkeypatch, tmp_path):
+    events_path, _ = _setup_env(monkeypatch, tmp_path, agent_id="codex-7")
+    payload = {
+        "ts": "2025-10-07T11:50:00Z",
+        "agent_id": "codex-7",
+        "event": "handshake",
+    }
+    session_boot._append_event(payload)
+
+    index_path = session_boot.HANDSHAKE_INDEX_PATH
+    assert index_path.exists()
+    data = json.loads(index_path.read_text(encoding="utf-8"))
+    assert data["handshakes"]["codex-7"] == "2025-10-07T11:50:00Z"
+
+    times = session_boot._load_handshake_times()
+    assert "codex-7" in times
+    assert times["codex-7"].strftime("%Y-%m-%dT%H:%M:%SZ") == "2025-10-07T11:50:00Z"
+
+
+def test_handshake_index_incremental_update(monkeypatch, tmp_path):
+    events_path, _ = _setup_env(monkeypatch, tmp_path, agent_id="codex-8")
+    entries = [
+        {"ts": "2025-10-07T11:50:00Z", "agent_id": "codex-1", "event": "handshake"},
+        {"ts": "2025-10-07T10:00:00Z", "agent_id": "codex-2", "event": "handshake"},
+    ]
+    events_path.write_text("\n".join(json.dumps(item) for item in entries) + "\n", encoding="utf-8")
+
+    initial = session_boot._load_handshake_times()
+    assert initial["codex-1"].strftime("%Y-%m-%dT%H:%M:%SZ") == "2025-10-07T11:50:00Z"
+
+    index_before = json.loads(session_boot.HANDSHAKE_INDEX_PATH.read_text(encoding="utf-8"))
+    size_before = index_before["events_size"]
+
+    new_entry = {"ts": "2025-10-07T12:30:00Z", "agent_id": "codex-3", "event": "handshake"}
+    with events_path.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(new_entry) + "\n")
+
+    updated = session_boot._load_handshake_times()
+    assert updated["codex-3"].strftime("%Y-%m-%dT%H:%M:%SZ") == "2025-10-07T12:30:00Z"
+
+    index_after = json.loads(session_boot.HANDSHAKE_INDEX_PATH.read_text(encoding="utf-8"))
+    assert index_after["events_size"] > size_before
+    assert index_after["handshakes"]["codex-3"] == "2025-10-07T12:30:00Z"

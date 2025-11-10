@@ -10,6 +10,7 @@ from pathlib import Path
 
 from teof._paths import repo_root
 from tools.agent import session_guard
+from tools.planner import evidence_scope as planner_evidence
 from tools.maintenance import repo_anatomy
 
 
@@ -147,6 +148,12 @@ def build_parser(subparsers: "argparse._SubParsersAction[object]") -> None:
         default="text",
         help="Output format for the summary (default: text)",
     )
+    verify.add_argument(
+        "--require-evidence-plan",
+        action="append",
+        default=[],
+        help="Plan id that must satisfy evidence_scope guards before verify succeeds",
+    )
     verify.set_defaults(func=_cmd_verify)
 
 
@@ -172,6 +179,29 @@ def _run_verify(args: argparse.Namespace, root: Path) -> tuple[dict[str, object]
     checks.append(_structure_check(root=root, stamp=stamp, receipt_dir=receipt_dir))
     if getattr(args, "strict_plan", False):
         checks.append(_plan_validation_check(root=root, stamp=stamp, receipt_dir=receipt_dir))
+    plan_ids = [pid for pid in getattr(args, "require_evidence_plan", []) if pid]
+    if plan_ids:
+        ok, reports = planner_evidence.require_evidence(plan_ids, strict=True)
+        details = {
+            "plans": [report.plan_id for report in reports],
+            "reports": [
+                {
+                    "plan_id": report.plan_id,
+                    "version": report.version,
+                    "counts": report.counts,
+                    "receipts": len(report.receipts),
+                    "errors": report.errors,
+                }
+                for report in reports
+            ],
+        }
+        checks.append(
+            CheckResult(
+                name="evidence_scope",
+                status="ok" if ok else "fail",
+                details=details,
+            )
+        )
 
     overall_ok = all(check.status == "ok" for check in checks)
 

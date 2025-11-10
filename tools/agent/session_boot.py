@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import contextlib
 import json
+import os
 import subprocess
 import sys
 from collections import defaultdict
@@ -23,6 +24,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EVENT_LOG = ROOT / "_bus" / "events" / "events.jsonl"
+HANDSHAKE_INDEX_PATH = EVENT_LOG.with_name("handshake_index.json")
 CLAIMS_DIR = ROOT / "_bus" / "claims"
 MANAGER_REPORT_LOG = ROOT / "_bus" / "messages" / "manager-report.jsonl"
 MANIFEST_PATH = ROOT / "AGENT_MANIFEST.json"
@@ -118,10 +120,53 @@ def _default_agent() -> str | None:
     return None
 
 
+def _stat_mtime_ns(stat_result: os.stat_result) -> int:
+    return getattr(stat_result, "st_mtime_ns", int(stat_result.st_mtime * 1_000_000_000))
+
+
+def _load_handshake_index_data() -> dict[str, Any] | None:
+    if not HANDSHAKE_INDEX_PATH.exists():
+        return None
+    try:
+        data = json.loads(HANDSHAKE_INDEX_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(data, dict):
+        return None
+    return data
+
+
+def _write_handshake_index_data(handshakes: dict[str, str], events_stat: os.stat_result) -> None:
+    HANDSHAKE_INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "events_size": events_stat.st_size,
+        "events_mtime_ns": _stat_mtime_ns(events_stat),
+        "handshakes": handshakes,
+    }
+    HANDSHAKE_INDEX_PATH.write_text(json.dumps(payload, sort_keys=True), encoding="utf-8")
+
+
+def _record_handshake_index_update(payload: dict[str, Any]) -> None:
+    if payload.get("event") != "handshake":
+        return
+    agent = payload.get("agent_id")
+    ts = payload.get("ts")
+    if not isinstance(agent, str) or not isinstance(ts, str) or not EVENT_LOG.exists():
+        return
+    events_stat = EVENT_LOG.stat()
+    data = _load_handshake_index_data() or {}
+    stored = data.get("handshakes")
+    handshakes: dict[str, str] = stored if isinstance(stored, dict) else {}
+    handshakes = {str(key): str(value) for key, value in handshakes.items()}
+    handshakes[agent] = ts
+    _write_handshake_index_data(handshakes, events_stat)
+
+
 def _append_event(payload: dict[str, Any]) -> None:
     EVENT_LOG.parent.mkdir(parents=True, exist_ok=True)
     with EVENT_LOG.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(payload, sort_keys=True) + "\n")
+    _record_handshake_index_update(payload)
 
 
 def _load_claims() -> list[dict[str, Any]]:
@@ -142,9 +187,52 @@ def _load_handshake_times() -> dict[str, datetime]:
     latest: dict[str, datetime] = {}
     if not EVENT_LOG.exists():
         return latest
+    events_stat = EVENT_LOG.stat()
+    current_sig = (events_stat.st_size, _stat_mtime_ns(events_stat))
+    index_data = _load_handshake_index_data()
+
+    def _convert(map_data: dict[str, str]) -> dict[str, datetime]:
+        converted: dict[str, datetime] = {}
+        for agent, ts in map_data.items():
+            parsed = _parse_iso(ts)
+            if parsed is not None and isinstance(agent, str):
+                converted[agent] = parsed
+        return converted
+
+    if index_data:
+        stored_size = index_data.get("events_size")
+        stored_mtime = index_data.get("events_mtime_ns")
+        handshakes_data = (
+            index_data.get("handshakes") if isinstance(index_data.get("handshakes"), dict) else {}
+        )
+        if (
+            isinstance(stored_size, int)
+            and isinstance(stored_mtime, int)
+            and (stored_size, stored_mtime) == current_sig
+        ):
+            return _convert(handshakes_data)  # up-to-date cache
+
+        incremental = (
+            isinstance(stored_size, int)
+            and stored_size >= 0
+            and stored_size <= current_sig[0]
+            and isinstance(stored_mtime, int)
+            and stored_mtime <= current_sig[1]
+        )
+        if incremental:
+            latest = _convert(handshakes_data)
+            start_offset = stored_size
+        else:
+            latest = {}
+            start_offset = 0
+    else:
+        start_offset = 0
+
     with EVENT_LOG.open(encoding="utf-8") as fh:
-        for line in fh:
-            line = line.strip()
+        if start_offset:
+            fh.seek(start_offset)
+        for raw_line in fh:
+            line = raw_line.strip()
             if not line:
                 continue
             try:
@@ -156,12 +244,16 @@ def _load_handshake_times() -> dict[str, datetime]:
             agent = payload.get("agent_id")
             if not isinstance(agent, str) or not agent:
                 continue
-            ts = _parse_iso(payload.get("ts"))
-            if ts is None:
+            ts = payload.get("ts")
+            if not isinstance(ts, str):
                 continue
-            previous = latest.get(agent)
-            if previous is None or ts > previous:
-                latest[agent] = ts
+            parsed = _parse_iso(ts)
+            if parsed is None:
+                continue
+            latest[agent] = parsed
+
+    handshakes_serialized = {agent: value.strftime("%Y-%m-%dT%H:%M:%SZ") for agent, value in latest.items()}
+    _write_handshake_index_data(handshakes_serialized, events_stat)
     return latest
 
 

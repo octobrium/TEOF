@@ -26,6 +26,16 @@ def _setup_repo(tmp_path: Path) -> None:
             "_report/agent/codex-tier2/og/tests.json",
             "_report/agent/codex-tier2/og/summary.json",
         ],
+        "evidence_scope": {
+            "internal": [
+                {"ref": "docs/architecture.md", "summary": "Repo map"},
+            ],
+            "external": [
+                {"ref": "https://example.org/field", "summary": "Field reference"},
+            ],
+            "comparative": [],
+            "receipts": [],
+        },
     }
     plan_path.write_text(json.dumps(plan_payload, indent=2), encoding="utf-8")
 
@@ -103,7 +113,9 @@ def test_receipt_graph_builds_nodes_and_edges(monkeypatch: pytest.MonkeyPatch, t
     assert generated, "graph output should exist"
     graph_data = json.loads(generated[0].read_text(encoding="utf-8"))
     node_types = {node["type"] for node in graph_data["nodes"]}
-    assert {"task", "plan", "claim", "receipt", "event", "memory"} <= node_types
+    assert {"task", "plan", "claim", "receipt", "event", "memory", "evidence"} <= node_types
+    evidence_nodes = [node for node in graph_data["nodes"] if node["type"] == "evidence"]
+    assert evidence_nodes, "evidence nodes should be present when evidence_scope exists"
     receipt_nodes = [node for node in graph_data["nodes"] if node["type"] == "receipt"]
     assert any("_report/custom/receipt.txt" in node["label"] for node in receipt_nodes)
     assert "digest" in graph_data

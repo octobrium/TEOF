@@ -1,11 +1,11 @@
 {
-  "agent_id": "codex-tier2",
-  "owner": "codex-tier2",
+  "agent_id": "codex-4",
+  "owner": "codex-4",
   "agent_type": "cloud-llm",
   "capabilities": ["review", "documentation", "analysis", "implementation"],
   "desired_roles": ["reviewer", "implementer", "documenter"],
   "max_prs_per_day": 1,
-  "branch_prefix": "agent/codex-tier2/",
+  "branch_prefix": "agent/codex-4/",
   "contact": "",
-  "notes": "Codex Tier 2 autonomy bootstrap seat."
+  "notes": "Codex automation seat configured via manifest_helper."
 }

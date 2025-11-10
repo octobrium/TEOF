@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "plan_id": "2025-11-10-2025-11-10-receipt-tracking",
+  "created": "2025-11-10T00:19:47Z",
+  "actor": "Octo",
+  "summary": "Allow _report receipts without forced git tracking",
+  "impact_ref": "receipt-tracking",
+  "systemic_targets": [
+    "S3",
+    "S4"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 3,
+  "layer": "L5",
+  "systemic_scale": 4,
+  "impact_score": 2,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Adjust-validator",
+      "status": "done",
+      "notes": "Relaxed strict validator to skip git tracking for _report receipts",
+      "receipts": [
+        "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-tracking/tests/pytest-20251110T002104Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Add-regression",
+      "status": "done",
+      "notes": "Added regression covering allowed _report receipts and non-report rejection",
+      "receipts": [
+        "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-tracking/tests/receipt-S2-20251110T002200Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Doc-alignment",
+      "status": "done",
+      "notes": "Updated README/spec/CI docs to explain the _report tracking exception",
+      "receipts": [
+        "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-tracking/tests/docs-20251110T002400Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-tracking/tests/pytest-20251110T002104Z.json",
+    "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-tracking/tests/receipt-S2-20251110T002200Z.json",
+    "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-tracking/tests/docs-20251110T002400Z.json"
+  ],
+  "evidence_scope": {
+    "internal": [
+      {
+        "ref": "_report/agent/codex-4/2025-11-10-teof-self-heal/tests/pytest-20251110T001500Z.json",
+        "summary": "recent-test-run"
+      }
+    ],
+    "external": [
+      {
+        "ref": "docs/architecture.md",
+        "summary": "placement-contract"
+      }
+    ],
+    "comparative": [],
+    "receipts": [
+      "_report/agent/codex-4/2025-11-10-2025-11-10-receipt-tracking/tests/pytest-20251110T002104Z.json"
+    ]
+  }
+}

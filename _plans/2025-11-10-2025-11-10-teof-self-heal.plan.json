@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "plan_id": "2025-11-10-2025-11-10-teof-self-heal",
+  "created": "2025-11-10T00:10:12Z",
+  "actor": "Octo",
+  "summary": "Harden brief CLI error handling and accelerate session boot",
+  "impact_ref": "teof-self-heal",
+  "systemic_targets": [
+    "S1",
+    "S4"
+  ],
+  "layer_targets": [
+    "L4"
+  ],
+  "priority": 2,
+  "layer": "L4",
+  "systemic_scale": 4,
+  "impact_score": 3,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Resilient-brief",
+      "status": "done",
+      "notes": "Hardened teof brief CLI to capture per-input failures and added regression coverage",
+      "receipts": [
+        "_report/agent/codex-4/2025-11-10-teof-self-heal/tests/pytest-20251110T001500Z.json",
+        "_report/agent/codex-4/2025-11-10-teof-self-heal/tests/receipt-S1-20251110T001500Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Handshake-index",
+      "status": "done",
+      "notes": "Cached handshake index to avoid full _bus/events scans, plus new tests",
+      "receipts": [
+        "_report/agent/codex-4/2025-11-10-teof-self-heal/tests/receipt-S2-20251110T001500Z.json"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "Octo",
+    "status": "satisfied"
+  },
+  "links": [],
+  "receipts": [
+    "_report/agent/codex-4/2025-11-10-teof-self-heal/tests/pytest-20251110T001500Z.json",
+    "_report/agent/codex-4/2025-11-10-teof-self-heal/tests/receipt-S1-20251110T001500Z.json",
+    "_report/agent/codex-4/2025-11-10-teof-self-heal/tests/receipt-S2-20251110T001500Z.json"
+  ],
+  "evidence_scope": {
+    "internal": [
+      {
+        "ref": "_report/usage/onboarding/quickstart-20251110T000721Z.json",
+        "summary": "baseline-smoke-run"
+      },
+      {
+        "ref": "_report/session/codex-4/dirty-handoff/dirty-20251110T000733Z.txt",
+        "summary": "session-boot-receipt"
+      }
+    ],
+    "external": [
+      {
+        "ref": "https://github.com/octobrium/TEOF/blob/main/docs/architecture.md",
+        "summary": "public-architecture-contract"
+      }
+    ],
+    "comparative": [],
+    "receipts": [
+      "_report/agent/codex-4/2025-11-10-teof-self-heal/tests/pytest-20251110T001500Z.json"
+    ]
+  }
+}

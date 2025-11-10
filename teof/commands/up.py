@@ -8,7 +8,7 @@ import platform
 import subprocess
 import sys
 from pathlib import Path
-from typing import Callable, Dict, Iterable, Optional, TypedDict
+from typing import Any, Callable, Dict, Iterable, Optional, TypedDict
 
 from teof._paths import repo_root
 from teof.commands import brief as brief_cmd
@@ -73,6 +73,16 @@ def _latest_quickstart_receipt() -> Optional[Path]:
     return receipts[0] if receipts else None
 
 
+def _quickstart_details(path: Optional[Path]) -> tuple[dict | None, dict | None]:
+    if path is None:
+        return None, None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None, None
+    return payload.get("git"), payload.get("intent")
+
+
 def _write_eval_receipt(target: Path, ensembles: list[str], score_text: str, doc_count: int, receipt_dir: Path) -> Path:
     timestamp = dt.datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
     payload = {
@@ -109,6 +119,8 @@ class Tier1Result(TypedDict):
     score_text: str
     document_count: int
     quickstart_receipt: Optional[Path]
+    quickstart_git: Optional[Dict[str, Any]]
+    quickstart_intent: Optional[Dict[str, Any]]
     eval_receipt: Path
     metadata_path: Path
 
@@ -120,6 +132,9 @@ def _write_metadata(
     eval_receipt: Path,
     quickstart: Optional[Path],
     score_text: str,
+    *,
+    quickstart_git: Optional[Dict[str, Any]] = None,
+    quickstart_intent: Optional[Dict[str, Any]] = None,
 ) -> Path:
     now = dt.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
     rel_target = _rel(target)
@@ -130,6 +145,9 @@ def _write_metadata(
     }
     if score_file.exists():
         artifacts["score"] = f"{rel_target}/score.txt"
+
+    if quickstart and quickstart_git is None and quickstart_intent is None:
+        quickstart_git, quickstart_intent = _quickstart_details(quickstart)
 
     metadata = {
         "schema_version": "1.0",
@@ -154,6 +172,10 @@ def _write_metadata(
         "created_at": now,
         "updated_at": now,
     }
+    if quickstart_git:
+        metadata["quickstart_git"] = quickstart_git
+    if quickstart_intent:
+        metadata["quickstart_intent"] = quickstart_intent
     metadata["receipts"] = [value for value in metadata["receipts"] if value]
     metadata_path = target / "metadata.json"
     metadata_path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -167,14 +189,26 @@ def _run_tier1_workload(*, skip_install: bool, receipt_dir: Path) -> Tier1Result
         raise RuntimeError("teof brief failed")
     target, ensembles, score_text, doc_count = _load_artifacts()
     quickstart = _latest_quickstart_receipt()
+    quickstart_git, quickstart_intent = _quickstart_details(quickstart)
     eval_receipt = _write_eval_receipt(target, ensembles, score_text, doc_count, receipt_dir)
-    metadata_path = _write_metadata(target, ensembles, doc_count, eval_receipt, quickstart, score_text)
+    metadata_path = _write_metadata(
+        target,
+        ensembles,
+        doc_count,
+        eval_receipt,
+        quickstart,
+        score_text,
+        quickstart_git=quickstart_git,
+        quickstart_intent=quickstart_intent,
+    )
     return {
         "artifact_dir": target,
         "ensembles": ensembles,
         "score_text": score_text,
         "document_count": doc_count,
         "quickstart_receipt": quickstart,
+        "quickstart_git": quickstart_git,
+        "quickstart_intent": quickstart_intent,
         "eval_receipt": eval_receipt,
         "metadata_path": metadata_path,
     }

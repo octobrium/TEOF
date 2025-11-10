@@ -288,6 +288,56 @@ def _parse_steps(raw_steps: List[str], *, summary: str) -> List[dict]:
     return steps
 
 
+def _parse_evidence_values(values: List[str], *, flag: str) -> List[dict[str, str]]:
+    entries: List[dict[str, str]] = []
+    for raw in values:
+        token = raw.strip()
+        if not token:
+            raise PlannerCliError(f"{flag} requires non-empty reference")
+        if "::" in token:
+            ref, summary = token.split("::", 1)
+        else:
+            ref, summary = token, ""
+        ref = ref.strip()
+        summary = summary.strip()
+        if not ref:
+            raise PlannerCliError(f"{flag} requires reference before '::'")
+        entry: dict[str, str] = {"ref": ref}
+        if summary:
+            entry["summary"] = summary
+        entries.append(entry)
+    return entries
+
+
+def _build_evidence_scope_from_args(args: argparse.Namespace, plan_version: int) -> dict | None:
+    internal_entries = _parse_evidence_values(getattr(args, "evidence_internal", []) or [], flag="--evidence-internal")
+    external_entries = _parse_evidence_values(getattr(args, "evidence_external", []) or [], flag="--evidence-external")
+    comparative_entries = _parse_evidence_values(getattr(args, "evidence_comparative", []) or [], flag="--evidence-comparative")
+    receipts: List[str] = []
+    for raw in getattr(args, "evidence_receipt", []) or []:
+        rel = _relative_receipt(Path(raw))
+        if rel not in receipts:
+            receipts.append(rel)
+
+    if plan_version >= 1:
+        if not internal_entries:
+            raise PlannerCliError("version>=1 plans require at least one --evidence-internal reference")
+        if not (external_entries or comparative_entries):
+            raise PlannerCliError("version>=1 plans require --evidence-external or --evidence-comparative reference")
+
+    if not internal_entries and not external_entries and not comparative_entries and not receipts:
+        return None
+
+    scope: dict[str, object] = {
+        "internal": internal_entries,
+        "external": external_entries,
+        "comparative": comparative_entries,
+    }
+    if receipts:
+        scope["receipts"] = sorted(receipts)
+    return scope
+
+
 def _write_plan(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     text = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
@@ -473,8 +523,16 @@ def cmd_new(args: argparse.Namespace) -> int:
         systemic_scale = axis_highest
     systemic_scale = _ensure_systemic_scale(systemic_scale)
 
+    plan_version = getattr(args, "plan_version", 0)
+    if plan_version is None:
+        plan_version = 0
+    if not isinstance(plan_version, int):
+        raise PlannerCliError("--plan-version must be an integer")
+    if plan_version < 0:
+        raise PlannerCliError("--plan-version must be >= 0")
+
     payload = {
-        "version": 0,
+        "version": plan_version,
         "plan_id": plan_id,
         "created": f"{timestamp:%Y-%m-%dT%H:%M:%SZ}",
         "actor": actor,
@@ -506,6 +564,10 @@ def cmd_new(args: argparse.Namespace) -> int:
             "expires_at": f"{expires_at:%Y-%m-%dT%H:%M:%SZ}",
             "horizon_hours": expiry_hours,
         }
+
+    evidence_scope = _build_evidence_scope_from_args(args, plan_version)
+    if evidence_scope:
+        payload["evidence_scope"] = evidence_scope
 
     _write_plan(plan_path, payload)
     try:
@@ -905,6 +967,12 @@ def build_parser() -> argparse.ArgumentParser:
         choices=SYSTEMIC_SCALE_CHOICES,
         help="Systemic axis (S1–S10)",
     )
+    new.add_argument(
+        "--plan-version",
+        type=int,
+        default=0,
+        help="Plan schema version (set to 1 to enable evidence_scope enforcement)",
+    )
     new.add_argument("--impact-score", type=int, help="Relative impact score (>=0)")
     new.add_argument("--impact-ref", help="Impact ledger slug (defaults to plan_id)")
     new.add_argument(
@@ -943,6 +1011,30 @@ def build_parser() -> argparse.ArgumentParser:
         "--expiry-hours",
         type=int,
         help="Override exploratory auto-expiry horizon in hours (default 72)",
+    )
+    new.add_argument(
+        "--evidence-internal",
+        action="append",
+        default=[],
+        help="Internal evidence reference (<path>::summary). Repeatable.",
+    )
+    new.add_argument(
+        "--evidence-external",
+        action="append",
+        default=[],
+        help="External evidence reference (URL or citation::summary). Repeatable.",
+    )
+    new.add_argument(
+        "--evidence-comparative",
+        action="append",
+        default=[],
+        help="Comparative or trend evidence reference (::summary optional). Repeatable.",
+    )
+    new.add_argument(
+        "--evidence-receipt",
+        action="append",
+        default=[],
+        help="Receipt path capturing the evidence survey (repeatable).",
     )
     new.set_defaults(func=cmd_new, scaffold=False, allow_unclaimed=False)
 

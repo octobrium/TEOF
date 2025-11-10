@@ -12,9 +12,9 @@ from tools.planner.validate import validate_plan
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
-def base_payload(plan_id: str = "2025-09-17-sample") -> dict:
-    return {
-        "version": 0,
+def base_payload(plan_id: str = "2025-09-17-sample", plan_version: int = 0) -> dict:
+    payload = {
+        "version": plan_version,
         "plan_id": plan_id,
         "created": "2025-09-17T00:00:00Z",
         "actor": "tester",
@@ -42,6 +42,20 @@ def base_payload(plan_id: str = "2025-09-17-sample") -> dict:
         "receipts": [],
         "links": [],
     }
+    if plan_version >= 1:
+        payload["evidence_scope"] = {
+            "internal": [
+                {"ref": "docs/architecture.md", "summary": "TEOF repo layout"},
+            ],
+            "external": [
+                {"ref": "https://example.org/coordination-study", "summary": "Field coordination study"},
+            ],
+            "comparative": [
+                {"ref": "https://example.org/scaling-law", "summary": "Scaling reference"},
+            ],
+            "receipts": [],
+        }
+    return payload
 
 
 def write_plan(tmp_dir: Path, payload: dict) -> Path:
@@ -160,11 +174,10 @@ def test_validate_plan_strict_requires_receipt_presence(tmp_path: Path, monkeypa
     assert not result_missing.ok
     assert any("receipts[0]" in err for err in result_missing.errors)
 
-    # Create the expected receipt and re-run.
+    # Create the expected receipt and re-run (no git tracking required for _report paths).
     receipt_rel = Path("_report/runner/receipt.json")
     (receipt_dir / "receipt.json").write_text("{}", encoding="utf-8")
     subprocess.run(["git", "add", str(plan_path.relative_to(repo_root))], check=True, cwd=repo_root)
-    subprocess.run(["git", "add", str(receipt_rel)], check=True, cwd=repo_root)
     planner_validate._git_tracked_paths.cache_clear()
     result_ok = validate_plan(plan_path, strict=True)
     assert result_ok.ok, result_ok.errors
@@ -173,27 +186,66 @@ def test_validate_plan_strict_requires_receipt_presence(tmp_path: Path, monkeypa
 def test_validate_plan_strict_rejects_untracked_receipt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     repo_root = tmp_path / "repo"
     plans_dir = repo_root / "_plans"
-    receipt_dir = repo_root / "_report" / "runner"
+    docs_dir = repo_root / "docs" / "custom"
     plans_dir.mkdir(parents=True)
-    receipt_dir.mkdir(parents=True)
+    docs_dir.mkdir(parents=True)
 
     subprocess.run(["git", "init"], check=True, cwd=repo_root)
 
     payload = base_payload(plan_id="2025-09-17-untracked")
-    payload["receipts"] = ["_report/runner/untracked.json"]
-    payload["steps"][0]["receipts"] = ["_report/runner/untracked.json"]
+    payload["receipts"] = ["docs/custom/untracked.json"]
+    payload["steps"][0]["receipts"] = ["docs/custom/untracked.json"]
     plan_path = write_plan(plans_dir, payload)
 
     monkeypatch.setattr(planner_validate, "ROOT", repo_root)
     monkeypatch.setattr(planner_validate, "PLANS_DIR", plans_dir)
     planner_validate._git_tracked_paths.cache_clear()
 
-    (receipt_dir / "untracked.json").write_text("{}", encoding="utf-8")
+    (docs_dir / "untracked.json").write_text("{}", encoding="utf-8")
     subprocess.run(["git", "add", str(plan_path.relative_to(repo_root))], check=True, cwd=repo_root)
 
     result = validate_plan(plan_path, strict=True)
     assert not result.ok
     assert any("not tracked by git" in err for err in result.errors)
+
+
+def test_validate_plan_requires_evidence_scope_for_version1(tmp_path: Path) -> None:
+    payload = base_payload(plan_version=1)
+    payload.pop("evidence_scope", None)
+    path = write_plan(tmp_path, payload)
+    result = validate_plan(path)
+    assert not result.ok
+    assert any("evidence_scope" in err for err in result.errors)
+
+
+def test_validate_plan_requires_external_reference_for_version1(tmp_path: Path) -> None:
+    payload = base_payload(plan_version=1)
+    payload["evidence_scope"]["external"] = []
+    payload["evidence_scope"]["comparative"] = []
+    path = write_plan(tmp_path, payload)
+    result = validate_plan(path)
+    assert not result.ok
+    assert any("external" in err for err in result.errors)
+
+
+def test_validate_plan_strict_requires_evidence_receipts_after_progress(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo_root = tmp_path / "repo"
+    plans_dir = repo_root / "_plans"
+    plans_dir.mkdir(parents=True)
+    subprocess.run(["git", "init"], cwd=repo_root, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    payload = base_payload(plan_id="2025-09-17-evidence", plan_version=1)
+    payload["status"] = "in_progress"
+    plan_path = write_plan(plans_dir, payload)
+
+    monkeypatch.setattr(planner_validate, "ROOT", repo_root)
+    monkeypatch.setattr(planner_validate, "PLANS_DIR", plans_dir)
+    planner_validate._git_tracked_paths.cache_clear()
+
+    result = validate_plan(plan_path, strict=True)
+    assert not result.ok
+    assert any("evidence_scope" in err for err in result.errors)
 
 
 def test_cli_output_summary(tmp_path: Path) -> None:

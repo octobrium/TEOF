@@ -99,6 +99,78 @@ def test_cli_new_creates_valid_plan(planner_root: Path) -> None:
     assert result.ok, result.errors
 
 
+def test_cli_new_plan_version_one_requires_evidence(planner_root: Path) -> None:
+    plan_dir = planner_root / "_plans"
+    with pytest.raises(SystemExit):
+        run_cli(
+            [
+                "new",
+                "missing-evidence",
+                "--summary",
+                "Should fail without evidence",
+                "--actor",
+                "tester",
+                "--priority",
+                "1",
+                "--layer",
+                "L4",
+                "--systemic-scale",
+                "5",
+                "--impact-score",
+                "40",
+                "--plan-dir",
+                str(plan_dir),
+                "--timestamp",
+                "2025-10-10T00:00:00Z",
+                "--plan-version",
+                "1",
+            ]
+        )
+
+
+def test_cli_new_plan_version_one_records_evidence(planner_root: Path) -> None:
+    plan_dir = planner_root / "_plans"
+    exit_code = run_cli(
+        [
+            "new",
+            "evidence-demo",
+            "--summary",
+            "Evidence-scoped plan",
+            "--actor",
+            "tester",
+            "--priority",
+            "1",
+            "--layer",
+            "L4",
+            "--systemic-scale",
+            "5",
+            "--impact-score",
+            "60",
+            "--plan-dir",
+            str(plan_dir),
+            "--timestamp",
+            "2025-10-11T00:00:00Z",
+            "--plan-version",
+            "1",
+            "--evidence-internal",
+            "docs/architecture.md::Repo layout",
+            "--evidence-external",
+            "https://example.org/field::Field reference",
+            "--evidence-comparative",
+            "https://example.org/scaling::Scaling trend",
+            "--allow-unclaimed",
+        ]
+    )
+    assert exit_code == 0
+    plan_path = plan_dir / "2025-10-11-evidence-demo.plan.json"
+    data = read_plan(plan_path)
+    scope = data.get("evidence_scope")
+    assert scope
+    assert len(scope["internal"]) == 1
+    assert len(scope["external"]) == 1
+    assert len(scope["comparative"]) == 1
+
+
 def test_cli_new_normalizes_slug(planner_root: Path) -> None:
     plan_dir = planner_root / "plans"
     run_cli(

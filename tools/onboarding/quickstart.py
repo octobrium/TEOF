@@ -17,6 +17,18 @@ DEFAULT_VENV = CACHE_DIR / "onboarding-venv"
 REPORT_DIR = ROOT / "_report" / "usage" / "onboarding"
 ARTIFACTS_DIR = ROOT / "artifacts" / "systemic_out"
 
+_GIT_META_CMDS = (
+    ("head", ["rev-parse", "HEAD"]),
+    ("branch", ["rev-parse", "--abbrev-ref", "HEAD"]),
+    ("status", ["status", "--short"]),
+)
+_INTENT_ENV_VARS = (
+    "TEOF_PLAN_ID",
+    "TEOF_PLAN_STEP_ID",
+    "TEOF_TASK_ID",
+    "TEOF_AGENT_ID",
+)
+
 
 def _relative(path: Path) -> str:
     try:
@@ -60,6 +72,27 @@ def _run(cmd: Iterable[str], *, cwd: Path | None = None, capture: bool = False) 
         text=True,
         capture_output=capture,
     )
+
+
+def _git_metadata() -> dict[str, object] | None:
+    git_dir = ROOT / ".git"
+    if not git_dir.exists():
+        return None
+    meta: dict[str, object] = {}
+    try:
+        for key, args in _GIT_META_CMDS:
+            result = _run(["git", *args], cwd=ROOT, capture=True)
+            meta[key] = result.stdout.strip()
+        status_text = str(meta.get("status", ""))
+        meta["dirty"] = bool(status_text)
+        return meta
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
+
+
+def _intent_metadata() -> dict[str, str] | None:
+    payload = {name: os.environ[name] for name in _INTENT_ENV_VARS if os.environ.get(name)}
+    return payload or None
 
 
 def run_quickstart(
@@ -123,6 +156,8 @@ def run_quickstart(
             "reuse_venv": reuse_venv,
             "skip_install": skip_install,
         },
+        "git": _git_metadata(),
+        "intent": _intent_metadata(),
     }
     return payload
 

@@ -11,6 +11,8 @@ import teof.bootloader as bootloader
 import teof._paths as teof_paths
 from teof.commands import operator as operator_cmd
 from tools.agent import session_guard
+from tools.planner import evidence_scope as planner_evidence
+from tools.planner import validate as planner_validate
 
 
 def _setup_agent(root: Path, agent_id: str = "codex-verify") -> None:
@@ -44,6 +46,54 @@ def _fake_plan_summary(path: Path) -> None:
         "plans": [],
     }
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+def _seed_plan_with_evidence(root: Path, plan_id: str, *, include_receipt: bool) -> None:
+    plan_dir = root / "_plans"
+    plan_dir.mkdir(parents=True, exist_ok=True)
+    scope = {
+        "internal": [{"ref": "docs/architecture.md", "summary": "Repo map"}],
+        "external": [{"ref": "https://example.org/field", "summary": "Field study"}],
+        "comparative": [{"ref": "https://example.org/trend", "summary": "Comparative trend"}],
+    }
+    if include_receipt:
+        receipt_rel = f"_report/evidence/{plan_id}/survey.json"
+        receipt_path = root / receipt_rel
+        receipt_path.parent.mkdir(parents=True, exist_ok=True)
+        receipt_path.write_text("{}", encoding="utf-8")
+        scope["receipts"] = [receipt_rel]
+    payload = {
+        "version": 1,
+        "plan_id": plan_id,
+        "created": "2025-11-09T00:00:00Z",
+        "actor": "tester",
+        "summary": "Evidence plan",
+        "status": "in_progress" if include_receipt else "queued",
+        "impact_ref": plan_id,
+        "layer": "L4",
+        "systemic_scale": 5,
+        "systemic_targets": ["S4", "S5"],
+        "layer_targets": ["L4"],
+        "steps": [
+            {
+                "id": "S1",
+                "title": "Observe",
+                "status": "in_progress" if include_receipt else "queued",
+                "notes": "",
+                "receipts": [],
+            }
+        ],
+        "checkpoint": {
+            "description": "Evidence receipt guard",
+            "owner": "tester",
+            "status": "pending",
+        },
+        "receipts": [],
+        "links": [],
+        "evidence_scope": scope,
+    }
+    plan_path = plan_dir / f"{plan_id}.plan.json"
+    plan_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
 def test_operator_verify_generates_receipt(tmp_path: Path, monkeypatch) -> None:
@@ -175,3 +225,35 @@ def test_operator_verify_json_output(tmp_path: Path, monkeypatch) -> None:
     payload = json.loads(buffer.getvalue())
     assert payload["status"] == "ok"
     assert payload["checks"], "json output should include check details"
+
+
+def test_operator_verify_evidence_guard(tmp_path: Path, monkeypatch) -> None:
+    for slug in operator_cmd.REQUIRED_PATHS:
+        (tmp_path / slug).mkdir(parents=True, exist_ok=True)
+    (tmp_path / "_report").mkdir(exist_ok=True)
+    _setup_agent(tmp_path)
+    _patch_session_guard(monkeypatch, tmp_path)
+    _patch_repo_root(monkeypatch, tmp_path)
+
+    monkeypatch.setattr(
+        operator_cmd.repo_anatomy,
+        "collect_stats",
+        lambda paths: [{"path": path, "files": 0, "commits": 0, "last_touch": None} for path in paths],
+    )
+
+    plan_id = "2025-11-10-evidence-guard"
+    _seed_plan_with_evidence(tmp_path, plan_id, include_receipt=False)
+    monkeypatch.setattr(planner_evidence, "ROOT", tmp_path)
+    monkeypatch.setattr(planner_evidence, "PLANS_DIR", tmp_path / "_plans")
+    monkeypatch.setattr(planner_validate, "ROOT", tmp_path)
+    monkeypatch.setattr(planner_validate, "PLANS_DIR", tmp_path / "_plans")
+    planner_validate._git_tracked_paths.cache_clear()
+    planner_validate._QUEUE_INDEX = None
+
+    rc_fail = bootloader.main(["operator", "verify", "--require-evidence-plan", plan_id])
+    assert rc_fail == 2
+
+    _seed_plan_with_evidence(tmp_path, plan_id, include_receipt=True)
+    planner_validate._git_tracked_paths.cache_clear()
+    rc_pass = bootloader.main(["operator", "verify", "--require-evidence-plan", plan_id])
+    assert rc_pass == 0
