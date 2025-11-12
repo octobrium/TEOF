@@ -1,0 +1,1 @@
+{"ts": "2025-11-11T00:37:02Z", "from": "codex-4", "type": "assignment", "task_id": "PLAN-2025-11-11-btc-wallet-propagation", "summary": "Assigned to codex-4", "branch": "agent/codex-4/btc-wallet-propagation", "meta": {"plan_id": "2025-11-11-btc-wallet-propagation", "assignee": "codex-4"}, "note": "Propagation loop implementation"}

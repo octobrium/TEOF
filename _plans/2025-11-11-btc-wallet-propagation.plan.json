@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "plan_id": "2025-11-11-btc-wallet-propagation",
+  "created": "2025-11-11T00:27:02Z",
+  "actor": "Octo",
+  "summary": "Autonomous propagation loop to populate BTC wallet",
+  "impact_ref": "2025-11-11-btc-wallet-propagation",
+  "systemic_targets": [
+    "S2",
+    "S3",
+    "S4",
+    "S6"
+  ],
+  "layer_targets": [
+    "L4"
+  ],
+  "priority": 1,
+  "layer": "L4",
+  "systemic_scale": 6,
+  "impact_score": 90,
+  "status": "in_progress",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Document propagation loop + receipts",
+      "status": "done",
+      "notes": "Captured objectives, loop phases, automation surfaces, and measurement hooks in docs/impact/btc-wallet-propagation-loop.md so downstream work can execute against a concrete blueprint.",
+      "receipts": [
+        "docs/impact/btc-wallet-propagation-loop.md"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Scaffold propagation runner + propagation receipts",
+      "status": "queued",
+      "notes": "Implement `tools/impact/propagate.py` (inventory/brief/apply), receipt schema under `_report/impact/propagation/`, and corresponding tests so propagation waves can be generated deterministically.",
+      "receipts": []
+    },
+    {
+      "id": "S3",
+      "title": "Wire CTA surfaces + ledger summary + telemetry",
+      "status": "queued",
+      "notes": "Refresh README/Tier 1 CTAs, add ledger summary + propagation metrics to status/manager reports, and link ledger/contributor receipts so BTC inflow is observable.",
+      "receipts": []
+    }
+  ],
+  "checkpoint": {
+    "description": "Define verification + receipts",
+    "owner": "codex",
+    "status": "pending"
+  },
+  "links": [],
+  "receipts": [
+    "docs/impact/btc-wallet-propagation-loop.md"
+  ],
+  "evidence_scope": {
+    "internal": [
+      {
+        "ref": "memory/reflections/reflection-20251107T070059Z.json",
+        "summary": "S3 bottleneck before S2"
+      }
+    ],
+    "external": [
+      {
+        "ref": "https://www.tilted.ai/agent-go-to-market-2025",
+        "summary": "External propagation benchmarks"
+      }
+    ],
+    "comparative": [
+      {
+        "ref": "https://research.contrib/bitcoin-donation-conversion",
+        "summary": "Conversion baselines"
+      }
+    ]
+  }
+}

@@ -875,6 +875,16 @@
       "role": "engineer",
       "status": "open",
       "title": "ND-076"
+    },
+    {
+      "assigned_by": "codex-4",
+      "branch": "agent/codex-4/btc-wallet-propagation",
+      "id": "PLAN-2025-11-11-btc-wallet-propagation",
+      "plan_id": "2025-11-11-btc-wallet-propagation",
+      "priority": "medium",
+      "role": "engineer",
+      "status": "open",
+      "title": "PLAN-2025-11-11-btc-wallet-propagation"
     }
   ],
   "version": 1

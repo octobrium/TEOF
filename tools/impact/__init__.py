@@ -3,5 +3,6 @@
 __all__ = [
     "bridge",
     "case_study",
+    "propagate",
     "ttd_trend",
 ]
