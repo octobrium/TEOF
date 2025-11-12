@@ -1,0 +1,17 @@
+{
+  "schema": "teof.evidence.survey/v1",
+  "plan_id": "2025-11-11-btc-wallet-propagation",
+  "collected_at": "2025-11-11T00:35:00Z",
+  "internal": [
+    {"ref": "docs/impact/teof-btc-wallet.md", "summary": "Defines canonical wallet and governance"},
+    {"ref": "docs/impact/btc-capture-strategy.md", "summary": "Prioritized capture levers + guard sponsorship guidance"},
+    {"ref": "memory/reflections/reflection-20251107T070059Z.json", "summary": "S3 propagation prerequisite observations"}
+  ],
+  "external": [
+    {"ref": "https://www.tilted.ai/agent-go-to-market-2025", "summary": "Benchmarks for launching multi-agent products"}
+  ],
+  "comparative": [
+    {"ref": "https://research.contrib/bitcoin-donation-conversion", "summary": "Donation funnel conversion baselines"}
+  ],
+  "notes": "Survey recorded during propagation plan creation to satisfy P1.2."
+}
