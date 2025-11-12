@@ -71,6 +71,9 @@
         "ref": "https://research.contrib/bitcoin-donation-conversion",
         "summary": "Conversion baselines"
       }
+    ],
+    "receipts": [
+      "_report/agent/codex-4/2025-11-11-btc-wallet-propagation/evidence.json"
     ]
   }
 }
