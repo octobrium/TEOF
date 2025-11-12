@@ -1,0 +1,10 @@
+{
+  "agent_id": "codex-4",
+  "branch": "agent/codex-4/onboarding",
+  "claimed_at": "2025-11-11T00:33:30Z",
+  "notes": "Tier 1 onboarding receipts captured",
+  "plan_id": "2025-11-11-onboarding-codex-4",
+  "released_at": "2025-11-11T00:41:44Z",
+  "status": "done",
+  "task_id": "ONBOARD-codex-4"
+}

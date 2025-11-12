@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "plan_id": "2025-11-11-onboarding-codex-4",
+  "created": "2025-11-11T00:34:10Z",
+  "actor": "codex-4",
+  "summary": "Initial onboarding run for codex-4 seat",
+  "impact_ref": "2025-11-11-onboarding-codex-4",
+  "systemic_targets": [
+    "S1",
+    "S2",
+    "S3",
+    "S4"
+  ],
+  "layer_targets": [
+    "L5"
+  ],
+  "priority": 5,
+  "layer": "L5",
+  "systemic_scale": 4,
+  "impact_score": 1,
+  "status": "done",
+  "steps": [
+    {
+      "id": "S1",
+      "title": "Run syscheck",
+      "status": "done",
+      "notes": "bin/teof-syscheck run against local toolchain",
+      "receipts": [
+        "_report/agent/codex-4/2025-11-11-onboarding-codex-4/syscheck-20251111T003100Z.json"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Run teof-up",
+      "status": "done",
+      "notes": "bin/teof-up refreshed quickstart + build receipts",
+      "receipts": [
+        "_report/usage/onboarding/quickstart-20251111T003204Z.json",
+        "_report/usage/onboarding/build-20251111T003200Z.json"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Handshake + bus snapshot",
+      "status": "done",
+      "notes": "python3 -m tools.agent.session_boot captured coordination dashboard + manager tail",
+      "receipts": [
+        "_report/agent/codex-4/session_boot/coordination-dashboard-2025-11-11T00:32:08Z.json",
+        "_report/agent/codex-4/session_boot/coordination-dashboard-2025-11-11T00:32:33Z.json",
+        "_report/session/codex-4/manager-report-tail.txt",
+        "_report/session/codex-4/agent-inbox-tail.txt"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Finalize plan scaffold, evidence scope, and backlog alignment",
+      "status": "done",
+      "notes": "Captured evidence receipt, backlog scan (no queued items), and onboarding summary for handoff",
+      "receipts": [
+        "_report/agent/codex-4/2025-11-11-onboarding-codex-4/evidence.json",
+        "_report/agent/codex-4/2025-11-11-onboarding-codex-4/backlog-scan-20251111T004600Z.json",
+        "_report/agent/codex-4/2025-11-11-onboarding-codex-4/summary.json",
+        "_report/agent/codex-4/2025-11-11-onboarding-codex-4/notes.md"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "description": "Tier 1 onboarding receipts captured",
+    "owner": "codex-4",
+    "status": "satisfied"
+  },
+  "links": [
+    {
+      "type": "bus",
+      "ref": "_bus/claims/ONBOARD-codex-4.json"
+    }
+  ],
+  "receipts": [
+    "_report/usage/onboarding/quickstart-20251111T003204Z.json",
+    "_report/agent/codex-4/session_boot/coordination-dashboard-2025-11-11T00:32:08Z.json",
+    "_report/agent/codex-4/2025-11-11-onboarding-codex-4/backlog-scan-20251111T004600Z.json",
+    "_report/agent/codex-4/2025-11-11-onboarding-codex-4/summary.json"
+  ],
+  "evidence_scope": {
+    "internal": [
+      {
+        "ref": "docs/onboarding/README.md",
+        "summary": "Canonical onboarding path"
+      },
+      {
+        "ref": "README.md",
+        "summary": "Top-level overview"
+      },
+      {
+        "ref": "docs/architecture.md",
+        "summary": "Layer/L-system contracts the onboarding gate must honor"
+      }
+    ],
+    "external": [
+      {
+        "ref": "https://arxiv.org/abs/2403.01819",
+        "summary": "Agent coordination study reference"
+      }
+    ],
+    "comparative": [
+      {
+        "ref": "https://martinfowler.com/articles/continuousIntegration.html",
+        "summary": "CI practice parallels receipts-first gating to maintain trust"
+      }
+    ],
+    "receipts": [
+      "_report/agent/codex-4/2025-11-11-onboarding-codex-4/evidence.json"
+    ]
+  }
+}
