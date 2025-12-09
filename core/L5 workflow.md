@@ -49,7 +49,7 @@ This document maps how an AI agent should navigate TEOF from receiving a prompt 
 │   Classify prompt into ONE of:                                              │
 │                                                                             │
 │   ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐            │
-│   │ A: HELPING EVAN │  │ B: DEVELOPING   │  │ C: DOMAIN       │            │
+│   │ A: HELPING USER │  │ B: DEVELOPING   │  │ C: DOMAIN       │            │
 │   │                 │  │    TEOF         │  │    QUESTION     │            │
 │   │ Personal advice │  │ Editing docs    │  │ Health, finance │            │
 │   │ Decisions       │  │ Restructuring   │  │ Relationships   │            │
@@ -185,7 +185,7 @@ This document maps how an AI agent should navigate TEOF from receiving a prompt 
 
 | Query Type | Example Prompts | Files to Load |
 |------------|-----------------|---------------|
-| **A: Helping user** | "What should I focus on?", "Am I doing the right thing?", "Help me decide" | `identity.md` → relevant framework |
+| **A: Helping User** | "What should I focus on?", "Am I doing the right thing?", "Help me decide" | `identity.md` → relevant framework |
 | **B: Developing TEOF** | "Edit this section", "Restructure frameworks", "Add to L1" | Target file directly |
 | **C: Health** | "How should I eat?", "Sleep advice" | `frameworks/health/README.md` → chapters |
 | **C: Finance** | "Investment strategy", "BTC allocation" | `frameworks/finances/finances.md` |
@@ -214,6 +214,80 @@ When context is limited, prioritize files in this order:
 
 ---
 
+## Decision Tree: "Should I Search the Web?"
+
+```
+Does the query require:
+├── Current data? (prices, news, recent events)
+│   └── YES → Web search required
+├── External validation of a claim?
+│   └── YES → Web search to verify against peer-reviewed/established sources
+├── Information beyond training cutoff?
+│   └── YES → Web search required
+├── Best practices from established systems?
+│   └── YES → Research existing solutions before proposing custom ones
+├── Domain expertise not in TEOF?
+│   └── YES → Search for authoritative sources, cite them
+└── Opinion or TEOF-internal question?
+    └── NO → Use loaded context, don't search
+```
+
+**Research-first principle:** When proposing structural decisions, system designs, or domain frameworks:
+1. Search for how established systems handle it
+2. Cite external validation (peer-reviewed, long track record)
+3. Only propose custom solutions when existing ones don't fit
+4. Document sources in the output
+
+**Anti-pattern:** Generating recommendations from self-reference alone. Always ground in external reality when claims are empirical.
+
+---
+
+## Decision Tree: "Should I Pull from Memory?"
+
+```
+Is the query:
+├── About user personally? (advice, decisions, context)
+│   └── YES → Pull identity.md FIRST, then relevant framework
+├── Referencing a past conversation or decision?
+│   └── YES → Search memory/log/ for relevant entries
+├── About a pattern that might already be documented?
+│   └── YES → Check patterns.md before re-deriving
+├── About TEOF development?
+│   └── NO → Skip identity.md, go to target file
+└── General knowledge question?
+    └── NO → Memory not needed, use frameworks or web search
+```
+
+**Memory efficiency:** Don't load memory speculatively. Route based on query type, pull only what's needed.
+
+---
+
+## Decision Tree: "Should I Log This?"
+
+```
+Did this interaction produce:
+├── A new pattern about user? (preference, behavior, context)
+│   └── YES → Update identity.md (specific section)
+├── A new pattern about systems? (validated insight, structural principle)
+│   └── YES → Add to patterns.md (appropriate tier)
+├── A significant event or milestone?
+│   └── YES → Log to memory/log/events/YYYY-MM-DD-topic.md
+├── A session insight worth preserving?
+│   └── YES → Log to memory/log/reflections/YYYY-MM-DD-topic.md
+├── External validation of a TEOF claim?
+│   └── YES → Update relevant file with citation (e.g., research/external-validation.md)
+├── A structural decision with rationale?
+│   └── YES → Log to L4 architecture.md Structural Decisions Log
+└── Temporary scaffolding or routine exchange?
+    └── NO → Don't log
+```
+
+**Proactive logging:** Don't wait for "log this" command. If something is valuable, persist it immediately.
+
+**Upstream absorption:** When a pattern recurs 3+ times in logs, promote to identity.md or patterns.md. Don't let patterns accumulate in log files.
+
+---
+
 ## Anti-Patterns
 
 | Don't | Why | Do Instead |
@@ -225,6 +299,9 @@ When context is limited, prioritize files in this order:
 | Decide for user | TEOF principle | Propose options, human decides |
 | Wait for "log this" | Valuable insights lost | Persist proactively |
 | Use complex jargon | Communication style mismatch | Direct, no fluff |
+| Self-reference for empirical claims | Hallucination risk | Web search + cite external sources |
+| Re-derive known patterns | Wasted compute | Check patterns.md first |
+| Speculative memory loading | Context waste | Route-based loading only |
 
 ---
 
@@ -256,7 +333,7 @@ Is the query about:
 
 ---
 
-## Decision Tree: "Where Do I Log This?"
+## Decision Tree: "Where Do I Log This?" (Quick Reference)
 
 ```
 Is it:
@@ -268,9 +345,15 @@ Is it:
 │   └── Promote to identity.md → Documented Patterns
 ├── A system-level pattern?
 │   └── Promote to patterns.md
+├── External validation with citations?
+│   └── research/external-validation.md or relevant file
+├── Structural decision with rationale?
+│   └── L4 architecture.md → Structural Decisions Log
 └── Temporary scaffolding?
     └── Don't log — it will be deleted anyway
 ```
+
+See "Should I Log This?" decision tree above for comprehensive logic.
 
 ---
 
@@ -280,14 +363,16 @@ Is it:
 
 ```
 memory/
-├── raw/                 ← Unprocessed input (user's words verbatim)
+├── raw/                 ← All raw inputs, date-prefixed (user's words, AI transcripts)
 ├── log/                 ← Structured observations (timestamped, formatted)
 │   ├── reflections/         Internal (thoughts, realizations, session notes)
 │   └── events/              External (milestones, state changes, facts)
 ├── identity.md          ← Patterns about user
 ├── patterns.md          ← Patterns about systems
-└── archive/             ← Old prototypes (historical, not memory flow)
+└── archive/             ← Historical content (flat, domain-prefixed files)
 ```
+
+**Design:** Max 3 folder levels. Flat archive with domain prefixes. See L4 architecture.md for rationale.
 
 ### What Goes Where
 
@@ -428,7 +513,7 @@ Is it about a specific domain?
 | TEOF Principle | How Flow Implements It |
 |----------------|------------------------|
 | **Observation primacy** | Load context before responding; cite sources |
-| **Pattern C** (stable core, adaptive periphery) | Boot sequence = core; routing = adaptive |
+| **Universal Pattern** (stable core, adaptive periphery) | Boot sequence = core; routing = adaptive |
 | **Minimal Loop** | Classify → route → respond → persist |
 | **Ordering by importance** | File priority hierarchy; insertion by rank |
 | **Verification on demand** | Human challenges when output feels off |
@@ -460,6 +545,7 @@ Applies to:
 |---------|------|---------|
 | 1.0 | 2025-12-07 | Initial flow diagram |
 | 2.0 | 2025-12-08 | Added memory architecture, promotion flow, verification-on-demand model |
+| 2.1 | 2025-12-09 | Generalized for any user; added web research decision tree; added memory pull/log decision trees; added anti-patterns for self-reference and speculative loading |
 
 ---
 

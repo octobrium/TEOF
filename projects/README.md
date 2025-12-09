@@ -38,6 +38,7 @@ Building diversified income streams unified by TEOF:
 | Document | Purpose |
 |----------|---------|
 | **`ROADMAP.md`** | **Master checklist — start here** |
+| **`hallucination-baseline.md`** | **Measure faithfulness before shipping** |
 | `lead-magnet-draft.md` | First deliverable draft |
 | `twitter-automation.md` | Twitter growth strategy |
 

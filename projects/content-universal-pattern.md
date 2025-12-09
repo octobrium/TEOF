@@ -1,6 +1,6 @@
-# Content Architecture: Pattern C Structure
+# Content Architecture: Universal Pattern Structure
 
-**Concept:** Structure the entire content/audience system like Pattern C—stable core, operational layer, tactical periphery. The periphery draws in, the core converts and retains.
+**Concept:** Structure the entire content/audience system using the Universal Pattern—stable core, operational layer, tactical periphery. The periphery draws in, the core converts and retains.
 
 ---
 

@@ -12,6 +12,18 @@
 
 To deny observation is to observe the denial. This makes observation the only self-proving axiom — it cannot be refuted without invoking itself.
 
+### External Validation
+
+This structure has 400+ years of philosophical validation:
+
+| Source | Finding |
+|--------|---------|
+| [Descartes, Cogito (1637)](https://plato.stanford.edu/entries/descartes-epistemology/) | "I think, therefore I am" — same reflexive, self-proving structure |
+| [Hintikka (1962)](https://en.wikipedia.org/wiki/Performative_contradiction) | Cogito as performative proof: the denial invokes what it denies |
+| [Husserl, Phenomenology](https://plato.stanford.edu/entries/husserl/) | Consciousness as irreducible starting point |
+
+TEOF's framing differs from Descartes: observation precedes "I" (the observer emerges within observation, not the reverse). But the reflexive structure — that denial is self-refuting — is identical.
+
 ---
 
 ## Minimal Loop

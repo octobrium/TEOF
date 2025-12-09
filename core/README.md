@@ -38,6 +38,6 @@ TEOF system architecture in seven layers (L0-L6).
 
 ---
 
-## Pattern C
+## The Universal Pattern
 
 This folder is the **stable core**. Changes here should be rare and deliberate. The periphery (frameworks/, projects/, memory/) adapts; the core persists.

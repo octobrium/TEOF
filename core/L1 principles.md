@@ -280,9 +280,11 @@ The irreducible regeneration mechanism — observation-first, not existence-firs
 
 ## APPENDIX: STRUCTURAL NOTES
 
-### A.1 DNA/RNA/Protein Architecture
+### A.1 The Universal Pattern
 
-TEOF implements a three-tier architecture analogous to biological systems:
+TEOF implements the Universal Pattern: stable core + adaptive periphery.
+
+**Structure:** Three-tier architecture analogous to biological systems (DNA→RNA→Protein).
 
 **Tier 1 (Core/DNA):** Axioms and foundational definitions. Immutable except through rigorous observation-backed revision.
 
@@ -290,7 +292,11 @@ TEOF implements a three-tier architecture analogous to biological systems:
 
 **Tier 3 (Tactical/Protein):** Implementations and context-specific applications. Freely mutable.
 
-**Function:** This tiered structure allows stability at the core while enabling adaptation at the periphery.
+**Cross-domain validation:** This architecture appears in DNA→RNA→Protein, TCP/IP protocols, constitutional law, and every persistent system analyzed. See `research/robust-systems-analysis.md` for 8-system empirical validation.
+
+**Prior art:** Systems biology calls this "bow-tie architecture"; network engineering calls it "hourglass architecture." TEOF's contribution is recognizing these domain-specific observations describe the same universal phenomenon.
+
+**Function:** This tiered structure allows stability at the core while enabling adaptation at the periphery — the only organizational architecture that successfully balances persistence and adaptation at scale.
 
 ### A.2 Gate Protocol
 

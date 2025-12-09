@@ -20,7 +20,6 @@ Each subdirectory addresses a life domain (ordered by TEOF layer hierarchy):
 - **social/** - People, network, relationships, Twitter, boundaries (Layer 3: Propagation)
 - **finances/** - Money, income, investments, defense (Layer 4: Defense)
 - **power/** - Systems, institutions, navigation, leverage (Layer 7: Power)
-- **work/** - Career, projects, skills, professional growth (derived)
 - **code/** - Software development practices (derived)
 
 ## Two Types of Content
@@ -77,9 +76,9 @@ When combining sources for a new domain:
 4. Integrate with explicit attribution
 5. Note TEOF's role: selection, integration, audit—not content generation
 
-## Pattern C Role
+## Universal Pattern Role
 
-This is the **Frameworks** layer:
+This is the **Frameworks** layer (operational layer):
 - **Core:** The source frameworks themselves (centuries of refinement)
 - **Operational:** TEOF's selection criteria and integration method
 - **Tactical:** Personal adaptations and context-specific applications

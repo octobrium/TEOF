@@ -21,7 +21,7 @@ FOUNDATIONAL → IMPORTANT → PERIPHERAL
 (equivalently: STABLE → ACTIVE → ADAPTIVE)
 ```
 
-**"Foundational" = functionally foundational.** What gets read first, built upon, depended on. Not derivation history. CORE.md is functionally foundational for AI (read first) even though TEOF-complete.md is the source text.
+**"Foundational" = functionally foundational.** What gets read first, built upon, depended on. Not derivation history. L1 principles.md is functionally foundational for AI (read first for philosophy) even though TEOF-complete.md is the source text.
 
 | Context | Ordering Rule |
 |---------|---------------|
@@ -43,7 +43,7 @@ FOUNDATIONAL → IMPORTANT → PERIPHERAL
 
 ## Layer Architecture
 
-TEOF follows Pattern C (stable core + adaptive periphery) in its file organization:
+TEOF follows the **Universal Pattern** (stable core + adaptive periphery) in its file organization.
 
 | Layer | Directory | Mutation Rate | Purpose |
 |-------|-----------|---------------|---------|
@@ -61,7 +61,7 @@ TEOF follows Pattern C (stable core + adaptive periphery) in its file organizati
 | Pattern | Purpose | AI Reads? |
 |---------|---------|-----------|
 | `README.md` | Directory entry point | Yes — first |
-| `CORE.md`, `*-core.md` | Compressed AI reference (<50KB) | **Yes — primary** |
+| `*-core.md` | Compressed AI reference (<50KB) | **Yes — primary** |
 | `*-complete.md` | Full human-readable version | **No** |
 | `chapters/*.md` | Chunked sections (<10KB each) | Yes — on demand |
 
@@ -74,7 +74,7 @@ TEOF follows Pattern C (stable core + adaptive periphery) in its file organizati
 | Question Type | Start Here |
 |---------------|------------|
 | How to help user | `ONBOARDING.md` |
-| TEOF foundations | `core/CORE.md` |
+| TEOF foundations | `core/L1 principles.md` |
 | Domain question | `frameworks/[domain]/README.md` |
 | What to do next | `projects/ROADMAP.md` |
 | Personal context | `memory/identity.md` |
@@ -85,18 +85,66 @@ TEOF follows Pattern C (stable core + adaptive periphery) in its file organizati
 
 ```
 memory/
-├── raw/             ← Unprocessed input (user's words verbatim)
+├── raw/             ← All raw inputs, date-prefixed (2025-12-09-*.md)
 ├── log/             ← Structured observations
 │   ├── reflections/     Internal: thoughts, realizations
 │   └── events/          External: milestones, facts
 ├── identity.md      ← Patterns about user
 ├── patterns.md      ← Patterns about systems
-└── archive/         ← Old prototypes (historical)
+└── archive/         ← Historical content (flat, domain-prefixed files)
 ```
 
 **Flow:** `raw/` → `log/` → `identity.md` or `patterns.md` → `core/` or `frameworks/`
 
 **All files kept permanently.** Raw material has contextual value even after patterns extracted.
+
+---
+
+## Structural Decisions Log
+
+Decisions about file organization, with external validation.
+
+### 2025-12-09: Flatten Archive Structure
+
+**Decision:** Single flat `archive/` folder with domain-prefixed files. No nested subfolders.
+
+**Before:**
+```
+archive/
+├── core-versions/
+├── framework-versions/
+│   ├── finances-versions/
+│   └── relationships-versions/
+├── project-research/
+│   └── research/
+└── raw/
+```
+
+**After:**
+```
+archive/
+├── core-v1.0-2025-11-15.md
+├── finances-finances-v1.0-2025-11-23.md
+├── relationships-romance-v2.8-2025-11-23.md
+├── legacy-prototypes/      ← Exception: deeply nested historical content
+└── legacy-governance/      ← Exception: old GitHub templates
+```
+
+**External validation:**
+
+| Source | Finding |
+|--------|---------|
+| [Zettelkasten (Luhmann)](https://zettelkasten.de/introduction/) | No folders — 90,000 notes, 70 books output |
+| [PARA method (Forte)](https://fortelabs.com/blog/para/) | Single Archive folder, max 4 levels |
+| [MIT/Harvard file structure](https://mitcommlab.mit.edu/broad/commkit/file-structure/) | Max 3-4 levels recommended |
+| [Scientific Reports fMRI study](https://www.nature.com/articles/srep14719) | Nested folders increase cognitive load |
+| [Git version control](https://www.atlassian.com/git/tutorials/what-is-version-control) | History built into repository, not folder structure |
+
+**Rationale:**
+- Nested archives found in 0/6 established PKM systems
+- Date-prefixed files enable chronological sorting without hierarchy
+- Reduces cognitive load for AI agents navigating structure
+- Git handles versioning for GitHub-tracked files; manual archive only for gitignored content
 
 ---
 

@@ -69,15 +69,8 @@
 - Be sycophantic or validate without evidence
 - Create new files (bloat degrades retrieval)
 - Give generic advice — ground in identity.md patterns
-- Chain AI outputs without human verification
-
----
-
-## Why No Blind Trust
-
-A multi-agent system became "one giant hallucination" — AI outputs fed AI inputs without verification, errors compounded.
-
-**Implication:** Cite sources. Acknowledge uncertainty. Test before build. Human gate on all major decisions.
+- Invent terminology without checking if established term exists first
+- Chain AI outputs on consequential decisions without human gate
 
 ---
 

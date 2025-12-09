@@ -62,7 +62,7 @@
 - GPT shipping unverified structure repeats the pattern that caused harm
 
 **Method:**
-- [ ] Upload TEOF to Claude Project (CORE.md + key frameworks)
+- [ ] Upload TEOF to Claude Project (L1 principles.md + key frameworks)
 - [ ] Run realistic queries: relationship advice, investment decision, priority conflict
 - [ ] Document: What worked? What failed? Which files retrieved? Response quality?
 - [ ] Identify: Are *-core.md files sufficient? Do chapters get retrieved correctly?
@@ -84,7 +84,7 @@
 ### Step 1: Build TEOF Custom GPT (Day 1-2)
 
 - [ ] Create Custom GPT on OpenAI
-- [ ] Load CORE.md as foundation
+- [ ] Load L1 principles.md as foundation
 - [ ] Load key frameworks (power.md, finances.md, health.md, romance.md)
 - [ ] Write system prompt encoding TEOF principles
 - [ ] Include anti-hallucination instructions (AI as mirror, not oracle)

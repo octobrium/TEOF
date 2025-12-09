@@ -18,11 +18,13 @@ No scheduled jobs, no autonomous agents, no CI pipelines.
 
 ---
 
-## Why Minimal
+## Why Currently Minimal
 
-The previous governance system failed because automation outpaced verification. AI outputs fed AI inputs without human checkpoints, compounding errors.
+The previous governance system failed because automation outpaced verification. AI outputs fed AI inputs without human checkpoints, compounding errors exponentially.
 
 **Lesson:** Automation is premature optimization until the manual process is solid.
+
+**However:** AI-to-AI chaining is not inherently bad — it's inevitable at scale. The risk is error compounding over long chains, which scales with hallucination rate.
 
 ---
 
@@ -44,9 +46,36 @@ When manual friction justifies it:
 Add automation only when:
 1. Manual process is proven and stable
 2. Friction is measurable and recurring
-3. Automation doesn't bypass human verification
-4. Failure mode is safe (silent failure acceptable, wrong action not)
+3. Failure mode is safe (silent failure acceptable, wrong action not)
 
 ---
 
-*Automation makes L5 workflow smoother. It doesn't replace human judgment.*
+## Human Oversight Scaling
+
+Human intervention should scale with error risk, not step count.
+
+**Intervention triggers:**
+- Confidence < threshold (calibrated per domain)
+- High disagreement between agents
+- Consequential decisions (financial, health, irreversible)
+- Periodic random audits
+
+**No intervention needed when:**
+- High confidence + low stakes
+- Multiple agents agree
+- Outputs are reversible
+- Within validated accuracy domain
+
+**Mathematical frame:**
+- If hallucination rate = h, chain length = n: expected accuracy ≈ (1-h)^n
+- At h=1%, n=5: ~95% accuracy (acceptable)
+- At h=1%, n=100: ~37% accuracy (unacceptable)
+- Human gates inserted at intervals proportional to 1/h
+
+**Principle:** Human gate on consequential decisions. Automated verification for routine chains.
+
+**Sources:** [DeepMind on error compounding](https://www.computerweekly.com/news/366620886/Deepmind-founder-warns-of-compounding-AI-agent-errors), [Anthropic multi-agent systems](https://www.anthropic.com/engineering/multi-agent-research-system), [arXiv scalable oversight](https://arxiv.org/abs/2510.20963)
+
+---
+
+*Automation makes L5 workflow smoother. Human judgment gates consequential decisions.*

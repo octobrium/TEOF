@@ -24,9 +24,10 @@ System identifies and fixes errors through use, not preemptive gates.
 AI outputs grounded in verified memory, not confabulation.
 
 - Citations required for factual claims
-- Acknowledge uncertainty explicitly
+- Acknowledge uncertainty explicitly ("say I don't know" — [validated](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations))
 - Patterns in memory have provenance
 - No AI output feeds AI input without human verification
+- **Temperature 0.0-0.3 for factual/advisory queries** ([research](https://www.ibm.com/think/topics/llm-temperature): low temp = consistency; high temp = creativity at cost of accuracy)
 
 ### Low Maintenance
 
@@ -45,6 +46,21 @@ AI can operate effectively with limited context.
 - *-core.md versions for AI, *-complete.md for humans
 - Boot sequence loads minimal files
 - Route to specific docs, don't load everything
+
+### Low Cognitive Load
+
+System design minimizes processing burden on AI agents.
+
+- **Flat hierarchy:** Max 3 folder levels (validated: [MIT](https://mitcommlab.mit.edu/broad/commkit/file-structure/), [Harvard](https://datamanagement.hms.harvard.edu/plan-design/directory-structure/))
+- **Position-aware:** Critical info at start/end, not middle (validated: ["Lost in the Middle" - Stanford/Berkeley 2024](https://arxiv.org/abs/2307.03172))
+- **Date-prefixed files:** Chronological sorting without nested folders
+- **Single archive:** One flat archive folder, not nested categories (validated: [PARA method](https://fortelabs.com/blog/para/))
+- **Routing over loading:** Point to files, don't dump everything into context
+
+**Research basis:**
+- LLMs show U-shaped recall: beginning and end of context > middle
+- Nested folders increase cognitive drag ([Scientific Reports fMRI study](https://www.nature.com/articles/srep14719))
+- Simplified context improves output structure and completion rate
 
 ### Reconstructible
 
