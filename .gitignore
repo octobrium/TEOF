@@ -1,0 +1,11 @@
+# Private - user-specific data
+memory/
+
+# OS files
+.DS_Store
+*.swp
+*~
+
+# IDE
+.idea/
+.vscode/

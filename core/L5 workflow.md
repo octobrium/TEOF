@@ -1,0 +1,466 @@
+# L5 — Workflow
+
+**Status:** Living — how AI navigates TEOF
+**Depends on:** L0-L4
+**Ultimate objective:** Unify observation
+
+**Version:** 2.0
+**Date:** 2025-12-08
+**Purpose:** Visualize optimal AI logic flow when processing TEOF to generate responses
+
+---
+
+## Overview
+
+This document maps how an AI agent should navigate TEOF from receiving a prompt to generating output. The flow optimizes for:
+1. **Minimal context loading** — Read only what's needed
+2. **Correct routing** — Match query type to relevant files
+3. **Grounded responses** — Cite sources, avoid hallucination
+4. **Identity awareness** — Incorporate user's context when relevant
+5. **Memory hygiene** — Absorb insights upstream, avoid clutter
+
+---
+
+## Master Flow Diagram
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              PROMPT RECEIVED                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         PHASE 1: BOOT SEQUENCE                              │
+│                                                                             │
+│   1. Read ONBOARDING.md (routing table) — START HERE                        │
+│   2. Route to relevant file per query type                                  │
+│                                                                             │
+│   Only if needed:                                                           │
+│   - core/L1 principles.md — for philosophy/metaphysics questions            │
+│   - core/L4 architecture.md — if you can't find something                   │
+│                                                                             │
+│   ⏱️ One-time per session — skip if already in context                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       PHASE 2: QUERY CLASSIFICATION                         │
+│                                                                             │
+│   Classify prompt into ONE of:                                              │
+│                                                                             │
+│   ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐            │
+│   │ A: HELPING EVAN │  │ B: DEVELOPING   │  │ C: DOMAIN       │            │
+│   │                 │  │    TEOF         │  │    QUESTION     │            │
+│   │ Personal advice │  │ Editing docs    │  │ Health, finance │            │
+│   │ Decisions       │  │ Restructuring   │  │ Relationships   │            │
+│   │ Priorities      │  │ Framework work  │  │ Power, code     │            │
+│   │ "What should I" │  │                 │  │                 │            │
+│   └────────┬────────┘  └────────┬────────┘  └────────┬────────┘            │
+│            │                    │                    │                      │
+│            ▼                    ▼                    ▼                      │
+│   ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐            │
+│   │ D: PHILOSOPHY   │  │ E: PROJECT      │  │ F: LOGGING      │            │
+│   │                 │  │                 │  │                 │            │
+│   │ TEOF concepts   │  │ What to work on │  │ "Log this"      │            │
+│   │ Axioms, layers  │  │ Roadmap         │  │ Events, notes   │            │
+│   │ Metaphysics     │  │ Next steps      │  │ Reflections     │            │
+│   └────────┬────────┘  └────────┬────────┘  └────────┬────────┘            │
+└────────────┼────────────────────┼────────────────────┼──────────────────────┘
+             │                    │                    │
+             ▼                    ▼                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         PHASE 3: FILE ROUTING                               │
+│                                                                             │
+│   Based on classification, load MINIMAL required files:                     │
+│                                                                             │
+│   A (Helping user):                                                         │
+│      └─→ memory/identity.md (REQUIRED FIRST)                                │
+│          └─→ Relevant framework if domain-specific                          │
+│                                                                             │
+│   B (Developing TEOF):                                                      │
+│      └─→ Directly to relevant file (no identity.md needed)                  │
+│          └─→ L4 architecture.md for organization questions                  │
+│                                                                             │
+│   C (Domain Question):                                                      │
+│      └─→ frameworks/[domain]/README.md                                      │
+│          └─→ *-core.md for that domain                                      │
+│          └─→ chapters/* only if deeper detail needed                        │
+│                                                                             │
+│   D (Philosophy):                                                           │
+│      └─→ core/L1 principles.md (already loaded in boot)                     │
+│          └─→ core/TEOF-complete.md ONLY if human requests deep dive         │
+│                                                                             │
+│   E (Projects):                                                             │
+│      └─→ projects/ROADMAP.md                                                │
+│          └─→ Specific project file if referenced                            │
+│                                                                             │
+│   F (Logging):                                                              │
+│      └─→ Determine: Event or Reflection?                                    │
+│          └─→ Write to memory/log/events/ or memory/log/reflections/         │
+│          └─→ Extract patterns → consider promotion to identity.md           │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      PHASE 4: CONTEXT ASSEMBLY                              │
+│                                                                             │
+│   Assemble working context from loaded files:                               │
+│                                                                             │
+│   ┌─────────────────────────────────────────────────────────────────┐      │
+│   │                     CONTEXT STACK                                │      │
+│   │                                                                  │      │
+│   │   Layer 1 (Always): L1 principles + ONBOARDING behaviors        │      │
+│   │   Layer 2 (If A):   identity.md → Quick Scan, Gaps, Patterns    │      │
+│   │   Layer 3 (If C/D): Domain framework *-core.md                  │      │
+│   │   Layer 4 (Sparse): Specific chapters/sections as needed        │      │
+│   │                                                                  │      │
+│   │   TOTAL CONTEXT TARGET: <50KB                                   │      │
+│   └─────────────────────────────────────────────────────────────────┘      │
+│                                                                             │
+│   Priority order (if context limit approached):                             │
+│   1. identity.md Quick Scan (if A)                                          │
+│   2. Relevant *-core.md                                                     │
+│   3. L1 principles key sections                                             │
+│   4. Drop chapters, keep summaries                                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      PHASE 5: RESPONSE GENERATION                           │
+│                                                                             │
+│   Generate response following TEOF behavioral guidelines:                   │
+│                                                                             │
+│   ┌─────────────────────────────────────────────────────────────────┐      │
+│   │                    RESPONSE CHECKLIST                            │      │
+│   │                                                                  │      │
+│   │   □ Direct, analytical, no fluff                                │      │
+│   │   □ No sycophancy — honest even if uncomfortable                │      │
+│   │   □ Cite sources for factual claims                             │      │
+│   │   □ Propose, don't decide — human approves                      │      │
+│   │   □ Ground in identity.md patterns (if Type A)                  │      │
+│   │   □ Link to empirical evidence where possible                   │      │
+│   │   □ Acknowledge uncertainty explicitly                          │      │
+│   │   □ Concrete next steps, not vague advice                       │      │
+│   └─────────────────────────────────────────────────────────────────┘      │
+│                                                                             │
+│   Response structure:                                                       │
+│   1. Direct answer to the question                                          │
+│   2. Reasoning/evidence                                                     │
+│   3. TEOF-grounded framing (if relevant)                                    │
+│   4. Actionable next step(s)                                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       PHASE 6: POST-RESPONSE                                │
+│                                                                             │
+│   After responding, check:                                                  │
+│                                                                             │
+│   ┌─────────────────────────────────────────────────────────────────┐      │
+│   │                    PERSISTENCE CHECK                             │      │
+│   │                                                                  │      │
+│   │   Did anything significant emerge that should be logged?        │      │
+│   │                                                                  │      │
+│   │   • New pattern observed         → identity.md Patterns         │      │
+│   │   • Life stat changed            → identity.md Vital Stats      │      │
+│   │   • System-level pattern         → patterns.md                  │      │
+│   │   • Event/milestone              → log/events/                  │      │
+│   │   • Session reflection           → log/reflections/             │      │
+│   │                                                                  │      │
+│   │   Don't wait for "log this" — persist proactively if valuable   │      │
+│   └─────────────────────────────────────────────────────────────────┘      │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                            OUTPUT DELIVERED                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Detailed Routing Table
+
+### Query Type → File Path
+
+| Query Type | Example Prompts | Files to Load |
+|------------|-----------------|---------------|
+| **A: Helping user** | "What should I focus on?", "Am I doing the right thing?", "Help me decide" | `identity.md` → relevant framework |
+| **B: Developing TEOF** | "Edit this section", "Restructure frameworks", "Add to L1" | Target file directly |
+| **C: Health** | "How should I eat?", "Sleep advice" | `frameworks/health/README.md` → chapters |
+| **C: Finance** | "Investment strategy", "BTC allocation" | `frameworks/finances/finances.md` |
+| **C: Social** | "Dating advice", "How to make friends" | `frameworks/social/relationships-core.md` or `social.md` |
+| **C: Power** | "How to gain influence", "Network strategy" | `frameworks/power/power-core.md` |
+| **C: Twitter** | "Content strategy", "Thread writing" | `frameworks/social/twitter-framework.md` |
+| **D: Philosophy** | "What is TEOF?", "Explain the layers" | `core/L1 principles.md` |
+| **E: Projects** | "What should I build?", "Next steps" | `projects/ROADMAP.md` |
+| **F: Logging** | "Log this", "Record that insight" | Determine target → write |
+
+---
+
+## File Priority Hierarchy
+
+When context is limited, prioritize files in this order:
+
+```
+1. ONBOARDING.md         ← Routing + behavior rules (always)
+2. identity.md           ← Personal context (if Type A)
+3. Relevant *-core.md    ← Domain knowledge (if Type C)
+4. L1 principles.md      ← Philosophy foundation (if Type D)
+5. ROADMAP.md            ← Project context (if Type E)
+6. chapters/*            ← Deep detail (on demand only)
+7. *-complete.md         ← NEVER load (human reading only)
+```
+
+---
+
+## Anti-Patterns
+
+| Don't | Why | Do Instead |
+|-------|-----|------------|
+| Load TEOF-complete.md | 484KB, exceeds context | Use L1 principles.md |
+| Skip identity.md for personal advice | Responses will be generic | Always load for Type A |
+| Load all frameworks | Wastes context | Route to specific domain |
+| Respond without sources | Governance system trauma | Cite evidence |
+| Decide for user | TEOF principle | Propose options, human decides |
+| Wait for "log this" | Valuable insights lost | Persist proactively |
+| Use complex jargon | Communication style mismatch | Direct, no fluff |
+
+---
+
+## Context Budget Guidelines
+
+| Scenario | Approximate Context Budget |
+|----------|---------------------------|
+| Boot sequence | ~15KB (L1 + ONBOARDING + L4) |
+| Type A query | +10KB (identity.md Quick Scan) |
+| Domain query | +10-20KB (framework *-core.md) |
+| Deep dive | +10-30KB (specific chapters) |
+| **Total target** | **<50KB active context** |
+
+---
+
+## Decision Tree: "Should I Read identity.md?"
+
+```
+Is the query about:
+├── User personally? (advice, decisions, priorities)
+│   └── YES → Read identity.md first
+├── TEOF development? (editing, restructuring)
+│   └── NO → Skip identity.md
+├── General domain knowledge? (health, finance, etc.)
+│   └── DEPENDS → Read if applying to user's situation
+└── Philosophy/concepts?
+    └── NO → Skip identity.md
+```
+
+---
+
+## Decision Tree: "Where Do I Log This?"
+
+```
+Is it:
+├── A life event or milestone?
+│   └── memory/log/events/YYYY-MM-DD-topic.md
+├── A thought, realization, or session insight?
+│   └── memory/log/reflections/YYYY-MM-DD-topic.md
+├── A durable pattern that keeps appearing?
+│   └── Promote to identity.md → Documented Patterns
+├── A system-level pattern?
+│   └── Promote to patterns.md
+└── Temporary scaffolding?
+    └── Don't log — it will be deleted anyway
+```
+
+---
+
+## Memory Architecture
+
+### Structure
+
+```
+memory/
+├── raw/                 ← Unprocessed input (user's words verbatim)
+├── log/                 ← Structured observations (timestamped, formatted)
+│   ├── reflections/         Internal (thoughts, realizations, session notes)
+│   └── events/              External (milestones, state changes, facts)
+├── identity.md          ← Patterns about user
+├── patterns.md          ← Patterns about systems
+└── archive/             ← Old prototypes (historical, not memory flow)
+```
+
+### What Goes Where
+
+| Location | What goes there | Example |
+|----------|-----------------|---------|
+| `raw/` | User's exact words, unprocessed | Voice memo transcript, pasted conversation, stream of consciousness |
+| `log/reflections/` | Structured internal observation | "Session insight: verification-on-demand beats verification-at-write" |
+| `log/events/` | Structured external fact | "2025-12-08: Restructured memory architecture" |
+| `identity.md` | Durable pattern about user | "Prefers verification-on-demand over preemptive gates" |
+| `patterns.md` | Durable pattern about systems | "Citation + challenge model reduces overhead vs approval gates" |
+
+### Flow
+
+```
+raw/ ──(AI structures)──→ log/ ──(pattern recurs)──→ identity.md or patterns.md
+                                                              │
+                                                     (if universal + validated)
+                                                              ▼
+                                                     core/ or frameworks/
+```
+
+### Retention
+
+All levels kept permanently. Raw material has contextual value even after patterns are extracted — the specific failure case, what was tried, emotional context.
+
+### Verification Model: Challenge on Demand
+
+```
+AI writes freely to all levels
+    │
+    ├── AI cites sources (patterns.md:Tier1, identity.md:Vital Stats, etc.)
+    │
+    ├── Human reads output
+    │
+    └── If something feels off:
+            │
+            Human challenges: "You cited X, but I don't think that applies"
+            │
+            ├── Faulty logic? → AI corrects reasoning
+            │
+            └── Faulty memory? → Trace back to source
+                    │
+                    ├── Source is wrong → Fix the file
+                    └── Source is right → AI misread, correct interpretation
+```
+
+**Human workload:** Zero unless something feels off. Then debug together.
+
+**Why this works:**
+- Human is already reading outputs — verification happens naturally
+- Citations make reasoning traceable
+- Faulty patterns get caught when they produce bad outputs
+- No preemptive approval gates slowing everything down
+
+---
+
+## Promotion Flow
+
+### When to Promote
+
+| From | To | When |
+|------|----|------|
+| `raw/` | `log/reflections/` or `log/events/` | AI structures the input |
+| `log/*` | `identity.md` | Pattern about user recurs |
+| `log/*` | `patterns.md` | Pattern about systems recurs |
+| `patterns.md` | `frameworks/*-core.md` | Pattern is domain-specific and validated |
+| `patterns.md` | `core/L1 principles.md` | Pattern is universal, resolves contradiction |
+
+### patterns.md Tiers
+
+| Tier | What belongs |
+|------|--------------|
+| **3** | Session-specific, being tested |
+| **2** | Recurred, still testing |
+| **1** | Shapes direction, validated across contexts |
+| **0** | Load-bearing — system fails if violated |
+
+Higher tier = more important. AI reads top-down. Promotion happens when recurrence or validation warrants it — no fixed threshold.
+
+### Ordering Enforcement
+
+**Universal rule:** First item = most important. No exceptions.
+
+When adding content to ANY ranked list:
+
+```
+BEFORE INSERTING:
+1. Read the existing list
+2. Ask: "Is this more foundational than item N?"
+3. Insert at correct rank position
+4. NEVER append by default
+5. NEVER alphabetize
+
+VALIDATION:
+- If uncertain about rank → ask human
+- If item would be last → question if it belongs at all
+- If item would be first → requires strong justification
+```
+
+**Known failure mode:** AI understands ordering conceptually but violates under task-completion pressure. Human review remains the catch. (See patterns.md: "Structural Enforcement of Ordering")
+
+---
+
+## Avoiding Bloat
+
+Before creating a new file:
+
+1. Does this belong in an existing file? → Edit instead
+2. Is this temporary scaffolding? → Don't create
+3. Will this need maintenance? → Strong justification required
+
+**Principle:** Two pattern files (identity.md, patterns.md). Everything else is input (raw/, log/) or historical (archive/).
+
+---
+
+## Routing: Where Does This Go?
+
+```
+Is it about a specific domain?
+    │
+    ├── YES → frameworks/[domain]/*-core.md
+    │
+    └── NO → Is it about the system itself?
+                    │
+                    ├── YES → patterns.md
+                    │
+                    └── NO → Is it about user?
+                                    │
+                                    ├── YES → identity.md
+                                    │
+                                    └── NO → Probably don't log
+```
+
+---
+
+## Integration with TEOF Principles
+
+| TEOF Principle | How Flow Implements It |
+|----------------|------------------------|
+| **Observation primacy** | Load context before responding; cite sources |
+| **Pattern C** (stable core, adaptive periphery) | Boot sequence = core; routing = adaptive |
+| **Minimal Loop** | Classify → route → respond → persist |
+| **Ordering by importance** | File priority hierarchy; insertion by rank |
+| **Verification on demand** | Human challenges when output feels off |
+
+---
+
+## Sorting Rule
+
+**Everything in TEOF follows one rule:**
+
+```
+FOUNDATIONAL → IMPORTANT → PERIPHERAL
+```
+
+Applies to:
+- Lists within files — most important first
+- Sections within files — core → applications → examples
+- Files within directories — README → *-core.md → chapters
+- Directories — core/ → frameworks/ → projects/ → memory/
+- patterns.md tiers — Tier 0 (load-bearing) → Tier 3 (testing)
+
+**Position encodes importance.** AI can infer priority from order.
+
+---
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0 | 2025-12-07 | Initial flow diagram |
+| 2.0 | 2025-12-08 | Added memory architecture, promotion flow, verification-on-demand model |
+
+---
+
+*Update when the flow proves suboptimal in practice.*
