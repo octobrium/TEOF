@@ -26,7 +26,7 @@ The terminal objective that cannot be superseded.
 - Preserve multiplicity (don't eliminate)
 - Include effects of pursuit in what gets observed and unified
 
-**Source:** `memory/log/reflections/2025-12-09-unify-observation-alignment.md`
+**Source:** Adversarial testing across Claude and Grok (2025-12-09). See L0 for formal proof.
 
 ---
 

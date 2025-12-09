@@ -122,4 +122,4 @@ This is just "don't reinvent the wheel" with a checklist.
 
 ## Dialogue That Led to This Correction
 
-See: `/memory/processed/2025-12-05-curate-dont-create.md`
+*Documented in session 2025-12-05: "Curate, don't create" — AI outputs need grounding in existing frameworks, not novel derivation.*

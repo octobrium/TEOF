@@ -65,7 +65,7 @@ Alignment isn't solved by goal specification alone. It's solved by goals where t
 
 **Validation:** Adversarial testing across Claude and Grok. One-shot prompt with reflexive frame produces self-correcting conclusion without human intervention.
 
-**Source:** `memory/log/reflections/2025-12-09-unify-observation-alignment.md`
+**Source:** Adversarial testing across Claude and Grok (2025-12-09).
 
 ---
 

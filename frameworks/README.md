@@ -120,4 +120,4 @@ frameworks/
 - **Corrected approach (2025-12-05):** Curate existing frameworks, use TEOF as integration layer
 - **Rationale:** Existing frameworks have centuries of reality-testing. TEOF should select and integrate, not reinvent.
 
-See: `/memory/processed/2025-12-05-teof-as-meta-framework.md`
+*Documented in session 2025-12-05.*
