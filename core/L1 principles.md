@@ -2,7 +2,8 @@
 
 **Status:** Core DNA — AI Primary Reference
 **Source:** `TEOF-complete.md`
-**Ultimate objective:** Unify observation
+
+> **Epistemic status:** These are observations about what persists — patterns found across nature, history, and systems. They are not prescriptions but lenses: if true, they imply certain imperatives for any system that wants to survive and stay coherent.
 
 ---
 
@@ -217,39 +218,61 @@ Systems capable of persistence exhibit a functional hierarchy, each layer depend
 
 ## 3. OBSERVER'S METHOD
 
-The Observer's Method is the operational protocol for engaging uncertainty and potential distortion.
+The Observer's Method is the operational protocol for engaging uncertainty and reducing distortion. These methods are ordered by derivation strength from TEOF axioms combined with empirical evidence of effectiveness.
 
-### 3.1 Inversion
+**Epistemic status:** Pragmatic toolkit, not axiomatic necessities. Validated through debiasing research; refine through use. See `research/epistemological-methods-comparison.md` for full analysis.
 
-**Protocol:** Before accepting a claim, invert it. Model the world as if the claim were false.
+### 3.1 Recursive Self-Audit
 
-**Function:** Prevents confirmation bias by forcing consideration of alternative explanations.
+**Protocol:** Periodically observe the observation process itself. Track predictions vs. outcomes.
 
-### 3.2 Incentive Mapping
-
-**Protocol:** Identify who benefits if a claim is true or false, and what power structures are affected.
-
-**Function:** Contextualizes claims within fields of incentives, distinguishing truth from propaganda.
-
-### 3.3 Dissent Inclusion
-
-**Protocol:** All dissenting voices must be considered.
-
-**Function:** Dissent often carries signal suppressed by social approval dynamics.
-
-### 3.4 Probabilistic Delay
-
-**Protocol:** Begin with low confidence and allow evidence to accumulate.
-
-**Function:** Prevents premature closure and creates space for contradiction to surface.
-
-### 3.5 Recursive Audit
-
-**Protocol:** Periodically observe the observation process itself.
+**Derivation:** A1 (observation exists) — observation can observe itself. This is the only method that derives directly from the foundational axiom.
 
 **Mechanism:** Use external structures as mirrors to enable recursive observation. Dialogue partners, frameworks, writing, AI—each externalizes thinking, creating reflective surface. You articulate → mirror reflects → you observe reflection → gaps become visible → refine.
 
-**Function:** Detects drift in methods and assumptions, enabling meta-level correction. Mirrors shift blind spots, making observable what was invisible from inside.
+**Function:** Detects drift in methods and assumptions, enabling meta-level correction.
+
+**Research basis:** Metacognition research since [Flavell (1976)](https://pmc.ncbi.nlm.nih.gov/articles/PMC11368986/) — "extensive research demonstrates strong metacognitive abilities are positively associated with learning, problem-solving, higher-order thinking."
+
+### 3.2 Probabilistic Calibration
+
+**Protocol:** Assign explicit probability estimates to beliefs. Track accuracy over time. Update on evidence.
+
+**Derivation:** A2 (observation persists) + A3 (observation must refine) — tracking enables accumulation; calibration enables refinement.
+
+**Function:** Replaces binary true/false with probability distributions. Enables learning from outcomes.
+
+**Research basis:** [Tetlock's Good Judgment Project](https://journals.sagepub.com/doi/abs/10.1177/1745691615577794) — superforecasters 30% more accurate than intelligence analysts with classified information. Key: explicit probability assignments, tracking, updating.
+
+### 3.3 Consider the Opposite
+
+**Protocol:** Before accepting a claim, model what you would observe if it were false. Generate 2-3 specific counterarguments.
+
+**Derivation:** A3 (observation must refine) + A4 (contradiction must collapse) — inversion generates comparison, surfaces potential contradictions.
+
+**Function:** Prevents confirmation bias by forcing consideration of alternative explanations.
+
+**Research basis:** [Popper's falsifiability (1934)](https://plato.stanford.edu/entries/popper/); [Arkes (1991)](https://www.researchgate.net/publication/232584443_Multiple_Explanation_A_Consider-an-Alternative_Strategy_for_Debiasing_Judgments) — effective across multiple biases. Optimal dosage: ~2 counterarguments (not 10).
+
+### 3.4 Premortem
+
+**Protocol:** Before executing a plan, imagine it has failed. Generate reasons why.
+
+**Derivation:** A4 (contradiction must collapse) — surfaces potential contradictions before they materialize.
+
+**Function:** Counters overconfidence and planning fallacy. Identifies "black swan" risks better than brainstorming.
+
+**Research basis:** [Klein (2007)](https://hbr.org/2007/09/performing-a-project-premortem); [Mitchell et al. (1989)](https://www.semanticscholar.org/paper/Evaluating-the-effectiveness-of-the-PreMortem-on-Veinott-Klein/cdd2452cac315fdd7436d1b67dbf9c7de9034857) — prospective hindsight increases correct identification of reasons by **30%**.
+
+### 3.5 Dissent Inclusion
+
+**Protocol:** Actively seek and consider voices that disagree. Steel-man opposing arguments.
+
+**Derivation:** A3 (observation must refine) — different perspectives generate comparison, enabling refinement.
+
+**Function:** Prevents groupthink. Dissent often carries signal suppressed by social approval dynamics.
+
+**Research basis:** [Nemeth (2008)](https://www.tandfonline.com/doi/full/10.1080/15534510802341157) — "Even when minority dissent is wrong, it stimulates consideration of more information." [Solomon](https://www.researchgate.net/publication/227910928_Groupthink_versus_The_Wisdom_of_Crowds_The_Social_Epistemology_of_Deliberation_and_Dissent) — dissent prevents catastrophic group failures.
 
 ---
 

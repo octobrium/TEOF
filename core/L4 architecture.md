@@ -2,7 +2,6 @@
 
 **Status:** Living — how the system is organized
 **Depends on:** L0 (observation), L1 (principles), L2 (objectives), L3 (properties)
-**Ultimate objective:** Unify observation
 
 ---
 
@@ -39,6 +38,34 @@ FOUNDATIONAL → IMPORTANT → PERIPHERAL
 
 **Why:** AI agents reading TEOF can trust that position encodes priority. No need to re-rank or guess importance. Coherent shape maintained as system grows.
 
+### Attention-Aware Positioning (The Priority Curve)
+
+Ordering isn't just organizational — it's **functional for LLM attention allocation**.
+
+```
+Attention
+    ▲
+    │ █████                              ████
+    │ ██████████                      ███████
+    │ ████████████████            ████████████
+    │ ██████████████████████████████████████████
+    └──────────────────────────────────────────► Position
+      BEGINNING        MIDDLE            END
+      (Primacy)       (Lowest)        (Recency)
+```
+
+**Research basis:** [Liu et al., 2024 "Lost in the Middle"](https://aclanthology.org/2024.tacl-1.9/) — U-shaped attention persists even in 1M+ token models.
+
+| Position | Content Type | Rationale |
+|----------|--------------|-----------|
+| **Beginning** | Highest priority (Quick Scan, Tier 0, current state) | Maximum attention — deliberate |
+| **Middle** | Supporting context (history, nuance) | Acceptable degradation |
+| **End** | Metadata, version history, references | Recency boost as bonus |
+
+**Why not priority 2 at end?** File length varies (end unpredictable), primacy ~2x stronger than recency, truncation loses end content, breaks human readability.
+
+**Scaling property:** As content grows, hierarchy extends. As models improve, more hierarchy becomes accessible. Position handles it — no restructuring needed.
+
 ---
 
 ## Layer Architecture
@@ -49,7 +76,8 @@ TEOF follows the **Universal Pattern** (stable core + adaptive periphery) in its
 |-------|-----------|---------------|---------|
 | DNA | `core/` | Rare | Axioms, minimal loop, reconstructible seed |
 | Protein | `frameworks/` | Moderate | Domain applications (health, finance, social, power) |
-| Action | `projects/` | Frequent | Active execution, roadmap, research |
+| Action | `projects/` | Frequent | Active execution, roadmap |
+| Research | `research/` | Moderate | External validation and decision support |
 | Memory | `memory/` | Accumulating | Identity, patterns, raw, logs |
 
 **Flow:** Core → Frameworks → Projects → Memory (patterns feed back to frameworks)
@@ -61,11 +89,13 @@ TEOF follows the **Universal Pattern** (stable core + adaptive periphery) in its
 | Pattern | Purpose | AI Reads? |
 |---------|---------|-----------|
 | `README.md` | Directory entry point | Yes — first |
-| `*-core.md` | Compressed AI reference (<50KB) | **Yes — primary** |
+| `*-core.md` | Compressed AI reference (priority-ordered) | **Yes — primary** |
 | `*-complete.md` | Full human-readable version | **No** |
-| `chapters/*.md` | Chunked sections (<10KB each) | Yes — on demand |
+| `chapters/*.md` | Chunked sections | Yes — on demand |
 
-**Rule:** Files >100KB get split into `*-core.md` (AI) + `*-complete.md` (human).
+**When to split:** Large files with mixed-priority content benefit from `*-core.md` (high-priority, AI-readable) + `*-complete.md` (full version, human reading). Split for readability and routing clarity, not arbitrary size limits.
+
+**Sizing principle:** Priority ordering > size limits. A well-ordered 80KB file outperforms a poorly-ordered 30KB file. The attention curve handles the rest. Hard cutoffs become tech debt as models improve — context windows have grown 100x in 3 years (4K→200K→1M+).
 
 ---
 

@@ -729,9 +729,31 @@ VRChat, Discord, online gaming communities, and social media provide connection 
 - Loneliness correlates with social media use (correlation, but pattern is consistent)
 - Face-to-face contact reduces stress hormones; screen-mediated contact does not
 
+**The Active vs. Passive Distinction (Critical Research Finding):**
+
+[Meta-analysis of 141 studies (~145,000 participants)](https://academic.oup.com/jcmc/article/29/1/zmad055/7595758) examined the relationship between social media use and mental health outcomes:
+
+> "Active use refers to activities that facilitate direct exchanges with others, and encompasses both targeted one-on-one exchanges (direct communication) and non-targeted exchanges (broadcasting). Passive use refers to monitoring the online life of other people without engaging in direct exchanges with them."
+
+**Key findings:**
+- **Active use** (creating content, direct exchanges) → associated with greater wellbeing (r = .15), positive affect (r = .11), online support (r = .34)
+- **Passive use** (scrolling, consuming) → associated with worse emotional outcomes, especially in general social media contexts
+- Most effect sizes were small, but the direction was consistent: creation > consumption
+
+[Passive use specifically harms](https://pmc.ncbi.nlm.nih.gov/articles/PMC7801842/):
+> "When engaging actively with social network sites, one may feel more connected, which positively influences mental health. In contrast, passive use of social network sites is negatively related to mental health, especially when this use results in feelings of envy or inferiority rather than social connection."
+
+**The passive consumption trap:**
+- Information overload → cognitive fatigue
+- Social comparison → feelings of inadequacy
+- No reciprocity → loneliness despite contact
+- Algorithmic feeds optimized for engagement, not wellbeing
+
+**Practical implication:** If you're going to use social media, **create, don't just consume**. Content creation is behavioral activation; passive scrolling is avoidance behavior that feeds rumination.
+
 **The trap:** Virtual relationships are comfortable precisely because they're lower-stakes. But low stakes = low depth. The comfort is the problem—it satisfies the urge for connection without delivering the substance.
 
-**The diagnosis:** If your primary social channel is virtual, you're socially malnourished regardless of how much virtual contact you have.
+**The diagnosis:** If your primary social channel is virtual *passive consumption*, you're socially malnourished regardless of how much virtual contact you have.
 
 #### 11.3 The Minimum Viable Social
 
@@ -937,6 +959,185 @@ If you have dormant dental school connections on Instagram:
 5. Let network expand through their connections
 
 This is more efficient than starting cold at BJJ because you're activating existing social capital rather than building from zero.
+
+---
+
+## Part VII-B: Limerence and Romantic Obsession
+
+### Chapter 11B: Understanding and Breaking Limerence
+
+#### 11B.1 What Is Limerence?
+
+Limerence is a state of involuntary obsessive attachment to another person, characterized by:
+- Intrusive thinking about the "limerent object" (LO)
+- Intense longing for reciprocation
+- Mood dependent on LO's perceived response
+- Fear of rejection combined with hope
+- Physical sensations (heart racing, butterflies) when thinking of LO
+- Idealization of the LO's qualities
+
+[Psychologist Dorothy Tennov](https://www.psychologytoday.com/us/blog/the-neurodivergent-therapist/202501/limerence-attachment-styles-and-recovery) coined the term in 1979. It's distinct from healthy love because it's characterized by anxiety, obsession, and a compulsive need for reciprocation rather than genuine care for the other person's wellbeing.
+
+**Limerence vs. Love:**
+
+| Limerence | Love |
+|-----------|------|
+| Obsessive, intrusive thoughts | Thoughts present but not consuming |
+| Need for reciprocation | Care regardless of reciprocation |
+| Idealization (can't see flaws) | Realistic assessment of person |
+| Mood controlled by LO | Internal emotional regulation |
+| Fear-based (rejection anxiety) | Security-based (trust) |
+| Often one-sided or uncertain | Usually mutual and stable |
+
+#### 11B.2 The Neuroscience and Psychology
+
+**Brain mechanisms:**
+
+Limerence activates brain reward circuits similar to addiction:
+- **Dopamine:** Released during anticipation/uncertainty about LO's response
+- **Norepinephrine:** Creates arousal, alertness, the "high" feeling
+- **Cortisol:** Stress hormone elevated due to uncertainty/anxiety
+- **Serotonin:** Often depleted, similar to OCD patterns
+
+The uncertainty is key. [Research shows](https://bayareacbtcenter.com/limerence-and-anxious-attachment/) variable reinforcement schedules (sometimes responds positively, sometimes not) create the strongest behavioral conditioning—the same mechanism that makes slot machines addictive.
+
+**Attachment connection:**
+
+[Research on attachment styles](https://bayareacbtcenter.com/limerence-and-anxious-attachment/) found:
+- People with anxious attachment scored 10-20% higher on obsessive preoccupation and emotional dependence
+- The anxious group also scored highly on "agape"—selfless, all-giving love
+- Anxious attachment predisposes to limerence because the fear of abandonment creates hypervigilance to signs of interest/disinterest
+
+**The three drivers:**
+
+Limerence requires three conditions:
+1. **Uncertainty** — The LO's feelings are unclear or fluctuating
+2. **Scarcity** — The LO is the primary/only romantic option
+3. **Idle mental bandwidth** — No other focus consuming attention
+
+Remove any one of these and limerence weakens.
+
+#### 11B.3 Why Limerence Is Harmful
+
+Beyond the emotional suffering, limerence:
+
+- **Distorts perception:** The LO is idealized; red flags are rationalized
+- **Consumes cognitive resources:** Mental bandwidth unavailable for work, other relationships, self-development
+- **Creates desperation behaviors:** Checking status obsessively, over-pursuing, accepting poor treatment
+- **Prevents actual connection:** Limerence is about your need, not the person; real intimacy requires seeing them clearly
+- **Reinforces avoidance of real options:** The limerent state satisfies (poorly) the need for romantic excitement without requiring real relationship-building
+
+#### 11B.4 The Research-Based Cure
+
+**Treatment approaches (evidence-based):**
+
+Per [clinical research on limerence treatment](https://pmc.ncbi.nlm.nih.gov/articles/PMC8641115/):
+
+1. **Cognitive restructuring** — Challenge unrealistic beliefs about the LO
+   - "She's not uniquely special; I've idealized her"
+   - "Her pattern is clear: approach → can't sustain → exit"
+   - "The uncertainty I feel is addiction, not love"
+
+2. **Exposure-response prevention** — Resist the urge to check, message, analyze
+   - Don't check her status
+   - Don't initiate contact
+   - Don't analyze what she meant
+   - Sit with the discomfort without acting
+
+3. **Behavioral activation** — Redirect energy into goals, hobbies, friendships
+   - The occupied mind doesn't ruminate
+   - Building other life areas reduces scarcity
+   - Creating positive reinforcement independent of LO
+
+4. **Distance (physical and digital)** — Interrupt the feedback loop
+   - Mute/unfollow (not necessarily block)
+   - Don't go places you might see her
+   - Remove reminders from environment
+
+5. **Attachment-focused work** — Resolve early relational wounds that predispose to limerence
+   - Often requires therapy
+   - Understanding why you're vulnerable to this pattern
+
+**The key insight:**
+
+> "Channel the energy you're pouring into that person back into yourself—your goals, hobbies, friendships, and emotional growth." — [Limerence recovery research](https://www.simplypsychology.org/limerence.html)
+
+**Why cognitive approaches alone fail:**
+
+You cannot think your way out of limerence because the drive is subcortical (reward circuits, attachment systems). Trying to logic yourself out of it just creates more rumination about her.
+
+The cure is behavioral:
+- Don't check → uncertainty doesn't spike dopamine
+- Don't analyze → rumination loop breaks
+- Build other options → scarcity eliminated at source
+- Stay occupied → no mental bandwidth for obsession
+
+#### 11B.5 The Anti-Limerence Architecture
+
+**Structural prevention:**
+
+Rather than treating limerence once it develops, build architecture that prevents it:
+
+| Limerence Needs | Counter-Architecture |
+|-----------------|---------------------|
+| **Uncertainty** | Document the pattern. Her behavior isn't mysterious—it's data. Once you have the pattern, you have certainty. |
+| **Scarcity** | Build network → options → abundance. She's one of many, not the only one. |
+| **Idle bandwidth** | Fill life with valued activities. Gym, work, social building, projects. Occupied mind doesn't ruminate. |
+
+**The network solution:**
+
+Your 2015 self wasn't immune to limerence because of better psychology—you had options. Network power creates abundance that structurally prevents fixation on any single person.
+
+Building social network isn't distraction from romance—it's the solution to romantic dysfunction.
+
+**Practical protocol:**
+
+When you notice limerence developing (or are already in it):
+
+**Immediate (today):**
+- [ ] Don't check her status
+- [ ] Don't send any message
+- [ ] Physical activity (break rumination loop)
+- [ ] Audio scaffolding (Tate, Bible, music that reinforces frame)
+
+**This week:**
+- [ ] Document her pattern in writing (creates certainty from uncertainty)
+- [ ] Begin one social building activity (behavioral activation)
+- [ ] Daily exercise (strongest predictor of mood improvement)
+- [ ] Track: Did you check her today? (behavior metric, not feeling metric)
+
+**This month:**
+- [ ] Establish 1+ warm social connection
+- [ ] 2+ real-world social interactions
+- [ ] Content creation (social media as active use, not passive consumption)
+- [ ] Review: Is the rumination frequency decreasing?
+
+**The endpoint:**
+
+Limerence resolves when:
+- You can think of her without emotional spike
+- Her response (or non-response) doesn't affect your mood
+- You have genuine other options you could pursue
+- She's one person among many, not "the one"
+
+This typically takes 3-6 months of consistent behavioral intervention, sometimes longer if the limerence was severe or prolonged.
+
+#### 11B.6 Connection to TEOF
+
+**Layer mapping:**
+
+| Layer | Limerence Violation | Corrected State |
+|-------|--------------------|--------------------|
+| Unity (1) | Identity destabilized by her response | Self-coherent regardless of external |
+| Energy (2) | Massive energy drain into fixation | Energy conserved, directed to growth |
+| Truth (6) | Idealization, rationalization of red flags | Clear-eyed assessment of who she is |
+| Freedom (9) | Enslaved to her attention/validation | Free to engage or not based on value |
+
+**The TEOF insight:**
+
+Limerence is a Layer 1 violation at its core—your unity/coherence becomes dependent on an external, uncontrollable source. The observer has identified with a desired outcome rather than maintaining sovereign observation.
+
+The cure is returning to observer position: she's a phenomenon you can watch, assess, engage with or not—but never the source of your coherence.
 
 ---
 

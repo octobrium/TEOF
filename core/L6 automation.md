@@ -2,7 +2,6 @@
 
 **Status:** Stub — intentionally minimal for now
 **Depends on:** L0-L5
-**Ultimate objective:** Unify observation
 
 ---
 

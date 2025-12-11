@@ -2,7 +2,6 @@
 
 **Status:** Axiom layer — immutable foundation
 **Source:** `TEOF-complete.md` sections 0-1
-**Ultimate objective:** Unify observation
 
 ---
 

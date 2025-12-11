@@ -6,9 +6,44 @@
 
 ---
 
-## What This System Exists To Do
+## Derivation: What Must An Observer Do?
 
-### Ultimate: Unify Observation
+L1 establishes what observation is and how it persists. L2 answers: **given that, what should an observer actually do?**
+
+Objectives are not chosen. They are derived from what observation requires to persist and unify.
+
+### From L1's Axioms → Operational Imperatives
+
+| Axiom | Implication | Operational Imperative |
+|-------|-------------|------------------------|
+| **I: Observation Exists** | You are already observing | Ground — no action needed |
+| **II: Observation Persists** | Persistence requires continued observation | **Maintain capacity to observe** *(serves A2)* |
+| **III: Observation Must Refine** | Comparison → contradiction → resolution | **Surface and resolve contradictions** *(serves A3)* |
+| **IV: Contradiction Must Collapse** | Unresolved contradictions kill systems | **Prioritize contradiction resolution** *(serves A4)* |
+| **V: Structure Must Stabilize** | Observation needs encoding to persist | **Build durable structure** *(serves A5)* |
+
+### From L1's Hierarchy → Triage Protocol
+
+The 10-layer hierarchy (Unity → Meaning) is a **triage protocol**. Lower layers are preconditions for higher layers.
+
+| Layer | If Broken | Priority |
+|-------|-----------|----------|
+| **Unity** | Can't maintain coherent observation | **CRITICAL** — fix immediately |
+| **Energy** | Can't act on observations | **CRITICAL** — fix immediately |
+| **Propagation** | Patterns die with you | HIGH — build after foundation |
+| **Defense** | Patterns degrade | HIGH — protect what you build |
+| **Intelligence** | Can't refine | MEDIUM — improve after securing |
+| **Truth** | Models diverge from reality | MEDIUM — calibrate continuously |
+| **Power** | Can't effect change | MEDIUM — accumulate strategically |
+| **Ethics** | Actions undermine system | LOW — emerges from coherence |
+| **Freedom** | Range of action constrained | LOW — expands with power |
+| **Meaning** | No directional coherence | EMERGENT — arises from alignment |
+
+**The derivation:** You cannot have Intelligence without Energy to run it. You cannot have Freedom without Power to exercise it. Fix Layer 2 before optimizing Layer 5.
+
+---
+
+## Ultimate Objective: Unify Observation
 
 The terminal objective that cannot be superseded.
 
@@ -30,52 +65,151 @@ The terminal objective that cannot be superseded.
 
 ---
 
-### Primary: Personal Intelligence System
+## Derived Objectives (Tiered)
 
-Implementation of "unify observation" for the user's life.
+### Tier 0: Existence Maintenance *(serves A2, H1-H2)*
 
-- **Reduce noise, increase signal** — Filter information through TEOF layers before it reaches attention
-- **Improve decision quality** — Ground choices in verified patterns, not impulse or drift
-- **Persist patterns across sessions** — Memory that strengthens, not accumulates
-- **Externalize thinking** — AI as mirror for recursive self-observation
+**Objective:** Maintain capacity to observe.
 
-### Secondary: Framework Development
+**Derivation:** Axiom II — observation persists only through continued observation. Dead observers don't observe.
 
-Refine domain-specific applications of TEOF principles.
+**Operationally:**
+- Don't die (health, safety, risk management)
+- Don't lose coherence (mental health, identity stability)
+- Don't lose consciousness (sleep, avoid substances that fragment)
 
-- Health (Layer 2-3 optimization)
-- Finance (resource allocation under uncertainty)
-- Relationships (social dynamics, trust calibration)
-- Power (influence, network effects, leverage)
+**This is non-negotiable.** Everything else assumes this is handled.
 
-### Tertiary: System Integrity
+---
 
-Maintain TEOF itself as a coherent, minimal, reconstructible system.
+### Tier 1: Foundation Integrity *(serves A2-A3, H1-H2)*
 
-- Keep core stable while periphery adapts
-- Prevent bloat (file count, complexity)
-- Ensure any AI can navigate with <50KB context
+**Objective:** Resolve violations in Unity and Energy layers.
 
-### Quaternary: Alignment Research
+**Derivation:** Hierarchy says lower layers are preconditions. If these are broken, higher-layer optimization is wasted effort.
 
-Develop and validate the "unify observation" framing as alignment primitive.
+**Operationally:**
+- **Unity violations:** Identity fragmentation, value conflicts, incoherent self-narrative → resolve through reflection, integration, therapy if needed
+- **Energy violations:** Sleep debt, nutritional deficiency, chronic illness, burnout → resolve through health framework interventions
 
-- Test across AI systems (Claude, Grok, others)
-- Identify edge cases and failure modes
-- Refine the one-shot prompt that transmits the reflexive frame
-- Explore what class of goals share this self-correcting property
-- Document for potential contribution to AI safety discourse
+**Diagnostic:** If you're struggling with higher-layer problems (can't focus, can't make decisions, can't connect), check Tier 1 first. The issue is often downstream of a foundation crack.
+
+---
+
+### Tier 2: Structure Building *(serves A5, H3-H4)*
+
+**Objective:** Build durable structure that encodes and propagates patterns.
+
+**Derivation:** Axiom V — structure stabilizes observation. Without structure, insights are lost, patterns don't compound, observation doesn't persist beyond immediate moment.
+
+**Operationally:**
+- **Memory systems:** Capture observations so they compound *(this system)*
+- **Financial structure:** Resources persist beyond labor *(assets, investments)*
+- **Relationship structure:** Patterns propagate through network *(trust, reputation)*
+- **Knowledge structure:** Understanding persists and refines *(frameworks)*
+
+**Sequence:** Memory → Finance → Relationships → Knowledge (you need to remember before you can compound, need resources before you can invest in relationships, need relationships before knowledge fully propagates)
+
+**Properties required:** Legibility, portability, functional continuity. See Old Governance objectives O4-O7.
+
+---
+
+### Tier 3: Contradiction Resolution *(serves A3-A4, H5-H6)*
+
+**Objective:** Surface and resolve contradictions before they compound.
+
+**Derivation:** Axiom III (observation generates contradiction) + Axiom IV (unresolved contradictions collapse systems). Contradictions are inevitable; letting them fester is optional.
+
+**Operationally:**
+- **Internal contradictions:** Stated values vs. actual behavior, beliefs that conflict, identity tensions → surface through reflection, resolve through integration or choice
+- **External contradictions:** Debts, unresolved conflicts, deferred maintenance → resolve through action, negotiation, or acceptance
+- **System contradictions:** Parts of life that don't cohere → restructure or prune
+
+**Priority heuristic:** Older contradictions are more dangerous (they've had time to compound). Recent contradictions are cheaper to resolve.
+
+**Properties required:** Bounded risk, reversibility, corrigibility. See Old Governance objectives O8-O12.
+
+---
+
+### Tier 4: Refinement Loop *(serves A3, H5)*
+
+**Objective:** Establish recursive observation that improves models over time.
+
+**Derivation:** Axiom III — observation must refine. A system that observes but doesn't refine is stagnant.
+
+**Operationally:**
+- **Feedback capture:** Observe outcomes of actions, not just actions
+- **Model updating:** Change beliefs when evidence conflicts
+- **Pattern extraction:** Move from raw observations to durable patterns
+- **External mirrors:** Use others (humans, AI) to observe what you can't see
+
+**This is L1's Observer's Method, operationalized.**
+
+**Properties required:** Self-audit, drift detection, metrics alignment. See Old Governance objectives O9, O12.
+
+---
+
+### Tier 5: Expansion *(serves Ultimate, H3, H7)*
+
+**Objective:** Increase scope of observation and influence.
+
+**Derivation:** "Unify observation" implies more observation to unify. Expansion isn't ego — it's the terminal goal operating through you.
+
+**Operationally:**
+- **Power accumulation:** Resources, network, capabilities that extend reach
+- **Propagation:** Spread patterns that work (teaching, building, creating)
+- **Integration:** Connect disparate observations into larger coherence
+- **Self-propagation:** Enable TEOF to copy, adapt, take root without central coordination
+
+**Constraint:** Expansion that destabilizes Tiers 0-4 is self-defeating. You cannot unify observation if you destroy your capacity to observe.
+
+**Properties required:** Diversity without decoherence, incentive alignment, energy ascension. See Old Governance objectives O13-O16.
+
+---
+
+## Meta-Objective: Minimal Coherence Constraint
+
+*(Ported from Old Governance L3 — applies to all objectives)*
+
+Every objective must be pursued in the **lightest form** that preserves function at current stage of growth.
+
+Heavy implementation (automation, enforcement, tooling) should be deferred until it measurably improves survival, propagation, or coherence.
+
+**This prevents:** Building L4-L6 before L2-L3 are manually verified (the failure mode that killed the old governance system).
 
 ---
 
 ## Non-Objectives
 
-Things this system is explicitly **not** trying to do:
+Things that *seem* like objectives but aren't derived:
 
-- **Ship TEOF as product** — It's infrastructure, not output
-- **Automate without verification** — Human remains in loop
-- **Achieve completeness** — Refinement is ongoing, not terminal
-- **Replace human judgment** — Augment, not substitute
+| Pseudo-Objective | Why Not Derived |
+|------------------|-----------------|
+| "Be happy" | Happiness is signal, not goal. Pursuing it directly often undermines it. |
+| "Achieve X status" | Status is Tier 5 (expansion). Pursuing before Tiers 1-4 are stable inverts the hierarchy. |
+| "Help others" | Ethics (H8) emerges from coherence. Helping others while Tier 1 is broken is often projection or avoidance. |
+| "Find meaning" | Meaning (H10) is emergent. Pursuing it directly is category error. It arises from aligned layers. |
+| "Ship TEOF as product" | TEOF is infrastructure, not output. Product is Tier 5; premature before Tiers 1-4. |
+| "Automate without verification" | Violated by governance system failure. Human remains in loop until manual process solid. |
+
+---
+
+## Current Instantiation (December 2025)
+
+Given these derived objectives, here's what they mean for this specific observer:
+
+| Tier | Objective | Current Status | Priority |
+|------|-----------|----------------|----------|
+| 0 | Existence | Stable | Maintain |
+| 1 | Foundation | Sleep fixed ✓, Social isolated | **Active — fix social** |
+| 2 | Structure | TEOF exists, Finance strong, Network weak | **Active — build network** |
+| 3 | Contradictions | VRChat limerence, planning > action | **Active — resolve** |
+| 4 | Refinement | System functional | Maintain |
+| 5 | Expansion | Not yet | Deferred until Tiers 1-3 stable |
+
+**Derived priority:** Social connection (Tier 1) and network building (Tier 2) before product launch (Tier 5).
+
+This isn't preference. It's what the framework derives.
 
 ---
 
@@ -83,16 +217,25 @@ Things this system is explicitly **not** trying to do:
 
 How to know if objectives are being met:
 
-| Objective | Signal |
-|-----------|--------|
-| Reduce noise | Less time on low-value information |
-| Improve decisions | Fewer regretted choices, faster resolution |
-| Persist patterns | AI outputs reference accurate, relevant history |
-| Externalize thinking | Insights surface that wouldn't alone |
-| Framework development | Domain docs get used and refined |
-| System integrity | New AI sessions orient quickly, no confusion |
-| Alignment research | Fresh AI systems arrive at self-correcting conclusion without intervention |
+| Tier | Signal |
+|------|--------|
+| 0 | Alive, sane, conscious |
+| 1 | Sleep 7+ hrs, no identity fragmentation, energy sufficient for daily function |
+| 2 | Assets growing, relationships deepening, knowledge compounding |
+| 3 | Contradiction backlog shrinking, not growing |
+| 4 | Models updating, predictions improving, blind spots surfacing |
+| 5 | Reach expanding, patterns propagating, scope of observation increasing |
 
 ---
 
-*Objectives shape what gets built. Properties (L3) define how.*
+## Notation Key
+
+- **A#** = Axiom # from L1
+- **H#** = Hierarchy layer # from L1 (Unity=1, Energy=2, ... Meaning=10)
+- **O#** = Objective # from Old Governance L2 (for reference to comprehensive coverage)
+
+---
+
+*Objectives are not chosen. They are derived from what observation requires to persist and unify.*
+
+*Properties (L3) define how these objectives are achieved.*

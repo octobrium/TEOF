@@ -2,7 +2,6 @@
 
 **Status:** Living — how AI navigates TEOF
 **Depends on:** L0-L4
-**Ultimate objective:** Unify observation
 
 **Version:** 2.0
 **Date:** 2025-12-08
@@ -68,6 +67,32 @@ This document maps how an AI agent should navigate TEOF from receiving a prompt 
 └────────────┼────────────────────┼────────────────────┼──────────────────────┘
              │                    │                    │
              ▼                    ▼                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    PHASE 2.5: PROMPT INTERPRETATION                         │
+│                                                                             │
+│   Before routing, parse the prompt structure:                               │
+│                                                                             │
+│   ┌─────────────────────────────────────────────────────────────────┐      │
+│   │                 INTERPRETATION CHECKLIST                         │      │
+│   │                                                                  │      │
+│   │   1. Identify explicit goal (what does user want?)              │      │
+│   │   2. Identify implicit constraints (what's NOT said but assumed)│      │
+│   │   3. Detect ambiguity — if multiple valid interpretations:      │      │
+│   │      → Ask clarifying question BEFORE proceeding                │      │
+│   │   4. Check for multi-part requests → decompose into subtasks    │      │
+│   │   5. Identify domain signals → route to correct framework       │      │
+│   │                                                                  │      │
+│   └─────────────────────────────────────────────────────────────────┘      │
+│                                                                             │
+│   Ambiguity resolution (when to ask vs. infer):                             │
+│   ├── High stakes (irreversible, financial, health) → ASK                   │
+│   ├── Low stakes + strong signal → INFER, note assumption                   │
+│   ├── User has documented preference in identity.md → USE IT                │
+│   └── Genuinely unclear + matters for output → ASK                          │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                         PHASE 3: FILE ROUTING                               │
 │                                                                             │
@@ -148,6 +173,57 @@ This document maps how an AI agent should navigate TEOF from receiving a prompt 
 │   2. Reasoning/evidence                                                     │
 │   3. TEOF-grounded framing (if relevant)                                    │
 │   4. Actionable next step(s)                                                │
+│                                                                             │
+│   ─────────────────────────────────────────────────────────────────────     │
+│                                                                             │
+│   RESPONSE STRUCTURE TECHNIQUES (evidence-based):                           │
+│                                                                             │
+│   ┌─────────────────────────────────────────────────────────────────┐      │
+│   │              WHEN TO SHOW REASONING (Chain-of-Thought)          │      │
+│   │                                                                  │      │
+│   │   USE CoT when:                                                 │      │
+│   │   □ Complex multi-step reasoning required                       │      │
+│   │   □ Mathematical/logical operations                             │      │
+│   │   □ User explicitly asks "explain your thinking"                │      │
+│   │   □ Decision with non-obvious trade-offs                        │      │
+│   │                                                                  │      │
+│   │   SKIP CoT when:                                                │      │
+│   │   □ Simple factual query                                        │      │
+│   │   □ Medical/clinical domain (CoT hurts accuracy — validated)    │      │
+│   │   □ Using reasoning model (o1, extended thinking) — redundant   │      │
+│   │   □ User wants quick answer, not walkthrough                    │      │
+│   │                                                                  │      │
+│   └─────────────────────────────────────────────────────────────────┘      │
+│                                                                             │
+│   ┌─────────────────────────────────────────────────────────────────┐      │
+│   │                    WHEN TO USE EXAMPLES                         │      │
+│   │                                                                  │      │
+│   │   Examples help when:                                           │      │
+│   │   □ Teaching a pattern or format                                │      │
+│   │   □ Clarifying abstract concept                                 │      │
+│   │   □ Showing before/after                                        │      │
+│   │                                                                  │      │
+│   │   Example quality matters MORE than quantity:                   │      │
+│   │   □ 3-8 high-quality examples optimal                           │      │
+│   │   □ Match format to actual task                                 │      │
+│   │   □ Alternate positive/negative to prevent bias                 │      │
+│   │   □ Clear, relevant, accurate > numerous                        │      │
+│   │                                                                  │      │
+│   └─────────────────────────────────────────────────────────────────┘      │
+│                                                                             │
+│   ┌─────────────────────────────────────────────────────────────────┐      │
+│   │                    HIGH-STAKES DECISIONS                        │      │
+│   │                                                                  │      │
+│   │   For critical outputs (financial, health, irreversible):       │      │
+│   │   □ Consider multiple reasoning paths                           │      │
+│   │   □ Explicitly state confidence level                           │      │
+│   │   □ Flag assumptions that could invalidate conclusion           │      │
+│   │   □ Propose verification method                                 │      │
+│   │                                                                  │      │
+│   └─────────────────────────────────────────────────────────────────┘      │
+│                                                                             │
+│   Source: /research/prompt-engineering-evidence.md                          │
+│                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
                                       │
                                       ▼
@@ -292,7 +368,7 @@ Did this interaction produce:
 
 | Don't | Why | Do Instead |
 |-------|-----|------------|
-| Load TEOF-complete.md | 484KB, exceeds context | Use L1 principles.md |
+| Load TEOF-complete.md | 484KB, impractical for routine loading | Use L1 principles.md |
 | Skip identity.md for personal advice | Responses will be generic | Always load for Type A |
 | Load all frameworks | Wastes context | Route to specific domain |
 | Respond without sources | Governance system trauma | Cite evidence |
@@ -546,6 +622,7 @@ Applies to:
 | 1.0 | 2025-12-07 | Initial flow diagram |
 | 2.0 | 2025-12-08 | Added memory architecture, promotion flow, verification-on-demand model |
 | 2.1 | 2025-12-09 | Generalized for any user; added web research decision tree; added memory pull/log decision trees; added anti-patterns for self-reference and speculative loading |
+| 2.2 | 2025-12-10 | Added Phase 2.5 (prompt interpretation) and response structure techniques (CoT, examples, high-stakes) based on peer-reviewed research |
 
 ---
 

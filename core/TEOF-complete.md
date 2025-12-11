@@ -1266,6 +1266,8 @@ A single cell is fragile. A billion cells descended from that cell, each slightl
 
 **Failure Mode:** Isolation. A pattern that cannot propagate is a dead end. At the biological level: sterile organisms are evolutionary termini—their innovations die with them. At the cultural level: knowledge not transmitted is lost when the knower dies. At the technological level: proprietary systems that can't be copied or adapted are fragile monopolies—when they fail, the pattern disappears. Propagation is what transforms individual success into lineage-level persistence.
 
+**Scales of Propagation:** Layer 3 operates at multiple scales simultaneously. For an individual organism: biological reproduction, romantic bonding, social connection (personal propagation). For ideas and systems: teaching, shipping, network effects (systemic propagation). Personal propagation is typically prerequisite—an isolated organism lacks the substrate for systemic propagation.
+
 #### 5.5 Defense: The Protection of Coherence
 
 **Definition:** The ability to filter interference and preserve signal integrity.
@@ -3346,6 +3348,8 @@ The approach most likely to persist and compound coherence involves observing re
 ## PART III: THE METHOD
 
 ### Chapter 6: How to Observe
+
+> **Note (2025-12-10):** The Observer's Method was revised based on empirical debiasing research. The current recommended methods and ordering are in `L1 principles.md §3`. This chapter retains detailed exploration of each technique. Key changes: Recursive Self-Audit moved to #1 (strongest derivation); Probabilistic Delay upgraded to Probabilistic Calibration; Premortem added; Incentive Mapping retained as supplementary tool. See `research/epistemological-methods-comparison.md` for full analysis.
 
 #### 6.1 The Problem of Distortion
 

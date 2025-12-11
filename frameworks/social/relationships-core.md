@@ -216,6 +216,79 @@ Selection matters more than attraction skills. Great game cannot fix bad selecti
 
 ---
 
+## Limerence: The Obsession Trap
+
+### What It Is
+
+Limerence is involuntary obsessive attachment characterized by:
+- Intrusive thoughts about the person
+- Mood dependent on their response
+- Idealization (can't see flaws)
+- Compulsive checking behavior
+- Physical sensations when thinking of them
+
+**It's addiction, not love.** The brain mechanisms are identical to gambling addiction—variable reward schedules (uncertainty about her response) create the strongest conditioning.
+
+### The Three Drivers
+
+Limerence requires:
+1. **Uncertainty** — Her feelings are unclear/fluctuating
+2. **Scarcity** — She's your only option
+3. **Idle bandwidth** — No other focus consuming your attention
+
+Remove any one and limerence weakens.
+
+### Why You Can't Think Your Way Out
+
+The drive is subcortical (reward circuits, attachment systems). Cognitive approaches alone create more rumination. **The cure is behavioral:**
+
+- Don't check her status → uncertainty doesn't spike dopamine
+- Don't analyze her behavior → rumination loop breaks
+- Build other options → scarcity eliminated at source
+- Stay occupied → no bandwidth for obsession
+
+### The Anti-Limerence Architecture
+
+| Need | Counter |
+|------|---------|
+| Uncertainty | Document her pattern. It's data, not mystery. |
+| Scarcity | Build network → options → abundance |
+| Idle bandwidth | Fill with valued activities (gym, work, social building) |
+
+### Practical Protocol
+
+**Today:**
+- Don't check her status
+- Don't message
+- Physical activity
+- Audio scaffolding (external frame reminders)
+
+**This week:**
+- Document her pattern in writing
+- Begin one social building activity
+- Daily exercise
+- Track behavior, not feeling
+
+**Resolution criteria:**
+- Think of her without emotional spike
+- Her response doesn't affect your mood
+- Have genuine other options
+- She's one among many, not "the one"
+
+Timeline: 3-6 months of consistent behavioral intervention.
+
+### Connection to Framework
+
+Limerence violates Tier 1 foundations:
+- **Mission over women** — She's become the mission
+- **Internal validation** — Her response controls your state
+- **Attention sovereignty** — Fixation, not distribution
+- **Outcome independence** — Devastated by her distance
+
+The cure is returning to Tier 1: Build the life. She's an addition to it, never its center.
+
+---
+
 ## Common Failure Modes (Diagnostic)
 
 ### Tier 1 Failures

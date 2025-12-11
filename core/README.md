@@ -1,8 +1,8 @@
 # Core
 
-**Ultimate objective:** Unify observation
-
 TEOF system architecture in seven layers (L0-L6).
+
+**Ultimate objective:** Unify observation *(derived at L2)*
 
 ---
 

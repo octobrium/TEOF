@@ -23,13 +23,22 @@ This framework applies TEOF principles to optimize health across all domains:
 ```
 health/
 ├── README.md       ← This file (index and overview)
+├── health-core.md  ← AI-READABLE SUMMARY (~6KB)
 ├── health.md       ← COMPLETE BOOK (~25k words, shareable)
 └── chapters/       ← Individual chapters (for editing/development)
     ├── README.md   ← Chapter index and status
     ├── 00-prologue.md through 07-implementation.md
 ```
 
-**Reading/Sharing:** Use `health.md` — the complete book in a single file.
+| File | Purpose | For |
+|------|---------|-----|
+| `health-core.md` | Synthesized fundamentals, targets, protocols | AI reading |
+| `health.md` | Complete book (~176KB) | Human reading/sharing |
+| `chapters/` | Individual chapters for editing | Development |
+
+**AI reading:** Use `health-core.md` — key targets, protocols, and TEOF integration.
+
+**Human reading/sharing:** Use `health.md` — the complete book in a single file.
 
 **Editing:** Use `chapters/` directory — modify chapters, then recompile to `health.md`.
 
