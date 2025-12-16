@@ -21,6 +21,26 @@ L1-L6 describe how TEOF is organized — from principles through implementation.
 
 ---
 
+## Relationship to the Observation-Action Loop
+
+L1-L6 is not a separate model from the universal Observation-Action Loop (see TEOF.md Chapter 7.2). It is the Loop *unpacked* for framework construction.
+
+```
+Universal Loop:     Observation → Truth → Action → Outcomes
+
+L1-L6 Unpacking:    Observation → [L1-L4: Truth] → [L5-L6: Action] → Outcomes
+                                   Principles       Workflow
+                                   Objectives       Automation
+                                   Properties
+                                   Architecture
+```
+
+For a primitive observer, "Truth" stays compressed (encoded response). For a sophisticated observer building a framework, "Truth" must be decomposed into principles, objectives, properties, and architecture. Similarly, "Action" decomposes into workflow and automation.
+
+**The sequence:** The universal loop is primary. L1-L6 is derived from it as the systems design blueprint for TEOF-scale implementation.
+
+---
+
 ## The Systems Hierarchy (S)
 
 The S hierarchy (S1-S10) describes properties persistent systems exhibit — a diagnostic lens.
