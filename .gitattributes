@@ -1,0 +1,17 @@
+* text=auto eol=lf
+*.md diff=markdown
+## TEOF defaults
+* text=auto eol=lf
+
+# Shell & scripts must stay LF
+*.sh text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Reports are not code; hide from linguist, exclude from archives
+_report/** linguist-generated
+_report/** export-ignore
+
+# OS noise
+*.DS_Store export-ignore

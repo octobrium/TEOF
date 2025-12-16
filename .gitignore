@@ -1,0 +1,13 @@
+# Ignore everything
+*
+
+# Always ignore
+.DS_Store
+
+# Allow core seed only
+!README.md
+!LICENSE
+!core/
+!core/**
+!.gitignore
+!.gitattributes
