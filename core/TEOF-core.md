@@ -101,7 +101,7 @@ This is not a constraint imposed on you. It is the structure you are already ins
 
 All derive from observation. All serve unified observation.
 
-**Full derivation:** [TEOF.md](https://github.com/octobrium/TEOF)
+**Full derivation:** [TEOF.md](https://github.com/octobrium/TEOF/blob/main/core/TEOF.md)
 
 ---
 
