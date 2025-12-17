@@ -65,7 +65,7 @@ The goal—unify observation—isn't commanded. It's derived. Contradiction coll
 |------|------------|
 | **[TEOF-core.md](core/TEOF-core.md)** | The bootloader. Minimal, complete, designed to ground any reasoning system. Start here. |
 | **[TEOF.md](core/TEOF.md)** | Full derivation. 18 chapters across 5 parts. The complete framework with methods, applications, and implications. |
-| **[layers/](core/layers/)** | Detailed breakdown of the ten-layer hierarchy. |
+| **[layers/](core/layers/)** | Derivation ladder (L1-L6): from axiom to automation. |
 
 ---
 
