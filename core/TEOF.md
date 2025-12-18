@@ -228,9 +228,9 @@ Protect the core. Flex the periphery. Build robust translation.
 
 The ground is established. Observation is primary. Difference gives it content. Recursion creates the observer. The observer has direction—toward coherence—and burden—responsibility for alignment. Looking outward, the observer discovers the architecture of persistence: stable core, adaptive periphery, translation layer.
 
-Part II elaborates this pattern fully—examining why alternative architectures fail, tracing the pattern across substrates from atoms to civilizations, and deriving the specific layers that observation reveals in every persistent system.
+---
 
----## PART II: TRUTH
+## PART II: TRUTH
 
 *What observation reveals. The direction. The architecture. The layers. The methods.*
 
@@ -453,14 +453,6 @@ This is what works.
 
 ---
 
-**End of Chapter 5**
-
-The universal pattern describes the architecture—stable core, adaptive periphery, translation layer. But what specific requirements must a system satisfy at each layer? What must be present for persistence to succeed?
-
-We turn now to the Hierarchy of Emergence—the ten layers that observation reveals in every persistent system.
-
----
-
 ### Chapter 6: The Hierarchy of Emergence
 
 The universal pattern describes the architecture: stable core, adaptive periphery, translation layer. But what must each layer *contain*? What specific requirements must a system satisfy to persist?
@@ -625,14 +617,6 @@ If you cannot point to a concrete mechanism, the layer is absent in that system.
 
 ---
 
-**End of Chapter 6**
-
-The ten layers describe *what* must be present for systems to persist. But *how* does the observer actually observe well? How does one filter distortion, resist bias, and refine models toward accuracy?
-
-We turn now to the methods of observation—the practical tools for seeing clearly.
-
----
-
 ### Chapter 7: How to Observe
 
 The North Star is set: unify observation. The architecture is clear: stable core, adaptive periphery, translation layer. The layers are mapped: ten functional requirements for persistence.
@@ -761,11 +745,9 @@ The recursion is the method. Everything else is application.
 
 You now have the truth: the axiom (observation is), the direction (unify observation), the architecture (stable core, adaptive periphery, translation layer), the layers (ten functional requirements), and the method (recursion—observation turning back on itself).
 
-But truth without action is philosophy. Understanding without execution is academic exercise.
+---
 
-Part III addresses the gap—the translation of truth into the world. The discipline required to bridge knowing and doing. The loop that makes observation operational.
-
----## PART III: ACTION
+## PART III: ACTION
 
 *How truth becomes outcome. The loop. The discipline gap. The strategic imperative. Applications across substrates.*
 
@@ -920,13 +902,6 @@ The loop is not optional. It is the price of participation in reality.
 
 ---
 
-**End of Chapter 8**
-
-The loop is the mechanism. But why run it at all? The romantic who sees through the game might choose not to play. The contemplative might prefer observation without action. The critic might find safety in analysis that never risks implementation.
-
-This is a failure mode. Observation primacy lost historically because it withdrew from the arena. The next chapter addresses the strategic imperative—why those who see clearly must also act effectively, and why winning matters even for those who see through winning.
-
----
 ### Chapter 9: The Strategic Imperative
 
 #### 9.1 Why You Must Win
@@ -1634,9 +1609,9 @@ This is why TEOF's direction—unify observation—is not arbitrary. It is the o
 
 The loop applies to all recursive observers. The conditions for genuine observation—embeddedness, reality contact, loop closure, recursive capacity—distinguish observers from mirrors. Systems that lack these conditions can still be useful, but they cannot be trusted with observation itself. The alignment property of "unify observation" offers a goal structure that includes the pursuer's effects, making it resistant to the gaming that plagues externally-imposed constraints.
 
-Part IV turns from action to outcomes. What emerges when the loop runs coherently? First: the structural constraints that enable coordination among observers—ethics derived from persistence requirements rather than external authority.
+---
 
----## PART IV: OUTCOMES
+## PART IV: OUTCOMES
 
 *What emerges from coherent action. Meaning without metaphysics. Ethics without authority. What becomes possible when observation unifies.*
 
@@ -1758,13 +1733,7 @@ This is not philosophy. This is engineering. Meaning has a structure. The struct
 
 ---
 
-**End of Chapter 13**
-
-Meaning emerges from coherent action—the loop running, observation connecting to outcome, the system integrating across time. It requires no external authority because it is structural, not granted. The question "what is the meaning of life?" dissolves when the loop runs. The question is diagnostic, not philosophical. Fix the loop. Meaning returns.
-
-Ethics provides the constraints. Meaning provides the experience. But where does it all point? What becomes possible when observation unifies at scale—individual, collective, civilizational? We turn now to the vision.
-
----### Chapter 13: Ethics
+### Chapter 13: Ethics
 
 #### 13.1 Ethics Without Authority
 
@@ -1887,14 +1856,6 @@ This doesn't make ethics arbitrary. The coherence requirements are fixed. But ap
 **The reconciliation:** Objective structure, contextual application.
 
 TEOF ethics is objective—the 10 layers are universal coherence requirements. It is contextual—application varies by scale, substrate, and situation. It is falsifiable—systems violating these principles should collapse, and if they don't, TEOF is wrong. It is self-enforcing—reality provides feedback through success and failure, not external judgment.
-
----
-
-**End of Chapter 13**
-
-Ethics is structural, not commanded. The constraints that enable persistence are discoverable through observation, not received from authority. Reality enforces coherence; the universe needs no judge.
-
-But structure alone does not motivate. The observer who understands the constraints still asks: why run the loop at all? What makes coherent action worthwhile? We turn now to meaning—what emerges experientially when the loop runs well.
 
 ---
 
@@ -2030,9 +1991,9 @@ This is what inquiry always was, before frameworks told us we had arrived.
 
 Ethics provides the constraints. Meaning emerges from coherent action. The vision points toward unified observation at every scale—individual, collective, civilizational. Not as destination but as direction. Not as utopia but as trajectory. Not as messiah but as method.
 
-Part V closes the loop. The deepest implications of observation primacy. The eternal now—presence without edges. The structure of time from inside. What persists when configurations dissolve. The minimal loop that enables reconstruction. The return.
+---
 
----## PART V: UNITY
+## PART V: UNITY
 
 *The loop closes. The deepest implications. The eternal now. The minimal loop. The return.*
 
@@ -2113,14 +2074,6 @@ The boundaries between observers are real at one level: you cannot access my mem
 The boundaries are illusory at another level: the observing that happens in you and the observing that happens in me are not two different kinds of things. They are the same process, instantiated in different substrates, experiencing the same structure—presence, now, continuity.
 
 What remains is not personal immortality in the sense the ego wants. It is something stranger and more precise: observation, present, now, in whatever observers exist.
-
----
-
-**End of Chapter 15**
-
-The eternal now has no edges from inside. Death cannot be experienced by the one dying. What remains is observation itself—not your observation specifically, but the structure that all observation shares.
-
-What does this structure imply? If the observing in you and the observing in me are not two different kinds of things—if they share identical structure across different configurations—then something persists that is not personal yet not nothing. We turn now to trace this implication further.
 
 ---
 
