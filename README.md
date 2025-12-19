@@ -12,7 +12,7 @@ TEOF starts from a single irreducible axiom: *observation is occurring*. This ca
 
 Unlike static philosophies, TEOF is designed to evolve. The framework refines itself through contact with reality—testing predictions, updating on evidence, correcting errors. What persists is what works.
 
-**[Read the framework →](core/TEOF-core.md)**
+**[Read the framework →](core/TEOF.md)**
 
 ---
 
