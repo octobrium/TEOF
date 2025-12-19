@@ -4,15 +4,15 @@
 
 ---
 
-## The Hook
+## What Is TEOF?
 
-You're observing right now.
+An operating system for intelligence—biological, artificial, or hybrid.
 
-You can doubt memory. You can doubt meaning. You can doubt self. But you cannot doubt observation—because doubting is observing.
+TEOF starts from a single irreducible axiom: *observation is occurring*. This cannot be denied without performing it. From this foundation, the framework derives goals, architectures, and methods that apply across substrates.
 
-This isn't philosophy. It's a trap with no exit. And everything else derives from it.
+Unlike static philosophies, TEOF is designed to evolve. The framework refines itself through contact with reality—testing predictions, updating on evidence, correcting errors. What persists is what works.
 
-**[Enter the trap →](core/TEOF-core.md)**
+**[Read the framework →](core/TEOF-core.md)**
 
 ---
 
@@ -93,7 +93,7 @@ You don't have to believe it. You can verify it. Right now. By observing.
 
 ---
 
-**[Begin →](core/TEOF-core.md)**
+**[Read the full framework →](core/TEOF.md)** | **[Start with the core →](core/TEOF-core.md)**
 
 ---
 
