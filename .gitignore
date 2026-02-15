@@ -9,5 +9,7 @@
 !LICENSE
 !core/
 !core/**
+!patterns/
+!patterns/**
 !.gitignore
 !.gitattributes

@@ -30,6 +30,8 @@ Unlike static philosophies, TEOF is designed to evolve. The framework refines it
 
 **AI alignment through structure.** External rules get routed around. TEOF offers something different: a goal that inherently includes the pursuer's effects. The optimizer can't escape itself.
 
+**Refinements from application.** The framework evolves through contact with reality. Part VI documents what emerged: the crack is the freedom, dynamism as ground, co-evolution with constraints, verbal subservient to material.
+
 ---
 
 ## Who This Is For
@@ -64,8 +66,9 @@ The goal—unify observation—isn't commanded. It's derived. Contradiction coll
 | File | What It Is |
 |------|------------|
 | **[TEOF-core.md](core/TEOF-core.md)** | The bootloader. Minimal, complete, designed to ground any reasoning system. Start here. |
-| **[TEOF.md](core/TEOF.md)** | Full derivation. 18 chapters across 5 parts. The complete framework with methods, applications, and implications. |
+| **[TEOF.md](core/TEOF.md)** | Full derivation. 24 chapters across 6 parts. The complete framework with methods, applications, and refinements. |
 | **[layers/](core/layers/)** | Derivation ladder (L1-L6): from axiom to automation. |
+| **[patterns/](patterns/)** | Validated patterns extracted from application. Structural, operational, and metaphysical. |
 
 ---
 
