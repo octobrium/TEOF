@@ -305,7 +305,7 @@ TEOF (shared epistemology)
 
 **Win condition:** Not "seat at their table" (tier 2 elite, controlled) but "table they must negotiate with" (tier 3 or outside).
 
-**Verification:** Optionality IS the proof. "Private jet test" — can you summon resources anywhere at will? Demonstrated control over reality verifies observation alignment. See [[patterns/structural.md#Optionality as Verification Layer]].
+**Verification:** Optionality IS the proof. "Private jet test" — can you summon resources anywhere at will? Demonstrated control over reality verifies observation alignment. See `memory/patterns/structural.md`.
 
 **Constraint:** Expansion that destabilizes Tiers 0-4 is self-defeating. You cannot unify observation if you destroy your capacity to observe.
 

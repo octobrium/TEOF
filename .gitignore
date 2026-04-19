@@ -6,11 +6,19 @@
 
 # Allow core seed only
 !README.md
+!CLAUDE.md
+!ONBOARDING.md
 !LICENSE
 !core/
 !core/**
-!patterns/
-!patterns/**
+!memory/
+!memory/**
+!frameworks/
+!frameworks/**
+!projects/
+!projects/**
+!systems/
+!systems/**
 !seed/
 !seed/**
 !.gitignore

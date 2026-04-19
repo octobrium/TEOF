@@ -1,10 +1,10 @@
 # TEOF: The Eternal Observer Framework
 
-Public-facing core framework and starter seed.
+Public-safe template of the private TEOF organism.
 
-This repository contains the public-safe TEOF core: the seed, the long-form manuscript, the doctrinal ladder, and a small starter scaffold for people who want to build their own observation-centered system on top of it.
+This repository is meant to be a usable blank-slate version of `TEOF-private`: the same broad shape, the same core derivation, and the same AI-readable routing style, but without private memories, personal operating data, domain-specific tooling, or live user state.
 
-It intentionally does **not** include private memory, personal operating data, finance state, job pipelines, or other user-specific machinery from the private working repo.
+The goal is not to publish someone else's organism. The goal is to publish a template that lets another user, or another AI, build their own.
 
 ---
 
@@ -25,7 +25,7 @@ The framework is strongest as a **guidance layer**: curation, integration, verif
 
 ## What This Repo Gives You
 
-### 1. The Public Core
+### 1. The Core
 
 | File | Role |
 |------|------|
@@ -33,11 +33,11 @@ The framework is strongest as a **guidance layer**: curation, integration, verif
 | **[core/TEOF.md](core/TEOF.md)** | Full source text / long-form manuscript |
 | **[core/layers/L1 principles.md](core/layers/L1%20principles.md)** | Primary doctrinal canon |
 | **[core/layers/](core/layers/)** | Derivation ladder from principle to workflow |
-| **[patterns/](patterns/)** | Public pattern notes and supporting abstractions |
+| **[memory/patterns/](memory/patterns/)** | Pattern layer for recurrent observations |
 
-### 2. The Public-Safe Core Split
+### 2. The Operating Template
 
-The public repo exposes the cleaner core split used in the private repo where it can do so safely:
+The public repo mirrors the private repo's high-level shape in public-safe form:
 
 - `TEOF-core.md` = minimum reconstructible seed
 - `L1 principles.md` = primary doctrinal canon
@@ -45,10 +45,15 @@ The public repo exposes the cleaner core split used in the private repo where it
 - `TEOF-skeleton.md` = derivation-audit friction document
 - `TEOF-ladder.md` = claim-by-claim derivation map
 - `TEOF.md` = long-form philosophical text
+- `memory/` = blank metabolism layer
+- `frameworks/` = blank domain-curation layer
+- `projects/` = blank execution layer
+- `systems/` = blank tooling and automation layer
+- `ONBOARDING.md` / `CLAUDE.md` = AI-readable routing and behavior
 
 ### 3. A Starter Seed
 
-The **[seed/](seed/)** folder is a blank public scaffold for people who want to fork TEOF into their own system without inheriting someone else's private memories or workflows.
+The **[seed/](seed/)** folder remains as a lighter starter scaffold, but the repo itself is now the main template.
 
 ---
 
@@ -62,29 +67,32 @@ If you want the shortest entry:
 
 If you want to build your own system:
 
-1. Read [seed/README.md](seed/README.md)
-2. Copy the seed templates into your own repo or local workspace
-3. Keep your personal state separate from the public core
+1. Read [ONBOARDING.md](ONBOARDING.md)
+2. Read [memory/README.md](memory/README.md)
+3. Populate the blank identity, project, framework, and pattern layers with your own state
+4. Keep user-specific data local and auditable
 
 ---
 
 ## Public vs Private
 
-This repo is the **public-safe seed**, not the full private organism.
+This repo is the **public-safe template of the private organism**, not the private organism itself.
 
 Included here:
 
 - public doctrine
 - public manuscript
 - public-safe derivation aids
-- public-safe starter templates
+- blank operating layers and routing docs
+- starter templates
 
 Not included here:
 
 - private memories
 - user-specific identity state
-- finance / clinic / legal / job-hunting systems
+- private domain state
 - private automations and live operational surfaces
+- personal data, logs, or historical receipts
 
 That separation is deliberate. It keeps the framework reusable and prevents accidental leakage of private state.
 
@@ -96,6 +104,7 @@ That separation is deliberate. It keeps the framework reusable and prevents acci
 - Prefer direct verification when stakes are material.
 - Use the hierarchy diagnostically: fix lower-layer failures before optimizing higher layers.
 - Treat the framework as something to run against reality, not merely to admire.
+- Use it to build your own frameworks and tools; do not cargo-cult someone else's outputs.
 
 ---
 
@@ -103,16 +112,11 @@ That separation is deliberate. It keeps the framework reusable and prevents acci
 
 The intended pattern is:
 
-1. Fork this repo or copy the core files.
-2. Keep the public core relatively stable.
-3. Build your own translation/periphery around it:
-   - identity
-   - projects
-   - observations
-   - domain notes
-   - automation
+1. Fork this repo or copy the template.
+2. Keep the core relatively stable.
+3. Build your own memory, frameworks, projects, and systems layers around it.
 4. Let real application refine your local system.
-5. Promote only the parts that prove broadly reusable back into public canon.
+5. Promote only the parts that prove broadly reusable back into shared canon.
 
 That is the public/private boundary in one sentence: **private state stays local; durable doctrine can move upward.**
 
@@ -122,7 +126,8 @@ That is the public/private boundary in one sentence: **private state stays local
 
 - [Read the full framework](core/TEOF.md)
 - [Read the doctrinal canon](core/layers/L1%20principles.md)
-- [Start from the seed](seed/README.md)
+- [Read onboarding](ONBOARDING.md)
+- [Read the memory scaffold](memory/README.md)
 
 ---
 

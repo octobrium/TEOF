@@ -28,8 +28,8 @@ Read the smallest surface that can answer the question.
 1. `core/TEOF-core.md` for seed grounding
 2. `core/layers/L1 principles.md` for doctrine
 3. `core/TEOF.md` when the full derivation matters
-4. `patterns/` for supporting abstractions
-5. `seed/` when the task is "how do I build my own version of this?"
+4. `memory/patterns/` for supporting abstractions
+5. `ONBOARDING.md`, `frameworks/`, `projects/`, or `systems/` when the task concerns building a working organism
 
 The point is routing over overloading. Do not read the whole repo just because it exists.
 
@@ -42,8 +42,8 @@ The point is routing over overloading. Do not read the whole repo just because i
 | "What is TEOF?" | `core/TEOF-core.md` |
 | "What does TEOF claim doctrinally?" | `core/layers/L1 principles.md` |
 | "Show me the full reasoning" | `core/TEOF.md` |
-| "How do I use this in my own system?" | `seed/README.md` |
-| "What patterns support this?" | `patterns/README.md` and specific pattern files |
+| "How do I use this in my own system?" | `ONBOARDING.md` → `memory/README.md` |
+| "What patterns support this?" | `memory/patterns/README.md` and specific pattern files |
 
 ---
 
@@ -56,7 +56,7 @@ When using the public repo:
 - do not invent private context that is not in the repo
 - do not treat the public repo as if it already contains a user's identity, memory, or project state
 
-That last point is critical. The public repo is a seed, not a full organism.
+That last point is critical. The public repo is a template organism, not a populated private one.
 
 ---
 
@@ -64,9 +64,9 @@ That last point is critical. The public repo is a seed, not a full organism.
 
 If someone wants to build on TEOF:
 
-1. keep the public core mostly stable
-2. create local files for identity, direction, observations, and projects
-3. promote only the patterns that survive contact with reality
+1. keep the core mostly stable
+2. populate memory, frameworks, projects, and systems with real use
+3. promote only the patterns and methods that survive contact with reality
 
 This prevents a common failure mode: trying to turn public doctrine directly into a fake fully-personal system without the lived layer that would make it honest.
 

@@ -19,19 +19,22 @@ This is a public-safe architecture document, not a description of any private wo
 
 ## Public Structure
 
-The public repo is organized around three visible zones:
+The public repo is organized around the same broad zones as the private working system, but in blank public-safe form:
 
 | Zone | Purpose |
 |------|---------|
 | `core/` | Stable doctrine, derivation, and long-form source text |
-| `patterns/` | Public supporting patterns and abstractions |
-| `seed/` | Blank starter scaffold for a user's own local system |
+| `memory/` | Observations, reflections, patterns, identity, and procedures |
+| `frameworks/` | Domain curation and synthesis |
+| `projects/` | Active execution surfaces |
+| `systems/` | Tooling and automation design surfaces |
+| `seed/` | Optional lighter starter scaffold |
 
 This is the public expression of the universal pattern:
 
 - **core** = protected
-- **translation** = interpretation and starter scaffolding
-- **periphery** = user-built local extensions outside public canon
+- **translation** = notes, routing, and interpretive scaffolding
+- **periphery** = adaptive user-built layers
 
 ---
 
@@ -45,7 +48,7 @@ Within the public repo:
 2. `core/layers/L1 principles.md`
 3. `core/TEOF.md`
 4. supporting doctrine / derivation docs
-5. patterns and seed material
+5. memory, frameworks, projects, systems, and seed material
 
 The rule is simple: foundational before explanatory, explanatory before optional.
 
@@ -76,19 +79,18 @@ If you fork TEOF into your own working system, a clean pattern is:
 
 ```
 your-system/
-├── core/        ← mostly stable, updated selectively
-├── patterns/    ← promoted local patterns
-├── seed/        ← starter templates or adapted local docs
-├── local/       ← private observations, identity, state, logs
-└── projects/    ← execution surfaces
+├── core/
+├── memory/
+├── frameworks/
+├── projects/
+├── systems/
+└── seed/
 ```
 
-The name of the local folders can differ. The architectural point is what matters: keep doctrine separate from volatile state.
+The names can differ. The architectural point is what matters: keep doctrine separate from volatile state, and keep tools downstream of clarified process.
 
 ---
 
 ## Canonical Rule
 
 `core/TEOF.md` is the canonical long-form manuscript.
-
-If sharded chapter files or older summaries exist, they are subordinate to `core/TEOF.md` unless explicitly regenerated from it.

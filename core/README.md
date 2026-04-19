@@ -89,6 +89,6 @@ Compact human entrypoint derived from `TEOF-core.md` and `L1 principles.md`.
 
 This folder is the **stable core**. Changes here should be rare and deliberate.
 
-In the public repo, treat `patterns/` and `seed/` as the visible periphery. In your own local system, you may build richer project, memory, or automation layers around this core.
+In the template repo, treat `memory/`, `frameworks/`, `projects/`, and `systems/` as the visible periphery around this core.
 
-**Canonical note:** `core/TEOF.md` is the canonical long-form source text. If sharded chapter files exist elsewhere in the repo, prefer `core/TEOF.md` when in doubt.
+**Canonical note:** `core/TEOF.md` is the canonical long-form source text.
