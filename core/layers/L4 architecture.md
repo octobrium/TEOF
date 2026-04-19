@@ -13,13 +13,13 @@ L4 describes how the public TEOF repo should be organized so that:
 - the public structure stays legible
 - others can fork it into their own systems without inheriting private assumptions
 
-This is a public-safe architecture document, not a description of any private working tree.
+This is a template architecture document.
 
 ---
 
 ## Public Structure
 
-The public repo is organized around the same broad zones as the private working system, but in blank public-safe form:
+The repo is organized around a stable core and blank working layers:
 
 | Zone | Purpose |
 |------|---------|

@@ -2,7 +2,7 @@
 
 The derivation ladder from axiom to workflow.
 
-L1-L6 describe how TEOF is organized from principle through implementation logic. In the public repo, this ladder is intentionally kept more general than the private working system. It is meant to be reusable by others, not to expose anyone's private operational state.
+L1-L6 describe how TEOF is organized from principle through implementation logic. In this template, the ladder is kept general enough to be reusable across users and contexts.
 
 ---
 
@@ -58,4 +58,4 @@ L1 (Principles) contains the full S hierarchy. See `core/README.md` for quick re
 - `L5 workflow.md` — Public workflow logic
 - `L6 automation.md` — Public automation stance
 
-The private repo may contain richer project, memory, and automation layers. Those are intentionally not required here.
+This template is intentionally minimal in its outer layers. Users should populate them through real use rather than inherited noise.

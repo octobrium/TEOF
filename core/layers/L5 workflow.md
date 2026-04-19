@@ -9,7 +9,7 @@
 
 L5 describes how a human or AI agent should navigate the **public** TEOF repo.
 
-It is intentionally simpler than any private working workflow. The public repo is meant to be:
+It is intentionally simple. The repo is meant to be:
 
 - readable
 - reusable
@@ -56,7 +56,7 @@ When using the public repo:
 - do not invent private context that is not in the repo
 - do not treat the public repo as if it already contains a user's identity, memory, or project state
 
-That last point is critical. The public repo is a template organism, not a populated private one.
+That last point is critical. The repo is a template organism, not a populated one.
 
 ---
 
