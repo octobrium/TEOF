@@ -11,5 +11,7 @@
 !core/**
 !patterns/
 !patterns/**
+!seed/
+!seed/**
 !.gitignore
 !.gitattributes

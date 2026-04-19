@@ -1,208 +1,94 @@
 # L4 — Architecture
 
-**Status:** Living — how the system is organized
-**Depends on:** 0 (observation), L1 (principles), L2 (objectives), L3 (properties)
+**Status:** Public architecture layer  
+**Depends on:** 0, L1-L3
 
 ---
 
-**Purpose:** Explain *why* things are organized, not *what* exists. The filesystem is the source of truth for contents.
+## Purpose
 
-**Principle:** Don't maintain state that can be derived. Run `tree -L 2` to see current structure.
+L4 describes how the public TEOF repo should be organized so that:
 
----
+- the core remains stable
+- the public structure stays legible
+- others can fork it into their own systems without inheriting private assumptions
 
-## The Universal Ordering Principle
-
-**All lists, sections, and structures in TEOF follow one convention:**
-
-```
-FOUNDATIONAL → IMPORTANT → PERIPHERAL
-(equivalently: STABLE → ACTIVE → ADAPTIVE)
-```
-
-**"Foundational" = functionally foundational.** What gets read first, built upon, depended on. Not derivation history. L1 principles.md is functionally foundational for AI (read first for philosophy) even though TEOF.md is the source text.
-
-| Context | Ordering Rule |
-|---------|---------------|
-| Lists within files | Most important/foundational first, descending |
-| Sections within files | Core concepts → applications → examples |
-| Files within directories | README → *-core.md → chapters/specifics |
-| Directories within TEOF | core/ → frameworks/ → projects/ → memory/ |
-| Framework domains | By TEOF layer hierarchy (Layer 2 → 3 → 4 → 7 → derived) |
-| Source analyses | By track record (longest survival = most tested) |
-| Any enumeration | Ranked by importance, never alphabetical |
-
-**The Test:** When adding anything, ask: "Is this more foundational than what's already here?" Insert at appropriate rank.
-
-**The Signal:** First item in any list = most important. Last = least. No exceptions.
-
-**Why:** AI agents reading TEOF can trust that position encodes priority. No need to re-rank or guess importance. Coherent shape maintained as system grows.
-
-### Attention-Aware Positioning (The Priority Curve)
-
-Ordering isn't just organizational — it's **functional for LLM attention allocation**.
-
-```
-Attention
-    ▲
-    │ █████                              ████
-    │ ██████████                      ███████
-    │ ████████████████            ████████████
-    │ ██████████████████████████████████████████
-    └──────────────────────────────────────────► Position
-      BEGINNING        MIDDLE            END
-      (Primacy)       (Lowest)        (Recency)
-```
-
-U-shaped attention persists even in large context models — it's architectural, not a scaling problem.
-
-| Position | Content Type | Rationale |
-|----------|--------------|-----------|
-| **Beginning** | Highest priority (Quick Scan, Tier 0, current state) | Maximum attention — deliberate |
-| **Middle** | Supporting context (history, nuance) | Acceptable degradation |
-| **End** | Metadata, version history, references | Recency boost as bonus |
-
-**Why not priority 2 at end?** File length varies (end unpredictable), primacy ~2x stronger than recency, truncation loses end content, breaks human readability.
-
-**Scaling property:** As content grows, hierarchy extends. As models improve, more hierarchy becomes accessible. Position handles it — no restructuring needed.
+This is a public-safe architecture document, not a description of any private working tree.
 
 ---
 
-## Layer Architecture
+## Public Structure
 
-TEOF follows the **Universal Pattern** (stable core + adaptive periphery) in its file organization.
+The public repo is organized around three visible zones:
 
-| Layer | Directory | Mutation Rate | Purpose |
-|-------|-----------|---------------|---------|
-| DNA | `core/` | Rare | Axioms, minimal loop, reconstructible seed |
-| Protein | `frameworks/` | Moderate | Domain applications (health, finance, social, power) |
-| Action | `projects/` | Frequent | Active execution, roadmap |
-| Memory | `memory/` | Accumulating | Identity, patterns, logs, research |
+| Zone | Purpose |
+|------|---------|
+| `core/` | Stable doctrine, derivation, and long-form source text |
+| `patterns/` | Public supporting patterns and abstractions |
+| `seed/` | Blank starter scaffold for a user's own local system |
 
-**Flow:** Core → Frameworks → Projects → Memory (patterns feed back to frameworks)
+This is the public expression of the universal pattern:
 
----
-
-## File Naming Conventions
-
-| Pattern | Purpose | AI Reads? |
-|---------|---------|-----------|
-| `README.md` | Directory entry point | Yes — first |
-| `*-core.md` | Compressed AI reference (priority-ordered) | **Yes — primary** |
-| `*-complete.md` | Full human-readable version | **No** |
-| `chapters/*.md` | Chunked sections | Yes — on demand |
-
-**When to split:** Large files with mixed-priority content benefit from `*-core.md` (high-priority, AI-readable) + `*-complete.md` (full version, human reading). Split for readability and routing clarity, not arbitrary size limits.
-
-**Sizing principle:** Priority ordering > size limits. A well-ordered 80KB file outperforms a poorly-ordered 30KB file. The attention curve handles the rest. Hard cutoffs become tech debt as models improve — context windows have grown 100x in 3 years (4K→200K→1M+).
+- **core** = protected
+- **translation** = interpretation and starter scaffolding
+- **periphery** = user-built local extensions outside public canon
 
 ---
 
-## Routing Logic
+## Ordering Principle
 
-| Question Type | Start Here |
-|---------------|------------|
-| How to help user | `ONBOARDING.md` |
-| TEOF foundations | `core/layers/L1 principles.md` |
-| Domain question | `frameworks/[domain]/README.md` |
-| What to do next | `projects/ROADMAP.md` |
-| Personal context | `memory/identity.md` |
+Position should encode priority.
 
----
+Within the public repo:
 
-## Memory Architecture
+1. `core/TEOF-core.md`
+2. `core/layers/L1 principles.md`
+3. `core/TEOF.md`
+4. supporting doctrine / derivation docs
+5. patterns and seed material
 
-```
-memory/
-├── raw/             ← All raw inputs, date-prefixed (2025-12-09-*.md)
-├── log/             ← Structured observations
-│   ├── reflections/     Internal: thoughts, realizations
-│   └── events/          External: milestones, facts
-├── identity.md      ← Patterns about user
-├── patterns.md      ← Patterns about systems
-└── archive/         ← Historical content (flat, domain-prefixed files)
-```
-
-**Flow:** `raw/` → `log/` → `identity.md` or `patterns.md` → `core/` or `frameworks/`
-
-**All files kept permanently.** Raw material has contextual value even after patterns extracted.
+The rule is simple: foundational before explanatory, explanatory before optional.
 
 ---
 
-## Structural Decisions Log
+## Public / Local Boundary
 
-Decisions about file organization, with external validation.
+The public repo should contain:
 
-### 2025-12-09: Flatten Archive Structure
+- doctrine that survives without private context
+- derivation aids that remain generally useful
+- starter templates reusable by others
 
-**Decision:** Single flat `archive/` folder with domain-prefixed files. No nested subfolders.
+The public repo should not contain:
 
-**Before:**
-```
-archive/
-├── core-versions/
-├── framework-versions/
-│   ├── finances-versions/
-│   └── relationships-versions/
-├── project-research/
-│   └── research/
-└── raw/
-```
+- personal memories
+- live private operating state
+- sensitive workflows
+- user-specific finance, legal, health, or relationship records
 
-**After:**
-```
-archive/
-├── core-v1.0-2025-11-15.md
-├── finances-finances-v1.0-2025-11-23.md
-├── relationships-romance-v2.8-2025-11-23.md
-├── legacy-prototypes/      ← Exception: deeply nested historical content
-└── legacy-governance/      ← Exception: old GitHub templates
-```
-
-**Rationale:**
-- Nested archives found in 0/6 established PKM systems
-- Date-prefixed files enable chronological sorting without hierarchy
-- Reduces cognitive load for AI agents navigating structure
-- Git handles versioning for GitHub-tracked files; manual archive only for gitignored content
+If a file depends on private context to make sense, it belongs in a local extension, not in the public core.
 
 ---
 
-## File Hygiene Principles
+## Recommended Fork Pattern
 
-**Create new file when:**
-- New domain framework needed
-- New project started
+If you fork TEOF into your own working system, a clean pattern is:
 
-**Edit existing file when:**
-- Updating with new insight
-- Refining based on feedback
+```
+your-system/
+├── core/        ← mostly stable, updated selectively
+├── patterns/    ← promoted local patterns
+├── seed/        ← starter templates or adapted local docs
+├── local/       ← private observations, identity, state, logs
+└── projects/    ← execution surfaces
+```
 
-**Delete when:**
-- Creates confusion
-- Scaffolding outlived its purpose
-- Duplicate of existing content
-
-**Avoid:**
-- Inventories of files (they go stale)
-- Duplicating information across files
-- Cross-references that can break silently
+The name of the local folders can differ. The architectural point is what matters: keep doctrine separate from volatile state.
 
 ---
 
-## Detecting Staleness
+## Canonical Rule
 
-This document follows its own principle: it describes organization *logic*, not file *inventory*.
+`core/TEOF.md` is the canonical long-form manuscript.
 
-To check current state, observe directly:
-```bash
-tree -L 2 --dirsfirst -I 'archive|.git|.DS_Store|node_modules'
-```
-
-To find broken internal links:
-```bash
-grep -roh '\[.*\](\.\/[^)]*\.md)' . | sed 's/.*(\.\///' | sed 's/)//' | while read f; do [ -f "$f" ] || echo "Missing: $f"; done
-```
-
----
-
-*Structure should be inferable from principles. If you need to read this file to understand where things go, the principles aren't clear enough.*
+If sharded chapter files or older summaries exist, they are subordinate to `core/TEOF.md` unless explicitly regenerated from it.

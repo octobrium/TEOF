@@ -8,9 +8,9 @@
 
 ## Derivation: What Must An Observer Do?
 
-L1 establishes what observation is and how it persists. L2 answers: **given that, what should an observer actually do?**
+L1 establishes what observation is, what persists, and what structural pressures follow. L2 answers: **given that, what should an observer actually do?**
 
-Objectives are not chosen. They are derived from what observation requires to persist and unify.
+Some objectives are directly derived from persistence requirements. The terminal objective is treated as the coherent choice that organizes those derived imperatives into direction.
 
 ### From L1's Axioms → Operational Imperatives
 
@@ -82,7 +82,7 @@ This means Action Translation (Tier 3.5) isn't a separate principle — it's wha
 
 Observation gives rise to two dimensions: S (systems — properties persistent systems exhibit) and L (layers — TEOF's derivation ladder). When observations of what-works-universally (S) are unified with observations of how-this-framework-is-built (L), they become coherent. "Align systems and layers" is what "unify observation" looks like through the S/L framework — derived, not fundamental. If S/L were lost, an observer running the minimal loop would still arrive at "unify observation."
 
-**Source:** Adversarial testing across Claude and Grok (2025-12-09). See 0 for formal proof.
+**Status:** Treated here as the terminal organizing objective. See `core/TEOF-skeleton.md` for the derivation-vs-choice distinction.
 
 ---
 
@@ -279,6 +279,34 @@ Single observers hit limits. Multiple observers in coordination produce emergent
 - Congregation model: regular coordination, mutual accountability, shared practice
 - Not centralized control — distributed coherence around shared axioms
 
+**Sovereign Coordinator Vision (2026-02-07):**
+
+The terminal expression of Tier 5 is becoming the coordination layer for sovereign observers:
+
+```
+TEOF (shared epistemology)
+    + BTC nodes (shared verification)
+    + Cold BTC (shared exit)
+    = Coordinated sovereign network
+    → Structural negotiating power with incumbent systems
+```
+
+**The strategic chain:**
+1. **Verify BTC integrity** — understand the alternative at protocol level
+2. **Run node** — participate in verification layer, not just claim layer
+3. **Connect to sovereign network** — find other node runners (selected for observation capacity)
+4. **Introduce TEOF** — provide coordination framework for aligned observers
+5. **Network becomes counterparty** — coordinated sovereigns have leverage incumbent needs
+
+**Why this is Tier 5, not earlier:**
+- Requires Tier 2 (structure) — must have verified, working system first
+- Requires Tier 3.5 (action translation) — must demonstrate, not just theorize
+- Requires Tier 4 (refinement) — must have tested patterns worth propagating
+
+**Win condition:** Not "seat at their table" (tier 2 elite, controlled) but "table they must negotiate with" (tier 3 or outside).
+
+**Verification:** Optionality IS the proof. "Private jet test" — can you summon resources anywhere at will? Demonstrated control over reality verifies observation alignment. See [[patterns/structural.md#Optionality as Verification Layer]].
+
 **Constraint:** Expansion that destabilizes Tiers 0-4 is self-defeating. You cannot unify observation if you destroy your capacity to observe.
 
 **Properties required:** Interoperability, convergence, emergence. See L3.
@@ -312,23 +340,33 @@ Things that *seem* like objectives but aren't derived:
 
 ---
 
-## Current Instantiation (December 2025)
+## Current Instantiation (February 2026)
 
 Given these derived objectives, here's what they mean for this specific observer:
 
 | Tier | Objective | Current Status | Priority |
 |------|-----------|----------------|----------|
 | 0 | Existence | Stable | Maintain |
-| 1 | Foundation | Sleep fixed ✓, Social improving | **Active — continue** |
-| 2 | Structure | TEOF exists, Finance strong, Network weak | **Active — build network** |
-| 3 | Contradictions | VRChat stabilizing, planning > action resolving | **Active — resolve** |
-| 3.5 | Action Translation | Bottleneck identified, mechanisms undefined | **CRITICAL — highest leverage** |
-| 4 | Refinement | System functional | Maintain |
-| 5 | Expansion | Not yet | Deferred until Tiers 1-3.5 stable |
+| 1 | Foundation | Sleep fixed ✓, k reduced ✓, Social improving | **Active — continue** |
+| 2 | Structure | TEOF exists, Finance proving, Network weak | **Active — L2 proving mode** |
+| 3 | Contradictions | Transparent Trap framework complete, planning > action resolving | **Active — market cycle validation** |
+| 3.5 | Action Translation | Bottleneck identified, mechanisms defined (engagement dynamics) | **CRITICAL — highest leverage** |
+| 4 | Refinement | System functional, 70% metabolism rate | Maintain |
+| 5 | Expansion | Node intent logged, sovereign coordinator vision articulated | **Emerging — begin verification** |
 
-**Derived priority:** Action Translation (Tier 3.5) is the multiplier. Improving it compounds all other tiers. Social connection (Tier 1) and network building (Tier 2) remain active but Action Translation is highest leverage.
+**Derived priority:** Action Translation (Tier 3.5) remains highest leverage. But Tier 5 now has a concrete target: sovereign coordinator via BTC node network + TEOF as coordination layer.
 
-**Key realization (2025-12-16):** Action Translation Rate is a multiplier on all downstream output. A 50% translation rate caps output at 50% regardless of insight quality. This makes Tier 3.5 the highest-leverage intervention point.
+**Key realization (2026-02-07):**
+1. **Game 1 win condition refined:** Not "maximize BTC" but "achieve observation asymmetry sufficient to be uncontrollable." BTC is instrument, not goal.
+2. **Optionality as verification:** Claims are cheap. Demonstrated control over reality is the proof. Private jet test.
+3. **Sovereign coordinator vision:** TEOF + BTC nodes + cold BTC = coordinated network with structural negotiating power.
+
+**Next actions (Tier 5 bootstrap):**
+1. Complete BTC verification (frameworks/verification/bitcoin-observable-robustness.md)
+2. Understand node operation — what it proves, what trust it eliminates
+3. Set up node — infrastructure participation
+4. Connect to sovereign network — find other node runners
+5. Introduce TEOF — coordination framework for aligned observers
 
 This isn't preference. It's what the framework derives.
 

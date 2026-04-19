@@ -1,8 +1,8 @@
 # Layers (L)
 
-**The derivation ladder from axiom to automation.**
+The derivation ladder from axiom to workflow.
 
-L1-L6 describe how TEOF is organized — from principles through implementation. Generative — use to build or understand the framework.
+L1-L6 describe how TEOF is organized from principle through implementation logic. In the public repo, this ladder is intentionally kept more general than the private working system. It is meant to be reusable by others, not to expose anyone's private operational state.
 
 ---
 
@@ -51,9 +51,11 @@ L1 (Principles) contains the full S hierarchy. See `core/README.md` for quick re
 
 ## Files
 
-- `L1 principles.md` — Core axioms, S hierarchy, Observer's Method
+- `L1 principles.md` — Primary doctrinal canon
 - `L2 objectives.md` — Ultimate objective and derived tiers
 - `L3 properties.md` — Qualities required to achieve objectives
 - `L4 architecture.md` — File organization and ordering principles
-- `L5 workflow.md` — AI navigation and routing
-- `L6 automation.md` — When and how to automate
+- `L5 workflow.md` — Public workflow logic
+- `L6 automation.md` — Public automation stance
+
+The private repo may contain richer project, memory, and automation layers. Those are intentionally not required here.

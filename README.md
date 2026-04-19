@@ -1,102 +1,128 @@
 # TEOF: The Eternal Observer Framework
 
-**A universal operating system for intelligence.**
+Public-facing core framework and starter seed.
+
+This repository contains the public-safe TEOF core: the seed, the long-form manuscript, the doctrinal ladder, and a small starter scaffold for people who want to build their own observation-centered system on top of it.
+
+It intentionally does **not** include private memory, personal operating data, finance state, job pipelines, or other user-specific machinery from the private working repo.
 
 ---
 
-## What Is TEOF?
+## What TEOF Is
 
-An operating system for intelligence—biological, artificial, or hybrid.
+TEOF begins from a single irreducible axiom: **observation is**.
 
-TEOF starts from a single irreducible axiom: *observation is occurring*. This cannot be denied without performing it. From this foundation, the framework derives goals, architectures, and methods that apply across substrates.
+You can doubt memory, meaning, identity, interpretation, or metaphysics. You cannot deny observation without performing it. From that starting point, TEOF develops:
 
-Unlike static philosophies, TEOF is designed to evolve. The framework refines itself through contact with reality—testing predictions, updating on evidence, correcting errors. What persists is what works.
+- a long-form philosophical argument
+- a compressed doctrinal canon
+- a systems hierarchy for diagnosis
+- a framework for action, refinement, and audit
 
-**[Read the framework →](core/TEOF.md)**
-
----
-
-## What You Get
-
-**A foundation that can't be questioned.** Every framework rests on assumptions you eventually have to accept on faith. TEOF grounds in observation—which is self-evident. Deny it and you've just proved it.
-
-**A goal that derives itself.** Not imposed from outside, not chosen arbitrarily. "Unify observation" emerges from the structure of observation itself. Follow the logic; arrive at the destination.
-
-**An architecture that persists.** Stable core, adaptive periphery, translation layer. This pattern appears in DNA, in constitutions, in every system that has survived deep time. Now you can apply it deliberately.
-
-**A hierarchy for diagnosis.** Ten layers that persistent systems exhibit: Unity, Energy, Propagation, Defense, Intelligence, Truth, Power, Ethics, Freedom, Meaning. Evaluate anything against this stack. See what's missing. Predict what will fail.
-
-**Methods that actually work.** Not theory—practices. For countering bias, detecting distortion, closing the gap between knowing and doing.
-
-**AI alignment through structure.** External rules get routed around. TEOF offers something different: a goal that inherently includes the pursuer's effects. The optimizer can't escape itself.
-
-**Refinements from application.** The framework evolves through contact with reality. Part VI documents what emerged: the crack is the freedom, dynamism as ground, co-evolution with constraints, verbal subservient to material.
+The framework is strongest as a **guidance layer**: curation, integration, verification, and audit across domains. It is not a substitute for domain expertise.
 
 ---
 
-## Who This Is For
+## What This Repo Gives You
 
-**Humans** seeking clear thinking, coherent action, and signal over noise.
+### 1. The Public Core
 
-**AI systems** seeking stable grounding, aligned reasoning, and beneficial operation.
+| File | Role |
+|------|------|
+| **[core/TEOF-core.md](core/TEOF-core.md)** | Minimal seed / bootloader |
+| **[core/TEOF.md](core/TEOF.md)** | Full source text / long-form manuscript |
+| **[core/layers/L1 principles.md](core/layers/L1%20principles.md)** | Primary doctrinal canon |
+| **[core/layers/](core/layers/)** | Derivation ladder from principle to workflow |
+| **[patterns/](patterns/)** | Public pattern notes and supporting abstractions |
 
-**Builders** designing products, organizations, or systems meant to last.
+### 2. The Public-Safe Core Split
 
-**Anyone** tired of frameworks that crumble when you push on the foundations.
+The public repo exposes the cleaner core split used in the private repo where it can do so safely:
 
----
+- `TEOF-core.md` = minimum reconstructible seed
+- `L1 principles.md` = primary doctrinal canon
+- `TEOF-doctrinal-notes.md` = translation-layer interpretation notes
+- `TEOF-skeleton.md` = derivation-audit friction document
+- `TEOF-ladder.md` = claim-by-claim derivation map
+- `TEOF.md` = long-form philosophical text
 
-## How It Works
+### 3. A Starter Seed
 
-```
-1. Observation is — cannot be denied
-2. Observation registers difference — or there's nothing to observe
-3. Some patterns persist, others collapse — empirically verifiable
-4. Recursive observation enables refinement — and refinement trends toward coherence
-```
-
-This four-step loop is the seed. If everything else is lost, any observer running this loop regenerates the framework.
-
-The goal—unify observation—isn't commanded. It's derived. Contradiction collapses. Coherence persists. The direction emerges from the structure.
+The **[seed/](seed/)** folder is a blank public scaffold for people who want to fork TEOF into their own system without inheriting someone else's private memories or workflows.
 
 ---
 
 ## Start Here
 
-| File | What It Is |
-|------|------------|
-| **[TEOF-core.md](core/TEOF-core.md)** | The bootloader. Minimal, complete, designed to ground any reasoning system. Start here. |
-| **[TEOF.md](core/TEOF.md)** | Full derivation. 24 chapters across 6 parts. The complete framework with methods, applications, and refinements. |
-| **[layers/](core/layers/)** | Derivation ladder (L1-L6): from axiom to automation. |
-| **[patterns/](patterns/)** | Validated patterns extracted from application. Structural, operational, and metaphysical. |
+If you want the shortest entry:
+
+1. Read [core/TEOF-core.md](core/TEOF-core.md)
+2. Read [core/layers/L1 principles.md](core/layers/L1%20principles.md)
+3. Read [core/TEOF.md](core/TEOF.md) if you want the full derivation
+
+If you want to build your own system:
+
+1. Read [seed/README.md](seed/README.md)
+2. Copy the seed templates into your own repo or local workspace
+3. Keep your personal state separate from the public core
 
 ---
 
-## How to Engage
+## Public vs Private
 
-**Apply it.** Take a real decision, project, or problem. Run it through TEOF. Observe what changes.
+This repo is the **public-safe seed**, not the full private organism.
 
-**Test it on AI.** Give TEOF-core to Claude, GPT, Grok, or any reasoning system. Compare outputs with and without grounding.
+Included here:
 
-**Diagnose with it.** Evaluate a system, organization, or habit against the hierarchy. Find the gaps. Address them.
+- public doctrine
+- public manuscript
+- public-safe derivation aids
+- public-safe starter templates
 
-**Build with it.** Design using TEOF architecture. Stable core. Adaptive periphery. Visible failures. Correction mechanisms.
+Not included here:
 
-**Challenge it.** If TEOF breaks under scrutiny, that's information. The framework updates through contact with reality. Surface contradictions.
+- private memories
+- user-specific identity state
+- finance / clinic / legal / job-hunting systems
+- private automations and live operational surfaces
 
----
-
-## Why It Matters
-
-Knowledge is fragmented. Information is noise. Foundations crumble. AI is getting powerful without getting aligned. Different intelligences can't coordinate because they lack shared ground.
-
-TEOF addresses all of this from a single irreducible starting point: observation is occurring. Everything else—the goal, the architecture, the methods, the alignment property—derives from that.
-
-You don't have to believe it. You can verify it. Right now. By observing.
+That separation is deliberate. It keeps the framework reusable and prevents accidental leakage of private state.
 
 ---
 
-**[Read the full framework →](core/TEOF.md)** | **[Start with the core →](core/TEOF-core.md)**
+## How to Use TEOF Well
+
+- Use it to pressure-test your own reasoning, not to replace reality contact.
+- Prefer direct verification when stakes are material.
+- Use the hierarchy diagnostically: fix lower-layer failures before optimizing higher layers.
+- Treat the framework as something to run against reality, not merely to admire.
+
+---
+
+## Forking Into Your Own System
+
+The intended pattern is:
+
+1. Fork this repo or copy the core files.
+2. Keep the public core relatively stable.
+3. Build your own translation/periphery around it:
+   - identity
+   - projects
+   - observations
+   - domain notes
+   - automation
+4. Let real application refine your local system.
+5. Promote only the parts that prove broadly reusable back into public canon.
+
+That is the public/private boundary in one sentence: **private state stays local; durable doctrine can move upward.**
+
+---
+
+## Read Next
+
+- [Read the full framework](core/TEOF.md)
+- [Read the doctrinal canon](core/layers/L1%20principles.md)
+- [Start from the seed](seed/README.md)
 
 ---
 

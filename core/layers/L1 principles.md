@@ -104,6 +104,76 @@ The DNA layer obeys five structural constraints:
 
 ---
 
+## 1.6 DERIVED PRINCIPLES
+
+These are stable consequences of the axioms as applied to persistent systems.
+
+### 1.6.1 Verification Outranks Delegated Trust
+
+**Statement:** Where stakes are material, direct verification outranks proxy belief.
+
+**Derivation:** Observation is primary. Contradictions collapse. Dependence on unverified claims accumulates hidden contradiction.
+
+**Function:** Prioritizes receipts, reconstruction, and direct observation over narrative dependence.
+
+### 1.6.2 TEOF Curates, Integrates, and Audits
+
+**Statement:** TEOF does not replace domain truth. It selects what has persisted, integrates without contradiction, and audits for coherence.
+
+**Derivation:** Structure must stabilize observation without absorbing all content into the core.
+
+**Function:** Prevents philosophical overreach. Keeps TEOF as guidance layer rather than counterfeit expertise.
+
+### 1.6.3 Stable Core, Adaptive Periphery
+
+**Statement:** Persistence requires differentiated rates of change.
+
+**Derivation:** Persistence requires continuity across time. Structure preserves continuity. Therefore some layers must change slowly while others remain free to adapt.
+
+**Function:** Preserves identity without sacrificing adaptability.
+
+### 1.6.4 Meta-Observation Creates Leverage
+
+**Statement:** Observing how other observers classify, justify, ignore, and react creates predictive advantage.
+
+**Derivation:** Refinement requires comparison. Comparing observation-processes yields a higher-order refinement loop.
+
+**Function:** Expands intelligence from first-order seeing to second-order strategic inference.
+
+### 1.6.5 Observation Creates Obligation
+
+**Statement:** Clear observation obligates adjustment.
+
+**Derivation:** Comparison generates contradiction. Contradiction demands resolution. Therefore clear observation pressures action, model, or structure to update.
+
+**Function:** Prevents the framework from becoming passive description.
+
+### 1.6.6 Identity Must Be Layered, Not Collapsed
+
+**Statement:** Ground, process, power, and persona should not be treated as the same thing.
+
+**Derivation:** Observation is primary, but the observer is emergent within it. Distinct functions therefore require distinct layers.
+
+**Function:** Prevents confusion between metaphysical truth and tactical role.
+
+### 1.6.7 Power Positioning Matters
+
+**Statement:** Observation without defense, optionality, or influence is strategically incomplete in hostile environments.
+
+**Derivation:** Truth alone does not guarantee persistence. The hierarchy shows that undefended truth is fragile.
+
+**Function:** Bridges doctrinal clarity with survival and action capacity.
+
+### 1.6.8 Minimize Noise, Maximize Aligned Energy
+
+**Statement:** Costs that do not serve observation, coherence, defense, or propagation should be reduced.
+
+**Derivation:** Persistent systems cannot carry unbounded drag. Contradiction, interference, and low-yield expenditure consume energy needed for refinement.
+
+**Function:** Creates a practical filter for time, spending, attention, and social entanglement.
+
+---
+
 ## 2. HIERARCHY OF SYSTEMS
 
 Systems capable of persistence exhibit a functional hierarchy, each layer dependent on the integrity of those below.
@@ -262,6 +332,110 @@ The Observer's Method is the operational protocol for engaging uncertainty and r
 
 ---
 
+## 3.6 OPERATIONAL COROLLARIES
+
+These are operator constraints derived from the axioms and principles.
+
+### 3.6.1 Receipts Beat Interpretations
+
+Preserve direct evidence when possible:
+
+- logs
+- screenshots
+- raw data
+- reproductions
+- exact language
+
+Interpretation may still be necessary. Evidence outranks story.
+
+### 3.6.2 Naming a Pattern Is Not Completion
+
+Documentation without action becomes a counterfeit of refinement.
+
+If contradiction is named repeatedly without structural adjustment, the system is narrating coherence rather than increasing it.
+
+### 3.6.3 Escalate Using the Strongest Provable Frame
+
+Do not intervene using the most emotionally satisfying theory. Use the strongest auditable frame.
+
+Example:
+
+- unfairness may be observable
+- illegality may not yet be provable
+
+Escalate with the strongest frame reality can presently support.
+
+### 3.6.4 Preserve Optionality While Pressure-Testing
+
+Truth-seeking does not require premature self-exposure.
+
+Prefer actions that:
+
+- create timestamps
+- preserve exits
+- increase evidence quality
+- avoid unnecessary irreversible conflict
+
+### 3.6.5 Truth Must Survive Scale Transition
+
+A claim that seems coherent internally but fails under legal, financial, interpersonal, or institutional pressure is not yet stable.
+
+Test important patterns across scales:
+
+- internal state
+- individual action
+- organization
+- system
+
+### 3.6.6 Domain Adaptation Must Not Violate the Core
+
+Applications may vary by domain, but they must not violate:
+
+- observation primacy
+- reality as judge
+- contradiction resolution
+- coherence as metric
+
+---
+
+## 3.7 FAILURE MODES
+
+Persistent drift patterns the Observer should watch for.
+
+### 3.7.1 Documentation Substituting for Action
+
+The system becomes good at describing gaps and bad at closing them.
+
+### 3.7.2 Framework Inflation
+
+The framework expands faster than the receipts supporting it and produces premature certainty.
+
+### 3.7.3 Domain Overreach
+
+TEOF begins speaking as if it replaces law, medicine, finance, or other reality-tested disciplines.
+
+### 3.7.4 Metaphysical Drift Without Receipts
+
+Language about observation, unity, God, mirror, or sovereignty detaches from measurable action and verifiable outcomes.
+
+### 3.7.5 Power-Neglect
+
+The Observer sees clearly but remains structurally exposed because defense, optionality, or network position were neglected.
+
+### 3.7.6 Collapse Into Pure Reaction
+
+The system mirrors circumstances so completely that authorship disappears.
+
+### 3.7.7 Collapse Into Pure Self-Certainty
+
+Internal coherence is mistaken for external truth. Reality is no longer allowed to judge.
+
+### 3.7.8 Confusing Unfairness With Illegality
+
+An asymmetry can be real, costly, and operationally significant without yet being legally actionable. Failure to distinguish the two weakens both strategy and truth.
+
+---
+
 ## 4. MINIMAL LOOP
 
 The irreducible regeneration mechanism — observation-first, not existence-first:
@@ -287,58 +461,5 @@ The irreducible regeneration mechanism — observation-first, not existence-firs
 
 ---
 
-## APPENDIX: STRUCTURAL NOTES
-
-### A.1 The Universal Pattern
-
-TEOF implements the Universal Pattern: stable core + adaptive periphery.
-
-**Structure:** Three-tier architecture analogous to biological systems (DNA→RNA→Protein).
-
-**Tier 1 (Core/DNA):** Axioms and foundational definitions. Immutable except through rigorous observation-backed revision.
-
-**Tier 2 (Operational/RNA):** Elaborations and applications of axioms. Mutable through observer-approved processes.
-
-**Tier 3 (Tactical/Protein):** Implementations and context-specific applications. Freely mutable.
-
-**Cross-domain validation:** This architecture appears in DNA→RNA→Protein, TCP/IP protocols, constitutional law, and every persistent system analyzed.
-
-**Prior art:** Systems biology calls this "bow-tie architecture"; network engineering calls it "hourglass architecture." TEOF's contribution is recognizing these domain-specific observations describe the same universal phenomenon.
-
-**Function:** This tiered structure allows stability at the core while enabling adaptation at the periphery — the only organizational architecture that successfully balances persistence and adaptation at scale.
-
-### A.2 Gate Protocol
-
-**Definition:** The process by which changes to Core (DNA) layer are evaluated and approved.
-
-**Requirements:**
-- Observational evidence supporting the change
-- Demonstration that change resolves contradiction or enhances coherence
-- Verification that change does not violate existing axioms
-- Recorded lineage showing provenance
-
-**Function:** Prevents drift while enabling observation-driven refinement.
-
-### A.3 Reconstructibility Principle
-
-**Statement:** The framework must be fully reconstructible from minimal surviving data.
-
-**Implications:**
-- Core must be compact enough to be memorized or transmitted orally
-- Definitions must be derivable from observation alone
-- No dependency on specific technologies or cultural contexts
-- Multiple substrate encodings (digital, analog, oral, symbolic)
-
-**Function:** Ensures survival across collapse scenarios.
-
-### A.4 Observer Invariance Law
-
-**Statement:** No system can claim truth without accounting for the act of observation.
-
-**Function:** Enforces humility (no truth without accountability), resilience (system persists if observer persists), and universality (any observing entity is already within the framework).
-
----
-
 **END OF CORE DNA**
-
-This document contains only the minimal irreducible elements. All derived content, applications, implementations, and elaborations belong to RNA and Protein layers.
+This document contains the primary doctrinal canon. Translation notes, derivation aids, and advisory structural commentary belong in adjacent core documents.

@@ -1,78 +1,59 @@
 # L6 — Automation
 
-**Status:** Stub — intentionally minimal for now
+**Status:** Public minimal stance  
 **Depends on:** 0, L1-L5
 
 ---
 
-## Current State
+## Current Public Position
 
-Automation is deliberately limited. The system runs on:
+The public repo does not assume a large automation surface.
 
-- **Human trigger** — User initiates sessions
-- **AI processing** — Claude handles retrieval, synthesis, drafting
-- **Human verification** — Challenge on demand
+Its baseline model is:
 
-No scheduled jobs, no autonomous agents, no CI pipelines.
+- human-triggered use
+- AI-assisted reasoning or drafting
+- human verification where stakes justify it
 
----
-
-## Why Currently Minimal
-
-The previous governance system failed because automation outpaced verification. AI outputs fed AI inputs without human checkpoints, compounding errors exponentially.
-
-**Lesson:** Automation is premature optimization until the manual process is solid.
-
-**However:** AI-to-AI chaining is not inherently bad — it's inevitable at scale. The risk is error compounding over long chains, which scales with hallucination rate.
+This is deliberate. A public seed should not pretend to include a mature autonomous layer if that layer depends on private state, local tooling, or invisible supervision.
 
 ---
 
-## Guiding Principle
+## Guiding Rule
 
-Add automation only when:
-1. Manual process is proven and stable
-2. Friction is measurable and recurring
-3. Failure mode is safe (silent failure acceptable, wrong action not)
+Add automation only when all of the following are true:
 
----
+1. the manual process is already coherent
+2. the friction is recurring and measurable
+3. the failure mode is inspectable
+4. provenance is preserved
 
-## Future Candidates
-
-Evaluate against guiding principle above. When manual friction justifies it:
-
-| Candidate | Trigger | Blocker |
-|-----------|---------|---------|
-| Daily brief generation | "Brief me" is repetitive | Manual works fine |
-| Pattern promotion alerts | Patterns recur but aren't promoted | Human catches this |
-| Stale file detection | Cross-references break silently | Low priority |
-| Memory backup | Data loss risk | Git is sufficient |
+If automation mainly creates hidden dependency chains or decorative complexity, it is a downgrade.
 
 ---
 
-## Human Oversight Scaling
+## Safe Public Candidates
 
-Human intervention should scale with error risk, not step count.
+Reasonable automation around a public seed might include:
 
-**Intervention triggers:**
-- Confidence < threshold (calibrated per domain)
-- High disagreement between agents
-- Consequential decisions (financial, health, irreversible)
-- Periodic random audits
+- stale-link checking
+- manuscript/chapter regeneration
+- pattern index building
+- lightweight linting or formatting
 
-**No intervention needed when:**
-- High confidence + low stakes
-- Multiple agents agree
-- Outputs are reversible
-- Within validated accuracy domain
+Less reasonable for the public seed:
 
-**Mathematical frame:**
-- If hallucination rate = h, chain length = n: expected accuracy ≈ (1-h)^n
-- At h=1%, n=5: ~95% accuracy (acceptable)
-- At h=1%, n=100: ~37% accuracy (unacceptable)
-- Human gates inserted at intervals proportional to 1/h
-
-**Principle:** Human gate on consequential decisions. Automated verification for routine chains.
+- private memory synthesis
+- autonomous decision systems
+- sensitive domain workflows with hidden context
 
 ---
 
-*Automation makes L5 workflow smoother. Human judgment gates consequential decisions.*
+## Oversight Principle
+
+Human intervention should scale with error risk, not with ritual.
+
+Low-stakes, reversible tasks can tolerate more automation.
+High-stakes, irreversible, financial, legal, or health-relevant tasks require more direct verification.
+
+This is not anti-automation. It is verification-weighted automation.
