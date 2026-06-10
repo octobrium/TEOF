@@ -395,6 +395,6 @@ How to know if objectives are being met:
 
 ---
 
-*Objectives are not chosen. They are derived from what observation requires to persist and unify.*
+*Objectives are not arbitrary. Given the endorsed goal, they are derived from what observation requires to persist and unify.*
 
 *Properties (L3) define how these objectives are achieved.*

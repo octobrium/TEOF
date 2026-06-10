@@ -142,7 +142,7 @@ These are stable consequences of the axioms as applied to persistent systems.
 
 ### 1.6.5 Observation Creates Obligation
 
-**Statement:** Clear observation obligates adjustment.
+**Statement:** For a system committed to coherence, clear observation obligates adjustment.
 
 **Derivation:** Comparison generates contradiction. Contradiction demands resolution. Therefore clear observation pressures action, model, or structure to update.
 

@@ -966,7 +966,7 @@ The correspondence:
 
 The ladder systematizes what the loop describes. Where the loop says "form a model," the ladder specifies: derive principles (L1), set objectives (L2), identify required properties (L3). Where the loop says "act," the ladder specifies: design architecture (L4), implement workflow (L5), automate what can be systematized (L6).
 
-This also dissolves the classic is/ought problem—the claim that you cannot derive prescriptive statements from descriptive ones. TEOF requires no external bridge because observation primacy dissolves the distinction. If observation is the foundation of all systems, then systems aligned with observation persist, and systems misaligned collapse. The "ought" is not moral prescription but functional necessity: you ought to build systems aligned with observation *if you want them to persist*.
+This also reframes the classic is/ought problem—the claim that you cannot derive prescriptive statements from descriptive ones. TEOF does not dissolve the gap; it concedes it and works with it (see the later chapter on the ought gap, and doctrinal notes §5). If observation is the foundation of all systems, then systems aligned with observation persist, and systems misaligned collapse—a descriptive selection claim. The "ought" TEOF offers is conditional, functional necessity, not moral prescription: you ought to build systems aligned with observation *if you want them to persist*. The unconditional commitment comes from the observer's endorsement, not from the derivation.
 
 What follows is the systematic methodology for translating observation into implementation. Each level follows from the one above it.
 

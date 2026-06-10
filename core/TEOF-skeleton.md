@@ -97,7 +97,7 @@ What remains empirical:
 
 ## 5. THEREFORE [TERMINAL — CHOSEN, NOT PURELY DERIVED]
 
-The terminal objective is not a strict logical necessity. It is a coherent choice given identification with observation.
+The terminal objective is not a strict logical necessity. It is a coherent choice given identification with observation. (Refinement 2026-06-10: the drive's existence is discovered — already running; "chosen" names the endorsement that grants it authority. See TEOF-core.md, The Goal.)
 
 ```
         Observation is (ground)
