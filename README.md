@@ -14,25 +14,13 @@ TEOF proposes a different use of personal data and adaptive technology:
 
 ## What TEOF Does
 
-TEOF is a personal intelligence system built on a longitudinal record of your life. It brings together decisions, conversations, projects, goals, and outcomes so relevant context can be recovered when you need it.
+TEOF builds a longitudinal record of your life. It brings together decisions, conversations, projects, goals, and outcomes so relevant context can be recovered when you need it.
 
 Instead of treating this information as a passive archive, TEOF uses it to reconstruct your current situation: what you are working toward, what has changed, which commitments remain open, and what deserves attention next.
 
-Over time, it also creates a calibration record. Past reasoning can be compared with later outcomes, allowing the system—and the user—to learn which assumptions held, which patterns repeated, and which interpretations should change.
+As outcomes accumulate, the same record becomes a calibration history. Past reasoning can be compared with later results, allowing the system—and the user—to learn which assumptions held, which patterns repeated, and which interpretations should change.
 
 The result is better memory in service of better judgment: not simply finding information, but recovering its significance and using it to guide action.
-
-## Attention Sovereignty
-
-The modern attention economy is highly engineered. Platforms study behavior to predict what will cause a person to click, return, continue scrolling, or remain emotionally activated. These systems are often effective because their objectives are clear and measurable.
-
-Their technology may understand the user well, but it serves the platform's objective. TEOF reverses that relationship.
-
-> **Most systems use your data to predict what will hold your attention. TEOF uses your data to help you decide what deserves it.**
-
-The same capabilities—personal modeling, contextual recommendations, visible progress, and adaptive feedback—can be directed toward the user's own goals. Rather than maximizing time inside the system, TEOF is designed to restore context, clarify direction, and help the user return to life with a better next action.
-
-This is attention sovereignty: engineering technology around the user's considered priorities rather than the incentives of an external platform.
 
 ## How It Works
 
@@ -53,21 +41,29 @@ Information is stored with its source and context preserved. Routine processes s
 
 The system can then surface goals, unresolved commitments, emerging risks, useful ideas, and relationships between them. New information does not simply create another note: it can update an existing project, clarify a decision, become a proposed goal, or revise an earlier model.
 
-Personal data remains in portable, inspectable formats so the user's record can survive changes in interfaces, software, and AI providers. The database belongs to the user; the surrounding technology remains replaceable.
+Personal data remains in portable, inspectable formats so the user's record can survive changes in interfaces, software, and AI providers. The record belongs to the user; the surrounding technology remains replaceable.
 
-### Permissioned autonomy
+### Governed Autonomy
 
 TEOF can be updated manually or connected to sources the user chooses, including messages, email, calendars, financial records, health data, project tools, and browsing activity.
 
-The level of access is configurable. Users determine which sources TEOF may read, whether access is one-time or ongoing, how often processing occurs, and which changes require approval. Permissions should remain narrow, visible, and revocable.
+Users determine which sources TEOF may read, whether access is one-time or ongoing, how often processing occurs, and which changes require approval. Permissions remain narrow, visible, and revocable.
 
-Within those boundaries, TEOF can autonomously collect new information, organize it, connect it to existing context, integrate recurring ideas, refresh derived state, and surface changes that may require attention. Routine transformations can happen automatically; consequential interpretations and external actions can remain behind a human approval gate.
+Within those boundaries, TEOF can collect new information, connect it to existing context, integrate recurring ideas, refresh current state, and surface changes that may require attention. Routine transformations can happen automatically; consequential interpretations and external actions remain behind the user's chosen approval gate.
 
-The goal is **governed autonomy**: reducing the work of maintaining a personal knowledge system without giving an opaque system control over the user's priorities.
+This is governed autonomy: reducing the work of maintaining a personal knowledge system without giving an opaque system control over the user's priorities.
 
 > **AI may retrieve, synthesize, and propose. The user determines what becomes authoritative. Outcomes determine what survives.**
 
-## Foundations
+## Attention Sovereignty
+
+Engagement platforms benefit when users remain inside them. TEOF is designed to succeed when it restores enough context for the user to leave with a better next action.
+
+Personal modeling, recommendations, visible progress, and adaptive feedback therefore serve the user's stated goals rather than retention. Success is measured by recovered context, improved decisions, completed external actions, and correction when the system is wrong—not by time spent in the interface.
+
+This is attention sovereignty: engineering technology around the user's considered priorities rather than the incentives of an external platform.
+
+## Design Foundation
 
 TEOF begins from a minimal observation: **observation is occurring**. From there, it adopts a practical method of recording differences, identifying patterns, testing interpretations, and revising models against outcomes.
 
@@ -82,13 +78,11 @@ The shortest version is:
 
 This foundation informs the system, but using TEOF does not require adopting a comprehensive metaphysical position. Its practical value should be judged by whether it improves retrieval, decisions, action, and correction.
 
-## Present Status
+## Current Status and Evidence
 
-TEOF currently exists as a working personal system built around one longitudinal life record. It has demonstrated practical value in memory retrieval, state reconstruction, decision support, relationship continuity, and attention allocation.
+TEOF currently exists as a working system built around one longitudinal life record. Its broader value remains an open empirical question.
 
-Its broader product thesis remains experimental. The next test is whether the architecture can produce comparable value for other users without requiring excessive maintenance or imposing one person's model of life on everyone else.
-
-TEOF should ultimately be judged by concrete outcomes: whether it recovers context the user would otherwise have lost, improves consequential decisions, directs attention toward the user's stated goals, detects when its own model is wrong, and produces enough benefit to justify the effort of maintaining it.
+The next test is whether other users gain meaningful improvements in memory, judgment, and attention without excessive maintenance or loss of personal control. TEOF should be judged by those outcomes, including its ability to detect and correct its own mistakes.
 
 ## Start Here
 
@@ -104,9 +98,5 @@ To begin building a personal system:
 2. Read [memory/README.md](memory/README.md).
 3. Use [seed/](seed/) to create a small personal record.
 4. Apply the process to one consequential decision and evaluate it against the eventual outcome.
-
----
-
-**TEOF is a personal intelligence system that turns a longitudinal life database into recoverable context, better decisions, and user-directed attention.**
 
 Apache-2.0 · Evan Yu · BTC: bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c
