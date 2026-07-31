@@ -1,4 +1,4 @@
-# TEOF: The Eternal Observer Framework
+# The Eternal Observer Framework
 
 **A Personal Intelligence System**
 
