@@ -45,6 +45,8 @@ The system can then surface goals, unresolved commitments, emerging risks, usefu
 
 Personal data remains in portable, inspectable formats so the user's record can survive changes in interfaces, software, and AI providers. The record belongs to the user; the surrounding technology remains replaceable.
 
+The public template makes this structure inspectable. [`memory/`](memory/) routes raw captures through events, reflections, patterns, and procedures; [`seed/`](seed/) provides blank starting files for identity, direction, observations, and projects.
+
 ### Governed Autonomy
 
 TEOF can be updated manually or connected to sources the user chooses, including messages, email, calendars, financial records, health data, project tools, and browsing activity.
@@ -54,6 +56,8 @@ Users determine which sources TEOF may read, whether access is one-time or ongoi
 Within those boundaries, TEOF can collect new information, connect it to existing context, integrate recurring ideas, refresh current state, and surface changes that may require attention. Routine transformations can happen automatically; consequential interpretations and external actions remain behind the user's chosen approval gate.
 
 This is governed autonomy: reducing the work of maintaining a personal knowledge system without giving an opaque system control over the user's priorities.
+
+The [`systems/`](systems/) layer is where importers, agents, dashboards, validation tools, and scheduled processes belong. The public repository defines this automation boundary but does not currently ship the full private tooling stack.
 
 > **AI may retrieve, synthesize, and propose. The user determines what becomes authoritative. Outcomes determine what survives.**
 
@@ -82,7 +86,7 @@ This foundation informs the system, but using TEOF does not require adopting a c
 
 ## Current Status and Evidence
 
-TEOF currently exists as a working system built around one longitudinal life record. Its broader value remains an open empirical question.
+TEOF currently has a working private implementation built around one longitudinal life record. This public repository contains the doctrine, data architecture, operating method, and a blank scaffold for building another implementation; it intentionally excludes private life data and most of the private automation stack.
 
 The next test is whether other users gain meaningful improvements in memory, judgment, and attention without excessive maintenance or loss of personal control. TEOF should be judged by those outcomes, including its ability to detect and correct its own mistakes.
 
