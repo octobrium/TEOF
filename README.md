@@ -4,7 +4,7 @@
 
 ## What Is TEOF?
 
-At its broadest, TEOF is an attempt to give intelligence continuity across time: a durable architecture for preserving observation, connecting experience, and refining judgment against reality.
+At its broadest, TEOF is an attempt to provide intelligence with a durable architecture for preserving observation, connecting experience, and refining judgment against reality.
 
 TEOF helps people recover context, make better decisions, and direct attention toward their own goals.
 
