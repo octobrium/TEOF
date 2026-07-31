@@ -6,8 +6,6 @@
 
 At its broadest, TEOF is an attempt to provide intelligence with a durable architecture for preserving observation, connecting experience, and refining judgment against reality.
 
-TEOF helps people recover context, make better decisions, and direct attention toward their own goals.
-
 Modern life produces more personal information than human memory can reliably integrate. Decisions are scattered across messages, notes, documents, calendars, financial records, and conversations. The reasoning behind an action is often lost even when the action itself remains visible.
 
 At the same time, many digital systems build increasingly accurate models of their users—but primarily to maximize engagement, retention, advertising, or consumption.
