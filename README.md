@@ -1,6 +1,6 @@
-# The Eternal Observer Framework
+# TEOF: The Eternal Observer Framework
 
-**A Personal Intelligence System**
+**A universal operating system for intelligence.**
 
 TEOF helps people recover context, make better decisions, and direct attention toward their own goals.
 
