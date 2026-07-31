@@ -2,6 +2,10 @@
 
 **A universal operating system for intelligence.**
 
+## What Is TEOF?
+
+At its broadest, TEOF is an attempt to give intelligence continuity across time: a durable architecture for preserving observation, connecting experience, and refining judgment against reality.
+
 TEOF helps people recover context, make better decisions, and direct attention toward their own goals.
 
 Modern life produces more personal information than human memory can reliably integrate. Decisions are scattered across messages, notes, documents, calendars, financial records, and conversations. The reasoning behind an action is often lost even when the action itself remains visible.
