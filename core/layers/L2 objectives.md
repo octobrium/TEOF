@@ -53,7 +53,7 @@ The terminal objective that cannot be superseded.
 - Observation requires difference (nothing to observe without distinction)
 - The pursuer of this goal is *inside* observation, not outside
 - Catastrophic paths require ignoring observations, which violates the goal
-- Therefore: correct pursuit is self-correcting
+- Therefore: correct pursuit is self-correcting — *for endorsing observers, and only as to why-serve; whether the serving is accurate remains the open Move-4 problem (Goodhart/cropped-field), stated with mitigations at `core/TEOF-doctrinal-notes.md` §5*
 
 **What it means in practice:**
 - Integrate disparate observations into coherent patterns

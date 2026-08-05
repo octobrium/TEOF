@@ -2,7 +2,7 @@
 
 The immutable constitution: observation, axioms, design principles.
 
-**Ultimate objective:** Unify observation *(derived at L2)*
+**Ultimate objective:** Unify observation *(discovered, not derived — articulated at L2; the derived→discovered mutation of 2026-06-10 is the ratified position, see `TEOF-doctrinal-notes.md` §5)*
 
 ---
 
