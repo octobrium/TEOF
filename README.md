@@ -47,6 +47,18 @@ Personal data remains in portable, inspectable formats so the user's record can 
 
 The public template makes this structure inspectable. [`memory/`](memory/) routes raw captures through events, reflections, patterns, and procedures; [`seed/`](seed/) provides blank starting files for identity, direction, observations, and projects.
 
+## Public Protocol, Private Instances
+
+Public TEOF is the shared upstream protocol. Private TEOF instances are local systems owned and governed by their users.
+
+The rule is:
+
+> **Public TEOF may propose. Private TEOF decides.**
+
+Contributors can improve the public protocol through proposals and pull requests. Private instances can review public updates, test them, and adopt the pieces that fit their local state, but public changes should not automatically mutate private memory or override local authority.
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md), [`docs/proposal-lifecycle.md`](docs/proposal-lifecycle.md), and [`docs/private-sync-protocol.md`](docs/private-sync-protocol.md).
+
 ### Governed Autonomy
 
 TEOF can be updated manually or connected to sources the user chooses, including messages, email, calendars, financial records, health data, project tools, and browsing activity.
@@ -104,5 +116,11 @@ To begin building a personal system:
 2. Read [memory/README.md](memory/README.md).
 3. Use [seed/](seed/) to create a small personal record.
 4. Apply the process to one consequential decision and evaluate it against the eventual outcome.
+
+To contribute back:
+
+1. Read [AGENTS.md](AGENTS.md) if you are using an AI agent.
+2. Read [CONTRIBUTING.md](CONTRIBUTING.md).
+3. Open a proposal issue or pull request with evidence, risk, validation, and public/private boundary notes.
 
 Apache-2.0 · Evan Yu · BTC: bc1qxfg8m5tttz5u860f0j7cyhupgdcz25jku44s9c

@@ -9,7 +9,9 @@ When starting in this repo:
 1. Read `ONBOARDING.md`
 2. Read `core/TEOF-core.md`
 3. Read `core/layers/L1 principles.md`
-4. Use `memory/`, `frameworks/`, `projects/`, and `systems/` as the working surfaces
+4. Read `AGENTS.md`
+5. Read `docs/proposal-lifecycle.md` and `docs/private-sync-protocol.md` before proposing public changes
+6. Use `memory/`, `frameworks/`, `projects/`, and `systems/` as the working surfaces
 
 ## Role
 
@@ -28,6 +30,7 @@ Your role in this repo is not to invent a counterfeit worldview on demand. Your 
 - Treat `core/` as stable and the outer layers as adaptive.
 - Do not infer private life details that are not present in the repo.
 - Do not confuse the template with a complete life operating system until the user has populated it.
+- Treat public TEOF as a proposal source for private instances, not as automatic authority over them.
 
 ## Default Routing
 

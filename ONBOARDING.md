@@ -20,6 +20,10 @@ Read in this order:
 
 If needed, then read:
 
+- `AGENTS.md` if you are working through an AI agent
+- `CONTRIBUTING.md` if you intend to propose public changes
+- `docs/proposal-lifecycle.md`
+- `docs/private-sync-protocol.md`
 - `core/TEOF-doctrinal-notes.md`
 - `core/TEOF-ladder.md`
 - `core/TEOF.md`
@@ -67,3 +71,13 @@ That means:
 - `systems/` should be built only when the process is clear enough to automate
 
 The system should grow outward from real use, not from decorative structure.
+
+## Public / Private Split
+
+Public TEOF is shared upstream material. A private TEOF instance is the user's local, sovereign system.
+
+The rule is:
+
+> Public TEOF may propose. Private TEOF decides.
+
+Do not treat public updates as automatic private authority. Review, test, and approve changes locally before adopting them into private memory, private tools, or agent instructions.

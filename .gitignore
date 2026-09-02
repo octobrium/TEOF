@@ -6,9 +6,16 @@
 
 # Allow core seed only
 !README.md
+!AGENTS.md
 !CLAUDE.md
+!CONTRIBUTING.md
 !ONBOARDING.md
 !LICENSE
+!SECURITY.md
+!docs/
+!docs/**
+!.github/
+!.github/**
 !core/
 !core/**
 !memory/

@@ -1,0 +1,73 @@
+name: Repo Hygiene
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  protocol-check:
+    name: Protocol check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Required public protocol files exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            "README.md"
+            "ONBOARDING.md"
+            "AGENTS.md"
+            "CLAUDE.md"
+            "CONTRIBUTING.md"
+            "SECURITY.md"
+            "docs/proposal-lifecycle.md"
+            "docs/private-sync-protocol.md"
+            ".github/pull_request_template.md"
+            ".github/ISSUE_TEMPLATE/proposal.yml"
+          )
+
+          for file in "${required[@]}"; do
+            test -f "$file" || {
+              echo "Missing required protocol file: $file"
+              exit 1
+            }
+          done
+
+      - name: Public/private boundary language remains present
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -R "Public TEOF may propose. Private TEOF decides." \
+            AGENTS.md docs/private-sync-protocol.md
+          grep -R "AI may retrieve, synthesize, and propose" \
+            README.md CONTRIBUTING.md
+
+      - name: Private-data heuristic scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          forbidden_regex='(BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY|api[_-]?key|secret[_-]?key|access[_-]?token|refresh[_-]?token|password:|social security|patient record|medical record)'
+
+          if grep -RInEi "$forbidden_regex" \
+            --exclude-dir=.git \
+            --exclude=SECURITY.md \
+            --exclude=CONTRIBUTING.md \
+            --exclude=AGENTS.md \
+            --exclude=private-sync-protocol.md \
+            --exclude=repo-hygiene.yml \
+            --exclude=proposal.yml \
+            --exclude=config.yml \
+            --exclude=copilot-instructions.md \
+            --exclude=pull_request_template.md \
+            .; then
+            echo "Potential private data or secret-like text found. Use synthetic examples only."
+            exit 1
+          fi

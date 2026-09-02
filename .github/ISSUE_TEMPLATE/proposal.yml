@@ -1,0 +1,79 @@
+name: TEOF Proposal
+description: Propose a reusable improvement to public TEOF.
+title: "[Proposal]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Public TEOF may propose. Private TEOF decides.
+
+        Do not include private memory, credentials, medical records, financial records, email contents, message exports, or other personal data.
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Affected layer
+      options:
+        - core
+        - memory
+        - frameworks
+        - projects
+        - systems
+        - seed
+        - docs
+        - governance
+        - unsure
+    validations:
+      required: true
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risk tier
+      options:
+        - low: docs, typos, synthetic examples
+        - medium: procedures, patterns, schemas, onboarding
+        - high: code, dependencies, workflows, prompts, migrations, core
+        - unsure
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What recurring confusion, friction, or failure does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-change
+    attributes:
+      label: Proposed change
+      description: Describe the smallest useful change.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or precedent
+      description: What observation, real use, source, or repo precedent supports this?
+    validations:
+      required: true
+  - type: textarea
+    id: public-private
+    attributes:
+      label: Public/private boundary
+      description: Why does this belong in public TEOF instead of a private local instance?
+    validations:
+      required: true
+  - type: textarea
+    id: adoption
+    attributes:
+      label: Private adoption and rollback
+      description: How should a private TEOF instance adopt, reject, or roll this back?
+    validations:
+      required: false
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation
+      description: What checks, tests, or review steps should be run?
+    validations:
+      required: false
